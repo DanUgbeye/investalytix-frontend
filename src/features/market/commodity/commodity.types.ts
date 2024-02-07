@@ -1,0 +1,12 @@
+export const COMMODITY_SECTOR = {
+  ENERGY: "ENERGY",
+  METAL: "METAL",
+  AGRICULTURE: "AGRICULTURE",
+  CURRENCY: "CURRENCY",
+  LIVESTOCK: "LIVESTOCK",
+  INDEX: "INDEX",
+  INTEREST_RATE: "INTEREST_RATE",
+} as const;
+
+export type CommoditySector =
+  (typeof COMMODITY_SECTOR)[keyof typeof COMMODITY_SECTOR];
