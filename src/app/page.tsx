@@ -3,6 +3,8 @@ import { formatTimestamp } from "@/lib/utils";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import Overview from "./Overview";
+import EconomicEvent from "./EconomicEvent";
 
 const quotes = [
   {
@@ -157,7 +159,7 @@ export default function Home() {
       <div className="mb-4 py-8">
         <Swiper spaceBetween={0} slidesPerView={"auto"} loop freeMode>
           {quotes.map((quote) => (
-            <SwiperSlide className="!flex-shrink">
+            <SwiperSlide className="!flex-shrink" key={quote.symbol}>
               <Quote quote={quote} key={quote.symbol} />
             </SwiperSlide>
           ))}
@@ -169,14 +171,14 @@ export default function Home() {
       </div>
 
       <p className="mb-6 font-bold text-[#1D1D1D] lg:text-xl">
-        <span className="text-[#636363] max-sm:block">
+        <span className="text-[#636363] max-lg:block">
           Quick Links: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
         </span>
         European markets close slightly higher after central bank bonanza;
         Maersk shares up 8%
       </p>
 
-      <div className="grid lg:grid-cols-[1fr,350px]">
+      <div className="grid md:grid-cols-[1fr,350px]">
         <div className="">
           <h2 className="font-bold text-[#020224] lg:text-3xl">Latest News</h2>
           <div className="mb-6 flex flex-col">
@@ -189,7 +191,7 @@ export default function Home() {
             More Articles
           </button>
         </div>
-        <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 lg:ml-5 lg:border-l lg:pl-5">
+        <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5">
           <Overview />
           <Overview />
           <Overview />
@@ -202,7 +204,7 @@ export default function Home() {
 
 function News({ latest = false }: { latest?: boolean }) {
   return (
-    <div className="grid min-h-[180px] grid-cols-1 grid-rows-[200px,1fr] gap-5 border-b border-[#DCDCDC] py-4 lg:grid-cols-[max-content,1fr] lg:py-8">
+    <div className="grid grid-cols-1 grid-rows-[200px,1fr] gap-5 border-b border-[#DCDCDC] py-4 lg:grid-cols-[max-content,1fr] lg:grid-rows-[auto,auto] lg:py-8">
       <div
         className={`relative h-full max-h-[200px] w-full overflow-hidden lg:w-80 ${latest ? "lg:w-96" : "w-80"}`}
       >
@@ -241,42 +243,6 @@ function News({ latest = false }: { latest?: boolean }) {
   );
 }
 
-function Overview() {
-  return (
-    <div>
-      <header className="relative mb-4">
-        <p className="text-2xl font-bold text-[#2A3037]">Gainers</p>
-
-        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50%"></div>
-      </header>
-      <div className="flex flex-col gap-6">
-        {quotes.map((quote) => {
-          const isPositive = quote.changesPercentage >= 0;
-          return (
-            <div
-              key={quote.name}
-              className="grid grid-cols-3 border-b border-[#DCDCDC] pb-2 font-bold text-[#636363]"
-            >
-              <p className="">{quote.symbol}</p>
-              <p
-                className={`self-center rounded px-4  py-1 text-center font-bold ${
-                  isPositive
-                    ? "bg-[#D6FFEF] text-[#00CA5F]"
-                    : "bg-[#FEDEDF] text-[#E74C3C]"
-                }`}
-              >
-                {isPositive && "+"}
-                {quote.changesPercentage}%
-              </p>
-              <p className="text-end">${quote.price}</p>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 function Quote({ quote }: { quote: (typeof quotes)[number] }) {
   const isPositive = quote.changesPercentage >= 0;
   return (
@@ -298,42 +264,6 @@ function Quote({ quote }: { quote: (typeof quotes)[number] }) {
         </p>
       </div>
       <p className="text-xs">LAST | {formatTimestamp(quote.timestamp)}</p>
-    </div>
-  );
-}
-
-function EconomicEvent() {
-  const Event = (
-    <div className="flex w-full gap-2">
-      <div className="relative h-[110px] w-28 flex-shrink-0 overflow-hidden bg-red-500">
-        <Image src="/images/news1.jpg" alt="" fill className="object-cover" />
-      </div>
-
-      <div className="">
-        <p className="text-sm font-bold text-[#000000]">
-          Cardinal Health Started With Underweight at Wells Fargo, Shares Drop
-          6%
-        </p>
-        <p className="mt-8 flex items-center gap-1 text-sm text-[#565555]">
-          <span className="">ADBE</span>
-          <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
-          <span className="whitespace-nowrap">14 December, 2023</span>
-        </p>
-      </div>
-    </div>
-  );
-  return (
-    <div>
-      <header className="relative mb-4">
-        <p className="text-2xl font-bold text-[#2A3037]">Top Economic Event</p>
-
-        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50%"></div>
-      </header>
-
-      <div className="flex flex-col gap-6">
-        {Event}
-        {Event}
-      </div>
     </div>
   );
 }

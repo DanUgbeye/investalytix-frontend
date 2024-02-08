@@ -13,7 +13,7 @@ const routes = [
   },
   {
     label: "MARKETS",
-    href: "",
+    href: "/market",
   },
   {
     label: "PRICING",
@@ -118,7 +118,7 @@ export default function RootLayout({
           <div className="hidden items-center justify-between lg:flex">
             <ul className="flex gap-7">
               {routes.map((route) => (
-                <li>
+                <li key={route.label}>
                   <Link
                     className="inline-block py-4 font-bold uppercase text-white"
                     href={route.href}
@@ -185,7 +185,7 @@ export default function RootLayout({
             </ul>
           </div>
         </nav>
-        <section className="max-w-7xl px-10 xl:px-20">{children}</section>
+        <section className="max-w-7xl px-5 md:px-10 xl:px-20 mx-auto">{children}</section>
         <p className="mt-6 bg-black py-5 text-center font-bold text-white">
           Trusted by more than 89,300 successful value investors
         </p>
