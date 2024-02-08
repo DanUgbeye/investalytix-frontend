@@ -1,4 +1,8 @@
+"use client";
+import { formatTimestamp } from "@/lib/utils";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 const quotes = [
   {
@@ -150,38 +154,42 @@ const quotes = [
 export default function Home() {
   return (
     <main className="overflow-hidden">
-      <div className="flex mb-4 py-8">
-        {quotes.map((quote) => (
-          <Quote quote={quote} key={quote.symbol} />
-        ))}
+      <div className="mb-4 py-8">
+        <Swiper spaceBetween={0} slidesPerView={"auto"} loop freeMode>
+          {quotes.map((quote) => (
+            <SwiperSlide className="!flex-shrink">
+              <Quote quote={quote} key={quote.symbol} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
 
-      <div className="relative w-full h-[170px]">
-        <Image src={"/images/ad1.png"} alt="" fill className="object-contain" />
+      <div className="relative mb-4 h-[170px] w-full lg:mb-12">
+        <Image src={"/images/ad1.png"} alt="" fill className="object-cover" />
       </div>
 
-      <p className="text-[#1D1D1D] text-xl font-bold mb-6">
-        <span className="text-[#636363]">Quick Links:</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; European markets close slightly higher
-        after central bank bonanza; Maersk shares up 8%
+      <p className="mb-6 font-bold text-[#1D1D1D] lg:text-xl">
+        <span className="text-[#636363] max-sm:block">
+          Quick Links: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+        </span>
+        European markets close slightly higher after central bank bonanza;
+        Maersk shares up 8%
       </p>
 
-      <div className="grid grid-cols-[1fr,350px]">
+      <div className="grid lg:grid-cols-[1fr,350px]">
         <div className="">
-          <h2 className="font-bold text-[#020224] text-3xl mb-6">
-            Latest News
-          </h2>
-          <div className="flex flex-col gap-6 pb-8 mb-6 border-b border-[#DCDCDC]">
-            <News />
+          <h2 className="font-bold text-[#020224] lg:text-3xl">Latest News</h2>
+          <div className="mb-6 flex flex-col">
+            <News latest />
             <News />
             <News />
             <News />
           </div>
-          <button className="font-bold bg-[#FB8B1E] text-white rounded py-2 px-6">
+          <button className="rounded bg-[#FB8B1E] px-6 py-2 font-bold text-white">
             More Articles
           </button>
         </div>
-        <div className="flex flex-col gap-14 border-l border-[#DCDCDC] pl-5 ml-5 py-10">
+        <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 lg:ml-5 lg:border-l lg:pl-5">
           <Overview />
           <Overview />
           <Overview />
@@ -192,30 +200,42 @@ export default function Home() {
   );
 }
 
-function News() {
+function News({ latest = false }: { latest?: boolean }) {
   return (
-    <div className="min-h-[180px] grid grid-cols-[max-content,1fr] gap-5">
-      <div className="h-full max-h-[200px] w-80 relative overflow-hidden">
+    <div className="grid min-h-[180px] grid-cols-1 grid-rows-[200px,1fr] gap-5 border-b border-[#DCDCDC] py-4 lg:grid-cols-[max-content,1fr] lg:py-8">
+      <div
+        className={`relative h-full max-h-[200px] w-full overflow-hidden lg:w-80 ${latest ? "lg:w-96" : "w-80"}`}
+      >
         <Image src="/images/news1.jpg" alt="" fill className="object-cover" />
       </div>
       <div className="">
-        <div className="flex flex-wrap justify-between items-start gap-2 xl:gap-5">
-          <p className="text-xl font-extrabold text-[#020224]">
+        <div className="flex flex-wrap items-start justify-between gap-2 xl:gap-5">
+          <p className="font-extrabold text-[#020224] lg:text-xl">
             Cardinal Health Started With Underweight at Wells Fargo, Shares Drop
             6%
           </p>
-          <p className="font-medium flex items-center gap-2 flex-nowrap text-[#565555]">
-            <span className="">ADBE</span>
-            <span className="inline-block w-1 h-1 bg-[#0097F4]"></span>
-            <span className="whitespace-nowrap">14 December, 2023</span>
-          </p>
+          {!latest && (
+            <p className="flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base">
+              <span className="">ADBE</span>
+              <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
+              <span className="whitespace-nowrap">14 December, 2023</span>
+            </p>
+          )}
         </div>
-        <p className="mt-4 lg:mt-8 text-[#4B4646]">
+        <p className="mt-4 text-sm text-[#4B4646] lg:mt-8 lg:text-base">
           Adobe system our appointment management solution streamlines
           scheduling for real estate professionals, enhancing coordination
           between agents and clients for smoother property transactions and
           improved customer experiences.
         </p>
+
+        {latest && (
+          <p className="mt-8 flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base">
+            <span className="">ADBE</span>
+            <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
+            <span className="whitespace-nowrap">14 December, 2023</span>
+          </p>
+        )}
       </div>
     </div>
   );
@@ -224,10 +244,10 @@ function News() {
 function Overview() {
   return (
     <div>
-      <header className="mb-4 relative">
-        <p className="font-bold text-2xl text-[#2A3037]">Gainers</p>
+      <header className="relative mb-4">
+        <p className="text-2xl font-bold text-[#2A3037]">Gainers</p>
 
-        <div className="absolute w-full h-[2px] bg-gradient-to-r from-[#FB8B1E] to-[#545454] from-50% to-50%"></div>
+        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50%"></div>
       </header>
       <div className="flex flex-col gap-6">
         {quotes.map((quote) => {
@@ -235,11 +255,11 @@ function Overview() {
           return (
             <div
               key={quote.name}
-              className="grid grid-cols-3 font-bold text-[#636363] border-b border-[#DCDCDC] pb-2"
+              className="grid grid-cols-3 border-b border-[#DCDCDC] pb-2 font-bold text-[#636363]"
             >
               <p className="">{quote.symbol}</p>
               <p
-                className={`px-4 py-1 rounded  font-bold self-center text-center ${
+                className={`self-center rounded px-4  py-1 text-center font-bold ${
                   isPositive
                     ? "bg-[#D6FFEF] text-[#00CA5F]"
                     : "bg-[#FEDEDF] text-[#E74C3C]"
@@ -260,8 +280,8 @@ function Overview() {
 function Quote({ quote }: { quote: (typeof quotes)[number] }) {
   const isPositive = quote.changesPercentage >= 0;
   return (
-    <div className="w-[220px] border-r border-[#B3B3B3] py-2 px-3 text-sm text-[#252525] font-bold">
-      <div className="flex justify-between items-center">
+    <div className="w-[220px] border-r border-[#B3B3B3] px-3 py-2 text-sm font-bold text-[#252525]">
+      <div className="flex items-center justify-between gap-24">
         <p className="">{quote.symbol}</p>
         <p className="">{quote.price}</p>
       </div>
@@ -277,15 +297,15 @@ function Quote({ quote }: { quote: (typeof quotes)[number] }) {
           {quote.changesPercentage}%
         </p>
       </div>
-      <p className="text-xs">LAST | {quote.timestamp}</p>
+      <p className="text-xs">LAST | {formatTimestamp(quote.timestamp)}</p>
     </div>
   );
 }
 
 function EconomicEvent() {
   const Event = (
-    <div className="w-full flex gap-2">
-      <div className="h-[110px] w-28 flex-shrink-0 relative overflow-hidden bg-red-500">
+    <div className="flex w-full gap-2">
+      <div className="relative h-[110px] w-28 flex-shrink-0 overflow-hidden bg-red-500">
         <Image src="/images/news1.jpg" alt="" fill className="object-cover" />
       </div>
 
@@ -294,9 +314,9 @@ function EconomicEvent() {
           Cardinal Health Started With Underweight at Wells Fargo, Shares Drop
           6%
         </p>
-        <p className="flex items-center gap-1 mt-8 text-sm text-[#565555]">
+        <p className="mt-8 flex items-center gap-1 text-sm text-[#565555]">
           <span className="">ADBE</span>
-          <span className="inline-block w-1 h-1 bg-[#0097F4]"></span>
+          <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
           <span className="whitespace-nowrap">14 December, 2023</span>
         </p>
       </div>
@@ -304,10 +324,10 @@ function EconomicEvent() {
   );
   return (
     <div>
-      <header className="mb-4 relative">
-        <p className="font-bold text-2xl text-[#2A3037]">Top Economic Event</p>
+      <header className="relative mb-4">
+        <p className="text-2xl font-bold text-[#2A3037]">Top Economic Event</p>
 
-        <div className="absolute w-full h-[2px] bg-gradient-to-r from-[#FB8B1E] to-[#545454] from-50% to-50%"></div>
+        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50%"></div>
       </header>
 
       <div className="flex flex-col gap-6">

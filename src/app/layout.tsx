@@ -39,19 +39,34 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className}`}>
         <nav className="bg-[#0B0B0B] px-5 py-3">
-          <div className="py-3 flex justify-between items-center">
+          <div className="flex items-center justify-between py-3">
             <Image src="/images/logo.svg" alt="Logo" height={40} width={200} />
 
-            <div className="flex">
-              <div className="relative">
+            <button className="d lg:hidden">
+              <svg
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"
+                  fill="white"
+                />
+              </svg>
+            </button>
+
+            <div className="hidden items-center lg:flex">
+              <div className="relative h-fit">
                 <input
                   type="search"
                   name="search"
                   id="search"
                   placeholder="Search for ticker, quotes & videos"
-                  className="min-w-[320px] w-full py-3 px-5 rounded bg-[#262626] text-white placeholder:text-white font-bold text-sm"
+                  className="w-full min-w-[320px] rounded bg-[#262626] px-5 py-3 text-sm font-bold text-white placeholder:text-white"
                 />
-                <div className="absolute right-0 top-1/2 -translate-x-1/2 -translate-y-1/2 pl-6 bg-[#262626]">
+                <div className="absolute bottom-4 right-0 top-4 grid -translate-x-1/2 place-content-center bg-[#262626] pl-6">
                   <svg
                     width={16}
                     height={16}
@@ -66,20 +81,46 @@ export default function RootLayout({
                   </svg>
                 </div>
               </div>
-              <button className="font-bold bg-transparent text-white rounded py-2 px-8">
+              <button className="rounded bg-transparent px-8 py-2 font-bold text-white">
                 Login
               </button>
-              <button className="font-bold bg-[#FB8B1E] text-white rounded py-2 px-8">
+              <button className="rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white">
                 Sign Up
               </button>
             </div>
           </div>
-          <div className="flex justify-between items-center">
+
+          {/* input */}
+          <div className="relative h-fit lg:hidden">
+            <input
+              type="search"
+              name="search"
+              id="search"
+              placeholder="Search for ticker, quotes & videos"
+              className="w-full min-w-[320px] rounded bg-[#262626] px-5 py-3 text-sm font-bold text-white placeholder:text-white"
+            />
+            <div className="absolute bottom-4 right-0 top-4 grid -translate-x-1/2 place-content-center bg-[#262626] pl-6">
+              <svg
+                width={16}
+                height={16}
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12.0194 11.0787L14.8747 13.9333L13.9314 14.8767L11.0767 12.0213C10.0145 12.8728 8.69337 13.3359 7.33203 13.334C4.02003 13.334 1.33203 10.646 1.33203 7.33398C1.33203 4.02198 4.02003 1.33398 7.33203 1.33398C10.644 1.33398 13.332 4.02198 13.332 7.33398C13.334 8.69532 12.8708 10.0165 12.0194 11.0787ZM10.682 10.584C11.5281 9.71391 12.0006 8.5476 11.9987 7.33398C11.9987 4.75532 9.91003 2.66732 7.33203 2.66732C4.75336 2.66732 2.66536 4.75532 2.66536 7.33398C2.66536 9.91198 4.75336 12.0007 7.33203 12.0007C8.54565 12.0026 9.71196 11.5301 10.582 10.684L10.682 10.584Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div className="hidden items-center justify-between lg:flex">
             <ul className="flex gap-7">
               {routes.map((route) => (
                 <li>
                   <Link
-                    className="uppercase font-bold text-white py-4 inline-block"
+                    className="inline-block py-4 font-bold uppercase text-white"
                     href={route.href}
                   >
                     {route.label}
@@ -91,7 +132,7 @@ export default function RootLayout({
             <ul className="flex items-center gap-7">
               <li>
                 <Link
-                  className="uppercase font-bold text-white py-4 flex items-center gap-3"
+                  className="flex items-center gap-3 py-4 font-bold uppercase text-white"
                   href={""}
                 >
                   watchlist
@@ -111,7 +152,7 @@ export default function RootLayout({
               </li>
               <li>
                 <Link
-                  className="uppercase font-bold text-white py-4 inline-block"
+                  className="inline-block py-4 font-bold uppercase text-white"
                   href={""}
                 >
                   subscribe
@@ -119,14 +160,14 @@ export default function RootLayout({
               </li>
               <li>
                 <Link
-                  className="uppercase font-bold text-white py-4 inline-block"
+                  className="inline-block py-4 font-bold uppercase text-white"
                   href={""}
                 >
                   support
                 </Link>
               </li>
               <li>
-                <button className="uppercase font-bold text-white py-4 ml-6 inline-block">
+                <button className="ml-6 inline-block py-4 font-bold uppercase text-white">
                   <svg
                     width={32}
                     height={32}
@@ -145,7 +186,7 @@ export default function RootLayout({
           </div>
         </nav>
         <section className="max-w-7xl px-10 xl:px-20">{children}</section>
-        <p className="text-white bg-black font-bold py-5 text-center mt-6">
+        <p className="mt-6 bg-black py-5 text-center font-bold text-white">
           Trusted by more than 89,300 successful value investors
         </p>
       </body>
