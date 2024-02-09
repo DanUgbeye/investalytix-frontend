@@ -1,5 +1,16 @@
+import chart from "@/mock/chart";
 import { Tab } from "@headlessui/react";
+import _ from "lodash";
 import { Fragment } from "react";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const quotes = [
   {
@@ -148,11 +159,109 @@ const quotes = [
   },
 ];
 const marketMovers = ["S&P", "NASDAQ", "DOW", "EUR", "ASIA", "COVID19"];
+const timeframes = ["1m", "5m", "15m", "1h"];
 
 export default function Market() {
   return (
-    <div className="">
-      <h2 className="text-3xl font-extrabold">MAJOR INDEXES</h2>
+    <div className="overflow-hidden">
+      <h2 className="mb-6 text-3xl font-extrabold">MAJOR INDEXES</h2>
+
+      <div className="grid gap-5 lg:grid-cols-2">
+        <div className="">
+          <div className="flex items-center justify-between gap-4">
+            {timeframes.map((tf) => (
+              <button key={tf} className="p-3 text-xs font-bold">
+                {tf}
+              </button>
+            ))}
+          </div>
+
+          <p className="py-4 text-xs font-medium">
+            Previous Close: {chart[chart.length - 1].close}
+          </p>
+          <div className="h-80 overflow-auto">
+            <ResponsiveContainer
+              width="100%"
+              height="100%"
+              className="!m-0 !p-0"
+            >
+              <AreaChart
+                // width={500}
+                // height={400}
+                data={_.reverse(chart)}
+                margin={{
+                  top: 0,
+                  right: 0,
+                  left: 0,
+                  bottom: 0,
+                }}
+                className="!p-0"
+              >
+                <defs>
+                  <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="60%" stopColor="#3354F4" stopOpacity={100} />
+                    {/* <stop offset="80%" stopColor="rgba(255,0,0,0.62)" stopOpacity={100} /> */}
+                    {/* <stop offset="80%" stopColor="#ff0000" stopOpacity={100} /> */}
+                    <stop
+                      offset="90%"
+                      stopColor="rgba(51,84,244,0.62)"
+                      stopOpacity={100}
+                    />
+                  </linearGradient>
+                </defs>
+                {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                <XAxis
+                  dataKey={({ date }) =>
+                    date.split(" ")[1].split(":").slice(0, 2).join(":")
+                  }
+                />
+                <YAxis dataKey="close" />
+                <Tooltip />
+                <Area type="monotone" dataKey="close" fill="url(#gradient)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="div">
+          <table className="g w-full table-auto">
+            <thead>
+              <tr>
+                <th className="bg-[#F2F3F5] p-2 text-left text-sm font-extrabold capitalize text-[#1D2433]">
+                  Name
+                </th>
+                <th className="bg-[#F2F3F5] p-2 text-right text-sm font-extrabold uppercase text-[#1D2433]">
+                  price
+                </th>
+                <th className="bg-[#F2F3F5] p-2 text-right text-sm font-extrabold uppercase text-[#1D2433]">
+                  chg
+                </th>
+                <th className="bg-[#F2F3F5] p-2 text-right text-sm font-extrabold uppercase text-[#1D2433]">
+                  chg%
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {quotes.map((quote) => (
+                <tr key={quote.symbol} className="odd:bg-[#F9F9F9]">
+                  <td className="p-2 text-left text-sm font-bold uppercase">
+                    {quote.symbol}
+                  </td>
+                  <td className="p-2 text-right text-sm font-bold text-black">
+                    {quote.price}
+                  </td>
+                  <td className="p-2 text-right text-sm font-bold text-black">
+                    {quote.change}
+                  </td>
+                  <td className="p-2 text-right text-sm font-bold text-black">
+                    {quote.changesPercentage}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       {/* divider */}
       <div className="mb-8 mt-14 h-[6px] w-full bg-[#1D1D1D]"></div>
@@ -160,8 +269,8 @@ export default function Market() {
       {/* MARKET MOVERS */}
       <div>
         <Tab.Group>
-          <div className="mb-7 flex text-[#252525]">
-            <h1 className="whitespace-nowrap text-2xl font-extrabold">
+          <div className="mb-7 text-[#252525] lg:flex">
+            <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5">
               MARKET MOVERS
             </h1>
             <Tab.List
@@ -202,7 +311,7 @@ export default function Market() {
 
       <section className="mt-11">
         <header className="border-b-[6px] border-b-[#1D1D1D] pb-10">
-          <h2 className="border-l-primary-base border-l-[6px] pl-5 text-3xl font-extrabold">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
             SECURITIES
           </h2>
         </header>
@@ -210,7 +319,7 @@ export default function Market() {
         {/* bonds */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">BONDS</h2>
-          <div className="grid grid-cols-[4fr,3fr] gap-5">
+          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
             <table>
               <thead>
                 <tr>
@@ -265,7 +374,7 @@ export default function Market() {
           <h2 className="mb-6 mt-8 text-2xl font-bold">
             FUTURES & COMMODITIES
           </h2>
-          <div className="grid grid-cols-[4fr,3fr] gap-5">
+          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
             <table>
               <thead>
                 <tr>
@@ -323,7 +432,7 @@ export default function Market() {
         {/* CURRENCIES */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">CURRENCIES</h2>
-          <div className="grid grid-cols-[4fr,3fr] gap-5">
+          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
             <table>
               <thead>
                 <tr>
@@ -379,7 +488,7 @@ export default function Market() {
       {/* REGIONAL */}
       <section className="mt-16">
         <header className="border-b-[6px] border-b-[#1D1D1D] pb-10">
-          <h2 className="border-l-primary-base border-l-[6px] pl-5 text-3xl font-extrabold">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
             REGIONAL
           </h2>
         </header>
@@ -387,7 +496,7 @@ export default function Market() {
         {/* AMERICAS MARKET */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">AMERICAS MARKET</h2>
-          <div className="grid grid-cols-[4fr,3fr] gap-5">
+          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
             <table>
               <thead>
                 <tr>
@@ -440,7 +549,7 @@ export default function Market() {
         {/* EUROPE MARKET */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">EUROPE MARKET</h2>
-          <div className="grid grid-cols-[4fr,3fr] gap-5">
+          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
             <table>
               <thead>
                 <tr>
@@ -498,7 +607,7 @@ export default function Market() {
         {/* ASIAN MARKET */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">ASIAN MARKET</h2>
-          <div className="grid grid-cols-[4fr,3fr] gap-5">
+          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
             <table>
               <thead>
                 <tr>
@@ -549,15 +658,6 @@ export default function Market() {
             </div>
           </div>
         </section>
-      </section>
-
-      {/* TRENDING NOW */}
-      <section className="mt-16">
-        <header className="pb-10">
-          <h2 className="border-l-primary-base border-l-[6px] pl-5 text-3xl font-extrabold">
-            TRENDING NOW
-          </h2>
-        </header>
       </section>
     </div>
   );

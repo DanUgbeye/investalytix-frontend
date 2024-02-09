@@ -26,17 +26,17 @@ export default function MarketPage() {
       <Tab.Group>
         <Tab.List>
           <Tab className={"w-full"}>
-            <h1 className="border-primary-base mb-7 border-b-[6px] pb-2 text-center text-3xl font-extrabold">
+            <h1 className="mb-7 border-b-[6px] border-primary-base pb-2 text-center text-3xl font-extrabold">
               MARKET
             </h1>
           </Tab>
 
-          <div className={"mb-10 flex justify-between px-14 py-5"}>
+          <div className={"mb-10 flex justify-between px-14 py-5 overflow-auto gap-10"}>
             {markets.map((market) => (
               <Tab as={Fragment} key={market}>
                 {({ selected }) => (
                   <button
-                    className={`border-b-2 pb-2 font-bold ${
+                    className={`border-b-2 pb-2 font-bold whitespace-nowrap ${
                       selected ? "border-primary-base " : "border-transparent"
                     }`}
                   >
@@ -62,6 +62,43 @@ export default function MarketPage() {
           </div>
         </div>
       </Tab.Group>
+
+      {/* TRENDING NOW */}
+      <section className="mt-16 overflow-hidden">
+        <header className="pb-10">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
+            TRENDING NOW
+          </h2>
+        </header>
+
+        <div className="flex gap-5 overflow-hidden">
+          <Event />
+          <Event />
+          <Event />
+        </div>
+      </section>
     </main>
+  );
+}
+
+function Event() {
+  return (
+    <div className="flex w-full gap-2">
+      <div className="relative h-[110px] w-28 flex-shrink-0 overflow-hidden bg-red-500">
+        <Image src="/images/news1.jpg" alt="" fill className="object-cover" />
+      </div>
+
+      <div className="">
+        <p className="text-sm font-bold text-[#000000]">
+          Cardinal Health Started With Underweight at Wells Fargo, Shares Drop
+          6%
+        </p>
+        <p className="mt-8 flex items-center gap-1 text-sm text-[#565555]">
+          <span className="">ADBE</span>
+          <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
+          <span className="whitespace-nowrap">14 December, 2023</span>
+        </p>
+      </div>
+    </div>
   );
 }
