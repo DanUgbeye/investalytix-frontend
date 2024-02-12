@@ -4367,6 +4367,6 @@ const chart = [
     close: 186.3897,
     volume: 2456456,
   },
-];
+].reverse();
 
 export default chart;

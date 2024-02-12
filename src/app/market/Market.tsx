@@ -7,7 +7,6 @@ import {
   Area,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
@@ -188,7 +187,7 @@ export default function Market() {
               <AreaChart
                 // width={500}
                 // height={400}
-                data={_.reverse(chart)}
+                data={chart}
                 margin={{
                   top: 0,
                   right: 0,

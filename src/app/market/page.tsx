@@ -3,8 +3,9 @@ import Image from "next/image";
 import Overview from "../Overview";
 import EconomicEvent from "../EconomicEvent";
 import { Tab } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Market from "./Market";
+import PreMarket from "./PreMarket";
 
 const markets = [
   "PRE-MKT",
@@ -17,26 +18,36 @@ const markets = [
 ];
 
 export default function MarketPage() {
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   return (
     <main>
       <div className="relative mb-4 h-[170px] w-full lg:mb-12">
         <Image src={"/images/ad1.png"} alt="" fill className="object-cover" />
       </div>
 
-      <Tab.Group>
-        <Tab.List>
-          <Tab className={"w-full"}>
-            <h1 className="mb-7 border-b-[6px] border-primary-base pb-2 text-center text-3xl font-extrabold">
-              MARKET
-            </h1>
-          </Tab>
+      <Tab.Group
+        onChange={(index) => {
+          setSelectedIndex(index);
+        }}
+      >
+        {selectedIndex > -1 && (
+          <p className="mb-2 text-center text-xl font-extrabold">MARKETS</p>
+        )}
+        <h1 className="mb-7 border-b-[6px] border-primary-base pb-2 text-center text-3xl font-extrabold">
+          {selectedIndex === -1 ? "MARKET" : markets[selectedIndex]}
+        </h1>
 
-          <div className={"mb-10 flex justify-between px-14 py-5 overflow-auto gap-10"}>
+        <Tab.List>
+          <div
+            className={
+              "mb-10 flex justify-between gap-10 overflow-auto px-14 py-5"
+            }
+          >
             {markets.map((market) => (
               <Tab as={Fragment} key={market}>
                 {({ selected }) => (
                   <button
-                    className={`border-b-2 pb-2 font-bold whitespace-nowrap ${
+                    className={`whitespace-nowrap border-b-2 pb-2 font-bold ${
                       selected ? "border-primary-base " : "border-transparent"
                     }`}
                   >
@@ -49,11 +60,15 @@ export default function MarketPage() {
         </Tab.List>
 
         <div className="grid md:grid-cols-[1fr,350px]">
-          <Tab.Panels>
-            <Tab.Panel>
-              <Market />
-            </Tab.Panel>
-          </Tab.Panels>
+          <div>
+            {selectedIndex === -1 && <Market />}
+            <Tab.Panels>
+              <Tab.Panel>
+                <PreMarket />
+              </Tab.Panel>
+            </Tab.Panels>
+          </div>
+
           <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5">
             <Overview />
             <Overview />
