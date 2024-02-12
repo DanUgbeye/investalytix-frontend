@@ -12,11 +12,12 @@ import {
   Line,
   ComposedChart,
 } from "recharts";
-import Quotes from "./Quotes";
-import { Fragment, useState } from "react";
+import Quotes from "../Quotes";
+import { useState } from "react";
+import USMarkets from "./US";
+import Americas from "./Americas";
 
 const markets = ["U.S", "AMERICAS"];
-const usMarkets = ["MARKET MOVERS", "DOW 30", "NASDAQ 100", "SECTORS"];
 
 export default function PreMarket() {
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -43,101 +44,8 @@ export default function PreMarket() {
           ))}
         </div>
         <div>
-          {selectedIndex === 0 && (
-            <section>
-              <div className="mb-8 mt-11 flex justify-center gap-6 text-[#252525]">
-                {usMarkets.map((market, index) => (
-                  <>
-                    <p className="text-sm font-bold">{market}</p>
-                    {index !== usMarkets.length - 1 && (
-                      <p className="text-sm font-bold">|</p>
-                    )}
-                  </>
-                ))}
-              </div>
-              <Quotes />
-
-              {/* STOCK INDEXES */}
-              <section className="mt-11">
-                <header className="mb-5">
-                  <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-                    STOCK INDEXES
-                  </h2>
-                </header>
-
-                <Quotes />
-              </section>
-
-              {/* COMMODITIES */}
-              <section className="mt-11">
-                <header className="mb-5">
-                  <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-                    COMMODITIES
-                  </h2>
-                </header>
-
-                <Quotes />
-              </section>
-
-              {/* TREASURYS */}
-              <section className="mt-11">
-                <header className="mb-5">
-                  <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-                    TREASURYS
-                  </h2>
-                </header>
-
-                <Quotes />
-              </section>
-
-              {/* CURRENCIES */}
-              <section className="mt-11">
-                <header className="mb-5">
-                  <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-                    CURRENCIES
-                  </h2>
-                </header>
-
-                <Quotes />
-              </section>
-            </section>
-          )}
-          {selectedIndex === 1 && (
-            <section>
-              {/* STOCK INDEXES */}
-              <section className="mt-11">
-                <header className="mb-5">
-                  <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-                    STOCK INDEXES
-                  </h2>
-                </header>
-
-                <Quotes />
-              </section>
-
-              {/* CURRENCIES */}
-              <section className="mt-11">
-                <header className="mb-5">
-                  <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-                    CURRENCIES
-                  </h2>
-                </header>
-
-                <Quotes />
-              </section>
-
-              {/* BONDS & RATES */}
-              <section className="mt-11">
-                <header className="mb-5">
-                  <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-                    BONDS & RATES
-                  </h2>
-                </header>
-
-                <Quotes />
-              </section>
-            </section>
-          )}
+          {selectedIndex === 0 && <USMarkets />}
+          {selectedIndex === 1 && <Americas />}
         </div>
       </div>
 
