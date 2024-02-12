@@ -6,6 +6,9 @@ import { Tab } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import Market from "./Market";
 import PreMarket from "./PreMarket";
+import StockMarket from "./StockMarket";
+import FX from "./FX";
+import Cryptocurrency from "./Cryptocurrency";
 
 const markets = [
   "PRE-MKT",
@@ -65,6 +68,15 @@ export default function MarketPage() {
             <Tab.Panels>
               <Tab.Panel>
                 <PreMarket />
+              </Tab.Panel>
+              <Tab.Panel>
+                <StockMarket />
+              </Tab.Panel>
+              <Tab.Panel>
+                <FX />
+              </Tab.Panel>
+              <Tab.Panel>
+                <Cryptocurrency />
               </Tab.Panel>
             </Tab.Panels>
           </div>
