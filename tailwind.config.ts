@@ -21,6 +21,14 @@ const config = {
       fontFamily: {
         inter: ["var(--font-inter)"],
       },
+      colors: {
+        primary: {
+          base: "#FB8B1E",
+        },
+        main: {
+          blue: "#125BD4",
+        },
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

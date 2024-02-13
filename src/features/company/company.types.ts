@@ -36,4 +36,3 @@ export type CompanyProfile = {
   isAdr: boolean;
   isFund: boolean;
 };
-

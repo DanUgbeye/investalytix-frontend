@@ -5,4 +5,3 @@ export type User = {
   lastname: string;
   googleId?: string;
 };
-
