@@ -11,6 +11,7 @@ import FX from "./FX";
 import Cryptocurrency from "./Cryptocurrency";
 import Commoodities from "./Commodities";
 import Bonds from "./Bonds";
+import Economy from "./Economy";
 
 const markets = [
   "PRE-MKT",
@@ -83,6 +84,8 @@ export default function MarketPage() {
               <Commoodities portal={portal} />
             ) : activeMarket === "BONDS" ? (
               <Bonds portal={portal} />
+            ) : activeMarket === "ECONOMY" ? (
+              <Economy />
             ) : activeMarket === null ? (
               <Market />
             ) : null}
