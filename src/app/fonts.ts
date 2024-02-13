@@ -1,7 +1,11 @@
-import localFont from "next/font/local";
-import { DM_Sans, Inter } from "next/font/google";
+import { Inter, Mulish } from "next/font/google";
 
 export const interFont = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+export const mulishFont = Mulish({
+  subsets: ["latin"],
+  variable: "--font-mulish",
 });

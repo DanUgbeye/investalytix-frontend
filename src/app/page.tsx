@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Overview from "./Overview";
 import EconomicEvent from "./EconomicEvent";
+import { Container } from "@/components/container";
 
 const quotes = [
   {
@@ -156,48 +157,52 @@ const quotes = [
 export default function Home() {
   return (
     <main className="overflow-hidden">
-      <div className="mb-4 py-8">
-        <Swiper spaceBetween={0} slidesPerView={"auto"} loop freeMode>
-          {quotes.map((quote) => (
-            <SwiperSlide className="!flex-shrink" key={quote.symbol}>
-              <Quote quote={quote} key={quote.symbol} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      <Container>
+        <div className="mb-4 py-8">
+          <Swiper spaceBetween={0} slidesPerView={"auto"} loop freeMode>
+            {quotes.map((quote) => (
+              <SwiperSlide className="!flex-shrink" key={quote.symbol}>
+                <Quote quote={quote} key={quote.symbol} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
 
-      <div className="relative mb-4 h-[170px] w-full lg:mb-12">
-        <Image src={"/images/ad1.png"} alt="" fill className="object-cover" />
-      </div>
+        <div className="relative mb-4 h-[170px] w-full lg:mb-12">
+          <Image src={"/images/ad1.png"} alt="" fill className="object-cover" />
+        </div>
 
-      <p className="mb-6 font-bold text-[#1D1D1D] lg:text-xl">
-        <span className="text-[#636363] max-lg:block">
-          Quick Links: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
-        </span>
-        European markets close slightly higher after central bank bonanza;
-        Maersk shares up 8%
-      </p>
+        <p className="mb-6 font-bold text-[#1D1D1D] lg:text-xl">
+          <span className="text-[#636363] max-lg:block">
+            Quick Links: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+          </span>
+          European markets close slightly higher after central bank bonanza;
+          Maersk shares up 8%
+        </p>
 
-      <div className="grid md:grid-cols-[1fr,350px]">
-        <div className="">
-          <h2 className="font-bold text-[#020224] lg:text-3xl">Latest News</h2>
-          <div className="mb-6 flex flex-col">
-            <News latest />
-            <News />
-            <News />
-            <News />
+        <div className="grid md:grid-cols-[1fr,350px]">
+          <div className="">
+            <h2 className="font-bold text-[#020224] lg:text-3xl">
+              Latest News
+            </h2>
+            <div className="mb-6 flex flex-col">
+              <News latest />
+              <News />
+              <News />
+              <News />
+            </div>
+            <button className="rounded bg-[#FB8B1E] px-6 py-2 font-bold text-white">
+              More Articles
+            </button>
           </div>
-          <button className="rounded bg-[#FB8B1E] px-6 py-2 font-bold text-white">
-            More Articles
-          </button>
+          <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5">
+            <Overview />
+            <Overview />
+            <Overview />
+            <EconomicEvent />
+          </div>
         </div>
-        <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5">
-          <Overview />
-          <Overview />
-          <Overview />
-          <EconomicEvent />
-        </div>
-      </div>
+      </Container>
     </main>
   );
 }

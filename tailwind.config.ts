@@ -18,8 +18,12 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+        xxs: "0.6rem"
+      },
       fontFamily: {
         inter: ["var(--font-inter)"],
+        mulish: ["var(--font-mulish)"],
       },
       colors: {
         primary: {
