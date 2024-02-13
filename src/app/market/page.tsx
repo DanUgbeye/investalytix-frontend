@@ -3,12 +3,13 @@ import Image from "next/image";
 import Overview from "../Overview";
 import EconomicEvent from "../EconomicEvent";
 import { Tab } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import Market from "./Market";
+import { Fragment, useRef, useState } from "react";
+import Market from "./Market/Overview";
 import PreMarket from "./PreMarket";
 import StockMarket from "./StockMarket";
 import FX from "./FX";
 import Cryptocurrency from "./Cryptocurrency";
+import Commoodities from "./Commodities";
 
 const markets = [
   "PRE-MKT",
@@ -18,67 +19,70 @@ const markets = [
   "COMMODITIES",
   "BONDS",
   "ECONOMY",
-];
+] as const;
 
 export default function MarketPage() {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [activeMarket, setActiveMarket] = useState<
+    (typeof markets)[number] | null
+  >(null);
+
+  const updateActiveMarket = (mkt: typeof activeMarket) => () =>
+    setActiveMarket((state) => (state === mkt ? null : mkt));
+
+  const portal = useRef<HTMLDivElement>(null);
+
   return (
     <main>
       <div className="relative mb-4 h-[170px] w-full lg:mb-12">
         <Image src={"/images/ad1.png"} alt="" fill className="object-cover" />
       </div>
 
-      <Tab.Group
-        onChange={(index) => {
-          setSelectedIndex(index);
-        }}
-      >
-        {selectedIndex > -1 && (
+      <section>
+        {activeMarket != null && (
           <p className="mb-2 text-center text-xl font-extrabold">MARKETS</p>
         )}
         <h1 className="mb-7 border-b-[6px] border-primary-base pb-2 text-center text-3xl font-extrabold">
-          {selectedIndex === -1 ? "MARKET" : markets[selectedIndex]}
+          {activeMarket === null ? "MARKET" : activeMarket}
         </h1>
 
-        <Tab.List>
-          <div
-            className={
-              "mb-10 flex justify-between gap-10 overflow-auto px-14 py-5"
-            }
-          >
-            {markets.map((market) => (
-              <Tab as={Fragment} key={market}>
-                {({ selected }) => (
-                  <button
-                    className={`whitespace-nowrap border-b-2 pb-2 font-bold ${
-                      selected ? "border-primary-base " : "border-transparent"
-                    }`}
-                  >
-                    {market}
-                  </button>
-                )}
-              </Tab>
-            ))}
-          </div>
-        </Tab.List>
+        <div
+          className={
+            "mb-10 flex justify-between gap-10 overflow-auto px-14 py-5"
+          }
+        >
+          {markets.map((mkt) => (
+            <button
+              key={mkt}
+              onClick={updateActiveMarket(mkt)}
+              className={`whitespace-nowrap border-b-2 pb-2 font-bold ${
+                mkt === activeMarket
+                  ? "border-primary-base "
+                  : "border-transparent"
+              }`}
+            >
+              {mkt}
+            </button>
+          ))}
+        </div>
+
+        {/* portal */}
+        <div className="" ref={portal}></div>
 
         <div className="grid md:grid-cols-[1fr,350px]">
           <div>
-            {selectedIndex === -1 && <Market />}
-            <Tab.Panels>
-              <Tab.Panel>
-                <PreMarket />
-              </Tab.Panel>
-              <Tab.Panel>
-                <StockMarket />
-              </Tab.Panel>
-              <Tab.Panel>
-                <FX />
-              </Tab.Panel>
-              <Tab.Panel>
-                <Cryptocurrency />
-              </Tab.Panel>
-            </Tab.Panels>
+            {activeMarket === "PRE-MKT" ? (
+              <PreMarket portal={portal} />
+            ) : activeMarket === "STOCK MARKET" ? (
+              <StockMarket />
+            ) : activeMarket === "FX" ? (
+              <FX portal={portal} />
+            ) : activeMarket === "CRYPTOCURRENCY" ? (
+              <Cryptocurrency />
+            ) : activeMarket === "COMMODITIES" ? (
+              <Commoodities portal={portal} />
+            ) : activeMarket === null ? (
+              <Market />
+            ) : null}
           </div>
 
           <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5">
@@ -88,7 +92,7 @@ export default function MarketPage() {
             <EconomicEvent />
           </div>
         </div>
-      </Tab.Group>
+      </section>
 
       {/* TRENDING NOW */}
       <section className="mt-16 overflow-hidden">

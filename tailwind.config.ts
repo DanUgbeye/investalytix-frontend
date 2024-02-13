@@ -22,6 +22,9 @@ const config = {
         primary: {
           base: "#FB8B1E",
         },
+        main: {
+          blue: "#125BD4",
+        },
       },
       keyframes: {
         "accordion-down": {

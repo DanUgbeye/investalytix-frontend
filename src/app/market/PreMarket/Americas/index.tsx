@@ -4,7 +4,7 @@ export default function Americas() {
   return (
     <section>
       {/* STOCK INDEXES */}
-      <section className="mt-11">
+      <section className="">
         <header className="mb-5">
           <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
             STOCK INDEXES
