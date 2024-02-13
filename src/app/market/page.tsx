@@ -10,6 +10,7 @@ import StockMarket from "./StockMarket";
 import FX from "./FX";
 import Cryptocurrency from "./Cryptocurrency";
 import Commoodities from "./Commodities";
+import Bonds from "./Bonds";
 
 const markets = [
   "PRE-MKT",
@@ -80,6 +81,8 @@ export default function MarketPage() {
               <Cryptocurrency />
             ) : activeMarket === "COMMODITIES" ? (
               <Commoodities portal={portal} />
+            ) : activeMarket === "BONDS" ? (
+              <Bonds portal={portal} />
             ) : activeMarket === null ? (
               <Market />
             ) : null}
