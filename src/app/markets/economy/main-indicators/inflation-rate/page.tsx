@@ -1,4 +1,4 @@
-import InterestRate from "@/modules/markets/Economy/MarketIndicators/InterestRate";
+import InterestRate from "@/modules/markets/Economy/MainIndicators/InterestRate";
 
 export default function InterestRatePage() {
   return (

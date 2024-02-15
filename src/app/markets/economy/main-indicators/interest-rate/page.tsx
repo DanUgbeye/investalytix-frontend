@@ -1,9 +1,9 @@
-import InflationRate from "@/modules/markets/Economy/MarketIndicators/InflationRate";
+import InterestRate from "@/modules/markets/Economy/MainIndicators/InterestRate";
 
-export default function InflationRatePage() {
+export default function InterestRatePage() {
   return (
     <main>
-      <InflationRate />
+      <InterestRate />
     </main>
   );
 }

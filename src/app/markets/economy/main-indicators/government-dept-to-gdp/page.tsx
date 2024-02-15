@@ -1,4 +1,4 @@
-import World from "@/modules/markets/Economy/MainIndicators/GDPGrowthRate/World";
+import World from "@/modules/markets/Economy/MainIndicators/GovernmentDeptToGDP/world";
 
 export default function GDPGrowthPage() {
   return (
