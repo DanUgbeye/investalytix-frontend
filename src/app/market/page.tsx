@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import MarketOverview from "./Overview";
+import { Container } from "@/components/container";
 
 export default function MarketPage() {
   return (
@@ -13,6 +14,7 @@ export default function MarketPage() {
       <section>
         <MarketOverview />
       </section>
+      </Container>
     </main>
   );
 }
