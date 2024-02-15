@@ -1,13 +1,13 @@
 "use client";
+import { Container } from "@/components/container";
 import { formatTimestamp } from "@/lib/utils";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import Overview from "./Overview";
+import { Swiper, SwiperSlide } from "swiper/react";
 import EconomicEvent from "./EconomicEvent";
-import { Container } from "@/components/container";
+import Overview from "./Overview";
 
-const quotes = [
+export const quotes = [
   {
     symbol: "MSFT",
     name: "Microsoft Corporation",
@@ -248,7 +248,7 @@ function News({ latest = false }: { latest?: boolean }) {
   );
 }
 
-function Quote({ quote }: { quote: (typeof quotes)[number] }) {
+export function Quote({ quote }: { quote: (typeof quotes)[number] }) {
   const isPositive = quote.changesPercentage >= 0;
   return (
     <div className="w-[220px] border-r border-[#B3B3B3] px-3 py-2 text-sm font-bold text-[#252525]">

@@ -1,4 +1,11 @@
-export type Ticker = {
+import { Quote } from "../market/market.types";
+
+export type TickerData = {
+  outlook: CompanyOutlook,
+  quote: Quote
+}
+
+export type CompanyOutlook = {
   profile: Profile;
   metrics: Metrics;
   ratios: { [key: string]: number }[];
@@ -127,7 +134,7 @@ export type Profile = {
   dcfDiff: number;
   dcf: number;
   image: string;
-  ipoDate: Date;
+  ipoDate: Date | string;
   defaultImage: boolean;
   isEtf: boolean;
   isActivelyTrading: boolean;
@@ -181,3 +188,4 @@ export type StockNew = {
   text: string;
   url: string;
 };
+
