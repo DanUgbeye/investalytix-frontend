@@ -1,4 +1,3 @@
-import { Quote } from "@/app/page";
 import Mapper from "@/components/mapper";
 import Spinner from "@/components/spinner";
 import { cn } from "@/lib/utils";
@@ -14,6 +13,7 @@ import { Container } from "@/components/container";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { RiStarSLine } from "react-icons/ri";
+import Quote from "@/components/ui/Quote";
 
 export const TICKER_NAV_TABS = {
   STOCK_DESCRIPTION: "stock-description",

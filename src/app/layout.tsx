@@ -12,7 +12,7 @@ const routes = [
   },
   {
     label: "MARKETS",
-    href: "/market",
+    href: "/markets",
   },
   {
     label: "PRICING",
