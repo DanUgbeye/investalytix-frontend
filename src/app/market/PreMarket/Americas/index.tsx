@@ -1,40 +1,43 @@
 import Quotes from "../../Quotes";
+import WithSidePanel, { SIDE_SECTIONS } from "../../WithSidePanel";
 
 export default function Americas() {
   return (
-    <section>
-      {/* STOCK INDEXES */}
-      <section className="">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            STOCK INDEXES
-          </h2>
-        </header>
+    <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
+      <section>
+        {/* STOCK INDEXES */}
+        <section className="">
+          <header className="mb-5">
+            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+              STOCK INDEXES
+            </h2>
+          </header>
 
-        <Quotes />
+          <Quotes />
+        </section>
+
+        {/* CURRENCIES */}
+        <section className="mt-11">
+          <header className="mb-5">
+            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+              CURRENCIES
+            </h2>
+          </header>
+
+          <Quotes />
+        </section>
+
+        {/* BONDS & RATES */}
+        <section className="mt-11">
+          <header className="mb-5">
+            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+              BONDS & RATES
+            </h2>
+          </header>
+
+          <Quotes />
+        </section>
       </section>
-
-      {/* CURRENCIES */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            CURRENCIES
-          </h2>
-        </header>
-
-        <Quotes />
-      </section>
-
-      {/* BONDS & RATES */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            BONDS & RATES
-          </h2>
-        </header>
-
-        <Quotes />
-      </section>
-    </section>
+    </WithSidePanel>
   );
 }

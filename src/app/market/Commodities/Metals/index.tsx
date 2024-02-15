@@ -1,10 +1,11 @@
+import WithSidePanel, { SIDE_SECTIONS } from "../../WithSidePanel";
 import Blog from "./Blog";
 import { FiChevronDown } from "react-icons/fi";
 
 export default function Metals() {
   return (
     <div className="">
-      <div className="xlgrid-cols-3 grid gap-10 lg:grid-cols-2">
+      <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
         <Blog />
         <Blog />
         <Blog />

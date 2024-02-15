@@ -1,4 +1,5 @@
 import Quotes from "../Quotes";
+import WithSidePanel, { SIDE_SECTIONS } from "../WithSidePanel";
 
 export default function Overview() {
   const quote = (
@@ -29,79 +30,81 @@ export default function Overview() {
   );
 
   return (
-    <div className="">
-      {/*ENERGY FUTURES */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            ENERGY FUTURES
-          </h2>
-        </header>
+    <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
+      <div className="">
+        {/*ENERGY FUTURES */}
+        <section className="">
+          <header className="mb-5">
+            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+              ENERGY FUTURES
+            </h2>
+          </header>
 
-        {quote}
-      </section>
+          {quote}
+        </section>
 
-      {/*METAL FUTURES */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            METAL FUTURES
-          </h2>
-        </header>
+        {/*METAL FUTURES */}
+        <section className="mt-11">
+          <header className="mb-5">
+            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+              METAL FUTURES
+            </h2>
+          </header>
 
-        {quote}
-      </section>
+          {quote}
+        </section>
 
-      {/*AGRICULTURE FUTURES */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            AGRICULTURE FUTURES
-          </h2>
-        </header>
+        {/*AGRICULTURE FUTURES */}
+        <section className="mt-11">
+          <header className="mb-5">
+            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+              AGRICULTURE FUTURES
+            </h2>
+          </header>
 
-        {quote}
-      </section>
-      {/*LIVESTOCK FUTURES */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            LIVESTOCK FUTURES
-          </h2>
-        </header>
+          {quote}
+        </section>
+        {/*LIVESTOCK FUTURES */}
+        <section className="mt-11">
+          <header className="mb-5">
+            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+              LIVESTOCK FUTURES
+            </h2>
+          </header>
 
-        {quote}
-      </section>
-      {/*LIVESTOCK FUTURES */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            LIVESTOCK FUTURES
-          </h2>
-        </header>
+          {quote}
+        </section>
+        {/*LIVESTOCK FUTURES */}
+        <section className="mt-11">
+          <header className="mb-5">
+            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+              LIVESTOCK FUTURES
+            </h2>
+          </header>
 
-        {quote}
-      </section>
-      {/*INDEX FUTURES */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            INDEX FUTURES
-          </h2>
-        </header>
+          {quote}
+        </section>
+        {/*INDEX FUTURES */}
+        <section className="mt-11">
+          <header className="mb-5">
+            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+              INDEX FUTURES
+            </h2>
+          </header>
 
-        {quote}
-      </section>
-      {/*INTEREST RATE FUTURES */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            INTEREST RATE FUTURES
-          </h2>
-        </header>
+          {quote}
+        </section>
+        {/*INTEREST RATE FUTURES */}
+        <section className="mt-11">
+          <header className="mb-5">
+            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+              INTEREST RATE FUTURES
+            </h2>
+          </header>
 
-        {quote}
-      </section>
-    </div>
+          {quote}
+        </section>
+      </div>
+    </WithSidePanel>
   );
 }

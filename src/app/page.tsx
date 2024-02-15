@@ -4,8 +4,7 @@ import { formatTimestamp } from "@/lib/utils";
 import Image from "next/image";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import EconomicEvent from "./EconomicEvent";
-import Overview from "./Overview";
+import WithSidePanel, { SIDE_SECTIONS } from "./market/WithSidePanel";
 
 export const quotes = [
   {
@@ -180,7 +179,7 @@ export default function Home() {
           Maersk shares up 8%
         </p>
 
-        <div className="grid md:grid-cols-[1fr,350px]">
+        <WithSidePanel sections={SIDE_SECTIONS["ALL"]}>
           <div className="">
             <h2 className="font-bold text-[#020224] lg:text-3xl">
               Latest News
@@ -191,17 +190,8 @@ export default function Home() {
               <News />
               <News />
             </div>
-            <button className="rounded bg-[#FB8B1E] px-6 py-2 font-bold text-white">
-              More Articles
-            </button>
           </div>
-          <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5">
-            <Overview />
-            <Overview />
-            <Overview />
-            <EconomicEvent />
-          </div>
-        </div>
+        </WithSidePanel>
       </Container>
     </main>
   );
