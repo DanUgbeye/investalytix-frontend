@@ -318,7 +318,7 @@ export default function Market() {
         {/* bonds */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">BONDS</h2>
-          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
+          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <table>
               <thead>
                 <tr>
@@ -373,7 +373,7 @@ export default function Market() {
           <h2 className="mb-6 mt-8 text-2xl font-bold">
             FUTURES & COMMODITIES
           </h2>
-          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
+          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <table>
               <thead>
                 <tr>
@@ -431,7 +431,7 @@ export default function Market() {
         {/* CURRENCIES */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">CURRENCIES</h2>
-          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
+          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <table>
               <thead>
                 <tr>
@@ -495,7 +495,7 @@ export default function Market() {
         {/* AMERICAS MARKET */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">AMERICAS MARKET</h2>
-          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
+          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <table>
               <thead>
                 <tr>
@@ -548,7 +548,7 @@ export default function Market() {
         {/* EUROPE MARKET */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">EUROPE MARKET</h2>
-          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
+          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <table>
               <thead>
                 <tr>
@@ -606,7 +606,7 @@ export default function Market() {
         {/* ASIAN MARKET */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">ASIAN MARKET</h2>
-          <div className="grid lg:grid-cols-[4fr,3fr] gap-5">
+          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <table>
               <thead>
                 <tr>

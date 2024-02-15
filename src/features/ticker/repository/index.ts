@@ -1,7 +1,3 @@
-export interface ITickerRepository {
-  
-}
+export interface ITickerRepository {}
 
-export class TickerRepository implements ITickerRepository {
-
-}
+export class TickerRepository implements ITickerRepository {}

@@ -5,9 +5,10 @@ import MarketOverview from "./Overview";
 export default function MarketPage() {
   return (
     <main>
-      <div className="relative mb-4 h-[170px] w-full lg:mb-12">
-        <Image src={"/images/ad1.png"} alt="" fill className="object-cover" />
-      </div>
+      <Container>
+        <div className="relative mb-4 h-[170px] w-full lg:mb-12">
+          <Image src={"/images/ad1.png"} alt="" fill className="object-cover" />
+        </div>
 
       <section>
         <MarketOverview />
