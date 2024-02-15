@@ -3,15 +3,17 @@
 import { Container } from "@/components/container";
 import SearchTickerLayout from "@/features/ticker/layouts/search-ticker-layout";
 
-interface SearchTickerScreenProps {
+interface IndustrySectorComparisonScreenProps {
   ticker: string;
 }
 
-export default function SearchTickerScreen(props: SearchTickerScreenProps) {
+export default function IndustrySectorComparisonScreen(
+  props: IndustrySectorComparisonScreenProps
+) {
   const { ticker } = props;
 
   return (
-    <SearchTickerLayout ticker={ticker} isLoading={false} data={undefined}>
+    <SearchTickerLayout ticker={ticker} isLoading={false} data={{} as any}>
       <Container className="  "></Container>
     </SearchTickerLayout>
   );

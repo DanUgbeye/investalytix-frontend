@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Search Ticker | Investalytix",
 };
 
-interface SearchTickerPageProps {
+export interface SearchTickerPageProps {
   params: {
     ticker: string;
   };

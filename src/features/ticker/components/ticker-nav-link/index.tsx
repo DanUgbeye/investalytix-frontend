@@ -7,28 +7,17 @@ export interface TickerNavLinkProps
   extends Omit<LinkProps, "href">,
     HTMLAttributes<HTMLAnchorElement> {
   icon: any;
-  tabName: string;
   active?: boolean;
   href: string;
 }
 
 export default function TickerNavLink(props: TickerNavLinkProps) {
-  const {
-    icon: Icon,
-    className,
-    tabName,
-    active,
-    href,
-    children,
-    ...rest
-  } = props;
-  const searchParams = new URLSearchParams(useSearchParams());
-  searchParams.set("tab", tabName);
+  const { icon: Icon, className, active, href, children, ...rest } = props;
 
   return (
     <Link
       {...rest}
-      href={`${href}?${searchParams.toString()}`}
+      href={href}
       className={cn(
         " grid h-14 grid-cols-[auto,1fr] items-center gap-x-3 px-4 duration-300 hover:text-primary-base ",
         active && " bg-primary-base text-white hover:text-white",
