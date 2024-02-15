@@ -1,35 +1,16 @@
 import { Quote } from "@/app/page";
 import { Container } from "@/components/container";
-import Mapper from "@/components/mapper";
-import Spinner from "@/components/spinner";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import PAGES from "@/data/page-map";
 import type { Quote as TQuote } from "@/features/market/market.types";
 import { cn } from "@/lib/utils";
 import quotes from "@/mock/quotes";
 import Image from "next/image";
-import { usePathname, useSearchParams } from "next/navigation";
 import { HTMLAttributes } from "react";
-import { MdOutlineInsertChart } from "react-icons/md";
 import { RiStarSLine } from "react-icons/ri";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import TickerNavLink from "../../components/ticker-nav-link";
 import TickerSideNav from "../../components/ticker-sidenav";
-
-export const TICKER_NAV_TABS = {
-  STOCK_DESCRIPTION: "stock-description",
-  ANALYST_RECOMMENDATIONS: "analyst-recommendations",
-  CHARTS: "charts",
-  FINANCIALS: "financials",
-  NEWS: "individual-company-news",
-  DIVIDENDS: "dividends",
-  INDUSTRY_SECTOR_COMPARISON: "industry-sector-comparison",
-} as const;
-
-export type TickerNavTab =
-  (typeof TICKER_NAV_TABS)[keyof typeof TICKER_NAV_TABS];
 
 export interface SearchTickerLayoutProps extends HTMLAttributes<HTMLElement> {
   ticker: string;
@@ -114,7 +95,8 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
               <div className=" col-start-2 row-start-1 xl:col-start-3 ">
                 <Button
                   variant={"ghost"}
-                  className=" gap-x-1.5 text-xs shadow-md "
+                  size={"lg"}
+                  className=" gap-x-1.5 text-sm border-b "
                 >
                   <RiStarSLine className=" size-6" />
                   <span className="  ">Add to Favourite</span>

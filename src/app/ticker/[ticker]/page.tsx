@@ -1,6 +1,7 @@
+import PAGES from "@/data/page-map";
+import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-sidenav/ticker-sidenav.types";
 import { Metadata } from "next";
-import React from "react";
-import SearchTickerScreen from "./screen";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Search Ticker | Investalytix",
@@ -17,7 +18,9 @@ function SearchTickerPage(props: SearchTickerPageProps) {
     params: { ticker },
   } = props;
 
-  return <SearchTickerScreen ticker={ticker} />;
+  return redirect(
+    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION}`
+  );
 }
 
 export default SearchTickerPage;
