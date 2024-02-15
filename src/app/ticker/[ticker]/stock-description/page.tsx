@@ -3,6 +3,7 @@ import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-sidenav/tic
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
+import { STOCK_DESCRIPTION_MENU } from "./stock-description.types";
 
 export const metadata: Metadata = {
   title: "Search Ticker | Investalytix",
@@ -16,7 +17,7 @@ function StockDescriptionPage(props: StockDescriptionPageProps) {
   } = props;
 
   return redirect(
-    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION}/${"summary"}`
+    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION}/${STOCK_DESCRIPTION_MENU.SUMMARY.path}`
   );
 }
 
