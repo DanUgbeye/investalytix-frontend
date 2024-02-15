@@ -21,7 +21,7 @@ export default function StockDescriptionScreen(
 
   return (
     <section className="  ">
-      <div className=" flex gap-x-10 ">
+      <div className=" grid md:grid-cols-2 xl:grid-cols-3 gap-10   ">
         <div className=" w-full max-w-xl ">
           <div className=" grid h-9 grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b text-sm ">
             <span className=" ">Previous Close</span>
@@ -106,11 +106,9 @@ export default function StockDescriptionScreen(
           </div>
         </div>
 
-        <div className="h-80 w-full">
+        <div className="h-80 w-full max-xl:col-span-2">
           <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
             <AreaChart
-              // width={500}
-              // height={400}
               data={chart}
               margin={{
                 top: 0,
