@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Overview from "./Overview";
 import EconomicEvent from "./EconomicEvent";
+import WithSidePanel, { SIDE_SECTIONS } from "./market/WithSidePanel";
 
 const quotes = [
   {
@@ -178,7 +179,7 @@ export default function Home() {
         Maersk shares up 8%
       </p>
 
-      <div className="grid md:grid-cols-[1fr,350px]">
+      <WithSidePanel sections={SIDE_SECTIONS["ALL"]}>
         <div className="">
           <h2 className="font-bold text-[#020224] lg:text-3xl">Latest News</h2>
           <div className="mb-6 flex flex-col">
@@ -191,13 +192,7 @@ export default function Home() {
             More Articles
           </button>
         </div>
-        <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5">
-          <Overview />
-          <Overview />
-          <Overview />
-          <EconomicEvent />
-        </div>
-      </div>
+      </WithSidePanel>
     </main>
   );
 }

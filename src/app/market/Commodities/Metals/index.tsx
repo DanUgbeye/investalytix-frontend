@@ -1,10 +1,11 @@
+import WithSidePanel, { SIDE_SECTIONS } from "../../WithSidePanel";
 import Blog from "./Blog";
 import { FiChevronDown } from "react-icons/fi";
 
 export default function Metals() {
   return (
     <div className="">
-      <div className="xlgrid-cols-3 grid gap-10 lg:grid-cols-2">
+      <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
         <Blog />
         <Blog />
         <Blog />
@@ -24,15 +25,17 @@ export default function Metals() {
           Sign up for free newsletters and get more Investalytix delivered to
           your inbox
         </p>
-        <form className="mt-8 w-[90%] items-center flex justify-center gap-6">
+        <form className="mt-8 flex w-[90%] items-center justify-center gap-6">
           <input
             type="email"
             name="email"
             id="email"
             placeholder="Enter your email"
-            className="border border-[#505050] rounded p-3 w-[60%]"
+            className="w-[60%] rounded border border-[#505050] p-3"
           />
-          <button className="bg-primary-base text-white rounded px-6 py-3 whitespace-nowrap">Sign Up</button>
+          <button className="whitespace-nowrap rounded bg-primary-base px-6 py-3 text-white">
+            Sign Up
+          </button>
         </form>
       </section>
     </div>
