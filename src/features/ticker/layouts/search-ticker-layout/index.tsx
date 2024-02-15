@@ -1,8 +1,9 @@
+"use client";
+
 import { Quote } from "@/app/page";
 import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import type { Quote as TQuote } from "@/features/market/market.types";
 import { cn } from "@/lib/utils";
 import quotes from "@/mock/quotes";
 import Image from "next/image";
@@ -14,19 +15,15 @@ import TickerSideNav from "../../components/ticker-sidenav";
 
 export interface SearchTickerLayoutProps extends HTMLAttributes<HTMLElement> {
   ticker: string;
-  isLoading: boolean;
-  data?: TQuote;
 }
 
 export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
-  const { data, isLoading, className, children, ticker, ...rest } = props;
+  const { className, children, ticker, ...rest } = props;
 
   return (
     <section {...rest} className={cn("  ", className)}>
       <Container className=" relative grid min-h-[calc(100dvh-5rem)] max-w-[110rem] grid-cols-1 grid-rows-1 p-0 sm:p-0 xl:p-0 ">
         <TickerSideNav
-          loading={isLoading}
-          quote={data}
           ticker={ticker}
           className=" top-0 col-start-1 row-start-1 w-[15rem] "
         />
@@ -96,7 +93,7 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
                 <Button
                   variant={"ghost"}
                   size={"lg"}
-                  className=" gap-x-1.5 text-sm border-b "
+                  className=" gap-x-1.5 border-b text-sm "
                 >
                   <RiStarSLine className=" size-6" />
                   <span className="  ">Add to Favourite</span>

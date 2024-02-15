@@ -1,23 +1,22 @@
-import Spinner from "@/components/spinner";
-import { Quote } from "@/features/market/market.types";
-import React, { HTMLAttributes, useMemo } from "react";
-import { MdOutlineInsertChart } from "react-icons/md";
-import { TICKER_NAV_TABS, TickerNavTab } from "./ticker-sidenav.types";
 import Mapper from "@/components/mapper";
-import { usePathname, useSearchParams } from "next/navigation";
+import Spinner from "@/components/spinner";
 import PAGES from "@/data/page-map";
-import TickerNavLink from "../ticker-nav-link";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import { HTMLAttributes, useMemo } from "react";
+import { MdOutlineInsertChart } from "react-icons/md";
+import TickerNavLink from "../ticker-nav-link";
+import { TICKER_NAV_TABS, TickerNavTab } from "./ticker-sidenav.types";
 
 export interface TickerSideNavProps
   extends Omit<HTMLAttributes<HTMLElement>, "children"> {
   ticker: string;
-  loading?: boolean;
-  quote?: Quote;
 }
 
 export default function TickerSideNav(props: TickerSideNavProps) {
-  const { loading, ticker, quote, className, ...rest } = props;
+  const { ticker, className, ...rest } = props;
+  const loading = false;
+  const quote = {};
   const pathname = usePathname();
   const activeTab = useMemo<TickerNavTab>(() => {
     if (pathname.includes(TICKER_NAV_TABS.STOCK_DESCRIPTION)) {
