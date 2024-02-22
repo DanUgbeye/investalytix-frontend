@@ -78,3 +78,8 @@ input[type="number"] {
   position: relative;
 }
 
+@media (min-width: 1024px) {
+  .testimony:nth-child(3n + 2) {
+    transform: translateY(32px);
+  }
+}

@@ -16,7 +16,7 @@ const routes = [
   },
   {
     label: "PRICING",
-    href: "",
+    href: "/pricing",
   },
   {
     label: "ABOUT US",
