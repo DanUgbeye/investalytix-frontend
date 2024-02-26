@@ -1,4 +1,5 @@
 "use client";
+import MarketHeader from "@/modules/markets/MarketHeader";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -40,7 +41,8 @@ export default function GDPGrowthRateByCountryTemplate({
   const pathname = usePathname();
   return (
     <>
-      <div className="mb-14 flex justify-between gap-4 overflow-auto px-14 py-5">
+      <MarketHeader name="COUNTRY LIST GOVERMENT DEBT TO GDP" active="ECONOMY" />
+      <div className="w-fit mx-auto mb-14 flex justify-between gap-4 overflow-auto px-14 py-5">
         {markets.map((market, index) => (
           <Link
             key={market.href}

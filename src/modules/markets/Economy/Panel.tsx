@@ -2,7 +2,7 @@
 import { Disclosure } from "@headlessui/react";
 import { FiMinus } from "react-icons/fi";
 
-export default function Panels({
+export default function Panel({
     heading,
     defaultOpen = false,
   }: {

@@ -38,12 +38,12 @@ const markets = [
   {
     parent: "bonds",
     label: "10 Years Treasury",
-    href: "/markets/economy/bonds/10-years-treasury",
+    href: "/markets/economy/bonds/us-10-year-treasury-bill/summary",
   },
   {
     parent: "bonds",
     label: "30 Years Treasury",
-    href: "/markets/economy/bonds/30-years-treasury",
+    href: "/markets/economy/bonds/us-30-year-treasury-bill/summary",
   },
   {
     parent: "bonds",

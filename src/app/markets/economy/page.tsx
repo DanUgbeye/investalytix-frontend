@@ -1,9 +1,13 @@
 import Economy from "@/modules/markets/Economy";
+import MarketHeader from "@/modules/markets/MarketHeader";
 
 export default function EconomyPage() {
   return (
-    <main>
-      <Economy />
-    </main>
+    <>
+      <MarketHeader name="ECONOMY" active="ECONOMY" />
+      <main>
+        <Economy />
+      </main>
+    </>
   );
 }

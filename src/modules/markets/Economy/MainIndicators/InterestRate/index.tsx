@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Panels from "../../Panels";
+import Panels from "../../Panel";
 import PerformanceTable from "../../PerformanceTable";
 
 export default function InterestRate() {

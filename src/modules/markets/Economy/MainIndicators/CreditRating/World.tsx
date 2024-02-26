@@ -1,4 +1,4 @@
-import Panels from "../../Panels";
+import Panels from "../../Panel";
 import CreditDescTable from "./CreditDescTable";
 import CreditRatingTable from "./CreditRatingTable";
 

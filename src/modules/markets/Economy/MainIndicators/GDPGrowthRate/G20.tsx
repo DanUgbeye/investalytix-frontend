@@ -1,6 +1,6 @@
 import Image from "next/image";
 import PerformanceTable from "../../PerformanceTable";
-import Panels from "../../Panels";
+import Panels from "../../Panel";
 
 export default function G20() {
   return (

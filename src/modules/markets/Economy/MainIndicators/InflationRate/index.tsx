@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FiMinus } from "react-icons/fi";
 import PerformanceTable from "../../PerformanceTable";
-import Panels from "../../Panels";
+import Panels from "../../Panel";
 
 export default function InflationRate() {
   return (

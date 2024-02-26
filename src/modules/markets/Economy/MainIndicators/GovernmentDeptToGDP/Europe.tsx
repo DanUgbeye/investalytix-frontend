@@ -1,6 +1,6 @@
 
 import PerformanceTable from "../../PerformanceTable";
-import Panels from "../../Panels";
+import Panels from "../../Panel";
 
 export default function Europe() {
   return (
