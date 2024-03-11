@@ -54,66 +54,66 @@ const markets = [
   {
     parent: "labour",
     label: "Initial Jobless Claims",
-    href: "/markets/economy/labour/jobless-claims",
+    href: "/markets/economy/labour/jobless-claims/summary",
   },
   {
     parent: "labour",
     label: "Unemployment Rate",
-    href: "/markets/economy/labour/unemployment-rate",
+    href: "/markets/economy/labour/unemployment-rate/summary",
   },
   {
     parent: "labour",
     label: "Popluation",
-    href: "/markets/economy/labour/population",
+    href: "/markets/economy/labour/population/world",
   },
   // government
   {
     parent: "government",
     label: "Credit Rating",
-    href: "/markets/economy/government/credit-rating",
+    href: "/markets/economy/government/credit-rating/summary",
   },
   {
     parent: "government",
     label: "Government Debt",
-    href: "/markets/economy/government/government-dept",
+    href: "/markets/economy/government/government-debt/summary",
   },
   {
     parent: "government",
     label: "Government Debt to GDP",
-    href: "/markets/economy/government/government-dept-to-gdp",
+    href: "/markets/economy/government/government-debt-to-gdp/summary",
   },
   // money
   {
     parent: "money",
     label: "Interest Rate",
-    href: "/markets/economy/money/interest-rate",
+    href: "/markets/economy/money/interest-rate/summary",
   },
   {
     parent: "money",
     label: "Central Bank Balance Sheet",
-    href: "/markets/economy/money/cb-balance-sheet",
+    href: "/markets/economy/money/cb-balance-sheet/summary",
   },
   // gdp
   {
     parent: "gdp",
     label: "GDP",
-    href: "/markets/economy/gdp/gdp",
+    href: "/markets/economy/gdp/gdp/summary",
   },
   {
     parent: "gdp",
     label: "GDP Growth Rate",
-    href: "/markets/economy/gdp/gdp-growth-rate",
+    href: "/markets/economy/gdp/growth-rate/summary",
   },
   // consumer
   {
     parent: "consumer",
-    label: "Consumer Confidence",
-    href: "/markets/economy/consumer/consumer-confidence",
+    label: "Consumer Sentiment",
+    href: "/markets/economy/consumer/sentiment/summary",
   },
   {
     parent: "consumer",
     label: "Consumer Spending",
-    href: "/markets/economy/consumer/consumer-spending",
+    href: "/markets/economy/consumer/spending/summary",
   },
   // calendar
   {
