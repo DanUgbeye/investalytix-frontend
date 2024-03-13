@@ -1,4 +1,5 @@
-"use client"
+"use client";
+import Divider from "@/components/ui/Divider";
 import { Tab } from "@headlessui/react";
 import { Fragment } from "react";
 
@@ -8,13 +9,13 @@ export default function MarketMovers() {
   return (
     <>
       {/* divider */}
-      <div className="mb-8 h-[6px] w-full bg-[#1D1D1D]"></div>
+      <Divider />
 
       {/* MARKET MOVERS */}
       <div className="px-6">
         <Tab.Group>
           <div className="mb-7 text-[#252525] lg:flex">
-            <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5">
+            <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5 dark:text-white">
               MARKET MOVERS
             </h1>
             <Tab.List
@@ -24,7 +25,7 @@ export default function MarketMovers() {
                 <Tab as={Fragment} key={market}>
                   {({ selected }) => (
                     <button
-                      className={`border-b-2 pb-2 text-sm font-extrabold ${
+                      className={`border-b-2 pb-2 text-sm font-extrabold dark:text-[#F8F7F7] ${
                         selected ? "border-primary-base " : "border-transparent"
                       }`}
                     >

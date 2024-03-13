@@ -10,58 +10,58 @@ export default function Dow30() {
       </header>
       <table className="w-full table-auto">
         <thead>
-          <tr className="">
-            <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase text-white">
+          <tr className="text-white">
+            <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
               Symbol
             </th>
-            <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase text-white">
+            <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
               Name
             </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
               price
             </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
               change
             </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
               % change
             </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
               low
             </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
               high
             </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
               previous close
             </th>
           </tr>
         </thead>
         <tbody>
           {quotes.map((quote) => (
-            <tr key={quote.symbol} className="odd:bg-[#F9F9F9]">
+            <tr key={quote.symbol} className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
               <td className="p-2 text-left text-sm font-bold uppercase">
                 {quote.symbol}
               </td>
               <td className="p-2 text-left text-sm font-bold uppercase">
                 {quote.name}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black">
+              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
                 {quote.price}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black">
+              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
                 {quote.change}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black">
+              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
                 {quote.changesPercentage}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black">
+              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
                 {quote.dayLow}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black">
+              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
                 {quote.dayHigh}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black">
+              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
                 {quote.previousClose}
               </td>
             </tr>

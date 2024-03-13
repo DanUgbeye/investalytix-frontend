@@ -1,3 +1,5 @@
+import Divider from "@/components/ui/Divider";
+import { Separator } from "@/components/ui/separator";
 import chart from "@/mock/chart";
 import { Tab } from "@headlessui/react";
 import _ from "lodash";
@@ -222,53 +224,18 @@ export default function Market() {
           </div>
         </div>
 
-        <div className="div">
-          <table className="g w-full table-auto">
-            <thead>
-              <tr>
-                <th className="bg-[#F2F3F5] p-2 text-left text-sm font-extrabold capitalize text-[#1D2433]">
-                  Name
-                </th>
-                <th className="bg-[#F2F3F5] p-2 text-right text-sm font-extrabold uppercase text-[#1D2433]">
-                  price
-                </th>
-                <th className="bg-[#F2F3F5] p-2 text-right text-sm font-extrabold uppercase text-[#1D2433]">
-                  chg
-                </th>
-                <th className="bg-[#F2F3F5] p-2 text-right text-sm font-extrabold uppercase text-[#1D2433]">
-                  chg%
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {quotes.map((quote) => (
-                <tr key={quote.symbol} className="odd:bg-[#F9F9F9]">
-                  <td className="p-2 text-left text-sm font-bold uppercase">
-                    {quote.symbol}
-                  </td>
-                  <td className="p-2 text-right text-sm font-bold text-black">
-                    {quote.price}
-                  </td>
-                  <td className="p-2 text-right text-sm font-bold text-black">
-                    {quote.change}
-                  </td>
-                  <td className="p-2 text-right text-sm font-bold text-black">
-                    {quote.changesPercentage}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="div w-full">
+          <Table />
         </div>
       </div>
 
       {/* divider */}
-      <div className="mb-8 mt-14 h-[6px] w-full bg-[#1D1D1D]"></div>
+      <Divider />
 
       {/* MARKET MOVERS */}
       <div>
         <Tab.Group>
-          <div className="mb-7 text-[#252525] lg:flex">
+          <div className="mb-7 text-[#252525] dark:text-white lg:flex">
             <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5">
               MARKET MOVERS
             </h1>
@@ -309,7 +276,7 @@ export default function Market() {
       {/* SECURITIES */}
 
       <section className="mt-11">
-        <header className="border-b-[6px] border-b-[#1D1D1D] pb-10">
+        <header className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-white">
           <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
             SECURITIES
           </h2>
@@ -319,45 +286,17 @@ export default function Market() {
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">BONDS</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <table>
-              <thead>
-                <tr>
-                  <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white">
-                    Name
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    yield
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    chg
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {quotes.map((quote) => (
-                  <tr key={quote.symbol} className="odd:bg-[#F9F9F9]">
-                    <td className="p-2 text-left text-sm font-bold uppercase">
-                      {quote.symbol}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.change}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.changesPercentage}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+            <YieldTable />
+
+            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Stock and bonds markets will see a&apos;year for non consensus
                 in 2024, technical strategist says
               </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Treasury yields climb as 2024 trading begins
               </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 10-year Treasury yield finishes flat near 3.86% as traders wrap
                 up a roller coater year.
               </p>
@@ -366,7 +305,7 @@ export default function Market() {
         </section>
 
         {/* divider */}
-        <div className="mb-8 mt-14 h-[6px] w-full bg-[#1D1D1D]"></div>
+        <Divider />
 
         {/* FUTURES & COMMODITIES */}
         <section>
@@ -376,49 +315,53 @@ export default function Market() {
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <table>
               <thead>
-                <tr>
-                  <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white">
+                <tr className="text-[#1D2433] dark:text-white">
+                  <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white dark:bg-transparent">
                     Name
                   </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+                  <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
                     last
                   </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+                  <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
                     chg
                   </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+                  <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
                     chg%
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {quotes.map((quote) => (
-                  <tr key={quote.symbol} className="odd:bg-[#F9F9F9]">
+                  <tr
+                    key={quote.symbol}
+                    className="text-black odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent"
+                  >
                     <td className="p-2 text-left text-sm font-bold uppercase">
                       {quote.symbol}
                     </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
+                    <td className="p-2 text-right text-sm font-bold">
                       {quote.price}
                     </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
+                    <td className="p-2 text-right text-sm font-bold">
                       {quote.change}
                     </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
+                    <td className="p-2 text-right text-sm font-bold">
                       {quote.changesPercentage}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
-                CNBC Daily Open: A bumpy start to the year, but don’t lose hope
+            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
+                CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
+                hope
               </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Copper could skyrocket over 75% to record highs by 2025 — brace
                 for deficits, analysts sa
               </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Oil prices fall as traders monitor rising tensions in Red Sea
               </p>
             </div>
@@ -426,57 +369,23 @@ export default function Market() {
         </section>
 
         {/* divider */}
-        <div className="mb-8 mt-14 h-[6px] w-full bg-[#1D1D1D]"></div>
+        <Divider />
 
         {/* CURRENCIES */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">CURRENCIES</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <table>
-              <thead>
-                <tr>
-                  <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white">
-                    Name
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    last
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    chg
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    chg%
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {quotes.map((quote) => (
-                  <tr key={quote.symbol} className="odd:bg-[#F9F9F9]">
-                    <td className="p-2 text-left text-sm font-bold uppercase">
-                      {quote.symbol}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.price}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.change}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.changesPercentage}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
-                CNBC Daily Open: A bumpy start to the year, but don’t lose hope
+            <Table />
+            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
+                CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
+                hope
               </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Copper could skyrocket over 75% to record highs by 2025 — brace
                 for deficits, analysts sa
               </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Oil prices fall as traders monitor rising tensions in Red Sea
               </p>
             </div>
@@ -486,7 +395,7 @@ export default function Market() {
 
       {/* REGIONAL */}
       <section className="mt-16">
-        <header className="border-b-[6px] border-b-[#1D1D1D] pb-10">
+        <header className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-white">
           <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
             REGIONAL
           </h2>
@@ -496,45 +405,16 @@ export default function Market() {
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">AMERICAS MARKET</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <table>
-              <thead>
-                <tr>
-                  <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white">
-                    Name
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    yield
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    chg
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {quotes.map((quote) => (
-                  <tr key={quote.symbol} className="odd:bg-[#F9F9F9]">
-                    <td className="p-2 text-left text-sm font-bold uppercase">
-                      {quote.symbol}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.change}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.changesPercentage}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+            <YieldTable />
+            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Stock and bonds markets will see a&apos;year for non consensus
                 in 2024, technical strategist says
               </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Treasury yields climb as 2024 trading begins
               </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 10-year Treasury yield finishes flat near 3.86% as traders wrap
                 up a roller coater year.
               </p>
@@ -543,57 +423,23 @@ export default function Market() {
         </section>
 
         {/* divider */}
-        <div className="mb-8 mt-14 h-[6px] w-full bg-[#1D1D1D]"></div>
+        <Divider />
 
         {/* EUROPE MARKET */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">EUROPE MARKET</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <table>
-              <thead>
-                <tr>
-                  <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white">
-                    Name
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    last
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    chg
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    chg%
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {quotes.map((quote) => (
-                  <tr key={quote.symbol} className="odd:bg-[#F9F9F9]">
-                    <td className="p-2 text-left text-sm font-bold uppercase">
-                      {quote.symbol}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.price}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.change}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.changesPercentage}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
-                CNBC Daily Open: A bumpy start to the year, but don’t lose hope
+            <Table />
+            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
+                CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
+                hope
               </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Copper could skyrocket over 75% to record highs by 2025 — brace
                 for deficits, analysts sa
               </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Oil prices fall as traders monitor rising tensions in Red Sea
               </p>
             </div>
@@ -601,57 +447,23 @@ export default function Market() {
         </section>
 
         {/* divider */}
-        <div className="mb-8 mt-14 h-[6px] w-full bg-[#1D1D1D]"></div>
+        <Divider />
 
         {/* ASIAN MARKET */}
         <section>
           <h2 className="mb-6 mt-8 text-2xl font-bold">ASIAN MARKET</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <table>
-              <thead>
-                <tr>
-                  <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white">
-                    Name
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    last
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    chg
-                  </th>
-                  <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
-                    chg%
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {quotes.map((quote) => (
-                  <tr key={quote.symbol} className="odd:bg-[#F9F9F9]">
-                    <td className="p-2 text-left text-sm font-bold uppercase">
-                      {quote.symbol}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.price}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.change}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold text-black">
-                      {quote.changesPercentage}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
-                CNBC Daily Open: A bumpy start to the year, but don’t lose hope
+            <Table />
+            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
+                CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
+                hope
               </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Copper could skyrocket over 75% to record highs by 2025 — brace
                 for deficits, analysts sa
               </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium text-[#2A3037]">
+              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 Oil prices fall as traders monitor rising tensions in Red Sea
               </p>
             </div>
@@ -659,5 +471,81 @@ export default function Market() {
         </section>
       </section>
     </div>
+  );
+}
+
+function YieldTable() {
+  return (
+    <table>
+      <thead>
+        <tr className="text-[#1D2433] dark:text-white">
+          <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize dark:bg-transparent">
+            Name
+          </th>
+          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:bg-transparent">
+            yield
+          </th>
+          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:bg-transparent">
+            chg
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {quotes.map((quote) => (
+          <tr
+            key={quote.symbol}
+            className="text-black odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent"
+          >
+            <td className="p-2 text-left text-sm font-bold uppercase">
+              {quote.symbol}
+            </td>
+            <td className="p-2 text-right text-sm font-bold">{quote.change}</td>
+            <td className="p-2 text-right text-sm font-bold">
+              {quote.changesPercentage}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function Table() {
+  return (
+    <table className="w-full">
+      <thead>
+        <tr className="text-[#1D2433] dark:text-white">
+          <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white dark:bg-transparent">
+            Name
+          </th>
+          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
+            last
+          </th>
+          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
+            chg
+          </th>
+          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
+            chg%
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {quotes.map((quote) => (
+          <tr
+            key={quote.symbol}
+            className="text-black odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent"
+          >
+            <td className="p-2 text-left text-sm font-bold uppercase">
+              {quote.symbol}
+            </td>
+            <td className="p-2 text-right text-sm font-bold">{quote.price}</td>
+            <td className="p-2 text-right text-sm font-bold">{quote.change}</td>
+            <td className="p-2 text-right text-sm font-bold">
+              {quote.changesPercentage}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }

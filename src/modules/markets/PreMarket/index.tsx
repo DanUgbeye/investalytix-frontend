@@ -67,7 +67,7 @@ export default function PreMarket() {
         <Futures />
         <Futures isFairValue />
 
-        <p className="mt-4 text-sm font-bold text-[#2F3A48]">
+        <p className="mt-4 text-sm font-bold text-[#2F3A48] dark:text-white">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         </p>
       </section>
@@ -122,7 +122,7 @@ export default function PreMarket() {
         <Futures />
         <Futures isFairValue />
 
-        <p className="mt-4 text-sm font-bold text-[#2F3A48]">
+        <p className="mt-4 text-sm font-bold text-[#2F3A48] dark:text-white">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         </p>
       </section>
@@ -175,7 +175,7 @@ export default function PreMarket() {
         <Futures />
         <Futures isFairValue />
 
-        <p className="mt-4 text-sm font-bold text-[#2F3A48]">
+        <p className="mt-4 text-sm font-bold text-[#2F3A48] dark:text-white">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         </p>
       </section>
@@ -228,7 +228,7 @@ export default function PreMarket() {
         <Futures />
         <Futures isFairValue />
 
-        <p className="mt-4 text-sm font-bold text-[#2F3A48]">
+        <p className="mt-4 text-sm font-bold text-[#2F3A48] dark:text-white">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         </p>
       </section>
@@ -239,7 +239,7 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">Asia-Pacific</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Hang Seng Index
         </p>
         <div className="h-80 w-full">
@@ -278,7 +278,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Previous Close: 16.2k
         </p>
 
@@ -291,7 +291,7 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">Europe</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48]">FTSE 100</p>
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">FTSE 100</p>
         <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
             <ComposedChart
@@ -328,7 +328,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Previous Close: 16.2k
         </p>
 
@@ -341,7 +341,7 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">Commodities</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Hang Seng Index
         </p>
         <div className="h-80 w-full">
@@ -380,7 +380,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Previous Close: 16.2k
         </p>
 
@@ -393,7 +393,7 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">Currencies</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48]">FTSE 100</p>
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">FTSE 100</p>
         <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
             <ComposedChart
@@ -430,7 +430,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Previous Close: 16.2k
         </p>
 
@@ -443,7 +443,7 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">Volatility & Global Indexes</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Hang Seng Index
         </p>
         <div className="h-80 w-full">
@@ -482,7 +482,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Previous Close: 16.2k
         </p>
 
@@ -495,7 +495,7 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">U.S. Treasurys</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48]">FTSE 100</p>
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">FTSE 100</p>
         <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
             <ComposedChart
@@ -532,7 +532,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Previous Close: 16.2k
         </p>
 
@@ -545,7 +545,7 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">U.S. Indexes</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Hang Seng Index
         </p>
         <div className="h-80 w-full">
@@ -584,7 +584,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Previous Close: 16.2k
         </p>
 
@@ -597,7 +597,7 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">Sectors</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48]">FTSE 100</p>
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">FTSE 100</p>
         <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
             <ComposedChart
@@ -634,7 +634,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
           Previous Close: 16.2k
         </p>
 

@@ -32,31 +32,32 @@ export default function Quotes({
   return (
     <table className="w-full table-auto">
       <thead>
-        <tr>
-          <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase text-white">
+        <tr className="text-white">
+          <th className="dark:border-b p-2 text-left text-sm font-extrabold uppercase bg-[#020224] dark:bg-transparent">
             {fields[0].label}
           </th>
           {fields.slice(1).map((field) => (
             <th
               key={field.label}
-              className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white"
+              className="dark:border-b p-2 text-left text-sm font-extrabold uppercase bg-[#020224] dark:bg-transparent"
             >
               {field.label}
             </th>
           ))}
         </tr>
       </thead>
+
       <tbody>
         {quotes.map((quote) => (
-          <tr key={quote.symbol} className="odd:bg-[#F9F9F9]">
+          <tr
+            key={quote.symbol}
+            className="text-black odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent"
+          >
             <td className="p-2 text-left text-sm font-bold uppercase">
               {quote[fields[0].key]}
             </td>
             {fields.slice(1).map((field) => (
-              <td
-                key={field.key}
-                className="p-2 text-right text-sm font-bold text-black"
-              >
+              <td key={field.key} className="p-2 text-left text-sm font-bold">
                 {quote[field.key]}
               </td>
             ))}
