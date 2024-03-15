@@ -41,8 +41,11 @@ export default function GDPGrowthRateByCountryTemplate({
   const pathname = usePathname();
   return (
     <>
-      <MarketHeader name="COUNTRY LIST GOVERMENT DEBT TO GDP" active="ECONOMY" />
-      <div className="w-fit mx-auto mb-14 flex justify-between gap-4 overflow-auto px-14 py-5">
+      <MarketHeader
+        name="COUNTRY LIST GOVERMENT DEBT TO GDP"
+        active="ECONOMY"
+      />
+      <div className="mx-auto mb-14 flex w-fit justify-between gap-4 overflow-auto px-14 py-5">
         {markets.map((market, index) => (
           <Link
             key={market.href}
@@ -50,7 +53,7 @@ export default function GDPGrowthRateByCountryTemplate({
             className={`whitespace-nowrap rounded px-5 py-3 text-center hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white ${
               market.href === pathname
                 ? "bg-primary-base text-white"
-                : "bg-transparent text-[#636363]"
+                : "bg-transparent text-[#636363] dark:text-white"
             }`}
           >
             {market.label}

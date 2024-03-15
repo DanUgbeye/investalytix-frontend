@@ -35,12 +35,12 @@ export default function Panel({
           /* Use the `open` state to conditionally change the direction of an icon. */
           <div className="border border-[#DDDDDD]">
             <Disclosure.Button
-              className={`flex w-full items-center gap-5 border-b border-b-[#DDDDDD] bg-[#F5F5F5] px-4 py-3 ${open ? "" : "font-bold"}`}
+              className={`flex w-full items-center gap-5 border-b border-b-[#DDDDDD] bg-[#F5F5F5] dark:bg-transparent px-4 py-3 ${open ? "" : "font-bold"}`}
             >
               <FiMinus className={`${open ? "" : ""}`} />
               {heading}
             </Disclosure.Button>
-            <Disclosure.Panel className={"p-4 text-[#333333]"}>
+            <Disclosure.Panel className={"p-4 dark:text-white text-[#333333]"}>
               <ul>
                 {options.map((option) => (
                   <li key={option.replaceAll(" ", "-")}>{option}</li>

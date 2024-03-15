@@ -4,18 +4,18 @@ export default function CreditRatingTable() {
   return (
     <table className="w-full">
       <thead>
-        <tr>
-          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm text-[#212529]"></th>
-          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm text-[#212529]">
+        <tr className="text-[#212529] dark:text-white">
+          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent"></th>
+          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
             S&P
           </th>
-          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm text-[#212529]">
+          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
             Moody&apos;s
           </th>
-          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm text-[#212529]">
+          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
             DBRS
           </th>
-          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm text-[#212529]">
+          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
             TE
           </th>
         </tr>
@@ -23,21 +23,21 @@ export default function CreditRatingTable() {
       <tbody>
         {mockCreditRatingData.map((rating, index) => (
           <tr key={rating.Country.replaceAll(" ", "-")}>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333]">
+            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333] dark:text-white">
               {rating.Country}
             </td>
             <td
-              className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]`}
+              className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white`}
             >
               {rating["S&P"]}
             </td>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]">
+            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
               {rating["Moody's"]}
             </td>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]">
+            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
               {rating["DBRS"]}
             </td>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]">
+            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
               {rating["TE"]}
             </td>
           </tr>
