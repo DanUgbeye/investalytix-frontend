@@ -33,13 +33,13 @@ export default function Quotes({
     <table className="w-full table-auto">
       <thead>
         <tr className="text-white">
-          <th className="dark:border-b p-2 text-left text-sm font-extrabold uppercase bg-[#020224] dark:bg-transparent">
+          <th className="bg-[#020224] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
             {fields[0].label}
           </th>
           {fields.slice(1).map((field) => (
             <th
               key={field.label}
-              className="dark:border-b p-2 text-left text-sm font-extrabold uppercase bg-[#020224] dark:bg-transparent"
+              className="bg-[#020224] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent"
             >
               {field.label}
             </th>

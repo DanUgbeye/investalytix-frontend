@@ -235,7 +235,7 @@ export default function Market() {
       {/* MARKET MOVERS */}
       <div>
         <Tab.Group>
-          <div className="mb-7 text-[#252525] dark:text-white lg:flex">
+          <div className="mb-7 text-[#252525] lg:flex dark:text-white">
             <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5">
               MARKET MOVERS
             </h1>

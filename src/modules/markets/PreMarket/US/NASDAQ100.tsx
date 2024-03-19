@@ -39,7 +39,10 @@ export default function NASDAQ100() {
         </thead>
         <tbody>
           {quotes.map((quote) => (
-            <tr key={quote.symbol} className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
+            <tr
+              key={quote.symbol}
+              className="odd:bg-[#F9F9F9] dark:odd:bg-transparent"
+            >
               <td className="p-2 text-left text-sm font-bold uppercase">
                 {quote.symbol}
               </td>

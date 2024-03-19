@@ -73,16 +73,18 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
                 </div>
               </div>
 
-              <div className=" col-span-full xl:col-span-1 row-start-2 grid grid-cols-[auto,auto,auto] w-full xl:col-start-2 xl:row-start-1 ">
+              <div className=" col-span-full row-start-2 grid w-full grid-cols-[auto,auto,auto] xl:col-span-1 xl:col-start-2 xl:row-start-1 ">
                 <div className=" space-y-1 md:space-y-3 ">
                   <div className=" flex flex-wrap items-center space-x-1.5 ">
-                    <span className=" text-base md:text-3xl font-bold ">19.88</span>
-                    <span className=" text-xs md:text-lg font-bold text-[#079516] ">
+                    <span className=" text-base font-bold md:text-3xl ">
+                      19.88
+                    </span>
+                    <span className=" text-xs font-bold text-[#079516] md:text-lg ">
                       +1.59 (+8.69%)
                     </span>
                   </div>
 
-                  <div className=" text-xs md:text-sm text-gray-400 ">
+                  <div className=" text-xs text-gray-400 md:text-sm ">
                     At close: December 18 04:00 PM EST
                   </div>
                 </div>
@@ -91,23 +93,25 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
 
                 <div className=" space-y-1 md:space-y-3 ">
                   <div className=" flex flex-wrap items-center space-x-1.5 ">
-                    <span className=" text-base md:text-3xl font-bold ">20.56</span>
-                    <span className=" text-xs md:text-lg font-bold text-red-500 ">
+                    <span className=" text-base font-bold md:text-3xl ">
+                      20.56
+                    </span>
+                    <span className=" text-xs font-bold text-red-500 md:text-lg ">
                       +0.68 (+3.42%)
                     </span>
                   </div>
 
-                  <div className=" text-xs md:text-sm text-gray-400 ">
+                  <div className=" text-xs text-gray-400 md:text-sm ">
                     At close: December 18 04:00 PM EST
                   </div>
                 </div>
               </div>
 
-              <div className=" row-start-3 sm:row-start-1 sm:col-start-2 xl:col-start-3 ">
+              <div className=" row-start-3 sm:col-start-2 sm:row-start-1 xl:col-start-3 ">
                 <Button
                   variant={"ghost"}
                   size={"lg"}
-                  className=" gap-x-1.5 text-sm px-3 "
+                  className=" gap-x-1.5 px-3 text-sm "
                 >
                   <RiStarSLine className=" size-6" />
                   <span className="  ">Add to Favourite</span>

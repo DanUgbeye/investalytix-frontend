@@ -75,7 +75,7 @@ export default function Forecast() {
 
         <InitialJobClaims />
 
-        <p className="mt-8 w-full text-[#333333] border border-[#DDDDDDDD] px-4 py-5">
+        <p className="mt-8 w-full border border-[#DDDDDDDD] px-4 py-5 text-[#333333]">
           This page displays a table with actual values, consensus figures,
           forecasts, statistics and historical data charts for Unemployment
           Rate. This page provides values for Unemployment Rate reported in
@@ -173,9 +173,9 @@ function InitialJobClaims() {
       </div>
       <p className="p-4 text-sm text-[#212529]">
         The gross domestic product (GDP) measures of national income and output
-        for a given country&apos;s economy. The gross domestic product (GDP) is equal
-        to the total expenditures for all final goods and services produced
-        within the country in a stipulated period of time.
+        for a given country&apos;s economy. The gross domestic product (GDP) is
+        equal to the total expenditures for all final goods and services
+        produced within the country in a stipulated period of time.
       </p>
 
       <div className="overflow-auto">

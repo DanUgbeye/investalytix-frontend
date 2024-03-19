@@ -21,7 +21,7 @@ export default function StockDescriptionPriceChartScreen(
 
   return (
     <section className="  ">
-      <div className=" h-full min-h-[25rem] lg:min-h-[30rem] w-full grid py-10 ">
+      <div className=" grid h-full min-h-[25rem] w-full py-10 lg:min-h-[30rem] ">
         <ResponsiveContainer
           width="100%"
           height="100%"

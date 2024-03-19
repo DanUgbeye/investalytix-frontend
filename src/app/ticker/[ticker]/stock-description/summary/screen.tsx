@@ -166,81 +166,81 @@ export default function StockDescriptionSummaryScreen(
 
         <div className=" grid gap-8 xl:grid-cols-3 xl:justify-between ">
           <div className=" w-full ">
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">Open</span>
               <span className=" font-bold ">190.33</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">Day High</span>
               <span className=" font-bold ">191.56</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">Day Low</span>
               <span className=" font-bold ">189.23</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">Prev Close</span>
               <span className=" font-bold ">189.23</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">10 Day Average Volume</span>
               <span className=" font-bold ">42.45M</span>
             </div>
           </div>
 
           <div className=" w-full ">
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">52 Week High</span>
               <span className=" font-bold ">198.23</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">52 Week High Date</span>
               <span className=" font-bold ">07/19/23</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">52 Week Low</span>
               <span className=" font-bold ">124.17</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">52 Week Low Date</span>
               <span className=" font-bold ">01/03/23</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">Beta</span>
               <span className=" font-bold ">1.32</span>
             </div>
           </div>
 
           <div className=" w-full ">
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">Market Cap</span>
               <span className=" font-bold ">2.974T</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">Shares Out</span>
               <span className=" font-bold ">15.55B</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">Dividend</span>
               <span className=" font-bold ">0.96</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">Dividend Yield</span>
               <span className=" font-bold ">0.50%</span>
             </div>
 
-            <div className=" grid py-2 grid-cols-[1fr,auto] items-center justify-between gap-x-3 text-sm odd:bg-gray-50 px-2 dark:odd:bg-transparent ">
+            <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-2 text-sm odd:bg-gray-50 dark:odd:bg-transparent ">
               <span className=" ">YTD % Change</span>
               <span className=" font-bold ">47.19</span>
             </div>

@@ -127,7 +127,7 @@ export default function PricingPage() {
             for 30 days.
           </p>
 
-          <div className="mt-10 md:mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 lg:grid-cols-3">
             {plans.map((plan) => (
               <Plan key={plan.name} plan={plan} />
             ))}
@@ -143,7 +143,7 @@ export default function PricingPage() {
             100,000+ happy customers
           </p>
 
-          <div className="mt-10 lg:mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-8 md:grid-cols-2 lg:mt-20 lg:grid-cols-3">
             {testimonials.map((testimony, index) => (
               <Testimonial key={index} testimony={testimony} />
             ))}
@@ -162,7 +162,7 @@ export default function PricingPage() {
           </p>
 
           {/* faq */}
-          <div className="mx-auto mt-10 mb-20 lg:my-20 grid max-w-xl gap-y-1">
+          <div className="mx-auto mb-20 mt-10 grid max-w-xl gap-y-1 lg:my-20">
             {faqs.map((faq, index) => (
               <FAQ key={index} faq={faq} />
             ))}

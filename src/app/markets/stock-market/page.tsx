@@ -1,5 +1,7 @@
 import StockMarket from "@/modules/markets/StockMarket";
-import WithSidePanel, { SIDE_SECTIONS } from "../../../modules/markets/WithSidePanel";
+import WithSidePanel, {
+  SIDE_SECTIONS,
+} from "../../../modules/markets/WithSidePanel";
 import MarketHeader from "../../../modules/markets/MarketHeader";
 
 export default function StockMarketPage() {

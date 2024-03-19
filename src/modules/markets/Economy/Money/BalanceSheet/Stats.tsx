@@ -160,7 +160,7 @@ function RelatedTable() {
 function InitialJobClaims() {
   return (
     <div className="border border-[#DEE2E6]">
-      <div className="bg-[#F5F5F5] px-2 py-3 text-sm text-[#212529] border-b border-b-[#DEE2E6]">
+      <div className="border-b border-b-[#DEE2E6] bg-[#F5F5F5] px-2 py-3 text-sm text-[#212529]">
         United States Central Bank Balance Sheet
       </div>
       {/* <p className="p-4 text-sm text-[#212529]">

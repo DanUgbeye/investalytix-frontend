@@ -4,7 +4,9 @@ export default function Overview() {
   return (
     <div>
       <header className="relative mb-4">
-        <p className="text-2xl font-bold dark:text-white text-[#2A3037]">Gainers</p>
+        <p className="text-2xl font-bold text-[#2A3037] dark:text-white">
+          Gainers
+        </p>
 
         <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white"></div>
       </header>
@@ -14,7 +16,7 @@ export default function Overview() {
           return (
             <div
               key={quote.name}
-              className="grid grid-cols-3 border-b dark:border-white border-[#DCDCDC] pb-2 font-bold dark:text-white text-[#636363]"
+              className="grid grid-cols-3 border-b border-[#DCDCDC] pb-2 font-bold text-[#636363] dark:border-white dark:text-white"
             >
               <p className="">{quote.symbol}</p>
               <p

@@ -39,7 +39,7 @@ export default function StockDescriptionRatioScreen(
         </div>
       </div>
 
-      <div className=" grid sm:justify-center gap-10 sm:grid-cols-2 xl:grid-cols-3 ">
+      <div className=" grid gap-10 sm:grid-cols-2 sm:justify-center xl:grid-cols-3 ">
         <RatioTable
           className="  "
           ratio={{

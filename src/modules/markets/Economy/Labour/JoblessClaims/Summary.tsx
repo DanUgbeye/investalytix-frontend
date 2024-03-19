@@ -4,7 +4,6 @@ import InitialJoblessClaims from "./InitialJoblessClaims";
 import RelatedTable from "./RelatedTable";
 import CalendarTable from "./CalendarTable";
 
-
 export default function Summary() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">

@@ -5,13 +5,19 @@ export default function CreditDescTable() {
     <table className="w-full">
       <thead>
         <tr className="text-[#212529] dark:text-white">
-          <th className="bg-[#F5F5F5] dark:bg-transparent px-2 py-3 text-left text-sm">TE</th>
-          <th className="bg-[#F5F5F5] dark:bg-transparent px-2 py-3 text-left text-sm">S&P</th>
-          <th className="bg-[#F5F5F5] dark:bg-transparent px-2 py-3 text-left text-sm">
+          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
+            TE
+          </th>
+          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
+            S&P
+          </th>
+          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
             Moody&apos;s
           </th>
-          <th className="bg-[#F5F5F5] dark:bg-transparent px-2 py-3 text-left text-sm">DBRS</th>
-          <th className="bg-[#F5F5F5] dark:bg-transparent px-2 py-3 text-center text-sm">
+          <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
+            DBRS
+          </th>
+          <th className="bg-[#F5F5F5] px-2 py-3 text-center text-sm dark:bg-transparent">
             Description
           </th>
         </tr>
