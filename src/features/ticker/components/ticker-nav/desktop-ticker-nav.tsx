@@ -41,8 +41,8 @@ export function DesktopTickerNav(props: TickerNavProps) {
   }, [pathname]);
 
   return (
-    <aside {...rest} className={cn(className)}>
-      <div className=" py-4 ">
+    <aside {...rest} className={cn(" pb-4 ", className)}>
+      <div className=" h-fit border-r ">
         {loading && (
           <div className=" grid w-full place-items-center py-8 ">
             <Spinner className=" size-8 text-primary-base " />
@@ -50,7 +50,7 @@ export function DesktopTickerNav(props: TickerNavProps) {
         )}
 
         {!loading && quote && (
-          <div className="  ">
+          <div className=" py-4 ">
             <div className=" flex flex-col ">
               <div className=" px-4 ">
                 <div className=" font-bold text-primary-base ">AAPL</div>
@@ -70,7 +70,7 @@ export function DesktopTickerNav(props: TickerNavProps) {
                 </div>
               </div>
 
-              <div className=" space-y-1 bg-gray-100 px-4 py-2 ">
+              <div className=" space-y-1 bg-gray-100 px-4 py-2 dark:bg-transparent ">
                 <div className=" flex items-center space-x-1.5 ">
                   <span className=" font-bold ">$20.56</span>
                   <span className=" text-xs font-bold text-red-500 ">
@@ -87,7 +87,7 @@ export function DesktopTickerNav(props: TickerNavProps) {
         )}
 
         {/* TICKER NAV LINKS */}
-        <div className=" divide-y border-y border-r ">
+        <div className=" divide-y border-y ">
           <Mapper
             id="ticker-nav-links"
             list={[

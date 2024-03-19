@@ -39,7 +39,13 @@ export function MobileTickerNav(props: TickerNavProps) {
   }, [pathname]);
 
   return (
-    <aside {...rest} className={cn(" flex divide-x divide-gray-300 bg-gray-100 overflow-x-auto ", className)}>
+    <aside
+      {...rest}
+      className={cn(
+        " flex divide-x divide-gray-300 overflow-x-auto bg-gray-100 dark:bg-transparent ",
+        className
+      )}
+    >
       <Mapper
         id="ticker-nav-links"
         list={[
