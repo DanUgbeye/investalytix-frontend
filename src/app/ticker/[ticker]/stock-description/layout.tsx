@@ -1,6 +1,6 @@
 import PAGES from "@/data/page-map";
 import StockDescriptionMenuBar from "@/features/ticker/components/stock-description-menu-bar";
-import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-sidenav/ticker-sidenav.types";
+import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-nav/ticker-sidenav.types";
 import { PropsWithChildren, useMemo } from "react";
 
 export interface StockDescriptionLayoutProps extends PropsWithChildren {

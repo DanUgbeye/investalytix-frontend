@@ -3,17 +3,13 @@ import Spinner from "@/components/spinner";
 import PAGES from "@/data/page-map";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { HTMLAttributes, useMemo } from "react";
+import { useMemo } from "react";
 import { MdOutlineInsertChart } from "react-icons/md";
+import { TickerNavProps } from ".";
 import TickerNavLink from "../ticker-nav-link";
 import { TICKER_NAV_TABS, TickerNavTab } from "./ticker-sidenav.types";
 
-export interface TickerSideNavProps
-  extends Omit<HTMLAttributes<HTMLElement>, "children"> {
-  ticker: string;
-}
-
-export default function TickerSideNav(props: TickerSideNavProps) {
+export function DesktopTickerNav(props: TickerNavProps) {
   const { ticker, className, ...rest } = props;
   const loading = false;
   const quote = {};
@@ -45,7 +41,7 @@ export default function TickerSideNav(props: TickerSideNavProps) {
   }, [pathname]);
 
   return (
-    <aside className={cn(className)}>
+    <aside {...rest} className={cn(className)}>
       <div className=" py-4 ">
         {loading && (
           <div className=" grid w-full place-items-center py-8 ">

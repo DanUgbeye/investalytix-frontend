@@ -6,26 +6,51 @@ import { HTMLAttributes } from "react";
 export interface TickerNavLinkProps
   extends Omit<LinkProps, "href">,
     HTMLAttributes<HTMLAnchorElement> {
-  icon: any;
+  icon?: any;
   active?: boolean;
   href: string;
+  variant?: "desktop" | "mobile";
 }
 
 export default function TickerNavLink(props: TickerNavLinkProps) {
-  const { icon: Icon, className, active, href, children, ...rest } = props;
+  const {
+    icon: Icon,
+    className,
+    active,
+    href,
+    children,
+    variant = "desktop",
+    ...rest
+  } = props;
+
+  const isDesktop = variant === "desktop";
+  const isMobile = variant === "mobile";
 
   return (
     <Link
       {...rest}
       href={href}
       className={cn(
-        " grid h-14 grid-cols-[auto,1fr] items-center gap-x-3 px-4 duration-300 hover:text-primary-base ",
-        active && " bg-primary-base text-white hover:text-white",
+        " grid items-center duration-300 hover:text-primary-base ",
+        {
+          " h-14 grid-cols-[auto,1fr] gap-x-3 px-4  ": isDesktop,
+          " items-center whitespace-nowrap p-2.5 ": isMobile,
+          " bg-primary-base text-white hover:text-white ": active && isDesktop,
+          " text-primary-base ": active && isMobile,
+        },
         className
       )}
     >
-      <Icon className=" size-6" />
-      <span className=" text-left text-sm font-bold ">{children}</span>
+      {isDesktop && Icon && <Icon className=" size-6" />}
+
+      <span
+        className={cn(" text-sm font-bold ", {
+          " text-left ": isDesktop,
+          "text-center": isMobile,
+        })}
+      >
+        {children}
+      </span>
     </Link>
   );
 }

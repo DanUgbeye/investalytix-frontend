@@ -19,7 +19,7 @@ const config = {
     },
     extend: {
       fontSize: {
-        xxs: "0.6rem"
+        xxs: "0.6rem",
       },
       fontFamily: {
         inter: ["var(--font-inter)"],
@@ -47,9 +47,16 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      containers: {
+        xxs: "16rem",
+        xxxs: "12rem",
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/container-queries"),
+  ],
 } satisfies Config;
 
 export default config;

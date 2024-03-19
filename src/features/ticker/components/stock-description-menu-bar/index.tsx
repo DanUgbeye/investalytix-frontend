@@ -4,7 +4,7 @@ import { STOCK_DESCRIPTION_MENU } from "@/app/ticker/[ticker]/stock-description/
 import Mapper from "@/components/mapper";
 import { Button } from "@/components/ui/button";
 import PAGES from "@/data/page-map";
-import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-sidenav/ticker-sidenav.types";
+import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-nav/ticker-sidenav.types";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -42,33 +42,35 @@ function StockDescriptionMenuBar(props: StockDescriptionMenuBarProps) {
   }, [pathname]);
 
   return (
-    <div className=" flex justify-between gap-x-12 py-8 ">
-      <Mapper
-        id="stock-description-menu"
-        list={Object.values(STOCK_DESCRIPTION_MENU)}
-        component={(props) => {
-          const {
-            item: { label, path },
-          } = props;
+    <div className=" py-8 ">
+      <div className=" flex justify-between gap-x-12 overflow-x-auto ">
+        <Mapper
+          id="stock-description-menu"
+          list={Object.values(STOCK_DESCRIPTION_MENU)}
+          component={(props) => {
+            const {
+              item: { label, path },
+            } = props;
 
-          return (
-            <Button
-              variant={"link"}
-              className={cn(
-                " rounded-none border-b-2 px-0 font-bold hover:no-underline ",
-                {
-                  " border-b-primary-base ": activeTab === path,
-                  " border-transparent hover:border-primary-base ":
-                    activeTab !== path,
-                }
-              )}
-              asChild
-            >
-              <Link href={`${basePath}/${path}`}>{label}</Link>
-            </Button>
-          );
-        }}
-      />
+            return (
+              <Button
+                variant={"link"}
+                className={cn(
+                  " rounded-none border-b-2 px-0 font-bold hover:no-underline ",
+                  {
+                    " border-b-primary-base ": activeTab === path,
+                    " border-transparent hover:border-primary-base ":
+                      activeTab !== path,
+                  }
+                )}
+                asChild
+              >
+                <Link href={`${basePath}/${path}`}>{label}</Link>
+              </Button>
+            );
+          }}
+        />
+      </div>
     </div>
   );
 }
