@@ -1,42 +1,41 @@
+"use client";
+
 import Mapper from "@/components/mapper";
-import Spinner from "@/components/spinner";
-import { usePathname } from "next/navigation";
-import { HTMLAttributes, useMemo } from "react";
-import { MdOutlineInsertChart } from "react-icons/md";
-import { TICKER_NAV_TABS, TickerNavTab } from "./ticker-sidenav.types";
 import PAGES from "@/data/page-map";
-import TickerNavLink from "../ticker-nav-link";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 import { TickerNavProps } from ".";
+import TickerNavLink from "../ticker-nav-link";
+import { TICKER_NAV_TABS } from "./ticker-sidenav.types";
 
 export function MobileTickerNav(props: TickerNavProps) {
   const { ticker, className, ...rest } = props;
   const pathname = usePathname();
-  const activeTab = useMemo<TickerNavTab>(() => {
-    if (pathname.includes(TICKER_NAV_TABS.STOCK_DESCRIPTION)) {
-      return TICKER_NAV_TABS.STOCK_DESCRIPTION;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.ANALYST_RECOMMENDATIONS)) {
-      return TICKER_NAV_TABS.ANALYST_RECOMMENDATIONS;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.CHARTS)) {
-      return TICKER_NAV_TABS.CHARTS;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.DIVIDENDS)) {
-      return TICKER_NAV_TABS.DIVIDENDS;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.FINANCIALS)) {
-      return TICKER_NAV_TABS.FINANCIALS;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.NEWS)) {
-      return TICKER_NAV_TABS.NEWS;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.INDUSTRY_SECTOR_COMPARISON)) {
-      return TICKER_NAV_TABS.INDUSTRY_SECTOR_COMPARISON;
+
+  const navTabs = useMemo(() => {
+    return Object.values(TICKER_NAV_TABS).map(({ label, path }) => ({
+      label,
+      path: `${PAGES.TICKER}/${ticker}/${path}` as const,
+    }));
+  }, [ticker]);
+
+  const activeTab = useMemo(() => {
+    let activePath = "";
+
+    const pathnames = Object.values(navTabs);
+
+    for (let i = 0; i < pathnames.length; i++) {
+      const path = pathnames[i].path;
+
+      if (pathname.includes(path)) {
+        activePath = path;
+        break;
+      }
     }
 
-    return TICKER_NAV_TABS.STOCK_DESCRIPTION;
-  }, [pathname]);
+    return activePath;
+  }, [pathname, navTabs]);
 
   return (
     <aside
@@ -48,52 +47,19 @@ export function MobileTickerNav(props: TickerNavProps) {
     >
       <Mapper
         id="ticker-nav-links"
-        list={[
-          {
-            name: "Stock Description",
-            active:
-              activeTab === TICKER_NAV_TABS.STOCK_DESCRIPTION || !activeTab,
-            href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION}`,
-          },
-          {
-            name: "Analyst Recommendation",
-            active: activeTab === TICKER_NAV_TABS.ANALYST_RECOMMENDATIONS,
-            href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.ANALYST_RECOMMENDATIONS}`,
-          },
-          {
-            name: "Charts",
-            active: activeTab === TICKER_NAV_TABS.CHARTS,
-            href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.CHARTS}`,
-          },
-          {
-            name: "Financials",
-            active: activeTab === TICKER_NAV_TABS.FINANCIALS,
-            href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.FINANCIALS}`,
-          },
-          {
-            name: "Individual Company News",
-            active: activeTab === TICKER_NAV_TABS.NEWS,
-            href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.NEWS}`,
-          },
-          {
-            name: "Dividends",
-            active: activeTab === TICKER_NAV_TABS.DIVIDENDS,
-            href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.DIVIDENDS}`,
-          },
-          {
-            name: "Industry & Sector Comparison",
-            active: activeTab === TICKER_NAV_TABS.INDUSTRY_SECTOR_COMPARISON,
-            href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.INDUSTRY_SECTOR_COMPARISON}`,
-          },
-        ]}
+        list={navTabs}
         component={(props) => {
           const {
-            item: { name, active, href },
+            item: { label, path },
           } = props;
 
           return (
-            <TickerNavLink href={href} active={active} variant="mobile">
-              {name}
+            <TickerNavLink
+              href={path}
+              active={path === activeTab}
+              variant="mobile"
+            >
+              {label}
             </TickerNavLink>
           );
         }}

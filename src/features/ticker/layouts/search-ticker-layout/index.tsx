@@ -1,5 +1,6 @@
 "use client";
 import { Container } from "@/components/container";
+import Quote from "@/components/ui/Quote";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -7,20 +8,6 @@ import quotes from "@/mock/quotes";
 import Image from "next/image";
 import { HTMLAttributes } from "react";
 import { RiStarSLine } from "react-icons/ri";
-import Quote from "@/components/ui/Quote";
-
-export const TICKER_NAV_TABS = {
-  STOCK_DESCRIPTION: "stock-description",
-  ANALYST_RECOMMENDATIONS: "analyst-recommendation",
-  CHARTS: "charts",
-  FINANCIALS: "financials",
-  INDIVIDUAL_COMPANY_NEWS: "individual-company-news",
-  DIVIDENDS: "dividends",
-  INDUSTRY_SECTOR_COMPARISON: "industry-sector-comparison",
-} as const;
-
-export type TickerNavTab =
-  (typeof TICKER_NAV_TABS)[keyof typeof TICKER_NAV_TABS];
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { DesktopTickerNav, MobileTickerNav } from "../../components/ticker-nav";

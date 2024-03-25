@@ -17,7 +17,7 @@ function StockDescriptionPage(props: StockDescriptionPageProps) {
   } = props;
 
   return redirect(
-    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION}/${STOCK_DESCRIPTION_MENU.SUMMARY.path}`
+    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION.path}/${STOCK_DESCRIPTION_MENU.SUMMARY.path}`
   );
 }
 

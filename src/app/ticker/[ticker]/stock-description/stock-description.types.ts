@@ -13,7 +13,7 @@ export const STOCK_DESCRIPTION_MENU = {
   },
   REVENUE_EPS: {
     label: "Revenue & EPS",
-    path: "revenue",
+    path: "revenue-and-eps",
   },
   CAPITAL_STRUCTURE: {
     label: "Capital Structure",

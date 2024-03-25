@@ -7,38 +7,47 @@ import { useMemo } from "react";
 import { MdOutlineInsertChart } from "react-icons/md";
 import { TickerNavProps } from ".";
 import TickerNavLink from "../ticker-nav-link";
-import { TICKER_NAV_TABS, TickerNavTab } from "./ticker-sidenav.types";
+import { TICKER_NAV_TABS } from "./ticker-sidenav.types";
+
+function getNavTabIcon(
+  tab: (typeof TICKER_NAV_TABS)[keyof typeof TICKER_NAV_TABS]["label"]
+) {
+  switch (tab) {
+    default:
+      return MdOutlineInsertChart;
+  }
+}
 
 export function DesktopTickerNav(props: TickerNavProps) {
   const { ticker, className, ...rest } = props;
   const loading = false;
   const quote = {};
   const pathname = usePathname();
-  const activeTab = useMemo<TickerNavTab>(() => {
-    if (pathname.includes(TICKER_NAV_TABS.STOCK_DESCRIPTION)) {
-      return TICKER_NAV_TABS.STOCK_DESCRIPTION;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.ANALYST_RECOMMENDATIONS)) {
-      return TICKER_NAV_TABS.ANALYST_RECOMMENDATIONS;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.CHARTS)) {
-      return TICKER_NAV_TABS.CHARTS;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.DIVIDENDS)) {
-      return TICKER_NAV_TABS.DIVIDENDS;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.FINANCIALS)) {
-      return TICKER_NAV_TABS.FINANCIALS;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.NEWS)) {
-      return TICKER_NAV_TABS.NEWS;
-    }
-    if (pathname.includes(TICKER_NAV_TABS.INDUSTRY_SECTOR_COMPARISON)) {
-      return TICKER_NAV_TABS.INDUSTRY_SECTOR_COMPARISON;
+
+  const navTabs = useMemo(() => {
+    return Object.values(TICKER_NAV_TABS).map(({ label, path }) => ({
+      label,
+      path: `${PAGES.TICKER}/${ticker}/${path}` as const,
+      icon: getNavTabIcon(label),
+    }));
+  }, [ticker]);
+
+  const activeTab = useMemo(() => {
+    let activePath = "";
+
+    const pathnames = Object.values(navTabs);
+
+    for (let i = 0; i < pathnames.length; i++) {
+      const path = pathnames[i].path;
+
+      if (pathname.includes(path)) {
+        activePath = path;
+        break;
+      }
     }
 
-    return TICKER_NAV_TABS.STOCK_DESCRIPTION;
-  }, [pathname]);
+    return activePath;
+  }, [pathname, navTabs]);
 
   return (
     <aside {...rest} className={cn(" pb-4 ", className)}>
@@ -90,67 +99,19 @@ export function DesktopTickerNav(props: TickerNavProps) {
         <div className=" divide-y border-y ">
           <Mapper
             id="ticker-nav-links"
-            list={[
-              {
-                name: "Stock Description",
-                tabName: TICKER_NAV_TABS.STOCK_DESCRIPTION,
-                icon: MdOutlineInsertChart,
-                active:
-                  activeTab === TICKER_NAV_TABS.STOCK_DESCRIPTION || !activeTab,
-                href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION}`,
-              },
-              {
-                name: "Analyst Recommendation",
-                tabName: TICKER_NAV_TABS.ANALYST_RECOMMENDATIONS,
-                icon: MdOutlineInsertChart,
-                active: activeTab === TICKER_NAV_TABS.ANALYST_RECOMMENDATIONS,
-                href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.ANALYST_RECOMMENDATIONS}`,
-              },
-              {
-                name: "Charts",
-                tabName: TICKER_NAV_TABS.CHARTS,
-                icon: MdOutlineInsertChart,
-                active: activeTab === TICKER_NAV_TABS.CHARTS,
-                href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.CHARTS}`,
-              },
-              {
-                name: "Financials",
-                tabName: TICKER_NAV_TABS.FINANCIALS,
-                icon: MdOutlineInsertChart,
-                active: activeTab === TICKER_NAV_TABS.FINANCIALS,
-                href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.FINANCIALS}`,
-              },
-              {
-                name: "Individual Company News",
-                tabName: TICKER_NAV_TABS.NEWS,
-                icon: MdOutlineInsertChart,
-                active: activeTab === TICKER_NAV_TABS.NEWS,
-                href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.NEWS}`,
-              },
-              {
-                name: "Dividends",
-                tabName: TICKER_NAV_TABS.DIVIDENDS,
-                icon: MdOutlineInsertChart,
-                active: activeTab === TICKER_NAV_TABS.DIVIDENDS,
-                href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.DIVIDENDS}`,
-              },
-              {
-                name: "Industry & Sector Comparison",
-                tabName: TICKER_NAV_TABS.INDUSTRY_SECTOR_COMPARISON,
-                icon: MdOutlineInsertChart,
-                active:
-                  activeTab === TICKER_NAV_TABS.INDUSTRY_SECTOR_COMPARISON,
-                href: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.INDUSTRY_SECTOR_COMPARISON}`,
-              },
-            ]}
+            list={navTabs}
             component={(props) => {
               const {
-                item: { name, tabName, icon, active, href },
+                item: { label, path, icon },
               } = props;
 
               return (
-                <TickerNavLink href={href} icon={icon} active={active}>
-                  {name}
+                <TickerNavLink
+                  href={path}
+                  icon={icon}
+                  active={path === activeTab}
+                >
+                  {label}
                 </TickerNavLink>
               );
             }}

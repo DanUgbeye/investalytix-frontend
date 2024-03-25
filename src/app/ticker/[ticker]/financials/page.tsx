@@ -1,10 +1,12 @@
+import PAGES from "@/data/page-map";
 import { Metadata } from "next";
-import React from "react";
-import FinancalsScreen from "./screen";
+import { redirect } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
+import { FINANCIALS_MENU } from "./financials.types";
+import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-nav/ticker-sidenav.types";
 
 export const metadata: Metadata = {
-  title: "Search Ticker | Investalytix",
+  title: "Financials | Investalytix",
 };
 
 interface FinancalsPageProps extends SearchTickerPageProps {}
@@ -14,9 +16,9 @@ function FinancalsPage(props: FinancalsPageProps) {
     params: { ticker },
   } = props;
 
-  metadata.title = `${ticker} Financals | Investalytix`;
-
-  return <FinancalsScreen ticker={ticker} />;
+  return redirect(
+    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.FINANCIALS.path}/${FINANCIALS_MENU.KEY_STATS.path}`
+  );
 }
 
 export default FinancalsPage;
