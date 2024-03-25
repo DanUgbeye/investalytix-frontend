@@ -248,7 +248,7 @@ export default function StockDescriptionSummaryScreen(
         </div>
       </div>
 
-      <div className=" grid gap-10 lg:grid-cols-[auto,1fr] ">
+      <div className=" grid gap-10 xl:grid-cols-[auto,1fr] ">
         {/* KEY DATA */}
         <div className=" min-w-60 space-y-4 ">
           <header className="relative w-full ">
