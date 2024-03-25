@@ -15,7 +15,10 @@ function TickerSubMenuBar(props: TickerSubMenuBarProps) {
   const { active, subMenu, className, ...rest } = props;
 
   return (
-    <div {...rest} className={cn(" flex gap-x-12 overflow-x-auto  ", className)}>
+    <div
+      {...rest}
+      className={cn(" flex gap-x-12 overflow-x-auto  ", className)}
+    >
       <Mapper
         id="sub-menu"
         list={subMenu}
