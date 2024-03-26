@@ -2,12 +2,12 @@ export default function Population() {
   return (
     <div className="border border-[#DEE2E6]">
       <div className="border-b bg-[#F5F5F5] px-2 py-3 text-sm text-[#212529] dark:bg-transparent dark:text-white">
-      United States Population
+        United States Population
       </div>
       <p className="p-4 text-sm text-[#212529] dark:text-white">
-      The population of the United States represents 4.52 percent of the
-        world&apos;s total population which arguably means that one person in every
-        22 people on the planet is a resident of United States.
+        The population of the United States represents 4.52 percent of the
+        world&apos;s total population which arguably means that one person in
+        every 22 people on the planet is a resident of United States.
       </p>
 
       <table className="w-full border-t text-sm">

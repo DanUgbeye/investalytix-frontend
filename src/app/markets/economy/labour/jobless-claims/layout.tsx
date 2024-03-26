@@ -27,9 +27,12 @@ export default function JoblessClaimsLayout({
   // TODO: change the name based on the route being rendered
   return (
     <>
-      <MarketHeader name="UNITED States Initial Jobless Claims" active="ECONOMY" />
+      <MarketHeader
+        name="UNITED States Initial Jobless Claims"
+        active="ECONOMY"
+      />
 
-      <div className="mb-14 w-full md:w-fit mx-auto flex justify-between gap-4 overflow-auto px-14 py-5">
+      <div className="mx-auto mb-14 flex w-full justify-between gap-4 overflow-auto px-14 py-5 md:w-fit">
         {markets.map((market, index) => (
           <Link
             key={market.href}

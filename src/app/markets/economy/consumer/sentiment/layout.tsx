@@ -27,7 +27,10 @@ export default function SentimentLayout({
   // TODO: change the name based on the route being rendered
   return (
     <>
-      <MarketHeader name="United States Michigan Consumer Sentiment" active="ECONOMY" />
+      <MarketHeader
+        name="United States Michigan Consumer Sentiment"
+        active="ECONOMY"
+      />
 
       <div className="mx-auto mb-14 flex w-full justify-between gap-4 overflow-auto px-14 py-5 md:w-fit">
         {markets.map((market, index) => (

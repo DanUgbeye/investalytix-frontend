@@ -13,7 +13,7 @@ type RouteLink = { label: string; children?: RouteLink[]; href: string };
 const routes: RouteLink[] = [
   {
     label: "HOME",
-    href: "",
+    href: "/",
   },
   {
     label: "PRODUCTS",

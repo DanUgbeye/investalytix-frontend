@@ -3,15 +3,14 @@ import Panel from "../../Panel";
 import DeptToGDP from "./DeptToGDP";
 import RelatedTable from "./RelatedTable";
 
-
 export default function Summary() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
         <p className="text-[#636363] dark:text-white">
           The United States recorded a Government Debt to GDP of 129 percent of
-          the country&apos;s Gross Domestic Product in 2022. Government Debt to GDP
-          in the United States averaged 65.20 percent of GDP from 1940 until
+          the country&apos;s Gross Domestic Product in 2022. Government Debt to
+          GDP in the United States averaged 65.20 percent of GDP from 1940 until
           2022, reaching an all time high of 129.00 percent of GDP in 2022 and a
           record low of 31.80 percent of GDP in 1981.
           <br />

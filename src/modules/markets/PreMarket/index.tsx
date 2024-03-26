@@ -291,7 +291,9 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">Europe</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">FTSE 100</p>
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+          FTSE 100
+        </p>
         <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
             <ComposedChart
@@ -393,7 +395,9 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">Currencies</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">FTSE 100</p>
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+          FTSE 100
+        </p>
         <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
             <ComposedChart
@@ -495,7 +499,9 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">U.S. Treasurys</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">FTSE 100</p>
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+          FTSE 100
+        </p>
         <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
             <ComposedChart
@@ -597,7 +603,9 @@ export default function PreMarket() {
           <h2 className="text-2xl font-bold">Sectors</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">FTSE 100</p>
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+          FTSE 100
+        </p>
         <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
             <ComposedChart

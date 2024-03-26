@@ -3,7 +3,6 @@ import Panel from "../../Panel";
 import Population from "./Population";
 import RelatedTable from "./RelatedTable";
 
-
 export default function G20() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">

@@ -33,7 +33,7 @@ export default function BondsTemplate({
     <>
       <MarketHeader name="U.S 10 YEAR TREASURY BILL" active="ECONOMY" />
 
-      <div className="mb-10 w-full md:w-fit mx-auto flex justify-between gap-4 overflow-auto px-14 py-5">
+      <div className="mx-auto mb-10 flex w-full justify-between gap-4 overflow-auto px-14 py-5 md:w-fit">
         {markets.map((market, index) => (
           <Link
             key={market.href}

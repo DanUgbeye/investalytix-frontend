@@ -1,5 +1,5 @@
 import PAGES from "@/data/page-map";
-import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-sidenav/ticker-sidenav.types";
+import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-nav/ticker-sidenav.types";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
@@ -17,7 +17,7 @@ function StockDescriptionPage(props: StockDescriptionPageProps) {
   } = props;
 
   return redirect(
-    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION}/${STOCK_DESCRIPTION_MENU.SUMMARY.path}`
+    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION.path}/${STOCK_DESCRIPTION_MENU.SUMMARY.path}`
   );
 }
 

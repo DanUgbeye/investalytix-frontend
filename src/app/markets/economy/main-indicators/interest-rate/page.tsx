@@ -5,7 +5,7 @@ export default function InterestRatePage() {
   return (
     <main>
       <MarketHeader name="INTEREST RATE" active="ECONOMY" />
-        
+
       <InterestRate />
     </main>
   );

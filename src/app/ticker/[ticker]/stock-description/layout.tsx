@@ -1,7 +1,5 @@
-import PAGES from "@/data/page-map";
-import StockDescriptionMenuBar from "@/features/ticker/components/stock-description-menu-bar";
-import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-sidenav/ticker-sidenav.types";
-import { PropsWithChildren, useMemo } from "react";
+import StockDescriptionSubMenuBar from "./sub-menu";
+import { PropsWithChildren } from "react";
 
 export interface StockDescriptionLayoutProps extends PropsWithChildren {
   params: {
@@ -18,7 +16,9 @@ function StockDescriptionLayout(props: StockDescriptionLayoutProps) {
   return (
     <div>
       {/* MENU NAVIGATION */}
-      <StockDescriptionMenuBar ticker={ticker} />
+      <div className=" py-8 ">
+        <StockDescriptionSubMenuBar ticker={ticker} />
+      </div>
 
       {children}
     </div>

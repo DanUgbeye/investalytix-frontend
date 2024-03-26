@@ -1,5 +1,6 @@
 "use client";
 import { Container } from "@/components/container";
+import Quote from "@/components/ui/Quote";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -7,23 +8,9 @@ import quotes from "@/mock/quotes";
 import Image from "next/image";
 import { HTMLAttributes } from "react";
 import { RiStarSLine } from "react-icons/ri";
-import Quote from "@/components/ui/Quote";
-
-export const TICKER_NAV_TABS = {
-  STOCK_DESCRIPTION: "stock-description",
-  ANALYST_RECOMMENDATIONS: "analyst-recommendation",
-  CHARTS: "charts",
-  FINANCIALS: "financials",
-  INDIVIDUAL_COMPANY_NEWS: "individual-company-news",
-  DIVIDENDS: "dividends",
-  INDUSTRY_SECTOR_COMPARISON: "industry-sector-comparison",
-} as const;
-
-export type TickerNavTab =
-  (typeof TICKER_NAV_TABS)[keyof typeof TICKER_NAV_TABS];
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import TickerSideNav from "../../components/ticker-sidenav";
+import { DesktopTickerNav, MobileTickerNav } from "../../components/ticker-nav";
 
 export interface SearchTickerLayoutProps extends HTMLAttributes<HTMLElement> {
   ticker: string;
@@ -34,14 +21,16 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
 
   return (
     <section {...rest} className={cn("  ", className)}>
-      <Container className=" relative grid min-h-[calc(100dvh-5rem)] max-w-[110rem] grid-cols-1 grid-rows-1 p-0 sm:p-0 xl:p-0 ">
-        <TickerSideNav
+      <Container className=" relative grid min-h-[calc(100dvh-5rem)] max-w-[110rem] grid-cols-1 grid-rows-[auto,1fr] p-0 sm:p-0 md:grid-rows-1 xl:p-0 ">
+        <DesktopTickerNav
           ticker={ticker}
-          className=" top-0 col-start-1 row-start-1 w-[15rem] "
+          className=" top-0 col-start-1 row-start-1 hidden w-[15rem] lg:flex "
         />
 
-        <main className=" col-start-1 row-start-1 ml-[15rem] ">
-          <Container className=" pl-6 sm:pl-6 xl:pl-6 ">
+        <MobileTickerNav ticker={ticker} className=" flex lg:hidden " />
+
+        <main className=" col-start-1 lg:row-start-1 lg:ml-[15rem] ">
+          <Container className=" lg:pl-6 ">
             <section className="  ">
               <div className="mb-4 py-8">
                 <Swiper spaceBetween={0} slidesPerView={"auto"} loop freeMode>
@@ -63,7 +52,7 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
               </div>
             </section>
 
-            <section className=" grid grid-cols-[1fr,auto] grid-rows-2 gap-x-10 gap-y-6 xl:grid-cols-[auto,auto,auto] xl:grid-rows-1 ">
+            <section className=" grid grid-cols-[1fr,auto] grid-rows-[auto,auto,auto] gap-x-10 gap-y-6 xl:grid-cols-[auto,auto,auto] xl:grid-rows-1 ">
               <div className=" col-start-1 space-y-3 ">
                 <div className=" text-3xl font-bold ">Apple INC</div>
                 <div className=" text-sm ">
@@ -71,41 +60,45 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
                 </div>
               </div>
 
-              <div className=" col-span-full row-start-2 flex xl:col-span-1 xl:col-start-2 xl:row-start-1 ">
-                <div className=" space-y-3 ">
-                  <div className=" flex items-center space-x-1.5 ">
-                    <span className=" text-3xl font-bold ">19.88</span>
-                    <span className=" text-lg font-bold text-[#079516] ">
+              <div className=" col-span-full row-start-2 grid w-full grid-cols-[auto,auto,auto] xl:col-span-1 xl:col-start-2 xl:row-start-1 ">
+                <div className=" space-y-1 md:space-y-3 ">
+                  <div className=" flex flex-wrap items-center space-x-1.5 ">
+                    <span className=" text-base font-bold md:text-3xl ">
+                      19.88
+                    </span>
+                    <span className=" text-xs font-bold text-[#079516] md:text-lg ">
                       +1.59 (+8.69%)
                     </span>
                   </div>
 
-                  <div className=" text-sm text-gray-400 ">
+                  <div className=" text-xs text-gray-400 md:text-sm ">
                     At close: December 18 04:00 PM EST
                   </div>
                 </div>
 
                 <Separator orientation="vertical" className=" mx-4 h-full " />
 
-                <div className=" space-y-3 ">
-                  <div className=" flex items-center space-x-1.5 ">
-                    <span className=" text-3xl font-bold ">20.56</span>
-                    <span className=" text-lg font-bold text-red-500 ">
+                <div className=" space-y-1 md:space-y-3 ">
+                  <div className=" flex flex-wrap items-center space-x-1.5 ">
+                    <span className=" text-base font-bold md:text-3xl ">
+                      20.56
+                    </span>
+                    <span className=" text-xs font-bold text-red-500 md:text-lg ">
                       +0.68 (+3.42%)
                     </span>
                   </div>
 
-                  <div className=" text-sm text-gray-400 ">
+                  <div className=" text-xs text-gray-400 md:text-sm ">
                     At close: December 18 04:00 PM EST
                   </div>
                 </div>
               </div>
 
-              <div className=" col-start-2 row-start-1 xl:col-start-3 ">
+              <div className=" row-start-3 sm:col-start-2 sm:row-start-1 xl:col-start-3 ">
                 <Button
-                  variant={"ghost"}
+                  variant={"outline"}
                   size={"lg"}
-                  className=" gap-x-1.5 border-b text-sm "
+                  className=" gap-x-1.5 px-3 text-sm "
                 >
                   <RiStarSLine className=" size-6" />
                   <span className="  ">Add to Favourite</span>

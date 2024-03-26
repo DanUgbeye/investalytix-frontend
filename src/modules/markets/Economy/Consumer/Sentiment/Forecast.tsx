@@ -7,6 +7,7 @@ export default function Forecast() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
+<<<<<<< HEAD
         <p className="text-[#636363] dark:text-white">
           The University of Michigan&apos;s consumer sentiment for the US soared to
           78.8 in January 2024, the highest since July 2021, compared to 69.7 in
@@ -16,6 +17,17 @@ export default function Forecast() {
           year ahead went down to 2.9%, the lowest level since December 2020,
           from 3.1% in the previous month and the five-year outlook also edged
           lower to 2.8% from 2.9%. Meanwhile, the gauge measuring consumer
+=======
+        <p className="text-[#636363]">
+          The University of Michigan&apos;s consumer sentiment for the US soared
+          to 78.8 in January 2024, the highest since July 2021, compared to 69.7
+          in December and forecasts of 70, preliminary estimates showed.
+          Consumer views were supported by confidence that inflation has turned
+          a corner and strengthening income expectations. Inflation expectations
+          for the year ahead went down to 2.9%, the lowest level since December
+          2020, from 3.1% in the previous month and the five-year outlook also
+          edged lower to 2.8% from 2.9%. Meanwhile, the gauge measuring consumer
+>>>>>>> 6a470edda31dbfbe1e8008a5ec50ae440a7e29c0
           expectations surged to 75.9 from 67.4 and the measure assessing
           current economic conditions rose to 83.3 from 73.3. Taking January and
           December together, consumer sentiment has climbed a cumulative 29%,

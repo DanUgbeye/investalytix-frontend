@@ -1,9 +1,9 @@
 import { Quote } from "../market/market.types";
 
 export type TickerData = {
-  outlook: CompanyOutlook,
-  quote: Quote
-}
+  outlook: CompanyOutlook;
+  quote: Quote;
+};
 
 export type CompanyOutlook = {
   profile: Profile;
@@ -188,4 +188,3 @@ export type StockNew = {
   text: string;
   url: string;
 };
-

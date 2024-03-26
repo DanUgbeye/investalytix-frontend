@@ -2,11 +2,11 @@
 
 import { Container } from "@/components/container";
 
-interface FinancialsScreenProps {
+interface RatioScreenProps {
   ticker: string;
 }
 
-export default function FinancialsScreen(props: FinancialsScreenProps) {
+export default function RatioScreen(props: RatioScreenProps) {
   const { ticker } = props;
 
   return <Container className="  "></Container>;
