@@ -1,37 +1,57 @@
 "use client";
 import { Container } from "@/components/container";
 import { Time, createChart } from "lightweight-charts";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import chartData from "@/mock/chart";
 
-export default function ChartPage() {
-  const chartRef = useRef<HTMLDivElement>(null);
+function ChartPage() {
+  const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ref = chartRef.current;
+    const ref = container.current;
     if (ref === null) return;
-
-    const chart = createChart(ref, { autoSize: true });
-    const data = chartData.map((data) => ({
-      ...data,
-      time: new Date(data.date).getTime() / 1000 as Time,
-    }));
-
-    function initChart() {
-      chart.addCandlestickSeries().setData(data);
-      chart.timeScale().fitContent();
-    }
-
-    initChart();
-
-    return () => {};
+    const script = document.createElement("script");
+    script.src =
+      "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+    script.type = "text/javascript";
+    script.async = true;
+    script.innerHTML = `
+        {
+          "autosize": true,
+          "symbol": "NASDAQ:AAPL",
+          "interval": "D",
+          "timezone": "Etc/UTC",
+          "theme": "dark",
+          "style": "1",
+          "locale": "en",
+          "enable_publishing": false,
+          "allow_symbol_change": true,
+          "calendar": false,
+          "support_host": "https://www.tradingview.com"
+        }`;
+    ref.appendChild(script);
   }, []);
+
   return (
-    <>
-      <div
-        className="relative h-[calc(100vh_-_80px)] w-full overflow-hidden"
-        ref={chartRef}
+    <div
+      className=" relative h-[calc(100vh_-_90px)] w-full overflow-hidden"
+      ref={container}
+    >
+      {/* <div
+        className="tradingview-widget-container__widget"
+        style={{ height: "calc(100% - 32px)", width: "100%" }}
       ></div>
-    </>
+      <div className="tradingview-widget-copyright">
+        <a
+          href="https://www.tradingview.com/"
+          rel="noopener nofollow"
+          target="_blank"
+        >
+          <span className="blue-text">Track all markets on TradingView</span>
+        </a>
+      </div> */}
+    </div>
   );
 }
+
+export default ChartPage;

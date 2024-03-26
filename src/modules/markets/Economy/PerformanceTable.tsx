@@ -44,11 +44,7 @@ export default function PerformanceTable({
               <ColoredNumber number={performance.last} />
             </td>
             <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
-<<<<<<< HEAD
               <ColoredNumber number={performance.previous} />
-=======
-              {performance.previous}
->>>>>>> 6a470edda31dbfbe1e8008a5ec50ae440a7e29c0
             </td>
             <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
               {performance.reference}
