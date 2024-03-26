@@ -79,7 +79,7 @@ const performances = [
   },
   {
     country: "South Korea",
-    last: 1.7,
+    last: -1.7,
     previous: 1.5,
     reference: "DEC/23",
     unit: "%",
@@ -87,7 +87,7 @@ const performances = [
   {
     country: "Mexico",
     last: 2.2,
-    previous: 2.0,
+    previous: -2.0,
     reference: "DEC/23",
     unit: "%",
   },
@@ -100,7 +100,7 @@ const performances = [
   },
   {
     country: "South Africa",
-    last: 1.6,
+    last: -1.6,
     previous: 1.4,
     reference: "DEC/23",
     unit: "%",

@@ -119,7 +119,7 @@ const markets = [
   {
     parent: "calendar",
     label: "Economic Calendar",
-    href: "/markets/economy/calander/economic-calendar",
+    href: "/markets/economy/calendar/summary",
   },
 ];
 

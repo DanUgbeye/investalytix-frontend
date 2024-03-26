@@ -3,7 +3,7 @@ import MarketHeader from "@/modules/markets/MarketHeader";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function GrowthRateLayout({
+export default function CalendarLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -11,15 +11,23 @@ export default function GrowthRateLayout({
   const markets = [
     {
       label: "SUMMARY",
-      href: "/markets/economy/gdp/growth-rate/summary",
+      href: "/markets/economy/calendar/summary",
     },
     {
-      label: "STATS",
-      href: "/markets/economy/gdp/growth-rate/stats",
+      label: "IMPACT",
+      href: "/markets/economy/calendar/impact",
     },
     {
-      label: "FORECAST",
-      href: "/markets/economy/gdp/growth-rate/forecast",
+      label: "COUNTRIES",
+      href: "/markets/economy/calendar/countries",
+    },
+    {
+      label: "CATEGORY",
+      href: "/markets/economy/calendar/category",
+    },
+    {
+      label: "UTC +1",
+      href: "/markets/economy/calendar/utc+1",
     },
   ];
   const pathname = usePathname();
@@ -27,7 +35,7 @@ export default function GrowthRateLayout({
   // TODO: change the name based on the route being rendered
   return (
     <>
-      <MarketHeader name="GDP GROWTH RATE" active="ECONOMY" />
+      <MarketHeader name="CALENDAR" active="ECONOMY" />
 
       <div className="mx-auto mb-14 flex w-full justify-between gap-4 overflow-auto px-14 py-5 md:w-fit">
         {markets.map((market, index) => (
