@@ -79,31 +79,37 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                       <td className=" px-2 py-3 ">
                         {item.date.toDateString()}
                       </td>
+
                       <td className=" px-2 py-3 text-right ">
                         {item.open.toLocaleString(undefined, {
                           maximumFractionDigits: 2,
                         })}
                       </td>
+
                       <td className=" px-2 py-3 text-right ">
                         {item.high.toLocaleString(undefined, {
                           maximumFractionDigits: 2,
                         })}
                       </td>
+
                       <td className=" px-2 py-3 text-right ">
                         {item.low.toLocaleString(undefined, {
                           maximumFractionDigits: 2,
                         })}
                       </td>
+
                       <td className=" px-2 py-3 text-right ">
                         {item.close.toLocaleString(undefined, {
                           maximumFractionDigits: 2,
                         })}
                       </td>
+
                       <td className=" px-2 py-3 text-right ">
                         {item.adjClose.toLocaleString(undefined, {
                           maximumFractionDigits: 2,
                         })}
                       </td>
+                      
                       <td className=" px-2 py-3 text-right ">
                         {item.volume.toLocaleString(undefined, {
                           maximumFractionDigits: 2,

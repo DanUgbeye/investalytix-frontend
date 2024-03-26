@@ -96,7 +96,7 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
 
               <div className=" row-start-3 sm:col-start-2 sm:row-start-1 xl:col-start-3 ">
                 <Button
-                  variant={"ghost"}
+                  variant={"outline"}
                   size={"lg"}
                   className=" gap-x-1.5 px-3 text-sm "
                 >
