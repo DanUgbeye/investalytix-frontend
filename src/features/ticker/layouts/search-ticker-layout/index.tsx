@@ -30,7 +30,7 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
         <MobileTickerNav ticker={ticker} className=" flex lg:hidden " />
 
         <main className=" col-start-1 lg:row-start-1 lg:ml-[15rem] ">
-          <Container className=" pl-6 sm:pl-6 xl:pl-6 ">
+          <Container className=" lg:pl-6 ">
             <section className="  ">
               <div className="mb-4 py-8">
                 <Swiper spaceBetween={0} slidesPerView={"auto"} loop freeMode>
