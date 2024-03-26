@@ -1,16 +1,16 @@
 import { Metadata } from "next";
 import React from "react";
-import StockDescriptionPriceChartScreen from "./screen";
+import PriceChartScreen from "./screen";
 import { SearchTickerPageProps } from "../../page";
 
 export const metadata: Metadata = {
   title: "Search Ticker | Investalytix",
 };
 
-interface StockDescriptionPriceChartPageProps extends SearchTickerPageProps {}
+interface PriceChartPageProps extends SearchTickerPageProps {}
 
-function StockDescriptionPriceChartPage(
-  props: StockDescriptionPriceChartPageProps
+export default function PriceChartPage(
+  props: PriceChartPageProps
 ) {
   const {
     params: { ticker },
@@ -18,7 +18,5 @@ function StockDescriptionPriceChartPage(
 
   metadata.title = `${ticker} Stock Description - Price Chart | Investalytix`;
 
-  return <StockDescriptionPriceChartScreen ticker={ticker} />;
+  return <PriceChartScreen ticker={ticker} />;
 }
-
-export default StockDescriptionPriceChartPage;

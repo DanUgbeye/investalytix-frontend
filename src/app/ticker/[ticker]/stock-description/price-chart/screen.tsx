@@ -10,12 +10,12 @@ import {
   YAxis,
 } from "recharts";
 
-interface StockDescriptionPriceChartScreenProps {
+interface PriceChartScreenProps {
   ticker: string;
 }
 
-export default function StockDescriptionPriceChartScreen(
-  props: StockDescriptionPriceChartScreenProps
+export default function PriceChartScreen(
+  props: PriceChartScreenProps
 ) {
   const { ticker } = props;
 

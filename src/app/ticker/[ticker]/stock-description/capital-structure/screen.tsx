@@ -30,18 +30,18 @@ const CAPITAL_STRUCTURE_DATA = [
   },
 ];
 
-interface StockDescriptionCapitalStructureScreenProps {
+interface CapitalStructureScreenProps {
   ticker: string;
 }
 
-export default function StockDescriptionCapitalStructureScreen(
-  props: StockDescriptionCapitalStructureScreenProps
+export default function CapitalStructureScreen(
+  props: CapitalStructureScreenProps
 ) {
   const { ticker } = props;
 
   return (
-    <section className=" grid gap-5 lg:grid-cols-[max-content,1fr] ">
-      <div className=" w-full space-y-5 lg:min-w-60 border ">
+    <section className=" grid gap-7 md:grid-cols-[max-content,1fr] ">
+      <div className=" w-full space-y-5 md:min-w-80 border ">
         <div className=" space-y-1 p-4 border-b ">
           <h4 className=" text-xl font-bold ">Capital Structure </h4>
           <p className=" ">Millions in USD</p>
@@ -89,7 +89,7 @@ export default function StockDescriptionCapitalStructureScreen(
                     <td className="  ">
                       <div className=" flex items-center gap-x-2 ">
                         <span
-                          className=" size-6"
+                          className=" size-7 "
                           style={{ backgroundColor: item.fill }}
                         />
                         <span className=" px-2 py-3 ">{item.label}</span>

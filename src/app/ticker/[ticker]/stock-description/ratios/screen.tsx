@@ -1,23 +1,12 @@
 "use client";
 
-import chart from "@/mock/chart";
-import {
-  Area,
-  AreaChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 import RatioTable from "./ratio-table";
 
-interface StockDescriptionRatioScreenProps {
+interface RatiosScreenProps {
   ticker: string;
 }
 
-export default function StockDescriptionRatioScreen(
-  props: StockDescriptionRatioScreenProps
-) {
+export default function RatiosScreen(props: RatiosScreenProps) {
   const { ticker } = props;
 
   return (

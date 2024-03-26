@@ -1,17 +1,17 @@
 import { Metadata } from "next";
 import React from "react";
-import StockDescriptionCapitalStructureScreen from "./screen";
+import CapitalStructureScreen from "./screen";
 import { SearchTickerPageProps } from "../../page";
 
 export const metadata: Metadata = {
   title: "Search Ticker | Investalytix",
 };
 
-interface StockDescriptionCapitalStructurePageProps
+interface CapitalStructurePageProps
   extends SearchTickerPageProps {}
 
-function StockDescriptionCapitalStructurePage(
-  props: StockDescriptionCapitalStructurePageProps
+  export default function CapitalStructurePage(
+  props: CapitalStructurePageProps
 ) {
   const {
     params: { ticker },
@@ -19,7 +19,7 @@ function StockDescriptionCapitalStructurePage(
 
   metadata.title = `${ticker} Stock Description - Capital Structure | Investalytix`;
 
-  return <StockDescriptionCapitalStructureScreen ticker={ticker} />;
+  return <CapitalStructureScreen ticker={ticker} />;
 }
 
-export default StockDescriptionCapitalStructurePage;
+;

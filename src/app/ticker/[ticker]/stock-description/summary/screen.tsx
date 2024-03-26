@@ -15,12 +15,12 @@ import {
 
 type NewsTab = "dow-jones" | "market";
 
-interface StockDescriptionSummaryScreenProps {
+interface SummaryScreenProps {
   ticker: string;
 }
 
-export default function StockDescriptionSummaryScreen(
-  props: StockDescriptionSummaryScreenProps
+export default function SummaryScreen(
+  props: SummaryScreenProps
 ) {
   const { ticker } = props;
   const [newsTab, setNewsTab] = useState<NewsTab>("market");

@@ -1,22 +1,20 @@
 import { Metadata } from "next";
 import React from "react";
-import StockDescriptionProfileScreen from "./screen";
+import ProfileScreen from "./screen";
 import { SearchTickerPageProps } from "../../page";
 
 export const metadata: Metadata = {
   title: "Search Ticker | Investalytix",
 };
 
-interface StockDescriptionProfilePageProps extends SearchTickerPageProps {}
+interface ProfilePageProps extends SearchTickerPageProps {}
 
-function StockDescriptionProfilePage(props: StockDescriptionProfilePageProps) {
+export default function ProfilePage(props: ProfilePageProps) {
   const {
     params: { ticker },
   } = props;
 
   metadata.title = `${ticker} Stock Description - Profile | Investalytix`;
 
-  return <StockDescriptionProfileScreen ticker={ticker} />;
+  return <ProfileScreen ticker={ticker} />;
 }
-
-export default StockDescriptionProfilePage;

@@ -16,13 +16,11 @@ const FINANCIAL_HISTORY_DATA = {
   yoyChangePercentage: 13.18,
 };
 
-interface StockDescriptionRevenueAndEPSScreenProps {
+interface RevenueAndEPSScreenProps {
   ticker: string;
 }
 
-export default function StockDescriptionRevenueAndEPSScreen(
-  props: StockDescriptionRevenueAndEPSScreenProps
-) {
+export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
   const { ticker } = props;
 
   const [chartTab, setChartTab] = useState<"Earnings" | "Revenue">("Earnings");

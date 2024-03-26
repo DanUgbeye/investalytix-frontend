@@ -1,11 +1,11 @@
 "use client";
 
-interface StockDescriptionProfileScreenProps {
+interface ProfileScreenProps {
   ticker: string;
 }
 
-export default function StockDescriptionProfileScreen(
-  props: StockDescriptionProfileScreenProps
+export default function ProfileScreen(
+  props: ProfileScreenProps
 ) {
   const { ticker } = props;
 

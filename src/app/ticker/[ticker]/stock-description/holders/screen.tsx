@@ -1,12 +1,10 @@
 "use client";
 
-interface StockDescriptionHoldersScreenProps {
+interface HoldersScreenProps {
   ticker: string;
 }
 
-export default function StockDescriptionHoldersScreen(
-  props: StockDescriptionHoldersScreenProps
-) {
+export default function HoldersScreen(props: HoldersScreenProps) {
   const { ticker } = props;
 
   return <section className="  "></section>;

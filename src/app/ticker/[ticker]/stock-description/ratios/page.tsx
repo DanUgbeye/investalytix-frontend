@@ -1,22 +1,20 @@
 import { Metadata } from "next";
 import React from "react";
-import StockDescriptionRatioScreen from "./screen";
+import RatiosScreen from "./screen";
 import { SearchTickerPageProps } from "../../page";
 
 export const metadata: Metadata = {
   title: "Search Ticker | Investalytix",
 };
 
-interface StockDescriptionRatioPageProps extends SearchTickerPageProps {}
+interface RatiosPageProps extends SearchTickerPageProps {}
 
-function StockDescriptionRatioPage(props: StockDescriptionRatioPageProps) {
+export default function RatiosPage(props: RatiosPageProps) {
   const {
     params: { ticker },
   } = props;
 
   metadata.title = `${ticker} Stock Description - Ratios | Investalytix`;
 
-  return <StockDescriptionRatioScreen ticker={ticker} />;
+  return <RatiosScreen ticker={ticker} />;
 }
-
-export default StockDescriptionRatioPage;
