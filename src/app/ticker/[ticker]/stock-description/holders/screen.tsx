@@ -80,7 +80,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
         <div className=" overflow-x-auto ">
           <table className=" w-full min-w-[50rem] text-xs ">
             <thead className="  ">
-              <tr className=" border-b ">
+              <tr className=" border-b font-semibold ">
                 <td className=" px-2 py-3 ">Name</td>
                 <td className=" px-2 py-3 text-center ">% Total Shares Held</td>
                 <td className=" px-2 py-3 text-center ">
@@ -107,11 +107,16 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                       <td className=" px-2 py-3 font-medium ">{item.name}</td>
 
                       <td className=" px-2 py-3 text-center ">
-                        {item.totalSharesHeldPercentage}
+                        {item.totalSharesHeldPercentage.toLocaleString(
+                          undefined,
+                          { maximumFractionDigits: 2 }
+                        )}
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
-                        {item.totalAssetsPercentage}
+                        {item.totalAssetsPercentage.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
@@ -119,15 +124,21 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
-                        {item.currentShares}
+                        {item.currentShares.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
-                        {item.changeAmount}
+                        {item.changeAmount.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
-                        {item.changePercentage}
+                        {item.changePercentage.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
@@ -148,7 +159,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
         <div className=" overflow-x-auto ">
           <table className=" w-full min-w-[50rem] text-xs ">
             <thead className="  ">
-              <tr className=" border-b ">
+              <tr className=" border-b font-semibold ">
                 <td className=" px-2 py-3 ">Name</td>
                 <td className=" px-2 py-3 text-center ">% Total Shares Held</td>
                 <td className=" px-2 py-3 text-center ">
@@ -175,11 +186,16 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                       <td className=" px-2 py-3 font-medium ">{item.name}</td>
 
                       <td className=" px-2 py-3 text-center ">
-                        {item.totalSharesHeldPercentage}
+                        {item.totalSharesHeldPercentage.toLocaleString(
+                          undefined,
+                          { maximumFractionDigits: 2 }
+                        )}
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
-                        {item.totalAssetsPercentage}
+                        {item.totalAssetsPercentage.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
@@ -187,15 +203,21 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
-                        {item.currentShares}
+                        {item.currentShares.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
-                        {item.changeAmount}
+                        {item.changeAmount.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
 
                       <td className=" px-2 py-3 text-center ">
-                        {item.changePercentage}
+                        {item.changePercentage.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
 
                       <td className=" px-2 py-3 text-center ">

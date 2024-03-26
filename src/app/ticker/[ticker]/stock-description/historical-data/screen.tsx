@@ -3,6 +3,16 @@
 import Mapper from "@/components/mapper";
 import { Button } from "@/components/ui/button";
 
+const HISTORICAL_DATA = {
+  date: new Date(),
+  open: 195.18,
+  high: 195.18,
+  low: 195.18,
+  close: 195.18,
+  adjClose: 195.18,
+  volume: 13_029_843,
+};
+
 interface HistoricalDataScreenProps {
   ticker: string;
 }
@@ -47,9 +57,9 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
         </div>
 
         <div className=" overflow-x-auto ">
-          <table className=" w-full min-w-[50rem] ">
+          <table className=" w-full min-w-[45rem] text-xs ">
             <thead className="  ">
-              <tr className=" border-b ">
+              <tr className=" border-b font-semibold ">
                 <td className=" px-2 py-3 ">Date</td>
                 <td className=" px-2 py-3 text-right ">Open</td>
                 <td className=" px-2 py-3 text-right ">High</td>
@@ -62,17 +72,43 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
 
             <tbody className="  ">
               <Mapper
-                list={Array(10).fill("")}
-                component={() => {
+                list={Array<typeof HISTORICAL_DATA>(10).fill(HISTORICAL_DATA)}
+                component={({ item }) => {
                   return (
                     <tr className=" border-b ">
-                      <td className=" px-2 py-3 ">Dec 22, 2023</td>
-                      <td className=" px-2 py-3 text-right ">195.18</td>
-                      <td className=" px-2 py-3 text-right ">195.18</td>
-                      <td className=" px-2 py-3 text-right ">195.18</td>
-                      <td className=" px-2 py-3 text-right ">195.18</td>
-                      <td className=" px-2 py-3 text-right ">195.18</td>
-                      <td className=" px-2 py-3 text-right ">13,029,843</td>
+                      <td className=" px-2 py-3 ">
+                        {item.date.toDateString()}
+                      </td>
+                      <td className=" px-2 py-3 text-right ">
+                        {item.open.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td className=" px-2 py-3 text-right ">
+                        {item.high.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td className=" px-2 py-3 text-right ">
+                        {item.low.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td className=" px-2 py-3 text-right ">
+                        {item.close.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td className=" px-2 py-3 text-right ">
+                        {item.adjClose.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td className=" px-2 py-3 text-right ">
+                        {item.volume.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
                     </tr>
                   );
                 }}

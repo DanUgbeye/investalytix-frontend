@@ -112,8 +112,8 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       const { item } = props;
 
                       return (
-                        <tr className=" text-sm font-bold ">
-                          <td className=" px-2 py-4 text-left text-[#333333] dark:text-white">
+                        <tr className=" text-sm ">
+                          <td className=" font-bold px-2 py-4 text-left text-[#333333] dark:text-white">
                             {item.reportDate.toDateString()}
                           </td>
 
@@ -154,7 +154,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               </table>
             </div>
 
-            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-4 text-xs  ">
+            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-4 text-xs dark:bg-[#262626]  ">
               <div className="  ">
                 The table shows recent earnings report dates and whether the
                 forecast was beat or missed. See the change in forecast and EPS
@@ -190,7 +190,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             <div className=" overflow-y-auto ">
               <table className="w-full  min-w-[50rem] ">
                 <thead>
-                  <tr className=" divide-x border-b border-b-[#DEE2E6] text-sm font-bold text-[#212529] dark:text-white ">
+                  <tr className=" divide-x border-b border-b-[#DEE2E6] text-sm font-semibold text-[#212529] dark:text-white ">
                     <th className=" px-2 py-4 text-left dark:bg-transparent">
                       Report Date
                     </th>
@@ -222,8 +222,8 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       const { item } = props;
 
                       return (
-                        <tr className=" text-sm font-bold ">
-                          <td className=" px-2 py-4 text-left text-[#333333] dark:text-white">
+                        <tr className=" text-sm ">
+                          <td className=" px-2 py-4 text-left text-[#333333] dark:text-white font-semibold">
                             {item.reportDate.toDateString()}
                           </td>
 
@@ -254,7 +254,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               </table>
             </div>
 
-            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-4 text-xs  ">
+            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-4 text-xs dark:bg-[#262626]  ">
               <div className="  ">
                 The table shows recent earnings report dates and whether the
                 forecast was beat or missed. See the change in forecast and EPS
