@@ -258,7 +258,7 @@ function MobileMenu() {
 }
 
 function Search() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleIsOpen = () => setIsOpen((s) => !s);
   return (
