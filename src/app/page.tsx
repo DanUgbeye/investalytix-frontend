@@ -9,26 +9,26 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Home() {
   return (
-    <main className="relative h-[calc(100vh_-_80px)] w-full overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-no-repeat">
+    <main className="relative h-[70vh] lg:h-[calc(100vh_-_100px)] w-full overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-no-repeat">
       <div className="absolute inset-0 z-10 bg-black/50"></div>
 
-      <Container>
+      <Container className="max-w-6xl mx-auto">
         <div className="z-10 flex h-full items-center">
-          <div className="absolute right-0 h-full w-[400px] lg:w-[800px]">
+          <div className="absolute bottom-0 max-xs:left-0 right-0 h-[90%] w-[500px] sm:w-[600px] lg:w-[800px] 2xl:w-[1300px]">
             <Image
               src="/images/girl.png"
               fill
-              className="object-contain"
+              className="object-contain object-bottom"
               alt=""
             />
           </div>
           <div className="text-white z-20">
-            <h1 className="whitespace-nowrap text-6xl font-semibold leading-[1.2em] max-sm:text-center">
+            <h1 className="whitespace-nowrap text-6xl font-semibold leading-[1.2em] max-xs:text-center">
               Look first/
               <br />
               Then leap.
             </h1>
-            <p className="mt-5 text-lg max-sm:text-center">
+            <p className="mt-5 text-lg max-xs:text-center">
               The best trades require research, then commitment.
             </p>
 

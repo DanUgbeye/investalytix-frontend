@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 const config = {
   darkMode: ["selector"],
@@ -10,12 +11,13 @@ const config = {
   ],
   prefix: "",
   theme: {
+    screens: {
+      xs: "540px",
+      ...defaultTheme.screens,
+    },
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
     },
     extend: {
       fontSize: {
