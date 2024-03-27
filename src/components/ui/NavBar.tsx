@@ -12,10 +12,6 @@ type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
 const routes: RouteLink[] = [
   {
-    label: "HOME",
-    href: "/",
-  },
-  {
     label: "PRODUCTS",
     href: "",
     children: [
@@ -68,7 +64,14 @@ export default function NavBar() {
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
             <MobileMenu />
-            <Image src="/images/logo.svg" alt="Logo" height={20} width={150} />
+            <Link href="/">
+              <Image
+                src="/images/logo.svg"
+                alt="Logo"
+                height={20}
+                width={150}
+              />
+            </Link>
           </div>
 
           <div className="hidden xl:flex">
@@ -148,54 +151,6 @@ function NavSection({ section }: { section: RouteLink }) {
         </div>
       </Popover.Panel>
     </Popover>
-  );
-}
-
-function MobileSubMenu({
-  section,
-  back,
-  onSelect,
-}: {
-  section: RouteLink & { children: RouteLink[] };
-  back(): void;
-  onSelect(routes: RouteLink & { children: RouteLink[] }): void;
-}) {
-  return (
-    <div>
-      <div className="flex items-center justify-between border-b px-4 py-4">
-        <button onClick={back}>
-          <FiArrowLeft />
-        </button>
-        <p className="whitespace-nowrap text-sm font-bold uppercase text-black outline-none">
-          {section.label}
-        </p>
-        <button>
-          <FiX />
-        </button>
-      </div>
-      <div className="flex flex-col bg-white">
-        {section.children.map((route) => (
-          <div key={route.label}>
-            {route.children ? (
-              <button
-                className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold uppercase text-black outline-none"
-                // @ts-ignore
-                onClick={() => onSelect(route)}
-              >
-                {route.label}
-                <FiChevronRight />
-              </button>
-            ) : (
-              // <NavSection section={route} />
-              <NavLink
-                route={route}
-                className="focus:bg-primary-/10 inline-block whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold uppercase text-black outline-none"
-              />
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
   );
 }
 
