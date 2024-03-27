@@ -3,9 +3,14 @@
 import Image from "next/image";
 import { Container } from "../container";
 import Link from "next/link";
-import { Dialog, Popover } from "@headlessui/react";
+import { Dialog, Menu, Popover } from "@headlessui/react";
 import { twMerge } from "tailwind-merge";
-import { AnchorHTMLAttributes, ReactPropTypes, useState } from "react";
+import {
+  AnchorHTMLAttributes,
+  Fragment,
+  ReactPropTypes,
+  useState,
+} from "react";
 import { FiArrowLeft, FiChevronRight, FiX } from "react-icons/fi";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
@@ -167,10 +172,11 @@ function MobileMenu() {
   const deleteHistory = () => {
     setHistory((s) => s.slice(0, -1));
   };
+  const resetHistory = () => setHistory([]);
   return (
-    <Popover>
+    <Menu>
       <div className="xl:hidden">
-        <Popover.Button>
+        <Menu.Button>
           <svg
             width={24}
             height={24}
@@ -183,15 +189,15 @@ function MobileMenu() {
               fill="white"
             />
           </svg>
-        </Popover.Button>
-        <Popover.Panel className="fixed z-20 overflow-hidden rounded-lg bg-white max-md:inset-0 md:absolute md:translate-y-8">
+        </Menu.Button>
+        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white max-md:inset-0 md:absolute md:translate-y-8">
           <div className="flex min-w-[300px] flex-col bg-white">
             {history.length === 0 ? (
               <div className="flex flex-col bg-white">
                 <div className="flex items-center justify-end gap-10 border-b px-4 py-4 md:hidden">
-                  <Popover.Button>
+                  <Menu.Button onClick={resetHistory}>
                     <FiX />
-                  </Popover.Button>
+                  </Menu.Button>
                 </div>
                 {routes.map((route) => (
                   <div key={route.label}>
@@ -204,7 +210,6 @@ function MobileMenu() {
                         <FiChevronRight />
                       </button>
                     ) : (
-                      // <NavSection section={route} />
                       <NavLink
                         route={route}
                         className="focus:bg-primary-/10 inline-block whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold uppercase text-black outline-none"
@@ -222,9 +227,9 @@ function MobileMenu() {
                   <p className="whitespace-nowrap text-sm font-bold uppercase text-black outline-none">
                     {lastHistory().label}
                   </p>
-                  <Popover.Button>
+                  <Menu.Button onClick={resetHistory}>
                     <FiX />
-                  </Popover.Button>
+                  </Menu.Button>
                 </div>
 
                 <div className="flex flex-col">
@@ -239,7 +244,6 @@ function MobileMenu() {
                           <FiChevronRight />
                         </button>
                       ) : (
-                        // <NavSection section={route} />
                         <NavLink
                           route={route}
                           className="focus:bg-primary-/10 inline-block whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold uppercase text-black outline-none"
@@ -251,9 +255,9 @@ function MobileMenu() {
               </>
             )}
           </div>
-        </Popover.Panel>
+        </Menu.Items>
       </div>
-    </Popover>
+    </Menu>
   );
 }
 

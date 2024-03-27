@@ -18,13 +18,7 @@ export default function RootLayout({
       <body
         className={`${interFont.variable} font-mulish dark:bg-[#23242C] dark:text-white`}
       >
-        <NavBar />
-
         {children}
-
-        <p className="mt-6 bg-black py-5 text-center font-bold text-white">
-          Trusted by more than 89,300 successful value investors
-        </p>
       </body>
     </html>
   );
