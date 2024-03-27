@@ -97,13 +97,15 @@ const mockNews = [
 
 export default function Summary() {
   return (
-    <div className="">
+    <div className="overflow-auto">
       <table className="w-full table-auto">
         <thead>
           <tr className="text-left text-[#212529] dark:text-white">
-            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent">
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent whitespace-nowrap">
               Tuesday March 12 2024
             </th>
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent"></th>
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent"></th>
             <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent">
               Actual
             </th>
@@ -126,15 +128,17 @@ export default function Summary() {
               key={index}
               className="text-left text-[#212529] dark:text-white"
             >
+              <td className="whitespace-nowrap border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
+                {moment(news.time).format("HH:MM A")}
+              </td>
               <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
-                <div className="flex">
-                 {moment(news.time).format("HH:MM A")}
-                  <span className="flex items-center gap-1 px-10">
-                    <FiFlag />
-                    {news.country}
-                  </span>
-                  {news.name}
-                </div>
+                <span className="flex items-center gap-1 px-10">
+                  <FiFlag />
+                  {news.country}
+                </span>
+              </td>
+              <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
+                {news.name}
               </td>
               <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
                 <ColoredNumber number={news.actual} />
