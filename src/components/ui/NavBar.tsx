@@ -142,24 +142,24 @@ function NavLink({
 
 function NavSection({ section }: { section: RouteLink }) {
   return (
-    <Popover>
-      <Popover.Button
-        className={`inline-block rounded-full px-4 py-4 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10 focus:bg-primary-base/10`}
+    <Menu>
+      <Menu.Button
+        className={`inline-block rounded-full px-4 py-4 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10`}
       >
         {section.label}
-      </Popover.Button>
-      <Popover.Panel className="absolute z-10 translate-y-8 overflow-hidden rounded-lg">
-        <div className="flex flex-col bg-black dark:bg-white">
+      </Menu.Button>
+      <Menu.Items className="absolute z-20 translate-y-8 overflow-hidden rounded-lg bg-white">
+        <div className="flex min-w-[300px] flex-col bg-white">
           {section.children?.map((route) => (
             <NavLink
               key={route.label}
-              className="px-4 py-2 font-medium capitalize text-white"
+              className="px-4 py-2 font-medium capitalize text-black"
               route={route}
             />
           ))}
         </div>
-      </Popover.Panel>
-    </Popover>
+      </Menu.Items>
+    </Menu>
   );
 }
 
