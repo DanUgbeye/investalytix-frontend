@@ -176,7 +176,7 @@ export default function PricingPage() {
             <p className="mt-4 text-center text-lg">
               Support details to capture customers that might be on the fence.
             </p>
-            <button className="mx-auto mt-6 block w-fit border border-black px-6 py-3">
+            <button className="mx-auto mt-6 block w-fit border border-black dark:border-white px-6 py-3">
               Contact us
             </button>
           </div>
@@ -192,7 +192,7 @@ function Testimonial({
   testimony: (typeof testimonials)[number];
 }) {
   return (
-    <div className="testimony border border-black p-8">
+    <div className="testimony border border-black dark:border-white/10 p-8">
       <div className="flex items-center">
         <FiStar />
         <FiStar />
@@ -217,11 +217,11 @@ function Testimonial({
 
 function Plan({ plan }: { plan: (typeof plans)[number] }) {
   return (
-    <div className="rounded-t-2xl border border-black p-8">
+    <div className="rounded-t-2xl border border-black p-8 dark:border-white/10">
       <p className="text-xl font-bold">{plan.name}</p>
       <p className="mb-8 mt-1">{plan.desc}</p>
 
-      <hr className="border-black" />
+      <hr className="border-black dark:border-white/10" />
 
       <p className="mt-8 text-6xl font-bold">
         ${plan.monthly}
@@ -233,7 +233,7 @@ function Plan({ plan }: { plan: (typeof plans)[number] }) {
         Get started
       </button>
 
-      <hr className="border-black" />
+      <hr className="border-black dark:border-white/10" />
 
       <div className="mt-8 flex flex-col gap-4">
         {plan.features.map((feature, index) => (
@@ -254,7 +254,7 @@ function FAQ({ faq }: { faq: (typeof faqs)[number] }) {
   return (
     <Disclosure>
       {({ open }) => (
-        <div className="border-b border-b-black">
+        <div className="border-b border-b-black dark:border-b-white/10">
           <Disclosure.Button
             className={`flex w-full items-center justify-between gap-5 py-4 text-lg font-bold ${open ? "" : ""}`}
           >

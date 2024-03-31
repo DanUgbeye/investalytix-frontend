@@ -68,7 +68,7 @@ const routes: RouteLink[] = [
 export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
   return (
-    <nav className="bg-[#0B0B0B] py-3">
+    <nav className="bg-black py-3">
       <Container>
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
@@ -91,7 +91,7 @@ export default function NavBar() {
                 ) : (
                   <NavLink
                     route={route}
-                    className="focus:bg-primary-/10 inline-block rounded-full px-4 py-4 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10"
+                    className="focus:bg-primary-/10 inline-block rounded-full px-4 py-1 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10"
                   />
                 )}
               </div>
@@ -101,7 +101,8 @@ export default function NavBar() {
           <div className="flex items-center">
             <Search />
             <button
-              className="ml-6 inline-block font-bold text-white rounded-full p-2"
+              title="theme"
+              className="ml-6 inline-block rounded-full p-2 font-bold text-white"
               onClick={toggleTheme}
             >
               {theme === "light" ? <FiMoon /> : <FiSun />}
@@ -149,7 +150,7 @@ function NavSection({ section }: { section: RouteLink }) {
   return (
     <Menu>
       <Menu.Button
-        className={`inline-block rounded-full px-4 py-4 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10`}
+        className={`inline-block rounded-full px-4 py-1 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10`}
       >
         {section.label}
       </Menu.Button>
@@ -227,13 +228,13 @@ function MobileMenu() {
               <>
                 <div className="flex items-center justify-between gap-10 border-b px-4 py-4">
                   <button onClick={deleteHistory}>
-                    <FiArrowLeft />
+                    <FiArrowLeft className="text-black"/>
                   </button>
                   <p className="whitespace-nowrap text-sm font-bold uppercase text-black outline-none">
                     {lastHistory().label}
                   </p>
                   <Menu.Button onClick={resetHistory}>
-                    <FiX />
+                    <FiX className="text-black"/>
                   </Menu.Button>
                 </div>
 
@@ -273,6 +274,7 @@ function Search() {
   return (
     <>
       <button
+        title="Search"
         className="grid place-content-center overflow-hidden rounded-full p-2"
         onClick={toggleIsOpen}
       >

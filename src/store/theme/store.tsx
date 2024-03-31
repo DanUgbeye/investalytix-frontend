@@ -17,11 +17,19 @@ export default function ThemeContextProvider({
     const body = document.querySelector("body");
     if (!body) return;
 
-    body.classList.toggle("dark");
+    let newTheme = theme;
     setTheme((theme) => {
-      if (theme === "light") return "dark";
-      else return "light";
+      if (theme === "light") {
+        newTheme = "dark";
+        return "dark";
+      } else {
+        newTheme = "light";
+        return "light";
+      }
     });
+
+    if (newTheme === "light" && body.classList.contains("dark"))
+      body.classList.toggle("dark");
   };
   const value = { theme, toggleTheme };
   return (
