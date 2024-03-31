@@ -9,12 +9,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Home() {
   return (
-    <main className="relative h-[70vh] lg:h-[calc(100vh_-_100px)] w-full overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-no-repeat">
+    <main className="relative h-[70vh] sm:h-[90vh] w-full overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-no-repeat lg:h-[calc(100vh_-_100px)]">
       <div className="absolute inset-0 z-10 bg-black/50"></div>
 
-      <Container className="max-w-6xl mx-auto">
+      <Container className="mx-auto">
         <div className="z-10 flex h-full items-center">
-          <div className="absolute bottom-0 max-xs:left-0 right-0 h-[90%] w-[500px] sm:w-[600px] lg:w-[800px] 2xl:w-[1300px]">
+          <div className="absolute bottom-0 right-0 h-full w-screen md:w-screen lg:w-[600px] xl:w-[800px] max-lg:left-0">
             <Image
               src="/images/girl.png"
               fill
@@ -22,25 +22,18 @@ export default function Home() {
               alt=""
             />
           </div>
-          <div className="text-white z-20">
-            <h1 className="whitespace-nowrap text-6xl font-semibold leading-[1.2em] max-xs:text-center">
+          <div className="z-20 text-white">
+            <h1 className="whitespace-nowrap text-6xl md:text-7xl xl:text-8xl font-bold leading-[1.5em] max-xs:text-center">
               Look first/
               <br />
               Then leap.
             </h1>
-            <p className="mt-5 text-lg max-xs:text-center">
+            <p className="mt-5 max-w-sm lg:max-w-lg text-lg font-medium max-xs:text-center xl:mt-8 xl:max-w-xl xl:text-xl">
               The best trades require research, then commitment.
             </p>
 
-            <div className="relative mt-5 h-fit">
-              <input
-                type="search"
-                name="search"
-                id="search"
-                placeholder="Search for ticker, quotes & videos"
-                className="w-full min-w-[320px] rounded-full bg-white px-6 py-6 text-sm font-bold text-black placeholder:text-black"
-              />
-              <div className="absolute bottom-4 right-0 top-4 grid -translate-x-1/2 place-content-center bg-white pl-6">
+            <div className="relative mt-10 h-fit">
+              <div className="absolute bottom-4 left-4 top-4 grid translate-x-1/2 place-content-center bg-white">
                 <svg
                   width={16}
                   height={16}
@@ -54,6 +47,13 @@ export default function Home() {
                   />
                 </svg>
               </div>
+              <input
+                type="search"
+                name="search"
+                id="search"
+                placeholder="Search for ticker, quotes & videos"
+                className="w-full rounded-full bg-white pl-16 pr-6 py-6 text-sm font-bold text-black placeholder:text-black"
+              />
             </div>
           </div>
         </div>
