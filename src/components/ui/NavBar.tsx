@@ -12,6 +12,7 @@ import {
   useState,
 } from "react";
 import { FiArrowLeft, FiChevronRight, FiX } from "react-icons/fi";
+import useTheme from "@/store/theme/useTheme";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -59,10 +60,7 @@ const routes: RouteLink[] = [
 ];
 
 export default function NavBar() {
-  const toggleTheme = () => {
-    const body = document.querySelector("body");
-    if (body) body.classList.toggle("dark");
-  };
+  const { toggleTheme } = useTheme();
   return (
     <nav className="bg-[#0B0B0B] py-3">
       <Container>

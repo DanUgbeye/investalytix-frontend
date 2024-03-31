@@ -3,13 +3,18 @@ import { Container } from "@/components/container";
 import { Time, createChart } from "lightweight-charts";
 import { memo, useEffect, useRef } from "react";
 import chartData from "@/mock/chart";
+import useTheme from "@/store/theme/useTheme";
 
 function ChartPage() {
   const container = useRef<HTMLDivElement>(null);
-
+  const { theme } = useTheme();
   useEffect(() => {
     const ref = container.current;
     if (ref === null) return;
+
+    while (ref.firstChild) {
+      ref.removeChild(ref.firstChild);
+    }
     const script = document.createElement("script");
     script.src =
       "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
@@ -21,7 +26,7 @@ function ChartPage() {
           "symbol": "NASDAQ:AAPL",
           "interval": "D",
           "timezone": "Etc/UTC",
-          "theme": "dark",
+          "theme": "${theme}",
           "style": "1",
           "locale": "en",
           "enable_publishing": false,
@@ -30,11 +35,11 @@ function ChartPage() {
           "support_host": "https://www.tradingview.com"
         }`;
     ref.appendChild(script);
-  }, []);
+  }, [theme]);
 
   return (
     <div
-      className=" relative h-[calc(100vh_-_90px)] w-full overflow-hidden"
+      className=" relative h-[calc(100vh_-_184px)] w-full overflow-hidden"
       ref={container}
     >
       {/* <div
