@@ -19,7 +19,7 @@ function SearchTickerPage(props: SearchTickerPageProps) {
   } = props;
 
   return redirect(
-    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION}`
+    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION.path}`
   );
 }
 
