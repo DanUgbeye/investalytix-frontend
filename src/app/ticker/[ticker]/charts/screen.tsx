@@ -35,7 +35,7 @@ export default function ChartsScreen(props: ChartsScreenProps) {
           "style": "1",
           "locale": "en",
           "enable_publishing": false,
-          "allow_symbol_change": true,
+          "allow_symbol_change": false,
           "calendar": false,
           "support_host": "https://www.tradingview.com"
         }`;
