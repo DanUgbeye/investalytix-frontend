@@ -52,14 +52,14 @@ export default function NewsScreen(props: NewsScreenProps) {
           </div>
         </div>
 
-        <div className=" space-y-4 ">
+        <div className=" grid grid-cols-[repeat(auto-fill,minmax(0,20rem))] gap-4 xl:grid-cols-1 ">
           {Array(3)
             .fill("")
             .map((_, index) => (
               <div
                 key={`news-${index}`}
                 className={
-                  " grid grid-cols-1 grid-rows-[auto,auto] gap-5 border-[#DCDCDC] py-4 "
+                  " grid grid-cols-1 grid-rows-[auto,auto] gap-5 border-[#DCDCDC] "
                 }
               >
                 <Image
@@ -71,12 +71,12 @@ export default function NewsScreen(props: NewsScreenProps) {
                 />
 
                 <div className="flex flex-wrap items-start justify-between gap-2 ">
-                  <p className="font-bold text-[#020224] lg:text-lg dark:text-white">
+                  <p className="font-bold text-[#020224] text-sm lg:text-lg dark:text-white">
                     Cardinal Health Started With Underweight at Wells Fargo,
                     Shares Drop 6%
                   </p>
 
-                  <p className="flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base dark:text-white">
+                  <p className="flex flex-nowrap items-center gap-2 text-xs font-medium text-[#565555] lg:text-base dark:text-white">
                     <span className="">ADBE</span>
                     <span className="inline-block size-2 bg-[#0097F4]"></span>
                     <span className="whitespace-nowrap">14 December, 2023</span>
