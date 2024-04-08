@@ -52,7 +52,7 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
               </div>
             </section>
 
-            <section className=" grid grid-cols-[1fr,auto] grid-rows-[auto,auto,auto] gap-x-10 gap-y-6 xl:grid-cols-[auto,auto,auto] xl:grid-rows-1 ">
+            <section className=" grid sm:grid-cols-[1fr,auto] grid-rows-[auto,auto,auto] gap-x-10 gap-y-6 xl:grid-cols-[auto,auto,auto] sm:grid-rows-1 ">
               <div className=" col-start-1 space-y-3 ">
                 <div className=" text-3xl font-bold ">Apple INC</div>
                 <div className=" text-sm ">

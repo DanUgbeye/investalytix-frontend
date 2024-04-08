@@ -1,7 +1,5 @@
 "use client";
 
-import { Container } from "@/components/container";
-
 interface DividendsScreenProps {
   ticker: string;
 }
