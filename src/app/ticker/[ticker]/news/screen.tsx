@@ -15,7 +15,7 @@ export default function NewsScreen(props: NewsScreenProps) {
     <section className=" py-12 ">
       <div className=" grid gap-10 xl:grid-cols-[3fr,2fr] ">
         {/* KEY DATA */}
-        <div className=" w-full min-w-60 space-y-4 border px-4 py-8 ">
+        <div className=" w-full space-y-4 xl:border xl:px-4 xl:py-8 ">
           <header className="relative w-full ">
             <div className=" flex w-full py-4 ">
               <h3 className=" text-2xl font-bold text-[#2A3037] dark:text-white">
