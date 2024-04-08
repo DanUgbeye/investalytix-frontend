@@ -121,10 +121,10 @@ export default function IncomeStatementScreen(
   const { ticker } = props;
 
   return (
-    <section className="  ">
+    <section className=" pb-12 ">
       <div className=" overflow-x-auto ">
         <table className=" w-full min-w-[50rem] border-b border-r border-[#DEE2E6] ">
-          <tbody>
+          <thead>
             <tr className="  text-sm font-bold ">
               <th className=" w-60 border-b border-r border-[#DEE2E6] px-2 py-4 text-left dark:bg-transparent "></th>
 
@@ -132,23 +132,25 @@ export default function IncomeStatementScreen(
                 const year = new Date(data.date).getFullYear();
 
                 return (
-                  <td
+                  <th
                     key={`${year}-${index}`}
-                    className=" border-y border-y-[#DEE2E6] px-2 py-4 text-right dark:bg-transparent"
+                    className=" border-y border-y-[#DEE2E6] bg-slate-200 px-2 py-4 text-right dark:bg-transparent"
                   >
                     {year}
-                  </td>
+                  </th>
                 );
               })}
             </tr>
+          </thead>
 
-            <tr className=" text-sm ">
+          <tbody className=" ">
+            <tr className=" bg-slate-200 text-sm dark:bg-transparent ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent ">
                 Revenue
               </th>
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Sales & Services Revenue
               </th>
@@ -167,7 +169,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Cost of Revenue
               </th>
@@ -186,7 +188,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Cost of Goods & Services
               </th>
@@ -205,7 +207,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Gross Profit
               </th>
@@ -224,13 +226,13 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" bg-slate-200 text-sm dark:bg-transparent ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
                 Other Operating Income
               </th>
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Operating Expenses
               </th>
@@ -249,7 +251,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Selling, General & Advance
               </th>
@@ -268,7 +270,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Research & Development
               </th>
@@ -287,7 +289,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Other Operating Expenses
               </th>
@@ -306,7 +308,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Pretax Margin
               </th>
@@ -325,7 +327,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Income before XO Margin
               </th>
@@ -344,7 +346,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Net Income Margin
               </th>
@@ -363,7 +365,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Net Income to Common Margin
               </th>
@@ -382,13 +384,13 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" bg-slate-200 text-sm dark:bg-transparent ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
                 Additional
               </th>
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Effective Tax Rate
               </th>
@@ -407,7 +409,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 DVD Pay-out Ratio
               </th>
@@ -426,7 +428,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm ">
+            <tr className=" text-sm even:bg-[#F8F9FC] ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Sustainable Growth Rate
               </th>
