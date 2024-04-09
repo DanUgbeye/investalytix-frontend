@@ -6,7 +6,7 @@ import "swiper/css";
 
 export default function Home() {
   return (
-    <main className="relative h-[80dvh] w-full overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-no-repeat sm:h-[90dvh] lg:h-[calc(100dvh_-_100px)]">
+    <main className="relative h-[90dvh] w-full overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-no-repeat lg:h-[calc(100dvh_-_100px)]">
       <div className="absolute inset-0 z-10 bg-black/50"></div>
 
       <Container className="mx-auto">

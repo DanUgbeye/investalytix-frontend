@@ -7,7 +7,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import useTheme from "@/store/theme/useTheme";
@@ -110,7 +110,7 @@ export default function NavBar() {
                                       key={`${childRoute.href}-${index}`}
                                       href={childRoute.href}
                                       className={
-                                        " grid w-full min-w-fit px-4 py-3 hover:bg-gray-200 "
+                                        " grid w-full min-w-fit px-4 py-3 hover:bg-gray-100 "
                                       }
                                     >
                                       {childRoute.label}
@@ -123,7 +123,7 @@ export default function NavBar() {
                                     key={`${childRoute.href}-${index}`}
                                     variant={"ghost"}
                                     className={
-                                      " grid w-full min-w-fit px-4 py-3 hover:bg-gray-200 "
+                                      " grid w-full min-w-fit px-4 py-3 hover:bg-gray-100 "
                                     }
                                   >
                                     {childRoute.label}
@@ -164,21 +164,6 @@ export default function NavBar() {
                 </NavigationMenu>
               );
             })}
-
-            {/* {routes.map((route) => {
-              return (
-                <div key={route.label}>
-                  {route.children ? (
-                    <NavSection section={route} />
-                  ) : (
-                    <NavLink
-                      route={route}
-                      className="focus:bg-primary-/10 inline-block rounded-full px-4 py-1 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10"
-                    />
-                  )}
-                </div>
-              );
-            })} */}
           </div>
 
           <div className="flex items-center">
@@ -220,28 +205,28 @@ function NavLink({
   );
 }
 
-function NavSection({ section }: { section: RouteLink }) {
-  return (
-    <Menu>
-      <Menu.Button
-        className={`inline-block rounded-full px-4 py-1 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10`}
-      >
-        {section.label}
-      </Menu.Button>
-      <Menu.Items className="absolute z-20 translate-y-8 overflow-hidden rounded-lg bg-white">
-        <div className="flex min-w-[300px] flex-col bg-white">
-          {section.children?.map((route) => (
-            <NavLink
-              key={route.label}
-              className="px-4 py-2 font-medium capitalize text-black"
-              route={route}
-            />
-          ))}
-        </div>
-      </Menu.Items>
-    </Menu>
-  );
-}
+// function NavSection({ section }: { section: RouteLink }) {
+//   return (
+//     <Menu>
+//       <Menu.Button
+//         className={`inline-block rounded-full px-4 py-1 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10`}
+//       >
+//         {section.label}
+//       </Menu.Button>
+//       <Menu.Items className="absolute z-20 translate-y-8 overflow-hidden rounded-lg bg-white">
+//         <div className="flex min-w-[300px] flex-col bg-white">
+//           {section.children?.map((route) => (
+//             <NavLink
+//               key={route.label}
+//               className="px-4 py-2 font-medium capitalize text-black"
+//               route={route}
+//             />
+//           ))}
+//         </div>
+//       </Menu.Items>
+//     </Menu>
+//   );
+// }
 
 function MobileMenu() {
   const [history, setHistory] = useState<RouteLink[]>([]);
@@ -275,63 +260,82 @@ function MobileMenu() {
             />
           </svg>
         </Menu.Button>
-        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white max-md:inset-0 md:absolute md:translate-y-8">
+
+        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 ">
           <div className="flex min-w-[300px] flex-col bg-white">
             {history.length === 0 ? (
-              <div className="flex flex-col bg-white">
-                <div className="flex items-center justify-end gap-10 border-b px-4 py-4 md:hidden">
-                  <Menu.Button onClick={resetHistory}>
-                    <FiX />
-                  </Menu.Button>
-                </div>
-                {routes.map((route) => (
-                  <div key={route.label}>
-                    {route.children ? (
-                      <button
-                        className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold uppercase text-black outline-none"
-                        onClick={() => addHistory(route)}
-                      >
-                        {route.label}
-                        <FiChevronRight />
-                      </button>
-                    ) : (
-                      <NavLink
-                        route={route}
-                        className="focus:bg-primary-/10 inline-block whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold uppercase text-black outline-none"
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <>
-                <div className="flex items-center justify-between gap-10 border-b px-4 py-4">
-                  <button onClick={deleteHistory}>
-                    <FiArrowLeft className="text-black" />
-                  </button>
-                  <p className="whitespace-nowrap text-sm font-bold uppercase text-black outline-none">
-                    {lastHistory().label}
-                  </p>
-                  <Menu.Button onClick={resetHistory}>
-                    <FiX className="text-black" />
+              <div className="flex flex-col bg-white dark:bg-gray-600 ">
+                <div className="flex items-center justify-end gap-10 border-b sm:hidden">
+                  <Menu.Button
+                    onClick={resetHistory}
+                    className={
+                      " grid size-12 place-items-center duration-300 hover:bg-gray-100 "
+                    }
+                  >
+                    <FiX className=" size-5 " />
                   </Menu.Button>
                 </div>
 
-                <div className="flex flex-col">
-                  {(lastHistory().children ?? []).map((route) => (
+                <div className=" py-2 ">
+                  {routes.map((route) => (
                     <div key={route.label}>
                       {route.children ? (
                         <button
-                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold uppercase text-black outline-none"
+                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100"
                           onClick={() => addHistory(route)}
                         >
                           {route.label}
-                          <FiChevronRight />
+                          <FiChevronRight className=" size-5 " />
                         </button>
                       ) : (
                         <NavLink
                           route={route}
-                          className="focus:bg-primary-/10 inline-block whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold uppercase text-black outline-none"
+                          className="focus:bg-primary-/10 inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100"
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center justify-between gap-10 border-b ">
+                  <button
+                    onClick={deleteHistory}
+                    className=" grid size-12 place-items-center duration-300 hover:bg-gray-100 "
+                  >
+                    <FiArrowLeft className="size-5 text-black " />
+                  </button>
+
+                  <p className="whitespace-nowrap text-sm font-bold uppercase text-black outline-none">
+                    {lastHistory().label}
+                  </p>
+
+                  <Menu.Button
+                    onClick={resetHistory}
+                    className={
+                      " grid size-12 place-items-center duration-300 hover:bg-gray-100 "
+                    }
+                  >
+                    <FiX className="size-5 text-black " />
+                  </Menu.Button>
+                </div>
+
+                <div className="flex flex-col py-2 ">
+                  {(lastHistory().children ?? []).map((route) => (
+                    <div key={route.label}>
+                      {route.children ? (
+                        <button
+                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100"
+                          onClick={() => addHistory(route)}
+                        >
+                          {route.label}
+                          <FiChevronRight className=" size-5 " />
+                        </button>
+                      ) : (
+                        <NavLink
+                          route={route}
+                          className="focus:bg-primary-/10 inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100"
                         />
                       )}
                     </div>
