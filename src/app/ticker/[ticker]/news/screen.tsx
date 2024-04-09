@@ -71,7 +71,7 @@ export default function NewsScreen(props: NewsScreenProps) {
                 />
 
                 <div className="flex flex-wrap items-start justify-between gap-2 ">
-                  <p className="font-bold text-[#020224] text-sm lg:text-lg dark:text-white">
+                  <p className="text-sm font-bold text-[#020224] lg:text-lg dark:text-white">
                     Cardinal Health Started With Underweight at Wells Fargo,
                     Shares Drop 6%
                   </p>

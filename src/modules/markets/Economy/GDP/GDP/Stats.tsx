@@ -3,8 +3,6 @@ import Panel from "../../Panel";
 import GDP from "./GDP";
 import RelatedTable from "./RelatedTable";
 
-
-
 export default function Stats() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">

@@ -109,7 +109,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      
+
                       <td className=" px-2 py-3 text-right ">
                         {item.volume.toLocaleString(undefined, {
                           maximumFractionDigits: 2,

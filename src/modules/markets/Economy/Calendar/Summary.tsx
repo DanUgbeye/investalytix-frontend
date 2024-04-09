@@ -101,7 +101,7 @@ export default function Summary() {
       <table className="w-full table-auto">
         <thead>
           <tr className="text-left text-[#212529] dark:text-white">
-            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent whitespace-nowrap">
+            <th className="whitespace-nowrap border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent">
               Tuesday March 12 2024
             </th>
             <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent"></th>

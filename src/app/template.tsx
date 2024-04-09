@@ -11,7 +11,7 @@ export default function RootTemplate({
 
       {children}
 
-      <p className="mt-6 bg-black py-5 text-center font-bold text-white dark:border-t dark:border-t-white/10">
+      <p className=" bg-black py-5 text-center font-bold text-white dark:border-t dark:border-t-white/10">
         Trusted by more than 89,300 successful value investors
       </p>
     </>

@@ -1,5 +1,3 @@
-export default function Utc1Page(){
-    return(
-        <div></div>
-    )
+export default function Utc1Page() {
+  return <div></div>;
 }

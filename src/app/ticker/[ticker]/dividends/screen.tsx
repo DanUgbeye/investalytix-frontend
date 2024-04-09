@@ -249,26 +249,26 @@ export default function DividendsScreen(props: DividendsScreenProps) {
       </div>
 
       <div className=" overflow-x-auto ">
-        <table className="w-full border-x border-b min-w-[50rem] ">
+        <table className="w-full min-w-[50rem] border-x border-b ">
           <thead>
             <tr className=" divide-x border-b text-sm font-bold ">
-              <th className=" px-2 py-4 text-left rounded-t-xl bg-black text-white ">
+              <th className=" rounded-t-xl bg-black px-2 py-4 text-left text-white ">
                 Declaration Date
               </th>
 
-              <th className=" px-2 py-4 text-right rounded-t-xl bg-black text-white ">
+              <th className=" rounded-t-xl bg-black px-2 py-4 text-right text-white ">
                 Payment Date
               </th>
 
-              <th className=" px-2 py-4 text-right rounded-t-xl bg-black text-white ">
+              <th className=" rounded-t-xl bg-black px-2 py-4 text-right text-white ">
                 Record Date
               </th>
 
-              <th className=" px-2 py-4 text-right rounded-t-xl bg-black text-white ">
+              <th className=" rounded-t-xl bg-black px-2 py-4 text-right text-white ">
                 Amount
               </th>
 
-              <th className=" px-2 py-4 text-right rounded-t-xl bg-black text-white ">
+              <th className=" rounded-t-xl bg-black px-2 py-4 text-right text-white ">
                 Currency
               </th>
             </tr>
@@ -280,19 +280,15 @@ export default function DividendsScreen(props: DividendsScreenProps) {
               .map((_, index) => {
                 return (
                   <tr key={`dividends-${index}`} className=" text-sm ">
-                    <td className=" px-2 py-4 border text-left ">
-                      02-03-23
-                    </td>
+                    <td className=" border px-2 py-4 text-left ">02-03-23</td>
 
-                    <td className={` px-2 py-4 border text-right`}>02-03-23</td>
+                    <td className={` border px-2 py-4 text-right`}>02-03-23</td>
 
-                    <td className=" px-2 py-4 border text-right ">
-                      02-03-23
-                    </td>
+                    <td className=" border px-2 py-4 text-right ">02-03-23</td>
 
-                    <td className=" px-2 py-4 border text-right">0.24</td>
+                    <td className=" border px-2 py-4 text-right">0.24</td>
 
-                    <td className=" px-2 py-4 border text-right">USD</td>
+                    <td className=" border px-2 py-4 text-right">USD</td>
                   </tr>
                 );
               })}

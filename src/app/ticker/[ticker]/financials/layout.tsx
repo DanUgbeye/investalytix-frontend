@@ -19,7 +19,7 @@ function FinancialsLayout(props: FinancialsLayoutProps) {
         {/* MENU NAVIGATION */}
         <FinancialsMenuBar ticker={ticker} />
       </div>
-      
+
       {children}
     </div>
   );

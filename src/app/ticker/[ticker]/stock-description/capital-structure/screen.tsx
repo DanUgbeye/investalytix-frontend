@@ -41,8 +41,8 @@ export default function CapitalStructureScreen(
 
   return (
     <section className=" grid gap-7 md:grid-cols-[max-content,1fr] ">
-      <div className=" w-full space-y-5 md:min-w-80 border ">
-        <div className=" space-y-1 p-4 border-b ">
+      <div className=" w-full space-y-5 border md:min-w-80 ">
+        <div className=" space-y-1 border-b p-4 ">
           <h4 className=" text-xl font-semibold ">Capital Structure </h4>
           <p className=" ">Millions in USD</p>
         </div>
@@ -106,7 +106,7 @@ export default function CapitalStructureScreen(
               }}
             />
 
-            <tr className=" odd:bg-neutral-100 dark:odd:bg-transparent font-semibold ">
+            <tr className=" font-semibold odd:bg-neutral-100 dark:odd:bg-transparent ">
               <td className=" px-2 py-3 ">Total</td>
               <td className=" px-2 py-3 ">
                 {CAPITAL_STRUCTURE_DATA.reduce((acc, current) => {

@@ -19,9 +19,7 @@ interface SummaryScreenProps {
   ticker: string;
 }
 
-export default function SummaryScreen(
-  props: SummaryScreenProps
-) {
+export default function SummaryScreen(props: SummaryScreenProps) {
   const { ticker } = props;
   const [newsTab, setNewsTab] = useState<NewsTab>("market");
 

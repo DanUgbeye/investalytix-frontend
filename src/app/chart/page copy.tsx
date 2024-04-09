@@ -14,7 +14,7 @@ export default function ChartPage() {
     const chart = createChart(ref, { autoSize: true });
     const data = chartData.map((data) => ({
       ...data,
-      time: new Date(data.date).getTime() / 1000 as Time,
+      time: (new Date(data.date).getTime() / 1000) as Time,
     }));
 
     function initChart() {

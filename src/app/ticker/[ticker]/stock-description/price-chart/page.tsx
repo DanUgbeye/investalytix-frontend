@@ -9,9 +9,7 @@ export const metadata: Metadata = {
 
 interface PriceChartPageProps extends SearchTickerPageProps {}
 
-export default function PriceChartPage(
-  props: PriceChartPageProps
-) {
+export default function PriceChartPage(props: PriceChartPageProps) {
   const {
     params: { ticker },
   } = props;

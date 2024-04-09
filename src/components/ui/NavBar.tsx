@@ -1,16 +1,10 @@
 "use client";
 
+import useTheme from "@/store/theme/useTheme";
+import { Dialog, Menu } from "@headlessui/react";
 import Image from "next/image";
-import { Container } from "../container";
 import Link from "next/link";
-import { Dialog, Menu, Popover } from "@headlessui/react";
-import { twMerge } from "tailwind-merge";
-import {
-  AnchorHTMLAttributes,
-  Fragment,
-  ReactPropTypes,
-  useState,
-} from "react";
+import { AnchorHTMLAttributes, useState } from "react";
 import {
   FiArrowLeft,
   FiChevronRight,
@@ -18,7 +12,7 @@ import {
   FiSun,
   FiX,
 } from "react-icons/fi";
-import useTheme from "@/store/theme/useTheme";
+import { Container } from "../container";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -75,7 +69,7 @@ export default function NavBar() {
             <MobileMenu />
             <Link href="/">
               <Image
-                src="/images/logo.svg"
+                src="/assets/logo/logo-with-text.svg"
                 alt="Logo"
                 height={20}
                 width={150}
@@ -228,13 +222,13 @@ function MobileMenu() {
               <>
                 <div className="flex items-center justify-between gap-10 border-b px-4 py-4">
                   <button onClick={deleteHistory}>
-                    <FiArrowLeft className="text-black"/>
+                    <FiArrowLeft className="text-black" />
                   </button>
                   <p className="whitespace-nowrap text-sm font-bold uppercase text-black outline-none">
                     {lastHistory().label}
                   </p>
                   <Menu.Button onClick={resetHistory}>
-                    <FiX className="text-black"/>
+                    <FiX className="text-black" />
                   </Menu.Button>
                 </div>
 

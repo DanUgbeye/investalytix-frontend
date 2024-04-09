@@ -1,5 +1,3 @@
-export default function CategoryPage(){
-    return(
-        <div></div>
-    )
+export default function CategoryPage() {
+  return <div></div>;
 }

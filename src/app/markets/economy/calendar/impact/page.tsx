@@ -1,5 +1,3 @@
-export default function ImpactPage(){
-    return(
-        <div></div>
-    )
+export default function ImpactPage() {
+  return <div></div>;
 }

@@ -7,12 +7,9 @@ export const metadata: Metadata = {
   title: "Search Ticker | Investalytix",
 };
 
-interface CapitalStructurePageProps
-  extends SearchTickerPageProps {}
+interface CapitalStructurePageProps extends SearchTickerPageProps {}
 
-  export default function CapitalStructurePage(
-  props: CapitalStructurePageProps
-) {
+export default function CapitalStructurePage(props: CapitalStructurePageProps) {
   const {
     params: { ticker },
   } = props;
@@ -21,5 +18,3 @@ interface CapitalStructurePageProps
 
   return <CapitalStructureScreen ticker={ticker} />;
 }
-
-;

@@ -14,9 +14,7 @@ interface PriceChartScreenProps {
   ticker: string;
 }
 
-export default function PriceChartScreen(
-  props: PriceChartScreenProps
-) {
+export default function PriceChartScreen(props: PriceChartScreenProps) {
   const { ticker } = props;
 
   return (

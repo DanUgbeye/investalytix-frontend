@@ -3,7 +3,6 @@ import Panel from "../../Panel";
 import GDP from "./GDP";
 import RelatedTable from "./RelatedTable";
 
-
 export default function Summary() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
@@ -34,7 +33,7 @@ export default function Summary() {
 
         <GDP />
 
-        <p className="mt-8 w-full text-[#333333] dark:text-white/60 border border-[#DDDDDDDD] px-4 py-5">
+        <p className="mt-8 w-full border border-[#DDDDDDDD] px-4 py-5 text-[#333333] dark:text-white/60">
           This page displays a table with actual values, consensus figures,
           forecasts, statistics and historical data charts for Unemployment
           Rate. This page provides values for Unemployment Rate reported in

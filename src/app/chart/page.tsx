@@ -42,8 +42,6 @@ function ChartPage() {
       className=" relative h-[calc(100vh_-_176px)] w-full overflow-hidden"
       ref={container}
     >
-
-      
       {/* <div
         className="tradingview-widget-container__widget"
         style={{ height: "calc(100% - 32px)", width: "100%" }}

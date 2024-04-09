@@ -9,9 +9,9 @@ export default function ProfileScreen(props: ProfileScreenProps) {
 
   return (
     <section className=" space-y-10 pb-10 ">
-      <div className=" flex flex-wrap gap-x-10 gap-y-5 xl:grid xl:grid-cols-[1fr,2fr] xl:w-full xl:flex-nowrap xl:justify-between ">
+      <div className=" flex flex-wrap gap-x-10 gap-y-5 xl:grid xl:w-full xl:grid-cols-[1fr,2fr] xl:flex-nowrap xl:justify-between ">
         <div className=" flex flex-col space-y-2 xl:w-full ">
-          <h3 className=" font-extrabold text-2xl ">Apple Inc.</h3>
+          <h3 className=" text-2xl font-extrabold ">Apple Inc.</h3>
 
           <div className=" max-w-60 text-sm ">
             One Apple Park Way, Cupertino, CA 95014, United States

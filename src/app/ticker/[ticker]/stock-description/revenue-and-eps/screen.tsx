@@ -113,7 +113,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
 
                       return (
                         <tr className=" text-sm ">
-                          <td className=" font-bold px-2 py-4 text-left text-[#333333] dark:text-white">
+                          <td className=" px-2 py-4 text-left font-bold text-[#333333] dark:text-white">
                             {item.reportDate.toDateString()}
                           </td>
 
@@ -223,7 +223,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
 
                       return (
                         <tr className=" text-sm ">
-                          <td className=" px-2 py-4 text-left text-[#333333] dark:text-white font-semibold">
+                          <td className=" px-2 py-4 text-left font-semibold text-[#333333] dark:text-white">
                             {item.reportDate.toDateString()}
                           </td>
 

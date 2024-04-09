@@ -176,7 +176,7 @@ export default function PricingPage() {
             <p className="mt-4 text-center text-lg">
               Support details to capture customers that might be on the fence.
             </p>
-            <button className="mx-auto mt-6 block w-fit border border-black dark:border-white px-6 py-3">
+            <button className="mx-auto mt-6 block w-fit border border-black px-6 py-3 dark:border-white">
               Contact us
             </button>
           </div>
@@ -192,7 +192,7 @@ function Testimonial({
   testimony: (typeof testimonials)[number];
 }) {
   return (
-    <div className="testimony border border-black dark:border-white/10 p-8">
+    <div className="testimony border border-black p-8 dark:border-white/10">
       <div className="flex items-center">
         <FiStar />
         <FiStar />

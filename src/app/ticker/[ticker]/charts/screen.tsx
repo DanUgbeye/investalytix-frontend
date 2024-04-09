@@ -48,5 +48,4 @@ export default function ChartsScreen(props: ChartsScreenProps) {
       ref={container}
     />
   );
-
 }

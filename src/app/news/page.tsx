@@ -4,7 +4,9 @@ import Image from "next/image";
 export default function NewsPage() {
   return (
     <Container>
-      <h1 className="text-4xl md:text-5xl md:py-14 lg:text-6xl font-semibold text-center py-10 lg:py-20">News</h1>
+      <h1 className="py-10 text-center text-4xl font-semibold md:py-14 md:text-5xl lg:py-20 lg:text-6xl">
+        News
+      </h1>
       <div className="grid">
         <News latest />
         <News />
