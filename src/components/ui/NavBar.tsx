@@ -110,7 +110,7 @@ export default function NavBar() {
                                       key={`${childRoute.href}-${index}`}
                                       href={childRoute.href}
                                       className={
-                                        " grid w-full min-w-fit px-4 py-3 hover:bg-gray-100 "
+                                        " grid w-full min-w-fit px-4 py-3 hover:bg-gray-100 font-medium "
                                       }
                                     >
                                       {childRoute.label}
@@ -123,7 +123,7 @@ export default function NavBar() {
                                     key={`${childRoute.href}-${index}`}
                                     variant={"ghost"}
                                     className={
-                                      " grid w-full min-w-fit px-4 py-3 hover:bg-gray-100 "
+                                      " grid w-full min-w-fit px-4 py-3 hover:bg-gray-100 font-medium "
                                     }
                                   >
                                     {childRoute.label}
@@ -204,29 +204,6 @@ function NavLink({
     </Link>
   );
 }
-
-// function NavSection({ section }: { section: RouteLink }) {
-//   return (
-//     <Menu>
-//       <Menu.Button
-//         className={`inline-block rounded-full px-4 py-1 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10`}
-//       >
-//         {section.label}
-//       </Menu.Button>
-//       <Menu.Items className="absolute z-20 translate-y-8 overflow-hidden rounded-lg bg-white">
-//         <div className="flex min-w-[300px] flex-col bg-white">
-//           {section.children?.map((route) => (
-//             <NavLink
-//               key={route.label}
-//               className="px-4 py-2 font-medium capitalize text-black"
-//               route={route}
-//             />
-//           ))}
-//         </div>
-//       </Menu.Items>
-//     </Menu>
-//   );
-// }
 
 function MobileMenu() {
   const [history, setHistory] = useState<RouteLink[]>([]);
