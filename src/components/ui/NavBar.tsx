@@ -1,5 +1,15 @@
 "use client";
 
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 import useTheme from "@/store/theme/useTheme";
 import { Dialog, Menu } from "@headlessui/react";
 import Image from "next/image";
@@ -13,6 +23,7 @@ import {
   FiX,
 } from "react-icons/fi";
 import { Container } from "../container";
+import { Button } from "./button";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -22,15 +33,15 @@ const routes: RouteLink[] = [
     href: "",
     children: [
       {
-        label: "chart",
+        label: "Chart",
         href: "/chart",
       },
       {
-        label: "analyst recommendation",
+        label: "Analyst Recommendation",
         href: "/recommendation",
       },
       {
-        label: "economic calendar",
+        label: "Economic Calendar",
         href: "/markets/economy/calendar/summary",
       },
     ],
@@ -44,7 +55,7 @@ const routes: RouteLink[] = [
     href: "",
     children: [
       {
-        label: "overview",
+        label: "Overview",
         href: "/news",
       },
     ],
@@ -61,6 +72,7 @@ const routes: RouteLink[] = [
 
 export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
+
   return (
     <nav className="bg-black py-3">
       <Container>
@@ -77,45 +89,113 @@ export default function NavBar() {
             </Link>
           </div>
 
-          <div className="hidden xl:flex">
-            {routes.map((route) => (
-              <div key={route.label}>
-                {route.children ? (
-                  <NavSection section={route} />
-                ) : (
-                  <NavLink
-                    route={route}
-                    className="focus:bg-primary-/10 inline-block rounded-full px-4 py-1 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10"
-                  />
-                )}
-              </div>
-            ))}
+          <div className=" z-50 hidden gap-x-2 xl:flex ">
+            {routes.map((route, index) => {
+              return (
+                <NavigationMenu key={`${route.href}-${index}`}>
+                  <NavigationMenuList>
+                    <NavigationMenuItem>
+                      {route.children ? (
+                        <>
+                          <NavigationMenuTrigger className=" rounded-full bg-transparent text-white hover:bg-gray-700/50 hover:text-white focus:bg-gray-700/50 focus:text-white data-[active]:bg-gray-700/50 data-[state=open]:bg-gray-700/50 ">
+                            {route.label}
+                          </NavigationMenuTrigger>
+
+                          <NavigationMenuContent className=" w-full p-0 dark:bg-gray-800 ">
+                            <div className=" flex w-max min-w-52 flex-col py-2 ">
+                              {route.children.map((childRoute, index) => {
+                                if (childRoute.href) {
+                                  return (
+                                    <Link
+                                      key={`${childRoute.href}-${index}`}
+                                      href={childRoute.href}
+                                      className={
+                                        " grid w-full min-w-fit px-4 py-3 hover:bg-gray-200 "
+                                      }
+                                    >
+                                      {childRoute.label}
+                                    </Link>
+                                  );
+                                }
+
+                                return (
+                                  <Button
+                                    key={`${childRoute.href}-${index}`}
+                                    variant={"ghost"}
+                                    className={
+                                      " grid w-full min-w-fit px-4 py-3 hover:bg-gray-200 "
+                                    }
+                                  >
+                                    {childRoute.label}
+                                  </Button>
+                                );
+                              })}
+                            </div>
+                          </NavigationMenuContent>
+                        </>
+                      ) : (
+                        <>
+                          {route.href ? (
+                            <Link href={route.href} legacyBehavior passHref>
+                              <NavigationMenuLink
+                                className={cn(
+                                  navigationMenuTriggerStyle(),
+                                  " rounded-full bg-transparent text-white hover:bg-gray-700/50 hover:text-white focus:bg-gray-700/50 focus:text-white "
+                                )}
+                              >
+                                {route.label}
+                              </NavigationMenuLink>
+                            </Link>
+                          ) : (
+                            <Button
+                              variant={"ghost"}
+                              className={cn(
+                                navigationMenuTriggerStyle(),
+                                " rounded-full bg-transparent text-white hover:bg-gray-700/50 hover:text-white focus:bg-gray-700/50 focus:text-white "
+                              )}
+                            >
+                              {route.label}
+                            </Button>
+                          )}
+                        </>
+                      )}
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
+              );
+            })}
+
+            {/* {routes.map((route) => {
+              return (
+                <div key={route.label}>
+                  {route.children ? (
+                    <NavSection section={route} />
+                  ) : (
+                    <NavLink
+                      route={route}
+                      className="focus:bg-primary-/10 inline-block rounded-full px-4 py-1 text-sm font-bold uppercase text-white outline-none hover:bg-primary-base/10"
+                    />
+                  )}
+                </div>
+              );
+            })} */}
           </div>
 
           <div className="flex items-center">
             <Search />
+
             <button
               title="theme"
               className="ml-6 inline-block rounded-full p-2 font-bold text-white"
               onClick={toggleTheme}
             >
               {theme === "light" ? <FiMoon /> : <FiSun />}
-              {/* <svg
-                width={20}
-                height={20}
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M13.3346 9.33268C13.3344 11.1869 13.8864 12.9991 14.9203 14.5383C15.9542 16.0775 17.4231 17.2738 19.1397 17.9748C20.8563 18.6757 22.7427 18.8495 24.5585 18.4739C26.3742 18.0983 28.037 17.1904 29.3346 15.866V15.9993C29.3346 23.3633 23.3653 29.3327 16.0013 29.3327C8.6373 29.3327 2.66797 23.3633 2.66797 15.9993C2.66797 8.63535 8.6373 2.66602 16.0013 2.66602H16.1346C15.2467 3.53418 14.5415 4.5713 14.0606 5.71626C13.5797 6.86121 13.3329 8.09084 13.3346 9.33268ZM5.33464 15.9993C5.33367 18.3793 6.12867 20.6913 7.59316 22.5673C9.05764 24.4433 11.1075 25.7757 13.4165 26.3524C15.7256 26.9292 18.1611 26.7171 20.3358 25.75C22.5104 24.7829 24.2991 23.1163 25.4173 21.0154C23.4272 21.4842 21.3503 21.4368 19.3837 20.8776C17.4171 20.3185 15.626 19.2661 14.1803 17.8204C12.7345 16.3747 11.6822 14.5835 11.123 12.6169C10.5639 10.6503 10.5165 8.57343 10.9853 6.58335C9.27807 7.49287 7.85035 8.84957 6.85498 10.5082C5.85961 12.1668 5.33407 14.065 5.33464 15.9993Z"
-                  fill="white"
-                />
-              </svg> */}
             </button>
+
             <button className="hidden rounded bg-transparent px-8 py-2 font-bold text-white md:block">
               Login
             </button>
+
             <button className="hidden rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block">
               Sign Up
             </button>
@@ -165,14 +245,19 @@ function NavSection({ section }: { section: RouteLink }) {
 
 function MobileMenu() {
   const [history, setHistory] = useState<RouteLink[]>([]);
+
   const lastHistory = () => history[history.length - 1];
+
   const addHistory = (route: RouteLink) => {
     setHistory((s) => [...s, route]);
   };
+
   const deleteHistory = () => {
     setHistory((s) => s.slice(0, -1));
   };
+
   const resetHistory = () => setHistory([]);
+
   return (
     <Menu>
       <div className="xl:hidden">

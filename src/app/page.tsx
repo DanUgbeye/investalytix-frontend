@@ -1,15 +1,12 @@
 "use client";
+
 import { Container } from "@/components/container";
-import Quote from "@/components/ui/Quote";
-import quotes from "@/mock/quotes";
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
 import Image from "next/image";
 import "swiper/css";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Home() {
   return (
-    <main className="relative h-[70vh] w-full overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-no-repeat sm:h-[90vh] lg:h-[calc(100vh_-_100px)]">
+    <main className="relative h-[80dvh] w-full overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-no-repeat sm:h-[90dvh] lg:h-[calc(100dvh_-_100px)]">
       <div className="absolute inset-0 z-10 bg-black/50"></div>
 
       <Container className="mx-auto">
@@ -22,12 +19,14 @@ export default function Home() {
               alt=""
             />
           </div>
+          
           <div className="z-20 text-white">
             <h1 className="whitespace-nowrap text-6xl font-bold leading-[1.5em] max-xs:text-center md:text-7xl xl:text-8xl">
-              Look first/
+              Look first /
               <br />
               Then leap.
             </h1>
+
             <p className="mt-5 max-w-sm text-lg font-medium max-xs:text-center lg:max-w-lg xl:mt-8 xl:max-w-xl xl:text-xl">
               The best trades require research, then commitment.
             </p>
@@ -47,6 +46,7 @@ export default function Home() {
                   />
                 </svg>
               </div>
+              
               <input
                 type="search"
                 name="search"
