@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 
 export const ThemeContext = createContext({
   theme: "light",
@@ -13,24 +13,14 @@ export default function ThemeContextProvider({
 }>) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const body = document.querySelector("body");
     if (!body) return;
 
-    let newTheme = theme;
-    setTheme((theme) => {
-      if (theme === "light") {
-        newTheme = "dark";
-        return "dark";
-      } else {
-        newTheme = "light";
-        return "light";
-      }
-    });
+    setTheme((theme) => (theme === "light" ? "dark" : "light"));
 
-    if (newTheme === "light" && body.classList.contains("dark"))
-      body.classList.toggle("dark");
-  };
+    body.classList.toggle("dark");
+  }, [theme]);
   const value = { theme, toggleTheme };
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
