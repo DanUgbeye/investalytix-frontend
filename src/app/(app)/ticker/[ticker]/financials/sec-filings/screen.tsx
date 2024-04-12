@@ -59,7 +59,7 @@ export default function RatioScreen(props: RatioScreenProps) {
   }
 
   return (
-    <section className=" space-y-12 ">
+    <section className=" space-y-12 pb-12 ">
       <div className=" flex gap-2 overflow-x-auto md:flex-wrap ">
         {secSorting.map((sorting, index) => {
           const url = getSortUrl(sorting.value);

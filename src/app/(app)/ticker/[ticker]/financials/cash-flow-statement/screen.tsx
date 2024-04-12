@@ -26,7 +26,7 @@ export default function CashFlowStatementScreen(
                 return (
                   <th
                     key={`${year}-${index}`}
-                    className=" border-y border-y-[#DEE2E6] bg-slate-200 px-2 py-4 text-right dark:bg-transparent"
+                    className=" border-y border-y-[#DEE2E6] bg-slate-200 px-2 py-4 text-right dark:bg-slate-700 "
                   >
                     {year}
                   </th>
@@ -36,13 +36,13 @@ export default function CashFlowStatementScreen(
           </thead>
 
           <tbody className=" ">
-            <tr className=" bg-slate-200 text-sm dark:bg-transparent ">
+            <tr className=" bg-slate-200 text-sm dark:bg-slate-700 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent ">
                 Revenue
               </th>
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Sales & Services Revenue
               </th>
@@ -61,7 +61,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Cost of Revenue
               </th>
@@ -80,7 +80,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Cost of Goods & Services
               </th>
@@ -99,7 +99,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Gross Profit
               </th>
@@ -118,13 +118,13 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" bg-slate-200 text-sm dark:bg-transparent ">
+            <tr className=" bg-slate-200 text-sm dark:bg-slate-700 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
                 Other Operating Income
               </th>
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Operating Expenses
               </th>
@@ -143,7 +143,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Selling, General & Advance
               </th>
@@ -162,7 +162,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Research & Development
               </th>
@@ -181,7 +181,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Other Operating Expenses
               </th>
@@ -200,7 +200,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Pretax Margin
               </th>
@@ -219,7 +219,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Income before XO Margin
               </th>
@@ -238,7 +238,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Net Income Margin
               </th>
@@ -257,7 +257,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Net Income to Common Margin
               </th>
@@ -276,13 +276,13 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" bg-slate-200 text-sm dark:bg-transparent ">
+            <tr className=" bg-slate-200 text-sm dark:bg-slate-700 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
                 Additional
               </th>
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Effective Tax Rate
               </th>
@@ -301,7 +301,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 DVD Pay-out Ratio
               </th>
@@ -320,7 +320,7 @@ export default function CashFlowStatementScreen(
               })}
             </tr>
 
-            <tr className=" text-sm even:bg-[#F8F9FC] ">
+            <tr className=" text-sm even:bg-[#F8F9FC] dark:even:bg-gray-900 ">
               <th className=" border-x border-x-[#DEE2E6] px-2 py-4 text-left font-normal dark:bg-transparent">
                 Sustainable Growth Rate
               </th>

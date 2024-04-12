@@ -22,7 +22,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
       <div className=" space-y-5 border py-3  ">
         <h4 className=" px-4 text-lg font-bold sm:text-2xl ">Data</h4>
 
-        <div className=" flex flex-col divide-y text-gray-500 xl:flex-row xl:divide-x xl:divide-y-0 ">
+        <div className=" flex flex-col divide-y text-gray-700 xl:flex-row xl:divide-x xl:divide-y-0 dark:text-white ">
           <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
             <span className=" font-bold ">Last Ex-Dividend Date</span>
             <span className="  ">2023-11-16</span>
@@ -249,7 +249,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
       </div>
 
       <div className=" overflow-x-auto ">
-        <table className="w-full min-w-[50rem] border-x border-b ">
+        <table className="w-full min-w-[50rem] border ">
           <thead>
             <tr className=" divide-x border-b text-sm font-bold ">
               <th className=" rounded-t-xl bg-black px-2 py-4 text-left text-white ">

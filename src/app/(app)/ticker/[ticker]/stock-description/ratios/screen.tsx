@@ -10,7 +10,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   const { ticker } = props;
 
   return (
-    <section className=" space-y-8  ">
+    <section className=" space-y-8 pb-12 ">
       <div className=" grid divide-y lg:grid-cols-3 lg:divide-x lg:divide-y-0 ">
         <div className=" flex flex-wrap gap-x-4 py-2 lg:w-full lg:justify-center lg:px-3 ">
           <span className="  ">Fiscal Year End</span>

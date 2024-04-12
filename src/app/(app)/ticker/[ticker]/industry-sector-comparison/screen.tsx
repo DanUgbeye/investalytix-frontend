@@ -20,13 +20,13 @@ export default function IndustrySectorComparisonScreen(
 
   return (
     <section className=" space-y-10 py-10 ">
-      <div className=" flex w-fit gap-2 rounded bg-[#F5F5F5] p-2 ">
+      <div className=" flex w-fit gap-2 rounded bg-[#F5F5F5] p-2 dark:bg-gray-800 ">
         <button
           type="button"
           className={cn(
-            `flex h-8 items-center justify-center whitespace-nowrap rounded px-4 text-center  text-sm font-medium tracking-wider hover:bg-neutral-200 sm:px-7`,
+            `flex h-8 items-center justify-center whitespace-nowrap rounded px-4 text-center  text-sm font-medium tracking-wider duration-300 hover:bg-gray-200 sm:px-7 dark:hover:bg-gray-700`,
             {
-              "bg-primary-base text-white hover:bg-primary-base hover:text-white ":
+              "bg-primary-base text-white hover:bg-primary-base hover:text-white dark:hover:bg-primary-base ":
                 tab === "Industry",
             }
           )}
@@ -38,9 +38,9 @@ export default function IndustrySectorComparisonScreen(
         <button
           type="button"
           className={cn(
-            `flex h-8 items-center justify-center whitespace-nowrap rounded px-4 text-center text-sm font-medium tracking-wider hover:bg-neutral-200 sm:px-7 `,
+            `flex h-8 items-center justify-center whitespace-nowrap rounded px-4 text-center text-sm font-medium tracking-wider duration-300 hover:bg-gray-200 sm:px-7 dark:hover:bg-gray-700 `,
             {
-              "bg-primary-base text-white hover:bg-primary-base hover:text-white ":
+              "bg-primary-base text-white hover:bg-primary-base hover:text-white dark:hover:bg-primary-base ":
                 tab === "Sector",
             }
           )}
@@ -129,7 +129,7 @@ export default function IndustrySectorComparisonScreen(
           <ChartSample />
         </div>
 
-        <p className=" bg-gray-100 p-3 text-xs ">
+        <p className=" bg-gray-100 p-3 text-xs dark:bg-primary-base/10 border-t ">
           Compare key indicators and discover each stock&apos;s average analyst
           price target, as well as the latest recommendations by top Wall Street
           experts

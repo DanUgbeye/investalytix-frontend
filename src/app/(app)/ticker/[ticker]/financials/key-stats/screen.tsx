@@ -149,7 +149,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
   const { ticker } = props;
 
   return (
-    <section className=" ">
+    <section className=" pb-12 ">
       <div className=" overflow-x-auto ">
         <table className=" w-full min-w-[50rem] border-b border-r border-[#DEE2E6] ">
           <tbody>

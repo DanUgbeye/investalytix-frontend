@@ -40,7 +40,7 @@ export default function CapitalStructureScreen(
   const { ticker } = props;
 
   return (
-    <section className=" grid gap-7 md:grid-cols-[max-content,1fr] ">
+    <section className=" grid gap-7 md:grid-cols-[max-content,1fr] pb-12 ">
       <div className=" w-full space-y-5 border md:min-w-80 ">
         <div className=" space-y-1 border-b p-4 ">
           <h4 className=" text-xl font-semibold ">Capital Structure </h4>

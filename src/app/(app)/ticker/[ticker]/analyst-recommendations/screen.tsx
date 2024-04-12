@@ -196,16 +196,16 @@ export default function AnalystRecommendationScreen(
           Apple Stock Forecast & Price Target
         </h2>
 
-        <div className=" flex flex-wrap gap-3 rounded bg-[#FFF3E9] px-6 py-3 text-xs ">
+        <div className=" flex flex-wrap gap-3 rounded bg-[#FFF3E9] px-6 py-3 text-xs dark:bg-primary-base/20 ">
           <div className=" flex flex-wrap items-center gap-x-8 gap-y-2 ">
-            <span className=" dark:text-black ">
+            <span className=" ">
               See the Price Targets and Ratings of:
             </span>
 
             <fieldset className=" flex flex-wrap gap-x-5 ">
               <label
                 htmlFor="all-analyst"
-                className=" flex items-center gap-x-2 dark:text-black "
+                className=" flex items-center gap-x-2 "
               >
                 <input
                   name="analysts"
@@ -218,7 +218,7 @@ export default function AnalystRecommendationScreen(
 
               <label
                 htmlFor="top-analyst"
-                className=" flex items-center gap-x-2 dark:text-black "
+                className=" flex items-center gap-x-2 "
               >
                 <input
                   name="analysts"
@@ -227,7 +227,7 @@ export default function AnalystRecommendationScreen(
                   className=" rounded-full "
                 />
                 <span>Top Analysts</span>
-                <Button size={"sm"} className=" h-8 px-4 ">
+                <Button size={"sm"} className=" h-8 px-4 text-xs ">
                   Premium
                 </Button>
               </label>

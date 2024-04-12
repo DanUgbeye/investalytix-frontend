@@ -2,6 +2,7 @@
 
 import Mapper from "@/components/mapper";
 import NewsCard from "@/features/news/components/news-card";
+import { cn } from "@/lib/utils";
 import chart from "@/mock/chart";
 import { useState } from "react";
 import {
@@ -355,14 +356,17 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </header>
 
           <div className="  ">
-            <div className=" flex w-fit gap-2 rounded bg-[#F5F5F5] p-2 ">
+            <div className=" flex w-fit gap-2 rounded bg-[#F5F5F5] p-2 dark:bg-gray-900 ">
               <button
                 type="button"
-                className={`whitespace-nowrap rounded px-5 py-2 text-center hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white ${
-                  newsTab === "market"
-                    ? "bg-primary-base text-white"
-                    : "bg-transparent text-[#636363] dark:text-white"
-                }`}
+                className={cn(
+                  `whitespace-nowrap rounded px-5 py-2 text-center duration-300 hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white `,
+                  {
+                    "bg-primary-base text-white": newsTab === "market",
+                    "bg-transparent text-[#636363] hover:bg-gray-700 dark:text-white ":
+                      newsTab !== "market",
+                  }
+                )}
                 onClick={(e) => handleNewsTabChange("market")}
               >
                 MARKET WATCH
@@ -370,11 +374,14 @@ export default function SummaryScreen(props: SummaryScreenProps) {
 
               <button
                 type="button"
-                className={`whitespace-nowrap rounded px-5 py-2 text-center hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white ${
-                  newsTab === "dow-jones"
-                    ? "bg-primary-base text-white"
-                    : "bg-transparent text-[#636363] dark:text-white"
-                }`}
+                className={cn(
+                  `whitespace-nowrap rounded px-5 py-2 text-center duration-300 hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white `,
+                  {
+                    "bg-primary-base text-white": newsTab === "dow-jones",
+                    "bg-transparent text-[#636363] hover:bg-gray-700 dark:text-white ":
+                      newsTab !== "dow-jones",
+                  }
+                )}
                 onClick={(e) => handleNewsTabChange("dow-jones")}
               >
                 DOW JONES

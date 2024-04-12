@@ -22,22 +22,22 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
 
   return (
     <section className=" space-y-12 pb-12 ">
-      <div className=" flex flex-wrap justify-between gap-3 rounded bg-[#FFF3E9] p-6 ">
+      <div className=" flex flex-wrap justify-between gap-3 rounded bg-[#FFF3E9] p-6 dark:bg-primary-base/20 ">
         <div className=" flex flex-col gap-x-4 gap-y-2 md:flex-row md:items-center ">
           <div className=" flex flex-wrap items-center gap-x-3 ">
-            <span className=" dark:text-black ">Time Period:</span>
+            <span className=" ">Time Period:</span>
             <span className=" text-primary-base ">
               Dec 22, 2022 - Dec 22, 2023
             </span>
           </div>
 
           <div className=" flex flex-wrap items-center gap-x-3 ">
-            <span className=" dark:text-black ">Show:</span>
+            <span className=" ">Show:</span>
             <span className=" text-primary-base ">Historical Prices</span>
           </div>
 
           <div className=" flex flex-wrap items-center gap-x-3 ">
-            <span className=" dark:text-black ">Frequency:</span>
+            <span className=" ">Frequency:</span>
             <span className=" text-primary-base ">Daily</span>
           </div>
         </div>
@@ -57,7 +57,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
         </div>
 
         <div className=" overflow-x-auto ">
-          <table className=" w-full min-w-[45rem] text-xs ">
+          <table className=" w-full min-w-[45rem] text-sm ">
             <thead className="  ">
               <tr className=" border-b font-semibold ">
                 <td className=" px-2 py-3 ">Date</td>

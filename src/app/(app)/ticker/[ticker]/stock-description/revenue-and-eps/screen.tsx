@@ -26,7 +26,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
   const [chartTab, setChartTab] = useState<"Earnings" | "Revenue">("Earnings");
 
   return (
-    <section className=" space-y-12 ">
+    <section className=" space-y-12 pb-12 ">
       <div className=" space-y-6 px-6 ">
         <div className=" flex gap-x-10 ">
           <Button
