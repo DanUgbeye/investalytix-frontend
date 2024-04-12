@@ -74,7 +74,7 @@ export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
 
   return (
-    <nav className="bg-black py-3 z-50">
+    <nav className="z-50 bg-black py-3">
       <Container>
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
@@ -110,7 +110,7 @@ export default function NavBar() {
                                       key={`${childRoute.href}-${index}`}
                                       href={childRoute.href}
                                       className={
-                                        " grid w-full min-w-fit px-4 py-3 font-medium hover:bg-gray-100 "
+                                        " grid w-full min-w-fit px-4 py-3 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 "
                                       }
                                     >
                                       {childRoute.label}
@@ -123,7 +123,7 @@ export default function NavBar() {
                                     key={`${childRoute.href}-${index}`}
                                     variant={"ghost"}
                                     className={
-                                      " grid w-full min-w-fit px-4 py-3 font-medium hover:bg-gray-100 "
+                                      " grid w-full min-w-fit px-4 py-3 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 "
                                     }
                                   >
                                     {childRoute.label}
@@ -244,15 +244,15 @@ function MobileMenu() {
           </svg>
         </Menu.Button>
 
-        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 ">
-          <div className="flex min-w-[300px] flex-col bg-white">
+        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-gray-600 ">
+          <div className="flex min-w-[300px] flex-col bg-white dark:bg-gray-600">
             {history.length === 0 ? (
               <div className="flex flex-col bg-white dark:bg-gray-600 ">
                 <div className="flex items-center justify-end gap-10 border-b sm:hidden">
                   <Menu.Button
                     onClick={resetHistory}
                     className={
-                      " grid size-12 place-items-center duration-300 hover:bg-gray-100 "
+                      " grid size-12 place-items-center duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
                     }
                   >
                     <FiX className=" size-5 " />
@@ -264,7 +264,7 @@ function MobileMenu() {
                     <div key={route.label}>
                       {route.children ? (
                         <button
-                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100"
+                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-500 "
                           onClick={() => addHistory(route)}
                         >
                           {route.label}
@@ -273,25 +273,27 @@ function MobileMenu() {
                       ) : (
                         <NavLink
                           route={route}
-                          className="focus:bg-primary-/10 inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100"
+                          className="focus:bg-primary-/10 inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-500 "
                         />
                       )}
                     </div>
                   ))}
 
-                  <Link
-                    href="/login"
-                    className="md:hidden cursor-pointer rounded bg-transparent mx-4 px-4 text-center py-2 font-bold text-black block"
-                  >
-                    Login
-                  </Link>
+                  <div className=" flex flex-col space-y-2 pb-4 md:hidden ">
+                    <Link
+                      href="/login"
+                      className="mx-4 block cursor-pointer rounded bg-transparent px-4 py-3 text-center font-bold duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
+                    >
+                      Login
+                    </Link>
 
-                  <Link
-                    href="/signup"
-                    className="md:hidden cursor-pointer rounded bg-[#FB8B1E] mx-4 px-4 py-2 font-bold text-white text-center block"
-                  >
-                    Sign Up
-                  </Link>
+                    <Link
+                      href="/signup"
+                      className="mx-4 block cursor-pointer rounded bg-primary-base px-4 py-3 text-center font-bold text-white duration-300 hover:bg-primary-base/90 "
+                    >
+                      Sign Up
+                    </Link>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -299,22 +301,22 @@ function MobileMenu() {
                 <div className="flex items-center justify-between gap-10 border-b ">
                   <button
                     onClick={deleteHistory}
-                    className=" grid size-12 place-items-center duration-300 hover:bg-gray-100 "
+                    className=" grid size-12 place-items-center duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
                   >
-                    <FiArrowLeft className="size-5 text-black " />
+                    <FiArrowLeft className="size-5  " />
                   </button>
 
-                  <p className="whitespace-nowrap text-sm font-bold uppercase text-black outline-none">
+                  <p className="whitespace-nowrap text-sm font-bold uppercase outline-none">
                     {lastHistory().label}
                   </p>
 
                   <Menu.Button
                     onClick={resetHistory}
                     className={
-                      " grid size-12 place-items-center duration-300 hover:bg-gray-100 "
+                      " grid size-12 place-items-center duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
                     }
                   >
-                    <FiX className="size-5 text-black " />
+                    <FiX className="size-5  " />
                   </Menu.Button>
                 </div>
 
@@ -323,7 +325,7 @@ function MobileMenu() {
                     <div key={route.label}>
                       {route.children ? (
                         <button
-                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100"
+                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase outline-none duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
                           onClick={() => addHistory(route)}
                         >
                           {route.label}
@@ -332,7 +334,7 @@ function MobileMenu() {
                       ) : (
                         <NavLink
                           route={route}
-                          className="focus:bg-primary-/10 inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100"
+                          className="focus:bg-primary-/10 inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase outline-none duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
                         />
                       )}
                     </div>
