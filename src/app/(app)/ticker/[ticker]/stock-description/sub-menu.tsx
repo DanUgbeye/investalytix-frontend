@@ -1,11 +1,11 @@
 "use client";
 
-import { STOCK_DESCRIPTION_MENU } from "@/app/ticker/[ticker]/stock-description/stock-description.types";
 import PAGES from "@/data/page-map";
 import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-nav/ticker-sidenav.types";
 import TickerSubMenuBar from "@/features/ticker/components/ticker-sub-menu-bar";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
+import { STOCK_DESCRIPTION_MENU } from "./stock-description.types";
 
 export interface StockDescriptionSubMenuBarProps {
   ticker: string;

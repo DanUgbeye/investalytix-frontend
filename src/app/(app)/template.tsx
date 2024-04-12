@@ -1,6 +1,6 @@
 import NavBar from "@/components/ui/NavBar";
 
-export default function RootTemplate({
+export default function AppTemplate({
   children,
 }: Readonly<{
   children: React.ReactNode;

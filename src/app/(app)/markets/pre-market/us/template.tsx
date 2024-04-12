@@ -1,6 +1,6 @@
 "use client";
 import MarketSelector from "@/modules/markets/PreMarket/MarketSelector";
-import MarketHeader from "../../../../modules/markets/MarketHeader";
+import MarketHeader from "@/modules/markets/MarketHeader";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

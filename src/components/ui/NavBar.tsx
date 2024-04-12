@@ -74,7 +74,7 @@ export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
 
   return (
-    <nav className="bg-black py-3">
+    <nav className="bg-black py-3 z-50">
       <Container>
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
@@ -110,7 +110,7 @@ export default function NavBar() {
                                       key={`${childRoute.href}-${index}`}
                                       href={childRoute.href}
                                       className={
-                                        " grid w-full min-w-fit px-4 py-3 hover:bg-gray-100 font-medium "
+                                        " grid w-full min-w-fit px-4 py-3 font-medium hover:bg-gray-100 "
                                       }
                                     >
                                       {childRoute.label}
@@ -123,7 +123,7 @@ export default function NavBar() {
                                     key={`${childRoute.href}-${index}`}
                                     variant={"ghost"}
                                     className={
-                                      " grid w-full min-w-fit px-4 py-3 hover:bg-gray-100 font-medium "
+                                      " grid w-full min-w-fit px-4 py-3 font-medium hover:bg-gray-100 "
                                     }
                                   >
                                     {childRoute.label}
@@ -177,13 +177,19 @@ export default function NavBar() {
               {theme === "light" ? <FiMoon /> : <FiSun />}
             </button>
 
-            <button className="hidden rounded bg-transparent px-8 py-2 font-bold text-white md:block">
+            <Link
+              href="/login"
+              className="hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white md:block"
+            >
               Login
-            </button>
+            </Link>
 
-            <button className="hidden rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block">
+            <Link
+              href="/signup"
+              className="hidden cursor-pointer rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block"
+            >
               Sign Up
-            </button>
+            </Link>
           </div>
         </div>
       </Container>
@@ -272,6 +278,20 @@ function MobileMenu() {
                       )}
                     </div>
                   ))}
+
+                  <Link
+                    href="/login"
+                    className="md:hidden cursor-pointer rounded bg-transparent mx-4 px-4 text-center py-2 font-bold text-black block"
+                  >
+                    Login
+                  </Link>
+
+                  <Link
+                    href="/signup"
+                    className="md:hidden cursor-pointer rounded bg-[#FB8B1E] mx-4 px-4 py-2 font-bold text-white text-center block"
+                  >
+                    Sign Up
+                  </Link>
                 </div>
               </div>
             ) : (

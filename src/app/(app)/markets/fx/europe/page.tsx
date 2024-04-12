@@ -1,7 +1,5 @@
 import EuropeFX from "@/modules/markets/FX/EuropeFX";
-import WithSidePanel, {
-  SIDE_SECTIONS,
-} from "../../../../modules/markets/WithSidePanel";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
 
 export default function EuropePage() {
   return (

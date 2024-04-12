@@ -1,7 +1,5 @@
 import AsiaFX from "@/modules/markets/FX/AsiaFX";
-import WithSidePanel, {
-  SIDE_SECTIONS,
-} from "../../../../modules/markets/WithSidePanel";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
 
 export default function AsiaPage() {
   return (

@@ -1,8 +1,6 @@
 import Americas from "@/modules/markets/PreMarket/Americas";
-import MarketHeader from "../../../../modules/markets/MarketHeader";
-import WithSidePanel, {
-  SIDE_SECTIONS,
-} from "../../../../modules/markets/WithSidePanel";
+import MarketHeader from "@/modules/markets/MarketHeader";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
 import MarketSelector from "@/modules/markets/PreMarket/MarketSelector";
 
 export default function AmericasPage() {

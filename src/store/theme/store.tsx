@@ -13,14 +13,15 @@ export default function ThemeContextProvider({
 }>) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  const toggleTheme = useCallback(() => {
+  const toggleTheme = () => {
     const body = document.querySelector("body");
     if (!body) return;
 
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
 
     body.classList.toggle("dark");
-  }, [theme]);
+  };
+  
   const value = { theme, toggleTheme };
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
