@@ -6,13 +6,17 @@ import { ImCheckmark } from "react-icons/im";
 export default function LoginPage() {
   return (
     <>
-      <img
+      <Image
         src="/images/auth-bg.png"
         alt=""
-        className="fixed -top-[15%] md:top-0 left-0 right-0 w-full max-sm:-top-0"
+        width="0"
+        height="0"
+        sizes="100vw"
+        className=" fixed -top-[15%] left-0 right-0 h-auto w-full max-md:-top-0 lg:top-0"
       />
-      <main className="flex items-center justify-center py-20 px-10">
-        <div className="z-10 flex flex-col items-center w-full">
+
+      <main className="flex items-center justify-center px-5 sm:px-10 py-20">
+        <div className="z-10 flex w-full flex-col items-center">
           <Link href="/">
             <Image
               src="/assets/logo/logo-with-text.svg"
@@ -24,7 +28,7 @@ export default function LoginPage() {
 
           <form
             action=""
-            className="auth__card__shadow mt-10 rounded bg-white px-8 py-8 md:px-16 md:py-12"
+            className="auth__card__shadow mt-10 w-full max-w-md rounded bg-white px-8 py-8 md:max-w-xl md:px-16 md:py-12"
           >
             <h1 className="mb-4 text-2xl font-bold text-[#3C4257] max-sm:max-w-[15ch]">
               Sign in to your account
@@ -47,7 +51,10 @@ export default function LoginPage() {
                 <label htmlFor="password" className="text-[#3C4257]">
                   Password
                 </label>
-                <Link href="/forgot-password" className="text-[#635CFF] text-sm">
+                <Link
+                  href="/forgot-password"
+                  className="text-sm text-[#635CFF]"
+                >
                   Forgot your password?
                 </Link>
               </div>
@@ -78,7 +85,7 @@ export default function LoginPage() {
             <input
               type="submit"
               value="Continue"
-              className="mt-7 w-full rounded bg-primary-base py-4 text-white cursor-pointer"
+              className="mt-7 w-full cursor-pointer rounded bg-primary-base py-4 text-white"
             />
           </form>
 
