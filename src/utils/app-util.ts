@@ -9,5 +9,4 @@ class AppUtils {
 }
 
 const appUtils = new AppUtils();
-
 export default appUtils;
