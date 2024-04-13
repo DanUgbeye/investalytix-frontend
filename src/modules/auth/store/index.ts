@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { AuthStore } from "./types";
 
-export const useAuthStore = create<AuthStore>((set, get) => {
+const useAuthStore = create<AuthStore>((set, get) => {
   return {
     initialised: false,
     auth: undefined,
@@ -18,3 +18,5 @@ export const useAuthStore = create<AuthStore>((set, get) => {
     },
   };
 });
+
+export default useAuthStore;
