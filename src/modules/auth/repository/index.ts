@@ -1,10 +1,12 @@
-import { AxiosInstance } from "axios";
-import { AuthData, LoginData, SignupData } from "../auth.types";
+import { ServerUserSchema } from "@/features/user/validation";
 import { RequestOptions } from "@/types/api.types";
 import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
-import { IAuthRepository } from "./interface";
+import { AxiosInstance } from "axios";
+import { z } from "zod";
+import { AuthData, LoginData, SignupData } from "../auth.types";
+import { AuthSchema } from "../validation";
 
-export class AuthRepository implements IAuthRepository {
+export class AuthRepository {
   constructor(private api: AxiosInstance) {}
 
   async signup(data: SignupData, options?: RequestOptions) {
@@ -12,12 +14,23 @@ export class AuthRepository implements IAuthRepository {
     const api = createAPIInstance();
 
     try {
-      const res = await api.post<{ auth: AuthData; user: any }>(
+      const { data: res } = await api.post<{ auth: AuthData; user: any }>(
         path,
         data,
         options
       );
-      return res.data;
+
+      const parsedAuth = AuthSchema.safeParse(res.auth);
+      const parsedUser = ServerUserSchema.transform((user) => {
+        const { _id, ...rest } = user;
+        return { id: _id, ...rest };
+      }).safeParse(res.user);
+
+      if (!parsedAuth.success || !parsedUser.success) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return { auth: parsedAuth.data, user: parsedUser.data };
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
@@ -29,12 +42,23 @@ export class AuthRepository implements IAuthRepository {
     const api = createAPIInstance();
 
     try {
-      const res = await api.post<{ auth: AuthData; user: any }>(
+      const { data: res } = await api.post<{ auth: AuthData; user: any }>(
         path,
         data,
         options
       );
-      return res.data;
+
+      const parsedAuth = AuthSchema.safeParse(res.auth);
+      const parsedUser = ServerUserSchema.transform((user) => {
+        const { _id, ...rest } = user;
+        return { id: _id, ...rest };
+      }).safeParse(res.user);
+
+      if (!parsedAuth.success || !parsedUser.success) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return { auth: parsedAuth.data, user: parsedUser.data };
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
@@ -59,8 +83,15 @@ export class AuthRepository implements IAuthRepository {
     const api = createAPIInstance();
 
     try {
-      const res = await api.post<AuthData>(path, undefined, options);
-      return res.data;
+      const { data } = await api.post<AuthData>(path, undefined, options);
+
+      const parsedAuth = AuthSchema.safeParse(data);
+
+      if (!parsedAuth.success) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return parsedAuth.data;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
@@ -72,8 +103,14 @@ export class AuthRepository implements IAuthRepository {
     const api = createAPIInstance();
 
     try {
-      const res = await api.get<{ authenticated: boolean }>(path, options);
-      return res.data;
+      const { data } = await api.get<{ authenticated: boolean }>(path, options);
+      let parsedRes = z.object({ authenticated: z.boolean() }).safeParse(data);
+
+      if (!parsedRes.success) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return parsedRes.data;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
