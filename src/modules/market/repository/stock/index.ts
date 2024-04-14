@@ -1,4 +1,4 @@
-import { Quote } from "../../market.types";
+import { Quote } from "../../types";
 
 export interface IStockMarketRepository {
   getStockIndexes(): Promise<Quote[]>;

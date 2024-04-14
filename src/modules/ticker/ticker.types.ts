@@ -1,4 +1,4 @@
-import { Quote } from "../market/market.types";
+import { Quote } from "@/modules/market/types";
 
 export type TickerData = {
   outlook: CompanyOutlook;

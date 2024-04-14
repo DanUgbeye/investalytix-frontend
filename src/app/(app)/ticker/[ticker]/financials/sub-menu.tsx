@@ -2,8 +2,8 @@
 
 import { FINANCIALS_MENU } from "./financials.types";
 import PAGES from "@/data/page-map";
-import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-nav/ticker-sidenav.types";
-import TickerSubMenuBar from "@/features/ticker/components/ticker-sub-menu-bar";
+import { TICKER_NAV_TABS } from "@/modules/ticker/components/ticker-nav/ticker-sidenav.types";
+import TickerSubMenuBar from "@/modules/ticker/components/ticker-sub-menu-bar";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 

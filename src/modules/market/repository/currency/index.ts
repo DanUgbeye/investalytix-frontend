@@ -1,5 +1,4 @@
-import { Quote } from "../../market.types";
-import { CurrencyMarket } from "../currency.types";
+import { CurrencyMarket, Quote } from "../../types";
 
 export interface ICurrencyMarketRepository {
   getMajorPairs(): Promise<Quote[]>;

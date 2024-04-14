@@ -1,7 +1,5 @@
 "use client";
 
-import { Container } from "@/components/container";
-import NewsCard from "@/features/news/components/news-card";
 import Image from "next/image";
 
 interface NewsScreenProps {

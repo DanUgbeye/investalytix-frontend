@@ -1,9 +1,8 @@
 "use client";
 
-import Mapper from "@/components/mapper";
-import NewsCard from "@/features/news/components/news-card";
 import { cn } from "@/lib/utils";
 import chart from "@/mock/chart";
+import NewsCard from "@/modules/news/components/news-card";
 import { useState } from "react";
 import {
   Area,
@@ -389,10 +388,11 @@ export default function SummaryScreen(props: SummaryScreenProps) {
             </div>
 
             <div className="  ">
-              <Mapper
-                list={Array(3).fill("")}
-                component={(props) => <NewsCard hideContent className="  " />}
-              />
+              {Array(3)
+                .fill("_")
+                .map((_, index) => {
+                  return <NewsCard key={`news-${index}`} hideContent />;
+                })}
             </div>
           </div>
         </div>

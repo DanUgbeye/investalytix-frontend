@@ -1,4 +1,4 @@
-import { ServerUserSchema } from "@/features/user/validation";
+import { ServerUserSchema } from "@/modules/user/validation";
 import { RequestOptions } from "@/types/api.types";
 import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
 import { AxiosInstance } from "axios";

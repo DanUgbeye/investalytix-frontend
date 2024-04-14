@@ -1,5 +1,4 @@
-import { Quote } from "../../market.types";
-import { CommoditySector } from "../commodity.types";
+import { CommoditySector, Quote } from "../../types";
 
 export interface ICommodityMarketRepository {
   getCommodityPairs(): Promise<Quote[]>;

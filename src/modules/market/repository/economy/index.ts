@@ -1,13 +1,13 @@
 import {
   BaseRateChange,
-  GDPGrowthRate,
+  CreditRating,
+  DebtToGDPRate,
   EconomyContinent,
+  GDPGrowthRate,
   InflationRate,
   InterestRate,
   UnemploymentRate,
-  DebtToGDPRate,
-  CreditRating,
-} from "../economy.types";
+} from "../../types";
 
 export interface IEconomyMarketRepository {
   getGDPGrowthRate(continent?: EconomyContinent): Promise<GDPGrowthRate[]>;

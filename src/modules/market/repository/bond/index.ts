@@ -1,5 +1,4 @@
-import { Quote } from "../../market.types";
-import { BondCountry } from "../bond.types";
+import { BondCountry, Quote } from "../../types";
 
 export interface IBondMarketRepository {
   getBondsByCountry(country: BondCountry): Promise<Quote[]>;
