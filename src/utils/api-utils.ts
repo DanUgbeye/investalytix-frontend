@@ -11,8 +11,18 @@ function setAuthHeader(api: AxiosInstance, token: string) {
   api.defaults.headers.common["authorization"] = `Bearer ${token}`;
 }
 
-function handleAPIError(error: AxiosError) {
-  if (!error.response?.data) {
+function handleAPIError(
+  error: AxiosError<{ message: string }> | Error | undefined
+) {
+  if (error instanceof AxiosError) {
+    if (!error.response || !error.response.data) {
+      return new Error(error.message);
+    }
+
+    return new Error(error.response.data.message);
+  }
+
+  if (error instanceof Error) {
     return new Error(error.message);
   }
 
