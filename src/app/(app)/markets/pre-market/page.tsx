@@ -1,10 +1,10 @@
 import Link from "next/link";
-import MarketHeader from "@/modules/markets/MarketHeader";
+import MarketHeader from "@/modules/market/components/MarketHeader";
 import WithSidePanel, {
   SIDE_SECTIONS,
-} from "@/modules/markets/WithSidePanel";
-import PreMarket from "@/modules/markets/PreMarket";
-import MarketSelector from "@/modules/markets/PreMarket/MarketSelector";
+} from "@/modules/market/components/WithSidePanel";
+import PreMarket from "@/modules/market/components/PreMarket";
+import MarketSelector from "@/modules/market/components/PreMarket/MarketSelector";
 
 export default function PreMarketPage() {
   return (

@@ -1,4 +1,4 @@
-import Summary from "@/modules/markets/Economy/Calendar/Summary";
+import Summary from "@/modules/market/components/Economy/Calendar/Summary";
 
 export default function SummaryPage() {
   return (

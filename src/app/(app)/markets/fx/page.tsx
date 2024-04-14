@@ -1,5 +1,5 @@
-import FX from "@/modules/markets/FX";
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
+import FX from "@/modules/market/components/FX";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/market/components/WithSidePanel";
 
 export default function FXPage() {
   return (

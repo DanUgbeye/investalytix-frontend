@@ -12,7 +12,7 @@ import {
   ComposedChart,
 } from "recharts";
 import Futures from "./Futures";
-import Quotes from "@/modules/markets/Quotes";
+import Quotes from "@/modules/market/components/Quotes";
 
 export default function PreMarket() {
   return (

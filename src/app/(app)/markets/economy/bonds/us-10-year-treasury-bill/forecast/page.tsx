@@ -1,4 +1,4 @@
-import Forecast from "@/modules/markets/Economy/Bonds/USTreasuryBill/Forecast";
+import Forecast from "@/modules/market/components/Economy/Bonds/USTreasuryBill/Forecast";
 
 export default function ForecastPage() {
   return (

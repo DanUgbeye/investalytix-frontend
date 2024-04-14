@@ -1,5 +1,5 @@
-import Overview from "../../app/Overview";
-import EconomicEvent from "../../app/EconomicEvent";
+import Overview from "@/app/Overview";
+import EconomicEvent from "@/app/EconomicEvent";
 
 export enum SIDE_SECTIONS {
   ALL = "ALL",

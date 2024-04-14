@@ -1,5 +1,5 @@
 "use client";
-import MarketHeader from "@/modules/markets/MarketHeader";
+import MarketHeader from "@/modules/market/components/MarketHeader";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

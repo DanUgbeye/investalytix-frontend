@@ -1,4 +1,4 @@
-import Asia from "@/modules/markets/Economy/MainIndicators/UnemploymentRate/Asia";
+import Asia from "@/modules/market/components/Economy/MainIndicators/UnemploymentRate/Asia";
 
 export default function AsiaPage() {
   return (

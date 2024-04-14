@@ -1,5 +1,5 @@
 "use client";
-import Quotes from "@/modules/markets/Quotes";
+import Quotes from "@/modules/market/components/Quotes";
 import FearAndGreed from "./FearAndGreed";
 import InvestorSentiment from "./InvestorSentiment";
 

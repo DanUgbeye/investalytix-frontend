@@ -1,5 +1,5 @@
-import Germany from "@/modules/markets/Bonds/Germany";
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
+import Germany from "@/modules/market/components/Bonds/Germany";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/market/components/WithSidePanel";
 
 export default function GermanyPage() {
   return (

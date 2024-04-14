@@ -1,40 +1,52 @@
-import Quotes from "@/modules/markets/Quotes";
+"use client";
+import Quotes from "@/modules/market/components/Quotes";
 
-export default function Americas() {
+export default function FX() {
   return (
-    <section>
-      {/* STOCK INDEXES */}
+    <div>
+      {/* MAJOR CURRENCIES PAIRS */}
       <section className="">
         <header className="mb-5">
           <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            STOCK INDEXES
+            MAJOR CURRENCIES PAIRS
           </h2>
         </header>
 
         <Quotes />
       </section>
 
-      {/* CURRENCIES */}
+      {/* AMERICAS */}
       <section className="mt-11">
         <header className="mb-5">
           <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            CURRENCIES
+            AMERICAS
           </h2>
         </header>
 
         <Quotes />
       </section>
 
-      {/* BONDS & RATES */}
+      {/* ASIA - PACIFIC */}
       <section className="mt-11">
         <header className="mb-5">
           <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            BONDS & RATES
+            ASIA - PACIFIC
           </h2>
         </header>
 
         <Quotes />
       </section>
-    </section>
+
+      {/* EUROPE */}
+      <section className="mt-11">
+        <header className="mb-5">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+            EUROPE
+          </h2>
+        </header>
+
+        <Quotes />
+      </section>
+    </div>
   );
 }

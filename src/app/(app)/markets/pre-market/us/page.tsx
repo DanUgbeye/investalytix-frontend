@@ -1,7 +1,7 @@
-import USMarkets from "@/modules/markets/PreMarket/US";
+import USMarkets from "@/modules/market/components/PreMarket/US";
 import WithSidePanel, {
   SIDE_SECTIONS,
-} from "@/modules/markets/WithSidePanel";
+} from "@/modules/market/components/WithSidePanel";
 
 export default function USPage() {
   return (

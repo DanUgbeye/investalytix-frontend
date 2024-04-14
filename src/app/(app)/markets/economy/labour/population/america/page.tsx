@@ -1,4 +1,4 @@
-import America from "@/modules/markets/Economy/Labour/Population/America";
+import America from "@/modules/market/components/Economy/Labour/Population/America";
 
 export default function AmericaPage() {
   return <America />;

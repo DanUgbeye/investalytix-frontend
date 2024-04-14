@@ -1,5 +1,5 @@
-import Bonds from "@/modules/markets/Bonds";
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
+import Bonds from "@/modules/market/components/Bonds";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/market/components/WithSidePanel";
 
 export default function BondsPage() {
   return (

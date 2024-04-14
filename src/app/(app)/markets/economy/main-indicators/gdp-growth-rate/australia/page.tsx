@@ -1,4 +1,4 @@
-import Australia from "@/modules/markets/Economy/MainIndicators/GDPGrowthRate/Australia";
+import Australia from "@/modules/market/components/Economy/MainIndicators/GDPGrowthRate/Australia";
 
 export default function AustraliaPage() {
   return (

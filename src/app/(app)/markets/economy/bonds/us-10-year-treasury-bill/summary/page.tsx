@@ -1,4 +1,4 @@
-import Summary from "@/modules/markets/Economy/Bonds/USTreasuryBill/Summary";
+import Summary from "@/modules/market/components/Economy/Bonds/USTreasuryBill/Summary";
 
 export default function SummaryPage() {
   return (

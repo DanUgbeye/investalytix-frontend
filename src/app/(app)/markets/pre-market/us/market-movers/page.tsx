@@ -1,4 +1,4 @@
-import MarketMovers from "@/modules/markets/PreMarket/US/MarketMovers";
+import MarketMovers from "@/modules/market/components/PreMarket/US/MarketMovers";
 
 export default function MarketMoversPage() {
   return <MarketMovers />;

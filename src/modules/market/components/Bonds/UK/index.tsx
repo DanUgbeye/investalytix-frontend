@@ -1,4 +1,4 @@
-import Quotes from "../../../../modules/markets/Quotes";
+import Quotes from "../../Quotes";
 
 export default function UK() {
   return (

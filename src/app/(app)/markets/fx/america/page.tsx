@@ -1,7 +1,7 @@
-import AmericasFX from "@/modules/markets/FX/AmericasFX";
+import AmericasFX from "@/modules/market/components/FX/AmericasFX";
 import WithSidePanel, {
   SIDE_SECTIONS,
-} from "@/modules/markets/WithSidePanel";
+} from "@/modules/market/components/WithSidePanel";
 
 export default function AmericaPage() {
   return (

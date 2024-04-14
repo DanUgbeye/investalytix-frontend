@@ -1,13 +1,13 @@
-import Quotes from "../../../../modules/markets/Quotes";
+import Quotes from "../../Quotes";
 
-export default function Australia() {
+export default function Japan() {
   return (
-    /*Australia Government Bonds */
+    /*Japan Government Bonds */
     <>
       <section className="">
         <header className="mb-5">
           <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold uppercase">
-            Australia Government Bonds
+            Japan Government Bonds
           </h2>
         </header>
 

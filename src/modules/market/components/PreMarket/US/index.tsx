@@ -1,4 +1,4 @@
-import Quotes from "@/modules/markets/Quotes";
+import Quotes from "@/modules/market/components/Quotes";
 
 export default function USMarkets() {
   return (

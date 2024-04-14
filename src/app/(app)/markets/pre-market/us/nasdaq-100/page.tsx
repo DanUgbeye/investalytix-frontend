@@ -1,5 +1,5 @@
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
-import NASDAQ100 from "@/modules/markets/PreMarket/US/NASDAQ100";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/market/components/WithSidePanel";
+import NASDAQ100 from "@/modules/market/components/PreMarket/US/NASDAQ100";
 
 export default function NASDAQ100Page() {
   return (
