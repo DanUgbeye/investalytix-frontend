@@ -1,7 +1,6 @@
-import Mapper from "@/components/mapper";
 import { cn } from "@/lib/utils";
-import { HTMLAttributes } from "react";
 import { LineChart } from "lucide-react";
+import { HTMLAttributes } from "react";
 
 export type Ratio = {
   name: string;
@@ -23,19 +22,17 @@ export default function RatioTable(props: RatioTableProps) {
       </div>
 
       <div className=" w-full ">
-        <Mapper
-          list={ratio.fields}
-          component={(props) => {
-            const { item } = props;
-
-            return (
-              <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b px-2 py-3 text-sm ">
-                <span className=" ">{item.label}</span>
-                <span className=" font-bold ">{item.value}</span>
-              </div>
-            );
-          }}
-        />
+        {ratio.fields.map((item, index) => {
+          return (
+            <div
+              key={`${item.label}-${index}`}
+              className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b px-2 py-3 text-sm "
+            >
+              <span className=" ">{item.label}</span>
+              <span className=" font-bold ">{item.value}</span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

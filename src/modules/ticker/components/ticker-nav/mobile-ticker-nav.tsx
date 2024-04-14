@@ -1,6 +1,5 @@
 "use client";
 
-import Mapper from "@/components/mapper";
 import PAGES from "@/data/page-map";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -45,25 +44,18 @@ export function MobileTickerNav(props: TickerNavProps) {
         className
       )}
     >
-      <Mapper
-        id="ticker-nav-links"
-        list={navTabs}
-        component={(props) => {
-          const {
-            item: { label, path },
-          } = props;
-
-          return (
-            <TickerNavLink
-              href={path}
-              active={path === activeTab}
-              variant="mobile"
-            >
-              {label}
-            </TickerNavLink>
-          );
-        }}
-      />
+      {navTabs.map(({ label, path }, index) => {
+        return (
+          <TickerNavLink
+            key={`ticker-nav-link-${label}-${index}`}
+            href={path}
+            active={path === activeTab}
+            variant="mobile"
+          >
+            {label}
+          </TickerNavLink>
+        );
+      })}
     </aside>
   );
 }

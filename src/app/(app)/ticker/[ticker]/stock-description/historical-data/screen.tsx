@@ -1,6 +1,5 @@
 "use client";
 
-import Mapper from "@/components/mapper";
 import { Button } from "@/components/ui/button";
 
 const HISTORICAL_DATA = {
@@ -71,11 +70,11 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
             </thead>
 
             <tbody className="  ">
-              <Mapper
-                list={Array<typeof HISTORICAL_DATA>(10).fill(HISTORICAL_DATA)}
-                component={({ item }) => {
+              {Array<typeof HISTORICAL_DATA>(10)
+                .fill(HISTORICAL_DATA)
+                .map((item, index) => {
                   return (
-                    <tr className=" border-b ">
+                    <tr key={`historical-data${index}`} className=" border-b ">
                       <td className=" px-2 py-3 ">
                         {item.date.toDateString()}
                       </td>
@@ -117,8 +116,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                       </td>
                     </tr>
                   );
-                }}
-              />
+                })}
             </tbody>
           </table>
         </div>

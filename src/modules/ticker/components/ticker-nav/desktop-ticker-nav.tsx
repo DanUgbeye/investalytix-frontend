@@ -1,4 +1,3 @@
-import Mapper from "@/components/mapper";
 import Spinner from "@/components/spinner";
 import PAGES from "@/data/page-map";
 import { cn } from "@/lib/utils";
@@ -97,25 +96,18 @@ export function DesktopTickerNav(props: TickerNavProps) {
 
         {/* TICKER NAV LINKS */}
         <div className=" divide-y border-y ">
-          <Mapper
-            id="ticker-nav-links"
-            list={navTabs}
-            component={(props) => {
-              const {
-                item: { label, path, icon },
-              } = props;
-
-              return (
-                <TickerNavLink
-                  href={path}
-                  icon={icon}
-                  active={path === activeTab}
-                >
-                  {label}
-                </TickerNavLink>
-              );
-            }}
-          />
+          {navTabs.map(({ label, path, icon }, index) => {
+            return (
+              <TickerNavLink
+                key={`ticker-nav-link-${label}-${index}`}
+                href={path}
+                icon={icon}
+                active={path === activeTab}
+              >
+                {label}
+              </TickerNavLink>
+            );
+          })}
         </div>
       </div>
     </aside>

@@ -1,6 +1,5 @@
 "use client";
 
-import Mapper from "@/components/mapper";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -104,15 +103,14 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                 </thead>
 
                 <tbody>
-                  <Mapper
-                    list={Array<typeof FINANCIAL_HISTORY_DATA>(10).fill(
-                      FINANCIAL_HISTORY_DATA
-                    )}
-                    component={(props) => {
-                      const { item } = props;
-
+                  {Array<typeof FINANCIAL_HISTORY_DATA>(10)
+                    .fill(FINANCIAL_HISTORY_DATA)
+                    .map((item, index) => {
                       return (
-                        <tr className=" text-sm ">
+                        <tr
+                          key={`earning-history-${index}`}
+                          className=" text-sm "
+                        >
                           <td className=" px-2 py-4 text-left font-bold text-[#333333] dark:text-white">
                             {item.reportDate.toDateString()}
                           </td>
@@ -148,8 +146,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                           </td>
                         </tr>
                       );
-                    }}
-                  />
+                    })}
                 </tbody>
               </table>
             </div>
@@ -214,15 +211,14 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                 </thead>
 
                 <tbody>
-                  <Mapper
-                    list={Array<typeof FINANCIAL_HISTORY_DATA>(10).fill(
-                      FINANCIAL_HISTORY_DATA
-                    )}
-                    component={(props) => {
-                      const { item } = props;
-
+                  {Array<typeof FINANCIAL_HISTORY_DATA>(10)
+                    .fill(FINANCIAL_HISTORY_DATA)
+                    .map((item, index) => {
                       return (
-                        <tr className=" text-sm ">
+                        <tr
+                          key={`revenue-history-${index}`}
+                          className=" text-sm "
+                        >
                           <td className=" px-2 py-4 text-left font-semibold text-[#333333] dark:text-white">
                             {item.reportDate.toDateString()}
                           </td>
@@ -248,8 +244,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                           </td>
                         </tr>
                       );
-                    }}
-                  />
+                    })}
                 </tbody>
               </table>
             </div>
