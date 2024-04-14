@@ -121,10 +121,10 @@ export default function SignupPage() {
             </p>
           </form>
 
-          <p className="mb-6 mt-8 text-[#4F566B]">
+          <p className="mb-6 mt-8 text-[#4F566B] dark:text-white">
             This Site is protected by reCAPTCHA
           </p>
-          <p className="text-[#697386]">
+          <p className="text-[#697386] dark:text-white">
             &copy; Investalytix · Contact · Privacy & terms
           </p>
         </div>

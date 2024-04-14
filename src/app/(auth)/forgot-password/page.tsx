@@ -39,7 +39,7 @@ function ForgotPassword({
     <div className="z-10 flex flex-col">
       <Link
         href="/login"
-        className="flex items-center justify-start gap-2 text-[#252525]"
+        className="flex items-center justify-start gap-2 text-[#252525] dark:text-white"
       >
         <FiChevronLeft />
         Back
@@ -47,20 +47,20 @@ function ForgotPassword({
 
       <form
         onSubmit={submitHandler}
-        className="auth__card__shadow mt-8 rounded bg-white px-8 py-8 md:px-16 md:py-12"
+        className="auth__card__shadow mt-8 rounded bg-white dark:bg-white/10 px-8 py-8 md:px-16 md:py-12"
       >
-        <h1 className="mb-4 text-2xl font-bold text-[#3C4257]">
+        <h1 className="mb-4 text-2xl font-bold text-[#3C4257] dark:text-white">
           Change your password
         </h1>
 
-        <p className="mb-4 max-w-[40ch] text-[#3C4257]">
+        <p className="mb-4 max-w-[40ch] text-[#3C4257] dark:text-white">
           Please enter your{" "}
           <span className="text-primary-base">email address</span> to help us
           locate your Investalytix account.
         </p>
 
         <div className="w-full lg:min-w-[300px]">
-          <label htmlFor="email" className="mb-3 text-[#3C4257]">
+          <label htmlFor="email" className="mb-3 text-[#3C4257] dark:text-white">
             Email
           </label>
           <input
@@ -87,7 +87,7 @@ function ForgotPassword({
 function MailSent({ email }: { email: string }) {
   async function resendEmailHandler() {}
   return (
-    <div className="auth__card__shadow max-w-xl rounded bg-white px-8 py-8 md:px-16 md:py-12">
+    <div className="auth__card__shadow max-w-xl rounded bg-white dark:bg-white/10 px-8 py-8 md:px-16 md:py-12">
       <svg
         className="mx-auto"
         width={219}
@@ -689,11 +689,11 @@ function MailSent({ email }: { email: string }) {
         </defs>
       </svg>
 
-      <h1 className="my-4 text-center text-2xl font-bold text-[#3C4257]">
+      <h1 className="my-4 text-center text-2xl font-bold text-[#3C4257] dark:text-white">
         Email Verification
       </h1>
 
-      <p className="px-7 text-[#3C4257]">
+      <p className="px-7 text-[#3C4257] dark:text-white">
         We have sent a mail to{" "}
         <span className="text-primary-base">{email}</span>, Please click the
         link to confirm your email address.
@@ -701,9 +701,9 @@ function MailSent({ email }: { email: string }) {
 
       <div className="my-4 h-[0.5px] w-full bg-[#9D9D9D]"></div>
 
-      <p className="px-7 text-[#485567]">
+      <p className="px-7 text-[#485567] dark:text-white">
         If you did not receive any mail,{" "}
-        <button className="text-[#125BD4]" onClick={resendEmailHandler}>
+        <button className="text-[#125BD4] dark:text-[#a4c7ff]" onClick={resendEmailHandler}>
           Resend Confirmation
         </button>
       </p>
