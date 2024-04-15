@@ -1,6 +1,6 @@
 import SERVER_CONFIG from "@/config/app/server";
 import { AuthData } from "@/modules/auth/auth.types";
-import { createAPIInstance } from "@/utils/api-utils";
+import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -14,7 +14,7 @@ async function Login(req: NextRequest) {
 
   try {
     let body = await req.json();
-    let res = await api.post<AuthData>("/api/auth/login", body);
+    let res = await api.post<AuthData>("/auth/login", body);
     let serverCookies = cookies();
 
     serverCookies.set("auth", res.data.token, {
@@ -25,8 +25,15 @@ async function Login(req: NextRequest) {
 
     return NextResponse.json(res.data, { status: 200 });
   } catch (err: any) {
-    let error = err as AxiosError;
-    return NextResponse.json(error.response, { status: error.status || 400 });
+    console.log(err.response);
+    if (err instanceof AxiosError) {
+      return NextResponse.json(
+        err.response?.data || { message: handleAPIError(err).message },
+        { status: err.status || 400 }
+      );
+    }
+
+    return NextResponse.json({ message: err.message }, { status: 400 });
   }
 }
 

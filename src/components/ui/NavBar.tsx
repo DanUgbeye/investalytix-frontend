@@ -97,7 +97,7 @@ export default function NavBar() {
                     <NavigationMenuItem>
                       {route.children ? (
                         <>
-                          <NavigationMenuTrigger className=" rounded-full bg-transparent text-white hover:bg-gray-700/50 hover:text-white focus:bg-gray-700/50 focus:text-white data-[active]:bg-gray-700/50 data-[state=open]:bg-gray-700/50 ">
+                          <NavigationMenuTrigger className=" rounded-full bg-transparent text-white hover:bg-primary-base/20 hover:text-white focus:bg-primary-base/20 focus:text-white data-[active]:bg-primary-base/20 data-[state=open]:bg-primary-base/20 ">
                             {route.label}
                           </NavigationMenuTrigger>
 
@@ -140,7 +140,7 @@ export default function NavBar() {
                               <NavigationMenuLink
                                 className={cn(
                                   navigationMenuTriggerStyle(),
-                                  " rounded-full bg-transparent text-white hover:bg-gray-700/50 hover:text-white focus:bg-gray-700/50 focus:text-white "
+                                  " rounded-full bg-transparent text-white hover:bg-primary-base/20 hover:text-white focus:bg-primary-base/20 focus:text-white "
                                 )}
                               >
                                 {route.label}
@@ -151,7 +151,7 @@ export default function NavBar() {
                               variant={"ghost"}
                               className={cn(
                                 navigationMenuTriggerStyle(),
-                                " rounded-full bg-transparent text-white hover:bg-gray-700/50 hover:text-white focus:bg-gray-700/50 focus:text-white "
+                                " rounded-full bg-transparent text-white hover:bg-primary-base/20 hover:text-white focus:bg-primary-base/20 focus:text-white "
                               )}
                             >
                               {route.label}

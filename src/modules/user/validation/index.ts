@@ -6,7 +6,7 @@ export const ServerUserSchema = z.object({
   email: z.string(),
   firstname: z.string(),
   lastname: z.string(),
-  googleId: z.string(),
+  googleId: z.string().optional(),
 }) satisfies ZodType<ServerUserData>;
 
 export const UserSchema = z.object({
@@ -14,5 +14,5 @@ export const UserSchema = z.object({
   email: z.string(),
   firstname: z.string(),
   lastname: z.string(),
-  googleId: z.string(),
+  googleId: z.string().optional(),
 }) satisfies ZodType<UserData>;

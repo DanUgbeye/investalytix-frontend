@@ -5,13 +5,14 @@ import { AxiosInstance } from "axios";
 import { z } from "zod";
 import { AuthData, LoginData, SignupData } from "../auth.types";
 import { AuthSchema } from "../validation";
+import { clientAPI } from "@/config/api";
 
 export class AuthRepository {
   constructor(private api: AxiosInstance) {}
 
   async signup(data: SignupData, options?: RequestOptions) {
     const path = `/auth/signup`;
-    const api = createAPIInstance();
+    const api = createAPIInstance("/api");
 
     try {
       const { data: res } = await api.post<{ auth: AuthData; user: any }>(
@@ -39,7 +40,7 @@ export class AuthRepository {
 
   async login(data: LoginData, options?: RequestOptions) {
     const path = `/auth/login`;
-    const api = createAPIInstance();
+    const api = createAPIInstance("/api");
 
     try {
       const { data: res } = await api.post<{ auth: AuthData; user: any }>(
@@ -60,6 +61,7 @@ export class AuthRepository {
 
       return { auth: parsedAuth.data, user: parsedUser.data };
     } catch (error: any) {
+      console.log(error)
       let err = handleAPIError(error);
       throw err;
     }
@@ -67,7 +69,7 @@ export class AuthRepository {
 
   async logout(options?: RequestOptions) {
     const path = `/auth/login`;
-    const api = createAPIInstance();
+    const api = createAPIInstance("/api");
 
     try {
       await api.post(path, undefined, options);
@@ -80,7 +82,7 @@ export class AuthRepository {
 
   async refreshToken(options?: RequestOptions) {
     const path = `/auth/refresh-token`;
-    const api = createAPIInstance();
+    const api = createAPIInstance("/api");
 
     try {
       const { data } = await api.post<AuthData>(path, undefined, options);
@@ -100,7 +102,7 @@ export class AuthRepository {
 
   async checkAuthStatus(options?: RequestOptions) {
     const path = `/auth/status`;
-    const api = createAPIInstance();
+    const api = createAPIInstance("/api");
 
     try {
       const { data } = await api.get<{ authenticated: boolean }>(path, options);
@@ -116,4 +118,8 @@ export class AuthRepository {
       throw err;
     }
   }
+}
+
+export function useAuthRepo() {
+  return new AuthRepository(clientAPI);
 }

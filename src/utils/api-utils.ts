@@ -15,11 +15,11 @@ function handleAPIError(
   error: AxiosError<{ message: string }> | Error | undefined
 ) {
   if (error instanceof AxiosError) {
-    if (!error.response || !error.response.data) {
-      return new Error(error.message);
+    if (error.response?.data?.message) {
+      return new Error(error.response.data.message);
     }
 
-    return new Error(error.response.data.message);
+    return new Error(error.message);
   }
 
   if (error instanceof Error) {
