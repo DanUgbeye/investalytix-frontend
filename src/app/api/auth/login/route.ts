@@ -25,7 +25,6 @@ async function Login(req: NextRequest) {
 
     return NextResponse.json(res.data, { status: 200 });
   } catch (err: any) {
-    console.log(err.response);
     if (err instanceof AxiosError) {
       return NextResponse.json(
         err.response?.data || { message: handleAPIError(err).message },
