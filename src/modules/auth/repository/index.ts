@@ -113,6 +113,19 @@ export class AuthRepository {
     }
   }
 
+  async verifyEmail(token: string, options?: RequestOptions) {
+    const path = `/auth/verify-email/${token}`;
+
+    try {
+      await this.api.get(path, options);
+
+      return true;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
   async resendVerificationEmail(email: string, options?: RequestOptions) {
     const path = `/auth/verify-email/resend`;
 
