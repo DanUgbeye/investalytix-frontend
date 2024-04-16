@@ -11,18 +11,19 @@ async function CheckAuthStatus(req: NextRequest) {
 
     if (serverCookies.has("auth")) {
       const auth = serverCookies.get("auth")!;
+
       return NextResponse.json(
-        { authenticated: true, token: auth.value },
+        { data: { authenticated: true, token: auth.value } },
         { status: 200 }
       );
-    } else {
-      return NextResponse.json({ authenticated: false }, { status: 400 });
     }
-  } catch (err: any) {
+
     return NextResponse.json(
-      { message: err.message, authenticated: false },
-      { status: 400 }
+      { data: { authenticated: false } },
+      { status: 200 }
     );
+  } catch (err: any) {
+    return NextResponse.json({ message: err.message }, { status: 400 });
   }
 }
 

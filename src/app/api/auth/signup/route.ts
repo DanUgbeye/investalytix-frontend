@@ -14,7 +14,7 @@ async function Signup(req: NextRequest) {
     let body = await req.json();
     let { data } = await api.post("/auth/register", body);
 
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json(data, { status: 201 });
   } catch (err: any) {
     if (err instanceof AxiosError) {
       return NextResponse.json(
