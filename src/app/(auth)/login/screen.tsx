@@ -1,7 +1,10 @@
 "use client";
 
 import { FormItem, FormLabel, FormMessage } from "@/components/fom";
+import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import PAGES from "@/data/page-map";
 import { LoginData } from "@/modules/auth/auth.types";
 import { useAuthRepo } from "@/modules/auth/repository";
 import useAuthStore from "@/modules/auth/store";
@@ -10,9 +13,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
 import { ImCheckmark } from "react-icons/im";
+import { PiSpinnerGap } from "react-icons/pi";
 import { toast } from "react-toastify";
 import { ZodType, z } from "zod";
-import { PiSpinnerGap } from "react-icons/pi";
 
 export default function LoginScreen() {
   const authRepo = useAuthRepo();
@@ -45,6 +48,8 @@ export default function LoginScreen() {
       toast.error(error.message);
     }
   }
+
+  console.log(useAuthStore().auth, useAuthStore().user);
 
   return (
     <>
@@ -90,7 +95,7 @@ export default function LoginScreen() {
                     Email
                   </FormLabel>
 
-                  <input
+                  <Input
                     {...field}
                     id="email"
                     className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
@@ -119,18 +124,17 @@ export default function LoginScreen() {
                     </FormLabel>
 
                     <Link
-                      href="/forgot-password"
+                      href={PAGES.FORGOT_PASSWORD}
                       className="text-sm text-[#635CFF]"
                     >
                       Forgot your password?
                     </Link>
                   </div>
 
-                  <input
+                  <PasswordInput
                     {...field}
                     id="password"
                     className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
-                    type="password"
                     placeholder="******"
                   />
 
@@ -173,7 +177,10 @@ export default function LoginScreen() {
 
           <p className="mb-6 mt-8 text-[#4F566B] dark:text-white">
             Don&apos;t have an account?{" "}
-            <Link href="/signup" className="text-[#635CFF] dark:text-[#9b96ff]">
+            <Link
+              href={PAGES.SIGNUP}
+              className="text-[#635CFF] dark:text-[#9b96ff]"
+            >
               Sign up
             </Link>
           </p>

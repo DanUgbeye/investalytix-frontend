@@ -54,9 +54,12 @@ export default function SignupScreen() {
     try {
       let res = await authRepo.signup(data);
       reset();
-      // redirect to verify email page
       toast.success("Account created");
-      router.replace(PAGES.VERIFY_EMAIL);
+
+      const params = new URLSearchParams();
+      params.set("email", data.email);
+      // redirect to verify email page
+      router.replace(`${PAGES.VERIFY_EMAIL}?${params.toString()}`);
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -240,7 +243,7 @@ export default function SignupScreen() {
 
             <p className="text-center text-[#4F566B]">
               Already have an account?{" "}
-              <Link href="/login" className="text-[#635CFF]">
+              <Link href={PAGES.LOGIN} className="text-[#635CFF]">
                 Sign in
               </Link>
             </p>
