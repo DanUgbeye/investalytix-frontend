@@ -6,6 +6,7 @@ import { z } from "zod";
 import { AuthData, LoginData, SignupData } from "../auth.types";
 import { AuthSchema } from "../validation";
 import { clientAPI } from "@/config/api";
+import { ServerUserData } from "@/modules/user/user.types";
 
 export class AuthRepository {
   constructor(private api: AxiosInstance) {}
@@ -15,23 +16,9 @@ export class AuthRepository {
     const api = createAPIInstance("/api");
 
     try {
-      const { data: res } = await api.post<{ auth: AuthData; user: any }>(
-        path,
-        data,
-        options
-      );
+      await api.post(path, data, options);
 
-      const parsedAuth = AuthSchema.safeParse(res.auth);
-      const parsedUser = ServerUserSchema.transform((user) => {
-        const { _id, ...rest } = user;
-        return { id: _id, ...rest };
-      }).safeParse(res.user);
-
-      if (!parsedAuth.success || !parsedUser.success) {
-        throw new Error("Something went wrong on our end");
-      }
-
-      return { auth: parsedAuth.data, user: parsedUser.data };
+      return true;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
@@ -43,11 +30,11 @@ export class AuthRepository {
     const api = createAPIInstance("/api");
 
     try {
-      const { data: res } = await api.post<{ auth: AuthData; user: any }>(
-        path,
-        data,
-        options
-      );
+      const { data: res } = await api.post<{
+        auth: AuthData;
+        user: ServerUserData;
+      }>(path, data, options);
+      console.log(res, "response");
 
       const parsedAuth = AuthSchema.safeParse(res.auth);
       const parsedUser = ServerUserSchema.transform((user) => {
@@ -61,7 +48,7 @@ export class AuthRepository {
 
       return { auth: parsedAuth.data, user: parsedUser.data };
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       let err = handleAPIError(error);
       throw err;
     }

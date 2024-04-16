@@ -71,8 +71,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     }
   }
 
-  // set timer for refresh token
-  // fetch user data on page refresh
+  // TODO set timer for refresh token
 
   useEffect(() => {
     handleInit();

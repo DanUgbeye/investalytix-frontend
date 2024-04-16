@@ -8,10 +8,13 @@ import { NextRequest, NextResponse } from "next/server";
 async function CheckAuthStatus(req: NextRequest) {
   try {
     let serverCookies = cookies();
-    
+
     if (serverCookies.has("auth")) {
-      const auth = serverCookies.get("auth");
-      return NextResponse.json({ authenticated: true }, { status: 200 });
+      const auth = serverCookies.get("auth")!;
+      return NextResponse.json(
+        { authenticated: true, token: auth.value },
+        { status: 200 }
+      );
     } else {
       return NextResponse.json({ authenticated: false }, { status: 400 });
     }

@@ -14,16 +14,19 @@ async function Login(req: NextRequest) {
 
   try {
     let body = await req.json();
-    let res = await api.post<AuthData>("/auth/login", body);
+    let { data: res } = await api.post<{ data: { auth: AuthData } }>(
+      "/auth/login",
+      body
+    );
     let serverCookies = cookies();
 
-    serverCookies.set("auth", res.data.token, {
+    serverCookies.set("auth", res.data.auth.token, {
       secure: true,
       httpOnly: true,
-      expires: res.data.expiresIn,
+      expires: res.data.auth.expiresIn,
     });
 
-    return NextResponse.json(res.data, { status: 200 });
+    return NextResponse.json(res, { status: 200 });
   } catch (err: any) {
     if (err instanceof AxiosError) {
       return NextResponse.json(

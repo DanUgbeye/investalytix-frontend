@@ -34,7 +34,7 @@ function addAuthInterceptor(api: AxiosInstance) {
   api.interceptors.request.use((config) => {
     const { auth } = useAuthStore.getState();
     // console.log("interceptor running");
-    if (auth) {
+    if (auth && auth.token) {
       // console.log("interceptor auth token added");
       config.headers["authorization"] = `Bearer ${auth.token}`;
     }

@@ -11,7 +11,7 @@ import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
 import { ImCheckmark } from "react-icons/im";
 import { toast } from "react-toastify";
-import { z } from "zod";
+import { ZodType, z } from "zod";
 import { PiSpinnerGap } from "react-icons/pi";
 
 export default function LoginScreen() {
@@ -31,7 +31,7 @@ export default function LoginScreen() {
       z.object({
         email: z.string().email().toLowerCase(),
         password: z.string().min(8).max(64),
-      })
+      }) satisfies ZodType<LoginData>
     ),
   });
 
@@ -42,7 +42,6 @@ export default function LoginScreen() {
       reset();
       toast.success("Login Successful");
     } catch (error: any) {
-      console.log(error.message);
       toast.error(error.message);
     }
   }
@@ -141,13 +140,14 @@ export default function LoginScreen() {
             />
 
             <div className="flex items-center gap-2">
-              <div className="relative flex items-center">
-                <ImCheckmark className="pointer-events-none absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 text-white" />
+              <div className="relative flex h-fit items-center">
+                <ImCheckmark className="pointer-events-none absolute left-1/2 top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 text-white" />
+
                 <input
                   type="checkbox"
                   name="stay-signed-in"
                   id="stay-signed-in"
-                  className="h-4 w-4 appearance-none rounded bg-gray-100 checked:bg-primary-base"
+                  className="size-5 appearance-none rounded bg-gray-200 checked:bg-primary-base"
                 />
               </div>
 
@@ -163,7 +163,11 @@ export default function LoginScreen() {
               disabled={isSubmitting || !isDirty}
               className="h-fit w-full cursor-pointer rounded bg-primary-base py-4 text-white"
             >
-              {isSubmitting ? <PiSpinnerGap className=" size-5 " /> : "Continue"}
+              {isSubmitting ? (
+                <PiSpinnerGap className=" size-5 animate-spin " />
+              ) : (
+                "Continue"
+              )}
             </Button>
           </form>
 
