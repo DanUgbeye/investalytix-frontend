@@ -24,6 +24,7 @@ import {
 } from "react-icons/fi";
 import { Container } from "../container";
 import { Button } from "./button";
+import PAGES from "@/data/page-map";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -79,7 +80,7 @@ export default function NavBar() {
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
             <MobileMenu />
-            <Link href="/">
+            <Link href={PAGES.HOME}>
               <Image
                 src="/assets/logo/logo-with-text.svg"
                 alt="Logo"
@@ -166,30 +167,34 @@ export default function NavBar() {
             })}
           </div>
 
-          <div className="flex items-center">
-            <Search />
+          <div className="flex items-center gap-x-3 ">
+            <div className="flex items-center gap-x-2 ">
+              <Search />
 
-            <button
-              title="theme"
-              className="ml-6 inline-block rounded-full p-2 font-bold text-white"
-              onClick={toggleTheme}
-            >
-              {theme === "light" ? <FiMoon /> : <FiSun />}
-            </button>
+              <button
+                title="theme"
+                className=" inline-block rounded-full p-2 font-bold text-white"
+                onClick={toggleTheme}
+              >
+                {theme === "light" ? <FiMoon /> : <FiSun />}
+              </button>
+            </div>
 
-            <Link
-              href="/login"
-              className="hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white md:block"
-            >
-              Login
-            </Link>
+            <div className="flex items-center gap-x-2 ">
+              <Link
+                href={PAGES.LOGIN}
+                className="hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white hover:bg-gray-800 md:block "
+              >
+                Login
+              </Link>
 
-            <Link
-              href="/signup"
-              className="hidden cursor-pointer rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block"
-            >
-              Sign Up
-            </Link>
+              <Link
+                href={PAGES.SIGNUP}
+                className="hidden cursor-pointer rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block"
+              >
+                Sign Up
+              </Link>
+            </div>
           </div>
         </div>
       </Container>

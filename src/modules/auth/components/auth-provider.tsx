@@ -10,6 +10,8 @@ import { z } from "zod";
 import useAuthStore from "../store";
 import { AuthState } from "../store/types";
 import { AuthSchema } from "../validation";
+import { useAuthRepo } from "../repository";
+import useLogout from "../hooks/use-logout.hook";
 
 export default function AuthProvider({ children }: PropsWithChildren) {
   const initialiseStore = useAuthStore(
@@ -21,6 +23,8 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const auth = useAuthStore(({ auth }) => auth);
   const user = useAuthStore(({ user }) => user);
   const userRepo = useUserRepo();
+  const authRepo = useAuthRepo();
+  const logout = useLogout();
 
   const { data } = useQuery({
     enabled: !!user,
@@ -29,10 +33,21 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     refetchInterval: 300_000, // 5 mins
   });
 
+  const {
+    data: authStatus,
+    isLoading: authStatusLoading,
+    refetch: refetchAuthStatus,
+  } = useQuery({
+    enabled: !!user,
+    queryKey: [QUERY_KEYS.GET_AUTH_STATUS, user?.id],
+    queryFn: ({ signal }) => authRepo.checkAuthStatus({ signal }),
+    refetchInterval: 180_000, // 5 mins
+  });
+
   function handleInit() {
     try {
       // fetch auth data locally
-      const saved = localStorage.getItem(LOCALSTORAGE_KEYS.USER);
+      const saved = localStorage.getItem(LOCALSTORAGE_KEYS.AUTH);
       if (saved === null) {
         return initialiseStore({});
       }
@@ -44,13 +59,13 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         .safeParse(data);
 
       if (!parsed.success) {
-        localStorage.removeItem(LOCALSTORAGE_KEYS.USER);
+        localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH);
         return initialiseStore({});
       }
 
       return initialiseStore(parsed.data);
     } catch (error: any) {
-      localStorage.removeItem(LOCALSTORAGE_KEYS.USER);
+      localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH);
       return initialiseStore({});
     }
   }
@@ -58,7 +73,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   function backupData() {
     if (auth && user) {
       localStorage.setItem(
-        LOCALSTORAGE_KEYS.USER,
+        LOCALSTORAGE_KEYS.AUTH,
         JSON.stringify({ auth, user } satisfies AuthState)
       );
     }
@@ -91,6 +106,28 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  useEffect(() => {
+    refetchAuthStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth, user]);
+
+  useEffect(() => {
+    if (authStatusLoading) return;
+
+    if (authStatus && !authStatus.authenticated && auth && user) {
+      try {
+        logout();
+      } catch (error: any) {}
+    }
+
+    if (authStatus && authStatus.authenticated && !auth && !user) {
+      try {
+        logout();
+      } catch (error: any) {}
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authStatusLoading, authStatus, auth, user]);
 
   if (initialised) {
     return <>{children}</>;

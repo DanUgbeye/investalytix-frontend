@@ -1,3 +1,3 @@
 export const LOCALSTORAGE_KEYS = {
-  USER: "USER",
+  AUTH: "AUTH",
 } as const;

@@ -1,3 +1,5 @@
+import { clientAPI } from "@/config/api";
+import { ServerUserData } from "@/modules/user/user.types";
 import { ServerUserSchema } from "@/modules/user/validation";
 import { RequestOptions } from "@/types/api.types";
 import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
@@ -5,8 +7,6 @@ import { AxiosInstance } from "axios";
 import { z } from "zod";
 import { AuthData, LoginData, SignupData } from "../auth.types";
 import { AuthSchema } from "../validation";
-import { clientAPI } from "@/config/api";
-import { ServerUserData } from "@/modules/user/user.types";
 
 export class AuthRepository {
   constructor(private api: AxiosInstance) {}
@@ -31,16 +31,17 @@ export class AuthRepository {
 
     try {
       const { data: res } = await api.post<{
-        auth: AuthData;
-        user: ServerUserData;
+        data: {
+          auth: AuthData;
+          user: ServerUserData;
+        };
       }>(path, data, options);
-      console.log(res, "response");
 
-      const parsedAuth = AuthSchema.safeParse(res.auth);
+      const parsedAuth = AuthSchema.safeParse(res.data.auth);
       const parsedUser = ServerUserSchema.transform((user) => {
         const { _id, ...rest } = user;
         return { id: _id, ...rest };
-      }).safeParse(res.user);
+      }).safeParse(res.data.user);
 
       if (!parsedAuth.success || !parsedUser.success) {
         throw new Error("Something went wrong on our end");
@@ -48,7 +49,6 @@ export class AuthRepository {
 
       return { auth: parsedAuth.data, user: parsedUser.data };
     } catch (error: any) {
-      console.log(error);
       let err = handleAPIError(error);
       throw err;
     }
@@ -72,9 +72,13 @@ export class AuthRepository {
     const api = createAPIInstance("/api");
 
     try {
-      const { data } = await api.post<AuthData>(path, undefined, options);
+      const { data } = await api.post<{ data: { auth: AuthData } }>(
+        path,
+        undefined,
+        options
+      );
 
-      const parsedAuth = AuthSchema.safeParse(data);
+      const parsedAuth = AuthSchema.safeParse(data.data.auth);
 
       if (!parsedAuth.success) {
         throw new Error("Something went wrong on our end");
@@ -92,7 +96,10 @@ export class AuthRepository {
     const api = createAPIInstance("/api");
 
     try {
-      const { data } = await api.get<{ authenticated: boolean }>(path, options);
+      const { data } = await api.get<{ data: { authenticated: boolean } }>(
+        path,
+        options
+      );
       let parsedRes = z.object({ authenticated: z.boolean() }).safeParse(data);
 
       if (!parsedRes.success) {
@@ -100,6 +107,32 @@ export class AuthRepository {
       }
 
       return parsedRes.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async resendVerificationEmail(email: string, options?: RequestOptions) {
+    const path = `/auth/verify-email/resend`;
+
+    try {
+      await this.api.post(path, { email }, options);
+
+      return true;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async sendForgotPasswordLink(email: string, options?: RequestOptions) {
+    const path = `/auth/forgot-password`;
+
+    try {
+      await this.api.post(path, { email }, options);
+
+      return true;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
