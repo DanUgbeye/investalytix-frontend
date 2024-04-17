@@ -49,8 +49,6 @@ export default function LoginScreen() {
     }
   }
 
-  console.log(useAuthStore().auth, useAuthStore().user);
-
   return (
     <>
       <Image
