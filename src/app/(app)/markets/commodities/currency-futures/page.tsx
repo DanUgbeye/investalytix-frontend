@@ -1,5 +1,5 @@
-import CurrencyFutures from "@/modules/markets/Commodities/CurrencyFutures";
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
+import CurrencyFutures from "@/modules/market/components/Commodities/CurrencyFutures";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/market/components/WithSidePanel";
 
 export default function CurrencyFuturesPage() {
   return (

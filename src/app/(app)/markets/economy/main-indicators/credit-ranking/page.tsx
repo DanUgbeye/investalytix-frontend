@@ -1,4 +1,4 @@
-import World from "@/modules/markets/Economy/MainIndicators/CreditRating/World";
+import World from "@/modules/market/components/Economy/MainIndicators/CreditRating/World";
 
 export default function GDPGrowthPage() {
   return (

@@ -1,5 +1,5 @@
-import UK from "@/modules/markets/Bonds/UK";
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
+import UK from "@/modules/market/components/Bonds/UK";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/market/components/WithSidePanel";
 
 export default function UKPage() {
   return (

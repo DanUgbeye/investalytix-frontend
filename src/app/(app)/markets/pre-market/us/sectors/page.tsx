@@ -1,5 +1,5 @@
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
-import Sectors from "@/modules/markets/PreMarket/US/Sectors";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/market/components/WithSidePanel";
+import Sectors from "@/modules/market/components/PreMarket/US/Sectors";
 
 export default function SectorsPage() {
   return (

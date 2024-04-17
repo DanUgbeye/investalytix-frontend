@@ -1,4 +1,4 @@
-import Africa from "@/modules/markets/Economy/MainIndicators/GDPGrowthRate/Africa";
+import Africa from "@/modules/market/components/Economy/MainIndicators/GDPGrowthRate/Africa";
 
 export default function AfricaPage() {
   return (

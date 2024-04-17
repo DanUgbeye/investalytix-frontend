@@ -1,6 +1,5 @@
 "use client";
 
-import Mapper from "@/components/mapper";
 import { Pie, PieChart, Tooltip } from "recharts";
 
 const CAPITAL_STRUCTURE_DATA = [
@@ -79,13 +78,9 @@ export default function CapitalStructureScreen(
           </thead>
 
           <tbody className="  ">
-            <Mapper
-              list={[...CAPITAL_STRUCTURE_DATA]}
-              component={(props) => {
-                const { item } = props;
-
+            {[...CAPITAL_STRUCTURE_DATA].map((item, index) =>  {
                 return (
-                  <tr className=" odd:bg-neutral-100 dark:odd:bg-transparent ">
+                  <tr key={`${item.label}-${index}`} className=" odd:bg-neutral-100 dark:odd:bg-transparent ">
                     <td className=" font-semibold ">
                       <div className=" flex items-center gap-x-2 ">
                         <span
@@ -103,9 +98,9 @@ export default function CapitalStructureScreen(
                     </td>
                   </tr>
                 );
-              }}
-            />
-
+              }
+            )}
+            
             <tr className=" font-semibold odd:bg-neutral-100 dark:odd:bg-transparent ">
               <td className=" px-2 py-3 ">Total</td>
               <td className=" px-2 py-3 ">

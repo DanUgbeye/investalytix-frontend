@@ -1,4 +1,4 @@
-import Forecast from "@/modules/markets/Economy/Bonds/USYearTreasury/Forecast";
+import Forecast from "@/modules/market/components/Economy/Bonds/USYearTreasury/Forecast";
 
 export default function ForecastPage() {
   return (

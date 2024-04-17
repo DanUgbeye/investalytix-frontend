@@ -1,4 +1,4 @@
-import Forecast from "@/modules/markets/Economy/Government/Debt/Forecast";
+import Forecast from "@/modules/market/components/Economy/Government/Debt/Forecast";
 
 export default function ForecastPage() {
   return <Forecast />;

@@ -1,23 +1,24 @@
-import { AxiosInstance } from "axios";
-import { AuthData, LoginData, SignupData } from "../auth.types";
+import { clientAPI } from "@/config/api";
+import { ServerUserData } from "@/modules/user/user.types";
+import { ServerUserSchema } from "@/modules/user/validation";
 import { RequestOptions } from "@/types/api.types";
 import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
-import { IAuthRepository } from "./interface";
+import { AxiosInstance } from "axios";
+import { z } from "zod";
+import { AuthData, LoginData, SignupData } from "../auth.types";
+import { AuthSchema } from "../validation";
 
-export class AuthRepository implements IAuthRepository {
+export class AuthRepository {
   constructor(private api: AxiosInstance) {}
 
   async signup(data: SignupData, options?: RequestOptions) {
     const path = `/auth/signup`;
-    const api = createAPIInstance();
+    const api = createAPIInstance("/api");
 
     try {
-      const res = await api.post<{ auth: AuthData; user: any }>(
-        path,
-        data,
-        options
-      );
-      return res.data;
+      await api.post(path, data, options);
+
+      return true;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
@@ -26,15 +27,27 @@ export class AuthRepository implements IAuthRepository {
 
   async login(data: LoginData, options?: RequestOptions) {
     const path = `/auth/login`;
-    const api = createAPIInstance();
+    const api = createAPIInstance("/api");
 
     try {
-      const res = await api.post<{ auth: AuthData; user: any }>(
-        path,
-        data,
-        options
-      );
-      return res.data;
+      const { data: res } = await api.post<{
+        data: {
+          auth: AuthData;
+          user: ServerUserData;
+        };
+      }>(path, data, options);
+
+      const parsedAuth = AuthSchema.safeParse(res.data.auth);
+      const parsedUser = ServerUserSchema.transform((user) => {
+        const { _id, ...rest } = user;
+        return { id: _id, ...rest };
+      }).safeParse(res.data.user);
+
+      if (!parsedAuth.success || !parsedUser.success) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return { auth: parsedAuth.data, user: parsedUser.data };
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
@@ -43,7 +56,7 @@ export class AuthRepository implements IAuthRepository {
 
   async logout(options?: RequestOptions) {
     const path = `/auth/login`;
-    const api = createAPIInstance();
+    const api = createAPIInstance("/api");
 
     try {
       await api.post(path, undefined, options);
@@ -56,11 +69,22 @@ export class AuthRepository implements IAuthRepository {
 
   async refreshToken(options?: RequestOptions) {
     const path = `/auth/refresh-token`;
-    const api = createAPIInstance();
+    const api = createAPIInstance("/api");
 
     try {
-      const res = await api.post<AuthData>(path, undefined, options);
-      return res.data;
+      const { data } = await api.post<{ data: { auth: AuthData } }>(
+        path,
+        undefined,
+        options
+      );
+
+      const parsedAuth = AuthSchema.safeParse(data.data.auth);
+
+      if (!parsedAuth.success) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return parsedAuth.data;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
@@ -69,14 +93,66 @@ export class AuthRepository implements IAuthRepository {
 
   async checkAuthStatus(options?: RequestOptions) {
     const path = `/auth/status`;
-    const api = createAPIInstance();
+    const api = createAPIInstance("/api");
 
     try {
-      const res = await api.get<{ authenticated: boolean }>(path, options);
-      return res.data;
+      const { data } = await api.get<{ data: { authenticated: boolean } }>(
+        path,
+        options
+      );
+      let parsedRes = z.object({ authenticated: z.boolean() }).safeParse(data);
+
+      if (!parsedRes.success) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return parsedRes.data;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
     }
   }
+
+  async verifyEmail(token: string, options?: RequestOptions) {
+    const path = `/auth/verify-email/${token}`;
+
+    try {
+      await this.api.get(path, options);
+
+      return true;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async resendVerificationEmail(email: string, options?: RequestOptions) {
+    const path = `/auth/verify-email/resend`;
+
+    try {
+      await this.api.post(path, { email }, options);
+
+      return true;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async sendForgotPasswordLink(email: string, options?: RequestOptions) {
+    const path = `/auth/forgot-password`;
+
+    try {
+      await this.api.post(path, { email }, options);
+
+      return true;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+}
+
+export function useAuthRepo() {
+  return new AuthRepository(clientAPI);
 }

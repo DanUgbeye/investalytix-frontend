@@ -1,4 +1,4 @@
-import World from "@/modules/markets/Economy/Labour/Population/World";
+import World from "@/modules/market/components/Economy/Labour/Population/World";
 
 export default function WorldPage() {
   return <World />;

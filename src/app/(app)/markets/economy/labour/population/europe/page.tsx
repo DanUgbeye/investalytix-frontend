@@ -1,4 +1,4 @@
-import Europe from "@/modules/markets/Economy/Labour/Population/Europe";
+import Europe from "@/modules/market/components/Economy/Labour/Population/Europe";
 
 export default function EuropePage() {
   return <Europe />;

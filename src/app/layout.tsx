@@ -1,8 +1,8 @@
-import NavBar from "@/components/ui/NavBar";
 import type { Metadata } from "next";
 import { interFont } from "./fonts";
+import GlobalComponents from "./global-components";
 import "./globals.css";
-import ThemeContextProvider from "@/store/theme/store";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Investalytix",
@@ -19,7 +19,9 @@ export default function RootLayout({
       <body
         className={`${interFont.variable} font-mulish dark:bg-black dark:text-white `}
       >
-        <ThemeContextProvider>{children}</ThemeContextProvider>
+        <Providers>
+          <GlobalComponents>{children}</GlobalComponents>
+        </Providers>
       </body>
     </html>
   );

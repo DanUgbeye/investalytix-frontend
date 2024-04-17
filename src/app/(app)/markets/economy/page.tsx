@@ -1,5 +1,5 @@
-import Economy from "@/modules/markets/Economy";
-import MarketHeader from "@/modules/markets/MarketHeader";
+import Economy from "@/modules/market/components/Economy";
+import MarketHeader from "@/modules/market/components/MarketHeader";
 
 export default function EconomyPage() {
   return (

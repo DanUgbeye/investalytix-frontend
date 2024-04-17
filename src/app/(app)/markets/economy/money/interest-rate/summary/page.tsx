@@ -1,4 +1,4 @@
-import Summary from "@/modules/markets/Economy/Money/InterestRate/Summary";
+import Summary from "@/modules/market/components/Economy/Money/InterestRate/Summary";
 
 export default function SummaryPage() {
   return <Summary />;

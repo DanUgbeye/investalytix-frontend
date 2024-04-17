@@ -1,4 +1,4 @@
-import America from "@/modules/markets/Economy/MainIndicators/GovernmentDeptToGDP/America";
+import America from "@/modules/market/components/Economy/MainIndicators/GovernmentDeptToGDP/America";
 
 export default function AmericaPage() {
   return (

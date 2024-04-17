@@ -1,4 +1,4 @@
-import Europe from "@/modules/markets/Economy/MainIndicators/CreditRating/Europe";
+import Europe from "@/modules/market/components/Economy/MainIndicators/CreditRating/Europe";
 
 export default function EuropePage() {
   return (

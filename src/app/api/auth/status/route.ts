@@ -8,18 +8,22 @@ import { NextRequest, NextResponse } from "next/server";
 async function CheckAuthStatus(req: NextRequest) {
   try {
     let serverCookies = cookies();
-    
+
     if (serverCookies.has("auth")) {
-      const auth = serverCookies.get("auth");
-      return NextResponse.json({ authenticated: true }, { status: 200 });
-    } else {
-      return NextResponse.json({ authenticated: false }, { status: 400 });
+      const auth = serverCookies.get("auth")!;
+
+      return NextResponse.json(
+        { data: { authenticated: true, token: auth.value } },
+        { status: 200 }
+      );
     }
-  } catch (err: any) {
+
     return NextResponse.json(
-      { message: err.message, authenticated: false },
-      { status: 400 }
+      { data: { authenticated: false } },
+      { status: 200 }
     );
+  } catch (err: any) {
+    return NextResponse.json({ message: err.message }, { status: 400 });
   }
 }
 

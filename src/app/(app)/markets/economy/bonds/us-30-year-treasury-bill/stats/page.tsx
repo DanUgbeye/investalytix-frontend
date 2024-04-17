@@ -1,4 +1,4 @@
-import Stats from "@/modules/markets/Economy/Bonds/USYearTreasury/Stats";
+import Stats from "@/modules/market/components/Economy/Bonds/USYearTreasury/Stats";
 
 export default function StatsPage() {
   return (

@@ -1,4 +1,4 @@
-import Australia from "@/modules/markets/Economy/MainIndicators/CreditRating/Australia";
+import Australia from "@/modules/market/components/Economy/MainIndicators/CreditRating/Australia";
 
 export default function AustraliaPage() {
   return (

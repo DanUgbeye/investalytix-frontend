@@ -1,0 +1,4 @@
+export const QUERY_KEYS = {
+  GET_USER_PROFILE: "GET_USER_PROFILE",
+  GET_AUTH_STATUS: "GET_AUTH_STATUS",
+} as const;

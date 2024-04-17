@@ -1,8 +1,8 @@
 "use client";
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
-import MarketHeader from "@/modules/markets/MarketHeader";
-import MarketEvent from "@/modules/markets/Market/MarketEvent";
-import Market from "@/modules/markets/Market/Overview";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/market/components/WithSidePanel";
+import MarketHeader from "@/modules/market/components/MarketHeader";
+import MarketEvent from "@/modules/market/components/Market/MarketEvent";
+import Market from "@/modules/market/components/Market/Overview";
 
 export default function MarketPage() {
   return (

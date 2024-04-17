@@ -1,5 +1,5 @@
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
-import Dow30 from "@/modules/markets/PreMarket/US/Dow30";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/market/components/WithSidePanel";
+import Dow30 from "@/modules/market/components/PreMarket/US/Dow30";
 
 export default function Dow30Page() {
   return (

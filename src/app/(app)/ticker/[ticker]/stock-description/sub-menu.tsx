@@ -1,8 +1,8 @@
 "use client";
 
 import PAGES from "@/data/page-map";
-import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-nav/ticker-sidenav.types";
-import TickerSubMenuBar from "@/features/ticker/components/ticker-sub-menu-bar";
+import { TICKER_NAV_TABS } from "@/modules/ticker/components/ticker-nav/ticker-sidenav.types";
+import TickerSubMenuBar from "@/modules/ticker/components/ticker-sub-menu-bar";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { STOCK_DESCRIPTION_MENU } from "./stock-description.types";

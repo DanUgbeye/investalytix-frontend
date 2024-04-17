@@ -1,8 +1,8 @@
-import Cryptocurrency from "@/modules/markets/Cryptocurrency";
+import Cryptocurrency from "@/modules/market/components/Cryptocurrency";
 import WithSidePanel, {
   SIDE_SECTIONS,
-} from "@/modules/markets/WithSidePanel";
-import MarketHeader from "@/modules/markets/MarketHeader";
+} from "@/modules/market/components/WithSidePanel";
+import MarketHeader from "@/modules/market/components/MarketHeader";
 
 export default function CryptocurrencyPage() {
   return (

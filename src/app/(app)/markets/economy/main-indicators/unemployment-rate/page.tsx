@@ -1,4 +1,4 @@
-import World from "@/modules/markets/Economy/MainIndicators/UnemploymentRate/World";
+import World from "@/modules/market/components/Economy/MainIndicators/UnemploymentRate/World";
 
 export default function GDPGrowthPage() {
   return (

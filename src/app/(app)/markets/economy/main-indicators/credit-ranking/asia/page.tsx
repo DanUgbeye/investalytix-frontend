@@ -1,4 +1,4 @@
-import Asia from "@/modules/markets/Economy/MainIndicators/CreditRating/Asia";
+import Asia from "@/modules/market/components/Economy/MainIndicators/CreditRating/Asia";
 
 export default function AsiaPage() {
   return (

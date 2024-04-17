@@ -1,4 +1,4 @@
-import Asia from "@/modules/markets/Economy/MainIndicators/GovernmentDeptToGDP/Asia";
+import Asia from "@/modules/market/components/Economy/MainIndicators/GovernmentDeptToGDP/Asia";
 
 export default function AsiaPage() {
   return (

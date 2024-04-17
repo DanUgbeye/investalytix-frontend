@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
 import { FINANCIALS_MENU } from "./financials.types";
-import { TICKER_NAV_TABS } from "@/features/ticker/components/ticker-nav/ticker-sidenav.types";
+import { TICKER_NAV_TABS } from "@/modules/ticker/components/ticker-nav/ticker-sidenav.types";
 
 export const metadata: Metadata = {
   title: "Financials | Investalytix",

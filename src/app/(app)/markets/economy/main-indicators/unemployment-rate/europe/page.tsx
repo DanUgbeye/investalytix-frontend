@@ -1,4 +1,4 @@
-import Europe from "@/modules/markets/Economy/MainIndicators/UnemploymentRate/Europe";
+import Europe from "@/modules/market/components/Economy/MainIndicators/UnemploymentRate/Europe";
 
 export default function EuropePage() {
   return (

@@ -1,4 +1,4 @@
-import Summary from "@/modules/markets/Economy/Labour/UnemploymentRate/Summary";
+import Summary from "@/modules/market/components/Economy/Labour/UnemploymentRate/Summary";
 
 export default function SummaryPage() {
   return <Summary />;

@@ -1,4 +1,4 @@
-import Australia from "@/modules/markets/Economy/MainIndicators/UnemploymentRate/Australia";
+import Australia from "@/modules/market/components/Economy/MainIndicators/UnemploymentRate/Australia";
 
 export default function AustraliaPage() {
   return (

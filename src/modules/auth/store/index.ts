@@ -11,6 +11,9 @@ const useAuthStore = create<AuthStore>((set, get) => {
       return set({ ...data, initialised: true });
     },
     set(data) {
+      if (typeof data === "function") {
+        return set(data(get()));
+      }
       return set(data);
     },
     reset() {

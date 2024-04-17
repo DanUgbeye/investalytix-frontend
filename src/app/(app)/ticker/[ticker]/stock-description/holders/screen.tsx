@@ -1,7 +1,5 @@
 "use client";
 
-import Mapper from "@/components/mapper";
-
 const TOP_HOLDERS = [
   {
     name: "Schwab® S&P 500 Index",
@@ -97,57 +95,55 @@ export default function HoldersScreen(props: HoldersScreenProps) {
             </thead>
 
             <tbody className="  ">
-              <Mapper
-                list={TOP_HOLDERS}
-                component={(props) => {
-                  const { item } = props;
+              {TOP_HOLDERS.map((item, index) => {
+                return (
+                  <tr
+                    key={`institutional-holder-${item.name}-${index}`}
+                    className=" border-b "
+                  >
+                    <td className=" px-2 py-3 font-medium ">{item.name}</td>
 
-                  return (
-                    <tr className=" border-b ">
-                      <td className=" px-2 py-3 font-medium ">{item.name}</td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.totalSharesHeldPercentage.toLocaleString(
+                        undefined,
+                        { maximumFractionDigits: 2 }
+                      )}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.totalSharesHeldPercentage.toLocaleString(
-                          undefined,
-                          { maximumFractionDigits: 2 }
-                        )}
-                      </td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.totalAssetsPercentage.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.totalAssetsPercentage.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.prev8QrtsTrend}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.prev8QrtsTrend}
-                      </td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.currentShares.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.currentShares.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.changeAmount.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.changeAmount.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.changePercentage.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.changePercentage.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-
-                      <td className=" px-2 py-3 text-center ">
-                        {item.date.toDateString()}
-                      </td>
-                    </tr>
-                  );
-                }}
-              />
+                    <td className=" px-2 py-3 text-center ">
+                      {item.date.toDateString()}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -176,57 +172,55 @@ export default function HoldersScreen(props: HoldersScreenProps) {
             </thead>
 
             <tbody className="  ">
-              <Mapper
-                list={TOP_HOLDERS}
-                component={(props) => {
-                  const { item } = props;
+              {TOP_HOLDERS.map((item, index) => {
+                return (
+                  <tr
+                    key={`mutual-fund-holder-${item.name}-${index}`}
+                    className=" border-b "
+                  >
+                    <td className=" px-2 py-3 font-medium ">{item.name}</td>
 
-                  return (
-                    <tr className=" border-b ">
-                      <td className=" px-2 py-3 font-medium ">{item.name}</td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.totalSharesHeldPercentage.toLocaleString(
+                        undefined,
+                        { maximumFractionDigits: 2 }
+                      )}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.totalSharesHeldPercentage.toLocaleString(
-                          undefined,
-                          { maximumFractionDigits: 2 }
-                        )}
-                      </td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.totalAssetsPercentage.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.totalAssetsPercentage.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.prev8QrtsTrend}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.prev8QrtsTrend}
-                      </td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.currentShares.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.currentShares.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.changeAmount.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.changeAmount.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
+                    <td className=" px-2 py-3 text-center ">
+                      {item.changePercentage.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
 
-                      <td className=" px-2 py-3 text-center ">
-                        {item.changePercentage.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-
-                      <td className=" px-2 py-3 text-center ">
-                        {item.date.toDateString()}
-                      </td>
-                    </tr>
-                  );
-                }}
-              />
+                    <td className=" px-2 py-3 text-center ">
+                      {item.date.toDateString()}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

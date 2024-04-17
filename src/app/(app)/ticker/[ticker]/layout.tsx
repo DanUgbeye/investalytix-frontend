@@ -1,4 +1,4 @@
-import SearchTickerLayout from "@/features/ticker/layouts/search-ticker-layout";
+import SearchTickerLayout from "@/modules/ticker/layouts/search-ticker-layout";
 import { PropsWithChildren } from "react";
 import "swiper/css";
 

@@ -1,4 +1,4 @@
-import Stats from "@/modules/markets/Economy/Consumer/Sentiment/Stats";
+import Stats from "@/modules/market/components/Economy/Consumer/Sentiment/Stats";
 
 export default function StatsPage() {
   return <Stats />;

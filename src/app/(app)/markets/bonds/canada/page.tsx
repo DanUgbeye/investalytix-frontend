@@ -1,5 +1,5 @@
-import Canada from "@/modules/markets/Bonds/Canada";
-import WithSidePanel, { SIDE_SECTIONS } from "@/modules/markets/WithSidePanel";
+import Canada from "@/modules/market/components/Bonds/Canada";
+import WithSidePanel, { SIDE_SECTIONS } from "@/modules/market/components/WithSidePanel";
 
 export default function CanadaPage() {
   return (

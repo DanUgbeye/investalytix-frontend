@@ -1,5 +1,5 @@
-import InterestRate from "@/modules/markets/Economy/MainIndicators/InterestRate";
-import MarketHeader from "@/modules/markets/MarketHeader";
+import InterestRate from "@/modules/market/components/Economy/MainIndicators/InterestRate";
+import MarketHeader from "@/modules/market/components/MarketHeader";
 
 export default function InterestRatePage() {
   return (

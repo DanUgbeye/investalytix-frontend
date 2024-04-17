@@ -1,4 +1,4 @@
-import Forecast from "@/modules/markets/Economy/Government/CreditRating/Forecast";
+import Forecast from "@/modules/market/components/Economy/Government/CreditRating/Forecast";
 
 export default function ForecastPage() {
   return <Forecast />;
