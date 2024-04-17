@@ -12,6 +12,14 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+.white-text {
+  @apply text-white
+}
+
+.dark .white-text {
+  @apply !text-white/80
+}
+
 @media only screen and (min-width: 624px) {
   *::-webkit-scrollbar {
     width: 8px;

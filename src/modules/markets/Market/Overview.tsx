@@ -165,7 +165,7 @@ const timeframes = ["1m", "5m", "15m", "1h"];
 export default function Market() {
   return (
     <div className="overflow-hidden">
-      <h2 className="mb-6 text-3xl font-extrabold">MAJOR INDEXES</h2>
+      <h2 className="mb-6 text-3xl font-extrabold white-text">MAJOR INDEXES</h2>
 
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="">
@@ -177,7 +177,7 @@ export default function Market() {
             ))}
           </div>
 
-          <p className="py-4 text-xs font-medium">
+          <p className="py-4 text-xs font-medium white-text">
             Previous Close: {chart[chart.length - 1].close}
           </p>
           <div className="h-80 overflow-auto">
@@ -236,7 +236,7 @@ export default function Market() {
       <div>
         <Tab.Group>
           <div className="mb-7 text-[#252525] lg:flex dark:text-white">
-            <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5">
+            <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5 white-text">
               MARKET MOVERS
             </h1>
             <Tab.List
@@ -262,10 +262,10 @@ export default function Market() {
             <Tab.Panel>
               <div className="grid grid-cols-2 pb-14">
                 <div className="">
-                  <p className="font-bold">Top</p>
+                  <p className="font-bold white-text">Top</p>
                 </div>
                 <div className="">
-                  <p className="font-bold">Bottom</p>
+                  <p className="font-bold white-text">Bottom</p>
                 </div>
               </div>
             </Tab.Panel>
@@ -277,14 +277,14 @@ export default function Market() {
 
       <section className="mt-11">
         <header className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-white">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold white-text">
             SECURITIES
           </h2>
         </header>
 
         {/* bonds */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold">BONDS</h2>
+          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">BONDS</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <YieldTable />
 
