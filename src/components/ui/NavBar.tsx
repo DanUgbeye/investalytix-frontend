@@ -75,7 +75,7 @@ export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
 
   return (
-    <nav className="z-50 bg-black py-3">
+    <nav className="z-50 bg-black py-3 border-b ">
       <Container>
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
@@ -105,30 +105,16 @@ export default function NavBar() {
                           <NavigationMenuContent className=" w-full p-0 dark:bg-gray-800 ">
                             <div className=" flex w-max min-w-52 flex-col py-2 ">
                               {route.children.map((childRoute, index) => {
-                                if (childRoute.href) {
-                                  return (
-                                    <Link
-                                      key={`${childRoute.href}-${index}`}
-                                      href={childRoute.href}
-                                      className={
-                                        " grid w-full min-w-fit px-4 py-3 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 "
-                                      }
-                                    >
-                                      {childRoute.label}
-                                    </Link>
-                                  );
-                                }
-
                                 return (
-                                  <Button
+                                  <Link
                                     key={`${childRoute.href}-${index}`}
-                                    variant={"ghost"}
+                                    href={childRoute.href}
                                     className={
-                                      " grid w-full min-w-fit px-4 py-3 font-medium hover:bg-gray-100 dark:hover:bg-gray-700 "
+                                      " grid w-full min-w-fit px-4 py-3 font-medium duration-300 hover:bg-gray-50 hover:text-primary-base dark:hover:bg-gray-700 "
                                     }
                                   >
                                     {childRoute.label}
-                                  </Button>
+                                  </Link>
                                 );
                               })}
                             </div>
@@ -269,7 +255,7 @@ function MobileMenu() {
                     <div key={route.label}>
                       {route.children ? (
                         <button
-                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 white-text dark:hover:bg-gray-500 "
+                          className="focus:bg-primary-/10 white-text flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
                           onClick={() => addHistory(route)}
                         >
                           {route.label}
@@ -278,7 +264,7 @@ function MobileMenu() {
                       ) : (
                         <NavLink
                           route={route}
-                          className="focus:bg-primary-/10 inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 white-text dark:hover:bg-gray-500 "
+                          className="focus:bg-primary-/10 white-text inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
                         />
                       )}
                     </div>
