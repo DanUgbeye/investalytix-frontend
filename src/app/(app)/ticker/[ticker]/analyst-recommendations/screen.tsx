@@ -198,9 +198,7 @@ export default function AnalystRecommendationScreen(
 
         <div className=" flex flex-wrap gap-3 rounded bg-[#FFF3E9] px-6 py-3 text-xs dark:bg-primary-base/20 ">
           <div className=" flex flex-wrap items-center gap-x-8 gap-y-2 ">
-            <span className=" ">
-              See the Price Targets and Ratings of:
-            </span>
+            <span className=" ">See the Price Targets and Ratings of:</span>
 
             <fieldset className=" flex flex-wrap gap-x-5 ">
               <label
@@ -318,369 +316,381 @@ export default function AnalystRecommendationScreen(
         <div className=" h-60 bg-gray-600 "></div>
       </div>
 
-      <div className="  ">
+      <div className=" space-y-5 ">
         <h5 className=" text-lg font-bold ">
           Apple Stock Forecast - Upgrades & Downgrades
         </h5>
 
-        <div className=" mb-20 overflow-x-auto ">
-          <table className="w-full  min-w-[50rem] ">
-            <thead>
-              <tr className=" divide-x border-b border-b-[#DEE2E6] text-sm font-bold ">
-                <th className=" px-2 py-4 text-left dark:bg-transparent">
-                  Date
-                </th>
+        <div className=" space-y-20 ">
+          <div className=" overflow-x-auto ">
+            <table className="w-full min-w-[50rem] ">
+              <thead>
+                <tr className=" text-sm font-bold dark:bg-white/20 ">
+                  <th className=" border px-2 py-4 text-left dark:bg-transparent">
+                    Date
+                  </th>
 
-                <th className=" px-2 py-4 text-left dark:bg-transparent">
-                  Company
-                </th>
+                  <th className=" border px-2 py-4 text-left dark:bg-transparent">
+                    Company
+                  </th>
 
-                <th className=" px-2 py-4 text-right dark:bg-transparent">
-                  Action
-                </th>
+                  <th className=" border px-2 py-4 text-right dark:bg-transparent">
+                    Action
+                  </th>
 
-                <th className=" px-2 py-4 text-right dark:bg-transparent">
-                  From
-                </th>
+                  <th className=" border px-2 py-4 text-right dark:bg-transparent">
+                    From
+                  </th>
 
-                <th className=" px-2 py-4 text-right dark:bg-transparent">
-                  To
-                </th>
-              </tr>
-            </thead>
+                  <th className=" border px-2 py-4 text-right dark:bg-transparent">
+                    To
+                  </th>
+                </tr>
+              </thead>
 
-            <tbody>
-              {STOCK_FORECAST.map((item, index) => {
-                return (
-                  <tr key={`forecast-${index}`} className=" text-sm ">
-                    <td className=" px-2 py-4 text-left text-[#333333] white-text">
-                      {item.date.toDateString()}
-                    </td>
-
-                    <td className={` px-2 py-4 text-left`}>{item.company}</td>
-
-                    <td className=" px-2 py-4 text-right text-primary-base ">
-                      {item.action}
-                    </td>
-
-                    <td className=" px-2 py-4 text-right">{item.from}</td>
-
-                    <td className=" px-2 py-4 text-right">{item.to}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        <div className=" overflow-x-auto ">
-          <table className=" w-full min-w-[50rem] border-b border-r border-[#DEE2E6] ">
-            <tbody>
-              <tr className="  text-sm font-bold ">
-                <th className=" border-r border-r-[#DEE2E6] px-2 py-4 text-left dark:bg-transparent"></th>
-
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  const year = new Date(data.date).getFullYear();
-                  const text =
-                    year === new Date().getFullYear() ? "Current / Est" : year;
-
+              <tbody className=" ">
+                {STOCK_FORECAST.map((item, index) => {
                   return (
-                    <td
-                      key={`${year}-${index}`}
-                      className=" border-y border-y-[#DEE2E6] px-2 py-4 text-center dark:bg-transparent"
-                    >
-                      {text}
-                    </td>
+                    <tr key={`forecast-${index}`} className=" text-sm ">
+                      <td className=" white-text border px-2 py-4 text-left text-[#333333]">
+                        {item.date.toDateString()}
+                      </td>
+
+                      <td className={` border px-2 py-4 text-left`}>
+                        {item.company}
+                      </td>
+
+                      <td className=" border px-2 py-4 text-right text-primary-base ">
+                        {item.action}
+                      </td>
+
+                      <td className=" border px-2 py-4 text-right">
+                        {item.from}
+                      </td>
+
+                      <td className=" border px-2 py-4 text-right">
+                        {item.to}
+                      </td>
+                    </tr>
                   );
                 })}
-              </tr>
+              </tbody>
+            </table>
+          </div>
 
-              <tr className="  text-sm font-bold ">
-                <th className=" border-r border-r-[#DEE2E6] px-2 py-4 text-left dark:bg-transparent"></th>
+          <div className=" overflow-x-auto  ">
+            <table className=" w-full min-w-[50rem] ">
+              <tbody>
+                <tr className="  text-sm font-bold ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black "></th>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" border-y border-y-[#DEE2E6] px-2 py-4 text-center dark:bg-transparent"
-                    >
-                      {format(new Date(data.date), "MMM dd")}
-                    </td>
-                  );
-                })}
-              </tr>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    const year = new Date(data.date).getFullYear();
+                    const text =
+                      year === new Date().getFullYear()
+                        ? "Current / Est"
+                        : year;
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Market Capitalization
-                </th>
+                    return (
+                      <td
+                        key={`${year}-${index}`}
+                        className=" border-y border-y-[#DEE2E6] px-2 py-4 text-center dark:bg-transparent"
+                      >
+                        {text}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.mrktCap.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className="  text-sm font-bold ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black "></th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Cash Equivalent
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y border-y-[#DEE2E6] px-2 py-4 text-center dark:bg-transparent"
+                      >
+                        {format(new Date(data.date), "MM/dd/yy")}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.cashEquivalent.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Market Capitalization
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Preferred & Other
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.mrktCap.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.preferredOther.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Cash Equivalent
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Total Debt
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.cashEquivalent.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.totalDebt.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Preferred & Other
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Enterprise Value
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.preferredOther.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.enterpriseValue.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Total Debt
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent"></th>
-              </tr>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.totalDebt.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Revenue ADJ
-                </th>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Enterprise Value
+                  </th>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.revenueAdj.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.enterpriseValue.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Growth % YoY
-                </th>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    <div className=" h-5 w-1 "></div>
+                  </th>
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.growthPercentageYOY.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Revenue ADJ
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Gross Profit, ADJ
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.revenueAdj.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.grossProfitAdj.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Growth % YoY
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Margin %
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.growthPercentageYOY.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.marginPercentage.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Gross Profit, ADJ
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  EBITDA, Adj
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.grossProfitAdj.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.ebitdaAdj.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Margin %
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  EPS Adj
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.marginPercentage.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.epsAdj.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    EBITDA, Adj
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Cash From Operations
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.ebitdaAdj.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.cashFromOperations.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    EPS Adj
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Capital Expenditures
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.epsAdj.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.capitalExpenditures.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Cash From Operations
+                  </th>
 
-              <tr className=" text-sm ">
-                <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                  Free Cash Flow
-                </th>
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.cashFromOperations.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
 
-                {STOCK_FORECAST_DATA.map((data, index) => {
-                  return (
-                    <td
-                      key={`forecast-month-${index}`}
-                      className=" px-2 py-4 text-right dark:bg-transparent"
-                    >
-                      {data.freeCashFlow.toLocaleString(undefined, {
-                        minimumFractionDigits: 1,
-                      })}
-                    </td>
-                  );
-                })}
-              </tr>
-            </tbody>
-          </table>
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Capital Expenditures
+                  </th>
+
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.capitalExpenditures.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
+
+                <tr className=" text-sm ">
+                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
+                    Free Cash Flow
+                  </th>
+
+                  {STOCK_FORECAST_DATA.map((data, index) => {
+                    return (
+                      <td
+                        key={`forecast-month-${index}`}
+                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
+                      >
+                        {data.freeCashFlow.toLocaleString(undefined, {
+                          minimumFractionDigits: 1,
+                        })}
+                      </td>
+                    );
+                  })}
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>

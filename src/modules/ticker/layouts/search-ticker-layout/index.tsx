@@ -27,7 +27,10 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
           className=" top-0 col-start-1 row-start-1 hidden w-[15rem] lg:flex "
         />
 
-        <MobileTickerNav ticker={ticker} className=" flex lg:hidden " />
+        <MobileTickerNav
+          ticker={ticker}
+          className=" flex border-b lg:hidden "
+        />
 
         <main className=" col-start-1 lg:row-start-1 lg:ml-[15rem] ">
           <Container className=" lg:pl-6 xl:pl-6 ">

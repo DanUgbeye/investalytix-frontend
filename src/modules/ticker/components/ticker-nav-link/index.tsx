@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import Link, { LinkProps } from "next/link";
-import { useSearchParams } from "next/navigation";
 import { HTMLAttributes } from "react";
 
 export interface TickerNavLinkProps

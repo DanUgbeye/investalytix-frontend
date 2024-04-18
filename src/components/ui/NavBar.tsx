@@ -9,6 +9,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import PAGES from "@/data/page-map";
 import { cn } from "@/lib/utils";
 import useTheme from "@/store/theme/useTheme";
 import { Dialog, Menu } from "@headlessui/react";
@@ -24,7 +25,6 @@ import {
 } from "react-icons/fi";
 import { Container } from "../container";
 import { Button } from "./button";
-import PAGES from "@/data/page-map";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -75,7 +75,7 @@ export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
 
   return (
-    <nav className="z-50 bg-black py-3 border-b ">
+    <nav className="z-50 bg-black py-3 dark:border-b ">
       <Container>
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
