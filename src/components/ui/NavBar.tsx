@@ -269,7 +269,7 @@ function MobileMenu() {
                     <div key={route.label}>
                       {route.children ? (
                         <button
-                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-500 "
+                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 white-text dark:hover:bg-gray-500 "
                           onClick={() => addHistory(route)}
                         >
                           {route.label}
@@ -278,7 +278,7 @@ function MobileMenu() {
                       ) : (
                         <NavLink
                           route={route}
-                          className="focus:bg-primary-/10 inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-500 "
+                          className="focus:bg-primary-/10 inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 white-text dark:hover:bg-gray-500 "
                         />
                       )}
                     </div>

@@ -36,7 +36,7 @@ export default function CalendarTable() {
     <div className="border border-[#DEE2E6]">
       <table className="w-full">
         <thead>
-          <tr className="text-[#212529] dark:text-white">
+          <tr className="text-[#212529] white-text">
             <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
               Calendar
             </th>
@@ -68,7 +68,7 @@ export default function CalendarTable() {
       </table>
       <div className="bg-[#F5F5F5] px-2 py-3 dark:border-t dark:border-t-[#f5f5f5] dark:bg-transparent">
         <button className="border border-[#CCCCCC] bg-white p-2 dark:bg-transparent">
-          <FiPlus className="dark:text-white" />
+          <FiPlus className="white-text" />
         </button>
       </div>
     </div>

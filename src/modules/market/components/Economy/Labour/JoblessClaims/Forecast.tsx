@@ -8,7 +8,7 @@ export default function Forecast() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] dark:text-white">
+        <p className="text-[#636363] white-text">
           The number of Americans filing for unemployment benefits rose by
           25,000 to 214,000 on the week ending January 20th, rebounding
           significantly from the 16-month low touched in the prior week and

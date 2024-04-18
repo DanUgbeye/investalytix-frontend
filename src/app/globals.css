@@ -13,10 +13,10 @@ input[type="number"] {
 }
 
 .white-text {
-  @apply text-white
+  @apply text-black
 }
 
-.dark .white-text {
+.dark .white-text, .dark.white-text {
   @apply !text-white/80
 }
 

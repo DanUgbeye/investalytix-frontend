@@ -60,7 +60,7 @@ export default function CapitalStructureScreen(
               fill="#fff"
             />
 
-            <Tooltip wrapperClassName=" dark:bg-gray-700 dark:text-white " />
+            <Tooltip wrapperClassName=" dark:bg-gray-700 white-text " />
           </PieChart>
         </div>
       </div>

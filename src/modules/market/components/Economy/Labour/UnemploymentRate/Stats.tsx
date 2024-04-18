@@ -8,7 +8,7 @@ export default function Stats() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] dark:text-white">
+        <p className="text-[#636363] white-text">
           The unemployment rate in the United States held at 3.7% in December
           2023, unchanged from the previous month and slightly below the market
           consensus of 3.8%, influenced by a slowdown in new entries into the

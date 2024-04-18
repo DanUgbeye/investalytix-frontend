@@ -20,7 +20,7 @@ export default function PreMarket() {
       {/* DOW (Mini) */}
       <section className="">
         <header className="mb-8">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold white-text">
             DOW (Mini)
           </h2>
         </header>
@@ -67,7 +67,7 @@ export default function PreMarket() {
         <Futures />
         <Futures isFairValue />
 
-        <p className="mt-4 text-sm font-bold text-[#2F3A48] dark:text-white">
+        <p className="mt-4 text-sm font-bold text-[#2F3A48]  white-text">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         </p>
       </section>
@@ -75,7 +75,7 @@ export default function PreMarket() {
       {/* S&P 500 (Mini) */}
       <section className="">
         <header className="mb-8">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold white-text">
             S&P 500 (Mini)
           </h2>
         </header>
@@ -122,7 +122,7 @@ export default function PreMarket() {
         <Futures />
         <Futures isFairValue />
 
-        <p className="mt-4 text-sm font-bold text-[#2F3A48] dark:text-white">
+        <p className="mt-4 text-sm font-bold text-[#2F3A48] white-text">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         </p>
       </section>
@@ -130,7 +130,7 @@ export default function PreMarket() {
       {/* NASDAQ (Mini) */}
       <section className="mt-11">
         <header className="mb-8">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold white-text">
             NASDAQ (Mini)
           </h2>
         </header>
@@ -175,7 +175,7 @@ export default function PreMarket() {
         <Futures />
         <Futures isFairValue />
 
-        <p className="mt-4 text-sm font-bold text-[#2F3A48] dark:text-white">
+        <p className="mt-4 text-sm font-bold text-[#2F3A48] white-text">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         </p>
       </section>
@@ -183,7 +183,7 @@ export default function PreMarket() {
       {/* RUSELL (Mini) */}
       <section className="mt-11">
         <header className="mb-8">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold white-text">
             RUSELL (Mini)
           </h2>
         </header>
@@ -228,7 +228,7 @@ export default function PreMarket() {
         <Futures />
         <Futures isFairValue />
 
-        <p className="mt-4 text-sm font-bold text-[#2F3A48] dark:text-white">
+        <p className="mt-4 text-sm font-bold text-[#2F3A48] white-text">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         </p>
       </section>
@@ -236,10 +236,10 @@ export default function PreMarket() {
       {/* Asia-Pacific */}
       <section className="mt-11">
         <header className="mb-4">
-          <h2 className="text-2xl font-bold">Asia-Pacific</h2>
+          <h2 className="text-2xl font-bold white-text white-text">Asia-Pacific</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] white-text">
           Hang Seng Index
         </p>
         <div className="h-80 w-full">
@@ -278,7 +278,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] white-text">
           Previous Close: 16.2k
         </p>
 
@@ -288,10 +288,10 @@ export default function PreMarket() {
       {/* Europe */}
       <section className="mt-11">
         <header className="mb-4">
-          <h2 className="text-2xl font-bold">Europe</h2>
+          <h2 className="text-2xl font-bold white-text">Europe</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] white-text">
           FTSE 100
         </p>
         <div className="h-80 w-full">
@@ -330,7 +330,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] white-text">
           Previous Close: 16.2k
         </p>
 
@@ -340,10 +340,10 @@ export default function PreMarket() {
       {/* Commodities */}
       <section className="mt-11">
         <header className="mb-4">
-          <h2 className="text-2xl font-bold">Commodities</h2>
+          <h2 className="text-2xl font-bold white-text">Commodities</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] white-text">
           Hang Seng Index
         </p>
         <div className="h-80 w-full">
@@ -382,7 +382,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] white-text">
           Previous Close: 16.2k
         </p>
 
@@ -392,10 +392,10 @@ export default function PreMarket() {
       {/* Currencies */}
       <section className="mt-11">
         <header className="mb-4">
-          <h2 className="text-2xl font-bold">Currencies</h2>
+          <h2 className="text-2xl font-bold white-text">Currencies</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] white-text">
           FTSE 100
         </p>
         <div className="h-80 w-full">
@@ -434,7 +434,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] white-text">
           Previous Close: 16.2k
         </p>
 
@@ -444,10 +444,10 @@ export default function PreMarket() {
       {/* Volatility & Global Indexes */}
       <section className="mt-11">
         <header className="mb-4">
-          <h2 className="text-2xl font-bold">Volatility & Global Indexes</h2>
+          <h2 className="text-2xl font-bold white-text">Volatility & Global Indexes</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] white-text">
           Hang Seng Index
         </p>
         <div className="h-80 w-full">
@@ -486,7 +486,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] white-text">
           Previous Close: 16.2k
         </p>
 
@@ -496,10 +496,10 @@ export default function PreMarket() {
       {/* U.S. Treasurys */}
       <section className="mt-11">
         <header className="mb-4">
-          <h2 className="text-2xl font-bold">U.S. Treasurys</h2>
+          <h2 className="text-2xl font-bold white-text">U.S. Treasurys</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] white-text">
           FTSE 100
         </p>
         <div className="h-80 w-full">
@@ -538,7 +538,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] white-text">
           Previous Close: 16.2k
         </p>
 
@@ -548,10 +548,10 @@ export default function PreMarket() {
       {/* U.S. Indexes */}
       <section className="mt-11">
         <header className="mb-4">
-          <h2 className="text-2xl font-bold">U.S. Indexes</h2>
+          <h2 className="text-2xl font-bold white-text">U.S. Indexes</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] white-text">
           Hang Seng Index
         </p>
         <div className="h-80 w-full">
@@ -590,7 +590,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] white-text">
           Previous Close: 16.2k
         </p>
 
@@ -600,10 +600,10 @@ export default function PreMarket() {
       {/* Sectors */}
       <section className="mt-11">
         <header className="mb-4">
-          <h2 className="text-2xl font-bold">Sectors</h2>
+          <h2 className="text-2xl font-bold white-text">Sectors</h2>
         </header>
 
-        <p className="mb-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-4 text-sm font-medium text-[#2F3A48] white-text">
           FTSE 100
         </p>
         <div className="h-80 w-full">
@@ -642,7 +642,7 @@ export default function PreMarket() {
             </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] dark:text-white">
+        <p className="mb-10 mt-4 text-sm font-medium text-[#2F3A48] white-text">
           Previous Close: 16.2k
         </p>
 

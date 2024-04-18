@@ -79,7 +79,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             <div className=" overflow-y-auto ">
               <table className="w-full  min-w-[50rem] ">
                 <thead>
-                  <tr className=" divide-x border-b border-b-[#DEE2E6] text-sm font-bold text-[#212529] dark:text-white ">
+                  <tr className=" divide-x border-b border-b-[#DEE2E6] text-sm font-bold text-[#212529] white-text ">
                     <th className=" px-2 py-4 text-left dark:bg-transparent">
                       Report Date
                     </th>
@@ -111,17 +111,17 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                           key={`earning-history-${index}`}
                           className=" text-sm "
                         >
-                          <td className=" px-2 py-4 text-left font-bold text-[#333333] dark:text-white">
+                          <td className=" px-2 py-4 text-left font-bold text-[#333333] white-text">
                             {item.reportDate.toDateString()}
                           </td>
 
                           <td
-                            className={` px-2 py-4 text-right text-[#212529] dark:text-white`}
+                            className={` px-2 py-4 text-right text-[#212529] white-text`}
                           >
                             {item.fiscalQuarter}
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] dark:text-white">
+                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
                             <span className=" ">{item.forecast}</span>/
                             <span
                               className={cn({
@@ -135,11 +135,11 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                             </span>
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] dark:text-white">
+                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
                             {item.lastYear}
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] dark:text-white">
+                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
                             {item.yoyChangePercentage.toPrecision(2)}% (
                             {item.yoyChange > 0 && "+"}
                             {item.yoyChange.toPrecision(2)})
@@ -187,7 +187,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             <div className=" overflow-y-auto ">
               <table className="w-full  min-w-[50rem] ">
                 <thead>
-                  <tr className=" divide-x border-b border-b-[#DEE2E6] text-sm font-semibold text-[#212529] dark:text-white ">
+                  <tr className=" divide-x border-b border-b-[#DEE2E6] text-sm font-semibold text-[#212529] white-text ">
                     <th className=" px-2 py-4 text-left dark:bg-transparent">
                       Report Date
                     </th>
@@ -219,25 +219,25 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                           key={`revenue-history-${index}`}
                           className=" text-sm "
                         >
-                          <td className=" px-2 py-4 text-left font-semibold text-[#333333] dark:text-white">
+                          <td className=" px-2 py-4 text-left font-semibold text-[#333333] white-text">
                             {item.reportDate.toDateString()}
                           </td>
 
                           <td
-                            className={` px-2 py-4 text-right text-[#212529] dark:text-white`}
+                            className={` px-2 py-4 text-right text-[#212529] white-text`}
                           >
                             {item.fiscalQuarter}
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] dark:text-white">
+                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
                             {item.current || "-"}
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] dark:text-white">
+                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
                             {item.lastYear}
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] dark:text-white">
+                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
                             {item.yoyChangePercentage.toPrecision(2)}% (
                             {item.yoyChange > 0 && "+"}
                             {item.yoyChange.toPrecision(2)})

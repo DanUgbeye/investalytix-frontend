@@ -82,7 +82,7 @@ export default function IndustrySectorComparisonScreen(
               .map((_, index) => {
                 return (
                   <tr key={`forecast-${index}`} className=" text-sm ">
-                    <td className=" border p-2 text-left text-[#333333] dark:text-white">
+                    <td className=" border p-2 text-left text-[#333333] white-text">
                       <div className=" flex flex-col space-y-1 ">
                         <span className=" font-semibold text-[#125BD4] ">
                           AAPL

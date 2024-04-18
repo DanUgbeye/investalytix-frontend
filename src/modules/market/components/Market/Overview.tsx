@@ -165,13 +165,13 @@ const timeframes = ["1m", "5m", "15m", "1h"];
 export default function Market() {
   return (
     <div className="overflow-hidden">
-      <h2 className="mb-6 text-3xl font-extrabold white-text">MAJOR INDEXES</h2>
+      <h2 className="mb-6 text-3xl font-extrabold white-text white-text">MAJOR INDEXES</h2>
 
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="">
           <div className="flex items-center justify-between gap-4">
             {timeframes.map((tf) => (
-              <button key={tf} className="p-3 text-xs font-bold">
+              <button key={tf} className="p-3 text-xs font-bold white-text">
                 {tf}
               </button>
             ))}
@@ -235,7 +235,7 @@ export default function Market() {
       {/* MARKET MOVERS */}
       <div>
         <Tab.Group>
-          <div className="mb-7 text-[#252525] lg:flex dark:text-white">
+          <div className="mb-7 text-[#252525] lg:flex  white-text">
             <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5 white-text">
               MARKET MOVERS
             </h1>
@@ -284,7 +284,7 @@ export default function Market() {
 
         {/* bonds */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">BONDS</h2>
+          <h2 className="mb-6 mt-8 text-2xl font-bold white-text white-text">BONDS</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <YieldTable />
 
@@ -309,13 +309,13 @@ export default function Market() {
 
         {/* FUTURES & COMMODITIES */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold">
+          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">
             FUTURES & COMMODITIES
           </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <table>
               <thead>
-                <tr className="text-[#1D2433] dark:text-white">
+                <tr className="text-[#1D2433] white-text">
                   <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white dark:bg-transparent">
                     Name
                   </th>
@@ -373,7 +373,7 @@ export default function Market() {
 
         {/* CURRENCIES */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold">CURRENCIES</h2>
+          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">CURRENCIES</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <Table />
             <div className="text-[#2A3037] dark:text-[#F8F7F7]">
@@ -396,14 +396,14 @@ export default function Market() {
       {/* REGIONAL */}
       <section className="mt-16">
         <header className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-white">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold white-text">
             REGIONAL
           </h2>
         </header>
 
         {/* AMERICAS MARKET */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold">AMERICAS MARKET</h2>
+          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">AMERICAS MARKET</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <YieldTable />
             <div className="text-[#2A3037] dark:text-[#F8F7F7]">
@@ -427,7 +427,7 @@ export default function Market() {
 
         {/* EUROPE MARKET */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold">EUROPE MARKET</h2>
+          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">EUROPE MARKET</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <Table />
             <div className="text-[#2A3037] dark:text-[#F8F7F7]">
@@ -451,10 +451,10 @@ export default function Market() {
 
         {/* ASIAN MARKET */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold">ASIAN MARKET</h2>
+          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">ASIAN MARKET</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <Table />
-            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
+            <div className="text-[#2A3037]  white-text">
               <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
                 hope
@@ -478,7 +478,7 @@ function YieldTable() {
   return (
     <table>
       <thead>
-        <tr className="text-[#1D2433] dark:text-white">
+        <tr className="text-[#1D2433] white-text">
           <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize dark:bg-transparent">
             Name
           </th>
@@ -494,7 +494,7 @@ function YieldTable() {
         {quotes.map((quote) => (
           <tr
             key={quote.symbol}
-            className="text-black odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent"
+            className="text-black odd:bg-[#F9F9F9]  white-text dark:odd:bg-transparent"
           >
             <td className="p-2 text-left text-sm font-bold uppercase">
               {quote.symbol}
@@ -514,17 +514,17 @@ function Table() {
   return (
     <table className="w-full">
       <thead>
-        <tr className="text-[#1D2433] dark:text-white">
-          <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white dark:bg-transparent">
+        <tr className="text-[#1D2433]  white-text">
+          <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize dark:bg-transparent">
             Name
           </th>
-          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
+          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:bg-transparent">
             last
           </th>
-          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
+          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:bg-transparent">
             chg
           </th>
-          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
+          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:bg-transparent">
             chg%
           </th>
         </tr>
@@ -533,7 +533,7 @@ function Table() {
         {quotes.map((quote) => (
           <tr
             key={quote.symbol}
-            className="text-black odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent"
+            className="text-black odd:bg-[#F9F9F9]  white-text dark:odd:bg-transparent"
           >
             <td className="p-2 text-left text-sm font-bold uppercase">
               {quote.symbol}

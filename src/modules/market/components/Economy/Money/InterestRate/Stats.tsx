@@ -8,7 +8,7 @@ export default function Stats() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] dark:text-white">
+        <p className="text-[#636363] white-text">
           The Federal Reserve kept the fed funds rate steady at 5.25%-5.5% for a
           third consecutive meeting in December 2023, in line with expectations
           but indicated 75bps cuts in 2024. Policymakers said that recent

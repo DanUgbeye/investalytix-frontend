@@ -105,7 +105,7 @@ export default function BondsTable() {
   return (
     <table className="w-full border border-[#DEE2E6]">
       <thead>
-        <tr className="text-[#212529] dark:text-white">
+        <tr className="text-[#212529] white-text">
           <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
             Bonds
           </th>
@@ -130,27 +130,27 @@ export default function BondsTable() {
       <tbody>
         {bonds.map((bond, index) => (
           <tr key={bond.Bonds.replaceAll(" ", "-")}>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333] dark:text-white">
+            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333] white-text">
               {bond.Bonds}
             </td>
             <td
-              className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white`}
+              className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text`}
             >
               {bond.Yield["%"]}
             </td>
             <td
-              className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white`}
+              className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text`}
             ></td>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
+            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
               {bond.Yield.Day}
             </td>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
+            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
               {bond.Yield.Month}
             </td>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
+            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
               {bond.Yield.Year}
             </td>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
+            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
               {bond.Date}
             </td>
           </tr>

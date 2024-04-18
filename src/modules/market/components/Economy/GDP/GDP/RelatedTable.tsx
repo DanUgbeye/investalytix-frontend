@@ -36,7 +36,7 @@ export default function RelatedTable() {
     <div className="border border-[#DEE2E6]">
       <table className="w-full">
         <thead>
-          <tr className="text-[#212529] dark:text-white">
+          <tr className="text-[#212529] white-text">
             <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
               Related
             </th>
@@ -57,22 +57,22 @@ export default function RelatedTable() {
         <tbody>
           {related.map((entry, index) => (
             <tr key={entry.related.replaceAll(" ", "-")}>
-              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333] dark:text-white">
+              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333] white-text">
                 {entry.related}
               </td>
               <td
-                className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white`}
+                className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text`}
               >
                 {entry.last}
               </td>
 
-              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
+              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
                 {entry.previous}
               </td>
-              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
+              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
                 {entry.unit}
               </td>
-              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] dark:text-white">
+              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
                 {entry.reference}
               </td>
             </tr>
@@ -81,7 +81,7 @@ export default function RelatedTable() {
       </table>
       <div className="bg-[#F5F5F5] px-2 py-3 dark:border-t dark:border-t-[#f5f5f5] dark:bg-transparent">
         <button className="border border-[#CCCCCC] bg-white p-2 dark:bg-transparent">
-          <FiPlus className="dark:text-white" />
+          <FiPlus className="white-text" />
         </button>
       </div>
     </div>

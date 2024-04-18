@@ -10,7 +10,7 @@ export default function Sectors() {
       </header>
       <table className="w-full table-auto">
         <thead>
-          <tr className="text-white">
+          <tr className="text-white white-text">
             <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
               Symbol
             </th>
@@ -49,22 +49,22 @@ export default function Sectors() {
               <td className="p-2 text-left text-sm font-bold uppercase">
                 {quote.name}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
+              <td className="p-2 text-right text-sm font-bold text-black white-text">
                 {quote.price}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
+              <td className="p-2 text-right text-sm font-bold text-black white-text">
                 {quote.change}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
+              <td className="p-2 text-right text-sm font-bold text-black white-text">
                 {quote.changesPercentage}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
+              <td className="p-2 text-right text-sm font-bold text-black white-text">
                 {quote.dayLow}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
+              <td className="p-2 text-right text-sm font-bold text-black white-text">
                 {quote.dayHigh}
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black dark:text-white">
+              <td className="p-2 text-right text-sm font-bold text-black white-text">
                 {quote.previousClose}
               </td>
             </tr>

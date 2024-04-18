@@ -6,7 +6,7 @@ export default function Stats() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] dark:text-white">
+        <p className="text-[#636363] white-text">
           Central Bank Balance Sheet in the United States decreased to 7673741
           USD Million in January 17 from 7686710 USD Million in the previous
           week. Central Bank Balance Sheet in the United States averaged

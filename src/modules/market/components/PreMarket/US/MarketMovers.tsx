@@ -9,13 +9,13 @@ export default function MarketMovers() {
   return (
     <>
       {/* divider */}
-      <Divider />
+      {/* <Divider /> */}
 
       {/* MARKET MOVERS */}
       <div className="px-6">
         <Tab.Group>
           <div className="mb-7 text-[#252525] lg:flex">
-            <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5 dark:text-white">
+            <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5 white-text">
               MARKET MOVERS
             </h1>
             <Tab.List
@@ -25,7 +25,7 @@ export default function MarketMovers() {
                 <Tab as={Fragment} key={market}>
                   {({ selected }) => (
                     <button
-                      className={`border-b-2 pb-2 text-sm font-extrabold dark:text-[#F8F7F7] ${
+                      className={`border-b-2 pb-2 text-sm font-extrabold white-text ${
                         selected ? "border-primary-base " : "border-transparent"
                       }`}
                     >

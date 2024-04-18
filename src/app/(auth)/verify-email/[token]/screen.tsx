@@ -37,7 +37,7 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
       <div className="auth__card__shadow max-w-xl rounded bg-white px-8 py-8 md:px-16 md:py-12 dark:bg-white/10">
         {verifying && (
           <center className=" space-y-10 ">
-            <h1 className="my-4 text-center text-2xl font-bold text-[#3C4257] dark:text-white">
+            <h1 className="my-4 text-center text-2xl font-bold text-[#3C4257] white-text">
               Verifying email
             </h1>
 
@@ -54,7 +54,7 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
             </div>
 
             <div className="  ">
-              <h1 className=" text-center text-lg font-bold text-[#3C4257] dark:text-white">
+              <h1 className=" text-center text-lg font-bold text-[#3C4257] white-text">
                 Email Verified
               </h1>
 
@@ -74,7 +74,7 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
             </div>
 
             <div className="  ">
-              <h1 className=" text-center text-2xl font-bold text-[#3C4257] dark:text-white">
+              <h1 className=" text-center text-2xl font-bold text-[#3C4257] white-text">
                 Verification failed
               </h1>
 

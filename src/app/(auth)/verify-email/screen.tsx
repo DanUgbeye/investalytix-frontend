@@ -36,11 +36,11 @@ export default function VerifyEmailScreen() {
       <div className="auth__card__shadow max-w-xl rounded bg-white px-8 py-8 md:px-16 md:py-12 dark:bg-white/10">
         <VerifyEmailImage />
 
-        <h1 className="my-4 text-center text-2xl font-bold text-[#3C4257] dark:text-white">
+        <h1 className="my-4 text-center text-2xl font-bold text-[#3C4257] white-text">
           Email Verification
         </h1>
 
-        <p className="px-7 text-[#3C4257] dark:text-white">
+        <p className="px-7 text-[#3C4257] white-text">
           We have sent a mail{" "}
           {email && (
             <>
@@ -52,7 +52,7 @@ export default function VerifyEmailScreen() {
 
         <div className="my-4 h-[0.5px] w-full bg-[#9D9D9D]"></div>
 
-        <p className="flex flex-wrap gap-1 items-center px-7 text-[#485567] dark:text-white">
+        <p className="flex flex-wrap gap-1 items-center px-7 text-[#485567] white-text">
           If you did not receive any mail,{" "}
           {email ? (
             <>
