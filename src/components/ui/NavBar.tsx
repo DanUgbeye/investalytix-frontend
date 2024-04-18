@@ -15,7 +15,7 @@ import useTheme from "@/store/theme/useTheme";
 import { Dialog, Menu } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnchorHTMLAttributes, useState } from "react";
+import { AnchorHTMLAttributes, Fragment, useState } from "react";
 import {
   FiArrowLeft,
   FiChevronRight,
@@ -43,7 +43,7 @@ const routes: RouteLink[] = [
       },
       {
         label: "Economic Calendar",
-        href: "/markets/economy/calendar/summary",
+        href: "/economic-calendar",
       },
     ],
   },
@@ -65,10 +65,10 @@ const routes: RouteLink[] = [
     label: "PRICING",
     href: "/pricing",
   },
-  {
-    label: "ABOUT US",
-    href: "",
-  },
+  // {
+  //   label: "ABOUT US",
+  //   href: "",
+  // },
 ];
 
 export default function NavBar() {
@@ -98,12 +98,12 @@ export default function NavBar() {
                     <NavigationMenuItem>
                       {route.children ? (
                         <>
-                          <NavigationMenuTrigger className=" rounded-full bg-transparent text-white hover:bg-primary-base/20 hover:text-white focus:bg-primary-base/20 focus:text-white data-[active]:bg-primary-base/20 data-[state=open]:bg-primary-base/20 ">
+                          <NavigationMenuTrigger className="rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base ">
                             {route.label}
                           </NavigationMenuTrigger>
 
-                          <NavigationMenuContent className=" w-full p-0 dark:bg-gray-800 ">
-                            <div className=" flex w-max min-w-52 flex-col py-2 ">
+                          <NavigationMenuContent className="w-full p-0 dark:bg-[#f5f5f5]">
+                            <div className=" flex w-max min-w-52 flex-col">
                               {route.children.map((childRoute, index) => {
                                 return (
                                   <Link
@@ -121,30 +121,16 @@ export default function NavBar() {
                           </NavigationMenuContent>
                         </>
                       ) : (
-                        <>
-                          {route.href ? (
-                            <Link href={route.href} legacyBehavior passHref>
-                              <NavigationMenuLink
-                                className={cn(
-                                  navigationMenuTriggerStyle(),
-                                  " rounded-full bg-transparent text-white hover:bg-primary-base/20 hover:text-white focus:bg-primary-base/20 focus:text-white "
-                                )}
-                              >
-                                {route.label}
-                              </NavigationMenuLink>
-                            </Link>
-                          ) : (
-                            <Button
-                              variant={"ghost"}
-                              className={cn(
-                                navigationMenuTriggerStyle(),
-                                " rounded-full bg-transparent text-white hover:bg-primary-base/20 hover:text-white focus:bg-primary-base/20 focus:text-white "
-                              )}
-                            >
-                              {route.label}
-                            </Button>
-                          )}
-                        </>
+                        <Link href={route.href} legacyBehavior passHref>
+                          <NavigationMenuLink
+                            className={cn(
+                              navigationMenuTriggerStyle(),
+                              "rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base "
+                            )}
+                          >
+                            {route.label}
+                          </NavigationMenuLink>
+                        </Link>
                       )}
                     </NavigationMenuItem>
                   </NavigationMenuList>
@@ -153,18 +139,16 @@ export default function NavBar() {
             })}
           </div>
 
-          <div className="flex items-center gap-x-3 ">
-            <div className="flex items-center gap-x-2 ">
-              <Search />
+          <div className="flex items-center gap-x-2 ">
+            <Search />
 
-              <button
-                title="theme"
-                className=" inline-block rounded-full p-2 font-bold text-white"
-                onClick={toggleTheme}
-              >
-                {theme === "light" ? <FiMoon /> : <FiSun />}
-              </button>
-            </div>
+            <button
+              title="theme"
+              className=" inline-block rounded-full p-2 font-bold text-white"
+              onClick={toggleTheme}
+            >
+              {theme === "light" ? <FiMoon /> : <FiSun />}
+            </button>
 
             <div className="flex items-center gap-x-2 ">
               <Link
@@ -235,10 +219,10 @@ function MobileMenu() {
           </svg>
         </Menu.Button>
 
-        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-gray-600 ">
-          <div className="flex min-w-[300px] flex-col bg-white dark:bg-gray-600">
+        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-[white] max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-[#f5f5f5]">
+          <div className="flex min-w-[300px] flex-col bg-white dark:bg-[#f5f5f5]">
             {history.length === 0 ? (
-              <div className="flex flex-col bg-white dark:bg-gray-600 ">
+              <div className="flex flex-col bg-white dark:bg-[#f5f5f5] ">
                 <div className="flex items-center justify-end gap-10 border-b sm:hidden">
                   <Menu.Button
                     onClick={resetHistory}
@@ -270,7 +254,7 @@ function MobileMenu() {
                     </div>
                   ))}
 
-                  <div className=" flex flex-col space-y-2 pb-4 md:hidden ">
+                  <div className="flex flex-col space-y-2 pb-4 md:hidden ">
                     <Link
                       href="/login"
                       className="mx-4 block cursor-pointer rounded bg-transparent px-4 py-3 text-center font-bold duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
@@ -316,17 +300,19 @@ function MobileMenu() {
                     <div key={route.label}>
                       {route.children ? (
                         <button
-                          className="focus:bg-primary-/10 flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase outline-none duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
+                          className="flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base"
                           onClick={() => addHistory(route)}
                         >
                           {route.label}
                           <FiChevronRight className=" size-5 " />
                         </button>
                       ) : (
-                        <NavLink
-                          route={route}
-                          className="focus:bg-primary-/10 inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase outline-none duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
-                        />
+                        <Menu.Item>
+                          <NavLink
+                            route={route}
+                            className="inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base"
+                          />
+                        </Menu.Item>
                       )}
                     </div>
                   ))}

@@ -1,6 +1,22 @@
+"use client";
 import ColoredNumber from "@/components/ui/ColoredNumber";
 import { FiBell, FiFlag } from "react-icons/fi";
 import moment from "moment";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Line,
+  LineChart,
+} from "recharts";
+import { Popover } from "@headlessui/react";
+import { tailwindCSS } from "@/lib/utils";
 
 const mockNews = [
   {
@@ -95,12 +111,57 @@ const mockNews = [
   },
 ];
 
+const data = [
+  {
+    name: "Page A",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: "Page C",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    name: "Page D",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Page E",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "Page F",
+    uv: 2390,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Page G",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+];
+
 export default function Summary() {
   return (
     <div className="overflow-auto">
       <table className="w-full table-auto">
         <thead>
-          <tr className="text-left text-[#212529] white-text">
+          <tr className="white-text text-left text-[#212529]">
             <th className="whitespace-nowrap border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent">
               Tuesday March 12 2024
             </th>
@@ -124,10 +185,7 @@ export default function Summary() {
         </thead>
         <tbody>
           {mockNews.map((news, index) => (
-            <tr
-              key={index}
-              className="text-left text-[#212529] white-text"
-            >
+            <tr key={index} className="white-text text-left text-[#212529]">
               <td className="whitespace-nowrap border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
                 {moment(news.time).format("HH:MM A")}
               </td>
@@ -153,40 +211,62 @@ export default function Summary() {
                 <ColoredNumber number={news.forecast} colored={false} />
               </td>
               <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
-                <svg
-                  width={41}
-                  height={20}
-                  viewBox="0 0 41 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlnsXlink="http://www.w3.org/1999/xlink"
-                >
-                  <rect
-                    x="0.046875"
-                    width={40}
-                    height={20}
-                    fill="url(#pattern0)"
-                  />
-                  <defs>
-                    <pattern
-                      id="pattern0"
-                      patternContentUnits="objectBoundingBox"
-                      width={1}
-                      height={1}
-                    >
-                      <use
-                        xlinkHref="#image0_1232_32255"
-                        transform="scale(0.025 0.05)"
-                      />
-                    </pattern>
-                    <image
-                      id="image0_1232_32255"
-                      width={40}
+                <Popover className="relative">
+                  <Popover.Button>
+                    <svg
+                      width={41}
                       height={20}
-                      xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABtSURBVEhL7Y7BCYBAEMSuOguzJa3HLnyfDOR1DPuSXYUN5JVPRvM3tv2cq6Rv8NrgfR1zlWSbJOcQDbgmyTlEA65Jcg7RgGuSXI+bk+R63Jwk1+PmJLkeNyfJ9bg5Sa7HzUlyPW5OkpumyWOMB45jR4wlqauuAAAAAElFTkSuQmCC"
-                    />
-                  </defs>
-                </svg>
+                      viewBox="0 0 41 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                    >
+                      <rect
+                        x="0.046875"
+                        width={40}
+                        height={20}
+                        fill="url(#pattern0)"
+                      />
+                      <defs>
+                        <pattern
+                          id="pattern0"
+                          patternContentUnits="objectBoundingBox"
+                          width={1}
+                          height={1}
+                        >
+                          <use
+                            xlinkHref="#image0_1232_32255"
+                            transform="scale(0.025 0.05)"
+                          />
+                        </pattern>
+                        <image
+                          id="image0_1232_32255"
+                          width={40}
+                          height={20}
+                          xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABtSURBVEhL7Y7BCYBAEMSuOguzJa3HLnyfDOR1DPuSXYUN5JVPRvM3tv2cq6Rv8NrgfR1zlWSbJOcQDbgmyTlEA65Jcg7RgGuSXI+bk+R63Jwk1+PmJLkeNyfJ9bg5Sa7HzUlyPW5OkpumyWOMB45jR4wlqauuAAAAAElFTkSuQmCC"
+                        />
+                      </defs>
+                    </svg>
+                  </Popover.Button>
+                  <Popover.Panel className="absolute right-0 z-10">
+                    <div className="w-[70vw] bg-white p-2 shadow">
+                      <ResponsiveContainer width="100%" height="200px">
+                        <BarChart
+                          data={data}
+                          className="!m-0 !p-0"
+                        >
+                          <Bar
+                            type="monotone"
+                            dataKey="uv"
+                            fill={tailwindCSS().theme.colors.primary.base}
+                          />
+                          <YAxis className="" />
+                          <XAxis dataKey={"name"} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </Popover.Panel>
+                </Popover>
               </td>
               <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
                 <svg

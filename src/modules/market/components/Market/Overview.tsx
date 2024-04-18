@@ -1,9 +1,10 @@
+"use client";
 import Divider from "@/components/ui/Divider";
-import { Separator } from "@/components/ui/separator";
 import chart from "@/mock/chart";
 import { Tab } from "@headlessui/react";
+import { Time, createChart } from "lightweight-charts";
 import _ from "lodash";
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import {
   AreaChart,
   Area,
@@ -12,6 +13,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import chartData from "@/mock/chart";
+import { tailwindCSS } from "@/lib/utils";
 
 const quotes = [
   {
@@ -163,64 +166,57 @@ const marketMovers = ["S&P", "NASDAQ", "DOW", "EUR", "ASIA", "COVID19"];
 const timeframes = ["1m", "5m", "15m", "1h"];
 
 export default function Market() {
+  const chartRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ref = chartRef.current;
+    if (ref === null) return;
+
+    const chart = createChart(ref, { autoSize: true });
+    const data = chartData.map((data) => ({
+      ...data,
+      value: (data.high + data.low) / 2,
+      time: (new Date(data.date).getTime() / 1000) as Time,
+    }));
+
+    function initChart() {
+      const lineSeries = chart.addLineSeries({
+        color: tailwindCSS().theme.colors.primary.base,
+        lineWidth: 1,
+      });
+      lineSeries.setData(data);
+      chart.timeScale().fitContent();
+    }
+
+    initChart();
+
+    return () => {};
+  }, []);
+
   return (
     <div className="overflow-hidden">
-      <h2 className="mb-6 text-3xl font-extrabold white-text white-text">MAJOR INDEXES</h2>
+      <h2 className="white-text white-text mb-6 text-3xl font-extrabold">
+        MAJOR INDEXES
+      </h2>
 
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="">
           <div className="flex items-center justify-between gap-4">
             {timeframes.map((tf) => (
-              <button key={tf} className="p-3 text-xs font-bold white-text">
+              <button key={tf} className="white-text p-3 text-xs font-bold">
                 {tf}
               </button>
             ))}
           </div>
 
-          <p className="py-4 text-xs font-medium white-text">
+          <p className="white-text py-4 text-xs font-medium">
             Previous Close: {chart[chart.length - 1].close}
           </p>
           <div className="h-80 overflow-auto">
-            <ResponsiveContainer
-              width="100%"
-              height="100%"
-              className="!m-0 !p-0"
-            >
-              <AreaChart
-                // width={500}
-                // height={400}
-                data={chart}
-                margin={{
-                  top: 0,
-                  right: 0,
-                  left: 0,
-                  bottom: 0,
-                }}
-                className="!p-0"
-              >
-                <defs>
-                  <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="60%" stopColor="#3354F4" stopOpacity={100} />
-                    {/* <stop offset="80%" stopColor="rgba(255,0,0,0.62)" stopOpacity={100} /> */}
-                    {/* <stop offset="80%" stopColor="#ff0000" stopOpacity={100} /> */}
-                    <stop
-                      offset="90%"
-                      stopColor="rgba(51,84,244,0.62)"
-                      stopOpacity={100}
-                    />
-                  </linearGradient>
-                </defs>
-                {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                <XAxis
-                  dataKey={({ date }) =>
-                    date.split(" ")[1].split(":").slice(0, 2).join(":")
-                  }
-                />
-                <YAxis dataKey="close" />
-                <Tooltip />
-                <Area type="monotone" dataKey="close" fill="url(#gradient)" />
-              </AreaChart>
-            </ResponsiveContainer>
+            <div
+              className="relative h-full w-full overflow-hidden"
+              ref={chartRef}
+            ></div>
           </div>
         </div>
 
@@ -235,8 +231,8 @@ export default function Market() {
       {/* MARKET MOVERS */}
       <div>
         <Tab.Group>
-          <div className="mb-7 text-[#252525] lg:flex  white-text">
-            <h1 className="whitespace-nowrap text-2xl font-extrabold max-lg:mb-5 white-text">
+          <div className="white-text mb-7 text-[#252525]  lg:flex">
+            <h1 className="white-text whitespace-nowrap text-2xl font-extrabold max-lg:mb-5">
               MARKET MOVERS
             </h1>
             <Tab.List
@@ -262,10 +258,10 @@ export default function Market() {
             <Tab.Panel>
               <div className="grid grid-cols-2 pb-14">
                 <div className="">
-                  <p className="font-bold white-text">Top</p>
+                  <p className="white-text font-bold">Top</p>
                 </div>
                 <div className="">
-                  <p className="font-bold white-text">Bottom</p>
+                  <p className="white-text font-bold">Bottom</p>
                 </div>
               </div>
             </Tab.Panel>
@@ -277,14 +273,16 @@ export default function Market() {
 
       <section className="mt-11">
         <header className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-white">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold white-text">
+          <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
             SECURITIES
           </h2>
         </header>
 
         {/* bonds */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold white-text white-text">BONDS</h2>
+          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
+            BONDS
+          </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <YieldTable />
 
@@ -309,13 +307,13 @@ export default function Market() {
 
         {/* FUTURES & COMMODITIES */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">
+          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
             FUTURES & COMMODITIES
           </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <table>
               <thead>
-                <tr className="text-[#1D2433] white-text">
+                <tr className="white-text text-[#1D2433]">
                   <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white dark:bg-transparent">
                     Name
                   </th>
@@ -373,7 +371,9 @@ export default function Market() {
 
         {/* CURRENCIES */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">CURRENCIES</h2>
+          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
+            CURRENCIES
+          </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <Table />
             <div className="text-[#2A3037] dark:text-[#F8F7F7]">
@@ -396,14 +396,16 @@ export default function Market() {
       {/* REGIONAL */}
       <section className="mt-16">
         <header className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-white">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold white-text">
+          <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
             REGIONAL
           </h2>
         </header>
 
         {/* AMERICAS MARKET */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">AMERICAS MARKET</h2>
+          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
+            AMERICAS MARKET
+          </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <YieldTable />
             <div className="text-[#2A3037] dark:text-[#F8F7F7]">
@@ -427,7 +429,9 @@ export default function Market() {
 
         {/* EUROPE MARKET */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">EUROPE MARKET</h2>
+          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
+            EUROPE MARKET
+          </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <Table />
             <div className="text-[#2A3037] dark:text-[#F8F7F7]">
@@ -451,10 +455,12 @@ export default function Market() {
 
         {/* ASIAN MARKET */}
         <section>
-          <h2 className="mb-6 mt-8 text-2xl font-bold white-text">ASIAN MARKET</h2>
+          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
+            ASIAN MARKET
+          </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <Table />
-            <div className="text-[#2A3037]  white-text">
+            <div className="white-text  text-[#2A3037]">
               <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
                 hope
@@ -478,7 +484,7 @@ function YieldTable() {
   return (
     <table>
       <thead>
-        <tr className="text-[#1D2433] white-text">
+        <tr className="white-text !text-white">
           <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize dark:bg-transparent">
             Name
           </th>
@@ -494,7 +500,7 @@ function YieldTable() {
         {quotes.map((quote) => (
           <tr
             key={quote.symbol}
-            className="text-black odd:bg-[#F9F9F9]  white-text dark:odd:bg-transparent"
+            className="white-text text-black  odd:bg-[#F9F9F9] dark:odd:bg-transparent"
           >
             <td className="p-2 text-left text-sm font-bold uppercase">
               {quote.symbol}
@@ -514,7 +520,7 @@ function Table() {
   return (
     <table className="w-full">
       <thead>
-        <tr className="text-[#1D2433]  white-text">
+        <tr className="!text-white white-text">
           <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize dark:bg-transparent">
             Name
           </th>
@@ -533,7 +539,7 @@ function Table() {
         {quotes.map((quote) => (
           <tr
             key={quote.symbol}
-            className="text-black odd:bg-[#F9F9F9]  white-text dark:odd:bg-transparent"
+            className="white-text text-black  odd:bg-[#F9F9F9] dark:odd:bg-transparent"
           >
             <td className="p-2 text-left text-sm font-bold uppercase">
               {quote.symbol}

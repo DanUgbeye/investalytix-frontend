@@ -1,5 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../../tailwind.config";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -17,4 +19,8 @@ export function formatTimestamp(timestamp: string | number) {
   }).format(date);
 
   return formattedTime;
+}
+
+export function tailwindCSS() {
+  return resolveConfig(tailwindConfig);
 }
