@@ -26,7 +26,7 @@ export default function WithSidePanel({
     <div className="grid md:grid-cols-[1fr,350px]">
       <div>{children}</div>
 
-      <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5 dark:border-[#D9D9D9]">
+      <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5 dark:border-white/10">
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["HOT_PICKS"])) && <Overview />}
         {(sections == SIDE_SECTIONS["ALL"] ||

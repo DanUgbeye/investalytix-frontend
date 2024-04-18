@@ -16,7 +16,7 @@ export default function MarketPage() {
       {/* TRENDING NOW */}
       <section className="mt-16 overflow-hidden">
         <header className="pb-10">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
+          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold white-text">
             TRENDING NOW
           </h2>
         </header>

@@ -251,7 +251,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
         <div className=" min-w-60 space-y-4 ">
           <header className="relative w-full ">
             <div className=" flex w-full py-4 ">
-              <h3 className=" text-2xl font-bold text-[#2A3037] dark:text-white">
+              <h3 className=" text-2xl font-bold text-[#2A3037] white-text">
                 KEY DATA
               </h3>
             </div>
@@ -346,7 +346,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
         <div className=" space-y-4 ">
           <header className="relative w-full ">
             <div className=" flex w-full py-4 ">
-              <h3 className=" text-2xl font-bold text-[#2A3037] dark:text-white">
+              <h3 className=" text-2xl font-bold text-[#2A3037] white-text">
                 RECENT NEWS
               </h3>
             </div>
@@ -362,7 +362,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
                   `whitespace-nowrap rounded px-5 py-2 text-center duration-300 hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white `,
                   {
                     "bg-primary-base text-white": newsTab === "market",
-                    "bg-transparent text-[#636363] hover:bg-gray-700 dark:text-white ":
+                    "bg-transparent text-[#636363] hover:bg-gray-700 white-text ":
                       newsTab !== "market",
                   }
                 )}
@@ -377,7 +377,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
                   `whitespace-nowrap rounded px-5 py-2 text-center duration-300 hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white `,
                   {
                     "bg-primary-base text-white": newsTab === "dow-jones",
-                    "bg-transparent text-[#636363] hover:bg-gray-700 dark:text-white ":
+                    "bg-transparent text-[#636363] hover:bg-gray-700 white-text ":
                       newsTab !== "dow-jones",
                   }
                 )}

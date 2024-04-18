@@ -20,11 +20,11 @@ export default function MarketHeader({
   return (
     <div className="">
       {active && (
-        <p className="mb-2 text-center text-xl font-extrabold uppercase">
+        <p className="mb-2 text-center text-xl font-extrabold uppercase white-text">
           MARKETS
         </p>
       )}
-      <h1 className="mb-7 border-b-[6px] border-primary-base pb-2 text-center text-3xl font-extrabold">
+      <h1 className="mb-7 border-b-[6px] border-primary-base pb-2 text-center text-3xl font-extrabold white-text">
         {name}
       </h1>
 
@@ -35,7 +35,7 @@ export default function MarketHeader({
           <Link
             key={mkt.href}
             href={mkt.href}
-            className={`whitespace-nowrap border-b-2 pb-2 font-bold ${
+            className={`whitespace-nowrap border-b-2 pb-2 font-bold white-text ${
               mkt.label === active
                 ? "border-primary-base "
                 : "border-transparent"

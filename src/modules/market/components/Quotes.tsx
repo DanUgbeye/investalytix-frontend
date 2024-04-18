@@ -32,7 +32,7 @@ export default function Quotes({
   return (
     <table className="w-full table-auto">
       <thead>
-        <tr className="text-white">
+        <tr className="text-white white-text">
           <th className="bg-[#020224] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
             {fields[0].label}
           </th>
@@ -51,7 +51,7 @@ export default function Quotes({
         {quotes.map((quote) => (
           <tr
             key={quote.symbol}
-            className="text-black odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent"
+            className="text-black  white-text odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent"
           >
             <td className="p-2 text-left text-sm font-bold uppercase">
               {quote[fields[0].key]}

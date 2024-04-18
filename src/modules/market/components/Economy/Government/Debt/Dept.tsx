@@ -1,10 +1,10 @@
 export default function Dept() {
   return (
     <div className="border border-[#DEE2E6]">
-      <div className="border-b bg-[#F5F5F5] px-2 py-3 text-sm text-[#212529] dark:bg-transparent dark:text-white">
+      <div className="border-b bg-[#F5F5F5] px-2 py-3 text-sm text-[#212529] dark:bg-transparent white-text">
         United States Government Debt
       </div>
-      <p className="p-4 text-sm text-[#212529] dark:text-white">
+      <p className="p-4 text-sm text-[#212529] white-text">
         In the United States, government debt refers to federal debt held by
         individuals, corporations, state or local governments, foreign
         governments, and other entities outside of the United States Government
@@ -13,7 +13,7 @@ export default function Dept() {
 
       <table className="w-full border-t text-sm">
         <thead>
-          <tr className="border-b text-[#212529] dark:text-white">
+          <tr className="border-b text-[#212529] white-text">
             <th className="bg-[#F5F5F5] py-3 pl-4 pr-2 text-left text-sm dark:bg-transparent">
               Actual
             </th>
@@ -38,7 +38,7 @@ export default function Dept() {
           </tr>
         </thead>
         <tbody>
-          <tr className="text-[#212529] dark:text-white">
+          <tr className="text-[#212529] white-text">
             <td className="py-3 pl-4 pr-2 text-left text-sm">4.10</td>
             <td className="px-2 py-3 text-left text-sm">4.07</td>
             <td className="px-2 py-3 text-left text-sm">15.82</td>

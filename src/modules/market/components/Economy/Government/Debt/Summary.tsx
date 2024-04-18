@@ -7,7 +7,7 @@ export default function Summary() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] dark:text-white">
+        <p className="text-[#636363] white-text">
           Government Debt in the United States increased to 34001494 USD Million
           in December from 33878679 USD Million in November of 2023. Government
           Debt in the United States averaged 5515378.62 USD Million from 1942

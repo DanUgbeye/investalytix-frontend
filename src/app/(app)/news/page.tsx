@@ -33,19 +33,19 @@ function News({ latest = false }: { latest?: boolean }) {
       </div>
       <div className="">
         <div className="flex flex-wrap items-start justify-between gap-2 xl:gap-5">
-          <p className="font-extrabold text-[#020224] lg:text-xl dark:text-white">
+          <p className="font-extrabold text-[#020224] lg:text-xl white-text">
             Cardinal Health Started With Underweight at Wells Fargo, Shares Drop
             6%
           </p>
           {!latest && (
-            <p className="flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base dark:text-white">
+            <p className="flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base white-text">
               <span className="">ADBE</span>
               <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
               <span className="whitespace-nowrap">14 December, 2023</span>
             </p>
           )}
         </div>
-        <p className="mt-4 text-sm text-[#4B4646] lg:mt-8 lg:text-base dark:text-white">
+        <p className="mt-4 text-sm text-[#4B4646] lg:mt-8 lg:text-base white-text">
           Adobe system our appointment management solution streamlines
           scheduling for real estate professionals, enhancing coordination
           between agents and clients for smoother property transactions and
@@ -53,7 +53,7 @@ function News({ latest = false }: { latest?: boolean }) {
         </p>
 
         {latest && (
-          <p className="mt-8 flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base dark:text-white">
+          <p className="mt-8 flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base white-text">
             <span className="">ADBE</span>
             <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
             <span className="whitespace-nowrap">14 December, 2023</span>

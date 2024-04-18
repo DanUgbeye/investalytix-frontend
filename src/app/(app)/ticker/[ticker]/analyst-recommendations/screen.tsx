@@ -353,7 +353,7 @@ export default function AnalystRecommendationScreen(
               {STOCK_FORECAST.map((item, index) => {
                 return (
                   <tr key={`forecast-${index}`} className=" text-sm ">
-                    <td className=" px-2 py-4 text-left text-[#333333] dark:text-white">
+                    <td className=" px-2 py-4 text-left text-[#333333] white-text">
                       {item.date.toDateString()}
                     </td>
 

@@ -11,7 +11,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
     <section className=" max-w-6xl space-y-12 py-12 ">
       <header className="relative w-full ">
         <div className=" flex w-full py-4 ">
-          <h2 className=" text-xl font-bold text-[#2A3037] sm:text-3xl dark:text-white">
+          <h2 className=" text-xl font-bold text-[#2A3037] sm:text-3xl white-text">
             Apple Dividend
           </h2>
         </div>
@@ -22,7 +22,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
       <div className=" space-y-5 border py-3  ">
         <h4 className=" px-4 text-lg font-bold sm:text-2xl ">Data</h4>
 
-        <div className=" flex flex-col divide-y text-gray-700 xl:flex-row xl:divide-x xl:divide-y-0 dark:text-white ">
+        <div className=" flex flex-col divide-y text-gray-700 xl:flex-row xl:divide-x xl:divide-y-0 white-text ">
           <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
             <span className=" font-bold ">Last Ex-Dividend Date</span>
             <span className="  ">2023-11-16</span>

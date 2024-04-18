@@ -105,26 +105,26 @@ export default function Summary() {
       <div className="">
         <div className="flex max-md:flex-col-reverse md:justify-between">
           <div>
-            <h1 className="text-xl font-bold text-[#1D1D1D] dark:text-white">
+            <h1 className="text-xl font-bold text-[#1D1D1D] white-text">
               U.S. 30 Year Treasury
             </h1>
-            <p className="text-lg text-[#747474] dark:text-white/80">
+            <p className="text-lg text-[#747474] white-text/80">
               US30Y:Tradeweb
             </p>
-            <p className="mt-2 text-sm text-[#BABABA] dark:text-white/50">
+            <p className="mt-2 text-sm text-[#BABABA] white-text/50">
               RT Quote | Exchange
             </p>
-            <p className="mt-5 text-sm font-bold text-[#171717] dark:text-white">
+            <p className="mt-5 text-sm font-bold text-[#171717] white-text">
               Yield | 11:06 AM EST
             </p>
-            <p className="mt-3 text-5xl font-bold text-[#171717] dark:text-white">
+            <p className="mt-3 text-5xl font-bold text-[#171717] white-text">
               4.306%{" "}
               <span className="text-3xl font-bold text-[#008456]">+0.001</span>
             </p>
           </div>
 
           <div className="flex h-fit flex-wrap gap-5 max-md:mb-5">
-            <button className="flex items-center gap-3 border border-[#002F6C] fill-[#002F6C] px-4 py-3 text-xs font-bold text-[#002F6C] dark:border-white dark:fill-white dark:text-white">
+            <button className="flex items-center gap-3 border border-[#002F6C] fill-[#002F6C] px-4 py-3 text-xs font-bold text-[#002F6C] dark:border-white dark:fill-white white-text">
               EXPORT
               <svg
                 width={13}
@@ -171,11 +171,11 @@ export default function Summary() {
                 </defs>
               </svg>
             </button>
-            <button className="flex items-center gap-3 border border-[#002F6C] px-4 py-3 text-xs font-bold text-[#002F6C] dark:border-white dark:text-white">
+            <button className="flex items-center gap-3 border border-[#002F6C] px-4 py-3 text-xs font-bold text-[#002F6C] dark:border-white white-text">
               WATCHLIST
               <FiPlus className="h-4 w-4" />
             </button>
-            <button className="flex items-center gap-3 border border-[#002F6C] text-xs font-bold text-[#002F6C] dark:border-white dark:text-white">
+            <button className="flex items-center gap-3 border border-[#002F6C] text-xs font-bold text-[#002F6C] dark:border-white white-text">
               <div className="m-1 flex items-center gap-1 bg-[#CE2B2B] p-2 text-white">
                 LIVE
                 <MdOutlinePlayCircle className="h-4 w-4" />
@@ -205,7 +205,7 @@ export default function Summary() {
                       <button
                         className={`w-full border-b-2 pb-2 text-lg font-bold uppercase ${
                           selected
-                            ? "border-primary-base text-[#252525] dark:text-white"
+                            ? "border-primary-base text-[#252525] white-text"
                             : "border-[#C4C4C4] text-[#747474] dark:text-[#C4C4C4]"
                         }`}
                       >
@@ -220,103 +220,103 @@ export default function Summary() {
             <Tab.Panels>
               <Tab.Panel>
                 <div className="">
-                  <p className="mb-1 font-bold text-[#002F6C] dark:text-white">
+                  <p className="mb-1 font-bold text-[#002F6C] white-text">
                     KEY STATS
                   </p>
                   <div className="grid gap-x-6 sm:grid-cols-2 md:grid-cols-3">
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         Yield Open
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.open}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         Price
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.price}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         Price Day High
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.dayHigh}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         Yield Day High
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.dayHigh}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         Price Change
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.change}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         price Day Low
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.dayLow}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         yield Day Low
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.dayLow}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         Price Change %
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.changesPercentage}%
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         Coupon
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.marketCap}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         Yield Prev Close
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.previousClose}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         Price Prev Close
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {summary.previousClose}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] dark:text-white/60">
+                      <p className="capitalize text-[#747474] white-text/60">
                         Maturity
                       </p>
-                      <p className="font-bold text-[#171717] dark:text-white">
+                      <p className="font-bold text-[#171717] white-text">
                         {formatTimestamp(summary.timestamp)}
                       </p>
                     </div>
@@ -332,7 +332,7 @@ export default function Summary() {
 
         {/* Latest On U.S. 30 Year Treasury */}
         <div className="">
-          <p className="text-xl font-bold text-[#1D1D1D] dark:text-white">
+          <p className="text-xl font-bold text-[#1D1D1D] white-text">
             Latest On U.S. 30 Year Treasury
           </p>
 
@@ -382,7 +382,7 @@ export default function Summary() {
 
         {/* Sponsored Financial Content */}
         <div className="">
-          <p className="text-xl font-bold text-[#1D1D1D] dark:text-white">
+          <p className="text-xl font-bold text-[#1D1D1D] white-text">
             Sponsored Financial Content
           </p>
 
@@ -394,7 +394,7 @@ export default function Summary() {
               >
                 <p className="">{content.heading}</p>
 
-                <p className="ml-6 text-xs font-bold text-[#636363] dark:text-white/60">
+                <p className="ml-6 text-xs font-bold text-[#636363] white-text/60">
                   {content.source}
                 </p>
               </div>
@@ -406,7 +406,7 @@ export default function Summary() {
         <Divider />
 
         <div className="">
-          <p className="text-xl font-bold text-[#1D1D1D] dark:text-white">
+          <p className="text-xl font-bold text-[#1D1D1D] white-text">
             Content From Our Affiliates
           </p>
           <p className="mt-3">There is no recent news for this security.</p>

@@ -16,7 +16,7 @@ export default function NewsScreen(props: NewsScreenProps) {
         <div className=" w-full space-y-4 xl:border xl:px-4 xl:py-8 ">
           <header className="relative w-full ">
             <div className=" flex w-full py-4 ">
-              <h3 className=" text-2xl font-bold text-[#2A3037] dark:text-white">
+              <h3 className=" text-2xl font-bold text-[#2A3037] white-text">
                 Latest on Apple INC
               </h3>
             </div>
@@ -31,12 +31,12 @@ export default function NewsScreen(props: NewsScreenProps) {
                 return (
                   <div key={`news-summary-${index}`} className=" w-full py-4 ">
                     <div className="flex flex-col items-start justify-between gap-2">
-                      <p className="font-bold text-[#020224] lg:text-lg dark:text-white">
+                      <p className="font-bold text-[#020224] lg:text-lg white-text">
                         Cardinal Health Started With Underweight at Wells Fargo,
                         Shares Drop 6%
                       </p>
 
-                      <p className="flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base dark:text-white">
+                      <p className="flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base white-text">
                         <span className="">ADBE</span>
                         <span className="inline-block size-2 bg-[#0097F4]"></span>
                         <span className="whitespace-nowrap">
@@ -69,12 +69,12 @@ export default function NewsScreen(props: NewsScreenProps) {
                 />
 
                 <div className="flex flex-wrap items-start justify-between gap-2 ">
-                  <p className="text-sm font-bold text-[#020224] lg:text-lg dark:text-white">
+                  <p className="text-sm font-bold text-[#020224] lg:text-lg white-text">
                     Cardinal Health Started With Underweight at Wells Fargo,
                     Shares Drop 6%
                   </p>
 
-                  <p className="flex flex-nowrap items-center gap-2 text-xs font-medium text-[#565555] lg:text-base dark:text-white">
+                  <p className="flex flex-nowrap items-center gap-2 text-xs font-medium text-[#565555] lg:text-base white-text">
                     <span className="">ADBE</span>
                     <span className="inline-block size-2 bg-[#0097F4]"></span>
                     <span className="whitespace-nowrap">14 December, 2023</span>

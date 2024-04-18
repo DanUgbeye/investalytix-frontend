@@ -100,7 +100,7 @@ export default function Summary() {
     <div className="overflow-auto">
       <table className="w-full table-auto">
         <thead>
-          <tr className="text-left text-[#212529] dark:text-white">
+          <tr className="text-left text-[#212529] white-text">
             <th className="whitespace-nowrap border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent">
               Tuesday March 12 2024
             </th>
@@ -126,7 +126,7 @@ export default function Summary() {
           {mockNews.map((news, index) => (
             <tr
               key={index}
-              className="text-left text-[#212529] dark:text-white"
+              className="text-left text-[#212529] white-text"
             >
               <td className="whitespace-nowrap border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
                 {moment(news.time).format("HH:MM A")}

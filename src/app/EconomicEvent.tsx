@@ -8,11 +8,11 @@ export default function EconomicEvent() {
       </div>
 
       <div className="">
-        <p className="text-sm font-bold text-[#000000] dark:text-white">
+        <p className="text-sm font-bold text-[#000000] white-text">
           Cardinal Health Started With Underweight at Wells Fargo, Shares Drop
           6%
         </p>
-        <p className="mt-8 flex items-center gap-1 text-sm text-[#565555] dark:text-white">
+        <p className="mt-8 flex items-center gap-1 text-sm text-[#565555] white-text">
           <span className="">ADBE</span>
           <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
           <span className="whitespace-nowrap">14 December, 2023</span>
@@ -23,7 +23,7 @@ export default function EconomicEvent() {
   return (
     <div>
       <header className="relative mb-4">
-        <p className="text-2xl font-bold text-[#2A3037] dark:text-white">
+        <p className="text-2xl font-bold text-[#2A3037]  white-text">
           Top Economic Event
         </p>
 

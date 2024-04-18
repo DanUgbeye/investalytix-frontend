@@ -7,7 +7,7 @@ export default function Stats() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] dark:text-white">
+        <p className="text-[#636363] white-text">
           The US economy expanded an annualized 3.3% in Q4 2023, much better
           than forecasts of a 2% rise, and following a 4.9% rate in Q3,
           according to the advance estimate. Consumer spending slowed (2.8% vs

@@ -1,10 +1,10 @@
 export default function DeptToGDP() {
   return (
     <div className="border border-[#DEE2E6]">
-      <div className="border-b bg-[#F5F5F5] px-2 py-3 text-sm text-[#212529] dark:bg-transparent dark:text-white">
+      <div className="border-b bg-[#F5F5F5] px-2 py-3 text-sm text-[#212529] dark:bg-transparent white-text">
         United States Gross Federal Debt to GDP
       </div>
-      <p className="p-4 text-sm text-[#212529] dark:text-white">
+      <p className="p-4 text-sm text-[#212529] white-text">
         Generally, Government debt as a percent of GDP is used by investors to
         measure a country&apos;s ability to make future payments on its debt,
         thus affecting the country&apos;s borrowing costs and government bond
@@ -13,7 +13,7 @@ export default function DeptToGDP() {
 
       <table className="w-full border-t text-sm">
         <thead>
-          <tr className="border-b text-[#212529] dark:text-white">
+          <tr className="border-b text-[#212529] white-text">
             <th className="bg-[#F5F5F5] py-3 pl-4 pr-2 text-left text-sm dark:bg-transparent">
               Actual
             </th>
@@ -38,7 +38,7 @@ export default function DeptToGDP() {
           </tr>
         </thead>
         <tbody>
-          <tr className="text-[#212529] dark:text-white">
+          <tr className="text-[#212529] white-text">
             <td className="py-3 pl-4 pr-2 text-left text-sm">4.10</td>
             <td className="px-2 py-3 text-left text-sm">4.07</td>
             <td className="px-2 py-3 text-left text-sm">15.82</td>
