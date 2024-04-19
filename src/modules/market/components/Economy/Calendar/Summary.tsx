@@ -1,22 +1,9 @@
 "use client";
 import ColoredNumber from "@/components/ui/ColoredNumber";
-import { FiBell, FiFlag } from "react-icons/fi";
-import moment from "moment";
-import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  Line,
-  LineChart,
-} from "recharts";
 import { Popover } from "@headlessui/react";
-import { tailwindCSS } from "@/lib/utils";
+import moment from "moment";
+import { FiFlag } from "react-icons/fi";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 const mockNews = [
   {
@@ -159,6 +146,21 @@ const data = [
 export default function Summary() {
   return (
     <div className="overflow-auto">
+      <ResponsiveContainer
+        className={" static h-96 w-full min-w-full bg-green-200"}
+        width={"100%"}
+        height={"100%"}
+      >
+        <BarChart
+          data={data}
+          className="static !m-0 h-full min-h-full w-full min-w-full bg-red-300 !p-0 "
+        >
+          <Bar type="monotone" dataKey="uv" fill={"black"} />
+          <YAxis className=" bg-red-500" />
+          <XAxis dataKey={"name"} className=" bg-red-500 " />
+        </BarChart>
+      </ResponsiveContainer>
+
       <table className="w-full table-auto">
         <thead>
           <tr className="white-text text-left text-[#212529]">
@@ -183,6 +185,7 @@ export default function Summary() {
             <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5] p-2 font-normal dark:border-b-white dark:bg-transparent"></th>
           </tr>
         </thead>
+
         <tbody>
           {mockNews.map((news, index) => (
             <tr key={index} className="white-text text-left text-[#212529]">
@@ -198,7 +201,7 @@ export default function Summary() {
               <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
                 {news.name}
               </td>
-              <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
+              <td className="border-b border-b-[#/DEE2E6] p-2 font-normal dark:border-b-white">
                 <ColoredNumber number={news.actual} />
               </td>
               <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-white">
@@ -248,20 +251,25 @@ export default function Summary() {
                       </defs>
                     </svg>
                   </Popover.Button>
-                  <Popover.Panel className="absolute right-0 z-10">
-                    <div className="w-[70vw] bg-white p-2 shadow">
-                      <ResponsiveContainer width="100%" height="200px">
+
+                  <Popover.Panel className="absolute right-0 z-10 block ">
+                    <div className="grid h-full w-[70vw] bg-white p-2 shadow ">
+                      <ResponsiveContainer
+                        className={
+                          " static h-96 w-full min-w-full bg-green-200"
+                        }
+                        width={"100%"}
+                        height={"200px"}
+                      >
                         <BarChart
+                          width={150}
+                          height={300}
                           data={data}
-                          className="!m-0 !p-0"
+                          className="static z-50 !m-0 h-full min-h-full w-full min-w-full bg-red-300 !p-0 "
                         >
-                          <Bar
-                            type="monotone"
-                            dataKey="uv"
-                            fill={tailwindCSS().theme.colors.primary.base}
-                          />
-                          <YAxis className="" />
-                          <XAxis dataKey={"name"} />
+                          <Bar type="monotone" dataKey="uv" fill={"black"} />
+                          <YAxis className=" bg-red-500" />
+                          <XAxis dataKey={"name"} className=" bg-red-500 " />
                         </BarChart>
                       </ResponsiveContainer>
                     </div>

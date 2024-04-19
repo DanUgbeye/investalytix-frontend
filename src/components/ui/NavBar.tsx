@@ -75,7 +75,7 @@ export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
 
   return (
-    <nav className="z-50 bg-black py-3 dark:border-b ">
+    <nav className="z-50 bg-black py-3 ">
       <Container>
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
@@ -102,7 +102,7 @@ export default function NavBar() {
                             {route.label}
                           </NavigationMenuTrigger>
 
-                          <NavigationMenuContent className="w-full p-0 dark:bg-[#f5f5f5]">
+                          <NavigationMenuContent className="w-full p-0 dark:bg-gray-800 ">
                             <div className=" flex w-max min-w-52 flex-col">
                               {route.children.map((childRoute, index) => {
                                 return (
