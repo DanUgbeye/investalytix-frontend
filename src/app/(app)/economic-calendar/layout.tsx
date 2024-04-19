@@ -7,16 +7,10 @@ export default function CalendarLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container>
-      <div className="relative mb-4 h-[170px] w-full lg:mb-12">
-        <Image src={"/images/ad1.png"} alt="" fill className="object-cover" />
-      </div>
-      <div className="">
-        <p className="white-text mb-2 text-center text-xl font-extrabold uppercase">
-          MARKETS
-        </p>
-        <h1 className="white-text mb-7 border-b-[6px] border-primary-base pb-2 text-center text-3xl font-extrabold">
-          CALENDAR
+    <Container>      
+      <div className="py-10">
+        <h1 className="white-text mb-7 border-b-[6px] border-primary-base pb-5 text-center text-3xl font-extrabold">
+          ECONOMIC CALENDAR
         </h1>
       </div>
 

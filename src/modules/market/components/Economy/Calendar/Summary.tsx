@@ -146,21 +146,6 @@ const data = [
 export default function Summary() {
   return (
     <div className="overflow-auto">
-      <ResponsiveContainer
-        className={" static h-96 w-full min-w-full bg-green-200"}
-        width={"100%"}
-        height={"100%"}
-      >
-        <BarChart
-          data={data}
-          className="static !m-0 h-full min-h-full w-full min-w-full bg-red-300 !p-0 "
-        >
-          <Bar type="monotone" dataKey="uv" fill={"black"} />
-          <YAxis className=" bg-red-500" />
-          <XAxis dataKey={"name"} className=" bg-red-500 " />
-        </BarChart>
-      </ResponsiveContainer>
-
       <table className="w-full table-auto">
         <thead>
           <tr className="white-text text-left text-[#212529]">
@@ -254,22 +239,28 @@ export default function Summary() {
 
                   <Popover.Panel className="absolute right-0 z-10 block ">
                     <div className="grid h-full w-[70vw] bg-white p-2 shadow ">
-                      <ResponsiveContainer
-                        className={
-                          " static h-96 w-full min-w-full bg-green-200"
-                        }
-                        width={"100%"}
-                        height={"200px"}
-                      >
-                        <BarChart
-                          width={150}
-                          height={300}
-                          data={data}
-                          className="static z-50 !m-0 h-full min-h-full w-full min-w-full bg-red-300 !p-0 "
-                        >
-                          <Bar type="monotone" dataKey="uv" fill={"black"} />
-                          <YAxis className=" bg-red-500" />
-                          <XAxis dataKey={"name"} className=" bg-red-500 " />
+                      <ResponsiveContainer className="min-h-40 md:min-h-80">
+                        <BarChart data={data}>
+                          <XAxis
+                            dataKey={"uv"}
+                            stroke="#888888"
+                            fontSize={12}
+                            tickLine={false}
+                            axisLine={false}
+                          />
+                          <YAxis
+                            stroke="#888888"
+                            fontSize={12}
+                            tickLine={false}
+                            axisLine={false}
+                            tickFormatter={(value) => `$${value}`}
+                          />
+                          <Bar
+                            dataKey={"uv"}
+                            fill="currentColor"
+                            radius={[4, 4, 0, 0]}
+                            className=""
+                          />
                         </BarChart>
                       </ResponsiveContainer>
                     </div>
