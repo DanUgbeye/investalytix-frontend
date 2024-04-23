@@ -8,7 +8,7 @@ export default function RootLayout({
 }>) {
   return (
     <main>
-      <Container>
+      <Container className=" py-10 ">
         <>{children}</>
       </Container>
     </main>
