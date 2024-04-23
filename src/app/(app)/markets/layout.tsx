@@ -9,17 +9,7 @@ export default function RootLayout({
   return (
     <main>
       <Container>
-        <>
-          <div className="relative mb-4 h-[170px] w-full lg:mb-12">
-            <Image
-              src={"/images/ad1.png"}
-              alt=""
-              fill
-              className="object-cover"
-            />
-          </div>
-          {children}
-        </>
+        <>{children}</>
       </Container>
     </main>
   );
