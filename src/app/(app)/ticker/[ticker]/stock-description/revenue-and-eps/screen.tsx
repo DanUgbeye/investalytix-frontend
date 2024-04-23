@@ -2,8 +2,63 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { useState } from "react";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from "recharts";
+
+const data = [
+  {
+    name: "Page A",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: "Page C",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    name: "Page D",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Page E",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "Page F",
+    uv: 2390,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Page G",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+];
 
 const FINANCIAL_HISTORY_DATA = {
   reportDate: new Date(),
@@ -26,8 +81,8 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
 
   return (
     <section className=" space-y-12 pb-12 ">
-      <div className=" space-y-6 px-6 ">
-        <div className=" flex gap-x-10 ">
+      <div className=" space-y-6 ">
+        <div className=" flex gap-x-10 px-6 ">
           <Button
             variant={"link"}
             className={cn(
@@ -59,14 +114,30 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
           </Button>
         </div>
 
-        <div className="  ">
-          <Image
-            src={"/images/chart2.png"}
-            width={925}
-            height={165}
-            className=" w-full object-cover "
-            alt="placeholder"
-          />
+        <div className=" space-y-4 py-5 ">
+          <ResponsiveContainer width={"100%"} height={300}>
+            <BarChart data={data}>
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Tooltip />
+              <Bar dataKey="pv" className=" fill-blue-600" />
+              <Bar dataKey="uv" className=" fill-blue-500/50" />
+            </BarChart>
+          </ResponsiveContainer>
+
+          <div className=" flex flex-wrap items-center gap-8 px-6 ">
+            <div className=" flex items-center gap-x-2 ">
+              <span className=" size-3 rounded-sm bg-blue-600 " />
+              <span className="  ">Estimated EPS</span>
+            </div>
+
+            <div className=" flex items-center gap-x-2 ">
+              <span className=" size-3 rounded-sm bg-blue-500/50 " />
+              <span className="  ">Reported EPS</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -262,13 +333,41 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
         <h4 className=" text-xl font-bold ">Earning Estimate Graph</h4>
 
         <div className="  ">
-          <Image
-            src={"/images/chart1.png"}
-            width={925}
-            height={293}
-            className=" object-contain "
-            alt="placeholder"
-          />
+          <ResponsiveContainer width={"100%"} height={300}>
+            <AreaChart data={data}>
+              <defs>
+                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+
+              <XAxis dataKey="name" />
+              <YAxis />
+              {/* <CartesianGrid ver strokeDasharray="3 3" /> */}
+              <Tooltip />
+
+              <Area
+                type="monotone"
+                dataKey="uv"
+                stroke="#8884d8"
+                fillOpacity={1}
+                fill="url(#colorUv)"
+              />
+
+              <Area
+                type="monotone"
+                dataKey="pv"
+                stroke="#82ca9d"
+                fillOpacity={1}
+                fill="url(#colorPv)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </section>
