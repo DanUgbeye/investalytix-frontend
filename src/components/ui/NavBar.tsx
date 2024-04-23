@@ -76,7 +76,7 @@ export default function NavBar() {
 
   return (
     <nav className="z-50 bg-black py-3 ">
-      <Container>
+      <Container className=" max-w-[110rem] px-0 sm:px-6 xl:px-6 ">
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
             <MobileMenu />
@@ -84,8 +84,8 @@ export default function NavBar() {
               <Image
                 src="/assets/logo/logo-with-text.svg"
                 alt="Logo"
-                height={20}
-                width={150}
+                height={25}
+                width={170}
               />
             </Link>
           </div>
