@@ -98,10 +98,10 @@ export default function NavBar() {
                     <NavigationMenuItem>
                       {route.children ? (
                         <>
-                          <NavigationMenuTrigger className="rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base ">
+                          <NavigationMenuTrigger className="rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light">
                             {route.label}
                           </NavigationMenuTrigger>
-                          <NavigationMenuContent className="w-full p-0 dark:bg-[#f5f5f5]">
+                          <NavigationMenuContent className="w-full bg-white p-0 dark:bg-[#191919] !border-0">
                             <div className=" flex w-max min-w-52 flex-col">
                               {route.children.map((childRoute, index) => {
                                 return (
@@ -109,7 +109,7 @@ export default function NavBar() {
                                     key={`${childRoute.href}-${index}`}
                                     href={childRoute.href}
                                     className={
-                                      "grid w-full min-w-fit px-4 py-3 font-medium hover:text-primary-base dark:text-black"
+                                      "dark:hover:text-primary-light grid w-full min-w-fit px-4 py-3 font-medium hover:text-primary-base dark:text-white"
                                     }
                                   >
                                     {childRoute.label}
@@ -124,7 +124,7 @@ export default function NavBar() {
                           <NavigationMenuLink
                             className={cn(
                               navigationMenuTriggerStyle(),
-                              "rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base "
+                              "dark:hover:text-primary-light dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light rounded-full !bg-transparent  text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base"
                             )}
                           >
                             {route.label}
@@ -343,7 +343,7 @@ function Search() {
         className="grid place-content-center overflow-hidden rounded-full p-2"
         onClick={toggleIsOpen}
       >
-        <FiSearch className="text-white size-5 xl:size-4"/>
+        <FiSearch className="size-5 text-white xl:size-4" />
       </button>
       <Dialog open={isOpen} onClose={toggleIsOpen} className="relative z-50">
         {/* The backdrop, rendered as a fixed sibling to the panel container */}
