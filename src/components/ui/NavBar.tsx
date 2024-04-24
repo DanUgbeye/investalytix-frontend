@@ -15,7 +15,7 @@ import useTheme from "@/store/theme/useTheme";
 import { Dialog, Menu } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnchorHTMLAttributes, Fragment, useState } from "react";
+import { AnchorHTMLAttributes, useState } from "react";
 import {
   FiArrowLeft,
   FiChevronRight,
@@ -24,7 +24,6 @@ import {
   FiX,
 } from "react-icons/fi";
 import { Container } from "../container";
-import { Button } from "./button";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -76,7 +75,7 @@ export default function NavBar() {
 
   return (
     <nav className="z-50 bg-black py-3 ">
-      <Container className=" max-w-[110rem] px-0 sm:px-6 xl:px-6 ">
+      <Container className=" max-w-[110rem] sm:px-6 xl:px-6 ">
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
             <MobileMenu />
