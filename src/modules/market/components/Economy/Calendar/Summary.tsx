@@ -1,5 +1,7 @@
 "use client";
 import ColoredNumber from "@/components/ui/ColoredNumber";
+import { tailwindCSS } from "@/lib/utils";
+import useTheme from "@/store/theme/useTheme";
 import { Popover } from "@headlessui/react";
 import moment from "moment";
 import { FiFlag } from "react-icons/fi";
@@ -144,6 +146,7 @@ const data = [
 ];
 
 export default function Summary() {
+  const { theme } = useTheme();
   return (
     <div className="overflow-auto">
       <table className="w-full table-auto">
@@ -238,7 +241,7 @@ export default function Summary() {
                   </Popover.Button>
 
                   <Popover.Panel className="absolute right-0 z-10 block ">
-                    <div className="grid h-full w-[70vw] bg-white p-2 shadow ">
+                    <div className="grid h-full w-[70vw] bg-white dark:bg-[#191919] p-2 shadow ">
                       <ResponsiveContainer className="min-h-40 md:min-h-80">
                         <BarChart data={data}>
                           <XAxis
@@ -257,7 +260,11 @@ export default function Summary() {
                           />
                           <Bar
                             dataKey={"uv"}
-                            fill="currentColor"
+                            fill={
+                              theme === "dark"
+                                ? tailwindCSS().theme.colors.primary.light
+                                : tailwindCSS().theme.colors.primary.base
+                            }
                             radius={[4, 4, 0, 0]}
                             className=""
                           />
