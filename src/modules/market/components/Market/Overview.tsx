@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import chartData from "@/mock/chart";
 import { tailwindCSS } from "@/lib/utils";
+import useTheme from "@/store/theme/useTheme";
 
 const quotes = [
   {
@@ -167,12 +168,33 @@ const timeframes = ["1m", "5m", "15m", "1h"];
 
 export default function Market() {
   const chartRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const ref = chartRef.current;
     if (ref === null) return;
 
-    const chart = createChart(ref, { autoSize: true });
+    // empty the children in parent component
+    const children = ref.childNodes;
+    children.forEach((child) => {
+      ref.removeChild(child);
+    });
+
+    const chart = createChart(ref, {
+      autoSize: true,
+      layout: {
+        background: { color: theme === "dark" ? "#000000" : "#ffffff" },
+        textColor: theme === "dark" ? "rgba(255,255,255,0.8)" : "#000000",
+      },
+      grid: {
+        vertLines: {
+          color: theme === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.8)",
+        },
+        horzLines: {
+          color: theme === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.8)",
+        },
+      },
+    });
     const data = chartData.map((data) => ({
       ...data,
       value: (data.high + data.low) / 2,
@@ -191,7 +213,7 @@ export default function Market() {
     initChart();
 
     return () => {};
-  }, []);
+  }, [theme]);
 
   return (
     <div className="overflow-hidden">
@@ -280,9 +302,7 @@ export default function Market() {
 
         {/* bonds */}
         <section>
-          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
-            BONDS
-          </h2>
+          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">BONDS</h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
             <YieldTable />
 
@@ -520,7 +540,7 @@ function Table() {
   return (
     <table className="w-full">
       <thead>
-        <tr className="!text-white white-text">
+        <tr className="white-text !text-white">
           <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize dark:bg-transparent">
             Name
           </th>
