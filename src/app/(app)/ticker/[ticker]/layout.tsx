@@ -1,6 +1,6 @@
-import SearchTickerLayout from "@/modules/ticker/layouts/search-ticker-layout";
 import { PropsWithChildren } from "react";
 import "swiper/css";
+import TickerLayout from "./ticker-layout";
 
 export interface TickerLayoutProps extends PropsWithChildren {
   params: {
@@ -8,11 +8,11 @@ export interface TickerLayoutProps extends PropsWithChildren {
   };
 }
 
-export default function TickerLayout(props: TickerLayoutProps) {
+export default function Layout(props: TickerLayoutProps) {
   const {
     params: { ticker },
     children,
   } = props;
 
-  return <SearchTickerLayout ticker={ticker}>{children}</SearchTickerLayout>;
+  return <TickerLayout ticker={ticker}>{children}</TickerLayout>;
 }

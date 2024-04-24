@@ -244,7 +244,7 @@ export function DesktopTickerNav(props: TickerNavProps) {
 
   return (
     <aside {...rest} className={cn(" pb-4 ", className)}>
-      <div className=" h-fit border-x ">
+      <div className=" h-fit border-r ">
         {loading && (
           <div className=" grid w-full place-items-center py-8 ">
             <Spinner className=" size-8 text-primary-base " />

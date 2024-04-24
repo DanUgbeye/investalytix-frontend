@@ -2,8 +2,63 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { useState } from "react";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from "recharts";
+
+const data = [
+  {
+    name: "Page A",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    name: "Page C",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    name: "Page D",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    name: "Page E",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    name: "Page F",
+    uv: 2390,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    name: "Page G",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
+  },
+];
 
 const FINANCIAL_HISTORY_DATA = {
   reportDate: new Date(),
@@ -26,8 +81,8 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
 
   return (
     <section className=" space-y-12 pb-12 ">
-      <div className=" space-y-6 px-6 ">
-        <div className=" flex gap-x-10 ">
+      <div className=" space-y-6 ">
+        <div className=" flex gap-x-10 px-6 ">
           <Button
             variant={"link"}
             className={cn(
@@ -59,14 +114,30 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
           </Button>
         </div>
 
-        <div className="  ">
-          <Image
-            src={"/images/chart2.png"}
-            width={925}
-            height={165}
-            className=" w-full object-cover "
-            alt="placeholder"
-          />
+        <div className=" space-y-4 py-5 ">
+          <ResponsiveContainer width={"100%"} height={300}>
+            <BarChart data={data}>
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Tooltip />
+              <Bar dataKey="pv" className=" fill-blue-600" />
+              <Bar dataKey="uv" className=" fill-blue-500/50" />
+            </BarChart>
+          </ResponsiveContainer>
+
+          <div className=" flex flex-wrap items-center gap-8 px-6 ">
+            <div className=" flex items-center gap-x-2 ">
+              <span className=" size-3 rounded-sm bg-blue-600 " />
+              <span className="  ">Estimated EPS</span>
+            </div>
+
+            <div className=" flex items-center gap-x-2 ">
+              <span className=" size-3 rounded-sm bg-blue-500/50 " />
+              <span className="  ">Reported EPS</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -77,9 +148,9 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
         <div className=" space-y-6 ">
           <div className=" ">
             <div className=" overflow-y-auto ">
-              <table className="w-full  min-w-[50rem] ">
+              <table className="w-full min-w-[50rem] ">
                 <thead>
-                  <tr className=" divide-x border-b border-b-[#DEE2E6] text-sm font-bold text-[#212529] white-text ">
+                  <tr className=" white-text border-y text-sm font-bold text-[#212529] ">
                     <th className=" px-2 py-4 text-left dark:bg-transparent">
                       Report Date
                     </th>
@@ -109,19 +180,19 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       return (
                         <tr
                           key={`earning-history-${index}`}
-                          className=" text-sm "
+                          className=" border-y text-sm "
                         >
-                          <td className=" px-2 py-4 text-left font-bold text-[#333333] white-text">
+                          <td className=" white-text px-2 py-4 text-left text-[#333333]">
                             {item.reportDate.toDateString()}
                           </td>
 
                           <td
-                            className={` px-2 py-4 text-right text-[#212529] white-text`}
+                            className={` white-text px-2 py-4 text-right text-[#212529]`}
                           >
                             {item.fiscalQuarter}
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
+                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
                             <span className=" ">{item.forecast}</span>/
                             <span
                               className={cn({
@@ -135,11 +206,11 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                             </span>
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
+                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
                             {item.lastYear}
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
+                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
                             {item.yoyChangePercentage.toPrecision(2)}% (
                             {item.yoyChange > 0 && "+"}
                             {item.yoyChange.toPrecision(2)})
@@ -151,7 +222,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               </table>
             </div>
 
-            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-4 text-xs dark:bg-[#262626]  ">
+            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-6 text-xs dark:bg-[#262626]  ">
               <div className="  ">
                 The table shows recent earnings report dates and whether the
                 forecast was beat or missed. See the change in forecast and EPS
@@ -187,24 +258,18 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             <div className=" overflow-y-auto ">
               <table className="w-full  min-w-[50rem] ">
                 <thead>
-                  <tr className=" divide-x border-b border-b-[#DEE2E6] text-sm font-semibold text-[#212529] white-text ">
-                    <th className=" px-2 py-4 text-left dark:bg-transparent">
-                      Report Date
-                    </th>
+                  <tr className=" white-text border-y text-sm font-semibold text-[#212529] ">
+                    <th className=" px-2 py-4 text-left ">Report Date</th>
 
-                    <th className=" px-2 py-4 text-right dark:bg-transparent">
-                      Fiscal Quarter
-                    </th>
+                    <th className=" px-2 py-4 text-right ">Fiscal Quarter</th>
 
-                    <th className=" px-2 py-4 text-right dark:bg-transparent">
-                      Revenue
-                    </th>
+                    <th className=" px-2 py-4 text-right ">Revenue</th>
 
-                    <th className=" px-2 py-4 text-right dark:bg-transparent">
+                    <th className=" px-2 py-4 text-right ">
                       Last Year&apos;s Revenue
                     </th>
 
-                    <th className=" px-2 py-4 text-right dark:bg-transparent">
+                    <th className=" px-2 py-4 text-right ">
                       Revenue YoY Change
                     </th>
                   </tr>
@@ -217,27 +282,27 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       return (
                         <tr
                           key={`revenue-history-${index}`}
-                          className=" text-sm "
+                          className=" border-y text-sm "
                         >
-                          <td className=" px-2 py-4 text-left font-semibold text-[#333333] white-text">
+                          <td className=" white-text px-2 py-4 text-left text-[#333333]">
                             {item.reportDate.toDateString()}
                           </td>
 
                           <td
-                            className={` px-2 py-4 text-right text-[#212529] white-text`}
+                            className={` white-text px-2 py-4 text-right text-[#212529]`}
                           >
                             {item.fiscalQuarter}
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
+                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
                             {item.current || "-"}
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
+                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
                             {item.lastYear}
                           </td>
 
-                          <td className=" px-2 py-4 text-right text-[#212529] white-text">
+                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
                             {item.yoyChangePercentage.toPrecision(2)}% (
                             {item.yoyChange > 0 && "+"}
                             {item.yoyChange.toPrecision(2)})
@@ -249,24 +314,12 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               </table>
             </div>
 
-            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-4 text-xs dark:bg-[#262626]  ">
+            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-6 text-xs dark:bg-[#262626]  ">
               <div className="  ">
                 The table shows recent earnings report dates and whether the
                 forecast was beat or missed. See the change in forecast and EPS
                 from the previous year.
               </div>
-
-              {/* <div className=" flex items-center gap-x-5 ">
-                <span className=" flex items-center gap-x-2 ">
-                  <span className=" size-3 rounded-sm bg-green-600 " />
-                  Beat
-                </span>
-
-                <span className=" flex items-center gap-x-2 ">
-                  <span className=" size-3 rounded-sm bg-red-600 " />
-                  Missed
-                </span>
-              </div> */}
             </div>
           </div>
 
@@ -280,13 +333,41 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
         <h4 className=" text-xl font-bold ">Earning Estimate Graph</h4>
 
         <div className="  ">
-          <Image
-            src={"/images/chart1.png"}
-            width={925}
-            height={293}
-            className=" object-contain "
-            alt="placeholder"
-          />
+          <ResponsiveContainer width={"100%"} height={300}>
+            <AreaChart data={data}>
+              <defs>
+                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+
+              <XAxis dataKey="name" />
+              <YAxis />
+              {/* <CartesianGrid ver strokeDasharray="3 3" /> */}
+              <Tooltip />
+
+              <Area
+                type="monotone"
+                dataKey="uv"
+                stroke="#8884d8"
+                fillOpacity={1}
+                fill="url(#colorUv)"
+              />
+
+              <Area
+                type="monotone"
+                dataKey="pv"
+                stroke="#82ca9d"
+                fillOpacity={1}
+                fill="url(#colorPv)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </section>

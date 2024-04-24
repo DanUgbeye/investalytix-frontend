@@ -38,10 +38,11 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     isLoading: authStatusLoading,
     refetch: refetchAuthStatus,
   } = useQuery({
-    enabled: !!user,
+    enabled: user !== undefined,
     queryKey: [QUERY_KEYS.GET_AUTH_STATUS, user?.id],
     queryFn: ({ signal }) => authRepo.checkAuthStatus({ signal }),
     refetchInterval: 180_000, // 5 mins
+    retry: 1,
   });
 
   function handleInit() {
@@ -52,7 +53,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         return initialiseStore({});
       }
 
-      const data = JSON.parse(saved);
+      const data = JSON.parse(saved); // can throw error
       // validate data
       const parsed = z
         .object({ auth: AuthSchema, user: UserSchema })
@@ -98,7 +99,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     syncAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, user]);
+  }, [auth, user]);
 
   useEffect(() => {
     if (data) {

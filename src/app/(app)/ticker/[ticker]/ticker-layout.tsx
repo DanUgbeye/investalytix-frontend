@@ -1,22 +1,25 @@
 "use client";
+
 import { Container } from "@/components/container";
 import Quote from "@/components/ui/Quote";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import quotes from "@/mock/quotes";
-import Image from "next/image";
 import { HTMLAttributes } from "react";
 import { RiStarSLine } from "react-icons/ri";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { DesktopTickerNav, MobileTickerNav } from "../../components/ticker-nav";
+import {
+  DesktopTickerNav,
+  MobileTickerNav,
+} from "@/modules/ticker/components/ticker-nav";
 
-export interface SearchTickerLayoutProps extends HTMLAttributes<HTMLElement> {
+export interface TickerLayoutProps extends HTMLAttributes<HTMLElement> {
   ticker: string;
 }
 
-export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
+export default function TickerLayout(props: TickerLayoutProps) {
   const { className, children, ticker, ...rest } = props;
 
   return (
@@ -43,15 +46,6 @@ export default function SearchTickerLayout(props: SearchTickerLayoutProps) {
                     </SwiperSlide>
                   ))}
                 </Swiper>
-              </div>
-
-              <div className="relative mb-4 h-[170px] w-full lg:mb-12">
-                <Image
-                  src={"/images/ad1.png"}
-                  alt=""
-                  fill
-                  className="object-cover"
-                />
               </div>
             </section>
 
