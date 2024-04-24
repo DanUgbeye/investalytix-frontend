@@ -20,6 +20,7 @@ import {
   FiArrowLeft,
   FiChevronRight,
   FiMoon,
+  FiSearch,
   FiSun,
   FiX,
 } from "react-icons/fi";
@@ -138,7 +139,7 @@ export default function NavBar() {
             })}
           </div>
 
-          <div className="flex items-center gap-x-2 ">
+          <div className="flex items-center gap-x-2">
             <Search />
 
             <button
@@ -146,24 +147,26 @@ export default function NavBar() {
               className=" inline-block rounded-full p-2 font-bold text-white"
               onClick={toggleTheme}
             >
-              {theme === "light" ? <FiMoon /> : <FiSun />}
+              {theme === "light" ? (
+                <FiMoon className="size-5 xl:size-4" />
+              ) : (
+                <FiSun className="size-5 xl:size-4" />
+              )}
             </button>
 
-            <div className="flex items-center gap-x-2 ">
-              <Link
-                href={PAGES.LOGIN}
-                className="hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white hover:bg-gray-800 md:block "
-              >
-                Login
-              </Link>
+            <Link
+              href={PAGES.LOGIN}
+              className="dark:hover:text-primary-light hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white hover:text-primary-base md:block"
+            >
+              Login
+            </Link>
 
-              <Link
-                href={PAGES.SIGNUP}
-                className="hidden cursor-pointer rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block"
-              >
-                Sign Up
-              </Link>
-            </div>
+            <Link
+              href={PAGES.SIGNUP}
+              className="hidden cursor-pointer rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block"
+            >
+              Sign Up
+            </Link>
           </div>
         </div>
       </Container>
@@ -203,7 +206,7 @@ function MobileMenu() {
   return (
     <Menu>
       <div className="xl:hidden">
-        <Menu.Button>
+        <Menu.Button className="px-2">
           <svg
             width={24}
             height={24}
@@ -218,10 +221,10 @@ function MobileMenu() {
           </svg>
         </Menu.Button>
 
-        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-[white] max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-[#f5f5f5]">
-          <div className="flex min-w-[300px] flex-col bg-white dark:bg-[#f5f5f5]">
+        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-[#191919]">
+          <div className="flex min-w-[300px] flex-col bg-white dark:bg-[#191919]">
             {history.length === 0 ? (
-              <div className="flex flex-col bg-white dark:bg-[#f5f5f5] ">
+              <div className="flex flex-col bg-white dark:bg-[#191919] ">
                 <div className="flex items-center justify-end gap-10 border-b sm:hidden">
                   <Menu.Button
                     onClick={resetHistory}
@@ -229,7 +232,7 @@ function MobileMenu() {
                       " grid size-12 place-items-center duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
                     }
                   >
-                    <FiX className=" size-5 " />
+                    <FiX className="size-5" />
                   </Menu.Button>
                 </div>
 
@@ -238,7 +241,7 @@ function MobileMenu() {
                     return route.children ? (
                       <button
                         key={route.label}
-                        className={`flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base`}
+                        className={`dark:hover:text-primary-light flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white`}
                         onClick={() => addHistory(route)}
                       >
                         {route.label}
@@ -249,7 +252,7 @@ function MobileMenu() {
                         {({ active }) => (
                           <NavLink
                             route={route}
-                            className={`inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base`}
+                            className={`dark:hover:text-primary-light inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white/80`}
                           />
                         )}
                       </Menu.Item>
@@ -259,7 +262,7 @@ function MobileMenu() {
                   <div className="flex flex-col space-y-2 pb-4 md:hidden ">
                     <Link
                       href="/login"
-                      className="mx-4 block cursor-pointer rounded bg-transparent px-4 py-3 text-center font-bold duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
+                      className="dark:hover:text-primary-light mx-4 block cursor-pointer rounded bg-transparent px-4 py-3 text-center font-bold duration-300 hover:text-primary-base  focus:text-primary-base"
                     >
                       Login
                     </Link>
@@ -275,12 +278,13 @@ function MobileMenu() {
               </div>
             ) : (
               <>
+                {/* header */}
                 <div className="flex items-center justify-between gap-10 border-b ">
                   <button
                     onClick={deleteHistory}
-                    className=" grid size-12 place-items-center duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
+                    className=" dark:hover:text-primary-light grid size-12 place-items-center duration-300 hover:text-primary-base"
                   >
-                    <FiArrowLeft className="size-5  " />
+                    <FiArrowLeft className="size-5" />
                   </button>
 
                   <p className="whitespace-nowrap text-sm font-bold uppercase outline-none">
@@ -290,29 +294,30 @@ function MobileMenu() {
                   <Menu.Button
                     onClick={resetHistory}
                     className={
-                      " grid size-12 place-items-center duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
+                      "dark:hover:text-primary-light grid size-12 place-items-center duration-300 hover:text-primary-base"
                     }
                   >
-                    <FiX className="size-5  " />
+                    <FiX className="size-5" />
                   </Menu.Button>
                 </div>
 
+                {/* links */}
                 <div className="flex flex-col py-2 ">
                   {(lastHistory().children ?? []).map((route) => (
                     <div key={route.label}>
                       {route.children ? (
                         <button
-                          className="flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base"
+                          className="dark:hover:text-primary-light flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white"
                           onClick={() => addHistory(route)}
                         >
                           {route.label}
-                          <FiChevronRight className=" size-5 " />
+                          <FiChevronRight className="size-5" />
                         </button>
                       ) : (
                         <Menu.Item>
                           <NavLink
                             route={route}
-                            className="inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base"
+                            className="dark:hover:text-primary-light inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white/80"
                           />
                         </Menu.Item>
                       )}
@@ -339,18 +344,7 @@ function Search() {
         className="grid place-content-center overflow-hidden rounded-full p-2"
         onClick={toggleIsOpen}
       >
-        <svg
-          width={16}
-          height={16}
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M12.0194 11.0787L14.8747 13.9333L13.9314 14.8767L11.0767 12.0213C10.0145 12.8728 8.69337 13.3359 7.33203 13.334C4.02003 13.334 1.33203 10.646 1.33203 7.33398C1.33203 4.02198 4.02003 1.33398 7.33203 1.33398C10.644 1.33398 13.332 4.02198 13.332 7.33398C13.334 8.69532 12.8708 10.0165 12.0194 11.0787ZM10.682 10.584C11.5281 9.71391 12.0006 8.5476 11.9987 7.33398C11.9987 4.75532 9.91003 2.66732 7.33203 2.66732C4.75336 2.66732 2.66536 4.75532 2.66536 7.33398C2.66536 9.91198 4.75336 12.0007 7.33203 12.0007C8.54565 12.0026 9.71196 11.5301 10.582 10.684L10.682 10.584Z"
-            fill="white"
-          />
-        </svg>
+        <FiSearch className="text-white size-5 xl:size-4"/>
       </button>
       <Dialog open={isOpen} onClose={toggleIsOpen} className="relative z-50">
         {/* The backdrop, rendered as a fixed sibling to the panel container */}

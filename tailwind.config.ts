@@ -30,6 +30,7 @@ const config = {
       colors: {
         primary: {
           base: "#FB8B1E",
+          light: "#ffaf5f",
         },
         main: {
           blue: "#125BD4",
