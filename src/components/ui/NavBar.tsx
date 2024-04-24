@@ -101,8 +101,7 @@ export default function NavBar() {
                           <NavigationMenuTrigger className="rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base ">
                             {route.label}
                           </NavigationMenuTrigger>
-
-                          <NavigationMenuContent className="w-full p-0 dark:bg-gray-800 ">
+                          <NavigationMenuContent className="w-full p-0 dark:bg-[#f5f5f5]">
                             <div className=" flex w-max min-w-52 flex-col">
                               {route.children.map((childRoute, index) => {
                                 return (
@@ -110,7 +109,7 @@ export default function NavBar() {
                                     key={`${childRoute.href}-${index}`}
                                     href={childRoute.href}
                                     className={
-                                      " grid w-full min-w-fit px-4 py-3 font-medium duration-300 hover:bg-gray-50 hover:text-primary-base dark:hover:bg-gray-700 "
+                                      "grid w-full min-w-fit px-4 py-3 font-medium hover:text-primary-base dark:text-black"
                                     }
                                   >
                                     {childRoute.label}
@@ -234,25 +233,28 @@ function MobileMenu() {
                   </Menu.Button>
                 </div>
 
-                <div className=" py-2 ">
-                  {routes.map((route) => (
-                    <div key={route.label}>
-                      {route.children ? (
-                        <button
-                          className="focus:bg-primary-/10 white-text flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
-                          onClick={() => addHistory(route)}
-                        >
-                          {route.label}
-                          <FiChevronRight className=" size-5 " />
-                        </button>
-                      ) : (
-                        <NavLink
-                          route={route}
-                          className="focus:bg-primary-/10 white-text inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
-                        />
-                      )}
-                    </div>
-                  ))}
+                <div className="">
+                  {routes.map((route) => {
+                    return route.children ? (
+                      <button
+                        key={route.label}
+                        className={`flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base`}
+                        onClick={() => addHistory(route)}
+                      >
+                        {route.label}
+                        <FiChevronRight className=" size-5 " />
+                      </button>
+                    ) : (
+                      <Menu.Item key={route.label}>
+                        {({ active }) => (
+                          <NavLink
+                            route={route}
+                            className={`inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base`}
+                          />
+                        )}
+                      </Menu.Item>
+                    );
+                  })}
 
                   <div className="flex flex-col space-y-2 pb-4 md:hidden ">
                     <Link
