@@ -36,10 +36,10 @@ const routes: RouteLink[] = [
         label: "Chart",
         href: "/chart",
       },
-      {
-        label: "Analyst Recommendation",
-        href: "/recommendation",
-      },
+      // {
+      //   label: "Analyst Recommendation",
+      //   href: "/recommendation",
+      // },
       {
         label: "Economic Calendar",
         href: "/economic-calendar",
