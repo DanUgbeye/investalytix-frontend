@@ -14,9 +14,10 @@ export default function ThemeContextProvider({
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   const toggleTheme = () => {
-    setTheme((theme) => (theme === "light" ? "dark" : "light"));
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
     // persist theme in local storage
-    localStorage.setItem("theme", theme === "light" ? "dark" : "light");
+    localStorage.setItem("theme", newTheme);
   };
 
   useEffect(() => {
