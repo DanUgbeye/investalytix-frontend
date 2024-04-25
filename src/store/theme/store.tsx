@@ -23,7 +23,11 @@ export default function ThemeContextProvider({
   useEffect(() => {
     const body = document.querySelector("body");
     if (!body) return;
-    body.classList.toggle("dark");
+    if (theme === "dark" && !body.classList.contains("dark"))
+      body.classList.add("dark");
+    if (theme === "light" && body.classList.contains("dark"))
+      body.classList.remove("dark");
+    // body.classList.toggle("dark");
   }, [theme]);
 
   // initialize theme from local storage
