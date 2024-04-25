@@ -1,3 +1,4 @@
+import Chart from "@/components/Chart";
 import chart from "@/mock/chart";
 import Link from "next/link";
 import {
@@ -23,17 +24,21 @@ export default function InvestorSentiment() {
         </h2>
       </header>
 
-      <p className="my-4 text-xl font-bold text-[#071939]">Level Chart</p>
+      <p className="my-4 text-xl font-bold">Level Chart</p>
       <div className="flex items-center gap-6">
         {timeframes.map((tf) => (
-          <button key={tf} className="p-3 text-xs font-bold uppercase">
+          <button
+            key={tf}
+            className="white-text text-hover-focus p-3 text-xs font-bold uppercase"
+          >
             {tf}
           </button>
         ))}
       </div>
 
       <div className="h-80 w-full">
-        <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
+        <Chart />
+        {/* <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
           <ComposedChart
             data={chart.slice(0, 30)}
             margin={{
@@ -68,15 +73,15 @@ export default function InvestorSentiment() {
               strokeWidth={2}
             />
           </ComposedChart>
-        </ResponsiveContainer>
+        </ResponsiveContainer> */}
       </div>
 
       {/* divider */}
       <div className="mb-6 mt-8 h-[6px] w-full bg-[#1D1D1D]"></div>
 
       <div className="mb-6 flex items-center justify-between">
-        <p className="text-xl font-bold text-[#2A3037]">Historical Data</p>
-        <p className="text-xl font-bold text-[#2A3037]">
+        <p className="font-bold">Historical Data</p>
+        <p className="font-bold">
           View and Export this Data back to 1987.{" "}
           <Link href="" className="text-primary-base">
             Upgrade Now
@@ -87,46 +92,42 @@ export default function InvestorSentiment() {
       <div className="grid grid-cols-2 gap-4">
         <table className="w-full table-auto">
           <thead>
-            <tr>
-              <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase text-white">
+            <tr className="text-white dark:text-white/80">
+              <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
                 DATE
               </th>
-              <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+              <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
                 VALUE
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="odd:bg-[#F9F9F9]">
+            <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
               <td className="p-2 text-left text-sm font-bold uppercase">
                 January 04, 2024
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black">
-                48.56%
-              </td>
+              <td className="p-2 text-right text-sm font-bold">48.56%</td>
             </tr>
           </tbody>
         </table>
 
         <table className="w-full table-auto">
           <thead>
-            <tr>
-              <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase text-white">
+            <tr className="text-white dark:text-white/80">
+              <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
                 DATE
               </th>
-              <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white">
+              <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
                 VALUE
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="odd:bg-[#F9F9F9]">
+            <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
               <td className="p-2 text-left text-sm font-bold uppercase">
                 January 04, 2024
               </td>
-              <td className="p-2 text-right text-sm font-bold text-black">
-                48.56%
-              </td>
+              <td className="p-2 text-right text-sm font-bold">48.56%</td>
             </tr>
           </tbody>
         </table>

@@ -32,7 +32,7 @@ export default function Quotes({
   return (
     <table className="w-full table-auto">
       <thead>
-        <tr className="text-white white-text">
+        <tr className="text-white dark:text-white/80">
           <th className="bg-[#020224] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
             {fields[0].label}
           </th>

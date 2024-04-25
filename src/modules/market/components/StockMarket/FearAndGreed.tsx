@@ -92,14 +92,14 @@ export default function FearAndGreed() {
           FEAR & GREED INDEX
         </h2>
 
-        <div className="grid w-fit grid-cols-2 rounded bg-[#F9F9F9] p-3">
+        <div className="grid w-fit grid-cols-2 rounded bg-[#F9F9F9] p-3 dark:bg-[#13151D]">
           {markets.map((market, index) => (
             <button
               key={market}
-              className={`whitespace-nowrap rounded px-14 py-2 font-semibold ${
+              className={`whitespace-nowrap rounded px-14 py-2 text-center font-semibold hover:text-primary-base focus:bg-primary-base focus:text-white ${
                 selectedIndex === index
                   ? "bg-primary-base text-white"
-                  : "bg-[#F5F5F5] text-[#636363]"
+                  : "bg-transparent text-[#636363] white-text"
               }`}
               onClick={() => updateSelectedIndex(index)}
             >
@@ -110,14 +110,12 @@ export default function FearAndGreed() {
       </header>
 
       <div className="mb-2 flex items-center justify-between">
-        <p className="text-xl font-medium text-[#2F3A48]">
+        <p className="text-xl font-medium">
           What Emotion is driving the Marker Right now?
         </p>
-        <p className="text-sm text-[#2F3A48]">
-          Last updated Jan 8 at 8:21:16 AM ET
-        </p>
+        <p className="text-sm">Last updated Jan 8 at 8:21:16 AM ET</p>
       </div>
-      <Link href="" className="text-[#125BD4]">
+      <Link href="" className="text-main-blue-base dark:text-main-blue-light">
         Learn more about the index.
       </Link>
 
@@ -170,14 +168,16 @@ function Stat({
   return (
     <div className="relative flex items-center justify-between gap-6">
       <div className="">
-        <p className="mb-2 text-sm text-[#636363]">{timeframe}</p>
-        <p className="font-bold text-[#252525]">{index}</p>
+        <p className="mb-2 text-sm text-[#636363] dark:text-[#D9D9D9]">
+          {timeframe}
+        </p>
+        <p className="font-bold text-[#252525] dark:text-white/80">{index}</p>
       </div>
 
       {/* line */}
       <div className="flex-grow border-t-2 border-dashed border-[#EAE9E9]"></div>
 
-      <p className="flex h-10 w-10 items-center justify-center rounded-full border border-[#2A3037] bg-white font-bold text-[#252525]">
+      <p className="flex h-10 w-10 items-center justify-center rounded-full border border-[#2A3037] bg-white font-bold text-[#252525] dark:border-0 dark:bg-white/20 dark:text-white/80">
         {reading}
       </p>
     </div>

@@ -33,7 +33,7 @@ const config = {
           light: "#ffaf5f",
         },
         main: {
-          blue: "#125BD4",
+          blue: { base: "#125BD4", light: "#33548B" },
         },
       },
       keyframes: {

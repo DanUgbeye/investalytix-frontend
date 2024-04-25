@@ -2,20 +2,11 @@
 import Divider from "@/components/ui/Divider";
 import chart from "@/mock/chart";
 import { Tab } from "@headlessui/react";
-import { Time, createChart } from "lightweight-charts";
 import _ from "lodash";
-import { Fragment, useEffect, useRef } from "react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import chartData from "@/mock/chart";
-import { tailwindCSS } from "@/lib/utils";
-import useTheme from "@/store/theme/useTheme";
+import { Fragment } from "react";
+import { FiPlus } from "react-icons/fi";
+import ColoredNumber from "@/components/ui/ColoredNumber";
+import Chart from "@/components/Chart";
 
 const quotes = [
   {
@@ -164,57 +155,16 @@ const quotes = [
   },
 ];
 const marketMovers = ["S&P", "NASDAQ", "DOW", "EUR", "ASIA", "COVID19"];
-const timeframes = ["1m", "5m", "15m", "1h"];
+const timeframes = ["1m", "5m", "15m", "1h", "2h", "4h", "1D"];
+const topMovers = [
+  { symbol: "MRNA", name: "Moderna Inc", changePercent: 13.122 },
+  { symbol: "VTRS", name: "Viatris Inc", changePercent: 5.171 },
+  { symbol: "LVS", name: "Las Vegas Sand", changePercent: 4.308 },
+  { symbol: "INCY", name: "Incyte Corp", changePercent: 4.236 },
+  { symbol: "MRK", name: "Merck & Co Inc", changePercent: 3.871 },
+];
 
 export default function Market() {
-  const chartRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    const ref = chartRef.current;
-    if (ref === null) return;
-
-    // empty the children in parent component
-    const children = ref.childNodes;
-    children.forEach((child) => {
-      ref.removeChild(child);
-    });
-
-    const chart = createChart(ref, {
-      autoSize: true,
-      layout: {
-        background: { color: theme === "dark" ? "#000000" : "#ffffff" },
-        textColor: theme === "dark" ? "rgba(255,255,255,0.8)" : "#000000",
-      },
-      grid: {
-        vertLines: {
-          color: theme === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.8)",
-        },
-        horzLines: {
-          color: theme === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.8)",
-        },
-      },
-    });
-    const data = chartData.map((data) => ({
-      ...data,
-      value: (data.high + data.low) / 2,
-      time: (new Date(data.date).getTime() / 1000) as Time,
-    }));
-
-    function initChart() {
-      const lineSeries = chart.addLineSeries({
-        color: tailwindCSS().theme.colors.primary.base,
-        lineWidth: 1,
-      });
-      lineSeries.setData(data);
-      chart.timeScale().fitContent();
-    }
-
-    initChart();
-
-    return () => {};
-  }, [theme]);
-
   return (
     <div className="overflow-hidden">
       <h2 className="white-text white-text mb-6 text-3xl font-extrabold">
@@ -223,9 +173,12 @@ export default function Market() {
 
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between md:gap-4">
             {timeframes.map((tf) => (
-              <button key={tf} className="white-text p-3 text-xs font-bold">
+              <button
+                key={tf}
+                className="white-text text-hover-focus p-3 text-xs font-bold"
+              >
                 {tf}
               </button>
             ))}
@@ -235,10 +188,7 @@ export default function Market() {
             Previous Close: {chart[chart.length - 1].close}
           </p>
           <div className="h-80 overflow-auto">
-            <div
-              className="relative h-full w-full overflow-hidden"
-              ref={chartRef}
-            ></div>
+            <Chart />
           </div>
         </div>
 
@@ -264,8 +214,10 @@ export default function Market() {
                 <Tab as={Fragment} key={market}>
                   {({ selected }) => (
                     <button
-                      className={`border-b-2 pb-2 text-sm font-extrabold ${
-                        selected ? "border-primary-base " : "border-transparent"
+                      className={`text-hover-focus border-b-2 pb-2 text-sm font-extrabold outline-none ${
+                        selected
+                          ? "border-primary-base dark:border-primary-light"
+                          : "border-transparent"
                       }`}
                     >
                       {market}
@@ -277,16 +229,12 @@ export default function Market() {
           </div>
 
           <Tab.Panels>
-            <Tab.Panel>
-              <div className="grid grid-cols-2 pb-14">
-                <div className="">
-                  <p className="white-text font-bold">Top</p>
-                </div>
-                <div className="">
-                  <p className="white-text font-bold">Bottom</p>
-                </div>
-              </div>
-            </Tab.Panel>
+            <Panel />
+            <Panel />
+            <Panel />
+            <Panel />
+            <Panel />
+            <Panel />
           </Tab.Panels>
         </Tab.Group>
       </div>
@@ -573,5 +521,76 @@ function Table() {
         ))}
       </tbody>
     </table>
+  );
+}
+
+function Panel() {
+  return (
+    <Tab.Panel>
+      <div className="grid md:grid-cols-2 gap-10 pb-14">
+        <div className="">
+          <p className="white-text mb-7 font-bold">Top</p>
+
+          <div className="flex flex-col gap-5">
+            {topMovers.map((mover) => (
+              <div key={mover.symbol} className="flex items-center gap-4">
+                <div className="grid grid-cols-[7ch,10ch] md:grid-cols-[7ch,auto,10ch] items-center gap-1 md:gap-3">
+                  <p className="truncate text-sm font-bold">{mover.symbol}</p>
+                  <button className="hidden md:block border-main-blue-base dark:border-main-blue-light hover:bg-main-blue-base focus:bg-main-blue-base dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light group border outline-none">
+                    <FiPlus className="text-main-blue-base dark:text-main-blue-light group-hover:text-white group-focus:text-white" />
+                  </button>
+                  <p className="truncate text-sm font-bold">{mover.name}</p>
+                </div>
+                <div className="grid w-full grid-cols-[max-content,1fr] gap-3">
+                  <ColoredNumber
+                    number={mover.changePercent}
+                    percent
+                    colored
+                    className="text-right"
+                  />
+                  <div className="w-full">
+                    <div
+                      className="h-full bg-[#006400] dark:bg-[#67c967]"
+                      style={{ width: `${mover.changePercent * 5}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="">
+          <p className="white-text mb-7 font-bold">Bottom</p>
+
+          <div className="flex flex-col gap-5">
+            {topMovers.map((mover) => (
+              <div key={mover.symbol} className="flex items-center gap-4">
+                <div className="grid grid-cols-[7ch,10ch] md:grid-cols-[7ch,auto,10ch] items-center gap-1 md:gap-3">
+                  <p className="truncate text-sm font-bold">{mover.symbol}</p>
+                  <button className="hidden md:block border-main-blue-base dark:border-main-blue-light hover:bg-main-blue-base focus:bg-main-blue-base dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light group border outline-none">
+                    <FiPlus className="text-main-blue-base dark:text-main-blue-light group-hover:text-white group-focus:text-white" />
+                  </button>
+                  <p className="truncate text-sm font-bold">{mover.name}</p>
+                </div>
+                <div className="grid w-full grid-cols-[max-content,1fr] gap-3">
+                  <ColoredNumber
+                    number={-1 * mover.changePercent}
+                    percent
+                    colored
+                    className="text-right"
+                  />
+                  <div className="w-full">
+                    <div
+                      className="h-full bg-[#8B0000] dark:bg-[#ca5a5a]"
+                      style={{ width: `${mover.changePercent * 5}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Tab.Panel>
   );
 }

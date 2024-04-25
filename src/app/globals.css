@@ -13,11 +13,16 @@ input[type="number"] {
 }
 
 .white-text {
-  @apply text-black
+  @apply text-black;
 }
 
-.dark .white-text, .dark.white-text {
-  @apply !text-white/80
+.dark .white-text,
+.dark.white-text {
+  @apply text-white/80;
+}
+
+.text-hover-focus {
+  @apply dark:hover:text-primary-light dark:focus:text-primary-light hover:text-primary-base focus:text-primary-base duration-150;
 }
 
 @media only screen and (min-width: 624px) {

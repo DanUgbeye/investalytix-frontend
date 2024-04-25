@@ -356,7 +356,7 @@ function Search() {
         <div className="fixed inset-0 mt-[10vh] flex w-screen items-start justify-center overflow-hidden">
           {/* The actual dialog panel  */}
           {/* Container to center the panel */}
-          <div className="dark:bg0black max-h-[80vh] w-[80vw] max-w-screen-md overflow-auto rounded bg-white p-10 md:w-[70vw]">
+          <div className="dark:bg0black max-h-[80vh] w-[80vw] max-w-screen-md overflow-auto rounded bg-white dark:bg-[#191919] p-10 md:w-[70vw]">
             <Dialog.Panel className="w-full">
               <form
                 className="flex flex-col gap-5"
@@ -371,9 +371,9 @@ function Search() {
                     name="search"
                     id="search"
                     placeholder="Search for ticker, quotes & videos"
-                    className="w-full rounded-full border-2 border-black px-6 py-3 text-sm font-medium text-black placeholder:text-black focus:outline-none"
+                    className="w-full rounded-full border-2 dark:border-0 border-black px-6 py-3 text-sm font-medium text-black placeholder:text-black focus:outline-none dark:bg-white/60"
                   />
-                  <div className="absolute bottom-4 right-0 top-4 grid -translate-x-1/2 place-content-center bg-white pl-6">
+                  <div className="absolute bottom-4 right-0 top-4 grid -translate-x-1/2 place-content-center bg-white dark:bg-transparent pl-6">
                     <svg
                       width={16}
                       height={16}
