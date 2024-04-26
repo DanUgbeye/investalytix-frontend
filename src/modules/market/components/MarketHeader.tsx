@@ -35,7 +35,7 @@ export default function MarketHeader({
           <Link
             key={mkt.href}
             href={mkt.href}
-            className={`whitespace-nowrap border-b-2 pb-2 font-bold white-text ${
+            className={`whitespace-nowrap border-b-2 pb-2 font-bold white-text text-hover-focus ${
               mkt.label === active
                 ? "border-primary-base "
                 : "border-transparent"

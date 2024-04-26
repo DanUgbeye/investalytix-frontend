@@ -15,9 +15,9 @@ export function Menu({ links, header }: MenuProps) {
         {links.map((link) => (
           <li
             key={link.label.replaceAll(" ", "-")}
-            className="w-full p-3 text-center text-[#252525] odd:bg-[#F9F9F9] dark:bg-white/5 white-text dark:odd:bg-white/5"
+            className="white-text text-hover-focus w-full text-center text-[#252525] odd:bg-[#F9F9F9] dark:bg-white/5 dark:odd:bg-white/5"
           >
-            <Link href={link.href} className="">
+            <Link href={link.href} className="block h-full w-full p-3">
               {link.label}
             </Link>
           </li>

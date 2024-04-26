@@ -27,7 +27,7 @@ export default function FXTemplate({
                 key={market.href}
                 href={market.href}
                 // className={`text-sm font-bold`}
-                className={`text-sm font-bold ${market.href === pathname ? "text-primary-base" : ""}`}
+                className={`text-sm font-bold text-hover-focus ${market.href === pathname ? "text-primary-base" : ""}`}
               >
                 {market.label}
               </Link>

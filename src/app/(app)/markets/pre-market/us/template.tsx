@@ -24,13 +24,13 @@ export default function USMarketTemplate({
 
         <MarketSelector active="U.S" />
 
-        <div className="mx-auto mb-14 flex justify-center items-center gap-5 p-3 overflow-auto">
+        <div className="mx-auto mb-14 flex items-center justify-center gap-5 overflow-auto p-3">
           {markets.map((market, index) => (
             <>
               <Link
                 key={market.href}
                 href={market.href}
-                className={`text-sm font-bold whitespace-nowrap ${market.href === pathname ? "text-primary-base" : ""}`}
+                className={`text-hover-focus whitespace-nowrap text-sm font-bold ${market.href === pathname ? "text-primary-base" : ""}`}
               >
                 {market.label}
               </Link>
