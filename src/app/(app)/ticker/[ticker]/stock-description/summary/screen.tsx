@@ -1,5 +1,6 @@
 "use client";
 
+import Chart from "@/components/Chart";
 import { cn } from "@/lib/utils";
 import chart from "@/mock/chart";
 import NewsCard from "@/modules/news/components/news-card";
@@ -115,44 +116,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
         </div>
 
         <div className=" h-80 w-full ">
-          <ResponsiveContainer
-            width="100%"
-            height="100%"
-            className="!m-0 !p-0 text-sm"
-          >
-            <AreaChart
-              data={chart}
-              margin={{
-                top: 0,
-                right: 0,
-                left: 0,
-                bottom: 0,
-              }}
-              className="!p-0"
-            >
-              <defs>
-                <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="60%" stopColor="#3354F4" stopOpacity={100} />
-                  {/* <stop offset="80%" stopColor="rgba(255,0,0,0.62)" stopOpacity={100} /> */}
-                  {/* <stop offset="80%" stopColor="#ff0000" stopOpacity={100} /> */}
-                  <stop
-                    offset="90%"
-                    stopColor="rgba(51,84,244,0.62)"
-                    stopOpacity={100}
-                  />
-                </linearGradient>
-              </defs>
-              {/* <CartesianGrid strokeDasharray="3 3" /> */}
-              <XAxis
-                dataKey={({ date }) =>
-                  date.split(" ")[1].split(":").slice(0, 2).join(":")
-                }
-              />
-              <YAxis dataKey="close" />
-              <Tooltip />
-              <Area type="monotone" dataKey="close" fill="url(#gradient)" />
-            </AreaChart>
-          </ResponsiveContainer>
+          <Chart />
         </div>
       </div>
 
@@ -251,7 +215,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
         <div className=" min-w-60 space-y-4 ">
           <header className="relative w-full ">
             <div className=" flex w-full py-4 ">
-              <h3 className=" text-2xl font-bold text-[#2A3037] white-text">
+              <h3 className=" white-text text-2xl font-bold text-[#2A3037]">
                 KEY DATA
               </h3>
             </div>
@@ -346,7 +310,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
         <div className=" space-y-4 ">
           <header className="relative w-full ">
             <div className=" flex w-full py-4 ">
-              <h3 className=" text-2xl font-bold text-[#2A3037] white-text">
+              <h3 className=" white-text text-2xl font-bold text-[#2A3037]">
                 RECENT NEWS
               </h3>
             </div>
@@ -362,7 +326,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
                   `whitespace-nowrap rounded px-5 py-2 text-center duration-300 hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white `,
                   {
                     "bg-primary-base text-white": newsTab === "market",
-                    "bg-transparent text-[#636363] hover:bg-gray-700 white-text ":
+                    "white-text bg-transparent text-[#636363] hover:bg-gray-700 ":
                       newsTab !== "market",
                   }
                 )}
@@ -377,7 +341,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
                   `whitespace-nowrap rounded px-5 py-2 text-center duration-300 hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white `,
                   {
                     "bg-primary-base text-white": newsTab === "dow-jones",
-                    "bg-transparent text-[#636363] hover:bg-gray-700 white-text ":
+                    "white-text bg-transparent text-[#636363] hover:bg-gray-700 ":
                       newsTab !== "dow-jones",
                   }
                 )}

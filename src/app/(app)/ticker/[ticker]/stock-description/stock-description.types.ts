@@ -3,10 +3,10 @@ export const STOCK_DESCRIPTION_MENU = {
     label: "Summary",
     path: "summary",
   },
-  PRICE_CHART: {
-    label: "Price Chart",
-    path: "price-chart",
-  },
+  // PRICE_CHART: {
+  //   label: "Price Chart",
+  //   path: "price-chart",
+  // },
   RATIOS: {
     label: "Ratios",
     path: "ratios",
