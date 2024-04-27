@@ -11,7 +11,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
     <section className=" max-w-6xl space-y-12 py-12 ">
       <header className="relative w-full ">
         <div className=" flex w-full py-4 ">
-          <h2 className=" text-xl font-bold text-[#2A3037] sm:text-3xl white-text">
+          <h2 className=" white-text text-xl font-bold text-[#2A3037] sm:text-3xl">
             Apple Dividend
           </h2>
         </div>
@@ -22,7 +22,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
       <div className=" space-y-5 border py-3  ">
         <h4 className=" px-4 text-lg font-bold sm:text-2xl ">Data</h4>
 
-        <div className=" flex flex-col divide-y text-gray-700 xl:flex-row xl:divide-x xl:divide-y-0 white-text ">
+        <div className=" white-text flex flex-col divide-y text-gray-700 xl:flex-row xl:divide-x xl:divide-y-0 ">
           <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
             <span className=" font-bold ">Last Ex-Dividend Date</span>
             <span className="  ">2023-11-16</span>
@@ -249,27 +249,37 @@ export default function DividendsScreen(props: DividendsScreenProps) {
       </div>
 
       <div className=" overflow-x-auto ">
-        <table className="w-full min-w-[50rem] border ">
+        <table className="w-full min-w-[50rem] ">
           <thead>
-            <tr className=" divide-x border-b text-sm font-bold ">
-              <th className=" rounded-t-xl bg-black px-2 py-4 text-left text-white ">
-                Declaration Date
+            <tr className=" text-sm font-bold ">
+              <th className=" p-0 ">
+                <div className=" border-y bg-black px-2 py-4 text-left text-white dark:bg-white/20">
+                  Declaration Date
+                </div>
               </th>
 
-              <th className=" rounded-t-xl bg-black px-2 py-4 text-right text-white ">
-                Payment Date
+              <th className=" p-0 ">
+                <div className=" border-y bg-black px-2 py-4 text-right text-white dark:bg-white/20">
+                  Payment Date
+                </div>
               </th>
 
-              <th className=" rounded-t-xl bg-black px-2 py-4 text-right text-white ">
-                Record Date
+              <th className=" p-0 ">
+                <div className=" border-y bg-black px-2 py-4 text-right text-white dark:bg-white/20">
+                  Record Date
+                </div>
               </th>
 
-              <th className=" rounded-t-xl bg-black px-2 py-4 text-right text-white ">
-                Amount
+              <th className=" p-0 ">
+                <div className=" border-y bg-black px-2 py-4 text-right text-white dark:bg-white/20">
+                  Amount
+                </div>
               </th>
 
-              <th className=" rounded-t-xl bg-black px-2 py-4 text-right text-white ">
-                Currency
+              <th className=" p-0 ">
+                <div className=" border-y bg-black px-2 py-4 text-right text-white dark:bg-white/20">
+                  Currency
+                </div>
               </th>
             </tr>
           </thead>
@@ -280,15 +290,15 @@ export default function DividendsScreen(props: DividendsScreenProps) {
               .map((_, index) => {
                 return (
                   <tr key={`dividends-${index}`} className=" text-sm ">
-                    <td className=" border px-2 py-4 text-left ">02-03-23</td>
+                    <td className=" border-y px-2 py-4 text-left ">02-03-23</td>
 
-                    <td className={` border px-2 py-4 text-right`}>02-03-23</td>
+                    <td className={` border-y px-2 py-4 text-right`}>02-03-23</td>
 
-                    <td className=" border px-2 py-4 text-right ">02-03-23</td>
+                    <td className=" border-y px-2 py-4 text-right ">02-03-23</td>
 
-                    <td className=" border px-2 py-4 text-right">0.24</td>
+                    <td className=" border-y px-2 py-4 text-right">0.24</td>
 
-                    <td className=" border px-2 py-4 text-right">USD</td>
+                    <td className=" border-y px-2 py-4 text-right">USD</td>
                   </tr>
                 );
               })}
