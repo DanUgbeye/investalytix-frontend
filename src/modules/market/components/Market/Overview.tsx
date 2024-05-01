@@ -242,7 +242,7 @@ export default function Market() {
       {/* SECURITIES */}
 
       <section className="mt-11">
-        <header className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-white">
+        <header className="border-b-[6px] dark:border-b-2 border-b-[#1D1D1D] pb-10 dark:border-b-white">
           <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
             SECURITIES
           </h2>
@@ -325,7 +325,7 @@ export default function Market() {
 
       {/* REGIONAL */}
       <section className="mt-16">
-        <header className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-white">
+        <header className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-white/10">
           <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
             REGIONAL
           </h2>
