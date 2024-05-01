@@ -34,6 +34,8 @@ const config = {
         },
         main: {
           blue: { base: "#125BD4", light: "#33548B" },
+          red: { light: "#8B0000", dark: "#ca5a5a" },
+          green: { light: "#006400", dark: "#079516" },
         },
       },
       keyframes: {

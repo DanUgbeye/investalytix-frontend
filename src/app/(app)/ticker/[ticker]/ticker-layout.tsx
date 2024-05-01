@@ -1,19 +1,17 @@
 "use client";
 
 import { Container } from "@/components/container";
-import Quote from "@/components/ui/Quote";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import quotes from "@/mock/quotes";
 import { HTMLAttributes } from "react";
 import { RiStarSLine } from "react-icons/ri";
 import "swiper/css";
-import { Swiper, SwiperSlide } from "swiper/react";
 import {
   DesktopTickerNav,
   MobileTickerNav,
 } from "@/modules/ticker/components/ticker-nav";
+import QuotesBoard from "@/components/ui/QuotesBoard";
 
 export interface TickerLayoutProps extends HTMLAttributes<HTMLElement> {
   ticker: string;
@@ -37,17 +35,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
         <main className=" col-start-1 lg:row-start-1 lg:ml-[15rem] ">
           <Container className=" lg:pl-6 xl:pl-6 ">
-            <section className="  ">
-              <div className="mb-4 py-8">
-                <Swiper spaceBetween={0} slidesPerView={"auto"} loop freeMode>
-                  {quotes.map((quote) => (
-                    <SwiperSlide className="!flex-shrink" key={quote.symbol}>
-                      <Quote quote={quote} key={quote.symbol} />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-            </section>
+           <QuotesBoard/>
 
             <section className=" grid grid-rows-[auto,auto,auto] gap-x-10 gap-y-6 sm:grid-cols-[1fr,auto] sm:grid-rows-1 xl:grid-cols-[auto,auto,auto] ">
               <div className=" col-start-1 space-y-3 ">
