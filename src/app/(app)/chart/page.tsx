@@ -54,7 +54,7 @@ function ChartPage() {
 
   return (
     <div
-      className={`grid ${open ? "lg:grid-cols-[1fr,350px]" : "lg:grid-cols-[1fr,max-content]"}`}
+      className={`grid ${open ? "lg:grid-cols-[1fr,450px]" : "lg:grid-cols-[1fr,max-content]"}`}
     >
       <div
         className=" relative h-[calc(100vh_-_144px)] w-full overflow-hidden md:h-[calc(100vh_-_148px)]"
@@ -65,7 +65,7 @@ function ChartPage() {
         className={`grid w-full ${open ? "grid-cols-[1fr,max-content]" : ""}`}
       >
         {open && (
-          <div className="grid w-full grid-rows-[auto,1fr] gap-2 overflow-hidden border-l border-l-black px-2 pt-2 max-lg:hidden dark:border-l-white/10">
+          <div className="grid w-full grid-rows-[auto,1fr,auto] gap-2 overflow-hidden border-l border-l-black px-2 pt-2 max-lg:hidden dark:border-l-white/10">
             <h1 className="text-lg font-semibold capitalize">my list</h1>
 
             <Tab.Group>
@@ -109,19 +109,24 @@ function ChartPage() {
                   </Tab.Panel>
                   {/* watchlist */}
                   <Tab.Panel className={"absolute inset-0 overflow-auto pt-2"}>
-                    <Quotes />
+                    <Quotes notifications/>
                   </Tab.Panel>
                 </Tab.Panels>
               </div>
             </Tab.Group>
+
+            <MarketInfo />
           </div>
         )}
 
         <div
-          className={`flex flex-col gap-4 p-2 ${open ? "border-l border-l-white/20" : ""}`}
+          className={`flex flex-col gap-4 p-2 ${open ? "border-l dark:border-l-white/20" : ""}`}
         >
-          <button className="rounded border p-2" onClick={toggleOpen}>
-            <CiViewList className="size-7" />
+          <button
+            className={`rounded border p-2 ${open ? "border-primary-base dark:border-primary-light" : ""}`}
+            onClick={toggleOpen}
+          >
+            <CiViewList className={`size-7 ${open ? "text-primary-base dark:text-primary-light" : ""}`} />
           </button>
         </div>
       </div>
@@ -130,3 +135,40 @@ function ChartPage() {
 }
 
 export default ChartPage;
+
+function MarketInfo() {
+  return (
+    <div className="border-t py-5 dark:border-t-white/10">
+      <div className="">
+        <p className=" font-bold text-primary-base ">AAPL</p>
+        <p className=" text-2xl font-bold ">Apple INC</p>
+      </div>
+
+      <div className=" space-y-1 py-2 ">
+        <div className=" flex items-center space-x-1.5 ">
+          <span className=" font-bold ">$19.88</span>
+          <span className=" text-xs font-bold text-[#079516] ">
+            +1.59 (+8.69%)
+          </span>
+        </div>
+
+        <div className=" text-xs text-gray-400 ">
+          At close: December 18 04:00 PM EST
+        </div>
+      </div>
+
+      <div className=" space-y-1 bg-gray-100 p-2 dark:bg-transparent ">
+        <div className=" flex items-center space-x-1.5 ">
+          <span className=" font-bold ">$20.56</span>
+          <span className=" text-xs font-bold text-red-500 ">
+            -0.68 (-0.42%)
+          </span>
+        </div>
+
+        <div className=" text-xs text-gray-400 ">
+          After hours: January 12 07:59 PM EST
+        </div>
+      </div>
+    </div>
+  );
+}
