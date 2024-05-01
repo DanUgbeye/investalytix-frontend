@@ -75,7 +75,7 @@ export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
 
   return (
-    <nav className="z-50 bg-black py-3 ">
+    <nav className="z-50 bg-black py-3 sticky top-0">
       <Container className=" max-w-[110rem] sm:px-6 xl:px-6 ">
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">

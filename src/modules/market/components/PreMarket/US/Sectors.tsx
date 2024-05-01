@@ -1,4 +1,4 @@
-import quotes from "@/mock/quotes";
+import Quotes from "../../Quotes";
 
 export default function Sectors() {
   return (
@@ -8,69 +8,42 @@ export default function Sectors() {
           SECTOR WATCH CHART
         </h2>
       </header>
-      <table className="w-full table-auto">
-        <thead>
-          <tr className="text-white white-text">
-            <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-              Symbol
-            </th>
-            <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-              Name
-            </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-              price
-            </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-              change
-            </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-              % change
-            </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-              low
-            </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-              high
-            </th>
-            <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-              previous close
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {quotes.map((quote) => (
-            <tr
-              key={quote.symbol}
-              className="odd:bg-[#F9F9F9] dark:odd:bg-transparent"
-            >
-              <td className="p-2 text-left text-sm font-bold uppercase">
-                {quote.symbol}
-              </td>
-              <td className="p-2 text-left text-sm font-bold uppercase">
-                {quote.name}
-              </td>
-              <td className="p-2 text-right text-sm font-bold text-black white-text">
-                {quote.price}
-              </td>
-              <td className="p-2 text-right text-sm font-bold text-black white-text">
-                {quote.change}
-              </td>
-              <td className="p-2 text-right text-sm font-bold text-black white-text">
-                {quote.changesPercentage}
-              </td>
-              <td className="p-2 text-right text-sm font-bold text-black white-text">
-                {quote.dayLow}
-              </td>
-              <td className="p-2 text-right text-sm font-bold text-black white-text">
-                {quote.dayHigh}
-              </td>
-              <td className="p-2 text-right text-sm font-bold text-black white-text">
-                {quote.previousClose}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Quotes
+        fields={[
+          {
+            label: "Symbol",
+            key: "symbol",
+          },
+          {
+            label: "name",
+            key: "name",
+          },
+          {
+            label: "price",
+            key: "price",
+          },
+          {
+            label: "chg",
+            key: "change",
+          },
+          {
+            label: "%chg",
+            key: "changesPercentage",
+          },
+          {
+            label: "low",
+            key: "dayHigh",
+          },
+          {
+            label: "high",
+            key: "dayHigh",
+          },
+          {
+            label: "close",
+            key: "previousClose",
+          },
+        ]}
+      />
     </>
   );
 }

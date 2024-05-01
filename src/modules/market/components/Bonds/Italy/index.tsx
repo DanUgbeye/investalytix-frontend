@@ -22,7 +22,7 @@ export default function Italy() {
               key: "price",
             },
             {
-              label: "%change",
+              label: "%chg",
               key: "changesPercentage",
             },
           ]}

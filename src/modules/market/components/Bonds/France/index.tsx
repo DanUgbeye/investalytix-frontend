@@ -22,7 +22,7 @@ export default function France() {
               key: "price",
             },
             {
-              label: "%change",
+              label: "%chg",
               key: "changesPercentage",
             },
           ]}

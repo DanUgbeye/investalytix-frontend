@@ -12,6 +12,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+.th{
+  @apply bg-[#1D1D1D] dark:bg-[#191919] p-2 text-sm font-extrabold;
+}
+
 .white-text {
   @apply text-black;
 }

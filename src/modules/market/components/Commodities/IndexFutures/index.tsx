@@ -12,29 +12,29 @@ export default function IndexFutures() {
         </header>
 
         <Quotes
-          fields={[
-            {
-              label: "Symbol",
-              key: "symbol",
-            },
-            {
-              label: "price",
-              key: "price",
-            },
-            {
-              label: "change",
-              key: "change",
-            },
-            {
-              label: "%change",
-              key: "changesPercentage",
-            },
-            {
-              label: "volume",
-              key: "volume",
-            },
-          ]}
-        />
+      fields={[
+        {
+          label: "Symbol",
+          key: "symbol",
+        },
+        {
+          label: "price",
+          key: "price",
+        },
+        {
+          label: "chg",
+          key: "change",
+        },
+        {
+          label: "%chg",
+          key: "changesPercentage",
+        },
+        {
+          label: "volume",
+          key: "volume",
+        },
+      ]}
+    />
       </section>
     </>
   );

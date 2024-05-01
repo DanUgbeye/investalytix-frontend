@@ -13,11 +13,11 @@ export default function Commodities() {
           key: "price",
         },
         {
-          label: "change",
+          label: "chg",
           key: "change",
         },
         {
-          label: "%change",
+          label: "%chg",
           key: "changesPercentage",
         },
         {

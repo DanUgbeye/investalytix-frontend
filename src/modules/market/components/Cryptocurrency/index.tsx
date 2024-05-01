@@ -26,15 +26,15 @@ export default function Cryptocurrency() {
               key: "price",
             },
             {
-              label: "change",
+              label: "chg",
               key: "change",
             },
             {
-              label: "%change",
+              label: "%chg",
               key: "changesPercentage",
             },
             {
-              label: "previous close",
+              label: "close",
               key: "previousClose",
             },
           ]}

@@ -90,48 +90,30 @@ export default function InvestorSentiment() {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <table className="w-full table-auto">
-          <thead>
-            <tr className="text-white dark:text-white/80">
-              <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-                DATE
-              </th>
-              <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-                VALUE
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
-              <td className="p-2 text-left text-sm font-bold uppercase">
-                January 04, 2024
-              </td>
-              <td className="p-2 text-right text-sm font-bold">48.56%</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table className="w-full table-auto">
-          <thead>
-            <tr className="text-white dark:text-white/80">
-              <th className="bg-[#1D1D1D] p-2 text-left text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-                DATE
-              </th>
-              <th className="bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:border-b dark:bg-transparent">
-                VALUE
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
-              <td className="p-2 text-left text-sm font-bold uppercase">
-                January 04, 2024
-              </td>
-              <td className="p-2 text-right text-sm font-bold">48.56%</td>
-            </tr>
-          </tbody>
-        </table>
+        <HistoricalTable />
+        <HistoricalTable />
       </div>
     </>
+  );
+}
+
+function HistoricalTable() {
+  return (
+    <table className="w-full table-auto">
+      <thead>
+        <tr className="text-white dark:text-white/80">
+          <th className="th text-left uppercase">DATE</th>
+          <th className="th text-right uppercase">VALUE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
+          <td className="p-2 text-left text-sm font-bold uppercase">
+            January 04, 2024
+          </td>
+          <td className="p-2 text-right text-sm font-bold">48.56%</td>
+        </tr>
+      </tbody>
+    </table>
   );
 }

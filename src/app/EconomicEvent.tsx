@@ -27,7 +27,7 @@ export default function EconomicEvent() {
           Top Economic Event
         </p>
 
-        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white"></div>
+        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white/30"></div>
       </header>
 
       <div className="flex flex-col gap-6">

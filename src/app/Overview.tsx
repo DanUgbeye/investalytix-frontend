@@ -8,7 +8,7 @@ export default function Overview() {
           Gainers
         </p>
 
-        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white"></div>
+        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white/30"></div>
       </header>
       <div className="flex flex-col gap-6">
         {quotes.map((quote) => {
@@ -16,7 +16,7 @@ export default function Overview() {
           return (
             <div
               key={quote.name}
-              className="grid grid-cols-3 border-b border-[#DCDCDC] pb-2 font-bold text-[#636363] dark:border-white  white-text"
+              className="grid grid-cols-3 border-b border-[#DCDCDC] pb-2 font-bold text-[#636363] dark:border-white/30  white-text"
             >
               <p className="">{quote.symbol}</p>
               <p

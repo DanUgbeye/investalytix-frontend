@@ -279,45 +279,7 @@ export default function Market() {
             FUTURES & COMMODITIES
           </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <table>
-              <thead>
-                <tr className="white-text text-[#1D2433]">
-                  <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize text-white dark:bg-transparent">
-                    Name
-                  </th>
-                  <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
-                    last
-                  </th>
-                  <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
-                    chg
-                  </th>
-                  <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase text-white dark:bg-transparent">
-                    chg%
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {quotes.map((quote) => (
-                  <tr
-                    key={quote.symbol}
-                    className="text-black odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent"
-                  >
-                    <td className="p-2 text-left text-sm font-bold uppercase">
-                      {quote.symbol}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold">
-                      {quote.price}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold">
-                      {quote.change}
-                    </td>
-                    <td className="p-2 text-right text-sm font-bold">
-                      {quote.changesPercentage}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <Table />
             <div className="text-[#2A3037] dark:text-[#F8F7F7]">
               <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
@@ -453,13 +415,13 @@ function YieldTable() {
     <table>
       <thead>
         <tr className="white-text !text-white">
-          <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize dark:bg-transparent">
+          <th className="th border-b text-left capitalize dark:border-b-0">
             Name
           </th>
-          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:bg-transparent">
+          <th className="th border-b text-right uppercase dark:border-b-0">
             yield
           </th>
-          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:bg-transparent">
+          <th className="th border-b text-right uppercase dark:border-b-0">
             chg
           </th>
         </tr>
@@ -468,7 +430,7 @@ function YieldTable() {
         {quotes.map((quote) => (
           <tr
             key={quote.symbol}
-            className="white-text text-black  odd:bg-[#F9F9F9] dark:odd:bg-transparent"
+            className="white-text text-black even:bg-[#F9F9F9] dark:even:bg-transparent"
           >
             <td className="p-2 text-left text-sm font-bold uppercase">
               {quote.symbol}
@@ -489,16 +451,16 @@ function Table() {
     <table className="w-full">
       <thead>
         <tr className="white-text !text-white">
-          <th className="border-b bg-[#1D1D1D] p-2 text-left text-sm font-extrabold capitalize dark:bg-transparent">
+          <th className="th border-b text-left capitalize dark:border-b-0">
             Name
           </th>
-          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:bg-transparent">
+          <th className="th border-b text-right uppercase dark:border-b-0">
             last
           </th>
-          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:bg-transparent">
+          <th className="th border-b text-right uppercase dark:border-b-0">
             chg
           </th>
-          <th className="border-b bg-[#1D1D1D] p-2 text-right text-sm font-extrabold uppercase dark:bg-transparent">
+          <th className="th border-b text-right uppercase dark:border-b-0">
             chg%
           </th>
         </tr>
@@ -507,14 +469,14 @@ function Table() {
         {quotes.map((quote) => (
           <tr
             key={quote.symbol}
-            className="white-text text-black  odd:bg-[#F9F9F9] dark:odd:bg-transparent"
+            className="white-text text-black even:bg-[#F9F9F9] dark:even:bg-transparent"
           >
-            <td className="p-2 text-left text-sm font-bold uppercase">
+            <td className="p-2 text-left text-sm font-bold uppercase ">
               {quote.symbol}
             </td>
-            <td className="p-2 text-right text-sm font-bold">{quote.price}</td>
-            <td className="p-2 text-right text-sm font-bold">{quote.change}</td>
-            <td className="p-2 text-right text-sm font-bold">
+            <td className="p-2 text-right text-sm font-bold ">{quote.price}</td>
+            <td className="p-2 text-right text-sm font-bold ">{quote.change}</td>
+            <td className="p-2 text-right text-sm font-bold ">
               {quote.changesPercentage}
             </td>
           </tr>
@@ -527,17 +489,17 @@ function Table() {
 function Panel() {
   return (
     <Tab.Panel>
-      <div className="grid md:grid-cols-2 gap-10 pb-14">
+      <div className="grid gap-10 pb-14 md:grid-cols-2">
         <div className="">
           <p className="white-text mb-7 font-bold">Top</p>
 
           <div className="flex flex-col gap-5">
             {topMovers.map((mover) => (
               <div key={mover.symbol} className="flex items-center gap-4">
-                <div className="grid grid-cols-[7ch,10ch] md:grid-cols-[7ch,auto,10ch] items-center gap-1 md:gap-3">
+                <div className="grid grid-cols-[7ch,10ch] items-center gap-1 md:grid-cols-[7ch,auto,10ch] md:gap-3">
                   <p className="truncate text-sm font-bold">{mover.symbol}</p>
-                  <button className="hidden md:block border-main-blue-base dark:border-main-blue-light hover:bg-main-blue-base focus:bg-main-blue-base dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light group border outline-none">
-                    <FiPlus className="text-main-blue-base dark:text-main-blue-light group-hover:text-white group-focus:text-white" />
+                  <button className="group hidden border border-main-blue-base outline-none hover:bg-main-blue-base focus:bg-main-blue-base md:block dark:border-main-blue-light dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light">
+                    <FiPlus className="text-main-blue-base group-hover:text-white group-focus:text-white dark:text-main-blue-light" />
                   </button>
                   <p className="truncate text-sm font-bold">{mover.name}</p>
                 </div>
@@ -565,10 +527,10 @@ function Panel() {
           <div className="flex flex-col gap-5">
             {topMovers.map((mover) => (
               <div key={mover.symbol} className="flex items-center gap-4">
-                <div className="grid grid-cols-[7ch,10ch] md:grid-cols-[7ch,auto,10ch] items-center gap-1 md:gap-3">
+                <div className="grid grid-cols-[7ch,10ch] items-center gap-1 md:grid-cols-[7ch,auto,10ch] md:gap-3">
                   <p className="truncate text-sm font-bold">{mover.symbol}</p>
-                  <button className="hidden md:block border-main-blue-base dark:border-main-blue-light hover:bg-main-blue-base focus:bg-main-blue-base dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light group border outline-none">
-                    <FiPlus className="text-main-blue-base dark:text-main-blue-light group-hover:text-white group-focus:text-white" />
+                  <button className="group hidden border border-main-blue-base outline-none hover:bg-main-blue-base focus:bg-main-blue-base md:block dark:border-main-blue-light dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light">
+                    <FiPlus className="text-main-blue-base group-hover:text-white group-focus:text-white dark:text-main-blue-light" />
                   </button>
                   <p className="truncate text-sm font-bold">{mover.name}</p>
                 </div>
