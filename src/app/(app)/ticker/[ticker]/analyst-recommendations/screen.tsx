@@ -2,11 +2,25 @@
 
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const STOCK_FORECAST = [
   {
     date: new Date("2024-01-10"),
     company: "Redburn Atlantic",
+    analyst: "Donald Doe",
     action: "Downgrade",
     from: "Buy",
     to: "Neutral",
@@ -14,6 +28,7 @@ const STOCK_FORECAST = [
   {
     date: new Date("2023-11-24"),
     company: "Piper Sandler",
+    analyst: "Donald Doe",
     action: "Downgrade",
     from: "Overweight",
     to: "Neutral",
@@ -21,6 +36,7 @@ const STOCK_FORECAST = [
   {
     date: new Date("2023-11-16"),
     company: "DA Davidson",
+    analyst: "Donald Doe",
     action: "Initialize",
     from: "",
     to: "Neutral",
@@ -28,6 +44,7 @@ const STOCK_FORECAST = [
   {
     date: new Date("2023-11-03"),
     company: "Barclays",
+    analyst: "Donald Doe",
     action: "Downgrade",
     from: "Equal-Weight",
     to: "Underweight",
@@ -35,150 +52,119 @@ const STOCK_FORECAST = [
   {
     date: new Date("2023-11-03"),
     company: "Wedbush",
+    analyst: "Donald Doe",
     action: "Reiterate",
     from: "Outperform",
     to: "Outperform",
   },
 ];
 
-const STOCK_FORECAST_DATA = [
+const ANALYST_CONSENSUS = {
+  symbol: "AAPL",
+  strongBuy: 0,
+  buy: 22,
+  hold: 9,
+  sell: 2,
+  strongSell: 0,
+  consensus: "Strong Buy",
+};
+
+const data = [
   {
-    date: new Date(2019, 8, 27),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
+    name: "Buy",
+    value: ANALYST_CONSENSUS.buy + ANALYST_CONSENSUS.strongBuy,
+    color: "#008133",
   },
+  { name: "Hold", value: ANALYST_CONSENSUS.hold, color: "#FF7E36" },
   {
-    date: new Date(2020, 8, 27),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2021, 8, 25),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2022, 8, 28),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2023, 8, 26),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2024, 8, 27),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2025, 8, 30),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2026, 8, 30),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
+    name: "Sell",
+    value: ANALYST_CONSENSUS.sell + ANALYST_CONSENSUS.strongSell,
+    color: "#8F79D4",
   },
 ];
+
+const recommendation_trends_data = [
+  {
+    name: "Nov 23",
+    sell: 5,
+    strongSell: 6,
+    hold: 5,
+    buy: 1,
+    strongBuy: 2,
+  },
+  {
+    name: "Dec 23",
+    sell: 1,
+    strongSell: 6,
+    hold: 0,
+    buy: 10,
+    strongBuy: 20,
+  },
+  {
+    name: "Jan 24",
+    sell: 10,
+    strongSell: 6,
+    hold: 5,
+    buy: 1,
+    strongBuy: 2,
+  },
+  {
+    name: "Feb 24",
+    sell: 2,
+    strongSell: 1,
+    hold: 10,
+    buy: 6,
+    strongBuy: 2,
+  },
+  {
+    name: "Mar 24",
+    sell: 10,
+    strongSell: 3,
+    hold: 5,
+    buy: 4,
+    strongBuy: 4,
+  },
+  {
+    name: "Apr 24",
+    sell: 4,
+    strongSell: 8,
+    hold: 20,
+    buy: 4,
+    strongBuy: 6,
+  },
+  {
+    name: "May 24",
+    sell: 1,
+    strongSell: 2,
+    hold: 2,
+    buy: 10,
+    strongBuy: 12,
+  },
+  {
+    name: "Jun 24",
+    sell: 10,
+    strongSell: 12,
+    hold: 2,
+    buy: 1,
+    strongBuy: 2,
+  },
+  {
+    name: "Jul 24",
+    sell: 20,
+    strongSell: 2,
+    hold: 2,
+    buy: 1,
+    strongBuy: 2,
+  },
+];
+
+const RECOMMENDATION_COLORS = {
+  sell: "#9500C9",
+  strongSell: "#F94144",
+  hold: "#F68500",
+  buy: "#2D9CDB",
+  strongBuy: "#90BE6D",
+};
 
 interface AnalystRecommendationScreenProps {
   ticker: string;
@@ -196,7 +182,7 @@ export default function AnalystRecommendationScreen(
           Apple Stock Forecast & Price Target
         </h2>
 
-        <div className=" flex flex-wrap gap-3 rounded bg-[#FFF3E9] px-6 py-3 text-xs dark:bg-primary-base/20 ">
+        <div className=" flex flex-wrap gap-3 rounded border border-primary-base bg-[#FFF3E9] px-6  py-3 text-xs dark:bg-primary-base/20 ">
           <div className=" flex flex-wrap items-center gap-x-8 gap-y-2 ">
             <span className=" ">See the Price Targets and Ratings of:</span>
 
@@ -234,12 +220,46 @@ export default function AnalystRecommendationScreen(
         </div>
       </div>
 
-      <div className=" grid gap-x-5 gap-y-10 lg:grid-cols-[max-content,1fr] ">
+      <div className=" grid gap-x-5 gap-y-10 lg:grid-cols-[auto,1fr] ">
         <div className=" space-y-3 lg:max-w-96 ">
           <h4 className=" font-bold sm:text-xl ">AAPL Analyst Ratings</h4>
 
           <div className=" grid min-h-80 grid-rows-[1fr,auto] border ">
-            <div className=" bg-gray-600 "></div>
+            <div className=" space-y-4 py-4 ">
+              <div className=" text-center text-lg font-bold ">
+                {ANALYST_CONSENSUS.consensus}
+              </div>
+
+              <div className=" relative mx-auto grid w-fit place-items-center ">
+                <PieChart width={300} height={250}>
+                  <Pie
+                    data={data}
+                    innerRadius={60}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {data.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={data[index].color} />
+                    ))}
+                  </Pie>
+                  <Legend
+                    iconType="square"
+                    formatter={(value, entry, index) => {
+                      return (
+                        <span className=" ml-1 mr-3 text-xs sm:text-sm ">
+                          {data[index].value} {value}
+                        </span>
+                      );
+                    }}
+                  />
+                </PieChart>
+
+                <span className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[calc(50%+0.8rem)] text-xl font-bold ">
+                  {20}%
+                </span>
+              </div>
+            </div>
 
             <div className=" border-t p-2 text-center text-xs ">
               Based on 33 analyst giving stock ratings to Apple in the past 3
@@ -313,7 +333,61 @@ export default function AnalystRecommendationScreen(
           </p>
         </div>
 
-        <div className=" h-60 bg-gray-600 "></div>
+        <div className=" ">
+          <ResponsiveContainer
+            width="100%"
+            height={350}
+            className={" text-xs "}
+          >
+            <BarChart
+              width={500}
+              height={300}
+              data={recommendation_trends_data}
+              className=" !-ml-6"
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis tickLine={false} dataKey="name" />
+              <YAxis tickLine={false} />
+              <Tooltip />
+              <Legend iconType="circle" />
+              <Bar
+                dataKey="strongSell"
+                stackId="a"
+                maxBarSize={50}
+                fill={RECOMMENDATION_COLORS["strongSell"]}
+                name={"Strong Sell"}
+              />
+              <Bar
+                dataKey="sell"
+                stackId="a"
+                maxBarSize={50}
+                fill={RECOMMENDATION_COLORS["sell"]}
+                name={"Sell"}
+              />
+              <Bar
+                dataKey="hold"
+                stackId="a"
+                maxBarSize={50}
+                fill={RECOMMENDATION_COLORS["hold"]}
+                name={"Hold"}
+              />
+              <Bar
+                dataKey="buy"
+                stackId="a"
+                maxBarSize={50}
+                fill={RECOMMENDATION_COLORS["buy"]}
+                name={"Buy"}
+              />
+              <Bar
+                dataKey="strongBuy"
+                stackId="a"
+                maxBarSize={50}
+                fill={RECOMMENDATION_COLORS["strongBuy"]}
+                name={"Strong Buy"}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
 
       <div className=" space-y-5 ">
@@ -326,25 +400,17 @@ export default function AnalystRecommendationScreen(
             <table className="w-full min-w-[50rem] ">
               <thead>
                 <tr className=" text-sm font-bold dark:bg-white/20 ">
-                  <th className=" border px-2 py-4 text-left dark:bg-transparent">
-                    Date
-                  </th>
+                  <th className=" border px-2 py-4 text-left ">Date</th>
 
-                  <th className=" border px-2 py-4 text-left dark:bg-transparent">
-                    Company
-                  </th>
+                  <th className=" border px-2 py-4 text-left ">Company</th>
 
-                  <th className=" border px-2 py-4 text-right dark:bg-transparent">
-                    Action
-                  </th>
+                  <th className=" border px-2 py-4 text-left ">Analyst</th>
 
-                  <th className=" border px-2 py-4 text-right dark:bg-transparent">
-                    From
-                  </th>
+                  <th className=" border px-2 py-4 text-right ">Action</th>
 
-                  <th className=" border px-2 py-4 text-right dark:bg-transparent">
-                    To
-                  </th>
+                  <th className=" border px-2 py-4 text-right ">From</th>
+
+                  <th className=" border px-2 py-4 text-right ">To</th>
                 </tr>
               </thead>
 
@@ -358,6 +424,10 @@ export default function AnalystRecommendationScreen(
 
                       <td className={` border px-2 py-4 text-left`}>
                         {item.company}
+                      </td>
+
+                      <td className={` border px-2 py-4 text-left`}>
+                        {item.analyst}
                       </td>
 
                       <td className=" border px-2 py-4 text-right text-primary-base ">
@@ -374,320 +444,6 @@ export default function AnalystRecommendationScreen(
                     </tr>
                   );
                 })}
-              </tbody>
-            </table>
-          </div>
-
-          <div className=" overflow-x-auto  ">
-            <table className=" w-full min-w-[50rem] ">
-              <tbody>
-                <tr className="  text-sm font-bold ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black "></th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    const year = new Date(data.date).getFullYear();
-                    const text =
-                      year === new Date().getFullYear()
-                        ? "Current / Est"
-                        : year;
-
-                    return (
-                      <td
-                        key={`${year}-${index}`}
-                        className=" border-y border-y-[#DEE2E6] px-2 py-4 text-center dark:bg-transparent"
-                      >
-                        {text}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className="  text-sm font-bold ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black "></th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y border-y-[#DEE2E6] px-2 py-4 text-center dark:bg-transparent"
-                      >
-                        {format(new Date(data.date), "MM/dd/yy")}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Market Capitalization
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.mrktCap.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Cash Equivalent
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.cashEquivalent.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Preferred & Other
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.preferredOther.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Total Debt
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.totalDebt.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Enterprise Value
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.enterpriseValue.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    <div className=" h-5 w-1 "></div>
-                  </th>
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Revenue ADJ
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.revenueAdj.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Growth % YoY
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.growthPercentageYOY.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Gross Profit, ADJ
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.grossProfitAdj.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Margin %
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.marginPercentage.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    EBITDA, Adj
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.ebitdaAdj.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    EPS Adj
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.epsAdj.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Cash From Operations
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.cashFromOperations.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Capital Expenditures
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.capitalExpenditures.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
-
-                <tr className=" text-sm ">
-                  <th className=" sticky left-0 min-w-36 border-y bg-white px-2 py-4 text-left font-bold dark:bg-black ">
-                    Free Cash Flow
-                  </th>
-
-                  {STOCK_FORECAST_DATA.map((data, index) => {
-                    return (
-                      <td
-                        key={`forecast-month-${index}`}
-                        className=" border-y px-2 py-4 text-right dark:bg-transparent"
-                      >
-                        {data.freeCashFlow.toLocaleString(undefined, {
-                          minimumFractionDigits: 1,
-                        })}
-                      </td>
-                    );
-                  })}
-                </tr>
               </tbody>
             </table>
           </div>
