@@ -35,7 +35,7 @@ export default function Quotes({
         <tr className="text-white dark:text-white/80">
           <th className="th text-left uppercase">{fields[0].label}</th>
           {fields.slice(1).map((field) => (
-            <th key={field.label} className="th text-left uppercase">
+            <th key={field.label} className="th text-right uppercase">
               {field.label}
             </th>
           ))}
@@ -46,13 +46,13 @@ export default function Quotes({
         {quotes.map((quote) => (
           <tr
             key={quote.symbol}
-            className="white-text  text-black odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent"
+            className="white-text text-black odd:bg-[#F9F9F9] dark:text-[#F8F7F7] dark:odd:bg-transparent dark:border-b dark:border-b-white/10"
           >
             <td className="p-2 text-left text-sm font-bold uppercase">
               {quote[fields[0].key]}
             </td>
             {fields.slice(1).map((field) => (
-              <td key={field.key} className="p-2 text-left text-sm font-bold">
+              <td key={field.key} className="p-2 text-right text-sm font-bold">
                 {quote[field.key]}
               </td>
             ))}

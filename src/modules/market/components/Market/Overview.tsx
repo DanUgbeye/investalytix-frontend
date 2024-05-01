@@ -7,6 +7,8 @@ import { Fragment } from "react";
 import { FiPlus } from "react-icons/fi";
 import ColoredNumber from "@/components/ui/ColoredNumber";
 import Chart from "@/components/Chart";
+import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
+import Quotes from "../Quotes";
 
 const quotes = [
   {
@@ -193,7 +195,8 @@ export default function Market() {
         </div>
 
         <div className="div w-full">
-          <Table />
+          <Quotes />
+          {/* <Table /> */}
         </div>
       </div>
 
@@ -242,11 +245,7 @@ export default function Market() {
       {/* SECURITIES */}
 
       <section className="mt-11">
-        <header className="border-b-[6px] dark:border-b-2 border-b-[#1D1D1D] pb-10 dark:border-b-white">
-          <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
-            SECURITIES
-          </h2>
-        </header>
+        <MarketSectionHeader label="SECURITIES" />
 
         {/* bonds */}
         <section>
@@ -279,7 +278,7 @@ export default function Market() {
             FUTURES & COMMODITIES
           </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <Table />
+            <Quotes />
             <div className="text-[#2A3037] dark:text-[#F8F7F7]">
               <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
@@ -305,7 +304,7 @@ export default function Market() {
             CURRENCIES
           </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <Table />
+            <Quotes />
             <div className="text-[#2A3037] dark:text-[#F8F7F7]">
               <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
@@ -325,11 +324,7 @@ export default function Market() {
 
       {/* REGIONAL */}
       <section className="mt-16">
-        <header className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-white/10">
-          <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
-            REGIONAL
-          </h2>
-        </header>
+        <MarketSectionHeader label="REGIONAL" />
 
         {/* AMERICAS MARKET */}
         <section>
@@ -363,7 +358,7 @@ export default function Market() {
             EUROPE MARKET
           </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <Table />
+            <Quotes />
             <div className="text-[#2A3037] dark:text-[#F8F7F7]">
               <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
@@ -389,7 +384,7 @@ export default function Market() {
             ASIAN MARKET
           </h2>
           <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <Table />
+            <Quotes />
             <div className="white-text  text-[#2A3037]">
               <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
                 CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
@@ -430,53 +425,13 @@ function YieldTable() {
         {quotes.map((quote) => (
           <tr
             key={quote.symbol}
-            className="white-text text-black even:bg-[#F9F9F9] dark:even:bg-transparent"
+            className="white-text text-black even:bg-[#F9F9F9] dark:even:bg-transparent dark:border-b dark:border-b-white/10"
           >
             <td className="p-2 text-left text-sm font-bold uppercase">
               {quote.symbol}
             </td>
             <td className="p-2 text-right text-sm font-bold">{quote.change}</td>
             <td className="p-2 text-right text-sm font-bold">
-              {quote.changesPercentage}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-}
-
-function Table() {
-  return (
-    <table className="w-full">
-      <thead>
-        <tr className="white-text !text-white">
-          <th className="th border-b text-left capitalize dark:border-b-0">
-            Name
-          </th>
-          <th className="th border-b text-right uppercase dark:border-b-0">
-            last
-          </th>
-          <th className="th border-b text-right uppercase dark:border-b-0">
-            chg
-          </th>
-          <th className="th border-b text-right uppercase dark:border-b-0">
-            chg%
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {quotes.map((quote) => (
-          <tr
-            key={quote.symbol}
-            className="white-text text-black even:bg-[#F9F9F9] dark:even:bg-transparent"
-          >
-            <td className="p-2 text-left text-sm font-bold uppercase ">
-              {quote.symbol}
-            </td>
-            <td className="p-2 text-right text-sm font-bold ">{quote.price}</td>
-            <td className="p-2 text-right text-sm font-bold ">{quote.change}</td>
-            <td className="p-2 text-right text-sm font-bold ">
               {quote.changesPercentage}
             </td>
           </tr>
