@@ -244,7 +244,7 @@ export function DesktopTickerNav(props: TickerNavProps) {
 
   return (
     <aside {...rest} className={cn(" pb-4 ", className)}>
-      <div className=" h-fit border-r ">
+      <div className=" h-fit border-r dark:border-gray-500 ">
         {loading && (
           <div className=" grid w-full place-items-center py-8 ">
             <Spinner className=" size-8 text-primary-base " />
@@ -289,7 +289,7 @@ export function DesktopTickerNav(props: TickerNavProps) {
         )}
 
         {/* TICKER NAV LINKS */}
-        <div className=" divide-y border-y ">
+        <div className=" divide-y border-y dark:divide-gray-500 dark:border-gray-500 ">
           {navTabs.map(({ label, path, icon }, index) => {
             return (
               <TickerNavLink

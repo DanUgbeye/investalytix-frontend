@@ -40,7 +40,7 @@ export function MobileTickerNav(props: TickerNavProps) {
     <aside
       {...rest}
       className={cn(
-        " flex divide-x divide-gray-300 overflow-x-auto bg-gray-100 dark:bg-transparent ",
+        " flex divide-x overflow-x-auto border-y bg-gray-100 dark:divide-gray-500 dark:border-gray-500 dark:bg-black ",
         className
       )}
     >
