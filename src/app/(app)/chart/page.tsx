@@ -74,19 +74,6 @@ function ChartPage() {
                   <Tab as={Fragment}>
                     {({ selected }) => (
                       <button
-                        className={`white-text text-hover-focus flex items-center justify-center gap-3 border-b-2 px-2 pb-2 text-sm outline-none ${
-                          selected
-                            ? "border-primary-base dark:border-primary-light"
-                            : "border-transparent"
-                        }`}
-                      >
-                        Portfolio <FiLock className="size-3" />
-                      </button>
-                    )}
-                  </Tab>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <button
                         className={`white-text text-hover-focus border-b-2 px-2 pb-2 text-sm outline-none ${
                           selected
                             ? "border-primary-base dark:border-primary-light"
@@ -97,8 +84,26 @@ function ChartPage() {
                       </button>
                     )}
                   </Tab>
+                  <Tab as={Fragment}>
+                    {({ selected }) => (
+                      <button
+                        className={`white-text text-hover-focus flex items-center justify-center gap-3 border-b-2 px-2 pb-2 text-sm outline-none ${
+                          selected
+                            ? "border-primary-base dark:border-primary-light"
+                            : "border-transparent"
+                        }`}
+                      >
+                        Portfolio <FiLock className="size-3" />
+                      </button>
+                    )}
+                  </Tab>
                 </Tab.List>
                 <Tab.Panels className={"relative overflow-hidden"}>
+                  {/* watchlist */}
+                  <Tab.Panel className={"absolute inset-0 overflow-auto pt-2"}>
+                    <Quotes notifications />
+                  </Tab.Panel>
+
                   {/* portfolio */}
                   <Tab.Panel
                     className={
@@ -106,10 +111,6 @@ function ChartPage() {
                     }
                   >
                     <FiLock className="size-20 opacity-30" />
-                  </Tab.Panel>
-                  {/* watchlist */}
-                  <Tab.Panel className={"absolute inset-0 overflow-auto pt-2"}>
-                    <Quotes notifications/>
                   </Tab.Panel>
                 </Tab.Panels>
               </div>
@@ -120,13 +121,16 @@ function ChartPage() {
         )}
 
         <div
-          className={`flex flex-col gap-4 p-2 ${open ? "border-l dark:border-l-white/20" : ""}`}
+          className={`flex flex-col gap-4 p-2 border-l dark:border-l-white/20`}
         >
           <button
-            className={`rounded border p-2 ${open ? "border-primary-base dark:border-primary-light" : ""}`}
+            title="watchlist"
+            className={`group rounded border p-2 hover:border-primary-base focus:border-primary-base dark:hover:border-primary-light dark:focus:border-primary-light ${open ? "border-primary-base dark:border-primary-light" : ""}`}
             onClick={toggleOpen}
           >
-            <CiViewList className={`size-7 ${open ? "text-primary-base dark:text-primary-light" : ""}`} />
+            <CiViewList
+              className={`size-7 group-hover:text-primary-base group-focus:text-primary-base dark:group-hover:text-primary-light dark:group-focus:text-primary-light ${open ? "text-primary-base dark:text-primary-light" : ""}`}
+            />
           </button>
         </div>
       </div>
