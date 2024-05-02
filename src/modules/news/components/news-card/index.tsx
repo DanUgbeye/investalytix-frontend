@@ -14,7 +14,7 @@ export default function NewsCard(props: NewsCardProps) {
     <div
       {...rest}
       className={cn(
-        " grid grid-cols-1 grid-rows-[auto,auto] gap-5 border-b border-[#DCDCDC] py-4 sm:grid-cols-[auto,auto] sm:grid-rows-1 ",
+        " grid grid-cols-1 grid-rows-[auto,auto] gap-5 py-4 sm:grid-cols-[auto,auto] sm:grid-rows-1 ",
         className
       )}
     >

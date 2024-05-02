@@ -243,7 +243,7 @@ export function DesktopTickerNav(props: TickerNavProps) {
   }, [pathname, navTabs]);
 
   return (
-    <aside {...rest} className={cn(" pb-4 ", className)}>
+    <aside {...rest} className={cn(" ", className)}>
       <div className=" h-fit border-r dark:border-gray-500 ">
         {loading && (
           <div className=" grid w-full place-items-center py-8 ">
