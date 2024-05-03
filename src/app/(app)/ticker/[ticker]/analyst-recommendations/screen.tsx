@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
 import {
   Bar,
   BarChart,
@@ -397,50 +396,45 @@ export default function AnalystRecommendationScreen(
 
         <div className=" space-y-20 ">
           <div className=" overflow-x-auto ">
-            <table className="w-full min-w-[50rem] ">
+            <table className="dark-mode-border w-full min-w-[50rem] border ">
               <thead>
-                <tr className=" text-sm font-bold dark:bg-white/20 ">
-                  <th className=" border px-2 py-4 text-left ">Date</th>
+                <tr className=" dark-mode-border border-y text-sm font-bold dark:bg-white/20 ">
+                  <th className=" px-2 py-4 text-left ">Date</th>
 
-                  <th className=" border px-2 py-4 text-left ">Company</th>
+                  <th className=" px-2 py-4 text-left ">Company</th>
 
-                  <th className=" border px-2 py-4 text-left ">Analyst</th>
+                  <th className=" px-2 py-4 text-left ">Analyst</th>
 
-                  <th className=" border px-2 py-4 text-right ">Action</th>
+                  <th className=" px-2 py-4 text-right ">Action</th>
 
-                  <th className=" border px-2 py-4 text-right ">From</th>
+                  <th className=" px-2 py-4 text-right ">From</th>
 
-                  <th className=" border px-2 py-4 text-right ">To</th>
+                  <th className=" px-2 py-4 text-right ">To</th>
                 </tr>
               </thead>
 
               <tbody className=" ">
                 {STOCK_FORECAST.map((item, index) => {
                   return (
-                    <tr key={`forecast-${index}`} className=" text-sm ">
-                      <td className=" white-text border px-2 py-4 text-left text-[#333333]">
+                    <tr
+                      key={`forecast-${index}`}
+                      className=" dark-mode-border border-y text-sm "
+                    >
+                      <td className=" white-text px-2 py-4 text-left text-[#333333]">
                         {item.date.toDateString()}
                       </td>
 
-                      <td className={` border px-2 py-4 text-left`}>
-                        {item.company}
-                      </td>
+                      <td className={` px-2 py-4 text-left`}>{item.company}</td>
 
-                      <td className={` border px-2 py-4 text-left`}>
-                        {item.analyst}
-                      </td>
+                      <td className={` px-2 py-4 text-left`}>{item.analyst}</td>
 
-                      <td className=" border px-2 py-4 text-right text-primary-base ">
+                      <td className=" px-2 py-4 text-right text-primary-base ">
                         {item.action}
                       </td>
 
-                      <td className=" border px-2 py-4 text-right">
-                        {item.from}
-                      </td>
+                      <td className=" px-2 py-4 text-right">{item.from}</td>
 
-                      <td className=" border px-2 py-4 text-right">
-                        {item.to}
-                      </td>
+                      <td className=" px-2 py-4 text-right">{item.to}</td>
                     </tr>
                   );
                 })}
