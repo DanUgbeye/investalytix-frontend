@@ -15,7 +15,7 @@ import useTheme from "@/store/theme/useTheme";
 import { Dialog, Menu } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnchorHTMLAttributes, useState } from "react";
+import { AnchorHTMLAttributes, FormEvent, useState } from "react";
 import {
   FiArrowLeft,
   FiChevronRight,
@@ -25,6 +25,8 @@ import {
   FiX,
 } from "react-icons/fi";
 import { Container } from "../container";
+import { useRouter } from "next/navigation";
+import useInput from "@/hooks/useInput";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -75,7 +77,7 @@ export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
 
   return (
-    <nav className="z-50 bg-black py-3 sticky top-0">
+    <nav className="sticky top-0 z-50 bg-black py-3">
       <Container className=" max-w-[110rem] sm:px-6 xl:px-6 ">
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
@@ -101,7 +103,7 @@ export default function NavBar() {
                           <NavigationMenuTrigger className="rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light">
                             {route.label}
                           </NavigationMenuTrigger>
-                          <NavigationMenuContent className="w-full bg-white p-0 dark:bg-[#191919] !border-0">
+                          <NavigationMenuContent className="w-full !border-0 bg-white p-0 dark:bg-[#191919]">
                             <div className=" flex w-max min-w-52 flex-col">
                               {route.children.map((childRoute, index) => {
                                 return (
@@ -109,7 +111,7 @@ export default function NavBar() {
                                     key={`${childRoute.href}-${index}`}
                                     href={childRoute.href}
                                     className={
-                                      "dark:hover:text-primary-light grid w-full min-w-fit px-4 py-3 font-medium hover:text-primary-base dark:text-white"
+                                      "grid w-full min-w-fit px-4 py-3 font-medium hover:text-primary-base dark:text-white dark:hover:text-primary-light"
                                     }
                                   >
                                     {childRoute.label}
@@ -124,7 +126,7 @@ export default function NavBar() {
                           <NavigationMenuLink
                             className={cn(
                               navigationMenuTriggerStyle(),
-                              "dark:hover:text-primary-light dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light rounded-full !bg-transparent  text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base"
+                              "rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base  data-[active]:text-primary-base data-[state=open]:text-primary-base dark:hover:text-primary-light dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light"
                             )}
                           >
                             {route.label}
@@ -155,7 +157,7 @@ export default function NavBar() {
 
             <Link
               href={PAGES.LOGIN}
-              className="dark:hover:text-primary-light hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white hover:text-primary-base md:block"
+              className="hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white hover:text-primary-base md:block dark:hover:text-primary-light"
             >
               Login
             </Link>
@@ -240,7 +242,7 @@ function MobileMenu() {
                     return route.children ? (
                       <button
                         key={route.label}
-                        className={`dark:hover:text-primary-light flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white`}
+                        className={`flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white dark:hover:text-primary-light`}
                         onClick={() => addHistory(route)}
                       >
                         {route.label}
@@ -251,7 +253,7 @@ function MobileMenu() {
                         {({ active }) => (
                           <NavLink
                             route={route}
-                            className={`dark:hover:text-primary-light inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white/80`}
+                            className={`inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white/80 dark:hover:text-primary-light`}
                           />
                         )}
                       </Menu.Item>
@@ -261,7 +263,7 @@ function MobileMenu() {
                   <div className="flex flex-col space-y-2 pb-4 md:hidden ">
                     <Link
                       href="/login"
-                      className="dark:hover:text-primary-light mx-4 block cursor-pointer rounded bg-transparent px-4 py-3 text-center font-bold duration-300 hover:text-primary-base  focus:text-primary-base"
+                      className="mx-4 block cursor-pointer rounded bg-transparent px-4 py-3 text-center font-bold duration-300 hover:text-primary-base focus:text-primary-base  dark:hover:text-primary-light"
                     >
                       Login
                     </Link>
@@ -281,7 +283,7 @@ function MobileMenu() {
                 <div className="flex items-center justify-between gap-10 border-b ">
                   <button
                     onClick={deleteHistory}
-                    className=" dark:hover:text-primary-light grid size-12 place-items-center duration-300 hover:text-primary-base"
+                    className=" grid size-12 place-items-center duration-300 hover:text-primary-base dark:hover:text-primary-light"
                   >
                     <FiArrowLeft className="size-5" />
                   </button>
@@ -293,7 +295,7 @@ function MobileMenu() {
                   <Menu.Button
                     onClick={resetHistory}
                     className={
-                      "dark:hover:text-primary-light grid size-12 place-items-center duration-300 hover:text-primary-base"
+                      "grid size-12 place-items-center duration-300 hover:text-primary-base dark:hover:text-primary-light"
                     }
                   >
                     <FiX className="size-5" />
@@ -306,7 +308,7 @@ function MobileMenu() {
                     <div key={route.label}>
                       {route.children ? (
                         <button
-                          className="dark:hover:text-primary-light flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white"
+                          className="flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white dark:hover:text-primary-light"
                           onClick={() => addHistory(route)}
                         >
                           {route.label}
@@ -316,7 +318,7 @@ function MobileMenu() {
                         <Menu.Item>
                           <NavLink
                             route={route}
-                            className="dark:hover:text-primary-light inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white/80"
+                            className="inline-block w-full whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white/80 dark:hover:text-primary-light"
                           />
                         </Menu.Item>
                       )}
@@ -334,8 +336,15 @@ function MobileMenu() {
 
 function Search() {
   const [isOpen, setIsOpen] = useState(false);
+  const [query, queryOpts] = useInput("");
+  const router = useRouter();
 
   const toggleIsOpen = () => setIsOpen((s) => !s);
+
+  function submitHandler(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    router.push(`/ticker/${query}`);
+  }
   return (
     <>
       <button
@@ -348,32 +357,27 @@ function Search() {
       <Dialog open={isOpen} onClose={toggleIsOpen} className="relative z-50">
         {/* The backdrop, rendered as a fixed sibling to the panel container */}
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm"
           aria-hidden="true"
         />
 
         {/* Full-screen scrollable container */}
-        <div className="fixed inset-0 mt-[10vh] flex w-screen items-start justify-center overflow-hidden">
+        <div className="fixed inset-0 mt-[20vh] flex w-screen items-start justify-center overflow-hidden">
           {/* The actual dialog panel  */}
           {/* Container to center the panel */}
-          <div className="dark:bg0black max-h-[80vh] w-[80vw] max-w-screen-md overflow-auto rounded bg-white dark:bg-[#191919] p-10 md:w-[70vw]">
-            <Dialog.Panel className="w-full">
-              <form
-                className="flex flex-col gap-5"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  // updateHandler();
-                }}
-              >
+          <div className="max-h-[80vh] w-[80vw] max-w-screen-md overflow-auto rounded bg-white md:w-[70vw] dark:border dark:border-white/20 dark:bg-black">
+            <Dialog.Panel className="w-full p-10">
+              <form className="flex flex-col gap-5" onSubmit={submitHandler}>
                 <div className="relative h-fit">
                   <input
                     type="search"
                     name="search"
                     id="search"
+                    {...queryOpts}
                     placeholder="Search for ticker, quotes & videos"
-                    className="w-full rounded-full border-2 dark:border-0 border-black px-6 py-3 text-sm font-medium text-black placeholder:text-black focus:outline-none dark:bg-white/60"
+                    className="w-full rounded-full border-2 border-black px-6 py-3 text-sm font-medium text-black placeholder:text-black focus:outline-none dark:border dark:border-white/20 dark:bg-black dark:text-white/80 dark:placeholder:text-white/50 dark:focus:border-white/50"
                   />
-                  <div className="absolute bottom-4 right-0 top-4 grid -translate-x-1/2 place-content-center bg-white dark:bg-transparent pl-6">
+                  <div className="absolute bottom-4 right-0 top-4 grid -translate-x-1/2 place-content-center bg-white pl-6 dark:bg-transparent">
                     <svg
                       width={16}
                       height={16}
