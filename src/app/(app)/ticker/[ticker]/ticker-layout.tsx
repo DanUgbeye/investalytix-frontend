@@ -22,20 +22,20 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
   return (
     <section {...rest} className={cn("  ", className)}>
-      <Container className=" relative grid min-h-[calc(100dvh-5rem)] max-w-[110rem] grid-cols-1 grid-rows-[auto,1fr] p-0 sm:p-0 md:grid-rows-1 xl:p-0 ">
+      <Container className=" grid min-h-[calc(100dvh-5rem)] max-w-[110rem] grid-cols-1 grid-rows-[auto,1fr] p-0 sm:p-0 md:grid-rows-1 xl:p-0 ">
         <DesktopTickerNav
           ticker={ticker}
-          className=" top-0 col-start-1 row-start-1 hidden w-[15rem] lg:flex "
+          className=" sticky top-[88px] col-start-1 row-start-1 hidden h-[calc(100dvh-88px)] w-[15rem] overflow-y-auto lg:flex mb-8 "
         />
 
         <MobileTickerNav
           ticker={ticker}
-          className=" flex border-b lg:hidden "
+          className=" sticky top-[84px] z-40 flex md:top-[88px] lg:hidden "
         />
 
         <main className=" col-start-1 lg:row-start-1 lg:ml-[15rem] ">
           <Container className=" lg:pl-6 xl:pl-6 ">
-           <QuotesBoard/>
+            <QuotesBoard />
 
             <section className=" grid grid-rows-[auto,auto,auto] gap-x-10 gap-y-6 sm:grid-cols-[1fr,auto] sm:grid-rows-1 xl:grid-cols-[auto,auto,auto] ">
               <div className=" col-start-1 space-y-3 ">

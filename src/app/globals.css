@@ -37,6 +37,10 @@ input[type="number"] {
   @apply dark:hover:text-primary-light dark:focus:text-primary-light hover:text-primary-base focus:text-primary-base duration-150;
 }
 
+.dark-mode-border {
+  @apply dark:border-gray-800
+}
+
 @media only screen and (min-width: 624px) {
   *::-webkit-scrollbar {
     width: 8px;

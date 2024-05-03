@@ -24,11 +24,10 @@ function TickerSubMenuBar(props: TickerSubMenuBarProps) {
             key={`sub-menu-${label}-${index}`}
             href={path}
             className={cn(
-              buttonVariants({ variant: "link" }),
-              " rounded-none border-b-2 px-0 font-bold hover:no-underline ",
+              " rounded-none border-b-2 px-0 font-bold hover:no-underline py-2 ",
               {
                 " border-b-primary-base ": active === path,
-                " border-transparent hover:border-primary-base ":
+                " border-transparent hover:text-primary-base ":
                   active !== path,
               }
             )}
