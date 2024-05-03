@@ -76,21 +76,21 @@ export default function HoldersScreen(props: HoldersScreenProps) {
         <h3 className=" text-2xl font-extrabold ">Top Institutional Holders</h3>
 
         <div className=" overflow-x-auto ">
-          <table className=" w-full min-w-[50rem] text-xs ">
+          <table className=" dark-mode-border w-full min-w-[50rem] border text-xs ">
             <thead className="  ">
-              <tr className=" border-b font-semibold ">
+              <tr className=" dark-mode-border border-b font-semibold dark:bg-white/20 ">
                 <td className=" px-2 py-3 ">Name</td>
-                <td className=" px-2 py-3 text-center ">% Total Shares Held</td>
-                <td className=" px-2 py-3 text-center ">
+                <td className=" px-2 py-3 text-right ">% Total Shares Held</td>
+                <td className=" px-2 py-3 text-right ">
                   % Total Assets Percentage
                 </td>
-                <td className=" px-2 py-3 text-center ">
+                <td className=" px-2 py-3 text-right ">
                   Trend in Prev. 8 Qtrs
                 </td>
-                <td className=" px-2 py-3 text-center ">Current Shares</td>
-                <td className=" px-2 py-3 text-center ">Change Amount</td>
-                <td className=" px-2 py-3 text-center ">Change %</td>
-                <td className=" px-2 py-3 text-center ">Date</td>
+                <td className=" px-2 py-3 text-right ">Current Shares</td>
+                <td className=" px-2 py-3 text-right ">Change Amount</td>
+                <td className=" px-2 py-3 text-right ">Change %</td>
+                <td className=" px-2 py-3 text-right ">Date</td>
               </tr>
             </thead>
 
@@ -99,46 +99,46 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                 return (
                   <tr
                     key={`institutional-holder-${item.name}-${index}`}
-                    className=" border-b "
+                    className=" dark-mode-border border-b "
                   >
                     <td className=" px-2 py-3 font-medium ">{item.name}</td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.totalSharesHeldPercentage.toLocaleString(
                         undefined,
                         { maximumFractionDigits: 2 }
                       )}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.totalAssetsPercentage.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.prev8QrtsTrend}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.currentShares.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.changeAmount.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.changePercentage.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.date.toDateString()}
                     </td>
                   </tr>
@@ -153,21 +153,21 @@ export default function HoldersScreen(props: HoldersScreenProps) {
         <h3 className=" text-2xl font-extrabold ">Top Mutual Fund Holders</h3>
 
         <div className=" overflow-x-auto ">
-          <table className=" w-full min-w-[50rem] text-xs ">
+          <table className=" dark-mode-border w-full min-w-[50rem] border text-xs ">
             <thead className="  ">
-              <tr className=" border-b font-semibold ">
+              <tr className=" dark-mode-border border-b font-semibold dark:bg-white/20 ">
                 <td className=" px-2 py-3 ">Name</td>
-                <td className=" px-2 py-3 text-center ">% Total Shares Held</td>
-                <td className=" px-2 py-3 text-center ">
+                <td className=" px-2 py-3 text-right ">% Total Shares Held</td>
+                <td className=" px-2 py-3 text-right ">
                   % Total Assets Percentage
                 </td>
-                <td className=" px-2 py-3 text-center ">
+                <td className=" px-2 py-3 text-right ">
                   Trend in Prev. 8 Qtrs
                 </td>
-                <td className=" px-2 py-3 text-center ">Current Shares</td>
-                <td className=" px-2 py-3 text-center ">Change Amount</td>
-                <td className=" px-2 py-3 text-center ">Change %</td>
-                <td className=" px-2 py-3 text-center ">Date</td>
+                <td className=" px-2 py-3 text-right ">Current Shares</td>
+                <td className=" px-2 py-3 text-right ">Change Amount</td>
+                <td className=" px-2 py-3 text-right ">Change %</td>
+                <td className=" px-2 py-3 text-right ">Date</td>
               </tr>
             </thead>
 
@@ -176,46 +176,46 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                 return (
                   <tr
                     key={`mutual-fund-holder-${item.name}-${index}`}
-                    className=" border-b "
+                    className=" dark-mode-border border-b "
                   >
                     <td className=" px-2 py-3 font-medium ">{item.name}</td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.totalSharesHeldPercentage.toLocaleString(
                         undefined,
                         { maximumFractionDigits: 2 }
                       )}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.totalAssetsPercentage.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.prev8QrtsTrend}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.currentShares.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.changeAmount.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.changePercentage.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                       })}
                     </td>
 
-                    <td className=" px-2 py-3 text-center ">
+                    <td className=" px-2 py-3 text-right ">
                       {item.date.toDateString()}
                     </td>
                   </tr>

@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis
+  YAxis,
 } from "recharts";
 
 const data = [
@@ -89,7 +89,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               " rounded-none border-b-2 px-0 font-bold hover:no-underline ",
               {
                 " border-b-primary-base ": chartTab === "Earnings",
-                " border-transparent hover:border-primary-base ":
+                " border-transparent hover:text-primary-base ":
                   chartTab !== "Earnings",
               }
             )}
@@ -104,7 +104,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               " rounded-none border-b-2 px-0 font-bold hover:no-underline ",
               {
                 " border-b-primary-base ": chartTab === "Revenue",
-                " border-transparent hover:border-primary-base ":
+                " border-transparent hover:text-primary-base ":
                   chartTab !== "Revenue",
               }
             )}
@@ -148,9 +148,9 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
         <div className=" space-y-6 ">
           <div className=" ">
             <div className=" overflow-y-auto ">
-              <table className="w-full min-w-[50rem] ">
+              <table className="dark-mode-border w-full min-w-[50rem] border ">
                 <thead>
-                  <tr className=" white-text border-y text-sm font-bold text-[#212529] ">
+                  <tr className=" white-text dark-mode-border border-y text-sm font-bold dark:bg-white/20 ">
                     <th className=" px-2 py-4 text-left dark:bg-transparent">
                       Report Date
                     </th>
@@ -180,19 +180,17 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       return (
                         <tr
                           key={`earning-history-${index}`}
-                          className=" border-y text-sm "
+                          className=" dark-mode-border border-y text-sm "
                         >
-                          <td className=" white-text px-2 py-4 text-left text-[#333333]">
+                          <td className=" white-text px-2 py-4 text-left ">
                             {item.reportDate.toDateString()}
                           </td>
 
-                          <td
-                            className={` white-text px-2 py-4 text-right text-[#212529]`}
-                          >
+                          <td className={` white-text px-2 py-4 text-right`}>
                             {item.fiscalQuarter}
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
+                          <td className=" white-text px-2 py-4 text-right">
                             <span className=" ">{item.forecast}</span>/
                             <span
                               className={cn({
@@ -206,11 +204,11 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                             </span>
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
+                          <td className=" white-text px-2 py-4 text-right">
                             {item.lastYear}
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
+                          <td className=" white-text px-2 py-4 text-right">
                             {item.yoyChangePercentage.toPrecision(2)}% (
                             {item.yoyChange > 0 && "+"}
                             {item.yoyChange.toPrecision(2)})
@@ -222,7 +220,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               </table>
             </div>
 
-            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-6 text-xs dark:bg-[#262626]  ">
+            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-6 text-xs dark:bg-white/10  ">
               <div className="  ">
                 The table shows recent earnings report dates and whether the
                 forecast was beat or missed. See the change in forecast and EPS
@@ -256,9 +254,9 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
         <div className=" space-y-6 ">
           <div className=" ">
             <div className=" overflow-y-auto ">
-              <table className="w-full  min-w-[50rem] ">
+              <table className="dark-mode-border w-full min-w-[50rem] border ">
                 <thead>
-                  <tr className=" white-text border-y text-sm font-semibold text-[#212529] ">
+                  <tr className=" white-text dark-mode-border border-y text-sm font-semibold dark:bg-white/20 ">
                     <th className=" px-2 py-4 text-left ">Report Date</th>
 
                     <th className=" px-2 py-4 text-right ">Fiscal Quarter</th>
@@ -282,27 +280,25 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       return (
                         <tr
                           key={`revenue-history-${index}`}
-                          className=" border-y text-sm "
+                          className=" dark-mode-border border-y text-sm "
                         >
-                          <td className=" white-text px-2 py-4 text-left text-[#333333]">
+                          <td className=" white-text px-2 py-4 text-left ">
                             {item.reportDate.toDateString()}
                           </td>
 
-                          <td
-                            className={` white-text px-2 py-4 text-right text-[#212529]`}
-                          >
+                          <td className={` white-text px-2 py-4 text-right`}>
                             {item.fiscalQuarter}
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
+                          <td className=" white-text px-2 py-4 text-right">
                             {item.current || "-"}
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
+                          <td className=" white-text px-2 py-4 text-right">
                             {item.lastYear}
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right text-[#212529]">
+                          <td className=" white-text px-2 py-4 text-right">
                             {item.yoyChangePercentage.toPrecision(2)}% (
                             {item.yoyChange > 0 && "+"}
                             {item.yoyChange.toPrecision(2)})
@@ -314,7 +310,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               </table>
             </div>
 
-            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-6 text-xs dark:bg-[#262626]  ">
+            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-6 text-xs dark:bg-white/10  ">
               <div className="  ">
                 The table shows recent earnings report dates and whether the
                 forecast was beat or missed. See the change in forecast and EPS

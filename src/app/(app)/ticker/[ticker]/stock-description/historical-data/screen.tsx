@@ -21,7 +21,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
 
   return (
     <section className=" space-y-12 pb-12 ">
-      <div className=" flex flex-wrap justify-between gap-3 rounded bg-[#FFF3E9] p-6 dark:bg-primary-base/20 ">
+      <div className=" flex flex-wrap justify-between gap-3 rounded border border-primary-base bg-[#FFF3E9] p-6 dark:bg-primary-base/20 ">
         <div className=" flex flex-col gap-x-4 gap-y-2 md:flex-row md:items-center ">
           <div className=" flex flex-wrap items-center gap-x-3 ">
             <span className=" ">Time Period:</span>
@@ -46,7 +46,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
         </Button>
       </div>
 
-      <div className=" mx-auto grid max-w-[60rem] space-y-5 ">
+      <div className=" mx-auto grid space-y-5 ">
         <div className=" flex justify-between ">
           <span className=" ">Currency in USD</span>
 
@@ -56,9 +56,9 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
         </div>
 
         <div className=" overflow-x-auto ">
-          <table className=" w-full min-w-[45rem] text-sm ">
+          <table className=" dark-mode-border w-full min-w-[45rem] border text-sm ">
             <thead className="  ">
-              <tr className=" border-b font-semibold ">
+              <tr className=" dark-mode-border border-y font-semibold dark:bg-white/20">
                 <td className=" px-2 py-3 ">Date</td>
                 <td className=" px-2 py-3 text-right ">Open</td>
                 <td className=" px-2 py-3 text-right ">High</td>
@@ -74,7 +74,10 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                 .fill(HISTORICAL_DATA)
                 .map((item, index) => {
                   return (
-                    <tr key={`historical-data${index}`} className=" border-b ">
+                    <tr
+                      key={`historical-data${index}`}
+                      className=" dark-mode-border border-b "
+                    >
                       <td className=" px-2 py-3 ">
                         {item.date.toDateString()}
                       </td>

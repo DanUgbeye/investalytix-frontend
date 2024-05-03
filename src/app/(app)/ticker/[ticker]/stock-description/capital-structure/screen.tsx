@@ -39,14 +39,14 @@ export default function CapitalStructureScreen(
   const { ticker } = props;
 
   return (
-    <section className=" grid gap-7 md:grid-cols-[max-content,1fr] pb-12 ">
-      <div className=" w-full space-y-5 border md:min-w-80 ">
-        <div className=" space-y-1 border-b p-4 ">
+    <section className=" grid gap-7 pb-12 md:grid-cols-[max-content,1fr] ">
+      <div className=" dark-mode-border w-full space-y-5 border md:min-w-80 ">
+        <div className=" dark-mode-border space-y-1 border-b p-4 ">
           <h4 className=" text-xl font-semibold ">Capital Structure </h4>
           <p className=" ">Millions in USD</p>
         </div>
 
-        <div className=" grid place-items-center border-b ">
+        <div className=" grid place-items-center ">
           <PieChart width={300} height={300} className=" w-full ">
             <Pie
               data={CAPITAL_STRUCTURE_DATA}
@@ -66,9 +66,9 @@ export default function CapitalStructureScreen(
       </div>
 
       <div className="  ">
-        <table className=" w-full text-sm ">
+        <table className=" w-full max-w-xl text-sm ">
           <thead>
-            <tr className=" border-b font-bold ">
+            <tr className=" font-bold th text-white dark:bg-white/20 ">
               <td className=" px-2 py-3 "></td>
               <td className=" px-2 py-3 ">VALUE</td>
               <td className=" w-fit max-w-40 px-2 py-3 text-right ">
@@ -78,30 +78,32 @@ export default function CapitalStructureScreen(
           </thead>
 
           <tbody className="  ">
-            {[...CAPITAL_STRUCTURE_DATA].map((item, index) =>  {
-                return (
-                  <tr key={`${item.label}-${index}`} className=" odd:bg-neutral-100 dark:odd:bg-transparent ">
-                    <td className=" font-semibold ">
-                      <div className=" flex items-center gap-x-2 ">
-                        <span
-                          className=" size-7 "
-                          style={{ backgroundColor: item.fill }}
-                        />
-                        <span className=" px-2 py-3 ">{item.label}</span>
-                      </div>
-                    </td>
-                    <td className=" px-2 py-3 ">
-                      {item.value.toLocaleString()}
-                    </td>
-                    <td className=" w-fit max-w-40 px-2 py-3 text-right ">
-                      {item.percentage}%
-                    </td>
-                  </tr>
-                );
-              }
-            )}
-            
-            <tr className=" font-semibold odd:bg-neutral-100 dark:odd:bg-transparent ">
+            {[...CAPITAL_STRUCTURE_DATA].map((item, index) => {
+              return (
+                <tr
+                  key={`${item.label}-${index}`}
+                  className=" dark-mode-border odd:bg-neutral-100 dark:border-b dark:odd:bg-transparent "
+                >
+                  <td className=" font-semibold ">
+                    <div className=" flex items-center gap-x-2 px-2 ">
+                      <span
+                        className=" size-7 "
+                        style={{ backgroundColor: item.fill }}
+                      />
+                      <span className=" px-2 py-3 ">{item.label}</span>
+                    </div>
+                  </td>
+
+                  <td className=" px-2 py-3 ">{item.value.toLocaleString()}</td>
+
+                  <td className=" w-fit max-w-40 px-2 py-3 text-right ">
+                    {item.percentage}%
+                  </td>
+                </tr>
+              );
+            })}
+
+            <tr className=" dark-mode-border font-semibold odd:bg-neutral-100 dark:border-b dark:odd:bg-transparent ">
               <td className=" px-2 py-3 ">Total</td>
               <td className=" px-2 py-3 ">
                 {CAPITAL_STRUCTURE_DATA.reduce((acc, current) => {
