@@ -1,10 +1,21 @@
 "use client";
 
 import { Container } from "@/components/container";
+import useInput from "@/hooks/useInput";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FormEvent } from "react";
 import "swiper/css";
 
 export default function Home() {
+  const [query, queryOpts] = useInput("");
+  const router = useRouter();
+
+  function submitHandler(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    router.push(`/ticker/${query}`);
+  }
+
   return (
     <main className="relative h-[90dvh] w-full overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-no-repeat lg:h-[calc(100dvh_-_100px)]">
       <div className="absolute inset-0 z-10 bg-black/50"></div>
@@ -19,7 +30,7 @@ export default function Home() {
               alt=""
             />
           </div>
-          
+
           <div className="z-20 text-white">
             <h1 className="whitespace-nowrap text-6xl font-bold leading-[1.5em] max-xs:text-center md:text-7xl xl:text-8xl">
               Look first /
@@ -32,7 +43,7 @@ export default function Home() {
             </p>
 
             <div className="relative mt-10 h-fit">
-              <div className="absolute bottom-4 left-4 top-4 grid translate-x-1/2 place-content-center bg-white">
+              <div className="absolute bottom-4 left-4 top-4 grid translate-x-1/2 place-content-center">
                 <svg
                   width={16}
                   height={16}
@@ -46,14 +57,17 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              
-              <input
-                type="search"
-                name="search"
-                id="search"
-                placeholder="Search for ticker, quotes & videos"
-                className="w-full rounded-full bg-white py-6 pl-16 pr-6 text-sm font-bold text-black placeholder:text-black"
-              />
+
+              <form onSubmit={submitHandler}>
+                <input
+                  {...queryOpts}
+                  type="search"
+                  name="search"
+                  id="search"
+                  placeholder="Search for ticker, quotes & videos"
+                  className="w-full rounded-full bg-white py-6 pl-16 pr-6 text-sm font-bold text-black placeholder:text-black outline-none"
+                />
+              </form>
             </div>
           </div>
         </div>
