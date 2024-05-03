@@ -2,25 +2,34 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Quote from "@/components/ui/Quote";
 import quotes from "@/mock/quotes";
 import { Autoplay } from "swiper/modules";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 
 export default function QuotesBoard() {
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 10000,
+    autoplaySpeed: 0,
+    cssEase: "linear",
+    variableWidth: true,
+  };
   return (
-    <section className="">
+    <section className="slider-container">
       <div className="mb-4 py-8">
-        <Swiper
-          modules={[Autoplay]}
-          spaceBetween={40}
-          slidesPerView={"auto"}
-          loop
-          freeMode
-          autoplay
-        >
-          {quotes.map((quote) => (
-            <SwiperSlide className="!flex-shrink" key={quote.symbol}>
-              <Quote quote={quote} key={quote.symbol} />
-            </SwiperSlide>
+        <Slider {...settings}>
+          {quotes.map((quote, index) => (
+            <Quote
+              quote={quote}
+              key={quote.symbol}
+              className={`mr-10`}
+            />
           ))}
-        </Swiper>
+        </Slider>
       </div>
     </section>
   );
