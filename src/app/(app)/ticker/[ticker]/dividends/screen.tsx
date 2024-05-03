@@ -75,10 +75,10 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white"></div>
       </header>
 
-      <div className=" space-y-5 border py-3  ">
+      <div className=" dark-mode-border space-y-5 border py-3  ">
         <h4 className=" px-4 text-lg font-bold sm:text-2xl ">Data</h4>
 
-        <div className=" white-text flex flex-col divide-y text-gray-700 xl:flex-row xl:divide-x xl:divide-y-0 ">
+        <div className=" white-text dark-mode-border flex flex-col divide-y divide-inherit text-gray-700 xl:flex-row xl:divide-x xl:divide-y-0 ">
           <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
             <span className=" font-bold ">Last Ex-Dividend Date</span>
             <span className="  ">2023-11-16</span>
@@ -111,8 +111,8 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         </div>
       </div>
 
-      <div className=" border ">
-        <h4 className=" border-b px-4 py-5 text-lg font-bold sm:text-2xl ">
+      <div className=" dark-mode-border border ">
+        <h4 className=" dark-mode-border border-b px-4 py-5 text-lg font-bold sm:text-2xl ">
           Dividend Yield Range
         </h4>
 
@@ -138,7 +138,6 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                   z: 100,
                   fill: tailwindCSS().theme.colors.white,
                   stroke: tailwindCSS().theme.colors.primary.base,
-                  opacity: 1,
                 }}
                 stackId="1"
                 fill={"none"}
@@ -163,40 +162,40 @@ export default function DividendsScreen(props: DividendsScreenProps) {
       </div>
 
       <div className="  ">
-        <h4 className=" border-b py-5 text-lg font-bold sm:text-2xl ">
+        <h4 className=" py-5 text-lg font-bold sm:text-2xl ">
           Dividend History
         </h4>
 
         <div className=" overflow-x-auto ">
-          <table className="w-full min-w-[50rem] ">
+          <table className="dark-mode-border w-full min-w-[50rem] border ">
             <thead>
-              <tr className=" text-sm font-bold ">
+              <tr className=" dark-mode-border border-y text-sm font-bold ">
                 <th className=" p-0 ">
-                  <div className=" border-y bg-black px-2 py-4 text-left text-white dark:bg-white/20">
+                  <div className=" px-2 py-4 text-left dark:bg-white/20">
                     Declaration Date
                   </div>
                 </th>
 
                 <th className=" p-0 ">
-                  <div className=" border-y bg-black px-2 py-4 text-right text-white dark:bg-white/20">
+                  <div className=" px-2 py-4 text-right dark:bg-white/20">
                     Payment Date
                   </div>
                 </th>
 
                 <th className=" p-0 ">
-                  <div className=" border-y bg-black px-2 py-4 text-right text-white dark:bg-white/20">
+                  <div className=" px-2 py-4 text-right dark:bg-white/20">
                     Record Date
                   </div>
                 </th>
 
                 <th className=" p-0 ">
-                  <div className=" border-y bg-black px-2 py-4 text-right text-white dark:bg-white/20">
+                  <div className=" px-2 py-4 text-right dark:bg-white/20">
                     Amount
                   </div>
                 </th>
 
                 <th className=" p-0 ">
-                  <div className=" border-y bg-black px-2 py-4 text-right text-white dark:bg-white/20">
+                  <div className=" px-2 py-4 text-right dark:bg-white/20">
                     Currency
                   </div>
                 </th>
@@ -208,22 +207,19 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                 .fill("")
                 .map((_, index) => {
                   return (
-                    <tr key={`dividends-${index}`} className=" text-sm ">
-                      <td className=" border-y px-2 py-4 text-left ">
-                        02-03-23
-                      </td>
+                    <tr
+                      key={`dividends-${index}`}
+                      className=" dark-mode-border border-y text-sm "
+                    >
+                      <td className=" px-2 py-4 text-left ">02-03-23</td>
 
-                      <td className={` border-y px-2 py-4 text-right`}>
-                        02-03-23
-                      </td>
+                      <td className={` px-2 py-4 text-right`}>02-03-23</td>
 
-                      <td className=" border-y px-2 py-4 text-right ">
-                        02-03-23
-                      </td>
+                      <td className=" px-2 py-4 text-right ">02-03-23</td>
 
-                      <td className=" border-y px-2 py-4 text-right">0.24</td>
+                      <td className=" px-2 py-4 text-right">0.24</td>
 
-                      <td className=" border-y px-2 py-4 text-right">USD</td>
+                      <td className=" px-2 py-4 text-right">USD</td>
                     </tr>
                   );
                 })}

@@ -9,6 +9,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -122,8 +123,8 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               <YAxis />
               <Tooltip />
               <Tooltip />
-              <Bar dataKey="pv" className=" fill-blue-600" />
-              <Bar dataKey="uv" className=" fill-blue-500/50" />
+              <Bar dataKey="pv" fill="#2563eb" />
+              <Bar dataKey="uv" fill="rgb(59 130 246 / 0.5)" />
             </BarChart>
           </ResponsiveContainer>
 
