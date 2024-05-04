@@ -151,7 +151,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             <div className=" overflow-y-auto ">
               <table className="dark-mode-border w-full min-w-[50rem] border ">
                 <thead>
-                  <tr className=" white-text dark-mode-border border-y text-sm font-bold dark:bg-white/20 ">
+                  <tr className=" white-text dark-mode-border border-y text-sm font-bold dark:bg-white/20 th text-white ">
                     <th className=" px-2 py-4 text-left dark:bg-transparent">
                       Report Date
                     </th>

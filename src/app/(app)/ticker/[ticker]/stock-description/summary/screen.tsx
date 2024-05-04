@@ -2,17 +2,8 @@
 
 import Chart from "@/components/Chart";
 import { cn } from "@/lib/utils";
-import chart from "@/mock/chart";
 import NewsCard from "@/modules/news/components/news-card";
 import { useState } from "react";
-import {
-  Area,
-  AreaChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 
 type NewsTab = "dow-jones" | "market";
 
@@ -29,87 +20,87 @@ export default function SummaryScreen(props: SummaryScreenProps) {
   }
 
   return (
-    <section className=" space-y-8 ">
+    <section className=" space-y-8 pb-8 ">
       <div className=" grid grid-cols-1 gap-8 xl:grid-cols-3   ">
         <div className=" w-full ">
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Previous Close</span>
             <span className=" font-bold ">18.29</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Open</span>
             <span className=" font-bold ">18.29</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Bid</span>
             <span className=" font-bold ">20.62 x 2200</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Ask</span>
             <span className=" font-bold ">0.00 x 3200</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Day&apos;s Range</span>
             <span className=" font-bold ">17.68 - 20.09</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">52 Week Range</span>
             <span className=" font-bold ">3.11 - 20.09</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Volume</span>
             <span className=" font-bold ">59,763,221</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Avg. Volume</span>
             <span className=" font-bold ">40,368,106</span>
           </div>
         </div>
 
         <div className=" w-full ">
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Market Cap</span>
             <span className=" font-bold ">18.29</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Beta (5Y Monthly)</span>
             <span className=" font-bold ">18.29</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">PE Ratio (TTM)</span>
             <span className=" font-bold ">N/A</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">EPS (TTM)</span>
             <span className=" font-bold ">-3.08</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Earnings Date</span>
             <span className=" font-bold ">Mar 14, 2024 -Mar 18, 2024</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Forward Dividend & Yield</span>
             <span className=" font-bold ">N/A (N/A)</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Ex-Dividend Date</span>
             <span className=" font-bold ">59,763,221</span>
           </div>
 
-          <div className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 border-b py-2 text-sm ">
+          <div className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 p-2 text-sm odd:bg-gray-50 dark:odd:bg-white/10 ">
             <span className=" ">Avg. Volume</span>
             <span className=" font-bold ">N/A</span>
           </div>
@@ -326,7 +317,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
                   `whitespace-nowrap rounded px-5 py-2 text-center duration-300 hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white `,
                   {
                     "bg-primary-base text-white": newsTab === "market",
-                    "white-text bg-transparent text-[#636363] hover:bg-gray-700 ":
+                    "white-text bg-transparent hover:bg-black/10 hover:text-black dark:hover:bg-gray-700 ":
                       newsTab !== "market",
                   }
                 )}
@@ -341,7 +332,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
                   `whitespace-nowrap rounded px-5 py-2 text-center duration-300 hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white `,
                   {
                     "bg-primary-base text-white": newsTab === "dow-jones",
-                    "white-text bg-transparent text-[#636363] hover:bg-gray-700 ":
+                    "white-text bg-transparent hover:bg-black/10 hover:text-black dark:hover:bg-gray-700 ":
                       newsTab !== "dow-jones",
                   }
                 )}
