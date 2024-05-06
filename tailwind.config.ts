@@ -30,12 +30,25 @@ const config = {
       colors: {
         primary: {
           base: "#FB8B1E",
-          light: "#ffaf5f",
+          light: "#FFAF5F",
         },
         main: {
           blue: { base: "#125BD4", light: "#33548B" },
-          red: { light: "#8B0000", dark: "#ca5a5a" },
+          red: { light: "#8B0000", dark: "#cA5A5A" },
           green: { light: "#006400", dark: "#079516" },
+
+          gray: {
+            50: "#F9FAFB", // dark mode border
+            100: "#F9F9F9", // light mode table row bg
+            200: "#DCDCDC", // light mode border
+            300: "#CCCCCC", // dark mode text
+            400: "",
+            500: "",
+            600: "",
+            700: "#333333", // dark mode table header bg
+            800: "#1D1D1D", // light mode table header bg
+            900: "#191919", // dark mode table row bg
+          },
         },
       },
       keyframes: {
