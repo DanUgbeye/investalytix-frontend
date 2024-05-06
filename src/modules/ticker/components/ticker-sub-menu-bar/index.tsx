@@ -24,7 +24,7 @@ function TickerSubMenuBar(props: TickerSubMenuBarProps) {
             key={`sub-menu-${label}-${index}`}
             href={path}
             className={cn(
-              " rounded-none border-b-2 px-0 py-2 font-bold hover:no-underline ",
+              " rounded-none border-b-2 px-0 py-2 font-bold hover:no-underline min-w-fit ",
               {
                 " border-b-primary-base ": active === path,
                 " border-transparent hover:text-primary-base ": active !== path,

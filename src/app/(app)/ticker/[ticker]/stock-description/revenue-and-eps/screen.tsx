@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, tailwindCSS } from "@/lib/utils";
+import useTheme from "@/store/theme/useTheme";
 import { useState } from "react";
 import {
   Area,
@@ -77,7 +78,7 @@ interface RevenueAndEPSScreenProps {
 
 export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
   const { ticker } = props;
-
+  const { theme } = useTheme();
   const [chartTab, setChartTab] = useState<"Earnings" | "Revenue">("Earnings");
 
   return (
@@ -118,13 +119,29 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
         <div className=" space-y-4 py-5 ">
           <ResponsiveContainer width={"100%"} height={300}>
             <BarChart data={data}>
-              <CartesianGrid vertical={false} strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Tooltip />
+              <CartesianGrid
+                vertical={false}
+                strokeDasharray="3 3"
+                className=" stroke-main-gray-400 dark:stroke-white/40"
+              />
+              <XAxis tickLine={false} dataKey="name" />
+              <YAxis tickLine={false} />
+              <Tooltip
+                cursor={{
+                  className: " fill-main-gray-200/50 dark:fill-white/20 ",
+                }}
+                wrapperClassName={" dark:bg-red-500 "}
+                contentStyle={{
+                  backgroundColor:
+                    theme === "dark"
+                      ? tailwindCSS().theme.colors.main.gray[200]
+                      : "white",
+                  border: "none",
+                }}
+                labelClassName=" text-black "
+              />
               <Bar dataKey="pv" fill="#2563eb" />
-              <Bar dataKey="uv" fill="rgb(59 130 246 / 0.5)" />
+              <Bar dataKey="uv" fill="#1E417B" />
             </BarChart>
           </ResponsiveContainer>
 
@@ -135,7 +152,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             </div>
 
             <div className=" flex items-center gap-x-2 ">
-              <span className=" size-3 rounded-sm bg-blue-500/50 " />
+              <span className=" size-3 rounded-sm bg-[#1E417B] " />
               <span className="  ">Reported EPS</span>
             </div>
           </div>
@@ -148,29 +165,21 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
 
         <div className=" space-y-6 ">
           <div className=" ">
-            <div className=" overflow-y-auto ">
-              <table className="w-full min-w-[50rem] border dark:border-main-gray-600 ">
+            <div className=" overflow-y-auto border dark:border-main-gray-600 ">
+              <table className="w-full min-w-[50rem] ">
                 <thead>
-                  <tr className=" white-text th border-y text-sm font-bold text-white dark:border-main-gray-600 dark:bg-white/20 ">
-                    <th className=" px-2 py-4 text-left dark:bg-transparent">
-                      Report Date
-                    </th>
+                  <tr className=" th  text-sm font-bold ">
+                    <th className=" px-2 py-4 text-left ">Report Date</th>
 
-                    <th className=" px-2 py-4 text-right dark:bg-transparent">
-                      Fiscal Quarter
-                    </th>
+                    <th className=" px-2 py-4 text-right ">Fiscal Quarter</th>
 
-                    <th className=" px-2 py-4 text-right dark:bg-transparent">
-                      Forecast/EPS
-                    </th>
+                    <th className=" px-2 py-4 text-right ">Forecast/EPS</th>
 
-                    <th className=" px-2 py-4 text-right dark:bg-transparent">
+                    <th className=" px-2 py-4 text-right ">
                       Last Year&apos;s EPS
                     </th>
 
-                    <th className=" px-2 py-4 text-right dark:bg-transparent">
-                      EPS YoY Change
-                    </th>
+                    <th className=" px-2 py-4 text-right ">EPS YoY Change</th>
                   </tr>
                 </thead>
 
@@ -181,17 +190,17 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       return (
                         <tr
                           key={`earning-history-${index}`}
-                          className=" border-y text-sm dark:border-main-gray-600 "
+                          className=" text-sm even:bg-main-gray-100  dark:even:bg-main-gray-900 "
                         >
-                          <td className=" white-text px-2 py-4 text-left ">
+                          <td className=" px-2 py-4 text-left ">
                             {item.reportDate.toDateString()}
                           </td>
 
-                          <td className={` white-text px-2 py-4 text-right`}>
+                          <td className={` px-2 py-4 text-right`}>
                             {item.fiscalQuarter}
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right">
+                          <td className=" px-2 py-4 text-right">
                             <span className=" ">{item.forecast}</span>/
                             <span
                               className={cn({
@@ -205,11 +214,11 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                             </span>
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right">
+                          <td className=" px-2 py-4 text-right">
                             {item.lastYear}
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right">
+                          <td className=" px-2 py-4 text-right">
                             {item.yoyChangePercentage.toPrecision(2)}% (
                             {item.yoyChange > 0 && "+"}
                             {item.yoyChange.toPrecision(2)})
@@ -221,7 +230,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               </table>
             </div>
 
-            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-6 text-xs dark:bg-white/10  ">
+            <div className=" flex flex-wrap items-center gap-x-10 gap-y-2 border bg-main-gray-300 px-4 py-6 text-xs dark:border-main-gray-600 dark:bg-white/10  ">
               <div className="  ">
                 The table shows recent earnings report dates and whether the
                 forecast was beat or missed. See the change in forecast and EPS
@@ -254,10 +263,10 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
 
         <div className=" space-y-6 ">
           <div className=" ">
-            <div className=" overflow-y-auto ">
-              <table className="w-full min-w-[50rem] border dark:border-main-gray-600 ">
+            <div className=" overflow-y-auto border dark:border-main-gray-600 ">
+              <table className="w-full min-w-[50rem] ">
                 <thead>
-                  <tr className=" white-text border-y text-sm font-semibold dark:border-main-gray-600 dark:bg-white/20 ">
+                  <tr className=" th text-sm font-semibold dark:bg-white/20 ">
                     <th className=" px-2 py-4 text-left ">Report Date</th>
 
                     <th className=" px-2 py-4 text-right ">Fiscal Quarter</th>
@@ -281,25 +290,25 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       return (
                         <tr
                           key={`revenue-history-${index}`}
-                          className=" border-y text-sm dark:border-main-gray-600 "
+                          className=" text-sm even:bg-main-gray-100  dark:even:bg-main-gray-900 "
                         >
-                          <td className=" white-text px-2 py-4 text-left ">
+                          <td className=" px-2 py-4 text-left ">
                             {item.reportDate.toDateString()}
                           </td>
 
-                          <td className={` white-text px-2 py-4 text-right`}>
+                          <td className={` px-2 py-4 text-right`}>
                             {item.fiscalQuarter}
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right">
+                          <td className=" px-2 py-4 text-right">
                             {item.current || "-"}
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right">
+                          <td className=" px-2 py-4 text-right">
                             {item.lastYear}
                           </td>
 
-                          <td className=" white-text px-2 py-4 text-right">
+                          <td className=" px-2 py-4 text-right">
                             {item.yoyChangePercentage.toPrecision(2)}% (
                             {item.yoyChange > 0 && "+"}
                             {item.yoyChange.toPrecision(2)})
@@ -311,7 +320,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               </table>
             </div>
 
-            <div className="  flex flex-wrap items-center gap-x-10 gap-y-2 bg-[#F9FAFB] px-4 py-6 text-xs dark:bg-white/10  ">
+            <div className=" flex flex-wrap items-center gap-x-10 gap-y-2 border bg-main-gray-300 px-4 py-6 text-xs dark:border-main-gray-600 dark:bg-white/10  ">
               <div className="  ">
                 The table shows recent earnings report dates and whether the
                 forecast was beat or missed. See the change in forecast and EPS
@@ -343,8 +352,8 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                 </linearGradient>
               </defs>
 
-              <XAxis dataKey="name" />
-              <YAxis />
+              <XAxis tickLine={false} dataKey="name" />
+              <YAxis tickLine={false} />
               {/* <CartesianGrid ver strokeDasharray="3 3" /> */}
               <Tooltip />
 

@@ -21,7 +21,7 @@ input[type="number"] {
 }
 
 .th {
-  @apply bg-[#1D1D1D] p-2 text-sm font-extrabold dark:bg-[#191919];
+  @apply bg-main-gray-800 text-sm font-extrabold text-white dark:bg-main-gray-700 dark:text-main-gray-300;
 }
 
 .white-text {

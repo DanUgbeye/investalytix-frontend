@@ -72,7 +72,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
           </h2>
         </div>
 
-        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white"></div>
+        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white/50 "></div>
       </header>
 
       <div className=" space-y-5 border py-3 dark:border-main-gray-600  ">
@@ -127,9 +127,13 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                 bottom: 0,
               }}
             >
-              <CartesianGrid vertical={false} strokeDasharray="10" />
+              <CartesianGrid
+                vertical={false}
+                strokeDasharray="3 3"
+                className=" stroke-main-gray-400 dark:stroke-white/40"
+              />
               <XAxis dataKey="name" tickLine={false} />
-              <YAxis orientation="right" tickLine={false} />
+              <YAxis tickLine={false} />
               <Tooltip />
               <Area
                 dataKey="pv"
@@ -166,38 +170,28 @@ export default function DividendsScreen(props: DividendsScreenProps) {
           Dividend History
         </h4>
 
-        <div className=" overflow-x-auto ">
-          <table className="w-full min-w-[50rem] border dark:border-main-gray-600 ">
+        <div className=" overflow-x-auto border dark:border-main-gray-600 ">
+          <table className="w-full min-w-[50rem] ">
             <thead>
-              <tr className=" border-y text-sm font-bold dark:border-main-gray-600 ">
+              <tr className=" th text-sm font-bold ">
                 <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-left dark:bg-white/20">
-                    Declaration Date
-                  </div>
+                  <div className=" px-2 py-4 text-left ">Declaration Date</div>
                 </th>
 
                 <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-right dark:bg-white/20">
-                    Payment Date
-                  </div>
+                  <div className=" px-2 py-4 text-right ">Payment Date</div>
                 </th>
 
                 <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-right dark:bg-white/20">
-                    Record Date
-                  </div>
+                  <div className=" px-2 py-4 text-right ">Record Date</div>
                 </th>
 
                 <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-right dark:bg-white/20">
-                    Amount
-                  </div>
+                  <div className=" px-2 py-4 text-right ">Amount</div>
                 </th>
 
                 <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-right dark:bg-white/20">
-                    Currency
-                  </div>
+                  <div className=" px-2 py-4 text-right ">Currency</div>
                 </th>
               </tr>
             </thead>
@@ -209,7 +203,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                   return (
                     <tr
                       key={`dividends-${index}`}
-                      className=" border-y text-sm dark:border-main-gray-600 "
+                      className=" text-sm even:bg-main-gray-100 dark:even:bg-main-gray-900 "
                     >
                       <td className=" px-2 py-4 text-left ">02-03-23</td>
 

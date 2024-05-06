@@ -65,10 +65,10 @@ export default function CapitalStructureScreen(
         </div>
       </div>
 
-      <div className="  ">
-        <table className=" w-full max-w-xl text-sm ">
+      <div className=" h-fit w-full max-w-xl overflow-x-auto border dark:border-main-gray-600 ">
+        <table className=" w-full text-sm ">
           <thead>
-            <tr className=" th font-bold text-white dark:bg-white/20 ">
+            <tr className=" th font-bold ">
               <td className=" px-2 py-3 "></td>
               <td className=" px-2 py-3 ">VALUE</td>
               <td className=" w-fit max-w-40 px-2 py-3 text-right ">
@@ -82,7 +82,7 @@ export default function CapitalStructureScreen(
               return (
                 <tr
                   key={`${item.label}-${index}`}
-                  className=" odd:bg-neutral-100 dark:border-b dark:border-main-gray-600 dark:odd:bg-transparent "
+                  className=" even:bg-main-gray-100 dark:border-main-gray-600  dark:even:bg-main-gray-900 "
                 >
                   <td className=" font-semibold ">
                     <div className=" flex items-center gap-x-2 px-2 ">
@@ -103,7 +103,7 @@ export default function CapitalStructureScreen(
               );
             })}
 
-            <tr className=" font-semibold odd:bg-neutral-100 dark:border-b dark:border-main-gray-600 dark:odd:bg-transparent ">
+            <tr className=" font-bold even:bg-main-gray-100 dark:border-main-gray-600 dark:even:bg-main-gray-900  ">
               <td className=" px-2 py-3 ">Total</td>
               <td className=" px-2 py-3 ">
                 {CAPITAL_STRUCTURE_DATA.reduce((acc, current) => {

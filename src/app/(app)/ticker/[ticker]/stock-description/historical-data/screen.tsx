@@ -47,18 +47,18 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
       </div>
 
       <div className=" mx-auto grid space-y-5 ">
-        <div className=" flex justify-between ">
-          <span className=" ">Currency in USD</span>
+        <div className=" flex items-center justify-between ">
+          <span className=" font-semibold ">Currency in USD</span>
 
           <Button variant={"outline-orange"} className=" border-none ">
             Download
           </Button>
         </div>
 
-        <div className=" overflow-x-auto ">
-          <table className=" w-full min-w-[45rem] border text-sm dark:border-main-gray-600 ">
+        <div className=" overflow-x-auto border dark:border-main-gray-600 ">
+          <table className=" w-full min-w-[45rem] text-sm ">
             <thead className="  ">
-              <tr className=" border-y font-semibold dark:border-main-gray-600 dark:bg-white/20">
+              <tr className=" th font-semibold even:bg-main-gray-100  dark:bg-white/20 dark:even:bg-main-gray-900">
                 <td className=" px-2 py-3 ">Date</td>
                 <td className=" px-2 py-3 text-right ">Open</td>
                 <td className=" px-2 py-3 text-right ">High</td>
@@ -76,7 +76,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   return (
                     <tr
                       key={`historical-data${index}`}
-                      className=" border-b dark:border-main-gray-600 "
+                      className=" even:bg-main-gray-100  dark:even:bg-main-gray-900 "
                     >
                       <td className=" px-2 py-3 ">
                         {item.date.toDateString()}

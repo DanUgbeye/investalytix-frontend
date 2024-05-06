@@ -75,10 +75,10 @@ export default function HoldersScreen(props: HoldersScreenProps) {
       <div className=" space-y-3 ">
         <h3 className=" text-2xl font-extrabold ">Top Institutional Holders</h3>
 
-        <div className=" overflow-x-auto ">
-          <table className=" w-full min-w-[50rem] border text-xs dark:border-main-gray-600 ">
+        <div className=" overflow-x-auto border dark:border-main-gray-600 ">
+          <table className=" w-full min-w-[50rem] text-xs ">
             <thead className="  ">
-              <tr className=" border-b font-semibold dark:border-main-gray-600 dark:bg-white/20 ">
+              <tr className=" th font-semibold dark:bg-white/20 ">
                 <td className=" px-2 py-3 ">Name</td>
                 <td className=" px-2 py-3 text-right ">% Total Shares Held</td>
                 <td className=" px-2 py-3 text-right ">
@@ -99,7 +99,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                 return (
                   <tr
                     key={`institutional-holder-${item.name}-${index}`}
-                    className=" border-b dark:border-main-gray-600 "
+                    className="even:bg-main-gray-100  dark:even:bg-main-gray-900 "
                   >
                     <td className=" px-2 py-3 font-medium ">{item.name}</td>
 
@@ -152,10 +152,10 @@ export default function HoldersScreen(props: HoldersScreenProps) {
       <div className=" space-y-3 ">
         <h3 className=" text-2xl font-extrabold ">Top Mutual Fund Holders</h3>
 
-        <div className=" overflow-x-auto ">
-          <table className=" w-full min-w-[50rem] border text-xs dark:border-main-gray-600 ">
+        <div className=" overflow-x-auto border dark:border-main-gray-600 ">
+          <table className=" w-full min-w-[50rem] text-xs ">
             <thead className="  ">
-              <tr className=" border-b font-semibold dark:border-main-gray-600 dark:bg-white/20 ">
+              <tr className=" th font-semibold dark:bg-white/20 ">
                 <td className=" px-2 py-3 ">Name</td>
                 <td className=" px-2 py-3 text-right ">% Total Shares Held</td>
                 <td className=" px-2 py-3 text-right ">
@@ -176,7 +176,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                 return (
                   <tr
                     key={`mutual-fund-holder-${item.name}-${index}`}
-                    className=" border-b dark:border-main-gray-600 "
+                    className=" even:bg-main-gray-100  dark:even:bg-main-gray-900 "
                   >
                     <td className=" px-2 py-3 font-medium ">{item.name}</td>
 

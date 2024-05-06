@@ -1,6 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { tailwindCSS } from "@/lib/utils";
+import useTheme from "@/store/theme/useTheme";
 import {
   Bar,
   BarChart,
@@ -173,6 +175,7 @@ export default function AnalystRecommendationScreen(
   props: AnalystRecommendationScreenProps
 ) {
   const { ticker } = props;
+  const { theme } = useTheme();
 
   return (
     <section className=" space-y-10 py-5 ">
@@ -344,10 +347,27 @@ export default function AnalystRecommendationScreen(
               data={recommendation_trends_data}
               className=" !-ml-6"
             >
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid
+                vertical={false}
+                strokeDasharray="3 3"
+                className=" stroke-main-gray-400 dark:stroke-white/40"
+              />
               <XAxis tickLine={false} dataKey="name" />
               <YAxis tickLine={false} />
-              <Tooltip />
+              <Tooltip
+                cursor={{
+                  className: " fill-main-gray-200/50 dark:fill-white/20 ",
+                }}
+                wrapperClassName={" dark:bg-red-500 "}
+                contentStyle={{
+                  backgroundColor:
+                    theme === "dark"
+                      ? tailwindCSS().theme.colors.main.gray[200]
+                      : "white",
+                  border: "none",
+                }}
+                labelClassName=" text-black "
+              />
               <Legend iconType="circle" />
               <Bar
                 dataKey="strongSell"
@@ -395,10 +415,10 @@ export default function AnalystRecommendationScreen(
         </h5>
 
         <div className=" space-y-20 ">
-          <div className=" overflow-x-auto ">
-            <table className="w-full min-w-[50rem] border dark:border-main-gray-600 ">
+          <div className=" overflow-x-auto border dark:border-main-gray-600 ">
+            <table className="w-full min-w-[50rem] ">
               <thead>
-                <tr className=" border-y text-sm font-bold dark:border-main-gray-600 dark:bg-white/20 ">
+                <tr className=" th text-sm font-bold dark:bg-white/20 ">
                   <th className=" px-2 py-4 text-left ">Date</th>
 
                   <th className=" px-2 py-4 text-left ">Company</th>
@@ -418,7 +438,7 @@ export default function AnalystRecommendationScreen(
                   return (
                     <tr
                       key={`forecast-${index}`}
-                      className=" border-y text-sm dark:border-main-gray-600 "
+                      className=" text-sm even:bg-main-gray-100  dark:even:bg-main-gray-900 "
                     >
                       <td className=" white-text px-2 py-4 text-left text-[#333333]">
                         {item.date.toDateString()}

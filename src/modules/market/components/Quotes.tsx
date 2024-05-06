@@ -42,7 +42,7 @@ export default function Quotes({
     <table className="w-full table-auto">
       <thead>
         <tr className="text-white dark:text-white/80">
-          <th className="th text-left uppercase">{fields[0].label}</th>
+          <th className="th p-2 text-left uppercase">{fields[0].label}</th>
           {fields.slice(1).map((field) => (
             <th key={field.label} className="th text-right uppercase">
               {field.label}

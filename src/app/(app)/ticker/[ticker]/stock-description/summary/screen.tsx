@@ -328,7 +328,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
               <button
                 type="button"
                 className={cn(
-                  `whitespace-nowrap rounded bg-primary-base px-5 py-2 text-center  text-white duration-300`,
+                  `whitespace-nowrap rounded bg-primary-base px-5 py-2 text-center text-white duration-300`,
                   {
                     " bg-transparent text-black hover:bg-black/10 dark:text-main-gray-300 dark:hover:bg-main-gray-700 ":
                       newsTab !== "dow-jones",
