@@ -7,7 +7,7 @@ export default function CalendarLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container>      
+    <Container>
       <div className="py-10">
         <h1 className="white-text mb-7 border-b-[6px] border-primary-base pb-5 text-center text-3xl font-extrabold">
           ECONOMIC CALENDAR

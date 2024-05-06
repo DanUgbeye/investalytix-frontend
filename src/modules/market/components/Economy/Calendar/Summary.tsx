@@ -152,56 +152,56 @@ export default function Summary() {
       <table className="w-full table-auto">
         <thead>
           <tr className="white-text text-left text-[#212529]">
-            <th className="whitespace-nowrap border-b border-b-[#DEE2E6] dark:border-b-[#191919]  bg-[#F5F5F5] p-2 font-normal dark:bg-transparent">
+            <th className="whitespace-nowrap border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent">
               Tuesday March 12 2024
             </th>
-            <th className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  bg-[#F5F5F5] p-2 font-normal dark:bg-transparent"></th>
-            <th className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  bg-[#F5F5F5] p-2 font-normal dark:bg-transparent"></th>
-            <th className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  bg-[#F5F5F5] p-2 font-normal dark:bg-transparent">
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent"></th>
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent"></th>
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent">
               Actual
             </th>
-            <th className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  bg-[#F5F5F5] p-2 font-normal dark:bg-transparent">
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent">
               Previous
             </th>
-            <th className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  bg-[#F5F5F5] p-2 font-normal dark:bg-transparent">
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent">
               Consensus
             </th>
-            <th className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  bg-[#F5F5F5] p-2 font-normal dark:bg-transparent">
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent">
               Forecast
             </th>
-            <th className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  bg-[#F5F5F5] p-2 font-normal dark:bg-transparent"></th>
-            <th className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  bg-[#F5F5F5] p-2 font-normal dark:bg-transparent"></th>
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent"></th>
+            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent"></th>
           </tr>
         </thead>
 
         <tbody>
           {mockNews.map((news, index) => (
             <tr key={index} className="white-text text-left text-[#212529]">
-              <td className="whitespace-nowrap border-b border-b-[#DEE2E6] dark:border-b-[#191919]  p-2 font-normal">
+              <td className="whitespace-nowrap border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
                 {moment(news.time).format("HH:MM A")}
               </td>
-              <td className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  p-2 font-normal">
+              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
                 <span className="flex items-center gap-1 px-10">
                   <FiFlag />
                   {news.country}
                 </span>
               </td>
-              <td className="border-b border-b-[#DEE2E6] dark:border-b-[#191919] p-2 font-normal">
+              <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-[#191919]">
                 {news.name}
               </td>
-              <td className="border-b border-b-[#DEE2E6] dark:border-b-[#191919] p-2 font-normal">
+              <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-[#191919]">
                 <ColoredNumber number={news.actual} />
               </td>
-              <td className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  p-2 font-normal">
+              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
                 <ColoredNumber number={news.previous} />
               </td>
-              <td className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  p-2 font-normal">
+              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
                 {news.consensus && <ColoredNumber number={news.consensus} />}
               </td>
-              <td className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  p-2 font-normal">
+              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
                 <ColoredNumber number={news.forecast} colored={false} />
               </td>
-              <td className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  p-2 font-normal">
+              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
                 <Popover className="relative">
                   <Popover.Button>
                     <svg
@@ -241,7 +241,7 @@ export default function Summary() {
                   </Popover.Button>
 
                   <Popover.Panel className="absolute right-0 z-10 block ">
-                    <div className="grid h-full w-[30vw] bg-white p-2 shadow dark:shadow-none dark:border dark:border-[#191919] dark:bg-black ">
+                    <div className="grid h-full w-[30vw] bg-white p-2 shadow dark:border dark:border-[#191919] dark:bg-black dark:shadow-none ">
                       <ResponsiveContainer className="min-h-20 md:min-h-40">
                         <BarChart data={data}>
                           <XAxis
@@ -274,7 +274,7 @@ export default function Summary() {
                   </Popover.Panel>
                 </Popover>
               </td>
-              <td className="border-b border-b-[#DEE2E6] dark:border-b-[#191919]  p-2 font-normal">
+              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
                 <svg
                   width={14}
                   height={16}

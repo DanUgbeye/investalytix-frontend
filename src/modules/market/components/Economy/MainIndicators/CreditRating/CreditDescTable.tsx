@@ -4,7 +4,7 @@ export default function CreditDescTable() {
   return (
     <table className="w-full">
       <thead>
-        <tr className="text-[#212529] white-text">
+        <tr className="white-text text-[#212529]">
           <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
             TE
           </th>
@@ -25,21 +25,21 @@ export default function CreditDescTable() {
       <tbody>
         {creditRating.map((rating, index) => (
           <tr key={index}>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333] white-text">
+            <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333]">
               {rating.TE}
             </td>
             <td
-              className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text`}
+              className={`white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]`}
             >
               {rating["S&P"]}
             </td>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
+            <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]">
               {rating["Moody's"]}
             </td>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
+            <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]">
               {rating["DBRS"]}
             </td>
-            <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-center text-sm text-[#212529] white-text">
+            <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-center text-sm text-[#212529]">
               {rating.description}
             </td>
           </tr>

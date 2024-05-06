@@ -12,26 +12,26 @@ export default function Futures({
       <table className="w-full table-fixed">
         <thead>
           <tr className="">
-            <th className="border border-[#E1E6EF] dark:border-white/30 bg-[#020224] p-3 text-center text-sm font-bold text-[#F8F7F7]  dark:bg-white/10">
+            <th className="border border-[#E1E6EF] bg-[#020224] p-3 text-center text-sm font-bold text-[#F8F7F7] dark:border-white/30  dark:bg-white/10">
               {isFairValue ? "FV CLOSE" : "IND CLOSE"}
             </th>
-            <th className="border border-[#E1E6EF] dark:border-white/30 bg-[#020224] p-3 text-center text-sm font-bold text-[#F8F7F7]  dark:bg-white/10">
+            <th className="border border-[#E1E6EF] bg-[#020224] p-3 text-center text-sm font-bold text-[#F8F7F7] dark:border-white/30  dark:bg-white/10">
               FUTURE
             </th>
-            <th className="border border-[#E1E6EF] dark:border-white/30 bg-[#020224] p-3 text-center text-sm font-bold text-[#F8F7F7]  dark:bg-white/10">
+            <th className="border border-[#E1E6EF] bg-[#020224] p-3 text-center text-sm font-bold text-[#F8F7F7] dark:border-white/30  dark:bg-white/10">
               {isFairValue ? "IML OPEN" : "CHANGE"}
             </th>
           </tr>
         </thead>
         <tbody>
           <tr className="w-auto">
-            <td className="white-text border border-[#E1E6EF] dark:border-white/30 p-3 text-center text-sm font-bold  text-[#636363]">
+            <td className="white-text border border-[#E1E6EF] p-3 text-center text-sm font-bold text-[#636363]  dark:border-white/30">
               37,656.52
             </td>
-            <td className="white-text border border-[#E1E6EF] dark:border-white/30 p-3 text-center text-sm font-bold  text-[#636363]">
+            <td className="white-text border border-[#E1E6EF] p-3 text-center text-sm font-bold text-[#636363]  dark:border-white/30">
               37,945
             </td>
-            <td className="white-text border border-[#E1E6EF] dark:border-white/30 p-3 text-center text-sm font-bold  text-[#636363]">
+            <td className="white-text border border-[#E1E6EF] p-3 text-center text-sm font-bold text-[#636363]  dark:border-white/30">
               -61
             </td>
           </tr>

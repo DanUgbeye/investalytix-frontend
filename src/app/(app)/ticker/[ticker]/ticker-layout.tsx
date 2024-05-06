@@ -25,7 +25,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
       <Container className=" grid min-h-[calc(100dvh-5rem)] max-w-[110rem] grid-cols-1 grid-rows-[auto,1fr] p-0 sm:p-0 md:grid-rows-1 xl:p-0 ">
         <DesktopTickerNav
           ticker={ticker}
-          className=" sticky top-[88px] col-start-1 row-start-1 hidden h-[calc(100dvh-88px)] w-[15rem] overflow-y-auto lg:flex mb-8 "
+          className=" sticky top-[88px] col-start-1 row-start-1 mb-8 hidden h-[calc(100dvh-88px)] w-[15rem] overflow-y-auto lg:flex "
         />
 
         <MobileTickerNav

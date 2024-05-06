@@ -105,26 +105,26 @@ export default function Stats() {
       <div className="">
         <div className="flex max-md:flex-col-reverse md:justify-between">
           <div>
-            <h1 className="text-xl font-bold text-[#1D1D1D] white-text">
+            <h1 className="white-text text-xl font-bold text-[#1D1D1D]">
               U.S. 30 Year Treasury
             </h1>
-            <p className="text-lg text-[#747474] white-text/80">
+            <p className="white-text/80 text-lg text-[#747474]">
               US30Y:Tradeweb
             </p>
-            <p className="mt-2 text-sm text-[#BABABA] white-text/50">
+            <p className="white-text/50 mt-2 text-sm text-[#BABABA]">
               RT Quote | Exchange
             </p>
-            <p className="mt-5 text-sm font-bold text-[#171717] white-text">
+            <p className="white-text mt-5 text-sm font-bold text-[#171717]">
               Yield | 11:06 AM EST
             </p>
-            <p className="mt-3 text-5xl font-bold text-[#171717] white-text">
+            <p className="white-text mt-3 text-5xl font-bold text-[#171717]">
               4.306%{" "}
               <span className="text-3xl font-bold text-[#008456]">+0.001</span>
             </p>
           </div>
 
           <div className="flex h-fit flex-wrap gap-5 max-md:mb-5">
-            <button className="flex items-center gap-3 border border-[#002F6C] fill-[#002F6C] px-4 py-3 text-xs font-bold text-[#002F6C] dark:border-white dark:fill-white white-text">
+            <button className="white-text flex items-center gap-3 border border-[#002F6C] fill-[#002F6C] px-4 py-3 text-xs font-bold text-[#002F6C] dark:border-white dark:fill-white">
               EXPORT
               <svg
                 width={13}
@@ -171,11 +171,11 @@ export default function Stats() {
                 </defs>
               </svg>
             </button>
-            <button className="flex items-center gap-3 border border-[#002F6C] px-4 py-3 text-xs font-bold text-[#002F6C] dark:border-white white-text">
+            <button className="white-text flex items-center gap-3 border border-[#002F6C] px-4 py-3 text-xs font-bold text-[#002F6C] dark:border-white">
               WATCHLIST
               <FiPlus className="h-4 w-4" />
             </button>
-            <button className="flex items-center gap-3 border border-[#002F6C] text-xs font-bold text-[#002F6C] dark:border-white white-text">
+            <button className="white-text flex items-center gap-3 border border-[#002F6C] text-xs font-bold text-[#002F6C] dark:border-white">
               <div className="m-1 flex items-center gap-1 bg-[#CE2B2B] p-2 text-white">
                 LIVE
                 <MdOutlinePlayCircle className="h-4 w-4" />
@@ -205,7 +205,7 @@ export default function Stats() {
                       <button
                         className={`w-full border-b-2 pb-2 text-lg font-bold uppercase ${
                           selected
-                            ? "border-primary-base text-[#252525] white-text"
+                            ? "white-text border-primary-base text-[#252525]"
                             : "border-[#C4C4C4] text-[#747474] dark:text-[#C4C4C4]"
                         }`}
                       >
@@ -220,103 +220,103 @@ export default function Stats() {
             <Tab.Panels>
               <Tab.Panel>
                 <div className="">
-                  <p className="mb-1 font-bold text-[#002F6C] white-text">
+                  <p className="white-text mb-1 font-bold text-[#002F6C]">
                     KEY STATS
                   </p>
                   <div className="grid gap-x-6 sm:grid-cols-2 md:grid-cols-3">
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         Yield Open
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.open}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         Price
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.price}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         Price Day High
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.dayHigh}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         Yield Day High
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.dayHigh}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         Price Change
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.change}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         price Day Low
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.dayLow}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         yield Day Low
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.dayLow}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         Price Change %
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.changesPercentage}%
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         Coupon
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.marketCap}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         Yield Prev Close
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.previousClose}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         Price Prev Close
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {summary.previousClose}
                       </p>
                     </div>
                     <div className="flex items-center justify-between border-b border-[#D9D9D9] py-3">
-                      <p className="capitalize text-[#747474] white-text/60">
+                      <p className="white-text/60 capitalize text-[#747474]">
                         Maturity
                       </p>
-                      <p className="font-bold text-[#171717] white-text">
+                      <p className="white-text font-bold text-[#171717]">
                         {formatTimestamp(summary.timestamp)}
                       </p>
                     </div>
@@ -332,7 +332,7 @@ export default function Stats() {
 
         {/* Latest On U.S. 30 Year Treasury */}
         <div className="">
-          <p className="text-xl font-bold text-[#1D1D1D] white-text">
+          <p className="white-text text-xl font-bold text-[#1D1D1D]">
             Latest On U.S. 30 Year Treasury
           </p>
 
@@ -382,7 +382,7 @@ export default function Stats() {
 
         {/* Sponsored Financial Content */}
         <div className="">
-          <p className="text-xl font-bold text-[#1D1D1D] white-text">
+          <p className="white-text text-xl font-bold text-[#1D1D1D]">
             Sponsored Financial Content
           </p>
 
@@ -394,7 +394,7 @@ export default function Stats() {
               >
                 <p className="">{content.heading}</p>
 
-                <p className="ml-6 text-xs font-bold text-[#636363] white-text/60">
+                <p className="white-text/60 ml-6 text-xs font-bold text-[#636363]">
                   {content.source}
                 </p>
               </div>
@@ -406,7 +406,7 @@ export default function Stats() {
         <Divider />
 
         <div className="">
-          <p className="text-xl font-bold text-[#1D1D1D] white-text">
+          <p className="white-text text-xl font-bold text-[#1D1D1D]">
             Content From Our Affiliates
           </p>
           <p className="mt-3">There is no recent news for this security.</p>

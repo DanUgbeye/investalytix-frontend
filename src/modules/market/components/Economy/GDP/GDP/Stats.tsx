@@ -7,7 +7,7 @@ export default function Stats() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] white-text">
+        <p className="white-text text-[#636363]">
           The Gross Domestic Product (GDP) in the United States was worth
           25439.70 billion US dollars in 2022, according to official data from
           the World Bank. The GDP value of the United States represents 10.91
@@ -33,7 +33,7 @@ export default function Stats() {
 
         <GDP />
 
-        <p className="mt-8 w-full border border-[#DDDDDDDD] px-4 py-5 text-[#333333] white-text">
+        <p className="white-text mt-8 w-full border border-[#DDDDDDDD] px-4 py-5 text-[#333333]">
           This page displays a table with actual values, consensus figures,
           forecasts, statistics and historical data charts for Unemployment
           Rate. This page provides values for Unemployment Rate reported in

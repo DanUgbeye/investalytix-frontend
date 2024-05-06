@@ -26,7 +26,7 @@ export default function RatioTable(props: RatioTableProps) {
           return (
             <div
               key={`${item.label}-${index}`}
-              className=" dark-mode-border grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-3 text-sm even:bg-gray-50 dark:border-b dark:even:bg-transparent "
+              className=" grid grid-cols-[1fr,auto] items-center justify-between gap-x-3 px-2 py-3 text-sm even:bg-gray-50 dark:border-b dark:border-main-gray-600 dark:even:bg-transparent "
             >
               <span className=" ">{item.label}</span>
               <span className=" font-bold ">{item.value}</span>

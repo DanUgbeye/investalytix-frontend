@@ -173,7 +173,7 @@ export default function LoginScreen() {
             </Button>
           </form>
 
-          <p className="mb-6 mt-8 text-[#4F566B] white-text">
+          <p className="white-text mb-6 mt-8 text-[#4F566B]">
             Don&apos;t have an account?{" "}
             <Link
               href={PAGES.SIGNUP}
@@ -183,7 +183,7 @@ export default function LoginScreen() {
             </Link>
           </p>
 
-          <p className="text-[#697386] white-text">
+          <p className="white-text text-[#697386]">
             &copy; Investalytix · Contact · Privacy & terms
           </p>
         </div>

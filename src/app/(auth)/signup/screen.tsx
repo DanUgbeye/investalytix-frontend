@@ -249,11 +249,11 @@ export default function SignupScreen() {
             </p>
           </form>
 
-          <p className="mb-6 mt-8 text-[#4F566B] white-text">
+          <p className="white-text mb-6 mt-8 text-[#4F566B]">
             This Site is protected by reCAPTCHA
           </p>
 
-          <p className="text-[#697386] white-text">
+          <p className="white-text text-[#697386]">
             &copy; Investalytix · Contact · Privacy & terms
           </p>
         </div>

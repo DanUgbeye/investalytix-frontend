@@ -425,7 +425,7 @@ function YieldTable() {
         {quotes.map((quote) => (
           <tr
             key={quote.symbol}
-            className="white-text text-black even:bg-[#F9F9F9] dark:even:bg-transparent dark:border-b dark:border-b-white/10"
+            className="white-text text-black even:bg-[#F9F9F9] dark:border-b dark:border-b-white/10 dark:even:bg-transparent"
           >
             <td className="p-2 text-left text-sm font-bold uppercase">
               {quote.symbol}

@@ -36,7 +36,7 @@ export default function RelatedTable() {
     <div className="border border-[#DEE2E6]">
       <table className="w-full">
         <thead>
-          <tr className="text-[#212529] white-text">
+          <tr className="white-text text-[#212529]">
             <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
               Related
             </th>
@@ -57,22 +57,22 @@ export default function RelatedTable() {
         <tbody>
           {related.map((entry, index) => (
             <tr key={entry.related.replaceAll(" ", "-")}>
-              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333] white-text">
+              <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333]">
                 {entry.related}
               </td>
               <td
-                className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text`}
+                className={`white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]`}
               >
                 {entry.last}
               </td>
 
-              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
+              <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]">
                 {entry.previous}
               </td>
-              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
+              <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]">
                 {entry.unit}
               </td>
-              <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
+              <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]">
                 {entry.reference}
               </td>
             </tr>

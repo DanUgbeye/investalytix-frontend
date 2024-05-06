@@ -13,7 +13,7 @@ export default function NewsScreen(props: NewsScreenProps) {
     <section className=" py-12 ">
       <div className=" grid gap-10 xl:grid-cols-[3fr,2fr] ">
         {/* KEY DATA */}
-        <div className=" dark-mode-border w-full space-y-4 xl:border xl:px-4 xl:py-8 ">
+        <div className=" w-full space-y-4 xl:border xl:px-4 xl:py-8 dark:border-main-gray-600 ">
           <header className="relative w-full ">
             <div className=" flex w-full py-4 ">
               <h3 className=" white-text text-2xl font-bold text-[#2A3037]">
@@ -24,7 +24,7 @@ export default function NewsScreen(props: NewsScreenProps) {
             <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white/30"></div>
           </header>
 
-          <div className=" dark-mode-border w-full divide-y divide-inherit ">
+          <div className=" w-full divide-y divide-inherit dark:border-main-gray-600 ">
             {Array(10)
               .fill("_")
               .map((_, index) => {

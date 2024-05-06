@@ -101,7 +101,7 @@ export default function ProfileScreen(props: ProfileScreenProps) {
         </p>
       </div>
 
-      <div className=" dark-mode-border grid gap-10 border-2 p-10 md:grid-cols-2 ">
+      <div className=" grid gap-10 border-2 p-10 md:grid-cols-2 dark:border-main-gray-600 ">
         <div className=" space-y-1 ">
           <div className=" font-medium ">Arthur Levinson Ph.D.</div>
           <div className="  ">Independent Chairman of the Board</div>

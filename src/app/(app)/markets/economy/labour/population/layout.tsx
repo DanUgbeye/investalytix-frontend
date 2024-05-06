@@ -53,7 +53,7 @@ export default function UnemploymentRateLayout({
             className={`whitespace-nowrap rounded px-5 py-3 text-center hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white ${
               market.href === pathname
                 ? "bg-primary-base text-white"
-                : "bg-transparent text-[#636363] white-text"
+                : "white-text bg-transparent text-[#636363]"
             }`}
           >
             {market.label}

@@ -4,9 +4,7 @@ export default function Overview() {
   return (
     <div>
       <header className="relative mb-4">
-        <p className="text-2xl font-bold text-[#2A3037]  white-text">
-          Gainers
-        </p>
+        <p className="white-text text-2xl font-bold  text-[#2A3037]">Gainers</p>
 
         <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white/30"></div>
       </header>
@@ -16,7 +14,7 @@ export default function Overview() {
           return (
             <div
               key={quote.name}
-              className="grid grid-cols-3 border-b border-[#DCDCDC] pb-2 font-bold text-[#636363] dark:border-white/30  white-text"
+              className="white-text grid grid-cols-3 border-b border-[#DCDCDC] pb-2 font-bold text-[#636363]  dark:border-white/30"
             >
               <p className="">{quote.symbol}</p>
               <p
@@ -29,7 +27,7 @@ export default function Overview() {
                 {isPositive && "+"}
                 {quote.changesPercentage}%
               </p>
-              <p className="text-end white-text">${quote.price}</p>
+              <p className="white-text text-end">${quote.price}</p>
             </div>
           );
         })}

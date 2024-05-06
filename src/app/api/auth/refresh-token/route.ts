@@ -44,4 +44,3 @@ async function RefreshToken(req: NextRequest) {
 }
 
 export { RefreshToken as POST };
-

@@ -6,7 +6,7 @@ export default function Stats() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] white-text">
+        <p className="white-text text-[#636363]">
           Consumer Spending in the United States increased to 15569.85 USD
           Billion in the fourth quarter of 2023 from 15461.38 USD Billion in the
           third quarter of 2023. Consumer Spending in the United States averaged

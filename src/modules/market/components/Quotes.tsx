@@ -96,7 +96,7 @@ export default function Quotes({
 function Notification() {
   return (
     <div className="">
-      <header className="bg-[#191919] text-white/80 p-2 text-left">
+      <header className="bg-[#191919] p-2 text-left text-white/80">
         <p className="">Apple Notifications</p>
       </header>
 
@@ -106,7 +106,7 @@ function Notification() {
         <News />
       </section>
 
-      <footer className="flex justify-between bg-[#191919] text-white/80 p-2">
+      <footer className="flex justify-between bg-[#191919] p-2 text-white/80">
         <Link href="" className="text-hover-focus">
           Analysis
         </Link>
@@ -126,9 +126,12 @@ function Notification() {
 
 function News() {
   return (
-    <Link href="" className="font-light text-xs border-b border-black/20 dark:border-b-white/10 p-2 inline-block group border-dashed">
+    <Link
+      href=""
+      className="group inline-block border-b border-dashed border-black/20 p-2 text-xs font-light dark:border-b-white/10"
+    >
       <p className="">April 01, 2024</p>
-      <p className="font-normal py-1 white-text group-hover:text-primary-base group-focus:text-primary-base dark:group-hover:text-primary-light dark:group-focus:text-primary-light">
+      <p className="white-text py-1 font-normal group-hover:text-primary-base group-focus:text-primary-base dark:group-hover:text-primary-light dark:group-focus:text-primary-light">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit.
       </p>
       <p className="">Investalytix News</p>

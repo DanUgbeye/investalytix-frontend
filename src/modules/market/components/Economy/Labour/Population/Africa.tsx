@@ -7,7 +7,7 @@ export default function Africa() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] white-text">
+        <p className="white-text text-[#636363]">
           The total population in the United States was estimated at 334.2
           million people in 2022, according to the latest census figures and
           projections from Trading Economics. Looking back, in the year of 1900,

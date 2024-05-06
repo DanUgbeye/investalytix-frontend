@@ -19,7 +19,7 @@ export default function MarketSelector({
           className={`whitespace-nowrap rounded px-14 py-2 text-center font-semibold hover:bg-primary-base hover:text-white focus:bg-primary-base focus:text-white ${
             active === market.label
               ? "bg-primary-base text-white"
-              : "bg-[#F5F5F5] text-[#636363] dark:bg-[#23242C] white-text"
+              : "white-text bg-[#F5F5F5] text-[#636363] dark:bg-[#23242C]"
           }`}
         >
           {market.label}

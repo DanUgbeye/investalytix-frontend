@@ -223,7 +223,7 @@ export default function AnalystRecommendationScreen(
         <div className=" space-y-3 lg:max-w-96 ">
           <h4 className=" font-bold sm:text-xl ">AAPL Analyst Ratings</h4>
 
-          <div className=" dark-mode-border grid min-h-80 grid-rows-[1fr,auto] border ">
+          <div className=" grid min-h-80 grid-rows-[1fr,auto] border dark:border-main-gray-600 ">
             <div className=" space-y-4 py-4 ">
               <div className=" text-center text-lg font-bold ">
                 {ANALYST_CONSENSUS.consensus}
@@ -260,7 +260,7 @@ export default function AnalystRecommendationScreen(
               </div>
             </div>
 
-            <div className=" dark-mode-border border-t p-2 text-center text-xs ">
+            <div className=" border-t p-2 text-center text-xs dark:border-main-gray-600 ">
               Based on 33 analyst giving stock ratings to Apple in the past 3
               months.
             </div>
@@ -272,7 +272,7 @@ export default function AnalystRecommendationScreen(
             AAPL Stock 12 Months Forecast
           </h4>
 
-          <div className=" dark-mode-border grid min-h-80 grid-rows-[1fr,auto] border ">
+          <div className=" grid min-h-80 grid-rows-[1fr,auto] border dark:border-main-gray-600 ">
             <div className=" grid h-full grid-rows-[auto,1fr] gap-y-4 p-3 ">
               <div className=" grid items-center gap-3 xl:grid-cols-[auto,auto,1fr] ">
                 <div className=" flex flex-col gap-y-1 text-[#008133] ">
@@ -282,7 +282,7 @@ export default function AnalystRecommendationScreen(
                   <span className=" text-sm ">(5.62% )</span>
                 </div>
 
-                <div className=" h-px w-full border dark-mode-border xl:h-full xl:w-px " />
+                <div className=" h-px w-full border xl:h-full xl:w-px dark:border-main-gray-600 " />
 
                 <div className=" text-sm ">
                   Based on 33 Wall Street analysis offering 12 month price
@@ -296,7 +296,7 @@ export default function AnalystRecommendationScreen(
               <div className=" min-h-40 bg-gray-600 "></div>
             </div>
 
-            <div className=" dark-mode-border divide-inherit flex flex-col flex-wrap border-t py-2 max-xl:divide-y xl:flex-row xl:divide-x ">
+            <div className=" flex flex-col flex-wrap divide-inherit border-t py-2 max-xl:divide-y xl:flex-row xl:divide-x dark:border-main-gray-600 ">
               <div className=" flex items-center gap-2 px-3 py-1 ">
                 <span className=" text-sm ">High Price Target</span>
                 <span className=" font-bold text-[#008133] xl:text-2xl ">
@@ -396,9 +396,9 @@ export default function AnalystRecommendationScreen(
 
         <div className=" space-y-20 ">
           <div className=" overflow-x-auto ">
-            <table className="dark-mode-border w-full min-w-[50rem] border ">
+            <table className="w-full min-w-[50rem] border dark:border-main-gray-600 ">
               <thead>
-                <tr className=" dark-mode-border border-y text-sm font-bold dark:bg-white/20 ">
+                <tr className=" border-y text-sm font-bold dark:border-main-gray-600 dark:bg-white/20 ">
                   <th className=" px-2 py-4 text-left ">Date</th>
 
                   <th className=" px-2 py-4 text-left ">Company</th>
@@ -418,7 +418,7 @@ export default function AnalystRecommendationScreen(
                   return (
                     <tr
                       key={`forecast-${index}`}
-                      className=" dark-mode-border border-y text-sm "
+                      className=" border-y text-sm dark:border-main-gray-600 "
                     >
                       <td className=" white-text px-2 py-4 text-left text-[#333333]">
                         {item.date.toDateString()}

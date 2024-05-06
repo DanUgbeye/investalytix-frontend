@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${interFont.variable} dark:text-main-gray-300 font-mulish dark:bg-black `}
+        className={`${interFont.variable} font-mulish dark:bg-black dark:text-main-gray-300 `}
       >
         <Providers>
           <GlobalComponents>{children}</GlobalComponents>

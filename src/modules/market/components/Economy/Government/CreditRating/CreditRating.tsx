@@ -47,7 +47,7 @@ export default function CreditRating() {
       <div className="overflow-auto">
         <table className="w-full">
           <thead>
-            <tr className="text-[#212529] white-text">
+            <tr className="white-text text-[#212529]">
               <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
                 Agency
               </th>
@@ -65,19 +65,19 @@ export default function CreditRating() {
           <tbody>
             {overview.map((entry, index) => (
               <tr key={entry.agency.replaceAll(" ", "-") + index}>
-                <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333] white-text">
+                <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm font-bold text-[#333333]">
                   {entry.agency}
                 </td>
                 <td
-                  className={`border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text`}
+                  className={`white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]`}
                 >
                   {entry.rating}
                 </td>
 
-                <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
+                <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]">
                   {entry.outlook}
                 </td>
-                <td className="border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529] white-text">
+                <td className="white-text border-t border-t-[#DEE2E6] px-2 py-3 text-left text-sm text-[#212529]">
                   {entry.date}
                 </td>
               </tr>

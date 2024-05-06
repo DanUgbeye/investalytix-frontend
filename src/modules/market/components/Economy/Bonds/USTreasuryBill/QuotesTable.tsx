@@ -106,13 +106,13 @@ export default function QuotesTable() {
         <thead>
           <tr className="bg-[#F5F5F5] dark:bg-transparent">
             <th className="py-2 pr-3"></th>
-            <th className="px-3 py-2 text-left font-light text-[#212529] white-text">
+            <th className="white-text px-3 py-2 text-left font-light text-[#212529]">
               Actual
             </th>
-            <th className="px-3 py-2 text-left font-light text-[#212529] white-text">
+            <th className="white-text px-3 py-2 text-left font-light text-[#212529]">
               Chg
             </th>
-            <th className="py-2 pl-3 text-left font-light text-[#212529] white-text">
+            <th className="white-text py-2 pl-3 text-left font-light text-[#212529]">
               %Chg
             </th>
           </tr>
@@ -120,16 +120,16 @@ export default function QuotesTable() {
         <tbody>
           {quotes.map((quote) => (
             <tr key={quote.country.replaceAll(" ", "-")} className="font-light">
-              <td className="border-b border-[#DEE2E6] py-2 pr-3 text-left font-bold text-[#333333] white-text">
+              <td className="white-text border-b border-[#DEE2E6] py-2 pr-3 text-left font-bold text-[#333333]">
                 {quote.country}
               </td>
-              <td className="border-b border-[#DEE2E6] px-3 py-2 text-left text-[#212529] white-text">
+              <td className="white-text border-b border-[#DEE2E6] px-3 py-2 text-left text-[#212529]">
                 {quote.actual}
               </td>
-              <td className="border-b border-[#DEE2E6] px-3 py-2 text-left text-[#212529] white-text">
+              <td className="white-text border-b border-[#DEE2E6] px-3 py-2 text-left text-[#212529]">
                 {quote.chg}
               </td>
-              <td className="border-b border-[#DEE2E6] py-2 pl-3 text-left text-[#212529] white-text">
+              <td className="white-text border-b border-[#DEE2E6] py-2 pl-3 text-left text-[#212529]">
                 {quote["%chg"]}
               </td>
             </tr>

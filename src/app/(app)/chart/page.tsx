@@ -121,7 +121,7 @@ function ChartPage() {
         )}
 
         <div
-          className={`flex flex-col gap-4 p-2 border-l dark:border-l-white/20`}
+          className={`flex flex-col gap-4 border-l p-2 dark:border-l-white/20`}
         >
           <button
             title="watchlist"

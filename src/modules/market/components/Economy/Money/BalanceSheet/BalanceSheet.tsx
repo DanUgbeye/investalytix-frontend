@@ -1,14 +1,14 @@
 export default function BalanceSheet() {
   return (
     <div className="border border-[#DEE2E6]">
-      <div className="border-b bg-[#F5F5F5] px-2 py-3 text-sm text-[#212529] dark:bg-transparent white-text">
+      <div className="white-text border-b bg-[#F5F5F5] px-2 py-3 text-sm text-[#212529] dark:bg-transparent">
         United States Central Bank Balance Sheet
       </div>
-      <p className="p-4 text-sm text-[#212529] white-text"></p>
+      <p className="white-text p-4 text-sm text-[#212529]"></p>
 
       <table className="w-full border-t text-sm">
         <thead>
-          <tr className="border-b text-[#212529] white-text">
+          <tr className="white-text border-b text-[#212529]">
             <th className="bg-[#F5F5F5] py-3 pl-4 pr-2 text-left text-sm dark:bg-transparent">
               Actual
             </th>
@@ -33,7 +33,7 @@ export default function BalanceSheet() {
           </tr>
         </thead>
         <tbody>
-          <tr className="text-[#212529] white-text">
+          <tr className="white-text text-[#212529]">
             <td className="py-3 pl-4 pr-2 text-left text-sm">4.10</td>
             <td className="px-2 py-3 text-left text-sm">4.07</td>
             <td className="px-2 py-3 text-left text-sm">15.82</td>

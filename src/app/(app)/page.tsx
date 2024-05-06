@@ -65,7 +65,7 @@ export default function Home() {
                   name="search"
                   id="search"
                   placeholder="Search for ticker, quotes & videos"
-                  className="w-full rounded-full bg-white py-6 pl-16 pr-6 text-sm font-bold text-black placeholder:text-black outline-none"
+                  className="w-full rounded-full bg-white py-6 pl-16 pr-6 text-sm font-bold text-black outline-none placeholder:text-black"
                 />
               </form>
             </div>

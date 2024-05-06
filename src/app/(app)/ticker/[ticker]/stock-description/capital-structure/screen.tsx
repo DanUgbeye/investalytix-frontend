@@ -40,8 +40,8 @@ export default function CapitalStructureScreen(
 
   return (
     <section className=" grid gap-7 pb-12 md:grid-cols-[max-content,1fr] ">
-      <div className=" dark-mode-border w-full space-y-5 border md:min-w-80 ">
-        <div className=" dark-mode-border space-y-1 border-b p-4 ">
+      <div className=" w-full space-y-5 border md:min-w-80 dark:border-main-gray-600 ">
+        <div className=" space-y-1 border-b p-4 dark:border-main-gray-600 ">
           <h4 className=" text-xl font-semibold ">Capital Structure </h4>
           <p className=" ">Millions in USD</p>
         </div>
@@ -68,7 +68,7 @@ export default function CapitalStructureScreen(
       <div className="  ">
         <table className=" w-full max-w-xl text-sm ">
           <thead>
-            <tr className=" font-bold th text-white dark:bg-white/20 ">
+            <tr className=" th font-bold text-white dark:bg-white/20 ">
               <td className=" px-2 py-3 "></td>
               <td className=" px-2 py-3 ">VALUE</td>
               <td className=" w-fit max-w-40 px-2 py-3 text-right ">
@@ -82,7 +82,7 @@ export default function CapitalStructureScreen(
               return (
                 <tr
                   key={`${item.label}-${index}`}
-                  className=" dark-mode-border odd:bg-neutral-100 dark:border-b dark:odd:bg-transparent "
+                  className=" odd:bg-neutral-100 dark:border-b dark:border-main-gray-600 dark:odd:bg-transparent "
                 >
                   <td className=" font-semibold ">
                     <div className=" flex items-center gap-x-2 px-2 ">
@@ -103,7 +103,7 @@ export default function CapitalStructureScreen(
               );
             })}
 
-            <tr className=" dark-mode-border font-semibold odd:bg-neutral-100 dark:border-b dark:odd:bg-transparent ">
+            <tr className=" font-semibold odd:bg-neutral-100 dark:border-b dark:border-main-gray-600 dark:odd:bg-transparent ">
               <td className=" px-2 py-3 ">Total</td>
               <td className=" px-2 py-3 ">
                 {CAPITAL_STRUCTURE_DATA.reduce((acc, current) => {

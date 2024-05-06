@@ -99,7 +99,7 @@ export default function FearAndGreed() {
               className={`whitespace-nowrap rounded px-14 py-2 text-center font-semibold hover:text-primary-base focus:bg-primary-base focus:text-white ${
                 selectedIndex === index
                   ? "bg-primary-base text-white"
-                  : "bg-transparent text-[#636363] white-text"
+                  : "white-text bg-transparent text-[#636363]"
               }`}
               onClick={() => updateSelectedIndex(index)}
             >

@@ -56,9 +56,9 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
         </div>
 
         <div className=" overflow-x-auto ">
-          <table className=" dark-mode-border w-full min-w-[45rem] border text-sm ">
+          <table className=" w-full min-w-[45rem] border text-sm dark:border-main-gray-600 ">
             <thead className="  ">
-              <tr className=" dark-mode-border border-y font-semibold dark:bg-white/20">
+              <tr className=" border-y font-semibold dark:border-main-gray-600 dark:bg-white/20">
                 <td className=" px-2 py-3 ">Date</td>
                 <td className=" px-2 py-3 text-right ">Open</td>
                 <td className=" px-2 py-3 text-right ">High</td>
@@ -76,7 +76,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   return (
                     <tr
                       key={`historical-data${index}`}
-                      className=" dark-mode-border border-b "
+                      className=" border-b dark:border-main-gray-600 "
                     >
                       <td className=" px-2 py-3 ">
                         {item.date.toDateString()}

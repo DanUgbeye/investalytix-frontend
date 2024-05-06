@@ -9,7 +9,7 @@ export default function NewsPage() {
         News
       </h1>
 
-      <div className="gap-10 lg:gap-5 grid lg:grid-cols-[2fr,1fr] lg:overflow-hidden">
+      <div className="grid gap-10 lg:grid-cols-[2fr,1fr] lg:gap-5 lg:overflow-hidden">
         <div className="grid gap-5 lg:grid-cols-[3fr,1fr]">
           <div className="relative h-[500px] lg:h-full">
             {/* <div className={`relative h-full w-full  overflow-hidden`}> */}

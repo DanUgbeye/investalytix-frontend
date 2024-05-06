@@ -10,7 +10,7 @@ export default function Blog() {
       <p className="mt-2 text-2xl font-bold">
         Gold prices pare gains after U.S. inflation data
       </p>
-      <p className="text-main-blue-base dark:text-main-blue-light mt-6">
+      <p className="mt-6 text-main-blue-base dark:text-main-blue-light">
         Reuters
       </p>
       <div className="mt-1 flex items-center gap-2">

@@ -23,11 +23,7 @@ export default function QuotesBoard() {
       <div className="mb-4 py-8">
         <Slider {...settings}>
           {quotes.map((quote, index) => (
-            <Quote
-              quote={quote}
-              key={quote.symbol}
-              className={`mr-10`}
-            />
+            <Quote quote={quote} key={quote.symbol} className={`mr-10`} />
           ))}
         </Slider>
       </div>

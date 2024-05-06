@@ -17,7 +17,7 @@ export default function CalendarTable() {
     <div className="border border-[#DEE2E6]">
       <table className="w-full">
         <thead>
-          <tr className="text-[#212529] white-text">
+          <tr className="white-text text-[#212529]">
             <th className="bg-[#F5F5F5] px-2 py-3 text-left text-sm dark:bg-transparent">
               Calendar
             </th>

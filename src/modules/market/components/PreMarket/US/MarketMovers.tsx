@@ -45,14 +45,14 @@ export default function MarketMovers() {
                 <Tab as={Fragment} key={market}>
                   {({ selected }) => (
                     <button
-                    className={`white-text text-hover-focus border-b-2 pb-2 text-sm font-extrabold outline-none ${
-                      selected
-                        ? "border-primary-base dark:border-primary-light"
-                        : "border-transparent"
-                    }`}
-                  >
-                    {market}
-                  </button>
+                      className={`white-text text-hover-focus border-b-2 pb-2 text-sm font-extrabold outline-none ${
+                        selected
+                          ? "border-primary-base dark:border-primary-light"
+                          : "border-transparent"
+                      }`}
+                    >
+                      {market}
+                    </button>
                   )}
                 </Tab>
               ))}
@@ -82,11 +82,14 @@ function Panel() {
 
           <div className="flex flex-col gap-5">
             {topMovers.map((mover) => (
-              <div key={mover.symbol} className="flex items-center gap-1 md:gap-4">
-                <div className="grid grid-cols-[7ch,5ch,7ch] md:grid-cols-[8ch,auto,20ch,10ch] lg:grid-cols-[14ch,auto,20ch,10ch] items-center gap-1 md:gap-6">
+              <div
+                key={mover.symbol}
+                className="flex items-center gap-1 md:gap-4"
+              >
+                <div className="grid grid-cols-[7ch,5ch,7ch] items-center gap-1 md:grid-cols-[8ch,auto,20ch,10ch] md:gap-6 lg:grid-cols-[14ch,auto,20ch,10ch]">
                   <p className="truncate text-sm font-bold">{mover.symbol}</p>
-                  <button className="hidden md:block border-main-blue-base dark:border-main-blue-light hover:bg-main-blue-base focus:bg-main-blue-base dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light group border outline-none">
-                    <FiPlus className="text-main-blue-base dark:text-main-blue-light group-hover:text-white group-focus:text-white" />
+                  <button className="group hidden border border-main-blue-base outline-none hover:bg-main-blue-base focus:bg-main-blue-base md:block dark:border-main-blue-light dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light">
+                    <FiPlus className="text-main-blue-base group-hover:text-white group-focus:text-white dark:text-main-blue-light" />
                   </button>
                   <p className="truncate text-sm font-bold">{mover.name}</p>
                   <p className="truncate text-sm font-bold">{mover.close}</p>
@@ -115,14 +118,13 @@ function Panel() {
           <div className="flex flex-col gap-5">
             {topMovers.map((mover) => (
               <div key={mover.symbol} className="flex items-center gap-4">
-                <div className="grid grid-cols-[7ch,5ch,7ch] md:grid-cols-[8ch,auto,20ch,10ch] lg:grid-cols-[14ch,auto,20ch,10ch] items-center gap-1 md:gap-6">
+                <div className="grid grid-cols-[7ch,5ch,7ch] items-center gap-1 md:grid-cols-[8ch,auto,20ch,10ch] md:gap-6 lg:grid-cols-[14ch,auto,20ch,10ch]">
                   <p className="truncate text-sm font-bold">{mover.symbol}</p>
-                  <button className="hidden md:block border-main-blue-base dark:border-main-blue-light hover:bg-main-blue-base focus:bg-main-blue-base dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light group border outline-none">
-                    <FiPlus className="text-main-blue-base dark:text-main-blue-light group-hover:text-white group-focus:text-white" />
+                  <button className="group hidden border border-main-blue-base outline-none hover:bg-main-blue-base focus:bg-main-blue-base md:block dark:border-main-blue-light dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light">
+                    <FiPlus className="text-main-blue-base group-hover:text-white group-focus:text-white dark:text-main-blue-light" />
                   </button>
                   <p className="truncate text-sm font-bold">{mover.name}</p>
                   <p className="truncate text-sm font-bold">{mover.close}</p>
-
                 </div>
                 <div className="grid w-full grid-cols-[max-content,1fr] gap-3">
                   <ColoredNumber

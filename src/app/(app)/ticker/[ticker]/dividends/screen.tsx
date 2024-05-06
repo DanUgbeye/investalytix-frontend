@@ -75,10 +75,10 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white"></div>
       </header>
 
-      <div className=" dark-mode-border space-y-5 border py-3  ">
+      <div className=" space-y-5 border py-3 dark:border-main-gray-600  ">
         <h4 className=" px-4 text-lg font-bold sm:text-2xl ">Data</h4>
 
-        <div className=" white-text dark-mode-border flex flex-col divide-y divide-inherit text-gray-700 xl:flex-row xl:divide-x xl:divide-y-0 ">
+        <div className=" white-text flex flex-col divide-y divide-inherit text-gray-700 xl:flex-row xl:divide-x xl:divide-y-0 dark:border-main-gray-600 ">
           <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
             <span className=" font-bold ">Last Ex-Dividend Date</span>
             <span className="  ">2023-11-16</span>
@@ -111,8 +111,8 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         </div>
       </div>
 
-      <div className=" dark-mode-border border ">
-        <h4 className=" dark-mode-border border-b px-4 py-5 text-lg font-bold sm:text-2xl ">
+      <div className=" border dark:border-main-gray-600 ">
+        <h4 className=" border-b px-4 py-5 text-lg font-bold sm:text-2xl dark:border-main-gray-600 ">
           Dividend Yield Range
         </h4>
 
@@ -167,9 +167,9 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         </h4>
 
         <div className=" overflow-x-auto ">
-          <table className="dark-mode-border w-full min-w-[50rem] border ">
+          <table className="w-full min-w-[50rem] border dark:border-main-gray-600 ">
             <thead>
-              <tr className=" dark-mode-border border-y text-sm font-bold ">
+              <tr className=" border-y text-sm font-bold dark:border-main-gray-600 ">
                 <th className=" p-0 ">
                   <div className=" px-2 py-4 text-left dark:bg-white/20">
                     Declaration Date
@@ -209,7 +209,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                   return (
                     <tr
                       key={`dividends-${index}`}
-                      className=" dark-mode-border border-y text-sm "
+                      className=" border-y text-sm dark:border-main-gray-600 "
                     >
                       <td className=" px-2 py-4 text-left ">02-03-23</td>
 

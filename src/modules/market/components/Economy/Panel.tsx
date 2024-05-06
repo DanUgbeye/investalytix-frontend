@@ -40,7 +40,7 @@ export default function Panel({
             <FiMinus className={`${open ? "" : ""}`} />
             {heading}
           </Disclosure.Button>
-          <Disclosure.Panel className={"p-4 text-[#333333] white-text"}>
+          <Disclosure.Panel className={"white-text p-4 text-[#333333]"}>
             <ul>
               {options.map((option) => (
                 <li key={option.replaceAll(" ", "-")}>{option}</li>

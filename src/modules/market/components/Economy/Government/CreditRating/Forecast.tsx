@@ -5,7 +5,7 @@ export default function Summary() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] white-text">
+        <p className="white-text text-[#636363]">
           Standard & Poor&apos;s credit rating for the United States stands at
           AA+ with stable outlook. Moody&apos;s credit rating for the United
           States was last set at Aaa with negative outlook. Fitch&apos;s credit

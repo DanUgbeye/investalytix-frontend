@@ -149,9 +149,9 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
         <div className=" space-y-6 ">
           <div className=" ">
             <div className=" overflow-y-auto ">
-              <table className="dark-mode-border w-full min-w-[50rem] border ">
+              <table className="w-full min-w-[50rem] border dark:border-main-gray-600 ">
                 <thead>
-                  <tr className=" white-text dark-mode-border border-y text-sm font-bold dark:bg-white/20 th text-white ">
+                  <tr className=" white-text th border-y text-sm font-bold text-white dark:border-main-gray-600 dark:bg-white/20 ">
                     <th className=" px-2 py-4 text-left dark:bg-transparent">
                       Report Date
                     </th>
@@ -181,7 +181,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       return (
                         <tr
                           key={`earning-history-${index}`}
-                          className=" dark-mode-border border-y text-sm "
+                          className=" border-y text-sm dark:border-main-gray-600 "
                         >
                           <td className=" white-text px-2 py-4 text-left ">
                             {item.reportDate.toDateString()}
@@ -255,9 +255,9 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
         <div className=" space-y-6 ">
           <div className=" ">
             <div className=" overflow-y-auto ">
-              <table className="dark-mode-border w-full min-w-[50rem] border ">
+              <table className="w-full min-w-[50rem] border dark:border-main-gray-600 ">
                 <thead>
-                  <tr className=" white-text dark-mode-border border-y text-sm font-semibold dark:bg-white/20 ">
+                  <tr className=" white-text border-y text-sm font-semibold dark:border-main-gray-600 dark:bg-white/20 ">
                     <th className=" px-2 py-4 text-left ">Report Date</th>
 
                     <th className=" px-2 py-4 text-right ">Fiscal Quarter</th>
@@ -281,7 +281,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       return (
                         <tr
                           key={`revenue-history-${index}`}
-                          className=" dark-mode-border border-y text-sm "
+                          className=" border-y text-sm dark:border-main-gray-600 "
                         >
                           <td className=" white-text px-2 py-4 text-left ">
                             {item.reportDate.toDateString()}

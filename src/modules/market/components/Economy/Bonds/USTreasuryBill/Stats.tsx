@@ -9,7 +9,7 @@ export default function Stats() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="">
-        <p className="mb-8 text-[#636363] white-text">
+        <p className="white-text mb-8 text-[#636363]">
           The yield on the 10-year US Treasury note rose to the 4.1% mark on
           Wednesday, the highest in over one month, as strong retail sales
           figures magnified recent pushbacks against imminent interest rate cuts

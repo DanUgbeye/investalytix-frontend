@@ -6,7 +6,7 @@ import useAuthStore from "../store";
 async function logout() {
   const reset = useAuthStore.getState().reset;
   const authRepo = new AuthRepository(clientAPI);
-  
+
   await authRepo.logout();
   reset();
   localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH);

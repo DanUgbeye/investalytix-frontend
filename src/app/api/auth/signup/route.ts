@@ -28,4 +28,3 @@ async function Signup(req: NextRequest) {
 }
 
 export { Signup as POST };
-

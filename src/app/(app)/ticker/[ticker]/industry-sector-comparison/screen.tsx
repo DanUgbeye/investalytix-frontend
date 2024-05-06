@@ -51,9 +51,9 @@ export default function IndustrySectorComparisonScreen(
       </div>
 
       <div className=" overflow-x-auto ">
-        <table className=" dark-mode-border w-full min-w-[50rem] border ">
+        <table className=" w-full min-w-[50rem] border dark:border-main-gray-600 ">
           <thead>
-            <tr className=" dark-mode-border border-y text-sm font-bold dark:bg-white/20 ">
+            <tr className=" border-y text-sm font-bold dark:border-main-gray-600 dark:bg-white/20 ">
               <th className=" min-w-28 px-2 py-4 text-left ">Name</th>
 
               <th className=" px-2 py-4 text-left ">Price</th>
@@ -68,7 +68,9 @@ export default function IndustrySectorComparisonScreen(
 
               <th className=" px-2 py-4 text-right ">Analyst Price Target</th>
 
-              <th className=" px-2 py-4 text-right ">Top Analyst Price Target</th>
+              <th className=" px-2 py-4 text-right ">
+                Top Analyst Price Target
+              </th>
 
               <th className=" px-2 py-4 text-right ">Smart Score</th>
             </tr>
@@ -81,7 +83,7 @@ export default function IndustrySectorComparisonScreen(
                 return (
                   <tr
                     key={`forecast-${index}`}
-                    className=" dark-mode-border border-y text-sm "
+                    className=" border-y text-sm dark:border-main-gray-600 "
                   >
                     <td className=" white-text p-2 text-left text-[#333333]">
                       <div className=" flex flex-col space-y-1 ">
@@ -121,12 +123,12 @@ export default function IndustrySectorComparisonScreen(
         </table>
       </div>
 
-      <div className=" dark-mode-border border ">
+      <div className=" border dark:border-main-gray-600 ">
         <div className=" overflow-x-auto py-5 ">
           <ChartSample />
         </div>
 
-        <p className=" dark-mode-border border-t bg-gray-100 p-3 text-xs dark:bg-white/10 ">
+        <p className=" border-t bg-gray-100 p-3 text-xs dark:border-main-gray-600 dark:bg-white/10 ">
           Compare key indicators and discover each stock&apos;s average analyst
           price target, as well as the latest recommendations by top Wall Street
           experts

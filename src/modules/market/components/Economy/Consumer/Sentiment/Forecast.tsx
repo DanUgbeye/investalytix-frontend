@@ -7,7 +7,7 @@ export default function Forecast() {
   return (
     <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
       <div className="overflow-hidden">
-        <p className="text-[#636363] white-text">
+        <p className="white-text text-[#636363]">
           The University of Michigan&apos;s consumer sentiment for the US soared
           to 78.8 in January 2024, the highest since July 2021, compared to 69.7
           in December and forecasts of 70, preliminary estimates showed.
