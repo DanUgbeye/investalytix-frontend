@@ -358,15 +358,17 @@ export default function AnalystRecommendationScreen(
                 cursor={{
                   className: " fill-main-gray-200/50 dark:fill-white/20 ",
                 }}
-                wrapperClassName={" dark:bg-red-500 "}
                 contentStyle={{
                   backgroundColor:
                     theme === "dark"
-                      ? tailwindCSS().theme.colors.main.gray[200]
+                      ? tailwindCSS().theme.colors.main.gray[900]
                       : "white",
-                  border: "none",
+                  borderColor:
+                    theme === "dark"
+                      ? tailwindCSS().theme.colors.main.gray[500]
+                      : tailwindCSS().theme.colors.main.gray[300],
                 }}
-                labelClassName=" text-black "
+                labelClassName=" font-semibold text-black dark:text-main-gray-300 "
               />
               <Legend iconType="circle" />
               <Bar

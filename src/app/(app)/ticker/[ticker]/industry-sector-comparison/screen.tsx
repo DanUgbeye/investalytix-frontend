@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import ChartSample from "./chart-sample";
 import { cn, tailwindCSS } from "@/lib/utils";
+import useTheme from "@/store/theme/useTheme";
+import { useState } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -13,7 +13,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import useTheme from "@/store/theme/useTheme";
 
 const data = [
   {
@@ -263,9 +262,21 @@ export default function IndustrySectorComparisonScreen(
                     theme === "dark"
                       ? tailwindCSS().theme.colors.main.gray[900]
                       : "white",
-                  border: "none",
+                  borderColor:
+                    theme === "dark"
+                      ? tailwindCSS().theme.colors.main.gray[500]
+                      : tailwindCSS().theme.colors.main.gray[300],
                 }}
-                labelClassName=" text-black "
+                labelClassName=" font-semibold text-black dark:text-main-gray-300 "
+                formatter={(value) => {
+                  const numValue = Number(value);
+
+                  if (isNaN(numValue)) {
+                    return "nil";
+                  }
+
+                  return `${numValue.toFixed(2)}%`;
+                }}
               />
               <Line
                 type="monotone"

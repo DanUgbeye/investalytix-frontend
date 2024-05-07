@@ -87,7 +87,7 @@ export default function RatioScreen(props: RatioScreenProps) {
             return (
               <div
                 key={index}
-                className=" w-full max-w-xs border text-sm sm:max-w-sm "
+                className=" w-full max-w-xs border text-sm sm:max-w-sm dark:border-main-gray-600 "
               >
                 <div className=" space-y-10 p-3 text-center ">
                   <div className=" space-y-1 pt-4 ">
@@ -102,10 +102,10 @@ export default function RatioScreen(props: RatioScreenProps) {
                   <div className=" font-light italic  ">November 03, 2023</div>
                 </div>
 
-                <div className=" border-t p-3 text-center ">
+                <div className=" border-t p-3 text-center dark:border-main-gray-600 ">
                   <Link
                     href={""}
-                    className=" text-primary-base hover:underline "
+                    className=" text-primary-base underline decoration-transparent underline-offset-4 duration-300 hover:decoration-primary-base "
                   >
                     View Filing
                   </Link>

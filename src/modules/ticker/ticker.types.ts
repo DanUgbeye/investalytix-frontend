@@ -12,8 +12,8 @@ export type CompanyOutlook = {
   insideTrades: InsideTrade[];
   keyExecutives: KeyExecutive[];
   splitsHistory: SplitsHistory[];
-  stockDividend: StockDividend[];
-  stockNews: StockNew[];
+  Dividend: Dividend[];
+  stockNews: StockNews[];
   rating: Rating[];
   financialsAnnual: Financials;
   financialsQuarter: Financials;
@@ -169,17 +169,17 @@ export type SplitsHistory = {
   denominator: number;
 };
 
-export type StockDividend = {
-  date: Date;
+export type Dividend = {
+  date: string;
   label: string;
   adjDividend: number;
   dividend: number;
-  recordDate: Date;
-  paymentDate: Date;
-  declarationDate: Date;
+  recordDate: string;
+  paymentDate: string;
+  declarationDate: string;
 };
 
-export type StockNew = {
+export type StockNews = {
   symbol: Symbol;
   publishedDate: Date;
   title: string;
