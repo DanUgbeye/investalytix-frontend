@@ -30,7 +30,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
         <MobileTickerNav
           ticker={ticker}
-          className=" sticky top-[84px] z-40 flex md:top-[88px] lg:hidden "
+          className=" sticky top-[85px] z-40 flex md:top-[89px] lg:hidden "
         />
 
         <main className=" col-start-1 lg:row-start-1 lg:ml-[15rem] ">
@@ -56,7 +56,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
                     </span>
                   </div>
 
-                  <div className=" text-xs text-gray-400 md:text-sm ">
+                  <div className=" text-xs text-main-gray-400 md:text-sm ">
                     At close: December 18 04:00 PM EST
                   </div>
                 </div>
@@ -73,7 +73,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
                     </span>
                   </div>
 
-                  <div className=" text-xs text-gray-400 md:text-sm ">
+                  <div className=" text-xs text-main-gray-400 md:text-sm ">
                     At close: December 18 04:00 PM EST
                   </div>
                 </div>

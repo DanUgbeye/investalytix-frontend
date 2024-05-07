@@ -252,8 +252,8 @@ export function DesktopTickerNav(props: TickerNavProps) {
         )}
 
         {!loading && quote && (
-          <div className=" py-4 ">
-            <div className=" flex flex-col ">
+          <div className=" flex flex-col ">
+            <div className=" py-3 space-y-2 ">
               <div className=" px-4 ">
                 <div className=" font-bold text-primary-base ">AAPL</div>
                 <div className=" text-2xl font-bold ">Apple INC</div>
@@ -267,22 +267,22 @@ export function DesktopTickerNav(props: TickerNavProps) {
                   </span>
                 </div>
 
-                <div className=" text-xs text-gray-400 ">
+                <div className=" text-xs text-main-gray-400 ">
                   At close: December 18 04:00 PM EST
                 </div>
               </div>
+            </div>
 
-              <div className=" space-y-1 bg-gray-100 px-4 py-2 dark:bg-transparent ">
-                <div className=" flex items-center space-x-1.5 ">
-                  <span className=" font-bold ">$20.56</span>
-                  <span className=" text-xs font-bold text-red-500 ">
-                    -0.68 (-0.42%)
-                  </span>
-                </div>
+            <div className=" space-y-1 bg-main-gray-100 px-4 py-3 dark:bg-main-gray-900 ">
+              <div className=" flex items-center space-x-1.5 ">
+                <span className=" font-bold ">$20.56</span>
+                <span className=" text-xs font-bold text-red-500 ">
+                  -0.68 (-0.42%)
+                </span>
+              </div>
 
-                <div className=" text-xs text-gray-400 ">
-                  After hours: January 12 07:59 PM EST
-                </div>
+              <div className=" text-xs text-main-gray-400 ">
+                After hours: January 12 07:59 PM EST
               </div>
             </div>
           </div>

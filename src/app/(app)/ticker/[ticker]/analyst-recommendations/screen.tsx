@@ -178,7 +178,7 @@ export default function AnalystRecommendationScreen(
   const { theme } = useTheme();
 
   return (
-    <section className=" space-y-10 py-5 ">
+    <section className=" space-y-10 py-10 ">
       <div className=" space-y-5 ">
         <h2 className=" text-2xl font-semibold md:text-3xl ">
           Apple Stock Forecast & Price Target
