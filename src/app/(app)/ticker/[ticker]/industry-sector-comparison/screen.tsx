@@ -17,48 +17,104 @@ import useTheme from "@/store/theme/useTheme";
 
 const data = [
   {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    date: "2024-05-07",
+    basicMaterialsChangesPercentage: -0.0934,
+    communicationServicesChangesPercentage: 1.26249,
+    consumerCyclicalChangesPercentage: 0.29312,
+    consumerDefensiveChangesPercentage: 0.60606,
+    energyChangesPercentage: 0.58913,
+    financialServicesChangesPercentage: 0.72193,
+    healthcareChangesPercentage: -0.38694,
+    industrialsChangesPercentage: 0.28425,
+    realEstateChangesPercentage: -1.37528,
+    technologyChangesPercentage: 1.76193,
+    utilitiesChangesPercentage: -0.00015,
   },
   {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    date: "2024-05-06",
+    basicMaterialsChangesPercentage: -0.0934,
+    communicationServicesChangesPercentage: 1.26249,
+    consumerCyclicalChangesPercentage: 0.29312,
+    consumerDefensiveChangesPercentage: 0.60606,
+    energyChangesPercentage: 0.58913,
+    financialServicesChangesPercentage: 0.72199,
+    healthcareChangesPercentage: -0.38694,
+    industrialsChangesPercentage: 0.28425,
+    realEstateChangesPercentage: -1.37528,
+    technologyChangesPercentage: 1.76193,
+    utilitiesChangesPercentage: -0.00015,
   },
   {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    date: "2024-05-03",
+    basicMaterialsChangesPercentage: 1.10443,
+    communicationServicesChangesPercentage: 0.84,
+    consumerCyclicalChangesPercentage: 0.87542,
+    consumerDefensiveChangesPercentage: 0.85901,
+    energyChangesPercentage: 1.89802,
+    financialServicesChangesPercentage: 5.29977,
+    healthcareChangesPercentage: 1.41727,
+    industrialsChangesPercentage: 0.56529,
+    realEstateChangesPercentage: 0.37973,
+    technologyChangesPercentage: 2.44522,
+    utilitiesChangesPercentage: 1.66244,
   },
   {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    date: "2024-05-02",
+    basicMaterialsChangesPercentage: -3.59657,
+    communicationServicesChangesPercentage: 1.56931,
+    consumerCyclicalChangesPercentage: 2.51543,
+    consumerDefensiveChangesPercentage: 0.8855,
+    energyChangesPercentage: 0.92033,
+    financialServicesChangesPercentage: -0.8938,
+    healthcareChangesPercentage: 0.81091,
+    industrialsChangesPercentage: 0.93674,
+    realEstateChangesPercentage: 0.99022,
+    technologyChangesPercentage: 1.69558,
+    utilitiesChangesPercentage: 0.64711,
   },
   {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
+    date: "2024-05-01",
+    basicMaterialsChangesPercentage: 0.23439,
+    communicationServicesChangesPercentage: 0.8385,
+    consumerCyclicalChangesPercentage: 0.279,
+    consumerDefensiveChangesPercentage: -0.62577,
+    energyChangesPercentage: -1.94269,
+    financialServicesChangesPercentage: 0.19996,
+    healthcareChangesPercentage: 1.9434,
+    industrialsChangesPercentage: 0.49965,
+    realEstateChangesPercentage: -0.6631,
+    technologyChangesPercentage: -0.89902,
+    utilitiesChangesPercentage: 0.62743,
   },
   {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
+    date: "2024-04-30",
+    basicMaterialsChangesPercentage: -1.44095,
+    communicationServicesChangesPercentage: -1.81674,
+    consumerCyclicalChangesPercentage: -3.10486,
+    consumerDefensiveChangesPercentage: -0.41263,
+    energyChangesPercentage: 1.33031,
+    financialServicesChangesPercentage: 2.80296,
+    healthcareChangesPercentage: -0.30533,
+    industrialsChangesPercentage: -1.79814,
+    realEstateChangesPercentage: -1.90272,
+    technologyChangesPercentage: -1.8592,
+    utilitiesChangesPercentage: -0.99954,
   },
   {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
+    date: "2024-04-29",
+    basicMaterialsChangesPercentage: 0.16287,
+    communicationServicesChangesPercentage: -2.19341,
+    consumerCyclicalChangesPercentage: 2.44805,
+    consumerDefensiveChangesPercentage: 0.16651,
+    energyChangesPercentage: 0.44145,
+    financialServicesChangesPercentage: -0.38682,
+    healthcareChangesPercentage: 0.31399,
+    industrialsChangesPercentage: -0.81845,
+    realEstateChangesPercentage: -2.79866,
+    technologyChangesPercentage: -0.99677,
+    utilitiesChangesPercentage: -0.6847,
   },
-];
+].reverse();
 
 interface IndustrySectorComparisonScreenProps {
   ticker: string;
@@ -181,25 +237,32 @@ export default function IndustrySectorComparisonScreen(
       </div>
 
       <div className=" border dark:border-main-gray-600 ">
-        <div className=" overflow-x-auto py-10 ">
-          <ResponsiveContainer width={"100%"} height={350}>
-            <LineChart
-              data={data}
-              // margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            >
+        <div className=" overflow-x-auto ">
+          <ResponsiveContainer width={"100%"} height={500}>
+            <LineChart data={data} margin={{ top: 40, right: 40 }}>
               <CartesianGrid
                 strokeDasharray="3 3"
                 className=" stroke-main-gray-400 dark:stroke-white/40"
               />
-              <XAxis tickLine={false} dataKey="name" />
-              <YAxis />
+              <XAxis
+                tickLine={false}
+                axisLine={false}
+                tickMargin={10}
+                dataKey="date"
+              />
+              <YAxis
+                tickLine={false}
+                tickMargin={5}
+                padding={{ bottom: 20 }}
+                tickFormatter={(value) => `${value}%`}
+              />
               <Tooltip
                 cursor={false}
                 wrapperClassName={" dark:bg-red-500 "}
                 contentStyle={{
                   backgroundColor:
                     theme === "dark"
-                      ? tailwindCSS().theme.colors.main.gray[200]
+                      ? tailwindCSS().theme.colors.main.gray[900]
                       : "white",
                   border: "none",
                 }}
@@ -207,17 +270,82 @@ export default function IndustrySectorComparisonScreen(
               />
               <Line
                 type="monotone"
-                dataKey="pv"
+                name="Basic Materials"
+                dataKey="basicMaterialsChangesPercentage"
                 stroke="#8884d8"
-                strokeWidth={4}
+                strokeWidth={3}
               />
               <Line
                 type="monotone"
-                dataKey="uv"
+                name="Communication Services"
+                dataKey="communicationServicesChangesPercentage"
                 stroke="#82ca9d"
-                strokeWidth={4}
+                strokeWidth={3}
               />
-              <Legend iconType="circle" />
+              <Line
+                type="monotone"
+                name="Consumer Cyclical"
+                dataKey="consumerCyclicalChangesPercentage"
+                stroke="#ff7300"
+                strokeWidth={3}
+              />
+              <Line
+                type="monotone"
+                name="Consumer Defensive"
+                dataKey="consumerDefensiveChangesPercentage"
+                stroke="#0088FE"
+                strokeWidth={3}
+              />
+              <Line
+                type="monotone"
+                name="Energy"
+                dataKey="energyChangesPercentage"
+                stroke="#FF0080"
+                strokeWidth={3}
+              />
+              <Line
+                type="monotone"
+                name="Financial Services"
+                dataKey="financialServicesChangesPercentage"
+                stroke="#FFBB28"
+                strokeWidth={3}
+              />
+              <Line
+                type="monotone"
+                name="Healthcare"
+                dataKey="healthcareChangesPercentage"
+                stroke="#00C49F"
+                strokeWidth={3}
+              />
+              <Line
+                type="monotone"
+                name="Industrials"
+                dataKey="industrialsChangesPercentage"
+                stroke="#FF8042"
+                strokeWidth={3}
+              />
+              <Line
+                type="monotone"
+                name="Real Estate"
+                dataKey="realEstateChangesPercentage"
+                stroke="#bcbd22"
+                strokeWidth={3}
+              />
+              <Line
+                type="monotone"
+                name="Technology"
+                dataKey="technologyChangesPercentage"
+                stroke="#ff0000"
+                strokeWidth={3}
+              />
+              <Line
+                type="monotone"
+                name="Utilities"
+                dataKey="utilitiesChangesPercentage"
+                stroke="#8A2BE2"
+                strokeWidth={3}
+              />
+              <Legend iconType="circle" wrapperStyle={{ padding: 20 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>
