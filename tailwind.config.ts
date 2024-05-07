@@ -44,8 +44,8 @@ const config = {
             300: "#CCCCCC", // dark mode text
             400: "#A3A3A3",
             500: "#707070",
-            600: "#5E5E5E",
-            700: "#333333", // dark mode table header bg, dark mode border
+            600: "#5E5E5E", //  dark mode border
+            700: "#333333", // dark mode table header bg
             800: "#1D1D1D", // light mode table header bg
             900: "#191919", // dark mode table row bg
           },

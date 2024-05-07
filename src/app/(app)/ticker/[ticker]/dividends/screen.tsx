@@ -1,6 +1,7 @@
 "use client";
 
 import { tailwindCSS } from "@/lib/utils";
+import useTheme from "@/store/theme/useTheme";
 import {
   Area,
   AreaChart,
@@ -62,6 +63,7 @@ interface DividendsScreenProps {
 
 export default function DividendsScreen(props: DividendsScreenProps) {
   const { ticker } = props;
+  const { theme } = useTheme();
 
   return (
     <section className=" max-w-6xl space-y-12 py-12 ">
@@ -116,15 +118,15 @@ export default function DividendsScreen(props: DividendsScreenProps) {
           Dividend Yield Range
         </h4>
 
-        <div className=" overflow-x-auto px-4 py-10 ">
-          <ResponsiveContainer width={"100%"} height={400}>
+        <div className=" overflow-x-auto px-4 ">
+          <ResponsiveContainer width={"100%"} height={500}>
             <AreaChart
               data={data}
               margin={{
-                top: 10,
-                right: 30,
+                top: 40,
+                right: 40,
                 left: 0,
-                bottom: 0,
+                bottom: 40,
               }}
             >
               <CartesianGrid
@@ -132,9 +134,28 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                 strokeDasharray="3 3"
                 className=" stroke-main-gray-400 dark:stroke-white/40"
               />
-              <XAxis dataKey="name" tickLine={false} />
+              <XAxis
+                dataKey="name"
+                tickLine={false}
+                style={{ paddingTop: 20 }}
+                tickMargin={10}
+                padding={{ left: 20 }}
+              />
               <YAxis tickLine={false} />
-              <Tooltip />
+              <Tooltip
+                cursor={false}
+                contentStyle={{
+                  backgroundColor:
+                    theme === "dark"
+                      ? tailwindCSS().theme.colors.main.gray[900]
+                      : "white",
+                  borderColor:
+                    theme === "dark"
+                      ? tailwindCSS().theme.colors.main.gray[500]
+                      : tailwindCSS().theme.colors.main.gray[300],
+                }}
+                labelClassName=" text-black dark:text-main-gray-300"
+              />
               <Area
                 dataKey="pv"
                 dot={{

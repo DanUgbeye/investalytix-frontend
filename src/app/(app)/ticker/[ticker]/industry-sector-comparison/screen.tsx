@@ -258,7 +258,6 @@ export default function IndustrySectorComparisonScreen(
               />
               <Tooltip
                 cursor={false}
-                wrapperClassName={" dark:bg-red-500 "}
                 contentStyle={{
                   backgroundColor:
                     theme === "dark"
