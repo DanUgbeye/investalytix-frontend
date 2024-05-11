@@ -1,4 +1,4 @@
-import { Profile } from "../../ticker.types";
+import { Profile } from "../../types";
 
 export const APPLE_PROFILE = {
   symbol: "AAPL",
