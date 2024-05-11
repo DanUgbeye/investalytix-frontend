@@ -25,7 +25,7 @@ import {
   FiX,
 } from "react-icons/fi";
 import { Container } from "../container";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
@@ -75,9 +75,14 @@ const routes: RouteLink[] = [
 
 export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
+  const path = usePathname();
 
   return (
-    <nav className="sticky top-0 z-50 bg-black py-3 border-b border-main-gray-900 ">
+    <nav
+      className={cn("sticky top-0 z-50 bg-black py-3 ", {
+        "  dark:border-b dark:border-main-gray-600 ": path !== "/",
+      })}
+    >
       <Container className=" max-w-[110rem] sm:px-6 xl:px-6 ">
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">

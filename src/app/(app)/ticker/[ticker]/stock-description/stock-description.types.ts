@@ -7,10 +7,10 @@ export const STOCK_DESCRIPTION_MENU = {
   //   label: "Price Chart",
   //   path: "price-chart",
   // },
-  RATIOS: {
-    label: "Ratios",
-    path: "ratios",
-  },
+  // RATIOS: {
+  //   label: "Ratios",
+  //   path: "ratios",
+  // },
   REVENUE_EPS: {
     label: "Revenue & EPS",
     path: "revenue-and-eps",

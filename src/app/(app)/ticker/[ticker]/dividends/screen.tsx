@@ -213,7 +213,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
   const { theme } = useTheme();
 
   return (
-    <section className=" max-w-6xl space-y-12 py-12 ">
+    <section className=" max-w-7xl space-y-12 py-12 ">
       <header className="relative w-full ">
         <div className=" flex w-full py-4 ">
           <h2 className=" white-text text-xl font-bold text-[#2A3037] sm:text-3xl">
@@ -305,25 +305,36 @@ export default function DividendsScreen(props: DividendsScreenProps) {
               />
               <Area
                 dataKey="from"
+                name="From"
                 dot={{
-                  r: 3,
+                  r: 6,
                   z: 100,
-                  fill: tailwindCSS().theme.colors.white,
+                  fill: tailwindCSS().theme.colors.primary.base,
+                  fillOpacity: 1,
                   stroke: tailwindCSS().theme.colors.primary.base,
                 }}
+                activeDot={{
+                  r: 6,
+                }}
+                strokeWidth={2}
                 stackId="1"
                 fill={"none"}
                 stroke={tailwindCSS().theme.colors.primary.base}
               />
               <Area
                 dataKey="to"
+                name="To"
                 dot={{
-                  r: 3,
+                  r: 6,
                   z: 100,
-                  fill: tailwindCSS().theme.colors.white,
+                  fill: tailwindCSS().theme.colors.primary.base,
+                  fillOpacity: 1,
                   stroke: tailwindCSS().theme.colors.primary.base,
-                  opacity: 1,
                 }}
+                activeDot={{
+                  r: 6,
+                }}
+                strokeWidth={2}
                 stackId="1"
                 fill={tailwindCSS().theme.colors.primary.light}
                 stroke={tailwindCSS().theme.colors.primary.base}
