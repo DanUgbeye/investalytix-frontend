@@ -1,145 +1,18 @@
 "use client";
 
 import { format } from "date-fns";
+import { KEY_STATS_SAMPLE } from "./sample";
 
-const STOCK_FORECAST_DATA = [
-  {
-    date: new Date(2019, 8, 27),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2020, 8, 27),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2021, 8, 25),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2022, 8, 28),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2023, 8, 26),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2024, 8, 27),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2025, 8, 30),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-  {
-    date: new Date(2026, 8, 30),
-    mrktCap: 972_269.0,
-    cashEquivalent: 205_898,
-    preferredOther: 0.0,
-    totalDebt: 108_047.0,
-    enterpriseValue: 874_418.0,
-    revenueAdj: 1_574_418.0,
-    growthPercentageYOY: 18.01,
-    grossProfitAdj: 474_418.0,
-    marginPercentage: 29.68,
-    ebitdaAdj: 574_418.0,
-    epsAdj: 27.7,
-    cashFromOperations: 874_418.0,
-    capitalExpenditures: 874_418.0,
-    freeCashFlow: 874_418.0,
-  },
-];
+function formatValue(value?: number) {
+  if (!value) return "-";
+  return Number(value).toLocaleString(undefined, {
+    currency: "USD",
+    style: "currency",
+    notation: "compact",
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 2,
+  });
+}
 
 interface KeyStatsScreenProps {
   ticker: string;
@@ -150,312 +23,319 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
 
   return (
     <section className=" pb-12 ">
-      <div className=" overflow-x-auto ">
-        <table className=" w-full min-w-[50rem] border-b border-r border-[#DEE2E6] ">
+      <div className=" overflow-x-auto border dark:border-main-gray-600 ">
+        <table className=" w-full min-w-[50rem] ">
+          <thead>
+            <tr className="  th text-sm font-bold ">
+              <th className=" px-2 py-4 text-left dark:bg-transparent"></th>
+
+              {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                return (
+                  <td
+                    key={`${data.date}-${index}`}
+                    className=" px-2 py-4 text-right dark:bg-transparent"
+                  >
+                    {format(new Date(data.date), "MMM yy ")}
+                  </td>
+                );
+              })}
+            </tr>
+          </thead>
+
           <tbody>
-            <tr className="  text-sm font-bold ">
-              <th className=" border-r border-r-[#DEE2E6] px-2 py-4 text-left dark:bg-transparent"></th>
+            {/* INCOME STATEMENT */}
+            <>
+              <tr className=" bg-primary-light/20 text-sm font-bold dark:bg-primary-light/40  ">
+                <td className=" inline-block min-w-0 px-2 py-4 text-left ">
+                  Income Statement
+                </td>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                const year = new Date(data.date).getFullYear();
-                const text =
-                  year === new Date().getFullYear() ? "Current / Est" : year;
+                {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                  return <td key={`${data.date}-${index}`} />;
+                })}
+              </tr>
 
-                return (
-                  <td
-                    key={`${year}-${index}`}
-                    className=" border-y border-y-[#DEE2E6] px-2 py-4 text-center dark:bg-transparent"
-                  >
-                    {text}
-                  </td>
-                );
-              })}
-            </tr>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Total Revenue
+                </th>
 
-            <tr className="  text-sm font-bold ">
-              <th className=" border-r border-r-[#DEE2E6] px-2 py-4 text-left dark:bg-transparent"></th>
+                {KEY_STATS_SAMPLE.income.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.revenue)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" border-y border-y-[#DEE2E6] px-2 py-4 text-center dark:bg-transparent"
-                  >
-                    {format(new Date(data.date), "MMM dd")}
-                  </td>
-                );
-              })}
-            </tr>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Cost of Revenue
+                </th>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Market Capitalization
-              </th>
+                {KEY_STATS_SAMPLE.income.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.costOfRevenue)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.mrktCap.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Gross Profit
+                </th>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Cash Equivalent
-              </th>
+                {KEY_STATS_SAMPLE.income.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.grossProfit)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.cashEquivalent.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  EBITDA
+                </th>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Preferred & Other
-              </th>
+                {KEY_STATS_SAMPLE.income.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.ebitda)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.preferredOther.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  EPS
+                </th>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Total Debt
-              </th>
+                {KEY_STATS_SAMPLE.income.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.eps)}
+                    </td>
+                  );
+                })}
+              </tr>
+            </>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.totalDebt.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+            {/* BALANCE SHEET STATEMENT */}
+            <>
+              <tr className=" bg-primary-light/20 text-sm font-bold dark:bg-primary-light/40  ">
+                <td className=" inline-block min-w-0 px-2 py-4 text-left ">
+                  Balance Sheet
+                </td>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Enterprise Value
-              </th>
+                {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                  return <td key={`${data.date}-${index}`} />;
+                })}
+              </tr>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.enterpriseValue.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Total Assets
+                </th>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent"></th>
-            </tr>
+                {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.totalAssets)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Revenue ADJ
-              </th>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Total Debt
+                </th>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.revenueAdj.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+                {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.totalDebt)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Growth % YoY
-              </th>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Net Debt
+                </th>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.growthPercentageYOY.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+                {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.netDebt)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Gross Profit, ADJ
-              </th>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Total Liabilities
+                </th>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.grossProfitAdj.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+                {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.totalLiabilities)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Margin %
-              </th>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Stakeholder Equity
+                </th>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.marginPercentage.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+                {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.totalStockholdersEquity)}
+                    </td>
+                  );
+                })}
+              </tr>
+            </>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                EBITDA, Adj
-              </th>
+            {/* CASH FLOW STATEMENT */}
+            <>
+              <tr className=" bg-primary-light/20 text-sm font-bold dark:bg-primary-light/40  ">
+                <td className=" inline-block min-w-0 px-2 py-4 text-left ">
+                  Cash Flow
+                </td>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.ebitdaAdj.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+                {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                  return <td key={`${data.date}-${index}`} />;
+                })}
+              </tr>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                EPS Adj
-              </th>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Free Cash Flow
+                </th>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.epsAdj.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+                {KEY_STATS_SAMPLE.cash.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.freeCashFlow)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Cash From Operations
-              </th>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Operating Cash Flow
+                </th>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.cashFromOperations.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+                {KEY_STATS_SAMPLE.cash.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.operatingCashFlow)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Capital Expenditures
-              </th>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Net Income
+                </th>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.capitalExpenditures.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+                {KEY_STATS_SAMPLE.cash.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.netIncome)}
+                    </td>
+                  );
+                })}
+              </tr>
 
-            <tr className=" text-sm ">
-              <th className=" border border-[#DEE2E6] px-2 py-4 text-left font-bold dark:bg-transparent">
-                Free Cash Flow
-              </th>
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Stock Repurchases
+                </th>
 
-              {STOCK_FORECAST_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-right dark:bg-transparent"
-                  >
-                    {data.freeCashFlow.toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
+                {KEY_STATS_SAMPLE.cash.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.commonStockRepurchased)}
+                    </td>
+                  );
+                })}
+              </tr>
+
+              <tr className=" text-sm  even:bg-main-gray-100 dark:even:bg-main-gray-900 ">
+                <th className=" py-4 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                  Dividend Paid
+                </th>
+
+                {KEY_STATS_SAMPLE.cash.map((data, index) => {
+                  return (
+                    <td
+                      key={`forecast-month-${index}`}
+                      className=" px-2 py-4 text-right dark:bg-transparent"
+                    >
+                      {formatValue(data.dividendsPaid)}
+                    </td>
+                  );
+                })}
+              </tr>
+            </>
           </tbody>
         </table>
       </div>

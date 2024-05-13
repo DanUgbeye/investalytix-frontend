@@ -2,7 +2,7 @@
 
 import { tailwindCSS } from "@/lib/utils";
 import useTheme from "@/store/theme/useTheme";
-import { Dividend } from "@/modules/ticker/ticker.types";
+import { Dividend } from "@/modules/ticker/types";
 import {
   Area,
   AreaChart,
@@ -12,171 +12,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
-const data = [
-  {
-    date: "2024-05-10",
-    label: "May 10, 24",
-    adjDividend: 0.25,
-    dividend: 0.25,
-    recordDate: "2024-05-13",
-    paymentDate: "2024-05-16",
-    declarationDate: "2024-05-02",
-  },
-  {
-    date: "2024-02-09",
-    label: "February 09, 24",
-    adjDividend: 0.24,
-    dividend: 0.24,
-    recordDate: "2024-02-12",
-    paymentDate: "2024-02-15",
-    declarationDate: "2024-02-01",
-  },
-  {
-    date: "2023-11-10",
-    label: "November 10, 23",
-    adjDividend: 0.24,
-    dividend: 0.24,
-    recordDate: "2023-11-13",
-    paymentDate: "2023-11-16",
-    declarationDate: "2023-11-02",
-  },
-  {
-    date: "2023-08-11",
-    label: "August 11, 23",
-    adjDividend: 0.24,
-    dividend: 0.24,
-    recordDate: "2023-08-14",
-    paymentDate: "2023-08-17",
-    declarationDate: "2023-08-03",
-  },
-  {
-    date: "2023-05-12",
-    label: "May 12, 23",
-    adjDividend: 0.24,
-    dividend: 0.24,
-    recordDate: "2023-05-15",
-    paymentDate: "2023-05-18",
-    declarationDate: "2023-05-04",
-  },
-  {
-    date: "2023-02-10",
-    label: "February 10, 23",
-    adjDividend: 0.23,
-    dividend: 0.23,
-    recordDate: "2023-02-13",
-    paymentDate: "2023-02-16",
-    declarationDate: "2023-02-02",
-  },
-  {
-    date: "2022-11-04",
-    label: "November 04, 22",
-    adjDividend: 0.23,
-    dividend: 0.23,
-    recordDate: "2022-11-07",
-    paymentDate: "2022-11-10",
-    declarationDate: "2022-10-27",
-  },
-  {
-    date: "2022-08-05",
-    label: "August 05, 22",
-    adjDividend: 0.23,
-    dividend: 0.23,
-    recordDate: "2022-08-08",
-    paymentDate: "2022-08-11",
-    declarationDate: "2022-07-28",
-  },
-  {
-    date: "2022-05-06",
-    label: "May 06, 22",
-    adjDividend: 0.23,
-    dividend: 0.23,
-    recordDate: "2022-05-09",
-    paymentDate: "2022-05-12",
-    declarationDate: "2022-04-28",
-  },
-  {
-    date: "2022-02-04",
-    label: "February 04, 22",
-    adjDividend: 0.22,
-    dividend: 0.22,
-    recordDate: "2022-02-07",
-    paymentDate: "2022-02-10",
-    declarationDate: "2022-01-27",
-  },
-  {
-    date: "2021-11-05",
-    label: "November 05, 21",
-    adjDividend: 0.22,
-    dividend: 0.22,
-    recordDate: "2021-11-08",
-    paymentDate: "2021-11-11",
-    declarationDate: "2021-10-28",
-  },
-  {
-    date: "2021-08-06",
-    label: "August 06, 21",
-    adjDividend: 0.22,
-    dividend: 0.22,
-    recordDate: "2021-08-09",
-    paymentDate: "2021-08-12",
-    declarationDate: "2021-07-27",
-  },
-  {
-    date: "2021-05-07",
-    label: "May 07, 21",
-    adjDividend: 0.22,
-    dividend: 0.22,
-    recordDate: "2021-05-10",
-    paymentDate: "2021-05-13",
-    declarationDate: "2021-04-28",
-  },
-  {
-    date: "2021-02-05",
-    label: "February 05, 21",
-    adjDividend: 0.205,
-    dividend: 0.205,
-    recordDate: "2021-02-08",
-    paymentDate: "2021-02-11",
-    declarationDate: "2021-01-27",
-  },
-  {
-    date: "2020-11-06",
-    label: "November 06, 20",
-    adjDividend: 0.205,
-    dividend: 0.205,
-    recordDate: "2020-11-09",
-    paymentDate: "2020-11-12",
-    declarationDate: "2020-10-29",
-  },
-  {
-    date: "2020-08-07",
-    label: "August 07, 20",
-    adjDividend: 0.205,
-    dividend: 0.82,
-    recordDate: "2020-08-10",
-    paymentDate: "2020-08-13",
-    declarationDate: "2020-07-30",
-  },
-  {
-    date: "2020-05-08",
-    label: "May 08, 20",
-    adjDividend: 0.205,
-    dividend: 0.82,
-    recordDate: "2020-05-11",
-    paymentDate: "2020-05-14",
-    declarationDate: "2020-04-30",
-  },
-  {
-    date: "2020-02-07",
-    label: "February 07, 20",
-    adjDividend: 0.1925,
-    dividend: 0.77,
-    recordDate: "2020-02-10",
-    paymentDate: "2020-02-13",
-    declarationDate: "2020-01-28",
-  },
-].reverse();
+import { HISTORICAL_DIVIDENDS } from "./sample";
+import { format } from "date-fns";
+import appUtils from "@/utils/app-util";
 
 function formatDividendData(data: Dividend[]) {
   const dataMap = new Map<number, { year: number; from: number; to: number }>();
@@ -268,7 +106,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         <div className=" overflow-x-auto px-4 ">
           <ResponsiveContainer width={"100%"} height={500}>
             <AreaChart
-              data={formatDividendData(data)}
+              data={formatDividendData(HISTORICAL_DIVIDENDS)}
               margin={{
                 top: 40,
                 right: 40,
@@ -358,11 +196,11 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                 </th>
 
                 <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-right ">Payment Date</div>
+                  <div className=" px-2 py-4 text-left ">Payment Date</div>
                 </th>
 
                 <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-right ">Record Date</div>
+                  <div className=" px-2 py-4 text-left ">Record Date</div>
                 </th>
 
                 <th className=" p-0 ">
@@ -376,26 +214,35 @@ export default function DividendsScreen(props: DividendsScreenProps) {
             </thead>
 
             <tbody>
-              {Array(10)
-                .fill("")
-                .map((_, index) => {
-                  return (
-                    <tr
-                      key={`dividends-${index}`}
-                      className=" text-sm even:bg-main-gray-100 dark:even:bg-main-gray-900 "
-                    >
-                      <td className=" px-2 py-4 text-left ">02-03-23</td>
+              {HISTORICAL_DIVIDENDS.toReversed().map((dividend, index) => {
+                return (
+                  <tr
+                    key={`dividends-${index}`}
+                    className=" text-sm even:bg-main-gray-100 dark:even:bg-main-gray-900 "
+                  >
+                    <td className=" px-2 py-4 text-left ">
+                      {format(dividend.declarationDate, "yyyy-MM-dd")}
+                    </td>
 
-                      <td className={` px-2 py-4 text-right`}>02-03-23</td>
+                    <td className={` px-2 py-4 text-left`}>
+                      {format(dividend.paymentDate, "yyyy-MM-dd")}
+                    </td>
 
-                      <td className=" px-2 py-4 text-right ">02-03-23</td>
+                    <td className=" px-2 py-4 text-left ">
+                      {format(dividend.recordDate, "yyyy-MM-dd")}
+                    </td>
 
-                      <td className=" px-2 py-4 text-right">0.24</td>
+                    <td className=" px-2 py-4 text-right">
+                      {appUtils.formatCurrency(dividend.dividend, {
+                        style: "decimal",
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
 
-                      <td className=" px-2 py-4 text-right">USD</td>
-                    </tr>
-                  );
-                })}
+                    <td className=" px-2 py-4 text-right">USD</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

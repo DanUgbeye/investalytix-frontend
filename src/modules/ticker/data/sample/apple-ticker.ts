@@ -1,4 +1,4 @@
-import { Profile } from "../../types";
+import { CompanyProfile } from "../../types";
 
 export const APPLE_PROFILE = {
   symbol: "AAPL",
@@ -32,10 +32,10 @@ export const APPLE_PROFILE = {
   dcfDiff: 48.4262,
   dcf: 134.12880288211184,
   image: "https://financialmodelingprep.com/image-stock/AAPL.png",
-  ipoDate: "1980-12-12",
+  ipoDate: new Date("1980-12-12"),
   defaultImage: false,
   isEtf: false,
   isActivelyTrading: true,
   isAdr: false,
   isFund: false,
-} as const satisfies Profile;
+} as const satisfies CompanyProfile;
