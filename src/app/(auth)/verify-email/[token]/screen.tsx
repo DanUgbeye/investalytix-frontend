@@ -6,6 +6,9 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { IoCloseCircle } from "react-icons/io5";
 import { PiSpinnerGap } from "react-icons/pi";
 import VerifyEmailImage from "../verify-email-image";
+import Link from "next/link";
+import PAGES from "@/data/page-map";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function VerifyEmailTokenScreen(props: { token: string }) {
   const { token } = props;
@@ -20,6 +23,7 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
   async function verifyEmail() {
     try {
       await authRepo.verifyEmail(token);
+      setVerified(true);
     } catch (error: any) {
       setErrorMessage(error.message);
     } finally {
@@ -50,7 +54,9 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
             <div className=" relative w-fit ">
               <VerifyEmailImage />
 
-              <FaCircleCheck className=" absolute right-2 top-3 size-12 text-green-600 " />
+              <span className=" absolute right-2 top-3 h-fit w-fit rounded-full bg-white ">
+                <FaCircleCheck className="  size-12 text-green-500 " />
+              </span>
             </div>
 
             <div className="  ">
@@ -58,9 +64,22 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
                 Email Verified
               </h1>
 
-              <span className=" text-sm font-semibold text-green-600 ">
+              <span className=" font-semibold text-green-600 ">
                 Your email has been verified successfully
               </span>
+
+              <div className=" flex gap-1 pt-8 justify-center text-sm ">
+                <span>Proceed to</span>
+
+                <Link
+                  href={PAGES.LOGIN}
+                  className={
+                    (buttonVariants({ variant: "link" }), " text-primary-base hover:underline underline-offset-4 ")
+                  }
+                >
+                  Login
+                </Link>
+              </div>
             </div>
           </center>
         )}
@@ -70,7 +89,9 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
             <div className=" relative w-fit ">
               <VerifyEmailImage />
 
-              <IoCloseCircle className=" absolute right-2 top-3 size-12 text-red-600 " />
+              <span className=" absolute right-2 top-3 h-fit w-fit rounded-full bg-white ">
+                <IoCloseCircle className=" size-12 text-red-600 " />
+              </span>
             </div>
 
             <div className="  ">
@@ -78,7 +99,7 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
                 Verification failed
               </h1>
 
-              <span className=" text-sm font-semibold text-red-600 ">
+              <span className=" font-semibold text-red-600 ">
                 {errorMessage}
               </span>
             </div>
