@@ -9,6 +9,8 @@ import VerifyEmailImage from "../verify-email-image";
 import Link from "next/link";
 import PAGES from "@/data/page-map";
 import { buttonVariants } from "@/components/ui/button";
+import { RiCloseCircleFill } from "react-icons/ri";
+import { Check, X } from "lucide-react";
 
 export default function VerifyEmailTokenScreen(props: { token: string }) {
   const { token } = props;
@@ -41,7 +43,7 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
       <div className="auth__card__shadow max-w-xl rounded bg-white px-8 py-8 md:px-16 md:py-12 dark:bg-white/10">
         {verifying && (
           <center className=" space-y-10 ">
-            <h1 className="white-text my-4 text-center text-2xl font-bold text-[#3C4257]">
+            <h1 className=" my-4 text-center text-2xl font-bold ">
               Verifying email
             </h1>
 
@@ -54,13 +56,13 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
             <div className=" relative w-fit ">
               <VerifyEmailImage />
 
-              <span className=" absolute right-2 top-3 h-fit w-fit rounded-full bg-white ">
-                <FaCircleCheck className="  size-12 text-green-500 " />
+              <span className="  absolute right-2 top-3 grid size-12 place-items-center rounded-full bg-green-500 ">
+                <Check className=" size-7 stroke-[4px] text-white " />
               </span>
             </div>
 
             <div className="  ">
-              <h1 className=" white-text text-center text-lg font-bold text-[#3C4257]">
+              <h1 className=" text-center text-lg font-bold ">
                 Email Verified
               </h1>
 
@@ -68,13 +70,14 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
                 Your email has been verified successfully
               </span>
 
-              <div className=" flex gap-1 pt-8 justify-center text-sm ">
+              <div className=" flex justify-center gap-1 pt-8 text-sm ">
                 <span>Proceed to</span>
 
                 <Link
                   href={PAGES.LOGIN}
                   className={
-                    (buttonVariants({ variant: "link" }), " text-primary-base hover:underline underline-offset-4 ")
+                    (buttonVariants({ variant: "link" }),
+                    " text-primary-base underline-offset-4 hover:underline ")
                   }
                 >
                   Login
@@ -89,17 +92,17 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
             <div className=" relative w-fit ">
               <VerifyEmailImage />
 
-              <span className=" absolute right-2 top-3 h-fit w-fit rounded-full bg-white ">
-                <IoCloseCircle className=" size-12 text-red-600 " />
+              <span className=" absolute right-2 top-3 grid size-12 place-items-center rounded-full bg-red-600 ">
+                <X className=" size-7 stroke-[4px] text-white" />
               </span>
             </div>
 
             <div className="  ">
-              <h1 className=" white-text text-center text-2xl font-bold text-[#3C4257]">
+              <h1 className=" text-center text-2xl font-bold ">
                 Verification failed
               </h1>
 
-              <span className=" font-semibold text-red-600 ">
+              <span className=" line-clamp-2 grid w-full max-w-[15rem] pt-1 font-semibold text-red-600 ">
                 {errorMessage}
               </span>
             </div>
