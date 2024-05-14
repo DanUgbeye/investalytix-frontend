@@ -8,10 +8,12 @@ class AppUtils {
   }
 
   formatCurrency(
-    amount: number,
+    amount?: number,
     opts?: Intl.NumberFormatOptions,
     locale = "en-US"
   ) {
+    if (!amount) return "-";
+
     const {
       currency = "USD",
       style = "currency",

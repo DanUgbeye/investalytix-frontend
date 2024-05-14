@@ -2,17 +2,7 @@
 
 import { format } from "date-fns";
 import { KEY_STATS_SAMPLE } from "./sample";
-
-function formatValue(value?: number) {
-  if (!value) return "-";
-  return Number(value).toLocaleString(undefined, {
-    currency: "USD",
-    style: "currency",
-    notation: "compact",
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 2,
-  });
-}
+import appUtils from "@/utils/app-util";
 
 interface KeyStatsScreenProps {
   ticker: string;
@@ -66,7 +56,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.revenue)}
+                      {appUtils.formatCurrency(data.revenue, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -83,7 +77,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.costOfRevenue)}
+                      {appUtils.formatCurrency(data.costOfRevenue, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -100,7 +98,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.grossProfit)}
+                      {appUtils.formatCurrency(data.grossProfit, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -117,7 +119,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.ebitda)}
+                      {appUtils.formatCurrency(data.ebitda, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -134,7 +140,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.eps)}
+                      {appUtils.formatCurrency(data.eps, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -164,7 +174,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.totalAssets)}
+                      {appUtils.formatCurrency(data.totalAssets, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -181,7 +195,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.totalDebt)}
+                      {appUtils.formatCurrency(data.totalDebt, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -198,7 +216,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.netDebt)}
+                      {appUtils.formatCurrency(data.netDebt, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -215,7 +237,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.totalLiabilities)}
+                      {appUtils.formatCurrency(data.totalLiabilities, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -232,7 +258,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.totalStockholdersEquity)}
+                      {appUtils.formatCurrency(data.totalStockholdersEquity, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -262,7 +292,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.freeCashFlow)}
+                      {appUtils.formatCurrency(data.freeCashFlow, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -279,7 +313,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.operatingCashFlow)}
+                      {appUtils.formatCurrency(data.operatingCashFlow, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -296,7 +334,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.netIncome)}
+                      {appUtils.formatCurrency(data.netIncome, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -313,7 +355,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.commonStockRepurchased)}
+                      {appUtils.formatCurrency(data.commonStockRepurchased, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
@@ -330,7 +376,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`forecast-month-${index}`}
                       className=" px-2 py-4 text-right dark:bg-transparent"
                     >
-                      {formatValue(data.dividendsPaid)}
+                      {appUtils.formatCurrency(data.dividendsPaid, {
+                        notation: "compact",
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   );
                 })}
