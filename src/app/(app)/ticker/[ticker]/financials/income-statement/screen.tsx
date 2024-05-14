@@ -26,13 +26,13 @@ export default function IncomeStatementScreen(
         <table className=" w-full min-w-[50rem] ">
           <thead>
             <tr className="  th text-sm font-bold ">
-              <th className=" w-[10rem] px-2 py-4 text-left md:w-[15rem] lg:w-[20rem] dark:bg-transparent"></th>
+              <th className=" w-[10rem] px-2 py-3 text-left md:w-[15rem] lg:w-[20rem] dark:bg-transparent"></th>
 
               {INCOME_STATEMENT_DATA.map((data, index) => {
                 return (
                   <td
                     key={`${data.date}-${index}`}
-                    className=" px-2 py-4 text-center dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {format(new Date(data.date), "MMM yy ")}
                   </td>
@@ -43,7 +43,7 @@ export default function IncomeStatementScreen(
 
           <tbody>
             <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-4 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left dark:bg-transparent">
                 Total Revenue
               </th>
 
@@ -51,7 +51,7 @@ export default function IncomeStatementScreen(
                 return (
                   <td
                     key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-center dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {appUtils.formatCurrency(data.revenue, {
                       notation: "compact",
@@ -64,7 +64,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-4 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left dark:bg-transparent">
                 Cost of Revenue
               </th>
 
@@ -72,7 +72,7 @@ export default function IncomeStatementScreen(
                 return (
                   <td
                     key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-center dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {appUtils.formatCurrency(data.costOfRevenue, {
                       notation: "compact",
@@ -85,7 +85,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-4 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left dark:bg-transparent">
                 Gross Profit
               </th>
 
@@ -93,7 +93,7 @@ export default function IncomeStatementScreen(
                 return (
                   <td
                     key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-center dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {appUtils.formatCurrency(data.costOfRevenue, {
                       notation: "compact",
@@ -120,7 +120,7 @@ export default function IncomeStatementScreen(
                         }
                       )}
                     >
-                      <th className=" px-2 py-4 text-left dark:bg-transparent">
+                      <th className=" px-2 py-3 text-left dark:bg-transparent">
                         <div className=" flex items-center gap-x-1 ">
                           <span>Operating Expenses</span>
                           <ChevronRight
@@ -135,7 +135,7 @@ export default function IncomeStatementScreen(
                         return (
                           <td
                             key={`forecast-month-${index}`}
-                            className=" px-2 py-4 text-center dark:bg-transparent"
+                            className=" px-2 py-3 text-center dark:bg-transparent"
                           >
                             {appUtils.formatCurrency(data.operatingExpenses, {
                               notation: "compact",
@@ -150,7 +150,7 @@ export default function IncomeStatementScreen(
                     {state && (
                       <>
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-4 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
                             Research and Development
                           </td>
 
@@ -158,7 +158,7 @@ export default function IncomeStatementScreen(
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-4 text-center dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.researchAndDevelopmentExpenses,
@@ -174,7 +174,7 @@ export default function IncomeStatementScreen(
                         </tr>
 
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-4 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
                             General & Administrative Expenses
                           </td>
 
@@ -182,7 +182,7 @@ export default function IncomeStatementScreen(
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-4 text-center dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.generalAndAdministrativeExpenses,
@@ -198,7 +198,7 @@ export default function IncomeStatementScreen(
                         </tr>
 
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-4 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
                             Selling, General & Administrative Expenses
                           </td>
 
@@ -206,7 +206,7 @@ export default function IncomeStatementScreen(
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-4 text-center dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.sellingGeneralAndAdministrativeExpenses,
@@ -222,7 +222,7 @@ export default function IncomeStatementScreen(
                         </tr>
 
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-4 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
                             Selling & Marketing Expenses
                           </td>
 
@@ -230,7 +230,7 @@ export default function IncomeStatementScreen(
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-4 text-center dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.sellingAndMarketingExpenses,
@@ -246,7 +246,7 @@ export default function IncomeStatementScreen(
                         </tr>
 
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-4 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
                             Depreciation and Amortization
                           </td>
 
@@ -254,7 +254,7 @@ export default function IncomeStatementScreen(
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-4 text-center dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.depreciationAndAmortization,
@@ -270,7 +270,7 @@ export default function IncomeStatementScreen(
                         </tr>
 
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-4 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
                             Other Expenses
                           </td>
 
@@ -278,7 +278,7 @@ export default function IncomeStatementScreen(
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-4 text-center dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.otherExpenses, {
                                   notation: "compact",
@@ -311,7 +311,7 @@ export default function IncomeStatementScreen(
                         }
                       )}
                     >
-                      <th className=" px-2 py-4 text-left dark:bg-transparent">
+                      <th className=" px-2 py-3 text-left dark:bg-transparent">
                         <div className=" flex items-center gap-x-1 ">
                           <span>Operating Income</span>
                           <ChevronRight
@@ -326,7 +326,7 @@ export default function IncomeStatementScreen(
                         return (
                           <td
                             key={`forecast-month-${index}`}
-                            className=" px-2 py-4 text-center dark:bg-transparent"
+                            className=" px-2 py-3 text-center dark:bg-transparent"
                           >
                             {appUtils.formatCurrency(data.operatingExpenses, {
                               notation: "compact",
@@ -341,7 +341,7 @@ export default function IncomeStatementScreen(
                     {state && (
                       <>
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-4 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
                             Total Other Income/Expenses Net
                           </td>
 
@@ -349,7 +349,7 @@ export default function IncomeStatementScreen(
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-4 text-center dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.totalOtherIncomeExpensesNet,
@@ -385,7 +385,7 @@ export default function IncomeStatementScreen(
                         }
                       )}
                     >
-                      <th className=" px-2 py-4 text-left dark:bg-transparent">
+                      <th className=" px-2 py-3 text-left dark:bg-transparent">
                         <div className=" flex items-center gap-x-1 ">
                           <span>Income Before Tax</span>
                           <ChevronRight
@@ -400,7 +400,7 @@ export default function IncomeStatementScreen(
                         return (
                           <td
                             key={`forecast-month-${index}`}
-                            className=" px-2 py-4 text-center dark:bg-transparent"
+                            className=" px-2 py-3 text-center dark:bg-transparent"
                           >
                             {appUtils.formatCurrency(data.incomeBeforeTax, {
                               notation: "compact",
@@ -415,7 +415,7 @@ export default function IncomeStatementScreen(
                     {state && (
                       <>
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-4 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
                             Income Tax
                           </td>
 
@@ -423,7 +423,7 @@ export default function IncomeStatementScreen(
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-4 text-center dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.incomeTaxExpense,
@@ -445,7 +445,7 @@ export default function IncomeStatementScreen(
             </WithToggle>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-4 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left dark:bg-transparent">
                 Net Income
               </th>
 
@@ -453,7 +453,7 @@ export default function IncomeStatementScreen(
                 return (
                   <td
                     key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-center dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {appUtils.formatCurrency(data.netIncome, {
                       notation: "compact",
@@ -466,7 +466,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-4 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left dark:bg-transparent">
                 EBITDA
               </th>
 
@@ -474,7 +474,7 @@ export default function IncomeStatementScreen(
                 return (
                   <td
                     key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-center dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {appUtils.formatCurrency(data.ebitda, {
                       notation: "compact",
@@ -487,7 +487,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-4 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left dark:bg-transparent">
                 Average Shares
               </th>
 
@@ -495,7 +495,7 @@ export default function IncomeStatementScreen(
                 return (
                   <td
                     key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-center dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {appUtils.formatCurrency(data.weightedAverageShsOut, {
                       notation: "compact",
@@ -508,7 +508,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-4 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left dark:bg-transparent">
                 Diluted Average Shares
               </th>
 
@@ -516,7 +516,7 @@ export default function IncomeStatementScreen(
                 return (
                   <td
                     key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-center dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {appUtils.formatCurrency(data.weightedAverageShsOutDil, {
                       notation: "compact",
@@ -529,13 +529,13 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-4 text-left dark:bg-transparent">EPS</th>
+              <th className=" px-2 py-3 text-left dark:bg-transparent">EPS</th>
 
               {INCOME_STATEMENT_DATA.map((data, index) => {
                 return (
                   <td
                     key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-center dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {appUtils.formatCurrency(data.eps, {
                       notation: "compact",
@@ -548,7 +548,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-4 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left dark:bg-transparent">
                 EPS Diluted
               </th>
 
@@ -556,7 +556,7 @@ export default function IncomeStatementScreen(
                 return (
                   <td
                     key={`forecast-month-${index}`}
-                    className=" px-2 py-4 text-center dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {appUtils.formatCurrency(data.epsdiluted, {
                       notation: "compact",

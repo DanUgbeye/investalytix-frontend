@@ -1258,6 +1258,48 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                 );
               }}
             </WithToggle>
+
+            <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
+              <th className=" px-2 py-3 text-left dark:bg-transparent">
+                Preferred Stock Equity
+              </th>
+
+              {BALANCE_SHEET_SAMPLE.map((data, index) => {
+                return (
+                  <td
+                    key={`forecast-month-${index}`}
+                    className=" px-2 py-3 text-center dark:bg-transparent"
+                  >
+                    {appUtils.formatCurrency(data.preferredStock, {
+                      notation: "compact",
+                      minimumFractionDigits: 1,
+                      maximumFractionDigits: 2,
+                    })}
+                  </td>
+                );
+              })}
+            </tr>
+
+            <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
+              <th className=" px-2 py-3 text-left dark:bg-transparent">
+                Capital Lease Obligations
+              </th>
+
+              {BALANCE_SHEET_SAMPLE.map((data, index) => {
+                return (
+                  <td
+                    key={`forecast-month-${index}`}
+                    className=" px-2 py-3 text-center dark:bg-transparent"
+                  >
+                    {appUtils.formatCurrency(data.capitalLeaseObligations, {
+                      notation: "compact",
+                      minimumFractionDigits: 1,
+                      maximumFractionDigits: 2,
+                    })}
+                  </td>
+                );
+              })}
+            </tr>
           </tbody>
         </table>
       </div>
