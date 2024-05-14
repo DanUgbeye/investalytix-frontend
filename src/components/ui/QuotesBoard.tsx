@@ -17,6 +17,7 @@ export default function QuotesBoard() {
     autoplaySpeed: 0,
     cssEase: "linear",
     variableWidth: true,
+    arrows: false,
   };
   return (
     <section className="slider-container">
