@@ -253,7 +253,7 @@ export function DesktopTickerNav(props: TickerNavProps) {
 
         {!loading && quote && (
           <div className=" flex flex-col ">
-            <div className=" py-3 space-y-2 ">
+            <div className=" space-y-2 py-3 ">
               <div className=" px-4 ">
                 <div className=" font-bold text-primary-base ">AAPL</div>
                 <div className=" text-2xl font-bold ">Apple INC</div>

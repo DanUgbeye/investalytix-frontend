@@ -410,7 +410,7 @@ function YieldTable() {
     <table>
       <thead>
         <tr className="white-text !text-white">
-          <th className="th p-2 border-b text-left capitalize dark:border-b-0">
+          <th className="th border-b p-2 text-left capitalize dark:border-b-0">
             Name
           </th>
           <th className="th border-b text-right uppercase dark:border-b-0">

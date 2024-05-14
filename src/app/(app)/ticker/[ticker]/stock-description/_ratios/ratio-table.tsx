@@ -16,7 +16,7 @@ export default function RatioTable(props: RatioTableProps) {
 
   return (
     <div {...rest} className={cn(" w-full ", className)}>
-      <div className=" flex w-full items-center justify-between px-5 py-4 th ">
+      <div className=" th flex w-full items-center justify-between px-5 py-4 ">
         <h5 className="   ">{ratio.name}</h5>
         <LineChart className=" size-5 " />
       </div>
