@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import { KEY_STATS_SAMPLE } from "../key-stats/sample";
 
-export const INCOME_STATEMENT_DATA =
+const INCOME_STATEMENT_DATA =
   KEY_STATS_SAMPLE.income satisfies IncomeStatement[];
 
 interface IncomeStatementScreenProps {

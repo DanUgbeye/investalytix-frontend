@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import { KEY_STATS_SAMPLE } from "../key-stats/sample";
 
-export const BALANCE_SHEET_SAMPLE = KEY_STATS_SAMPLE.balance;
+const BALANCE_SHEET_SAMPLE = KEY_STATS_SAMPLE.balance;
 
 interface BalanceSheetScreenProps {
   ticker: string;
