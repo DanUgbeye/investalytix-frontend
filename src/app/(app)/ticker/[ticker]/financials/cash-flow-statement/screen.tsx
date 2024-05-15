@@ -515,7 +515,7 @@ export default function CashFlowStatementScreen(
                     >
                       <th className=" px-2 py-3 text-left dark:bg-transparent">
                         <div className=" flex items-center gap-x-1 ">
-                          <span>Finncing Cash Flow</span>
+                          <span>Financing Cash Flow</span>
                           <ChevronRight
                             className={cn(" size-4 duration-300 ", {
                               " rotate-90 ": state,
