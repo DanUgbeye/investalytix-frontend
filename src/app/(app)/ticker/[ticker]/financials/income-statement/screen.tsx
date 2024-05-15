@@ -105,7 +105,7 @@ export default function IncomeStatementScreen(
               })}
             </tr>
 
-            <WithToggle>
+            <WithToggle initial={true}>
               {(props) => {
                 const { state, toggle } = props;
 
@@ -296,7 +296,7 @@ export default function IncomeStatementScreen(
               }}
             </WithToggle>
 
-            <WithToggle>
+            <WithToggle initial={true}>
               {(props) => {
                 const { state, toggle } = props;
 
@@ -370,7 +370,7 @@ export default function IncomeStatementScreen(
               }}
             </WithToggle>
 
-            <WithToggle>
+            <WithToggle initial={true}>
               {(props) => {
                 const { state, toggle } = props;
 

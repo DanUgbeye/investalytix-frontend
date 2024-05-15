@@ -6,6 +6,7 @@ import {
   IncomeStatement,
   Ratio,
   RatioTTM,
+  SecFiling,
 } from "../types";
 
 export const RatioTTMSchema = z.object({
@@ -68,7 +69,7 @@ export const RatioTTMSchema = z.object({
   dividendPerShareTTM: z.number(),
 }) satisfies ZodType<RatioTTM>;
 
-export const RatioElementSchema = z.object({
+export const RatioSchema = z.object({
   symbol: z.string(),
   date: z.coerce.date(),
   calendarYear: z.string(),
@@ -275,3 +276,13 @@ export const FinancialsSchema = z.object({
   balance: z.array(BalanceSheetStatementSchema),
   cash: z.array(CashFlowStatementSchema),
 }) satisfies ZodType<Financials>;
+
+export const SecFilingSchema = z.object({
+  symbol: z.string(),
+  fillingDate: z.coerce.date(),
+  acceptedDate: z.coerce.date(),
+  cik: z.string(),
+  type: z.string(),
+  link: z.string(),
+  finalLink: z.string(),
+}) satisfies ZodType<SecFiling>;

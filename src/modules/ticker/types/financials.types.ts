@@ -265,3 +265,13 @@ export type BalanceSheetStatement = {
   link: string;
   finalLink: string;
 };
+
+export type SecFiling = {
+  symbol: string;
+  fillingDate: Date;
+  acceptedDate: Date;
+  cik: string;
+  type: string;
+  link: string;
+  finalLink: string;
+};

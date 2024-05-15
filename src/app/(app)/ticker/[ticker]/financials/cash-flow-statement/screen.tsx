@@ -42,7 +42,7 @@ export default function CashFlowStatementScreen(
 
           <tbody>
             {/* OPERATING CASH FLOW */}
-            <WithToggle>
+            <WithToggle initial={true}>
               {(props) => {
                 const { state, toggle } = props;
 
@@ -327,7 +327,7 @@ export default function CashFlowStatementScreen(
             </WithToggle>
 
             {/* INVESTING CASH FLOW */}
-            <WithToggle>
+            <WithToggle initial={true}>
               {(props) => {
                 const { state, toggle } = props;
 
@@ -498,7 +498,7 @@ export default function CashFlowStatementScreen(
             </WithToggle>
 
             {/* FINANCING CASH FLOW */}
-            <WithToggle>
+            <WithToggle initial={true}>
               {(props) => {
                 const { state, toggle } = props;
 
@@ -666,7 +666,7 @@ export default function CashFlowStatementScreen(
             </WithToggle>
 
             {/* FREE CASH FLOW */}
-            <WithToggle>
+            <WithToggle initial={true}>
               {(props) => {
                 const { state, toggle } = props;
 

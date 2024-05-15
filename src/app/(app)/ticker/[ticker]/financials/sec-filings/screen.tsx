@@ -5,8 +5,12 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
+import { SEC_FILINGS_SAMPLE } from "./sample";
+import { z } from "zod";
+import { format } from "date-fns";
 
-const secSorting = [
+const SEC_TYPE_SORT = [
   {
     label: "All",
     value: "",
@@ -39,6 +43,29 @@ const secSorting = [
   },
 ] as const;
 
+type SecFilingType = (typeof SEC_TYPE_SORT)[number]["value"];
+
+function verifySecFilingType(type: unknown) {
+  const validation = z
+    .enum([
+      SEC_TYPE_SORT[0].value,
+      SEC_TYPE_SORT[1].value,
+      SEC_TYPE_SORT[2].value,
+      SEC_TYPE_SORT[3].value,
+      SEC_TYPE_SORT[4].value,
+      SEC_TYPE_SORT[5].value,
+    ])
+    .safeParse(type);
+
+  if (validation.error) return SEC_TYPE_SORT[0].value;
+  return validation.data;
+}
+
+function getSecFilingNameFromType(type: string) {
+  // TODO input appropriate
+  return "10-K Periodic Financial Report";
+}
+
 interface RatioScreenProps {
   ticker: string;
 }
@@ -46,7 +73,23 @@ interface RatioScreenProps {
 export default function RatioScreen(props: RatioScreenProps) {
   const { ticker } = props;
   const searchParams = useSearchParams();
-  const activeSort = searchParams.get("sort");
+  const activeSecType = verifySecFilingType(searchParams.get("sort"));
+
+  const secFilings = useMemo(() => {
+    if (!activeSecType) return SEC_FILINGS_SAMPLE;
+    return SEC_FILINGS_SAMPLE.filter((secFiling) => {
+      const typeValues = SEC_TYPE_SORT.find(
+        (filing) => filing.value === activeSecType
+      );
+
+      if (!typeValues) return SEC_FILINGS_SAMPLE;
+      return SEC_FILINGS_SAMPLE.filter((filing) => {
+        return ([...typeValues.types] as string[]).includes(
+          filing.type as string
+        );
+      });
+    });
+  }, [activeSecType]);
 
   function getSortUrl(sort: string) {
     let params = new URLSearchParams(searchParams);
@@ -61,7 +104,7 @@ export default function RatioScreen(props: RatioScreenProps) {
   return (
     <section className=" space-y-12 pb-12 ">
       <div className=" flex gap-2 overflow-x-auto md:flex-wrap ">
-        {secSorting.map((sorting, index) => {
+        {SEC_TYPE_SORT.map((sorting, index) => {
           const url = getSortUrl(sorting.value);
 
           return (
@@ -70,7 +113,7 @@ export default function RatioScreen(props: RatioScreenProps) {
               href={`?${url}`}
               className={cn(
                 buttonVariants({ variant: "outline" }),
-                (activeSort || "") === sorting.value &&
+                (activeSecType || "") === sorting.value &&
                   buttonVariants({ variant: "default" })
               )}
             >
@@ -81,38 +124,36 @@ export default function RatioScreen(props: RatioScreenProps) {
       </div>
 
       <div className=" grid place-items-center gap-8 sm:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] ">
-        {Array(12)
-          .fill("")
-          .map((_, index) => {
-            return (
-              <div
-                key={index}
-                className=" w-full max-w-xs border text-sm sm:max-w-sm dark:border-main-gray-600 "
-              >
-                <div className=" space-y-10 p-3 text-center ">
-                  <div className=" space-y-1 pt-4 ">
-                    <h5 className=" font-bold ">
-                      10-K Periodic Financial Report
-                    </h5>
-                    <p className=" font-light italic ">
-                      Periodic Financial Reports
-                    </p>
-                  </div>
-
-                  <div className=" font-light italic  ">November 03, 2023</div>
+        {secFilings.map((filing, index) => {
+          return (
+            <div
+              key={index}
+              className=" w-full max-w-xs border text-sm sm:max-w-sm dark:border-main-gray-600 "
+            >
+              <div className=" space-y-10 p-3 text-center ">
+                <div className=" space-y-1 pt-4 ">
+                  <h5 className=" font-bold ">
+                    {getSecFilingNameFromType(filing.type)}
+                  </h5>
+                  <p className=" font-light italic ">Form {filing.type}</p>
                 </div>
 
-                <div className=" border-t p-3 text-center dark:border-main-gray-600 ">
-                  <Link
-                    href={""}
-                    className=" text-primary-base underline decoration-transparent underline-offset-4 duration-300 hover:decoration-primary-base "
-                  >
-                    View Filing
-                  </Link>
+                <div className=" font-light italic  ">
+                  {format(filing.fillingDate, "MMMM dd, yyyy")}
                 </div>
               </div>
-            );
-          })}
+
+              <div className=" border-t p-3 text-center dark:border-main-gray-600 ">
+                <Link
+                  href={filing.link}
+                  className=" text-primary-base underline decoration-transparent underline-offset-4 duration-300 hover:decoration-primary-base "
+                >
+                  View Filing
+                </Link>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

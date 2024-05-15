@@ -1,5 +1,5 @@
 import { ZodType, z } from "zod";
-import { CompanyProfile } from "../types";
+import { CompanyKeyExecutive, CompanyProfile } from "../types";
 
 export const CompanyProfileSchema = z.object({
   symbol: z.string(),
@@ -48,4 +48,4 @@ export const CompanyKeyExecutiveSchema = z.object({
   gender: z.string(),
   yearBorn: z.union([z.number(), z.null()]),
   titleSince: z.union([z.null(), z.coerce.date()]),
-});
+}) satisfies ZodType<CompanyKeyExecutive>;
