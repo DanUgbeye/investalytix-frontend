@@ -26,7 +26,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                 return (
                   <td
                     key={`${data.date}-${index}`}
-                    className=" px-2 py-3 text-right dark:bg-transparent"
+                    className=" px-2 py-3 text-center dark:bg-transparent"
                   >
                     {format(new Date(data.date), "MMM yy ")}
                   </td>
@@ -79,7 +79,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.revenue, {
                                   notation: "compact",
@@ -100,7 +100,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.costOfRevenue, {
                                   notation: "compact",
@@ -121,7 +121,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.grossProfit, {
                                   notation: "compact",
@@ -142,7 +142,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.ebitda, {
                                   notation: "compact",
@@ -163,7 +163,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.eps, {
                                   notation: "compact",
@@ -224,7 +224,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.totalAssets, {
                                   notation: "compact",
@@ -245,7 +245,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.totalDebt, {
                                   notation: "compact",
@@ -266,7 +266,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.netDebt, {
                                   notation: "compact",
@@ -287,7 +287,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.totalLiabilities,
@@ -311,7 +311,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.totalStockholdersEquity,
@@ -375,7 +375,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.freeCashFlow, {
                                   notation: "compact",
@@ -396,7 +396,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.operatingCashFlow,
@@ -420,7 +420,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.netIncome, {
                                   notation: "compact",
@@ -441,7 +441,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(
                                   data.commonStockRepurchased,
@@ -465,7 +465,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-right dark:bg-transparent"
+                                className=" px-2 py-3 text-center dark:bg-transparent"
                               >
                                 {appUtils.formatCurrency(data.dividendsPaid, {
                                   notation: "compact",
