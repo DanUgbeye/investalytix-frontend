@@ -28,6 +28,8 @@ import { Container } from "../container";
 import { usePathname, useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
 import useAuthStore from "@/modules/auth/store";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import userUtils from "@/modules/user/utils";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -89,6 +91,7 @@ export default function NavBar() {
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
             <MobileMenu />
+            
             <Link href={PAGES.HOME}>
               <Image
                 src="/assets/logo/logo-with-text.svg"
@@ -170,6 +173,12 @@ export default function NavBar() {
                 >
                   Watchlist
                 </Link>
+
+                <Avatar className=" size-10 text-white text-sm ">
+                  <AvatarFallback className=" bg-main-gray-600 dark:bg-main-gray-600 ">
+                    {userUtils.getUserInitials(user)}
+                  </AvatarFallback>
+                </Avatar>
               </>
             ) : (
               <>
@@ -211,6 +220,7 @@ function NavLink({
 
 function MobileMenu() {
   const [history, setHistory] = useState<RouteLink[]>([]);
+  const user = useAuthStore(({ user }) => user);
 
   const lastHistory = () => history[history.length - 1];
 
@@ -227,7 +237,7 @@ function MobileMenu() {
   return (
     <Menu>
       <div className="xl:hidden">
-        <Menu.Button className="px-2">
+        <Menu.Button className="">
           <svg
             width={24}
             height={24}
@@ -242,7 +252,7 @@ function MobileMenu() {
           </svg>
         </Menu.Button>
 
-        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-[#191919]">
+        <Menu.Items className="fixed shadow-md z-20 overflow-hidden rounded-lg bg-white max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-[#191919]">
           <div className="flex min-w-[300px] flex-col bg-white dark:bg-[#191919]">
             {history.length === 0 ? (
               <div className="flex flex-col bg-white dark:bg-[#191919] ">
@@ -250,7 +260,7 @@ function MobileMenu() {
                   <Menu.Button
                     onClick={resetHistory}
                     className={
-                      " grid size-12 place-items-center duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
+                      " grid size-12 place-items-center duration-300 hover:text-primary-light "
                     }
                   >
                     <FiX className="size-5" />
@@ -281,19 +291,25 @@ function MobileMenu() {
                   })}
 
                   <div className="flex flex-col space-y-2 pb-4 md:hidden ">
-                    <Link
-                      href="/login"
-                      className="mx-4 block cursor-pointer rounded bg-transparent px-4 py-3 text-center font-bold duration-300 hover:text-primary-base focus:text-primary-base  dark:hover:text-primary-light"
-                    >
-                      Login
-                    </Link>
+                    {user !== undefined ? (
+                      <></>
+                    ) : (
+                      <>
+                        <Link
+                          href="/login"
+                          className="mx-4 block cursor-pointer rounded bg-transparent px-4 py-3 text-center font-bold duration-300 hover:text-primary-base focus:text-primary-base  dark:hover:text-primary-light"
+                        >
+                          Login
+                        </Link>
 
-                    <Link
-                      href="/signup"
-                      className="mx-4 block cursor-pointer rounded bg-primary-base px-4 py-3 text-center font-bold text-white duration-300 hover:bg-primary-base/90 "
-                    >
-                      Sign Up
-                    </Link>
+                        <Link
+                          href="/signup"
+                          className="mx-4 block cursor-pointer rounded bg-primary-base px-4 py-3 text-center font-bold text-white duration-300 hover:bg-primary-base/90 "
+                        >
+                          Sign Up
+                        </Link>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
