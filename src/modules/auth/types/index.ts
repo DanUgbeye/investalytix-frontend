@@ -1,3 +1,5 @@
+export * from "./store.types.ts";
+
 export type SignupData = {
   firstname: string;
   lastname: string;

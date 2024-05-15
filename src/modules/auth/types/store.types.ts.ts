@@ -1,5 +1,5 @@
 import { UserData } from "@/modules/user/user.types";
-import { AuthData } from "../auth.types";
+import { AuthData } from ".";
 
 export type AuthState = {
   auth?: AuthData;

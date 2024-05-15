@@ -5,6 +5,7 @@ const PAGES = {
   VERIFY_EMAIL: "/verify-email",
   FORGOT_PASSWORD: "/forgot-password",
 
+  WATCHLIST: "/watchlist",
   TICKER: "/ticker",
 } as const;
 

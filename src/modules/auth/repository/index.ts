@@ -5,7 +5,7 @@ import { RequestOptions } from "@/types/api.types";
 import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
 import { AxiosInstance } from "axios";
 import { z } from "zod";
-import { AuthData, LoginData, SignupData } from "../auth.types";
+import { AuthData, LoginData, SignupData } from "../types";
 import { AuthSchema } from "../validation";
 
 export class AuthRepository {

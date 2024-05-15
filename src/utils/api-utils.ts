@@ -5,6 +5,7 @@ function createAPIInstance(baseUrl?: string) {
   return axios.create({
     baseURL: baseUrl,
     timeout: 30000,
+    timeoutErrorMessage: "Request timeout",
   });
 }
 

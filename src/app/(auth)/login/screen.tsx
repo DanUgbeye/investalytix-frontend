@@ -5,7 +5,7 @@ import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PAGES from "@/data/page-map";
-import { LoginData } from "@/modules/auth/auth.types";
+import { LoginData } from "@/modules/auth/types";
 import { useAuthRepo } from "@/modules/auth/repository";
 import useAuthStore from "@/modules/auth/store";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,8 +16,10 @@ import { ImCheckmark } from "react-icons/im";
 import { PiSpinnerGap } from "react-icons/pi";
 import { toast } from "react-toastify";
 import { ZodType, z } from "zod";
+import { useRouter } from "next/navigation";
 
 export default function LoginScreen() {
+  const router = useRouter();
   const authRepo = useAuthRepo();
   const setAuth = useAuthStore(({ set }) => set);
   const {
@@ -44,6 +46,7 @@ export default function LoginScreen() {
       setAuth(res);
       reset();
       toast.success("Login Successful");
+      router.replace(PAGES.HOME);
     } catch (error: any) {
       toast.error(error.message);
     }

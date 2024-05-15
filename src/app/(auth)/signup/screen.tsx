@@ -5,7 +5,7 @@ import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PAGES from "@/data/page-map";
-import { SignupData } from "@/modules/auth/auth.types";
+import { SignupData } from "@/modules/auth/types";
 import { useAuthRepo } from "@/modules/auth/repository";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";

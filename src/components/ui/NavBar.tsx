@@ -27,6 +27,7 @@ import {
 import { Container } from "../container";
 import { usePathname, useRouter } from "next/navigation";
 import useInput from "@/hooks/useInput";
+import useAuthStore from "@/modules/auth/store";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -67,15 +68,16 @@ const routes: RouteLink[] = [
     label: "PRICING",
     href: "/pricing",
   },
-  // {
-  //   label: "ABOUT US",
-  //   href: "",
-  // },
+  {
+    label: "ABOUT US",
+    href: "/about-us",
+  },
 ];
 
 export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
   const path = usePathname();
+  const user = useAuthStore(({ user }) => user);
 
   return (
     <nav
@@ -160,19 +162,32 @@ export default function NavBar() {
               )}
             </button>
 
-            <Link
-              href={PAGES.LOGIN}
-              className="hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white hover:text-primary-base md:block dark:hover:text-primary-light"
-            >
-              Login
-            </Link>
+            {user !== undefined ? (
+              <>
+                <Link
+                  href={PAGES.WATCHLIST}
+                  className="hidden cursor-pointer rounded bg-transparent px-4 py-2 font-bold text-white hover:text-primary-base md:block dark:hover:text-primary-light"
+                >
+                  Watchlist
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href={PAGES.LOGIN}
+                  className="hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white hover:text-primary-base md:block dark:hover:text-primary-light"
+                >
+                  Login
+                </Link>
 
-            <Link
-              href={PAGES.SIGNUP}
-              className="hidden cursor-pointer rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block"
-            >
-              Sign Up
-            </Link>
+                <Link
+                  href={PAGES.SIGNUP}
+                  className="hidden cursor-pointer rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </Container>
