@@ -30,6 +30,15 @@ import useInput from "@/hooks/useInput";
 import useAuthStore from "@/modules/auth/store";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import userUtils from "@/modules/user/utils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "./button";
+import { BellRing, CircleUser, Eye, LogOut, Settings } from "lucide-react";
+import { Separator } from "./separator";
+import useLogout from "@/modules/auth/hooks/use-logout.hook";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -80,6 +89,11 @@ export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
   const path = usePathname();
   const user = useAuthStore(({ user }) => user);
+  const logout = useLogout();
+
+  function handleLogout() {
+    logout().catch((err) => {});
+  }
 
   return (
     <nav
@@ -91,7 +105,7 @@ export default function NavBar() {
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
             <MobileMenu />
-            
+
             <Link href={PAGES.HOME}>
               <Image
                 src="/assets/logo/logo-with-text.svg"
@@ -110,7 +124,7 @@ export default function NavBar() {
                     <NavigationMenuItem>
                       {route.children ? (
                         <>
-                          <NavigationMenuTrigger className="rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light">
+                          <NavigationMenuTrigger className="rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base dark:text-main-gray-300 dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light">
                             {route.label}
                           </NavigationMenuTrigger>
                           <NavigationMenuContent className="w-full !border-0 bg-white p-0 dark:bg-[#191919]">
@@ -121,7 +135,7 @@ export default function NavBar() {
                                     key={`${childRoute.href}-${index}`}
                                     href={childRoute.href}
                                     className={
-                                      "grid w-full min-w-fit px-4 py-3 font-medium hover:text-primary-base dark:text-white dark:hover:text-primary-light"
+                                      "grid w-full min-w-fit px-4 py-3 font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
                                     }
                                   >
                                     {childRoute.label}
@@ -136,7 +150,7 @@ export default function NavBar() {
                           <NavigationMenuLink
                             className={cn(
                               navigationMenuTriggerStyle(),
-                              "rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base  data-[active]:text-primary-base data-[state=open]:text-primary-base dark:hover:text-primary-light dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light"
+                              "rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base  data-[state=open]:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light"
                             )}
                           >
                             {route.label}
@@ -155,7 +169,7 @@ export default function NavBar() {
 
             <button
               title="theme"
-              className=" inline-block rounded-full p-2 font-bold text-white"
+              className=" inline-block rounded-full p-2 font-bold text-white dark:text-main-gray-300"
               onClick={toggleTheme}
             >
               {theme === "light" ? (
@@ -167,31 +181,81 @@ export default function NavBar() {
 
             {user !== undefined ? (
               <>
-                <Link
+                {/* <Link
                   href={PAGES.WATCHLIST}
-                  className="hidden cursor-pointer rounded bg-transparent px-4 py-2 font-bold text-white hover:text-primary-base md:block dark:hover:text-primary-light"
+                  className="hidden cursor-pointer rounded bg-transparent px-2 py-2 font-medium text-white hover:text-primary-base md:block dark:text-main-gray-300 dark:hover:text-primary-light"
                 >
                   Watchlist
-                </Link>
+                </Link> */}
 
-                <Avatar className=" size-10 text-white text-sm ">
-                  <AvatarFallback className=" bg-main-gray-600 dark:bg-main-gray-600 ">
-                    {userUtils.getUserInitials(user)}
-                  </AvatarFallback>
-                </Avatar>
+                <Popover>
+                  <PopoverTrigger>
+                    <Avatar className=" size-10 bg-transparent text-sm text-white dark:bg-transparent dark:text-main-gray-300 ">
+                      <AvatarFallback className=" bg-transparent dark:bg-transparent ">
+                        <CircleUser className=" size-7 stroke-[1.5] " />
+                      </AvatarFallback>
+                    </Avatar>
+                  </PopoverTrigger>
+
+                  <PopoverContent className=" mr-4 mt-2 flex max-w-[12rem] flex-col p-2 dark:bg-main-gray-800 ">
+                    <div className=" w-full ">
+                      <Link
+                        title="Watchlist"
+                        href={PAGES.WATCHLIST}
+                        className=" grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
+                      >
+                        <BellRing className=" size-5 stroke-[1.5] " />
+                        <span className="  "> Watchlist</span>
+                      </Link>
+
+                      <Link
+                        title="Profile"
+                        href={PAGES.PROFILE}
+                        className=" grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
+                      >
+                        <CircleUser className=" size-5 stroke-[1.5] " />
+                        <span className="  "> Profile</span>
+                      </Link>
+
+                      <Link
+                        title="Settings"
+                        href={PAGES.SETTINGS}
+                        className=" grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
+                      >
+                        <Settings className=" size-5 stroke-[1.5] " />
+                        <span className="  ">Settings</span>
+                      </Link>
+
+                      <Separator
+                        orientation="horizontal"
+                        className=" mt-2 bg-main-gray-400 dark:bg-main-gray-600 "
+                      />
+
+                      <Button
+                        title="Logout"
+                        variant={"ghost"}
+                        className=" grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-left text-sm font-medium hover:bg-transparent hover:text-primary-base dark:text-main-gray-300 dark:hover:bg-transparent dark:hover:text-primary-light "
+                        onClick={handleLogout}
+                      >
+                        <LogOut className=" size-5 stroke-[1.5] " />
+                        <span className="  ">Logout</span>
+                      </Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </>
             ) : (
               <>
                 <Link
                   href={PAGES.LOGIN}
-                  className="hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white hover:text-primary-base md:block dark:hover:text-primary-light"
+                  className="hidden cursor-pointer rounded bg-transparent px-4 py-2 font-medium text-white hover:text-primary-base md:block dark:hover:text-primary-light"
                 >
                   Login
                 </Link>
 
                 <Link
                   href={PAGES.SIGNUP}
-                  className="hidden cursor-pointer rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block"
+                  className="hidden cursor-pointer rounded bg-[#FB8B1E] px-4 py-2 font-medium text-white md:block"
                 >
                   Sign Up
                 </Link>
@@ -252,7 +316,7 @@ function MobileMenu() {
           </svg>
         </Menu.Button>
 
-        <Menu.Items className="fixed shadow-md z-20 overflow-hidden rounded-lg bg-white max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-[#191919]">
+        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white shadow-md max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-[#191919]">
           <div className="flex min-w-[300px] flex-col bg-white dark:bg-[#191919]">
             {history.length === 0 ? (
               <div className="flex flex-col bg-white dark:bg-[#191919] ">
@@ -388,7 +452,7 @@ function Search() {
         className="grid place-content-center overflow-hidden rounded-full p-2"
         onClick={toggleIsOpen}
       >
-        <FiSearch className="size-5 text-white xl:size-4" />
+        <FiSearch className="size-5 text-white xl:size-4 dark:text-main-gray-300" />
       </button>
       <Dialog open={isOpen} onClose={toggleIsOpen} className="relative z-50">
         {/* The backdrop, rendered as a fixed sibling to the panel container */}

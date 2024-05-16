@@ -55,7 +55,7 @@ export class AuthRepository {
   }
 
   async logout(options?: RequestOptions) {
-    const path = `/auth/login`;
+    const path = `/auth/logout`;
     const api = createAPIInstance("/api");
 
     try {

@@ -194,6 +194,10 @@ export default function SignupScreen() {
                     {...field}
                     id="password"
                     className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                    classNames={{
+                      showButton:
+                        " dark:text-black dark:hover:bg-gray-100 dark:hover:text-black ",
+                    }}
                     placeholder="******"
                   />
 

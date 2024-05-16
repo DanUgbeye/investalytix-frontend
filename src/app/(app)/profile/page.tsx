@@ -2,13 +2,13 @@ import { Container } from "@/components/container";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Watchlist | Investalytix",
+  title: "Profile | Investalytix",
 };
 
-export default function WatchlistPage() {
+export default function ProfilePage() {
   return (
     <main className=" min-h-[min(calc(100dvh-90px),40rem)] ">
-      <Container className=" py-10 ">Watchlist Page</Container>
+      <Container className=" py-10 ">Profile Page</Container>
     </main>
   );
 }

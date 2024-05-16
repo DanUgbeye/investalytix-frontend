@@ -5,18 +5,18 @@ import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PAGES from "@/data/page-map";
-import { LoginData } from "@/modules/auth/types";
 import { useAuthRepo } from "@/modules/auth/repository";
 import useAuthStore from "@/modules/auth/store";
+import { LoginData } from "@/modules/auth/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { ImCheckmark } from "react-icons/im";
 import { PiSpinnerGap } from "react-icons/pi";
 import { toast } from "react-toastify";
 import { ZodType, z } from "zod";
-import { useRouter } from "next/navigation";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -136,6 +136,10 @@ export default function LoginScreen() {
                     {...field}
                     id="password"
                     className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                    classNames={{
+                      showButton:
+                        " dark:text-black dark:hover:bg-gray-100 dark:hover:text-black ",
+                    }}
                     placeholder="******"
                   />
 
