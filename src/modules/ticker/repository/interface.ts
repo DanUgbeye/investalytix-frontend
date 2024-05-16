@@ -5,9 +5,13 @@ import {
   CompanyOutlook,
   Financials,
   IncomeStatement,
+  TickerData,
 } from "../types";
+import { Quote } from "@/types";
 
 export interface ITickerRepository {
+  search(query: string, options?: RequestOptions): Promise<Quote[]>;
+
   getCompanyOutLook(
     ticker: string,
     options?: RequestOptions

@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,12 +10,22 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import PAGES from "@/data/page-map";
+import useInput from "@/hooks/useInput";
 import { cn } from "@/lib/utils";
+import useLogout from "@/modules/auth/hooks/use-logout.hook";
+import useAuthStore from "@/modules/auth/store";
 import useTheme from "@/store/theme/useTheme";
 import { Dialog, Menu } from "@headlessui/react";
+import { BellRing, CircleUser, LogOut, Settings, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { AnchorHTMLAttributes, FormEvent, useState } from "react";
 import {
   FiArrowLeft,
@@ -25,20 +36,8 @@ import {
   FiX,
 } from "react-icons/fi";
 import { Container } from "../container";
-import { usePathname, useRouter } from "next/navigation";
-import useInput from "@/hooks/useInput";
-import useAuthStore from "@/modules/auth/store";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import userUtils from "@/modules/user/utils";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Button } from "./button";
-import { BellRing, CircleUser, Eye, LogOut, Settings } from "lucide-react";
 import { Separator } from "./separator";
-import useLogout from "@/modules/auth/hooks/use-logout.hook";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -443,8 +442,9 @@ function Search() {
 
   function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    router.push(`/ticker/${query}`);
+    router.push(`${PAGES.TICKER}/${query}`);
   }
+
   return (
     <>
       <button
@@ -454,6 +454,7 @@ function Search() {
       >
         <FiSearch className="size-5 text-white xl:size-4 dark:text-main-gray-300" />
       </button>
+
       <Dialog open={isOpen} onClose={toggleIsOpen} className="relative z-50">
         {/* The backdrop, rendered as a fixed sibling to the panel container */}
         <div
@@ -474,25 +475,16 @@ function Search() {
                     name="search"
                     id="search"
                     {...queryOpts}
+                    autoComplete="off"
                     placeholder="Search for ticker, quotes & videos"
                     className="w-full rounded-full border-2 border-black px-6 py-3 text-sm font-medium text-black placeholder:text-black focus:outline-none dark:border dark:border-white/20 dark:bg-black dark:text-white/80 dark:placeholder:text-white/50 dark:focus:border-white/50"
                   />
                   <div className="absolute bottom-4 right-0 top-4 grid -translate-x-1/2 place-content-center bg-white pl-6 dark:bg-transparent">
-                    <svg
-                      width={16}
-                      height={16}
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.0194 11.0787L14.8747 13.9333L13.9314 14.8767L11.0767 12.0213C10.0145 12.8728 8.69337 13.3359 7.33203 13.334C4.02003 13.334 1.33203 10.646 1.33203 7.33398C1.33203 4.02198 4.02003 1.33398 7.33203 1.33398C10.644 1.33398 13.332 4.02198 13.332 7.33398C13.334 8.69532 12.8708 10.0165 12.0194 11.0787ZM10.682 10.584C11.5281 9.71391 12.0006 8.5476 11.9987 7.33398C11.9987 4.75532 9.91003 2.66732 7.33203 2.66732C4.75336 2.66732 2.66536 4.75532 2.66536 7.33398C2.66536 9.91198 4.75336 12.0007 7.33203 12.0007C8.54565 12.0026 9.71196 11.5301 10.582 10.684L10.682 10.584Z"
-                        fill="black"
-                      />
-                    </svg>
+                    <X className=" size-4 " />
                   </div>
                 </div>
               </form>
+
               <div className="mt-10">
                 <p className="text-center">No search results</p>
               </div>

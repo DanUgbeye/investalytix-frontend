@@ -1,4 +1,4 @@
-import SERVER_CONFIG from "@/config/app/server";
+import SERVER_CONFIG from "@/config/server/app";
 import { AuthData } from "@/modules/auth/types";
 import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
 import { AxiosError } from "axios";

@@ -1,4 +1,4 @@
-import { clientAPI } from "@/config/api";
+import { clientAPI } from "@/config/client/api";
 import { ServerUserData } from "@/modules/user/user.types";
 import { ServerUserSchema } from "@/modules/user/validation";
 import { RequestOptions } from "@/types/api.types";

@@ -1,7 +1,11 @@
 "use client";
 
 import appUtils from "@/utils/app-util";
-import { type ClientConfig } from "./app.types";
+
+export type ClientConfig = {
+  CLIENT_BASE_URL: string;
+  API_BASE_URL: string;
+};
 
 function initializeClientConfig(): Readonly<ClientConfig> {
   return Object.freeze({

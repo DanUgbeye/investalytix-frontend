@@ -17,9 +17,32 @@ import {
   IncomeStatementSchema,
 } from "../validation";
 import { ITickerRepository } from "./interface";
+import { Quote } from "@/types";
+import { QuoteSchema } from "@/validation";
 
 export class TickerRepository implements ITickerRepository {
   constructor(private readonly axios: AxiosInstance) {}
+
+  async search(
+    query: string,
+    options?: RequestOptions | undefined
+  ): Promise<Quote[]> {
+    try {
+      const path = `/ticker/search`;
+      let res = await this.axios.get<{ data: Quote[] }>(path, options);
+
+      let validation = z.array(QuoteSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
 
   async getCompanyOutLook(
     ticker: string,

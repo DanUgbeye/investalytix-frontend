@@ -1,4 +1,4 @@
-import { clientAPI } from "@/config/api";
+import { clientAPI } from "@/config/client/api";
 import { AuthRepository } from "../repository";
 import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
 import useAuthStore from "../store";

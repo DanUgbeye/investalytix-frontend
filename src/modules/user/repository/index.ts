@@ -1,4 +1,4 @@
-import { clientAPI } from "@/config/api";
+import { clientAPI } from "@/config/client/api";
 import { RequestOptions } from "@/types/api.types";
 import { handleAPIError } from "@/utils/api-utils";
 import { AxiosInstance } from "axios";
