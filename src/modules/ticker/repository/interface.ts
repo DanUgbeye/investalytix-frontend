@@ -7,10 +7,10 @@ import {
   IncomeStatement,
   TickerData,
 } from "../types";
-import { Quote } from "@/types";
+import { Quote, SearchResult } from "@/types";
 
 export interface ITickerRepository {
-  search(query: string, options?: RequestOptions): Promise<Quote[]>;
+  search(query: string, options?: RequestOptions): Promise<SearchResult[]>;
 
   getCompanyOutLook(
     ticker: string,
@@ -18,7 +18,7 @@ export interface ITickerRepository {
   ): Promise<CompanyOutlook>;
 
   // FINANCIALS
-  getKeyStats(ticker: string, options?: RequestOptions): Promise<Financials>;
+  getFinancials(ticker: string, options?: RequestOptions): Promise<Financials>;
 
   getIncomeStatement(
     ticker: string,

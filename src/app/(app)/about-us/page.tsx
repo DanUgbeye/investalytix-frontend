@@ -17,7 +17,7 @@ Join us at investalytix, where empowering your financial journey is our mission.
 export default function AboutUsPage() {
   return (
     <main>
-      <Container className=" max-w-5xl py-10 ">
+      <Container className=" max-w-5xl py-10 min-h-[calc(100dvh-90px)] ">
         <h1 className=" text-center text-3xl font-bold text-primary-base ">
           About Us
         </h1>

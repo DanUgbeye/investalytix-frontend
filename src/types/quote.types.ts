@@ -22,3 +22,11 @@ export type Quote = {
   sharesOutstanding: number | null;
   timestamp: number;
 };
+
+export type SearchResult = {
+  symbol: string;
+  name: string;
+  currency: string | null;
+  stockExchange: string | null;
+  exchangeShortName: string | null;
+};

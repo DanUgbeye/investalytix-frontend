@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -20,13 +20,16 @@ import useInput from "@/hooks/useInput";
 import { cn } from "@/lib/utils";
 import useLogout from "@/modules/auth/hooks/use-logout.hook";
 import useAuthStore from "@/modules/auth/store";
+import { useTickerRepository } from "@/modules/ticker/hooks";
 import useTheme from "@/store/theme/useTheme";
+import { Quote, SearchResult } from "@/types";
 import { Dialog, Menu } from "@headlessui/react";
+import { useDebouncedCallback } from "@mantine/hooks";
 import { BellRing, CircleUser, LogOut, Settings, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { AnchorHTMLAttributes, FormEvent, useState } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import {
   FiArrowLeft,
   FiChevronRight,
@@ -36,8 +39,10 @@ import {
   FiX,
 } from "react-icons/fi";
 import { Container } from "../container";
+import Spinner from "../spinner";
 import { Button } from "./button";
 import { Separator } from "./separator";
+import tickerUtils from "@/modules/ticker/utils";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -267,19 +272,21 @@ export default function NavBar() {
   );
 }
 
-function NavLink({
-  route,
-  className = "",
-}: {
+type NavLinkProps = {
   route: RouteLink;
-  className: AnchorHTMLAttributes<HTMLAnchorElement>["className"];
-}) {
-  return (
-    <Link className={className} href={route.href}>
-      {route.label}
-    </Link>
-  );
-}
+  className?: string;
+};
+
+const NavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
+  ({ route, className = "" }, ref) => {
+    return (
+      <Link ref={ref} className={className} href={route.href}>
+        {route.label}
+      </Link>
+    );
+  }
+);
+NavLink.displayName = "NavLink";
 
 function MobileMenu() {
   const [history, setHistory] = useState<RouteLink[]>([]);
@@ -335,7 +342,7 @@ function MobileMenu() {
                     return route.children ? (
                       <button
                         key={route.label}
-                        className={`flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white dark:hover:text-primary-light`}
+                        className={`flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light`}
                         onClick={() => addHistory(route)}
                       >
                         {route.label}
@@ -435,14 +442,67 @@ function MobileMenu() {
 
 function Search() {
   const [isOpen, setIsOpen] = useState(false);
-  const [query, queryOpts] = useInput("");
+  const [query, { onChange, ...queryOpts }, setQuery] = useInput("");
   const router = useRouter();
+  const tickerRepo = useTickerRepository();
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const searchAbortController = useRef<AbortController | undefined>(undefined);
+
+  const handleSearch = useDebouncedCallback(async function (value: string) {
+    setSearchLoading(true);
+    try {
+      setSearchResults(
+        await tickerRepo.search(value, {
+          signal: searchAbortController.current?.signal,
+        })
+      );
+    } catch (error: any) {
+    } finally {
+      setSearchLoading(false);
+    }
+  }, 300);
+
+  function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let searchQuery = e.target.value;
+    setQuery(searchQuery);
+
+    if (searchAbortController.current) {
+      searchAbortController.current.abort();
+      searchAbortController.current = new AbortController();
+    } else {
+      searchAbortController.current = new AbortController();
+    }
+
+    if (searchQuery) {
+      handleSearch(searchQuery);
+    } else {
+      setSearchResults([]);
+    }
+  }
+
+  function handleResetQuery(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    e.preventDefault();
+    setQuery("");
+    setSearchResults([]);
+
+    if (searchAbortController.current) {
+      searchAbortController.current.abort();
+      searchAbortController.current = new AbortController();
+    }
+  }
 
   const toggleIsOpen = () => setIsOpen((s) => !s);
 
   function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    router.push(`${PAGES.TICKER}/${query}`);
+    if (searchResults.length < 0) {
+      return router.push(`${PAGES.TICKER}/${query}`);
+    }
+
+    router.push(`${PAGES.TICKER}/${searchResults[0].symbol}`);
   }
 
   return (
@@ -458,35 +518,114 @@ function Search() {
       <Dialog open={isOpen} onClose={toggleIsOpen} className="relative z-50">
         {/* The backdrop, rendered as a fixed sibling to the panel container */}
         <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm"
           aria-hidden="true"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm"
         />
 
         {/* Full-screen scrollable container */}
-        <div className="fixed inset-0 mt-[20vh] flex w-screen items-start justify-center overflow-hidden">
+        <div className="fixed inset-0 mt-[84px] flex w-screen items-start justify-center overflow-hidden md:mt-[20vh]">
           {/* The actual dialog panel  */}
           {/* Container to center the panel */}
-          <div className="max-h-[80vh] w-[80vw] max-w-screen-md overflow-auto rounded bg-white md:w-[70vw] dark:border dark:border-white/20 dark:bg-black">
-            <Dialog.Panel className="w-full p-10">
-              <form className="flex flex-col gap-5" onSubmit={submitHandler}>
+          <div className="max-h-[80vh] w-[100dvw] max-w-screen-md overflow-auto bg-white md:w-[70dvw] md:rounded-xl dark:border dark:border-white/20 dark:bg-black ">
+            <Dialog.Panel className="grid h-fit max-h-[min(calc(100dvh-10rem),30rem)] w-full grid-rows-[auto,1fr,0.5rem] ">
+              <form
+                className="flex flex-col gap-5 px-5 py-5"
+                onSubmit={submitHandler}
+              >
                 <div className="relative h-fit">
                   <input
                     type="search"
                     name="search"
                     id="search"
                     {...queryOpts}
+                    onChange={handleQueryChange}
                     autoComplete="off"
                     placeholder="Search for ticker, quotes & videos"
-                    className="w-full rounded-full border-2 border-black px-6 py-3 text-sm font-medium text-black placeholder:text-black focus:outline-none dark:border dark:border-white/20 dark:bg-black dark:text-white/80 dark:placeholder:text-white/50 dark:focus:border-white/50"
+                    className="w-full rounded-full border-2 border-black px-6 py-3 text-sm font-medium text-black placeholder:text-main-gray-400 focus:outline-none dark:border dark:border-white/20 dark:bg-transparent dark:text-white/80 dark:placeholder:text-main-gray-700 dark:focus:border-white/50"
                   />
-                  <div className="absolute bottom-4 right-0 top-4 grid -translate-x-1/2 place-content-center bg-white pl-6 dark:bg-transparent">
-                    <X className=" size-4 " />
-                  </div>
+
+                  {query && (
+                    <button
+                      type="button"
+                      className="place-items-centers absolute right-5 top-1/2 grid -translate-y-1/2 dark:bg-transparent  "
+                      onClick={handleResetQuery}
+                    >
+                      <X className=" size-4 " />
+                    </button>
+                  )}
                 </div>
               </form>
 
-              <div className="mt-10">
-                <p className="text-center">No search results</p>
+              <div className=" h-full overflow-y-scroll px-2 pb-10 ">
+                {searchLoading ? (
+                  <>
+                    <center>
+                      <Spinner className=" " />
+                    </center>
+                  </>
+                ) : (
+                  <>
+                    {searchResults.length > 0 ? (
+                      <>
+                        <section className="  ">
+                          <table className=" w-full overflow-x-clip ">
+                            <tbody>
+                              {searchResults
+                                .slice(0, 50)
+                                .map((searchResult, index) => {
+                                  return (
+                                    <tr
+                                      key={`${searchResult.name}-${index}`}
+                                      className=" cursor-pointer rounded-lg text-sm duration-300 hover:bg-main-gray-200 dark:hover:bg-main-gray-900 "
+                                      onClick={() => {
+                                        router.push(
+                                          `${PAGES.TICKER}/${searchResult.symbol}`
+                                        );
+                                      }}
+                                    >
+                                      <td className=" max-w-[10rem] py-2 pl-2 pr-4 ">
+                                        <div className=" flex items-center gap-x-3 ">
+                                          <Avatar className=" rounded-none text-xxs ">
+                                            <AvatarImage
+                                              crossOrigin="anonymous"
+                                              className=" rounded-none "
+                                              src={tickerUtils.getTickerLogoUrl(
+                                                searchResult.symbol
+                                              )}
+                                            />
+
+                                            <AvatarFallback className=" ">
+                                              {searchResult.symbol.slice(0, 6)}
+                                            </AvatarFallback>
+                                          </Avatar>
+
+                                          <span className=" grid truncate">
+                                            {searchResult.symbol}
+                                          </span>
+                                        </div>
+                                      </td>
+
+                                      <td className=" px-4 py-2 ">
+                                        {searchResult.name}
+                                      </td>
+
+                                      <td className=" hidden px-4 py-2 text-right sm:table-cell ">
+                                        {searchResult.exchangeShortName}
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                            </tbody>
+                          </table>
+                        </section>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-center">No search results</p>
+                      </>
+                    )}
+                  </>
+                )}
               </div>
             </Dialog.Panel>
           </div>

@@ -1,4 +1,4 @@
-import { Quote } from "@/types";
+import { Quote, SearchResult } from "@/types";
 import { ZodType, z } from "zod";
 
 export const QuoteSchema = z.object({
@@ -25,3 +25,11 @@ export const QuoteSchema = z.object({
   sharesOutstanding: z.number().nullable(),
   timestamp: z.number(),
 }) satisfies ZodType<Quote>;
+
+export const SearchResultSchema = z.object({
+  symbol: z.string(),
+  name: z.string(),
+  currency: z.string().nullable(),
+  stockExchange: z.string().nullable(),
+  exchangeShortName: z.string().nullable(),
+}) satisfies ZodType<SearchResult>;

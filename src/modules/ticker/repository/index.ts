@@ -17,8 +17,8 @@ import {
   IncomeStatementSchema,
 } from "../validation";
 import { ITickerRepository } from "./interface";
-import { Quote } from "@/types";
-import { QuoteSchema } from "@/validation";
+import { Quote, SearchResult } from "@/types";
+import { QuoteSchema, SearchResultSchema } from "@/validation";
 
 export class TickerRepository implements ITickerRepository {
   constructor(private readonly axios: AxiosInstance) {}
@@ -26,12 +26,15 @@ export class TickerRepository implements ITickerRepository {
   async search(
     query: string,
     options?: RequestOptions | undefined
-  ): Promise<Quote[]> {
+  ): Promise<SearchResult[]> {
     try {
-      const path = `/ticker/search`;
-      let res = await this.axios.get<{ data: Quote[] }>(path, options);
+      const searchParams = new URLSearchParams();
+      searchParams.append("query", query);
 
-      let validation = z.array(QuoteSchema).safeParse(res.data.data);
+      const path = `/tickers?${searchParams.toString()}`;
+      let res = await this.axios.get<{ data: SearchResult[] }>(path, options);
+
+      let validation = z.array(SearchResultSchema).safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");
@@ -66,12 +69,12 @@ export class TickerRepository implements ITickerRepository {
   }
 
   // FINANCIALS
-  async getKeyStats(
+  async getFinancials(
     ticker: string,
     options?: RequestOptions | undefined
   ): Promise<Financials> {
     try {
-      const path = `/ticker/${ticker}/financials/key-stats`;
+      const path = `/ticker/${ticker}/financials`;
       let res = await this.axios.get<{ data: Financials }>(path, options);
 
       let validation = FinancialsSchema.safeParse(res.data.data);
