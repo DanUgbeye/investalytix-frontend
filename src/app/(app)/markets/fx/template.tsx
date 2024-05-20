@@ -21,7 +21,7 @@ export default function FXTemplate({
       <div>
         <MarketHeader name="CURRENCIES" active="FX" />
 
-        <div className="mx-auto mb-14 flex w-fit items-center gap-5  p-3">
+        {/* <div className="mx-auto mb-14 flex w-fit items-center gap-5  p-3">
           {markets.map((market, index) => (
             <Fragment key={market.href}>
               <Link
@@ -37,7 +37,7 @@ export default function FXTemplate({
               )}
             </Fragment>
           ))}
-        </div>
+        </div> */}
       </div>
 
       {children}

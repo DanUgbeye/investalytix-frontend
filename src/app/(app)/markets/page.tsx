@@ -1,4 +1,3 @@
-"use client";
 import WithSidePanel, {
   SIDE_SECTIONS,
 } from "@/modules/market/components/WithSidePanel";

@@ -1,12 +1,34 @@
+import { Quote } from "@/types";
 import Quotes from "../Quotes";
 
-export default function Commodities() {
+async function getData() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/commodities`
+  );
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json() as Promise<{
+    message: String;
+    status: number;
+    data: Quote[];
+  }>;
+}
+
+export default async function Commodities() {
+  const data = await getData();
   const quote = (
     <Quotes
+      quotes={data.data}
       fields={[
         {
           label: "Symbol",
-          key: "symbol",
+          key: "name",
         },
         {
           label: "price",

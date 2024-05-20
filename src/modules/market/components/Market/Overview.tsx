@@ -1,14 +1,13 @@
-"use client";
 import Divider from "@/components/ui/Divider";
 import chart from "@/mock/chart";
-import { Tab } from "@headlessui/react";
 import _ from "lodash";
-import { Fragment } from "react";
-import { FiPlus } from "react-icons/fi";
-import ColoredNumber from "@/components/ui/ColoredNumber";
 import Chart from "@/components/Chart";
 import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import Quotes from "../Quotes";
+import { EuropeanMarket } from "./EuropeanMarket";
+import { AsianMarket } from "./AsianMarket";
+import { AmericansMarket } from "./AmericansMarket";
+import MarketMovers from "./MarketMovers";
 
 const quotes = [
   {
@@ -156,15 +155,9 @@ const quotes = [
     timestamp: 1677792006,
   },
 ];
-const marketMovers = ["S&P", "NASDAQ", "DOW", "EUR", "ASIA", "COVID19"];
+
 const timeframes = ["1m", "5m", "15m", "1h", "2h", "4h", "1D"];
-const topMovers = [
-  { symbol: "MRNA", name: "Moderna Inc", changePercent: 13.122 },
-  { symbol: "VTRS", name: "Viatris Inc", changePercent: 5.171 },
-  { symbol: "LVS", name: "Las Vegas Sand", changePercent: 4.308 },
-  { symbol: "INCY", name: "Incyte Corp", changePercent: 4.236 },
-  { symbol: "MRK", name: "Merck & Co Inc", changePercent: 3.871 },
-];
+
 
 export default function Market() {
   return (
@@ -204,43 +197,7 @@ export default function Market() {
       <Divider />
 
       {/* MARKET MOVERS */}
-      <div>
-        <Tab.Group>
-          <div className="white-text mb-7 text-[#252525]  lg:flex">
-            <h1 className="white-text whitespace-nowrap text-2xl font-extrabold max-lg:mb-5">
-              MARKET MOVERS
-            </h1>
-            <Tab.List
-              className={"flex w-full items-center justify-center gap-4"}
-            >
-              {marketMovers.map((market) => (
-                <Tab as={Fragment} key={market}>
-                  {({ selected }) => (
-                    <button
-                      className={`text-hover-focus border-b-2 pb-2 text-sm font-extrabold outline-none ${
-                        selected
-                          ? "border-primary-base dark:border-primary-light"
-                          : "border-transparent"
-                      }`}
-                    >
-                      {market}
-                    </button>
-                  )}
-                </Tab>
-              ))}
-            </Tab.List>
-          </div>
-
-          <Tab.Panels>
-            <Panel />
-            <Panel />
-            <Panel />
-            <Panel />
-            <Panel />
-            <Panel />
-          </Tab.Panels>
-        </Tab.Group>
-      </div>
+      <MarketMovers />
 
       {/* SECURITIES */}
 
@@ -327,79 +284,19 @@ export default function Market() {
         <MarketSectionHeader label="REGIONAL" />
 
         {/* AMERICAS MARKET */}
-        <section>
-          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
-            AMERICAS MARKET
-          </h2>
-          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <YieldTable />
-            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Stock and bonds markets will see a&apos;year for non consensus
-                in 2024, technical strategist says
-              </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Treasury yields climb as 2024 trading begins
-              </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                10-year Treasury yield finishes flat near 3.86% as traders wrap
-                up a roller coater year.
-              </p>
-            </div>
-          </div>
-        </section>
+        <AmericansMarket />
 
         {/* divider */}
         <Divider />
 
         {/* EUROPE MARKET */}
-        <section>
-          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
-            EUROPE MARKET
-          </h2>
-          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <Quotes />
-            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
-                hope
-              </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Copper could skyrocket over 75% to record highs by 2025 — brace
-                for deficits, analysts sa
-              </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Oil prices fall as traders monitor rising tensions in Red Sea
-              </p>
-            </div>
-          </div>
-        </section>
+        <EuropeanMarket />
 
         {/* divider */}
         <Divider />
 
         {/* ASIAN MARKET */}
-        <section>
-          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
-            ASIAN MARKET
-          </h2>
-          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
-            <Quotes />
-            <div className="white-text  text-[#2A3037]">
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
-                hope
-              </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Copper could skyrocket over 75% to record highs by 2025 — brace
-                for deficits, analysts sa
-              </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Oil prices fall as traders monitor rising tensions in Red Sea
-              </p>
-            </div>
-          </div>
-        </section>
+        <AsianMarket />
       </section>
     </div>
   );
@@ -441,73 +338,3 @@ function YieldTable() {
   );
 }
 
-function Panel() {
-  return (
-    <Tab.Panel>
-      <div className="grid gap-10 pb-14 md:grid-cols-2">
-        <div className="">
-          <p className="white-text mb-7 font-bold">Top</p>
-
-          <div className="flex flex-col gap-5">
-            {topMovers.map((mover) => (
-              <div key={mover.symbol} className="flex items-center gap-4">
-                <div className="grid grid-cols-[7ch,10ch] items-center gap-1 md:grid-cols-[7ch,auto,10ch] md:gap-3">
-                  <p className="truncate text-sm font-bold">{mover.symbol}</p>
-                  <button className="group hidden border border-main-blue-base outline-none hover:bg-main-blue-base focus:bg-main-blue-base md:block dark:border-main-blue-light dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light">
-                    <FiPlus className="text-main-blue-base group-hover:text-white group-focus:text-white dark:text-main-blue-light" />
-                  </button>
-                  <p className="truncate text-sm font-bold">{mover.name}</p>
-                </div>
-                <div className="grid w-full grid-cols-[max-content,1fr] gap-3">
-                  <ColoredNumber
-                    number={mover.changePercent}
-                    percent
-                    colored
-                    className="text-right"
-                  />
-                  <div className="w-full">
-                    <div
-                      className="h-full bg-[#006400] dark:bg-[#67c967]"
-                      style={{ width: `${mover.changePercent * 5}%` }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="">
-          <p className="white-text mb-7 font-bold">Bottom</p>
-
-          <div className="flex flex-col gap-5">
-            {topMovers.map((mover) => (
-              <div key={mover.symbol} className="flex items-center gap-4">
-                <div className="grid grid-cols-[7ch,10ch] items-center gap-1 md:grid-cols-[7ch,auto,10ch] md:gap-3">
-                  <p className="truncate text-sm font-bold">{mover.symbol}</p>
-                  <button className="group hidden border border-main-blue-base outline-none hover:bg-main-blue-base focus:bg-main-blue-base md:block dark:border-main-blue-light dark:hover:bg-main-blue-light dark:focus:bg-main-blue-light">
-                    <FiPlus className="text-main-blue-base group-hover:text-white group-focus:text-white dark:text-main-blue-light" />
-                  </button>
-                  <p className="truncate text-sm font-bold">{mover.name}</p>
-                </div>
-                <div className="grid w-full grid-cols-[max-content,1fr] gap-3">
-                  <ColoredNumber
-                    number={-1 * mover.changePercent}
-                    percent
-                    colored
-                    className="text-right"
-                  />
-                  <div className="w-full">
-                    <div
-                      className="h-full bg-[#8B0000] dark:bg-[#ca5a5a]"
-                      style={{ width: `${mover.changePercent * 5}%` }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </Tab.Panel>
-  );
-}

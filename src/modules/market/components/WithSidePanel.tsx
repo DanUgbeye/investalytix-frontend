@@ -1,5 +1,6 @@
-import Overview from "@/app/Overview";
 import EconomicEvent from "@/app/EconomicEvent";
+import SidePanel from "./SidePanel";
+import Watchlist from "./Watchlist";
 
 export enum SIDE_SECTIONS {
   ALL = "ALL",
@@ -28,23 +29,56 @@ export default function WithSidePanel({
 
       <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5 dark:border-white/10">
         {(sections == SIDE_SECTIONS["ALL"] ||
-          sections.includes(SIDE_SECTIONS["HOT_PICKS"])) && <Overview />}
-        {(sections == SIDE_SECTIONS["ALL"] ||
-          sections.includes(SIDE_SECTIONS["GAINERS"])) && <Overview />}
-        {(sections == SIDE_SECTIONS["ALL"] ||
-          sections.includes(SIDE_SECTIONS["LOSERS"])) && <Overview />}
-        {(sections == SIDE_SECTIONS["ALL"] ||
-          sections.includes(SIDE_SECTIONS["CURRENCIES"])) && <Overview />}
-        {(sections == SIDE_SECTIONS["ALL"] ||
-          sections.includes(SIDE_SECTIONS["CRYPTOCURRENCY"])) && <Overview />}
-        {(sections == SIDE_SECTIONS["ALL"] ||
-          sections.includes(SIDE_SECTIONS["SECTOR_PERFORMANCE"])) && (
-          <Overview />
+          sections.includes(SIDE_SECTIONS["HOT_PICKS"])) && (
+          <SidePanel
+            title="hot picks"
+            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+          />
         )}
         {(sections == SIDE_SECTIONS["ALL"] ||
-          sections.includes(SIDE_SECTIONS["INSIDER_TRADING"])) && <Overview />}
+          sections.includes(SIDE_SECTIONS["GAINERS"])) && (
+          <SidePanel
+            title="gainers"
+            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`}
+          />
+        )}
         {(sections == SIDE_SECTIONS["ALL"] ||
-          sections.includes(SIDE_SECTIONS["WATCHLIST"])) && <Overview />}
+          sections.includes(SIDE_SECTIONS["LOSERS"])) && (
+          <SidePanel
+            title="losers"
+            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+          />
+        )}
+        {(sections == SIDE_SECTIONS["ALL"] ||
+          sections.includes(SIDE_SECTIONS["CURRENCIES"])) && (
+          <SidePanel
+            title="currencies"
+            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+          />
+        )}
+        {(sections == SIDE_SECTIONS["ALL"] ||
+          sections.includes(SIDE_SECTIONS["CRYPTOCURRENCY"])) && (
+          <SidePanel
+            title="cryptocurrency"
+            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+          />
+        )}
+        {(sections == SIDE_SECTIONS["ALL"] ||
+          sections.includes(SIDE_SECTIONS["SECTOR_PERFORMANCE"])) && (
+          <SidePanel
+            title="sector performance"
+            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+          />
+        )}
+        {(sections == SIDE_SECTIONS["ALL"] ||
+          sections.includes(SIDE_SECTIONS["INSIDER_TRADING"])) && (
+          <SidePanel
+            title="insinder trading"
+            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+          />
+        )}
+        {(sections == SIDE_SECTIONS["ALL"] ||
+          sections.includes(SIDE_SECTIONS["WATCHLIST"])) && <Watchlist />}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["TOP_ECONOMIC_EVENT"])) && (
           <EconomicEvent />
