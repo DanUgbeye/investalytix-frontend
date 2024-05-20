@@ -12,7 +12,7 @@ async function Logout(req: NextRequest) {
       serverCookies.delete("auth");
     }
 
-    return NextResponse.json(undefined);
+    return NextResponse.json({ message: "success" }, { status: 200 });
   } catch (err: any) {
     return NextResponse.json({ message: err.message }, { status: 400 });
   }

@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PropsWithChildren, useEffect } from "react";
 import { z } from "zod";
 import useAuthStore from "../store";
-import { AuthState } from "../store/types";
+import { AuthState } from "../types/store.types.ts";
 import { AuthSchema } from "../validation";
 import { useAuthRepo } from "../repository";
 import useLogout from "../hooks/use-logout.hook";
@@ -33,6 +33,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     refetchInterval: 300_000, // 5 mins
   });
 
+  // check auth status
   const {
     data: authStatus,
     isLoading: authStatusLoading,
@@ -55,16 +56,16 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
       const data = JSON.parse(saved); // can throw error
       // validate data
-      const parsed = z
+      const validation = z
         .object({ auth: AuthSchema, user: UserSchema })
         .safeParse(data);
 
-      if (!parsed.success) {
+      if (!validation.success) {
         localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH);
         return initialiseStore({});
       }
 
-      return initialiseStore(parsed.data);
+      return initialiseStore(validation.data);
     } catch (error: any) {
       localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH);
       return initialiseStore({});
@@ -84,6 +85,13 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     // ensure both user and auth are always available
     if ((auth && !user) || (!auth && user)) {
       reset();
+    }
+
+    if (auth && user) {
+      localStorage.setItem(
+        LOCALSTORAGE_KEYS.AUTH,
+        JSON.stringify({ auth, user })
+      );
     }
   }
 

@@ -5,7 +5,7 @@ import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PAGES from "@/data/page-map";
-import { SignupData } from "@/modules/auth/auth.types";
+import { SignupData } from "@/modules/auth/types";
 import { useAuthRepo } from "@/modules/auth/repository";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
@@ -194,6 +194,10 @@ export default function SignupScreen() {
                     {...field}
                     id="password"
                     className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                    classNames={{
+                      showButton:
+                        " dark:text-black dark:hover:bg-gray-100 dark:hover:text-black ",
+                    }}
                     placeholder="******"
                   />
 

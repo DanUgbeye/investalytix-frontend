@@ -1,11 +1,11 @@
-import { clientAPI } from "@/config/api";
+import { clientAPI } from "@/config/client/api";
 import { ServerUserData } from "@/modules/user/user.types";
 import { ServerUserSchema } from "@/modules/user/validation";
 import { RequestOptions } from "@/types/api.types";
 import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
 import { AxiosInstance } from "axios";
 import { z } from "zod";
-import { AuthData, LoginData, SignupData } from "../auth.types";
+import { AuthData, LoginData, SignupData } from "../types";
 import { AuthSchema } from "../validation";
 
 export class AuthRepository {
@@ -55,7 +55,7 @@ export class AuthRepository {
   }
 
   async logout(options?: RequestOptions) {
-    const path = `/auth/login`;
+    const path = `/auth/logout`;
     const api = createAPIInstance("/api");
 
     try {

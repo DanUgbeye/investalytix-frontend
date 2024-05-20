@@ -1,13 +1,11 @@
 import { Quote } from "@/modules/market/types";
 import { CompanyKeyExecutive, CompanyProfile } from "./company.types";
 import { Dividend } from "./dividend.types";
-import { Financials } from "./financials.types";
-import { RatioTTM } from "./ratio.types";
+import { Financials, RatioTTM } from "./financials.types";
 
 export * from "./company.types";
 export * from "./dividend.types";
 export * from "./financials.types";
-export * from "./ratio.types";
 
 export type TickerData = {
   outlook: CompanyOutlook;

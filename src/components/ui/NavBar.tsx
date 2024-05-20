@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,13 +10,26 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import PAGES from "@/data/page-map";
+import useInput from "@/hooks/useInput";
 import { cn } from "@/lib/utils";
+import useLogout from "@/modules/auth/hooks/use-logout.hook";
+import useAuthStore from "@/modules/auth/store";
+import { useTickerRepository } from "@/modules/ticker/hooks";
 import useTheme from "@/store/theme/useTheme";
+import { Quote, SearchResult } from "@/types";
 import { Dialog, Menu } from "@headlessui/react";
+import { useDebouncedCallback } from "@mantine/hooks";
+import { BellRing, CircleUser, LogOut, Settings, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnchorHTMLAttributes, FormEvent, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { FormEvent, useRef, useState } from "react";
 import {
   FiArrowLeft,
   FiChevronRight,
@@ -25,8 +39,10 @@ import {
   FiX,
 } from "react-icons/fi";
 import { Container } from "../container";
-import { usePathname, useRouter } from "next/navigation";
-import useInput from "@/hooks/useInput";
+import Spinner from "../spinner";
+import { Button } from "./button";
+import { Separator } from "./separator";
+import tickerUtils from "@/modules/ticker/utils";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -67,15 +83,21 @@ const routes: RouteLink[] = [
     label: "PRICING",
     href: "/pricing",
   },
-  // {
-  //   label: "ABOUT US",
-  //   href: "",
-  // },
+  {
+    label: "ABOUT US",
+    href: "/about-us",
+  },
 ];
 
 export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
   const path = usePathname();
+  const user = useAuthStore(({ user }) => user);
+  const logout = useLogout();
+
+  function handleLogout() {
+    logout().catch((err) => {});
+  }
 
   return (
     <nav
@@ -87,6 +109,7 @@ export default function NavBar() {
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center justify-center gap-5">
             <MobileMenu />
+
             <Link href={PAGES.HOME}>
               <Image
                 src="/assets/logo/logo-with-text.svg"
@@ -105,7 +128,7 @@ export default function NavBar() {
                     <NavigationMenuItem>
                       {route.children ? (
                         <>
-                          <NavigationMenuTrigger className="rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light">
+                          <NavigationMenuTrigger className="rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base data-[state=open]:text-primary-base dark:text-main-gray-300 dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light">
                             {route.label}
                           </NavigationMenuTrigger>
                           <NavigationMenuContent className="w-full !border-0 bg-white p-0 dark:bg-[#191919]">
@@ -116,7 +139,7 @@ export default function NavBar() {
                                     key={`${childRoute.href}-${index}`}
                                     href={childRoute.href}
                                     className={
-                                      "grid w-full min-w-fit px-4 py-3 font-medium hover:text-primary-base dark:text-white dark:hover:text-primary-light"
+                                      "grid w-full min-w-fit px-4 py-3 font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
                                     }
                                   >
                                     {childRoute.label}
@@ -131,7 +154,7 @@ export default function NavBar() {
                           <NavigationMenuLink
                             className={cn(
                               navigationMenuTriggerStyle(),
-                              "rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base  data-[active]:text-primary-base data-[state=open]:text-primary-base dark:hover:text-primary-light dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light"
+                              "rounded-full !bg-transparent text-white hover:text-primary-base focus:text-primary-base data-[active]:text-primary-base  data-[state=open]:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light dark:data-[active]:text-primary-light dark:data-[state=open]:text-primary-light"
                             )}
                           >
                             {route.label}
@@ -150,7 +173,7 @@ export default function NavBar() {
 
             <button
               title="theme"
-              className=" inline-block rounded-full p-2 font-bold text-white"
+              className=" inline-block rounded-full p-2 font-bold text-white dark:text-main-gray-300"
               onClick={toggleTheme}
             >
               {theme === "light" ? (
@@ -160,19 +183,88 @@ export default function NavBar() {
               )}
             </button>
 
-            <Link
-              href={PAGES.LOGIN}
-              className="hidden cursor-pointer rounded bg-transparent px-8 py-2 font-bold text-white hover:text-primary-base md:block dark:hover:text-primary-light"
-            >
-              Login
-            </Link>
+            {user !== undefined ? (
+              <>
+                {/* <Link
+                  href={PAGES.WATCHLIST}
+                  className="hidden cursor-pointer rounded bg-transparent px-2 py-2 font-medium text-white hover:text-primary-base md:block dark:text-main-gray-300 dark:hover:text-primary-light"
+                >
+                  Watchlist
+                </Link> */}
 
-            <Link
-              href={PAGES.SIGNUP}
-              className="hidden cursor-pointer rounded bg-[#FB8B1E] px-8 py-2 font-bold text-white md:block"
-            >
-              Sign Up
-            </Link>
+                <Popover>
+                  <PopoverTrigger>
+                    <Avatar className=" size-10 bg-transparent text-sm text-white dark:bg-transparent dark:text-main-gray-300 ">
+                      <AvatarFallback className=" bg-transparent dark:bg-transparent ">
+                        <CircleUser className=" size-7 stroke-[1.5] " />
+                      </AvatarFallback>
+                    </Avatar>
+                  </PopoverTrigger>
+
+                  <PopoverContent className=" mr-4 mt-2 flex max-w-[12rem] flex-col p-2 dark:bg-main-gray-800 ">
+                    <div className=" w-full ">
+                      <Link
+                        title="Watchlist"
+                        href={PAGES.WATCHLIST}
+                        className=" grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
+                      >
+                        <BellRing className=" size-5 stroke-[1.5] " />
+                        <span className="  "> Watchlist</span>
+                      </Link>
+
+                      <Link
+                        title="Profile"
+                        href={PAGES.PROFILE}
+                        className=" grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
+                      >
+                        <CircleUser className=" size-5 stroke-[1.5] " />
+                        <span className="  "> Profile</span>
+                      </Link>
+
+                      <Link
+                        title="Settings"
+                        href={PAGES.SETTINGS}
+                        className=" grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
+                      >
+                        <Settings className=" size-5 stroke-[1.5] " />
+                        <span className="  ">Settings</span>
+                      </Link>
+
+                      <Separator
+                        orientation="horizontal"
+                        className=" mt-2 bg-main-gray-400 dark:bg-main-gray-600 "
+                      />
+
+                      <Button
+                        title="Logout"
+                        variant={"ghost"}
+                        className=" grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-left text-sm font-medium hover:bg-transparent hover:text-primary-base dark:text-main-gray-300 dark:hover:bg-transparent dark:hover:text-primary-light "
+                        onClick={handleLogout}
+                      >
+                        <LogOut className=" size-5 stroke-[1.5] " />
+                        <span className="  ">Logout</span>
+                      </Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </>
+            ) : (
+              <>
+                <Link
+                  href={PAGES.LOGIN}
+                  className="hidden cursor-pointer rounded bg-transparent px-4 py-2 font-medium text-white hover:text-primary-base md:block dark:hover:text-primary-light"
+                >
+                  Login
+                </Link>
+
+                <Link
+                  href={PAGES.SIGNUP}
+                  className="hidden cursor-pointer rounded bg-[#FB8B1E] px-4 py-2 font-medium text-white md:block"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </Container>
@@ -180,22 +272,25 @@ export default function NavBar() {
   );
 }
 
-function NavLink({
-  route,
-  className = "",
-}: {
+type NavLinkProps = {
   route: RouteLink;
-  className: AnchorHTMLAttributes<HTMLAnchorElement>["className"];
-}) {
-  return (
-    <Link className={className} href={route.href}>
-      {route.label}
-    </Link>
-  );
-}
+  className?: string;
+};
+
+const NavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
+  ({ route, className = "" }, ref) => {
+    return (
+      <Link ref={ref} className={className} href={route.href}>
+        {route.label}
+      </Link>
+    );
+  }
+);
+NavLink.displayName = "NavLink";
 
 function MobileMenu() {
   const [history, setHistory] = useState<RouteLink[]>([]);
+  const user = useAuthStore(({ user }) => user);
 
   const lastHistory = () => history[history.length - 1];
 
@@ -212,7 +307,7 @@ function MobileMenu() {
   return (
     <Menu>
       <div className="xl:hidden">
-        <Menu.Button className="px-2">
+        <Menu.Button className="">
           <svg
             width={24}
             height={24}
@@ -227,7 +322,7 @@ function MobileMenu() {
           </svg>
         </Menu.Button>
 
-        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-[#191919]">
+        <Menu.Items className="fixed z-20 overflow-hidden rounded-lg bg-white shadow-md max-sm:inset-y-0 max-sm:left-0 max-sm:w-full max-sm:max-w-sm sm:absolute sm:translate-y-4 dark:bg-[#191919]">
           <div className="flex min-w-[300px] flex-col bg-white dark:bg-[#191919]">
             {history.length === 0 ? (
               <div className="flex flex-col bg-white dark:bg-[#191919] ">
@@ -235,7 +330,7 @@ function MobileMenu() {
                   <Menu.Button
                     onClick={resetHistory}
                     className={
-                      " grid size-12 place-items-center duration-300 hover:bg-gray-100 dark:hover:bg-gray-500 "
+                      " grid size-12 place-items-center duration-300 hover:text-primary-light "
                     }
                   >
                     <FiX className="size-5" />
@@ -247,7 +342,7 @@ function MobileMenu() {
                     return route.children ? (
                       <button
                         key={route.label}
-                        className={`flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-white dark:hover:text-primary-light`}
+                        className={`flex w-full items-center justify-between gap-10 whitespace-nowrap px-4 py-4 text-sm font-bold uppercase text-black outline-none duration-150 hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light`}
                         onClick={() => addHistory(route)}
                       >
                         {route.label}
@@ -266,19 +361,25 @@ function MobileMenu() {
                   })}
 
                   <div className="flex flex-col space-y-2 pb-4 md:hidden ">
-                    <Link
-                      href="/login"
-                      className="mx-4 block cursor-pointer rounded bg-transparent px-4 py-3 text-center font-bold duration-300 hover:text-primary-base focus:text-primary-base  dark:hover:text-primary-light"
-                    >
-                      Login
-                    </Link>
+                    {user !== undefined ? (
+                      <></>
+                    ) : (
+                      <>
+                        <Link
+                          href="/login"
+                          className="mx-4 block cursor-pointer rounded bg-transparent px-4 py-3 text-center font-bold duration-300 hover:text-primary-base focus:text-primary-base  dark:hover:text-primary-light"
+                        >
+                          Login
+                        </Link>
 
-                    <Link
-                      href="/signup"
-                      className="mx-4 block cursor-pointer rounded bg-primary-base px-4 py-3 text-center font-bold text-white duration-300 hover:bg-primary-base/90 "
-                    >
-                      Sign Up
-                    </Link>
+                        <Link
+                          href="/signup"
+                          className="mx-4 block cursor-pointer rounded bg-primary-base px-4 py-3 text-center font-bold text-white duration-300 hover:bg-primary-base/90 "
+                        >
+                          Sign Up
+                        </Link>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -341,15 +442,69 @@ function MobileMenu() {
 
 function Search() {
   const [isOpen, setIsOpen] = useState(false);
-  const [query, queryOpts] = useInput("");
+  const [query, { onChange, ...queryOpts }, setQuery] = useInput("");
   const router = useRouter();
+  const tickerRepo = useTickerRepository();
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const searchAbortController = useRef<AbortController | undefined>(undefined);
+
+  const handleSearch = useDebouncedCallback(async function (value: string) {
+    setSearchLoading(true);
+    try {
+      setSearchResults(
+        await tickerRepo.search(value, {
+          signal: searchAbortController.current?.signal,
+        })
+      );
+    } catch (error: any) {
+    } finally {
+      setSearchLoading(false);
+    }
+  }, 300);
+
+  function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
+    let searchQuery = e.target.value;
+    setQuery(searchQuery);
+
+    if (searchAbortController.current) {
+      searchAbortController.current.abort();
+      searchAbortController.current = new AbortController();
+    } else {
+      searchAbortController.current = new AbortController();
+    }
+
+    if (searchQuery) {
+      handleSearch(searchQuery);
+    } else {
+      setSearchResults([]);
+    }
+  }
+
+  function handleResetQuery(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    e.preventDefault();
+    setQuery("");
+    setSearchResults([]);
+
+    if (searchAbortController.current) {
+      searchAbortController.current.abort();
+      searchAbortController.current = new AbortController();
+    }
+  }
 
   const toggleIsOpen = () => setIsOpen((s) => !s);
 
   function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    router.push(`/ticker/${query}`);
+    if (searchResults.length < 0) {
+      return router.push(`${PAGES.TICKER}/${query}`);
+    }
+
+    router.push(`${PAGES.TICKER}/${searchResults[0].symbol}`);
   }
+
   return (
     <>
       <button
@@ -357,49 +512,120 @@ function Search() {
         className="grid place-content-center overflow-hidden rounded-full p-2"
         onClick={toggleIsOpen}
       >
-        <FiSearch className="size-5 text-white xl:size-4" />
+        <FiSearch className="size-5 text-white xl:size-4 dark:text-main-gray-300" />
       </button>
+
       <Dialog open={isOpen} onClose={toggleIsOpen} className="relative z-50">
         {/* The backdrop, rendered as a fixed sibling to the panel container */}
         <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm"
           aria-hidden="true"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm"
         />
 
         {/* Full-screen scrollable container */}
-        <div className="fixed inset-0 mt-[20vh] flex w-screen items-start justify-center overflow-hidden">
+        <div className="fixed inset-0 mt-[84px] flex w-screen items-start justify-center overflow-hidden md:mt-[20vh]">
           {/* The actual dialog panel  */}
           {/* Container to center the panel */}
-          <div className="max-h-[80vh] w-[80vw] max-w-screen-md overflow-auto rounded bg-white md:w-[70vw] dark:border dark:border-white/20 dark:bg-black">
-            <Dialog.Panel className="w-full p-10">
-              <form className="flex flex-col gap-5" onSubmit={submitHandler}>
+          <div className="max-h-[80vh] w-[100dvw] max-w-screen-md overflow-auto bg-white md:w-[70dvw] md:rounded-xl dark:border dark:border-white/20 dark:bg-black ">
+            <Dialog.Panel className="grid h-fit max-h-[min(calc(100dvh-10rem),30rem)] w-full grid-rows-[auto,1fr,0.5rem] ">
+              <form
+                className="flex flex-col gap-5 px-5 py-5"
+                onSubmit={submitHandler}
+              >
                 <div className="relative h-fit">
                   <input
                     type="search"
                     name="search"
                     id="search"
                     {...queryOpts}
+                    onChange={handleQueryChange}
+                    autoComplete="off"
                     placeholder="Search for ticker, quotes & videos"
-                    className="w-full rounded-full border-2 border-black px-6 py-3 text-sm font-medium text-black placeholder:text-black focus:outline-none dark:border dark:border-white/20 dark:bg-black dark:text-white/80 dark:placeholder:text-white/50 dark:focus:border-white/50"
+                    className="w-full rounded-full border-2 border-black px-6 py-3 text-sm font-medium text-black placeholder:text-main-gray-400 focus:outline-none dark:border dark:border-white/20 dark:bg-transparent dark:text-white/80 dark:placeholder:text-main-gray-700 dark:focus:border-white/50"
                   />
-                  <div className="absolute bottom-4 right-0 top-4 grid -translate-x-1/2 place-content-center bg-white pl-6 dark:bg-transparent">
-                    <svg
-                      width={16}
-                      height={16}
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+
+                  {query && (
+                    <button
+                      type="button"
+                      className="place-items-centers absolute right-5 top-1/2 grid -translate-y-1/2 dark:bg-transparent  "
+                      onClick={handleResetQuery}
                     >
-                      <path
-                        d="M12.0194 11.0787L14.8747 13.9333L13.9314 14.8767L11.0767 12.0213C10.0145 12.8728 8.69337 13.3359 7.33203 13.334C4.02003 13.334 1.33203 10.646 1.33203 7.33398C1.33203 4.02198 4.02003 1.33398 7.33203 1.33398C10.644 1.33398 13.332 4.02198 13.332 7.33398C13.334 8.69532 12.8708 10.0165 12.0194 11.0787ZM10.682 10.584C11.5281 9.71391 12.0006 8.5476 11.9987 7.33398C11.9987 4.75532 9.91003 2.66732 7.33203 2.66732C4.75336 2.66732 2.66536 4.75532 2.66536 7.33398C2.66536 9.91198 4.75336 12.0007 7.33203 12.0007C8.54565 12.0026 9.71196 11.5301 10.582 10.684L10.682 10.584Z"
-                        fill="black"
-                      />
-                    </svg>
-                  </div>
+                      <X className=" size-4 " />
+                    </button>
+                  )}
                 </div>
               </form>
-              <div className="mt-10">
-                <p className="text-center">No search results</p>
+
+              <div className=" h-full overflow-y-scroll px-2 pb-10 ">
+                {searchLoading ? (
+                  <>
+                    <center>
+                      <Spinner className=" " />
+                    </center>
+                  </>
+                ) : (
+                  <>
+                    {searchResults.length > 0 ? (
+                      <>
+                        <section className="  ">
+                          <table className=" w-full overflow-x-clip ">
+                            <tbody>
+                              {searchResults
+                                .slice(0, 50)
+                                .map((searchResult, index) => {
+                                  return (
+                                    <tr
+                                      key={`${searchResult.name}-${index}`}
+                                      className=" cursor-pointer rounded-lg text-sm duration-300 hover:bg-main-gray-200 dark:hover:bg-main-gray-900 "
+                                      onClick={() => {
+                                        router.push(
+                                          `${PAGES.TICKER}/${searchResult.symbol}`
+                                        );
+                                      }}
+                                    >
+                                      <td className=" max-w-[10rem] py-2 pl-2 pr-4 ">
+                                        <div className=" flex items-center gap-x-3 ">
+                                          <Avatar className=" rounded-none text-xxs ">
+                                            <AvatarImage
+                                              crossOrigin="anonymous"
+                                              className=" rounded-none "
+                                              src={tickerUtils.getTickerLogoUrl(
+                                                searchResult.symbol
+                                              )}
+                                            />
+
+                                            <AvatarFallback className=" ">
+                                              {searchResult.symbol.slice(0, 6)}
+                                            </AvatarFallback>
+                                          </Avatar>
+
+                                          <span className=" grid truncate">
+                                            {searchResult.symbol}
+                                          </span>
+                                        </div>
+                                      </td>
+
+                                      <td className=" px-4 py-2 ">
+                                        {searchResult.name}
+                                      </td>
+
+                                      <td className=" hidden px-4 py-2 text-right sm:table-cell ">
+                                        {searchResult.exchangeShortName}
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                            </tbody>
+                          </table>
+                        </section>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-center">No search results</p>
+                      </>
+                    )}
+                  </>
+                )}
               </div>
             </Dialog.Panel>
           </div>

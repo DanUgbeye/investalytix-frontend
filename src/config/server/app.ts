@@ -1,4 +1,6 @@
-import { type ServerConfig } from "./app.types";
+export type ServerConfig = {
+  API_BASE_URL: string;
+};
 
 function initializeServerConfig(): Readonly<ServerConfig> {
   return Object.freeze({

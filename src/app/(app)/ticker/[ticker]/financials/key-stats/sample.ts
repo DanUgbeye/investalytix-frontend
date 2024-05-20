@@ -207,7 +207,7 @@ export const KEY_STATS_SAMPLE: Financials = {
       finalLink:
         "https://www.sec.gov/Archives/edgar/data/320193/000032019319000119/a10-k20199282019.htm",
     },
-  ].reverse(),
+  ],
   balance: [
     {
       date: new Date("2023-09-30"),
@@ -494,7 +494,7 @@ export const KEY_STATS_SAMPLE: Financials = {
       finalLink:
         "https://www.sec.gov/Archives/edgar/data/320193/000032019319000119/a10-k20199282019.htm",
     },
-  ].reverse(),
+  ],
   cash: [
     {
       date: new Date("2023-09-30"),
@@ -711,5 +711,5 @@ export const KEY_STATS_SAMPLE: Financials = {
       finalLink:
         "https://www.sec.gov/Archives/edgar/data/320193/000032019319000119/a10-k20199282019.htm",
     },
-  ].reverse(),
+  ],
 };
