@@ -1,4 +1,4 @@
-import EconomicEvent from "@/app/EconomicEvent";
+import EconomicEvent from "@/modules/market/components/EconomicEvent";
 import SidePanel from "./SidePanel";
 import Watchlist from "./Watchlist";
 

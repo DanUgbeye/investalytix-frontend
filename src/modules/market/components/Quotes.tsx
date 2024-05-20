@@ -62,7 +62,9 @@ export default function Quotes({
             className="white-text text-black odd:bg-[#F9F9F9] dark:border-b dark:border-b-white/10 dark:text-[#F8F7F7] dark:odd:bg-transparent"
           >
             <td className="p-2 text-left text-sm font-bold uppercase">
-              {quote[fields[0].key]}
+              <Link href={`/ticker/${quote[fields[0].key]}`} className="hover:underline focus:underline outline-none">
+                {quote[fields[0].key]}
+              </Link>
             </td>
             {fields.slice(1).map((field) => (
               <td key={field.key} className="p-2 text-right text-sm font-bold">

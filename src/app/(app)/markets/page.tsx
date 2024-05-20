@@ -2,8 +2,8 @@ import WithSidePanel, {
   SIDE_SECTIONS,
 } from "@/modules/market/components/WithSidePanel";
 import MarketHeader from "@/modules/market/components/MarketHeader";
-import MarketEvent from "@/modules/market/components/Market/MarketEvent";
 import Market from "@/modules/market/components/Market/Overview";
+import TrendingNow from "@/modules/market/components/Market/TrendingNow";
 
 export default function MarketPage() {
   return (
@@ -15,19 +15,7 @@ export default function MarketPage() {
       </WithSidePanel>
 
       {/* TRENDING NOW */}
-      <section className="mt-16 overflow-hidden">
-        <header className="pb-10">
-          <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
-            TRENDING NOW
-          </h2>
-        </header>
-
-        <div className="flex gap-5 overflow-hidden">
-          <MarketEvent />
-          <MarketEvent />
-          <MarketEvent />
-        </div>
-      </section>
+      <TrendingNow />
     </main>
   );
 }
