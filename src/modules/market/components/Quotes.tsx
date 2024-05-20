@@ -4,6 +4,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import quotes from "@/mock/quotes";
+import { Quote } from "@/types";
 import Link from "next/link";
 import { GoBellFill } from "react-icons/go";
 
@@ -34,7 +35,9 @@ const defaultFields: Field[] = [
 export default function Quotes({
   fields = defaultFields,
   notifications = false,
+  quotes: customQuotes,
 }: {
+  quotes?: Quote[];
   fields?: Field[];
   notifications?: boolean;
 }) {
@@ -53,7 +56,7 @@ export default function Quotes({
       </thead>
 
       <tbody>
-        {quotes.map((quote) => (
+        {(customQuotes ? customQuotes : quotes).map((quote) => (
           <tr
             key={quote.symbol}
             className="white-text text-black odd:bg-[#F9F9F9] dark:border-b dark:border-b-white/10 dark:text-[#F8F7F7] dark:odd:bg-transparent"

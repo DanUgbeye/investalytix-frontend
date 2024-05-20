@@ -2,6 +2,7 @@
 import MarketHeader from "@/modules/market/components/MarketHeader";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Fragment } from "react";
 
 export default function FXTemplate({
   children,
@@ -22,7 +23,7 @@ export default function FXTemplate({
 
         <div className="mx-auto mb-14 flex w-fit items-center gap-5  p-3">
           {markets.map((market, index) => (
-            <>
+            <Fragment key={market.href}>
               <Link
                 key={market.href}
                 href={market.href}
@@ -32,9 +33,9 @@ export default function FXTemplate({
                 {market.label}
               </Link>
               {index !== markets.length - 1 && (
-                <p className="text-sm font-bold">|</p>
+                <p className="text-sm font-bold" key={market.href+"p"}>|</p>
               )}
-            </>
+            </Fragment>
           ))}
         </div>
       </div>

@@ -1,7 +1,8 @@
 "use client";
 import Quotes from "@/modules/market/components/Quotes";
+import { Quote } from "@/types";
 
-export default function FX() {
+export default function FX({ quotes }: { quotes: Quote[] }) {
   return (
     <div>
       {/* MAJOR CURRENCIES PAIRS */}
@@ -12,7 +13,7 @@ export default function FX() {
           </h2>
         </header>
 
-        <Quotes />
+        <Quotes/>
       </section>
 
       {/* AMERICAS */}

@@ -1,6 +1,7 @@
 import Quotes from "@/modules/market/components/Quotes";
+import { Quote } from "@/types";
 
-export default function Cryptocurrency() {
+export default function Cryptocurrency({ quotes }: { quotes: Quote[] }) {
   return (
     <>
       {/* CRYPTOCURRENCY PAIRS */}
@@ -12,6 +13,7 @@ export default function Cryptocurrency() {
         </header>
 
         <Quotes
+          quotes={quotes}
           fields={[
             {
               label: "Symbol",
