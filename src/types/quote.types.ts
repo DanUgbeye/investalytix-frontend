@@ -1,26 +1,32 @@
 export type Quote = {
   symbol: string;
-  name: string;
-  price: number;
-  changesPercentage: number;
-  change: number;
-  dayLow: number;
-  dayHigh: number;
-  yearHigh: number;
-  yearLow: number;
+  name: string | null;
+  price: number | null;
+  changesPercentage: number | null;
+  change: number | null;
+  dayLow: number | null;
+  dayHigh: number | null;
+  yearHigh: number | null;
+  yearLow: number | null;
   marketCap: number | null;
-  priceAvg50: number;
-  priceAvg200: number;
-  volume: number;
-  avgVolume: number;
-  exchange: string;
-  open: number;
-  previousClose: number;
+  priceAvg50: number | null;
+  priceAvg200: number | null;
+  exchange: string | null;
+  volume: number | null;
+  avgVolume: number | null;
+  open: number | null;
+  previousClose: number | null;
   eps: number | null;
   pe: number | null;
-  earningsAnnouncement: number | null;
+  earningsAnnouncement: string | null;
   sharesOutstanding: number | null;
-  timestamp: number;
+  timestamp: number | null;
+};
+
+export type ShortQuote = {
+  symbol: string;
+  price: number | null;
+  volume: number | null;
 };
 
 export type SearchResult = {

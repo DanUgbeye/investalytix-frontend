@@ -17,8 +17,12 @@ import {
   IncomeStatementSchema,
 } from "../validation";
 import { ITickerRepository } from "./interface";
-import { Quote, SearchResult } from "@/types";
-import { QuoteSchema, SearchResultSchema } from "@/validation";
+import { Quote, SearchResult, ShortQuote } from "@/types";
+import {
+  QuoteSchema,
+  SearchResultSchema,
+  ShortQuoteSchema,
+} from "@/validation";
 
 export class TickerRepository implements ITickerRepository {
   constructor(private readonly axios: AxiosInstance) {}
@@ -47,12 +51,51 @@ export class TickerRepository implements ITickerRepository {
     }
   }
 
+  async getQuote(ticker: string, options?: RequestOptions): Promise<Quote> {
+    try {
+      const path = `/tickers/${ticker}/quote`;
+      let res = await this.axios.get<{ data: Quote }>(path, options);
+
+      let validation = QuoteSchema.safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getShortQuote(
+    ticker: string,
+    options?: RequestOptions
+  ): Promise<ShortQuote> {
+    try {
+      const path = `/tickers/${ticker}/quote-short`;
+      let res = await this.axios.get<{ data: ShortQuote }>(path, options);
+
+      let validation = ShortQuoteSchema.safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
   async getCompanyOutLook(
     ticker: string,
     options?: RequestOptions | undefined
   ): Promise<CompanyOutlook> {
     try {
-      const path = `/ticker/${ticker}/financials/key-stats`;
+      const path = `/tickers/${ticker}`;
       let res = await this.axios.get<{ data: CompanyOutlook }>(path, options);
 
       let validation = CompanyOutlookSchema.safeParse(res.data.data);

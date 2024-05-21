@@ -21,8 +21,9 @@ import { cn } from "@/lib/utils";
 import useLogout from "@/modules/auth/hooks/use-logout.hook";
 import useAuthStore from "@/modules/auth/store";
 import { useTickerRepository } from "@/modules/ticker/hooks";
+import tickerUtils from "@/modules/ticker/utils";
 import useTheme from "@/store/theme/useTheme";
-import { Quote, SearchResult } from "@/types";
+import { SearchResult } from "@/types";
 import { Dialog, Menu } from "@headlessui/react";
 import { useDebouncedCallback } from "@mantine/hooks";
 import { BellRing, CircleUser, LogOut, Settings, X } from "lucide-react";
@@ -42,7 +43,6 @@ import { Container } from "../container";
 import Spinner from "../spinner";
 import { Button } from "./button";
 import { Separator } from "./separator";
-import tickerUtils from "@/modules/ticker/utils";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -534,9 +534,9 @@ function Search() {
               >
                 <div className="relative h-fit">
                   <input
-                    type="search"
                     name="search"
                     id="search"
+                    type="text"
                     {...queryOpts}
                     onChange={handleQueryChange}
                     autoComplete="off"
@@ -556,7 +556,7 @@ function Search() {
                 </div>
               </form>
 
-              <div className=" h-full overflow-y-scroll px-2 pb-10 ">
+              <div className=" h-full overflow-y-auto px-2 pb-10 ">
                 {searchLoading ? (
                   <>
                     <center>

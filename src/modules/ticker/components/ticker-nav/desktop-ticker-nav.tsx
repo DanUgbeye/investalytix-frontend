@@ -1,3 +1,5 @@
+"use client";
+
 import Spinner from "@/components/spinner";
 import PAGES from "@/data/page-map";
 import { cn } from "@/lib/utils";
@@ -7,6 +9,13 @@ import { MdOutlineInsertChart } from "react-icons/md";
 import { TickerNavProps } from ".";
 import TickerNavLink from "../ticker-nav-link";
 import { TICKER_NAV_TABS } from "./ticker-sidenav.types";
+import { Quote } from "@/types";
+import appUtils from "@/utils/app-util";
+import ColoredNumber from "@/components/ui/ColoredNumber";
+import { format } from "date-fns";
+import { useTickerRepository } from "../../hooks";
+import { useQuery } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/data/query-keys";
 
 function getNavTabIcon(
   tab: (typeof TICKER_NAV_TABS)[keyof typeof TICKER_NAV_TABS]["label"]
@@ -211,11 +220,27 @@ function getNavTabIcon(
   }
 }
 
-export function DesktopTickerNav(props: TickerNavProps) {
-  const { ticker, className, ...rest } = props;
+export interface DesktopTickerNavProps extends TickerNavProps {
+  quote: Quote;
+}
+
+export function DesktopTickerNav(props: DesktopTickerNavProps) {
+  const { ticker, className, quote, ...rest } = props;
+  const tickerRepo = useTickerRepository();
   const loading = false;
-  const quote = {};
   const pathname = usePathname();
+
+  const { data } = useQuery({
+    queryKey: [QUERY_KEYS.GET_TICKER_QUOTE, ticker],
+    queryFn: ({ signal }) => tickerRepo.getQuote(ticker, { signal }),
+    initialData: quote,
+    refetchInterval: 30_000,
+  });
+
+  const tickerQuote = useMemo(() => {
+    // if (!data) return quote;
+    return data;
+  }, [data]);
 
   const navTabs = useMemo(() => {
     return Object.values(TICKER_NAV_TABS).map(({ label, path }) => ({
@@ -251,29 +276,55 @@ export function DesktopTickerNav(props: TickerNavProps) {
           </div>
         )}
 
-        {!loading && quote && (
+        {!loading && tickerQuote && (
           <div className=" flex flex-col ">
             <div className=" space-y-2 py-3 ">
               <div className=" px-4 ">
-                <div className=" font-bold text-primary-base ">AAPL</div>
-                <div className=" text-2xl font-bold ">Apple INC</div>
+                <div className=" font-bold text-primary-base ">
+                  {tickerQuote.symbol}
+                </div>
+                <div className=" text-2xl font-bold ">{tickerQuote.name}</div>
               </div>
 
               <div className=" space-y-1 px-4 py-2 ">
                 <div className=" flex items-center space-x-1.5 ">
-                  <span className=" font-bold ">$19.88</span>
+                  <span className=" font-bold ">
+                    {appUtils.formatCurrency(tickerQuote.open || undefined)}
+                  </span>
+
                   <span className=" text-xs font-bold text-[#079516] ">
-                    +1.59 (+8.69%)
+                    {tickerQuote.change && (
+                      <>
+                        {tickerQuote.change > 0 && "+"}
+                        <ColoredNumber number={tickerQuote.change} />
+                      </>
+                    )}{" "}
+                    (
+                    {tickerQuote.changesPercentage && (
+                      <>
+                        {tickerQuote.changesPercentage > 0 && "+"}
+                        <ColoredNumber
+                          percent
+                          number={Number(
+                            tickerQuote.changesPercentage.toFixed(2)
+                          )}
+                        />
+                      </>
+                    )}
+                    )
                   </span>
                 </div>
 
-                <div className=" text-xs text-main-gray-400 ">
-                  At close: December 18 04:00 PM EST
-                </div>
+                {tickerQuote.timestamp && (
+                  <div className=" text-xs text-main-gray-400 ">
+                    At close:{" "}
+                    {format(new Date(tickerQuote.timestamp), "MMMM dd hh:mm a")}
+                  </div>
+                )}
               </div>
             </div>
 
-            <div className=" space-y-1 bg-main-gray-100 px-4 py-3 dark:bg-main-gray-900 ">
+            {/* <div className=" space-y-1 bg-main-gray-100 px-4 py-3 dark:bg-main-gray-900 ">
               <div className=" flex items-center space-x-1.5 ">
                 <span className=" font-bold ">$20.56</span>
                 <span className=" text-xs font-bold text-red-500 ">
@@ -284,7 +335,7 @@ export function DesktopTickerNav(props: TickerNavProps) {
               <div className=" text-xs text-main-gray-400 ">
                 After hours: January 12 07:59 PM EST
               </div>
-            </div>
+            </div> */}
           </div>
         )}
 

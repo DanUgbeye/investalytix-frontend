@@ -1,3 +1,4 @@
+import { Quote, SearchResult, ShortQuote } from "@/types";
 import { RequestOptions } from "@/types/api.types";
 import {
   BalanceSheetStatement,
@@ -5,12 +6,14 @@ import {
   CompanyOutlook,
   Financials,
   IncomeStatement,
-  TickerData,
 } from "../types";
-import { Quote, SearchResult } from "@/types";
 
 export interface ITickerRepository {
   search(query: string, options?: RequestOptions): Promise<SearchResult[]>;
+
+  getQuote(ticker: string, options?: RequestOptions): Promise<Quote>;
+
+  getShortQuote(ticker: string, options?: RequestOptions): Promise<ShortQuote>;
 
   getCompanyOutLook(
     ticker: string,
