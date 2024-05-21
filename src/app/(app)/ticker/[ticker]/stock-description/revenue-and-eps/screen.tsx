@@ -2,7 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { cn, tailwindCSS } from "@/lib/utils";
+import useAuthStore from "@/modules/auth/store";
+import { Earning } from "@/modules/ticker/types";
 import useTheme from "@/store/theme/useTheme";
+import { Quote } from "@/types";
+import appUtils from "@/utils/app-util";
 import { useState } from "react";
 import {
   Area,
@@ -62,23 +66,16 @@ const data = [
   },
 ];
 
-const FINANCIAL_HISTORY_DATA = {
-  reportDate: new Date(),
-  fiscalQuarter: "2024(Q1)",
-  forecast: 2.09,
-  current: 1.46,
-  lastYear: 1.88,
-  yoyChange: 0.17,
-  yoyChangePercentage: 13.18,
-};
-
 interface RevenueAndEPSScreenProps {
   ticker: string;
+  quote: Quote;
+  earnings: Earning[];
 }
 
 export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
-  const { ticker } = props;
+  const { ticker, quote, earnings } = props;
   const { theme } = useTheme();
+  const user = useAuthStore(({ user }) => user);
   const [chartTab, setChartTab] = useState<"Earnings" | "Revenue">("Earnings");
 
   return (
@@ -116,46 +113,137 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
           </Button>
         </div>
 
-        <div className=" space-y-4 py-5 ">
-          <ResponsiveContainer width={"100%"} height={300}>
-            <BarChart data={data}>
-              <CartesianGrid
-                vertical={false}
-                strokeDasharray="3 3"
-                className=" stroke-main-gray-400 dark:stroke-white/40"
-              />
-              <XAxis tickLine={false} dataKey="name" />
-              <YAxis tickLine={false} />
-              <Tooltip
-                cursor={{
-                  className: " fill-main-gray-200/50 dark:fill-white/20 ",
-                }}
-                wrapperClassName={" dark:bg-red-500 "}
-                contentStyle={{
-                  backgroundColor:
-                    theme === "dark"
-                      ? tailwindCSS().theme.colors.main.gray[200]
-                      : "white",
-                  border: "none",
-                }}
-                labelClassName=" text-black "
-              />
-              <Bar dataKey="pv" fill="#2563eb" />
-              <Bar dataKey="uv" fill="#1E417B" />
-            </BarChart>
-          </ResponsiveContainer>
+        <div className="  ">
+          {chartTab === "Earnings" && (
+            <>
+              {/* EARNINGS */}
+              <div className="  ">
+                <ResponsiveContainer
+                  width={"100%"}
+                  height={300}
+                  className={" text-xs md:text-sm "}
+                >
+                  <BarChart
+                    data={earnings
+                      .filter(
+                        (earnings) =>
+                          earnings.date.getTime() < new Date().getTime()
+                      )
+                      .slice(0, 10)}
+                  >
+                    <CartesianGrid
+                      vertical={false}
+                      strokeDasharray="3 3"
+                      className=" stroke-main-gray-400 dark:stroke-white/40"
+                    />
+                    <XAxis
+                      tickLine={false}
+                      dataKey={"date"}
+                      tickFormatter={(value) =>
+                        new Date(value).toLocaleDateString()
+                      }
+                    />
+                    <YAxis tickLine={false} />
+                    <Tooltip
+                      cursor={{
+                        className: " fill-main-gray-200/50 dark:fill-white/20 ",
+                      }}
+                      wrapperClassName={" dark:bg-red-500 "}
+                      contentStyle={{
+                        backgroundColor:
+                          theme === "dark"
+                            ? tailwindCSS().theme.colors.main.gray[200]
+                            : "white",
+                        border: "none",
+                      }}
+                      labelClassName=" text-black "
+                      labelFormatter={(label) =>
+                        new Date(label).toLocaleDateString()
+                      }
+                    />
+                    <Bar
+                      dataKey="epsEstimated"
+                      name={"EPS Estimated"}
+                      fill={"#2563eb"}
+                    />
+                    <Bar dataKey="eps" name={"EPS"} fill="#1E417B" />
+                    <Legend className=" pt-3 " margin={{ top: 32 }} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </>
+          )}
 
-          <div className=" flex flex-wrap items-center gap-8 px-6 ">
-            <div className=" flex items-center gap-x-2 ">
-              <span className=" size-3 rounded-sm bg-blue-600 " />
-              <span className="  ">Estimated EPS</span>
-            </div>
-
-            <div className=" flex items-center gap-x-2 ">
-              <span className=" size-3 rounded-sm bg-[#1E417B] " />
-              <span className="  ">Reported EPS</span>
-            </div>
-          </div>
+          {chartTab === "Revenue" && (
+            <>
+              {/* REVENUE */}
+              <div className="  ">
+                <ResponsiveContainer
+                  width={"100%"}
+                  height={300}
+                  className={" text-xs md:text-sm "}
+                >
+                  <BarChart
+                    data={earnings
+                      .filter(
+                        (earnings) =>
+                          earnings.date.getTime() < new Date().getTime()
+                      )
+                      .slice(0, 10)}
+                  >
+                    <CartesianGrid
+                      vertical={false}
+                      strokeDasharray="3 3"
+                      className=" stroke-main-gray-400 dark:stroke-white/40"
+                    />
+                    <XAxis
+                      tickLine={false}
+                      dataKey={"date"}
+                      tickFormatter={(value) =>
+                        new Date(value).toLocaleDateString()
+                      }
+                    />
+                    <YAxis
+                      tickLine={false}
+                      tickFormatter={(value) =>
+                        appUtils.formatNumber(value, { notation: "compact" })
+                      }
+                    />
+                    <Tooltip
+                      cursor={{
+                        className: " fill-main-gray-200/50 dark:fill-white/20 ",
+                      }}
+                      formatter={(value) =>
+                        appUtils.formatNumber(
+                          value ? Number(value) : undefined,
+                          { notation: "compact" }
+                        )
+                      }
+                      wrapperClassName={"  "}
+                      contentStyle={{
+                        backgroundColor:
+                          theme === "dark"
+                            ? tailwindCSS().theme.colors.main.gray[300]
+                            : "white",
+                        border: "none",
+                      }}
+                      labelClassName=" text-black "
+                      labelFormatter={(label) =>
+                        new Date(label).toLocaleDateString()
+                      }
+                    />
+                    <Bar
+                      dataKey="revenueEstimated"
+                      name={"Revenue Estimated"}
+                      fill={"#2563eb"}
+                    />
+                    <Bar dataKey="revenue" name={"Revenue"} fill="#1E417B" />
+                    <Legend className=" pt-3 " margin={{ top: 32 }} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
@@ -171,61 +259,74 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   <tr className=" th  text-sm font-bold ">
                     <th className=" px-2 py-4 text-left ">Report Date</th>
 
-                    <th className=" px-2 py-4 text-right ">Fiscal Quarter</th>
+                    <th className=" px-2 py-4 text-center ">Fiscal Date</th>
 
-                    <th className=" px-2 py-4 text-right ">Forecast/EPS</th>
+                    <th className=" px-2 py-4 text-center ">Forecast</th>
 
-                    <th className=" px-2 py-4 text-right ">
+                    <th className=" px-2 py-4 text-center ">EPS</th>
+
+                    <th className=" px-2 py-4 text-center ">
                       Last Year&apos;s EPS
                     </th>
-
-                    <th className=" px-2 py-4 text-right ">EPS YoY Change</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {Array<typeof FINANCIAL_HISTORY_DATA>(10)
-                    .fill(FINANCIAL_HISTORY_DATA)
-                    .map((item, index) => {
-                      return (
-                        <tr
-                          key={`earning-history-${index}`}
-                          className=" text-sm even:bg-main-gray-100  dark:even:bg-main-gray-900 "
-                        >
-                          <td className=" px-2 py-4 text-left ">
-                            {item.reportDate.toDateString()}
-                          </td>
+                  {earnings.map((earning, index) => {
+                    return (
+                      <tr
+                        key={`earning-history-${index}`}
+                        className=" text-sm even:bg-main-gray-100  dark:even:bg-main-gray-900 "
+                      >
+                        <td className=" px-2 py-4 text-left ">
+                          {earning.date.toLocaleDateString()}
+                        </td>
 
-                          <td className={` px-2 py-4 text-right`}>
-                            {item.fiscalQuarter}
-                          </td>
+                        <td className={` px-2 py-4 text-center`}>
+                          {earning.fiscalDateEnding.toLocaleDateString()}
+                        </td>
 
-                          <td className=" px-2 py-4 text-right">
-                            <span className=" ">{item.forecast}</span>/
-                            <span
-                              className={cn({
-                                " text-green-600 ":
-                                  item.current && item.current > item.forecast,
-                                " text-red-600 ":
-                                  item.current && item.current < item.forecast,
-                              })}
-                            >
-                              {item.current ? Math.abs(item.current) : "-"}
-                            </span>
-                          </td>
+                        <td className=" px-2 py-4 text-center">
+                          <span className=" ">
+                            {appUtils.formatNumber(
+                              earning.epsEstimated || undefined,
+                              { style: "decimal", minimumFractionDigits: 2 }
+                            )}
+                          </span>
+                        </td>
 
-                          <td className=" px-2 py-4 text-right">
-                            {item.lastYear}
-                          </td>
+                        <td className=" px-2 py-4 text-center">
+                          <span
+                            className={cn({
+                              " text-green-600 ":
+                                earning.eps &&
+                                earning.epsEstimated &&
+                                earning.eps > earning.epsEstimated,
+                              " text-red-600 ":
+                                earning.eps &&
+                                earning.epsEstimated &&
+                                earning.eps < earning.epsEstimated,
+                            })}
+                          >
+                            {appUtils.formatNumber(earning.eps || undefined, {
+                              style: "decimal",
+                              minimumFractionDigits: 2,
+                            })}
+                          </span>
+                        </td>
 
-                          <td className=" px-2 py-4 text-right">
-                            {item.yoyChangePercentage.toPrecision(2)}% (
-                            {item.yoyChange > 0 && "+"}
-                            {item.yoyChange.toPrecision(2)})
-                          </td>
-                        </tr>
-                      );
-                    })}
+                        <td className=" px-2 py-4 text-center">
+                          {appUtils.formatNumber(
+                            earnings[index + 1]?.eps || undefined,
+                            {
+                              style: "decimal",
+                              minimumFractionDigits: 2,
+                            }
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -251,9 +352,11 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             </div>
           </div>
 
-          <div className=" flex justify-center ">
-            <Button className=" gap-x-3 ">+ Show More</Button>
-          </div>
+          {user === undefined && (
+            <div className=" flex justify-center ">
+              <Button className=" gap-x-3 ">+ Show More</Button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -269,53 +372,77 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   <tr className=" th text-sm font-semibold dark:bg-white/20 ">
                     <th className=" px-2 py-4 text-left ">Report Date</th>
 
-                    <th className=" px-2 py-4 text-right ">Fiscal Quarter</th>
+                    <th className=" px-2 py-4 text-center ">Fiscal Date</th>
 
-                    <th className=" px-2 py-4 text-right ">Revenue</th>
+                    <th className=" px-2 py-4 text-center ">Estimated</th>
 
-                    <th className=" px-2 py-4 text-right ">
+                    <th className=" px-2 py-4 text-center ">Revenue</th>
+
+                    <th className=" px-2 py-4 text-center ">
                       Last Year&apos;s Revenue
-                    </th>
-
-                    <th className=" px-2 py-4 text-right ">
-                      Revenue YoY Change
                     </th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {Array<typeof FINANCIAL_HISTORY_DATA>(10)
-                    .fill(FINANCIAL_HISTORY_DATA)
-                    .map((item, index) => {
-                      return (
-                        <tr
-                          key={`revenue-history-${index}`}
-                          className=" text-sm even:bg-main-gray-100  dark:even:bg-main-gray-900 "
-                        >
-                          <td className=" px-2 py-4 text-left ">
-                            {item.reportDate.toDateString()}
-                          </td>
+                  {earnings.map((earning, index) => {
+                    return (
+                      <tr
+                        key={`revenue-history-${index}`}
+                        className=" text-sm even:bg-main-gray-100  dark:even:bg-main-gray-900 "
+                      >
+                        <td className=" px-2 py-4 text-left ">
+                          {earning.date.toLocaleDateString()}
+                        </td>
 
-                          <td className={` px-2 py-4 text-right`}>
-                            {item.fiscalQuarter}
-                          </td>
+                        <td className={` px-2 py-4 text-center`}>
+                          {earning.fiscalDateEnding.toLocaleDateString()}
+                        </td>
 
-                          <td className=" px-2 py-4 text-right">
-                            {item.current || "-"}
-                          </td>
+                        <td className=" px-2 py-4 text-center">
+                          <span className=" ">
+                            {appUtils.formatNumber(
+                              earning.revenueEstimated || undefined,
+                              { notation: "compact", minimumFractionDigits: 2 }
+                            )}
+                          </span>
+                        </td>
 
-                          <td className=" px-2 py-4 text-right">
-                            {item.lastYear}
-                          </td>
+                        <td className=" px-2 py-4 text-center">
+                          <span
+                            className={cn({
+                              " text-green-600 ":
+                                earning.revenue &&
+                                earning.revenueEstimated &&
+                                earning.revenue > earning.revenueEstimated,
+                              " text-red-600 ":
+                                earning.revenue &&
+                                earning.revenueEstimated &&
+                                earning.revenue < earning.revenueEstimated,
+                            })}
+                          >
+                            {appUtils.formatNumber(
+                              earning.revenue || undefined,
+                              {
+                                notation: "compact",
+                                minimumFractionDigits: 2,
+                              }
+                            )}
+                          </span>
+                        </td>
 
-                          <td className=" px-2 py-4 text-right">
-                            {item.yoyChangePercentage.toPrecision(2)}% (
-                            {item.yoyChange > 0 && "+"}
-                            {item.yoyChange.toPrecision(2)})
-                          </td>
-                        </tr>
-                      );
-                    })}
+                        <td className=" px-2 py-4 text-center">
+                          {appUtils.formatNumber(
+                            earnings[index + 1]?.revenue || undefined,
+                            {
+                              notation: "compact",
+                              minimumFractionDigits: 2,
+                            }
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -323,15 +450,29 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             <div className=" flex flex-wrap items-center gap-x-10 gap-y-2 border bg-main-gray-300 px-4 py-6 text-xs dark:border-main-gray-600 dark:bg-white/10  ">
               <div className="  ">
                 The table shows recent earnings report dates and whether the
-                forecast was beat or missed. See the change in forecast and EPS
-                from the previous year.
+                forecast was beat or missed. See the change in forecast and
+                Revenue from the previous year.
+              </div>
+
+              <div className=" flex items-center gap-x-5 ">
+                <span className=" flex items-center gap-x-2 ">
+                  <span className=" size-3 rounded-sm bg-green-600 " />
+                  Beat
+                </span>
+
+                <span className=" flex items-center gap-x-2 ">
+                  <span className=" size-3 rounded-sm bg-red-600 " />
+                  Missed
+                </span>
               </div>
             </div>
           </div>
 
-          <div className=" flex justify-center ">
-            <Button className=" gap-x-3 ">+ Show More</Button>
-          </div>
+          {user === undefined && (
+            <div className=" flex justify-center ">
+              <Button className=" gap-x-3 ">+ Show More</Button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -339,38 +480,94 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
         <h4 className=" text-xl font-bold ">Earning Estimate Graph</h4>
 
         <div className="  ">
-          <ResponsiveContainer width={"100%"} height={300}>
-            <AreaChart data={data}>
+          <ResponsiveContainer
+            width={"100%"}
+            height={300}
+            className={" text-xs md:text-sm "}
+          >
+            <AreaChart
+              data={earnings
+                .filter(
+                  (earnings) => earnings.date.getTime() < new Date().getTime()
+                )
+                .slice(0, 10)
+                .reverse()}
+            >
               <defs>
-                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                <linearGradient id="epsEstimated" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#8884d8" stopOpacity={0.5} />
                   <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
                 </linearGradient>
-                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+
+                <linearGradient id="eps" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.5} />
                   <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
                 </linearGradient>
               </defs>
 
-              <XAxis tickLine={false} dataKey="name" />
-              <YAxis tickLine={false} />
-              {/* <CartesianGrid ver strokeDasharray="3 3" /> */}
-              <Tooltip />
+              <XAxis
+                tickLine={false}
+                dataKey="date"
+                tickFormatter={(value) => new Date(value).toLocaleDateString()}
+              />
 
-              <Area
-                type="monotone"
-                dataKey="uv"
-                stroke="#8884d8"
-                fillOpacity={1}
-                fill="url(#colorUv)"
+              <YAxis
+                tickLine={false}
+                tickFormatter={(value) =>
+                  appUtils.formatNumber(value, {
+                    notation: "compact",
+                    style: "decimal",
+                  })
+                }
+              />
+
+              <Tooltip
+                cursor={{
+                  className: " fill-main-gray-200/50 dark:fill-white/20 ",
+                }}
+                formatter={(value) =>
+                  appUtils.formatNumber(value ? Number(value) : undefined, {
+                    notation: "compact",
+                    style: "decimal",
+                  })
+                }
+                wrapperClassName={"  "}
+                contentStyle={{
+                  backgroundColor:
+                    theme === "dark"
+                      ? tailwindCSS().theme.colors.main.gray[100]
+                      : "white",
+                  border: "none",
+                }}
+                labelClassName=" text-black "
+                labelFormatter={(label) => new Date(label).toLocaleDateString()}
               />
 
               <Area
                 type="monotone"
-                dataKey="pv"
+                dataKey="eps"
+                name="EPS"
                 stroke="#82ca9d"
+                strokeWidth={3}
                 fillOpacity={1}
-                fill="url(#colorPv)"
+                fill="url(#eps)"
+              />
+
+              <Area
+                type="monotone"
+                dataKey="epsEstimated"
+                name="EPS Estimated"
+                stroke="#8884d8"
+                strokeWidth={3}
+                fillOpacity={1}
+                fill="url(#epsEstimated)"
+              />
+
+              <Legend
+                className=" pt-3 "
+                verticalAlign="top"
+                align="right"
+                // margin={{ top: 40 }}
               />
             </AreaChart>
           </ResponsiveContainer>

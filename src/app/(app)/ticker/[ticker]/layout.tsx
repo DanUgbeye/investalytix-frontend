@@ -30,8 +30,10 @@ async function getTickerData(ticker: string) {
       error.message.toLowerCase().includes("not found")
     ) {
       metadata.title = "Ticker not found";
+      return notFound();
     }
-    return notFound();
+
+    throw error;
   }
 }
 

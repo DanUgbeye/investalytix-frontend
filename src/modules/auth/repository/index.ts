@@ -96,11 +96,12 @@ export class AuthRepository {
     const api = createAPIInstance("/api");
 
     try {
-      const { data } = await api.get<{ data: { authenticated: boolean } }>(
+      const res = await api.get<{ data: { authenticated: boolean } }>(
         path,
         options
       );
-      let parsedRes = z.object({ authenticated: z.boolean() }).safeParse(data);
+
+      let parsedRes = z.object({ authenticated: z.boolean() }).safeParse(res.data.data);
 
       if (!parsedRes.success) {
         throw new Error("Something went wrong on our end");

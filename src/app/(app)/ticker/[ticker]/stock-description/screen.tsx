@@ -108,7 +108,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
             <span className=" ">PE Ratio (TTM)</span>
             <span className=" font-bold ">
               {appUtils.formatNumber(
-                outlook.ratios[0].peRatioTTM || undefined,
+                outlook.ratios[0]?.peRatioTTM || undefined,
                 {
                   style: "decimal",
                 }
@@ -267,7 +267,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
               <span className=" ">Dividend</span>
               <span className=" font-bold ">
                 {appUtils.formatNumber(
-                  outlook.stockDividend[0].dividend || undefined,
+                  outlook.stockDividend[0]?.dividend || undefined,
                   {
                     style: "decimal",
                   }
@@ -346,7 +346,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
               {
                 label: "P/E RATIO",
                 value: appUtils.formatNumber(
-                  outlook.ratios[0].peRatioTTM || undefined,
+                  outlook.ratios[0]?.peRatioTTM || undefined,
                   { style: "decimal" }
                 ),
               },
@@ -356,10 +356,12 @@ export default function SummaryScreen(props: SummaryScreenProps) {
               },
               {
                 label: "YIELD",
-                value:  outlook.ratios[0].dividendYielPercentageTTM ? appUtils.formatNumber(
-                  outlook.ratios[0].dividendYielPercentageTTM,
-                  { style: "decimal" }
-                ) + "%" : "-",
+                value: outlook.ratios[0]?.dividendYielPercentageTTM
+                  ? appUtils.formatNumber(
+                      outlook.ratios[0]?.dividendYielPercentageTTM,
+                      { style: "decimal" }
+                    ) + "%"
+                  : "-",
               },
               {
                 label: "AVERAGE VOLUME",
@@ -371,29 +373,31 @@ export default function SummaryScreen(props: SummaryScreenProps) {
               {
                 label: "DIVIDEND",
                 value: appUtils.formatNumber(
-                  outlook.stockDividend[0].dividend || undefined,
+                  outlook.stockDividend[0]?.dividend || undefined,
                   { notation: "compact" }
                 ),
               },
               {
                 label: "EX-DIVIDEND DATE",
-                value: format(
-                  new Date(outlook.stockDividend[0].declarationDate),
-                  "MMM dd, yyyy"
-                ),
+                value: outlook.stockDividend[0]
+                  ? format(
+                      new Date(outlook.stockDividend[0]?.declarationDate),
+                      "MMM dd, yyyy"
+                    )
+                  : "-",
               },
               // {
               //   label: "SHORT INTEREST",
               //   value: `${appUtils.formatNumber(
-              //     outlook.financialsQuarter.cash[0].interestIncome ||
+              //     outlook.financialsQuarter.cash[0]?.interestIncome ||
               //       undefined,
               //     { notation: "compact", minimumFractionDigits: 0 }
-              //   )} ${format(outlook.financialsQuarter.income[0].date, "mm/dd/yy") || undefined}`,
+              //   )} ${outlook.financialsQuarter.income[0] ? format(outlook.financialsQuarter.income[0].date, "mm/dd/yy") : "-"}`,
               // },
               // {
               //   label: "% OF FLOAT SHORTED",
               //   value: appUtils.formatNumber(
-              //     outlook.financialsQuarter.income[0].interestIncome ||
+              //     outlook.financialsQuarter.income[0]?.interestIncome ||
               //       undefined,
               //     { notation: "compact", style: "decimal" }
               //   ), // Replace with actual data
@@ -426,66 +430,64 @@ export default function SummaryScreen(props: SummaryScreenProps) {
             <div className=" divide-y dark:divide-inherit dark:border-main-gray-600 ">
               {outlook.stockNews.map((news, index) => {
                 return (
-                  <>
-                    <div
-                      key={`news-${index}`}
-                      className={cn(
-                        " grid grid-cols-1 grid-rows-[auto,auto] gap-5 py-4 md:grid-cols-[auto,1fr] md:grid-rows-1 "
-                      )}
-                    >
-                      <Avatar className=" h-full  w-full rounded-none md:max-w-96 ">
-                        <AvatarImage
-                          src={news.image}
-                          alt=""
-                          className="aspect-video h-full w-full object-cover "
-                          width={196}
-                          height={110}
-                        />
+                  <div
+                    key={`news-${index}`}
+                    className={cn(
+                      " grid grid-cols-1 grid-rows-[auto,auto] gap-5 py-4 md:grid-cols-[auto,1fr] md:grid-rows-1 "
+                    )}
+                  >
+                    <Avatar className=" h-full  w-full rounded-none md:max-w-96 md:max-h-60 ">
+                      <AvatarImage
+                        src={news.image}
+                        alt=""
+                        className="aspect-video h-full w-full object-cover "
+                        width={196}
+                        height={110}
+                      />
 
-                        <AvatarFallback className="">
-                          {news.symbol}
-                        </AvatarFallback>
-                      </Avatar>
+                      <AvatarFallback className="">
+                        {news.symbol}
+                      </AvatarFallback>
+                    </Avatar>
 
-                      <div className="">
-                        <div className="flex flex-col flex-wrap items-start justify-between gap-y-2 ">
-                          <Link
-                            href={news.url}
-                            target="_blank"
-                            className={cn(
-                              "white-text text-lg font-bold text-[#020224] hover:text-primary-light hover:underline lg:text-xl"
+                    <div className="">
+                      <div className="flex flex-col flex-wrap items-start justify-between gap-y-2 ">
+                        <Link
+                          href={news.url}
+                          target="_blank"
+                          className={cn(
+                            "white-text text-lg font-bold text-[#020224] hover:text-primary-light hover:underline lg:text-xl"
+                          )}
+                        >
+                          {news.title}
+                        </Link>
+
+                        <div className=" space-y-1 ">
+                          <div className="whitespace-nowrap">{news.site}</div>
+
+                          <p className="white-text flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base">
+                            {news.symbol && (
+                              <>
+                                <span className="">{news.symbol}</span>
+                                <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
+                              </>
                             )}
-                          >
-                            {news.title}
-                          </Link>
 
-                          <div className=" space-y-1 ">
-                            <div className="whitespace-nowrap">{news.site}</div>
-
-                            <p className="white-text flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base">
-                              {news.symbol && (
-                                <>
-                                  <span className="">{news.symbol}</span>
-                                  <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
-                                </>
+                            <span className="whitespace-nowrap">
+                              {format(
+                                new Date(news.publishedDate),
+                                "MMMM dd, yyyy"
                               )}
-
-                              <span className="whitespace-nowrap">
-                                {format(
-                                  new Date(news.publishedDate),
-                                  "MMMM dd, yyyy"
-                                )}
-                              </span>
-                            </p>
-                          </div>
+                            </span>
+                          </p>
                         </div>
-
-                        <p className="white-text mt-4 text-base text-[#4B4646] lg:mt-4 ">
-                          {news.text}
-                        </p>
                       </div>
+
+                      {/* <p className="white-text mt-4 text-base text-[#4B4646] lg:mt-4 ">
+                        {news.text}
+                      </p> */}
                     </div>
-                  </>
+                  </div>
                 );
               })}
             </div>

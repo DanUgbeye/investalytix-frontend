@@ -6,6 +6,7 @@ import { Financials, RatioTTM } from "./financials.types";
 export * from "./company.types";
 export * from "./dividend.types";
 export * from "./financials.types";
+export * from "./earnings.types";
 
 export type TickerData = {
   outlook: CompanyOutlook;

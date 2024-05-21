@@ -30,7 +30,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     enabled: !!user,
     queryKey: [QUERY_KEYS.GET_USER_PROFILE, user?.id],
     queryFn: ({ signal }) => userRepo.getUserProfile(user!.id, { signal }),
-    refetchInterval: 300_000, // 5 mins
+    refetchInterval: 900_000, // 15 mins
   });
 
   // check auth status

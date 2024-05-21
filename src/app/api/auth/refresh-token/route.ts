@@ -13,9 +13,7 @@ async function RefreshToken(req: NextRequest) {
   const api = createAPIInstance(SERVER_CONFIG.API_BASE_URL);
 
   try {
-    let serverCookies = cookies();
-
-    if (!serverCookies.has("auth")) {
+    if (!cookies().has("auth")) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
@@ -23,8 +21,8 @@ async function RefreshToken(req: NextRequest) {
       "/auth/refresh-token"
     );
 
-    serverCookies.delete("auth");
-    serverCookies.set("auth", res.data.auth.token, {
+    cookies().delete("auth");
+    cookies().set("auth", res.data.auth.token, {
       secure: true,
       httpOnly: true,
       expires: res.data.auth.expiresIn,

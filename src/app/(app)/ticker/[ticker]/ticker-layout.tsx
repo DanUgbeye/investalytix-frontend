@@ -67,7 +67,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
                 <div className=" space-y-1 md:space-y-3 ">
                   <div className=" flex flex-wrap items-center space-x-1.5 ">
                     <span className=" text-base font-bold md:text-3xl ">
-                      {appUtils.formatNumber(tickerQuote.open || undefined)}
+                      {appUtils.formatNumber(tickerQuote.price || undefined)}
                     </span>
 
                     <span className=" text-xs font-bold md:text-lg ">

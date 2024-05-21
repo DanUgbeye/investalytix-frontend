@@ -18,9 +18,8 @@ async function Login(req: NextRequest) {
       "/auth/login",
       body
     );
-    let serverCookies = cookies();
 
-    serverCookies.set("auth", res.data.auth.token, {
+    cookies().set("auth", res.data.auth.token, {
       secure: true,
       httpOnly: true,
       expires: res.data.auth.expiresIn,

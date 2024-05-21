@@ -6,6 +6,7 @@ import {
   BalanceSheetStatement,
   CashFlowStatement,
   CompanyOutlook,
+  Earning,
   Financials,
   IncomeStatement,
 } from "../types";
@@ -13,6 +14,7 @@ import {
   BalanceSheetStatementSchema,
   CashFlowStatementSchema,
   CompanyOutlookSchema,
+  EarningSchema,
   FinancialsSchema,
   IncomeStatementSchema,
 } from "../validation";
@@ -99,6 +101,27 @@ export class TickerRepository implements ITickerRepository {
       let res = await this.axios.get<{ data: CompanyOutlook }>(path, options);
 
       let validation = CompanyOutlookSchema.safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getEarningsHistory(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<Earning[]> {
+    try {
+      const path = `/tickers/${ticker}/earnings`;
+      let res = await this.axios.get<{ data: CompanyOutlook }>(path, options);
+
+      let validation = z.array(EarningSchema).safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");

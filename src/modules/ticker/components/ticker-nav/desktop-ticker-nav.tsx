@@ -277,7 +277,7 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
               <div className=" space-y-1 px-4 py-2 ">
                 <div className=" flex items-center space-x-1.5 ">
                   <span className=" font-bold ">
-                    {appUtils.formatNumber(tickerQuote.open || undefined)}
+                    {appUtils.formatNumber(tickerQuote.price || undefined)}
                   </span>
 
                   <span className=" text-xs font-bold text-[#079516] ">

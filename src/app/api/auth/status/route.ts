@@ -7,10 +7,8 @@ import { NextRequest, NextResponse } from "next/server";
  */
 async function CheckAuthStatus(req: NextRequest) {
   try {
-    let serverCookies = cookies();
-
-    if (serverCookies.has("auth")) {
-      const auth = serverCookies.get("auth")!;
+    if (cookies().has("auth")) {
+      const auth = cookies().get("auth")!;
 
       return NextResponse.json(
         { data: { authenticated: true, token: auth.value } },
