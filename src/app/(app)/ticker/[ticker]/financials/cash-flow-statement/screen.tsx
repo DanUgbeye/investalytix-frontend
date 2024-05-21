@@ -74,7 +74,7 @@ export default function CashFlowStatementScreen(
                             key={`forecast-month-${index}`}
                             className=" px-2 py-3 text-center dark:bg-transparent"
                           >
-                            {appUtils.formatCurrency(data.operatingCashFlow, {
+                            {appUtils.formatNumber(data.operatingCashFlow, {
                               notation: "compact",
                               minimumFractionDigits: 1,
                               maximumFractionDigits: 2,
@@ -97,7 +97,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.netIncome, {
+                                {appUtils.formatNumber(data.netIncome, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -118,7 +118,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.depreciationAndAmortization,
                                   {
                                     notation: "compact",
@@ -142,7 +142,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.deferredIncomeTax,
                                   {
                                     notation: "compact",
@@ -166,7 +166,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.stockBasedCompensation,
                                   {
                                     notation: "compact",
@@ -190,7 +190,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.changeInWorkingCapital,
                                   {
                                     notation: "compact",
@@ -214,7 +214,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.accountsReceivables,
                                   {
                                     notation: "compact",
@@ -238,7 +238,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.inventory, {
+                                {appUtils.formatNumber(data.inventory, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -259,7 +259,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.accountsPayables,
                                   {
                                     notation: "compact",
@@ -283,7 +283,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.otherWorkingCapital,
                                   {
                                     notation: "compact",
@@ -307,7 +307,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.otherNonCashItems,
                                   {
                                     notation: "compact",
@@ -359,7 +359,7 @@ export default function CashFlowStatementScreen(
                             key={`forecast-month-${index}`}
                             className=" px-2 py-3 text-center dark:bg-transparent"
                           >
-                            {appUtils.formatCurrency(
+                            {appUtils.formatNumber(
                               data.netCashUsedForInvestingActivites,
                               {
                                 notation: "compact",
@@ -385,7 +385,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.investmentsInPropertyPlantAndEquipment,
                                   {
                                     notation: "compact",
@@ -409,7 +409,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.acquisitionsNet, {
+                                {appUtils.formatNumber(data.acquisitionsNet, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -430,7 +430,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.purchasesOfInvestments,
                                   {
                                     notation: "compact",
@@ -454,7 +454,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.salesMaturitiesOfInvestments,
                                   {
                                     notation: "compact",
@@ -478,7 +478,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.otherInvestingActivites,
                                   {
                                     notation: "compact",
@@ -530,7 +530,7 @@ export default function CashFlowStatementScreen(
                             key={`forecast-month-${index}`}
                             className=" px-2 py-3 text-center dark:bg-transparent"
                           >
-                            {appUtils.formatCurrency(
+                            {appUtils.formatNumber(
                               data.netCashUsedProvidedByFinancingActivities,
                               {
                                 notation: "compact",
@@ -556,7 +556,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.debtRepayment, {
+                                {appUtils.formatNumber(data.debtRepayment, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -577,7 +577,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.commonStockIssued,
                                   {
                                     notation: "compact",
@@ -601,7 +601,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.commonStockRepurchased,
                                   {
                                     notation: "compact",
@@ -625,7 +625,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.dividendsPaid, {
+                                {appUtils.formatNumber(data.dividendsPaid, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -646,7 +646,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.otherFinancingActivites,
                                   {
                                     notation: "compact",
@@ -698,7 +698,7 @@ export default function CashFlowStatementScreen(
                             key={`forecast-month-${index}`}
                             className=" px-2 py-3 text-center dark:bg-transparent"
                           >
-                            {appUtils.formatCurrency(data.freeCashFlow, {
+                            {appUtils.formatNumber(data.freeCashFlow, {
                               notation: "compact",
                               minimumFractionDigits: 1,
                               maximumFractionDigits: 2,
@@ -721,7 +721,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.operatingCashFlow,
                                   {
                                     notation: "compact",
@@ -745,7 +745,7 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.capitalExpenditure,
                                   {
                                     notation: "compact",
@@ -775,7 +775,7 @@ export default function CashFlowStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.cashAtBeginningOfPeriod, {
+                    {appUtils.formatNumber(data.cashAtBeginningOfPeriod, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -796,7 +796,7 @@ export default function CashFlowStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.cashAtEndOfPeriod, {
+                    {appUtils.formatNumber(data.cashAtEndOfPeriod, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -817,7 +817,7 @@ export default function CashFlowStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.netChangeInCash, {
+                    {appUtils.formatNumber(data.netChangeInCash, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,

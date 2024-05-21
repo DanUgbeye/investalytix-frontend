@@ -1,24 +1,54 @@
-import PAGES from "@/data/page-map";
-import { TICKER_NAV_TABS } from "@/modules/ticker/components/ticker-nav/ticker-sidenav.types";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import React from "react";
+import { TickerRepository } from "@/modules/ticker/repository";
+import { serverAPI } from "@/config/server/api";
+import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
-import { STOCK_DESCRIPTION_MENU } from "./stock-description.types";
+import SummaryScreen from "./screen";
 
 export const metadata: Metadata = {
   title: "Search Ticker | Investalytix",
 };
 
-interface StockDescriptionPageProps extends SearchTickerPageProps {}
+async function getTickerData(ticker: string) {
+  try {
+    const tickerRepo = new TickerRepository(serverAPI);
 
-function StockDescriptionPage(props: StockDescriptionPageProps) {
+    const [quote, outlook] = await Promise.all([
+      tickerRepo.getQuote(ticker),
+      tickerRepo.getCompanyOutLook(ticker),
+    ]);
+
+    return {
+      timeStamp: new Date(),
+      quote,
+      outlook,
+    };
+  } catch (error: any) {
+    if (
+      error instanceof Error &&
+      error.message.toLowerCase().includes("not found")
+    ) {
+      metadata.title = "Ticker not found";
+      return notFound();
+    }
+
+    throw error;
+  }
+}
+
+interface SummaryPageProps extends SearchTickerPageProps {}
+
+async function SummaryPage(props: SummaryPageProps) {
   const {
     params: { ticker },
   } = props;
 
-  return redirect(
-    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION.path}/${STOCK_DESCRIPTION_MENU.SUMMARY.path}`
-  );
+  const { quote, outlook } = await getTickerData(ticker);
+
+  metadata.title = `${quote.name} (${ticker}) Stock Description - Summary | Investalytix`;
+
+  return <SummaryScreen ticker={ticker} quote={quote} outlook={outlook} />;
 }
 
-export default StockDescriptionPage;
+export default SummaryPage;

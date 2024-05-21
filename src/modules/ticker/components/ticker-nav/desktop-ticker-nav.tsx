@@ -227,20 +227,14 @@ export interface DesktopTickerNavProps extends TickerNavProps {
 export function DesktopTickerNav(props: DesktopTickerNavProps) {
   const { ticker, className, quote, ...rest } = props;
   const tickerRepo = useTickerRepository();
-  const loading = false;
   const pathname = usePathname();
 
-  const { data } = useQuery({
+  const { data: tickerQuote } = useQuery({
     queryKey: [QUERY_KEYS.GET_TICKER_QUOTE, ticker],
     queryFn: ({ signal }) => tickerRepo.getQuote(ticker, { signal }),
     initialData: quote,
     refetchInterval: 30_000,
   });
-
-  const tickerQuote = useMemo(() => {
-    // if (!data) return quote;
-    return data;
-  }, [data]);
 
   const navTabs = useMemo(() => {
     return Object.values(TICKER_NAV_TABS).map(({ label, path }) => ({
@@ -270,13 +264,7 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
   return (
     <aside {...rest} className={cn(" ", className)}>
       <div className=" h-fit border-r dark:border-main-gray-600 ">
-        {loading && (
-          <div className=" grid w-full place-items-center py-8 ">
-            <Spinner className=" size-8 text-primary-base " />
-          </div>
-        )}
-
-        {!loading && tickerQuote && (
+        {tickerQuote && (
           <div className=" flex flex-col ">
             <div className=" space-y-2 py-3 ">
               <div className=" px-4 ">
@@ -289,7 +277,7 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
               <div className=" space-y-1 px-4 py-2 ">
                 <div className=" flex items-center space-x-1.5 ">
                   <span className=" font-bold ">
-                    {appUtils.formatCurrency(tickerQuote.open || undefined)}
+                    {appUtils.formatNumber(tickerQuote.open || undefined)}
                   </span>
 
                   <span className=" text-xs font-bold text-[#079516] ">

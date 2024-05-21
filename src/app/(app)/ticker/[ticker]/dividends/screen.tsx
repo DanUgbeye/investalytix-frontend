@@ -233,7 +233,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                     </td>
 
                     <td className=" px-2 py-4 text-right">
-                      {appUtils.formatCurrency(dividend.dividend, {
+                      {appUtils.formatNumber(dividend.dividend, {
                         style: "decimal",
                         maximumFractionDigits: 2,
                       })}

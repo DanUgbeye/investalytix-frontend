@@ -5,14 +5,17 @@ import ColoredNumber from "@/components/ui/ColoredNumber";
 import QuotesBoard from "@/components/ui/QuotesBoard";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { QUERY_KEYS } from "@/data/query-keys";
 import { cn } from "@/lib/utils";
 import {
   DesktopTickerNav,
   MobileTickerNav,
 } from "@/modules/ticker/components/ticker-nav";
+import { useTickerRepository } from "@/modules/ticker/hooks";
 import { CompanyOutlook } from "@/modules/ticker/types";
 import { Quote } from "@/types";
 import appUtils from "@/utils/app-util";
+import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { HTMLAttributes } from "react";
 import { RiStarSLine } from "react-icons/ri";
@@ -20,17 +23,26 @@ import "swiper/css";
 
 export interface TickerLayoutProps extends HTMLAttributes<HTMLElement> {
   ticker: string;
-  data: { quote: Quote; outlook: CompanyOutlook };
+  quote: Quote;
+  outlook: CompanyOutlook;
 }
 
 export default function TickerLayout(props: TickerLayoutProps) {
-  const { className, children, ticker, data, ...rest } = props;
+  const { className, children, ticker, quote, outlook, ...rest } = props;
+  const tickerRepo = useTickerRepository();
+
+  const { data: tickerQuote } = useQuery({
+    queryKey: [QUERY_KEYS.GET_TICKER_QUOTE, ticker],
+    queryFn: ({ signal }) => tickerRepo.getQuote(ticker, { signal }),
+    initialData: quote,
+    refetchInterval: 10_000,
+  });
 
   return (
     <section {...rest} className={cn("  ", className)}>
       <Container className=" grid min-h-[calc(100dvh-5rem)] max-w-[110rem] grid-cols-1 grid-rows-[auto,1fr] p-0 sm:p-0 md:grid-rows-1 xl:p-0 ">
         <DesktopTickerNav
-          quote={data.quote}
+          quote={tickerQuote}
           ticker={ticker}
           className=" sticky top-[88px] col-start-1 row-start-1 mb-8 hidden h-[calc(100dvh-88px)] w-[15rem] overflow-y-auto lg:flex "
         />
@@ -46,35 +58,33 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
             <section className=" grid grid-rows-[auto,auto,auto] gap-x-10 gap-y-6 sm:grid-cols-[1fr,auto] sm:grid-rows-1 xl:grid-cols-[auto,1fr,auto] ">
               <div className=" col-start-1 space-y-3 ">
-                <div className=" text-3xl font-bold ">
-                  {data.quote.name}
-                </div>
+                <div className=" text-3xl font-bold ">{tickerQuote.name}</div>
 
-                <div className=" text-sm ">{data.outlook.profile.exchange}</div>
+                <div className=" text-sm ">{outlook.profile.exchange}</div>
               </div>
 
               <div className=" col-span-full row-start-2 grid w-full grid-cols-[auto,auto,auto] xl:col-span-1 xl:col-start-2 xl:row-start-1 ">
                 <div className=" space-y-1 md:space-y-3 ">
                   <div className=" flex flex-wrap items-center space-x-1.5 ">
                     <span className=" text-base font-bold md:text-3xl ">
-                      {appUtils.formatCurrency(data.quote.open || undefined)}
+                      {appUtils.formatNumber(tickerQuote.open || undefined)}
                     </span>
 
                     <span className=" text-xs font-bold md:text-lg ">
-                      {data.quote.change && (
+                      {tickerQuote.change && (
                         <>
-                          {data.quote.change > 0 && "+"}
-                          <ColoredNumber number={data.quote.change} />
+                          {tickerQuote.change > 0 && "+"}
+                          <ColoredNumber number={tickerQuote.change} />
                         </>
                       )}{" "}
                       (
-                      {data.quote.changesPercentage && (
+                      {tickerQuote.changesPercentage && (
                         <>
-                          {data.quote.changesPercentage > 0 && "+"}
+                          {tickerQuote.changesPercentage > 0 && "+"}
                           <ColoredNumber
                             percent
                             number={Number(
-                              data.quote.changesPercentage.toFixed(2)
+                              tickerQuote.changesPercentage.toFixed(2)
                             )}
                           />
                         </>
@@ -83,11 +93,11 @@ export default function TickerLayout(props: TickerLayoutProps) {
                     </span>
                   </div>
 
-                  {data.quote.timestamp && (
+                  {tickerQuote.timestamp && (
                     <div className=" text-xs text-main-gray-400 md:text-sm ">
                       At close:{" "}
                       {format(
-                        new Date(data.quote.timestamp),
+                        new Date(tickerQuote.timestamp),
                         "MMMM dd hh:mm a"
                       )}
                     </div>
@@ -99,24 +109,24 @@ export default function TickerLayout(props: TickerLayoutProps) {
                 <div className=" space-y-1 md:space-y-3 ">
                   <div className=" flex flex-wrap items-center space-x-1.5 ">
                     <span className=" text-base font-bold md:text-3xl ">
-                      {appUtils.formatCurrency(data.quote.dayLow || undefined)}
+                      {appUtils.formatNumber(tickerQuote.dayLow || undefined)}
                     </span>
 
                     <span className=" text-xs font-bold md:text-lg ">
-                      {data.quote.change && (
+                      {tickerQuote.change && (
                         <>
-                          {data.quote.change > 0 && "+"}
-                          <ColoredNumber number={data.quote.change} />
+                          {tickerQuote.change > 0 && "+"}
+                          <ColoredNumber number={tickerQuote.change} />
                         </>
                       )}{" "}
                       (
-                      {data.quote.changesPercentage && (
+                      {tickerQuote.changesPercentage && (
                         <>
-                          {data.quote.changesPercentage > 0 && "+"}
+                          {tickerQuote.changesPercentage > 0 && "+"}
                           <ColoredNumber
                             percent
                             number={Number(
-                              data.quote.changesPercentage.toFixed(2)
+                              tickerQuote.changesPercentage.toFixed(2)
                             )}
                           />
                         </>
@@ -125,11 +135,11 @@ export default function TickerLayout(props: TickerLayoutProps) {
                     </span>
                   </div>
 
-                  {data.quote.timestamp && (
+                  {tickerQuote.timestamp && (
                     <div className=" text-xs text-main-gray-400 md:text-sm ">
                       At close:{" "}
                       {format(
-                        new Date(data.quote.timestamp),
+                        new Date(tickerQuote.timestamp),
                         "MMMM dd hh:mm a"
                       )}
                     </div>

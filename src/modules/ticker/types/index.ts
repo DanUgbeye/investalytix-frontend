@@ -20,9 +20,9 @@ export type CompanyOutlook = {
   stockNews: News[];
   financialsAnnual: Financials;
   financialsQuarter: Financials;
+  metrics: CompanyMetrics;
   // insideTrades: InsideTrade[];
   // splitsHistory: SplitsHistory[];
-  // metrics: Metrics;
   // rating: Rating[];
 };
 
@@ -44,11 +44,11 @@ export type InsideTrade = {
   link: string;
 };
 
-export type Metrics = {
-  dividendYielTTM: number;
-  volume: number;
-  yearHigh: number;
-  yearLow: number;
+export type CompanyMetrics = {
+  dividendYielTTM: number | null;
+  volume: number | null;
+  yearHigh: number | null;
+  yearLow: number | null;
 };
 
 export type Rating = {

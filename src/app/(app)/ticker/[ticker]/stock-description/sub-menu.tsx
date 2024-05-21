@@ -19,7 +19,7 @@ function StockDescriptionSubMenuBar(props: StockDescriptionSubMenuBarProps) {
     return Object.values(STOCK_DESCRIPTION_MENU).map(({ path, label }) => {
       return {
         label,
-        path: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION.path}/${path}` as const,
+        path: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.STOCK_DESCRIPTION.path}${path ? `/${path}` : ``}`,
       };
     });
   }, [ticker]);

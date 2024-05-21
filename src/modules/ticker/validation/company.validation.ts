@@ -1,5 +1,13 @@
+import { NewsSchema } from "@/modules/news/validation";
 import { ZodType, z } from "zod";
-import { CompanyKeyExecutive, CompanyProfile } from "../types";
+import {
+  CompanyKeyExecutive,
+  CompanyOutlook,
+  CompanyProfile,
+  CompanyMetrics,
+} from "../types";
+import { DividendSchema } from "./dividend.validation";
+import { FinancialsSchema, RatioTTMSchema } from "./financials.validation";
 
 export const CompanyProfileSchema = z.object({
   symbol: z.string(),
@@ -49,3 +57,21 @@ export const CompanyKeyExecutiveSchema = z.object({
   yearBorn: z.union([z.number(), z.null()]),
   titleSince: z.union([z.null(), z.coerce.date()]),
 }) satisfies ZodType<CompanyKeyExecutive>;
+
+export const CompanyMetricsSchema = z.object({
+  dividendYielTTM: z.number().nullable(),
+  volume: z.number().nullable(),
+  yearHigh: z.number().nullable(),
+  yearLow: z.number().nullable(),
+}) satisfies ZodType<CompanyMetrics>;
+
+export const CompanyOutlookSchema = z.object({
+  profile: CompanyProfileSchema,
+  ratios: z.array(RatioTTMSchema),
+  keyExecutives: z.array(CompanyKeyExecutiveSchema),
+  stockDividend: z.array(DividendSchema),
+  stockNews: z.array(NewsSchema),
+  financialsAnnual: FinancialsSchema,
+  financialsQuarter: FinancialsSchema,
+  metrics: CompanyMetricsSchema,
+}) satisfies ZodType<CompanyOutlook>;

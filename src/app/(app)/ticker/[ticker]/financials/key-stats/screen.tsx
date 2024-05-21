@@ -81,7 +81,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.revenue, {
+                                {appUtils.formatNumber(data.revenue, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -102,7 +102,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.costOfRevenue, {
+                                {appUtils.formatNumber(data.costOfRevenue, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -123,7 +123,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.grossProfit, {
+                                {appUtils.formatNumber(data.grossProfit, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -144,7 +144,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.ebitda, {
+                                {appUtils.formatNumber(data.ebitda, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -165,7 +165,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.eps, {
+                                {appUtils.formatNumber(data.eps, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -226,7 +226,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.totalAssets, {
+                                {appUtils.formatNumber(data.totalAssets, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -247,7 +247,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.totalDebt, {
+                                {appUtils.formatNumber(data.totalDebt, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -268,7 +268,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.netDebt, {
+                                {appUtils.formatNumber(data.netDebt, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -289,7 +289,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.totalLiabilities,
                                   {
                                     notation: "compact",
@@ -313,7 +313,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.totalStockholdersEquity,
                                   {
                                     notation: "compact",
@@ -377,7 +377,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.freeCashFlow, {
+                                {appUtils.formatNumber(data.freeCashFlow, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -398,7 +398,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.operatingCashFlow,
                                   {
                                     notation: "compact",
@@ -422,7 +422,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.netIncome, {
+                                {appUtils.formatNumber(data.netIncome, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -443,7 +443,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.commonStockRepurchased,
                                   {
                                     notation: "compact",
@@ -467,7 +467,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.dividendsPaid, {
+                                {appUtils.formatNumber(data.dividendsPaid, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,

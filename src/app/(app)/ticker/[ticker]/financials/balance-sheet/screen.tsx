@@ -71,7 +71,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                             key={`forecast-month-${index}`}
                             className=" px-2 py-3 text-center dark:bg-transparent"
                           >
-                            {appUtils.formatCurrency(data.totalAssets, {
+                            {appUtils.formatNumber(data.totalAssets, {
                               notation: "compact",
                               minimumFractionDigits: 1,
                               maximumFractionDigits: 2,
@@ -111,7 +111,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                         key={`forecast-month-${index}`}
                                         className=" px-2 py-3 text-center dark:bg-transparent"
                                       >
-                                        {appUtils.formatCurrency(
+                                        {appUtils.formatNumber(
                                           data.totalCurrentAssets,
                                           {
                                             notation: "compact",
@@ -165,7 +165,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                                       key={`forecast-month-${index}`}
                                                       className=" px-2 py-3 text-center dark:bg-transparent"
                                                     >
-                                                      {appUtils.formatCurrency(
+                                                      {appUtils.formatNumber(
                                                         data.cashAndShortTermInvestments,
                                                         {
                                                           notation: "compact",
@@ -193,7 +193,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                                           key={`forecast-month-${index}`}
                                                           className=" px-2 py-3 text-center dark:bg-transparent"
                                                         >
-                                                          {appUtils.formatCurrency(
+                                                          {appUtils.formatNumber(
                                                             data.cashAndCashEquivalents,
                                                             {
                                                               notation:
@@ -220,7 +220,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                                           key={`forecast-month-${index}`}
                                                           className=" px-2 py-3 text-center dark:bg-transparent"
                                                         >
-                                                          {appUtils.formatCurrency(
+                                                          {appUtils.formatNumber(
                                                             data.shortTermInvestments,
                                                             {
                                                               notation:
@@ -253,7 +253,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.inventory,
                                                 {
                                                   notation: "compact",
@@ -279,7 +279,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.netReceivables,
                                                 {
                                                   notation: "compact",
@@ -305,7 +305,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.otherCurrentAssets,
                                                 {
                                                   notation: "compact",
@@ -353,7 +353,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                         key={`forecast-month-${index}`}
                                         className=" px-2 py-3 text-center dark:bg-transparent"
                                       >
-                                        {appUtils.formatCurrency(
+                                        {appUtils.formatNumber(
                                           data.totalNonCurrentAssets,
                                           {
                                             notation: "compact",
@@ -380,7 +380,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.propertyPlantEquipmentNet,
                                                 {
                                                   notation: "compact",
@@ -433,7 +433,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                                       key={`forecast-month-${index}`}
                                                       className=" px-2 py-3 text-center dark:bg-transparent"
                                                     >
-                                                      {appUtils.formatCurrency(
+                                                      {appUtils.formatNumber(
                                                         data.goodwillAndIntangibleAssets,
                                                         {
                                                           notation: "compact",
@@ -461,7 +461,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                                           key={`forecast-month-${index}`}
                                                           className=" px-2 py-3 text-center dark:bg-transparent"
                                                         >
-                                                          {appUtils.formatCurrency(
+                                                          {appUtils.formatNumber(
                                                             data.goodwill,
                                                             {
                                                               notation:
@@ -488,7 +488,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                                           key={`forecast-month-${index}`}
                                                           className=" px-2 py-3 text-center dark:bg-transparent"
                                                         >
-                                                          {appUtils.formatCurrency(
+                                                          {appUtils.formatNumber(
                                                             data.intangibleAssets,
                                                             {
                                                               notation:
@@ -521,7 +521,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.longTermInvestments,
                                                 {
                                                   notation: "compact",
@@ -547,7 +547,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.taxAssets,
                                                 {
                                                   notation: "compact",
@@ -573,7 +573,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.otherCurrentAssets,
                                                 {
                                                   notation: "compact",
@@ -605,7 +605,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.otherAssets, {
+                                {appUtils.formatNumber(data.otherAssets, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -654,7 +654,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                             key={`forecast-month-${index}`}
                             className=" px-2 py-3 text-center dark:bg-transparent"
                           >
-                            {appUtils.formatCurrency(data.totalLiabilities, {
+                            {appUtils.formatNumber(data.totalLiabilities, {
                               notation: "compact",
                               minimumFractionDigits: 1,
                               maximumFractionDigits: 2,
@@ -694,7 +694,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                         key={`forecast-month-${index}`}
                                         className=" px-2 py-3 text-center dark:bg-transparent"
                                       >
-                                        {appUtils.formatCurrency(
+                                        {appUtils.formatNumber(
                                           data.totalCurrentLiabilities,
                                           {
                                             notation: "compact",
@@ -721,7 +721,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.accountPayables,
                                                 {
                                                   notation: "compact",
@@ -747,7 +747,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.shortTermDebt,
                                                 {
                                                   notation: "compact",
@@ -773,7 +773,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.taxPayables,
                                                 {
                                                   notation: "compact",
@@ -799,7 +799,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.deferredRevenue,
                                                 {
                                                   notation: "compact",
@@ -825,7 +825,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.otherCurrentLiabilities,
                                                 {
                                                   notation: "compact",
@@ -873,7 +873,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                         key={`forecast-month-${index}`}
                                         className=" px-2 py-3 text-center dark:bg-transparent"
                                       >
-                                        {appUtils.formatCurrency(
+                                        {appUtils.formatNumber(
                                           data.totalNonCurrentLiabilities,
                                           {
                                             notation: "compact",
@@ -900,7 +900,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.longTermDebt,
                                                 {
                                                   notation: "compact",
@@ -926,7 +926,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.deferredRevenueNonCurrent,
                                                 {
                                                   notation: "compact",
@@ -952,7 +952,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.deferredTaxLiabilitiesNonCurrent,
                                                 {
                                                   notation: "compact",
@@ -978,7 +978,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.otherNonCurrentLiabilities,
                                                 {
                                                   notation: "compact",
@@ -1010,7 +1010,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.otherLiabilities,
                                   {
                                     notation: "compact",
@@ -1062,7 +1062,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                             key={`forecast-month-${index}`}
                             className=" px-2 py-3 text-center dark:bg-transparent"
                           >
-                            {appUtils.formatCurrency(data.totalEquity, {
+                            {appUtils.formatNumber(data.totalEquity, {
                               notation: "compact",
                               minimumFractionDigits: 1,
                               maximumFractionDigits: 2,
@@ -1102,7 +1102,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                         key={`forecast-month-${index}`}
                                         className=" px-2 py-3 text-center dark:bg-transparent"
                                       >
-                                        {appUtils.formatCurrency(
+                                        {appUtils.formatNumber(
                                           data.totalStockholdersEquity,
                                           {
                                             notation: "compact",
@@ -1129,7 +1129,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.commonStock,
                                                 {
                                                   notation: "compact",
@@ -1155,7 +1155,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.retainedEarnings,
                                                 {
                                                   notation: "compact",
@@ -1182,7 +1182,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.accumulatedOtherComprehensiveIncomeLoss,
                                                 {
                                                   notation: "compact",
@@ -1208,7 +1208,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                               key={`forecast-month-${index}`}
                                               className=" px-2 py-3 text-center dark:bg-transparent"
                                             >
-                                              {appUtils.formatCurrency(
+                                              {appUtils.formatNumber(
                                                 data.othertotalStockholdersEquity,
                                                 {
                                                   notation: "compact",
@@ -1240,7 +1240,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.minorityInterest,
                                   {
                                     notation: "compact",
@@ -1270,7 +1270,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.preferredStock, {
+                    {appUtils.formatNumber(data.preferredStock, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -1291,7 +1291,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.capitalLeaseObligations, {
+                    {appUtils.formatNumber(data.capitalLeaseObligations, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,

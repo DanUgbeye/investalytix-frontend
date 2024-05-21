@@ -81,7 +81,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.returnOnEquity, {
+                                {appUtils.formatNumber(data.returnOnEquity, {
                                   style: "decimal",
                                   minimumFractionDigits: 2,
                                   maximumFractionDigits: 2,
@@ -102,7 +102,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.returnOnAssets, {
+                                {appUtils.formatNumber(data.returnOnAssets, {
                                   style: "decimal",
                                   minimumFractionDigits: 2,
                                   maximumFractionDigits: 2,
@@ -123,7 +123,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.returnOnCapitalEmployed,
                                   {
                                     style: "decimal",
@@ -187,7 +187,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.grossProfitMargin,
                                   {
                                     style: "decimal",
@@ -211,7 +211,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.operatingProfitMargin,
                                   {
                                     style: "decimal",
@@ -235,7 +235,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.pretaxProfitMargin,
                                   {
                                     style: "decimal",
@@ -259,7 +259,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.netProfitMargin, {
+                                {appUtils.formatNumber(data.netProfitMargin, {
                                   style: "decimal",
                                   minimumFractionDigits: 2,
                                   maximumFractionDigits: 2,
@@ -320,7 +320,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.effectiveTaxRate,
                                   {
                                     style: "decimal",
@@ -344,7 +344,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.priceFairValue, {
+                                {appUtils.formatNumber(data.priceFairValue, {
                                   style: "decimal",
                                   minimumFractionDigits: 2,
                                   maximumFractionDigits: 2,
@@ -365,7 +365,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.dividendYield, {
+                                {appUtils.formatNumber(data.dividendYield, {
                                   style: "decimal",
                                   minimumFractionDigits: 2,
                                   maximumFractionDigits: 2,
@@ -386,7 +386,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.cashPerShare, {
+                                {appUtils.formatNumber(data.cashPerShare, {
                                   style: "decimal",
                                   minimumFractionDigits: 2,
                                   maximumFractionDigits: 2,
@@ -407,7 +407,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.assetTurnover, {
+                                {appUtils.formatNumber(data.assetTurnover, {
                                   style: "decimal",
                                   minimumFractionDigits: 2,
                                   maximumFractionDigits: 2,
@@ -428,7 +428,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.fixedAssetTurnover,
                                   {
                                     style: "decimal",
@@ -452,7 +452,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.inventoryTurnover,
                                   {
                                     style: "decimal",
@@ -476,7 +476,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.receivablesTurnover,
                                   {
                                     style: "decimal",
@@ -500,7 +500,7 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.payablesTurnover,
                                   {
                                     style: "decimal",

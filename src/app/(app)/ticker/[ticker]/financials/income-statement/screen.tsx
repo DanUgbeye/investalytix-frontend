@@ -53,7 +53,7 @@ export default function IncomeStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.revenue, {
+                    {appUtils.formatNumber(data.revenue, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -74,7 +74,7 @@ export default function IncomeStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.costOfRevenue, {
+                    {appUtils.formatNumber(data.costOfRevenue, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -95,7 +95,7 @@ export default function IncomeStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.costOfRevenue, {
+                    {appUtils.formatNumber(data.costOfRevenue, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -137,7 +137,7 @@ export default function IncomeStatementScreen(
                             key={`forecast-month-${index}`}
                             className=" px-2 py-3 text-center dark:bg-transparent"
                           >
-                            {appUtils.formatCurrency(data.operatingExpenses, {
+                            {appUtils.formatNumber(data.operatingExpenses, {
                               notation: "compact",
                               minimumFractionDigits: 1,
                               maximumFractionDigits: 2,
@@ -160,7 +160,7 @@ export default function IncomeStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.researchAndDevelopmentExpenses,
                                   {
                                     notation: "compact",
@@ -184,7 +184,7 @@ export default function IncomeStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.generalAndAdministrativeExpenses,
                                   {
                                     notation: "compact",
@@ -208,7 +208,7 @@ export default function IncomeStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.sellingGeneralAndAdministrativeExpenses,
                                   {
                                     notation: "compact",
@@ -232,7 +232,7 @@ export default function IncomeStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.sellingAndMarketingExpenses,
                                   {
                                     notation: "compact",
@@ -256,7 +256,7 @@ export default function IncomeStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.depreciationAndAmortization,
                                   {
                                     notation: "compact",
@@ -280,7 +280,7 @@ export default function IncomeStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(data.otherExpenses, {
+                                {appUtils.formatNumber(data.otherExpenses, {
                                   notation: "compact",
                                   minimumFractionDigits: 1,
                                   maximumFractionDigits: 2,
@@ -328,7 +328,7 @@ export default function IncomeStatementScreen(
                             key={`forecast-month-${index}`}
                             className=" px-2 py-3 text-center dark:bg-transparent"
                           >
-                            {appUtils.formatCurrency(data.operatingExpenses, {
+                            {appUtils.formatNumber(data.operatingExpenses, {
                               notation: "compact",
                               minimumFractionDigits: 1,
                               maximumFractionDigits: 2,
@@ -351,7 +351,7 @@ export default function IncomeStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.totalOtherIncomeExpensesNet,
                                   {
                                     notation: "compact",
@@ -402,7 +402,7 @@ export default function IncomeStatementScreen(
                             key={`forecast-month-${index}`}
                             className=" px-2 py-3 text-center dark:bg-transparent"
                           >
-                            {appUtils.formatCurrency(data.incomeBeforeTax, {
+                            {appUtils.formatNumber(data.incomeBeforeTax, {
                               notation: "compact",
                               minimumFractionDigits: 1,
                               maximumFractionDigits: 2,
@@ -425,7 +425,7 @@ export default function IncomeStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatCurrency(
+                                {appUtils.formatNumber(
                                   data.incomeTaxExpense,
                                   {
                                     notation: "compact",
@@ -455,7 +455,7 @@ export default function IncomeStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.netIncome, {
+                    {appUtils.formatNumber(data.netIncome, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -476,7 +476,7 @@ export default function IncomeStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.ebitda, {
+                    {appUtils.formatNumber(data.ebitda, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -497,7 +497,7 @@ export default function IncomeStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.weightedAverageShsOut, {
+                    {appUtils.formatNumber(data.weightedAverageShsOut, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -518,7 +518,7 @@ export default function IncomeStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.weightedAverageShsOutDil, {
+                    {appUtils.formatNumber(data.weightedAverageShsOutDil, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -537,7 +537,7 @@ export default function IncomeStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.eps, {
+                    {appUtils.formatNumber(data.eps, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,
@@ -558,7 +558,7 @@ export default function IncomeStatementScreen(
                     key={`forecast-month-${index}`}
                     className=" px-2 py-3 text-center dark:bg-transparent"
                   >
-                    {appUtils.formatCurrency(data.epsdiluted, {
+                    {appUtils.formatNumber(data.epsdiluted, {
                       notation: "compact",
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 2,

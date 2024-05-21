@@ -7,7 +7,7 @@ class AppUtils {
         }`;
   }
 
-  formatCurrency(
+  formatNumber(
     amount?: number,
     opts?: Intl.NumberFormatOptions,
     locale = "en-US"
@@ -17,8 +17,7 @@ class AppUtils {
     const {
       currency = "USD",
       style = "currency",
-      compactDisplay = "long",
-      maximumFractionDigits = 0,
+      maximumFractionDigits = 2,
       ...rest
     } = opts || {};
 
@@ -26,7 +25,6 @@ class AppUtils {
       ...rest,
       style,
       currency,
-      compactDisplay,
       maximumFractionDigits,
     });
 

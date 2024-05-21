@@ -1,7 +1,7 @@
 export const STOCK_DESCRIPTION_MENU = {
   SUMMARY: {
     label: "Summary",
-    path: "summary",
+    path: "",
   },
   // PRICE_CHART: {
   //   label: "Price Chart",
