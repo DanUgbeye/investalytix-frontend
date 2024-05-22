@@ -24,10 +24,10 @@ export default function WithSidePanel({
   sections?: SIDE_SECTIONS[] | SIDE_SECTIONS;
 }>) {
   return (
-    <div className="grid md:grid-cols-[1fr,350px]">
+    <div className="grid xl:grid-cols-[1fr,350px]">
       <div>{children}</div>
 
-      <div className="flex flex-col gap-14 border-[#DCDCDC] py-10 md:ml-5 md:border-l md:pl-5 dark:border-white/10">
+      <div className="grid md:grid-cols-2 xl:grid-cols-1 gap-14 border-[#DCDCDC] py-10 xl:ml-5 xl:border-l xl:pl-5 dark:border-white/10">
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["HOT_PICKS"])) && (
           <SidePanel
@@ -81,7 +81,9 @@ export default function WithSidePanel({
           sections.includes(SIDE_SECTIONS["WATCHLIST"])) && <Watchlist />}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["TOP_ECONOMIC_EVENT"])) && (
+            <div className="col-span-2">
           <EconomicEvent />
+            </div>
         )}
         {sections.includes(SIDE_SECTIONS["TRENDING_NOW"]) && <EconomicEvent />}
       </div>

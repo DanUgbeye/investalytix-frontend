@@ -14,7 +14,7 @@ export default function MarketMovers() {
           <h1 className="white-text whitespace-nowrap text-2xl font-extrabold max-lg:mb-5">
             MARKET MOVERS
           </h1>
-          <Tab.List className={"flex w-full items-center justify-center gap-4"}>
+          <Tab.List className={"flex w-full items-center justify-between md:justify-center gap-4"}>
             {marketMovers.map((market) => (
               <Tab as={Fragment} key={market}>
                 {({ selected }) => (

@@ -1,4 +1,3 @@
-import quotes from "@/mock/quotes";
 import { Quote } from "@/types";
 
 async function getData(url: string) {
@@ -37,6 +36,7 @@ export default async function SidePanel({
       </header>
       <div className="flex flex-col gap-6">
         {data.data.slice(0, 5).map((quote) => {
+          if (!quote.changesPercentage) return null;
           const isPositive = quote.changesPercentage >= 0;
           return (
             <div
