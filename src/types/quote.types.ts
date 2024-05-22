@@ -23,6 +23,15 @@ export type Quote = {
   timestamp: number | null;
 };
 
+export type QuoteHistory = {
+  date: Date;
+  open: number;
+  low: number;
+  high: number;
+  close: number;
+  volume: number;
+};
+
 export type ShortQuote = {
   symbol: string;
   price: number | null;
