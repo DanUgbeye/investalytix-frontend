@@ -1,4 +1,4 @@
-import { Quote, SearchResult, ShortQuote } from "@/types";
+import { Quote, QuoteHistory, SearchResult, ShortQuote } from "@/types";
 import { ZodType, z } from "zod";
 
 export const QuoteSchema = z.object({
@@ -25,6 +25,15 @@ export const QuoteSchema = z.object({
   sharesOutstanding: z.number().nullable(),
   timestamp: z.number().nullable(),
 }) satisfies ZodType<Quote>;
+
+export const QuoteHistorySchema = z.object({
+  date: z.coerce.date(),
+  open: z.number(),
+  low: z.number(),
+  high: z.number(),
+  close: z.number(),
+  volume: z.number(),
+}) satisfies ZodType<QuoteHistory>;
 
 export const ShortQuoteSchema = z.object({
   symbol: z.string(),

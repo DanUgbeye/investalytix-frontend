@@ -1,5 +1,8 @@
 "use client";
 
+import { tailwindCSS } from "@/lib/utils";
+import useTheme from "@/store/theme/useTheme";
+import { useMemo } from "react";
 import { Pie, PieChart, Tooltip } from "recharts";
 
 const CAPITAL_STRUCTURE_DATA = [
@@ -31,25 +34,47 @@ const CAPITAL_STRUCTURE_DATA = [
 
 interface CapitalStructureScreenProps {
   ticker: string;
+  capitalStructure: {
+    label: string;
+    value: number;
+    fill: string;
+    currency: string;
+  }[];
 }
 
 export default function CapitalStructureScreen(
   props: CapitalStructureScreenProps
 ) {
-  const { ticker } = props;
+  const { ticker, capitalStructure } = props;
+  const { theme } = useTheme();
+
+  const parsedData = useMemo(() => {
+    let total = capitalStructure.reduce((prev, entry) => {
+      return prev + entry.value;
+    }, 0);
+
+    return {
+      data: capitalStructure.map((entry) => ({
+        ...entry,
+        percentage: entry.value / total,
+      })),
+      total,
+    };
+  }, [capitalStructure]);
 
   return (
     <section className=" grid gap-7 pb-12 md:grid-cols-[max-content,1fr] ">
       <div className=" w-full space-y-5 border md:min-w-80 dark:border-main-gray-600 ">
-        <div className=" space-y-1 border-b p-4 dark:border-main-gray-600 ">
-          <h4 className=" text-xl font-semibold ">Capital Structure </h4>
-          <p className=" ">Millions in USD</p>
+        <div className=" border-b p-4 dark:border-main-gray-600 ">
+          <h4 className=" text-xl font-semibold ">
+            Capital Structure ({parsedData.data[0].currency}){" "}
+          </h4>
         </div>
 
         <div className=" grid place-items-center ">
           <PieChart width={300} height={300} className=" w-full ">
             <Pie
-              data={CAPITAL_STRUCTURE_DATA}
+              data={capitalStructure}
               dataKey={"value"}
               nameKey={"label"}
               cx="50%"
@@ -60,7 +85,23 @@ export default function CapitalStructureScreen(
               fill="#fff"
             />
 
-            <Tooltip wrapperClassName=" dark:bg-gray-700 white-text " />
+            <Tooltip
+              wrapperClassName=" dark:bg-gray-700 white-text "
+              formatter={(value, name, item, index) =>
+                Number(value).toLocaleString(undefined, {
+                  style: "currency",
+                  currency: item.payload.currency,
+                  notation: "compact"
+                })
+              }
+              contentStyle={{
+                backgroundColor:
+                  theme === "dark"
+                    ? tailwindCSS().theme.colors.main.gray[300]
+                    : "white",
+                border: "none",
+              }}
+            />
           </PieChart>
         </div>
       </div>
@@ -78,7 +119,7 @@ export default function CapitalStructureScreen(
           </thead>
 
           <tbody className="  ">
-            {[...CAPITAL_STRUCTURE_DATA].map((item, index) => {
+            {parsedData.data.map((item, index) => {
               return (
                 <tr
                   key={`${item.label}-${index}`}
@@ -94,10 +135,19 @@ export default function CapitalStructureScreen(
                     </div>
                   </td>
 
-                  <td className=" px-2 py-3 ">{item.value.toLocaleString()}</td>
+                  <td className=" px-2 py-3 ">
+                    {item.value.toLocaleString(undefined, {
+                      style: "currency",
+                      currency: item.currency,
+                      maximumFractionDigits: 0,
+                    })}
+                  </td>
 
                   <td className=" w-fit max-w-40 px-2 py-3 text-right ">
-                    {item.percentage}%
+                    {item.percentage.toLocaleString(undefined, {
+                      maximumFractionDigits: 3,
+                    })}
+                    %
                   </td>
                 </tr>
               );
@@ -106,10 +156,13 @@ export default function CapitalStructureScreen(
             <tr className=" font-bold even:bg-main-gray-100 dark:border-main-gray-600 dark:even:bg-main-gray-900  ">
               <td className=" px-2 py-3 ">Total</td>
               <td className=" px-2 py-3 ">
-                {CAPITAL_STRUCTURE_DATA.reduce((acc, current) => {
-                  return acc + current.value;
-                }, 0).toLocaleString()}
+                {parsedData.total.toLocaleString(undefined, {
+                  maximumFractionDigits: 0,
+                  style: "currency",
+                  currency: parsedData.data[0].currency,
+                })}
               </td>
+
               <td className=" w-fit max-w-40 px-2 py-3 text-right ">100%</td>
             </tr>
           </tbody>
