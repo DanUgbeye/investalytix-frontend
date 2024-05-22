@@ -304,7 +304,8 @@ export default function Market() {
 
 function YieldTable() {
   return (
-    <table>
+    <div className="w-full overflow-auto">
+    <table className="w-full table-auto">
       <thead>
         <tr className="white-text !text-white">
           <th className="th border-b p-2 text-left capitalize dark:border-b-0">
@@ -335,6 +336,7 @@ function YieldTable() {
         ))}
       </tbody>
     </table>
+    </div>
   );
 }
 
