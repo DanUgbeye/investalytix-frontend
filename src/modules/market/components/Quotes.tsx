@@ -47,11 +47,12 @@ export default function Quotes({
         <thead>
           <tr className="text-white dark:text-white/80">
             <th className="th p-2 text-left uppercase">{fields[0].label}</th>
-            {fields.slice(1).map((field) => (
+            {fields.slice(1, -1).map((field) => (
               <th key={field.label} className="th text-right uppercase">
                 {field.label}
               </th>
             ))}
+            <th className="th p-2 text-right uppercase">{fields[fields.length-1].label}</th>
             {notifications && <th className="th text-left uppercase"></th>}
           </tr>
         </thead>

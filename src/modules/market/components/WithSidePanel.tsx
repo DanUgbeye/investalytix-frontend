@@ -81,7 +81,7 @@ export default function WithSidePanel({
           sections.includes(SIDE_SECTIONS["WATCHLIST"])) && <Watchlist />}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["TOP_ECONOMIC_EVENT"])) && (
-            <div className="col-span-2">
+            <div className="md:col-span-2 xl:col-span-1">
           <EconomicEvent />
             </div>
         )}

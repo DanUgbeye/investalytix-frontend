@@ -79,7 +79,7 @@ export default async function TrendingNow() {
         </h2>
       </header>
 
-      <div className="flex gap-5 overflow-hidden">
+      <div className="flex flex-col md:flex-col gap-5">
         <MarketEvent news={forex.data[5]}/>
         <MarketEvent news={crypto.data[5]}/>
         <MarketEvent news={stock.data[5]}/>
