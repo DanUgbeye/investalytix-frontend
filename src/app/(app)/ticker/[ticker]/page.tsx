@@ -1,11 +1,6 @@
 import PAGES from "@/data/page-map";
 import { TICKER_NAV_TABS } from "@/modules/ticker/components/ticker-nav/ticker-sidenav.types";
-import { Metadata } from "next";
 import { redirect } from "next/navigation";
-
-export const metadata: Metadata = {
-  title: "Search Ticker | Investalytix",
-};
 
 export interface SearchTickerPageProps {
   params: {

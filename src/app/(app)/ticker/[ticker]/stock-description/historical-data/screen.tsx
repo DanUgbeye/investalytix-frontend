@@ -148,7 +148,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                     className=" bg-transparent text-primary-base outline-0 "
                   >
                     <option value={"price"}>Historical Prices</option>
-                    <option value={"split"}>Stock Splits</option>
+                    <option value={"splits"}>Stock Splits</option>
                   </select>
                 );
               }}

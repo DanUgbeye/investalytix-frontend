@@ -1,14 +1,10 @@
 import { serverAPI } from "@/config/server/api";
 import { TickerRepository } from "@/modules/ticker/repository";
-import { Metadata } from "next";
+import { errorUtils } from "@/utils/error.utils";
 import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
 import TickerLayout from "./ticker-layout";
-import { errorUtils } from "@/utils/error.utils";
 
-export const metadata: Metadata = {
-  title: "Search ticker",
-};
 
 async function getTickerData(ticker: string) {
   try {
