@@ -187,14 +187,11 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.grossProfitMargin,
-                                  {
-                                    style: "decimal",
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.grossProfitMargin, {
+                                  style: "decimal",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}
@@ -320,14 +317,11 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.effectiveTaxRate,
-                                  {
-                                    style: "decimal",
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.effectiveTaxRate, {
+                                  style: "decimal",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}
@@ -452,14 +446,11 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.inventoryTurnover,
-                                  {
-                                    style: "decimal",
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.inventoryTurnover, {
+                                  style: "decimal",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}
@@ -500,14 +491,11 @@ export default function RatioScreen(props: RatioScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.payablesTurnover,
-                                  {
-                                    style: "decimal",
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.payablesTurnover, {
+                                  style: "decimal",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}

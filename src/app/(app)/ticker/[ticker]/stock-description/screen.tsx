@@ -436,7 +436,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
                       " grid grid-cols-1 grid-rows-[auto,auto] gap-5 py-4 md:grid-cols-[auto,1fr] md:grid-rows-1 "
                     )}
                   >
-                    <Avatar className=" h-full  w-full rounded-none md:max-w-96 md:max-h-60 ">
+                    <Avatar className=" h-full  w-full rounded-none md:max-h-60 md:max-w-96 ">
                       <AvatarImage
                         src={news.image}
                         alt=""

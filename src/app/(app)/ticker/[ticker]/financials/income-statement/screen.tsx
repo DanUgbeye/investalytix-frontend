@@ -425,14 +425,11 @@ export default function IncomeStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.incomeTaxExpense,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.incomeTaxExpense, {
+                                  notation: "compact",
+                                  minimumFractionDigits: 1,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}

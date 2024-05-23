@@ -289,14 +289,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.totalLiabilities,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.totalLiabilities, {
+                                  notation: "compact",
+                                  minimumFractionDigits: 1,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}
@@ -398,14 +395,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.operatingCashFlow,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.operatingCashFlow, {
+                                  notation: "compact",
+                                  minimumFractionDigits: 1,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}

@@ -142,14 +142,11 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.deferredIncomeTax,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.deferredIncomeTax, {
+                                  notation: "compact",
+                                  minimumFractionDigits: 1,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}
@@ -259,14 +256,11 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.accountsPayables,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.accountsPayables, {
+                                  notation: "compact",
+                                  minimumFractionDigits: 1,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}
@@ -307,14 +301,11 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.otherNonCashItems,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.otherNonCashItems, {
+                                  notation: "compact",
+                                  minimumFractionDigits: 1,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}
@@ -577,14 +568,11 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.commonStockIssued,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.commonStockIssued, {
+                                  notation: "compact",
+                                  minimumFractionDigits: 1,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}
@@ -721,14 +709,11 @@ export default function CashFlowStatementScreen(
                                 key={`forecast-month-${index}`}
                                 className=" px-2 py-3 text-center dark:bg-transparent"
                               >
-                                {appUtils.formatNumber(
-                                  data.operatingCashFlow,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
+                                {appUtils.formatNumber(data.operatingCashFlow, {
+                                  notation: "compact",
+                                  minimumFractionDigits: 1,
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             );
                           })}

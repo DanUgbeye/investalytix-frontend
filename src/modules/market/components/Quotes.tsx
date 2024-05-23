@@ -52,7 +52,9 @@ export default function Quotes({
                 {field.label}
               </th>
             ))}
-            <th className="th p-2 text-right uppercase">{fields[fields.length-1].label}</th>
+            <th className="th p-2 text-right uppercase">
+              {fields[fields.length - 1].label}
+            </th>
             {notifications && <th className="th text-left uppercase"></th>}
           </tr>
         </thead>

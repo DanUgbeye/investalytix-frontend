@@ -29,7 +29,9 @@ export default function MarketHeader({
       </h1>
 
       <div
-        className={"mb-10 flex justify-between gap-10 overflow-auto md:px-14 py-5"}
+        className={
+          "mb-10 flex justify-between gap-10 overflow-auto py-5 md:px-14"
+        }
       >
         {markets.map((mkt) => (
           <Link

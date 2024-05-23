@@ -101,7 +101,9 @@ export class AuthRepository {
         options
       );
 
-      let parsedRes = z.object({ authenticated: z.boolean() }).safeParse(res.data.data);
+      let parsedRes = z
+        .object({ authenticated: z.boolean() })
+        .safeParse(res.data.data);
 
       if (!parsedRes.success) {
         throw new Error("Something went wrong on our end");

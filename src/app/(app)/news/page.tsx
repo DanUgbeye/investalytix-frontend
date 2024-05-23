@@ -135,7 +135,13 @@ function LatestNews({ news }: { news: GeneralNews }) {
   );
 }
 
-function INews({ latest = false, news }: { latest?: boolean; news: GeneralNews }) {
+function INews({
+  latest = false,
+  news,
+}: {
+  latest?: boolean;
+  news: GeneralNews;
+}) {
   return (
     <Link
       href={news.url}

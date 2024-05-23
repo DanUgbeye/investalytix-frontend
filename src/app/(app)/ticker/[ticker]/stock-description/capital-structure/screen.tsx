@@ -91,7 +91,7 @@ export default function CapitalStructureScreen(
                 Number(value).toLocaleString(undefined, {
                   style: "currency",
                   currency: item.payload.currency,
-                  notation: "compact"
+                  notation: "compact",
                 })
               }
               contentStyle={{

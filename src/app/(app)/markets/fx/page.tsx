@@ -29,7 +29,7 @@ export default async function FXPage() {
   return (
     <main>
       <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
-        <FX/>
+        <FX />
       </WithSidePanel>
     </main>
   );

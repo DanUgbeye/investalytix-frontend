@@ -8,7 +8,7 @@ export default function Watchlist() {
   // url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/watchlists`}
 
   if (!auth?.token) return null;
-  
+
   return (
     <div className="">
       <div>

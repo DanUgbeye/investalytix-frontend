@@ -48,7 +48,7 @@ export default async function FX() {
           </h2>
         </header>
 
-        <Quotes quotes={data.data.american}/>
+        <Quotes quotes={data.data.american} />
       </section>
 
       {/* ASIA - PACIFIC */}
@@ -59,7 +59,7 @@ export default async function FX() {
           </h2>
         </header>
 
-        <Quotes quotes={data.data.asian}/>
+        <Quotes quotes={data.data.asian} />
       </section>
 
       {/* EUROPE */}
@@ -70,7 +70,7 @@ export default async function FX() {
           </h2>
         </header>
 
-        <Quotes quotes={data.data.europe}/>
+        <Quotes quotes={data.data.europe} />
       </section>
     </div>
   );

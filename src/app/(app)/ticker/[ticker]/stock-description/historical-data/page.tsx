@@ -35,7 +35,7 @@ async function getData(
 }
 
 interface HistoricalDataPageProps extends SearchTickerPageProps {
-  searchParams: { period: string; from?: Date; to: Date, show?: string };
+  searchParams: { period: string; from?: Date; to: Date; show?: string };
 }
 
 export default async function HistoricalDataPage(

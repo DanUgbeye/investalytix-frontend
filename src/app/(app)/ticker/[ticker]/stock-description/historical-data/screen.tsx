@@ -86,7 +86,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                 render={({ field: { value, onChange, ...rest } }) => {
                   return (
                     <div className=" flex items-center gap-1 ">
-                      <span className=" w-10 sm:hidden font-main-bg-gray-600 text-sm ">
+                      <span className=" font-main-bg-gray-600 w-10 text-sm sm:hidden ">
                         From:
                       </span>
 
@@ -113,7 +113,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                 render={({ field: { value, onChange, ...rest } }) => {
                   return (
                     <div className=" flex items-center gap-1 ">
-                      <span className=" w-10 sm:hidden font-main-bg-gray-600 text-sm ">
+                      <span className=" font-main-bg-gray-600 w-10 text-sm sm:hidden ">
                         To:
                       </span>
 

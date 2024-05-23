@@ -31,7 +31,7 @@ export default async function CryptocurrencyPage() {
       <MarketHeader name="CRYPTOCURRENCY" active="CRYPTOCURRENCY" />
 
       <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
-        <Cryptocurrency quotes={data.data}/>
+        <Cryptocurrency quotes={data.data} />
       </WithSidePanel>
     </>
   );

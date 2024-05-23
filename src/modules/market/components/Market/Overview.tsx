@@ -158,7 +158,6 @@ const quotes = [
 
 const timeframes = ["1m", "5m", "15m", "1h", "2h", "4h", "1D"];
 
-
 export default function Market() {
   return (
     <div className="overflow-hidden">
@@ -305,38 +304,39 @@ export default function Market() {
 function YieldTable() {
   return (
     <div className="w-full overflow-auto">
-    <table className="w-full table-auto">
-      <thead>
-        <tr className="white-text !text-white">
-          <th className="th border-b p-2 text-left capitalize dark:border-b-0">
-            Name
-          </th>
-          <th className="th border-b text-right uppercase dark:border-b-0">
-            yield
-          </th>
-          <th className="th border-b text-right uppercase dark:border-b-0">
-            chg
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {quotes.map((quote) => (
-          <tr
-            key={quote.symbol}
-            className="white-text text-black even:bg-[#F9F9F9] dark:border-b dark:border-b-white/10 dark:even:bg-transparent"
-          >
-            <td className="p-2 text-left text-sm font-bold uppercase">
-              {quote.symbol}
-            </td>
-            <td className="p-2 text-right text-sm font-bold">{quote.change}</td>
-            <td className="p-2 text-right text-sm font-bold">
-              {quote.changesPercentage}
-            </td>
+      <table className="w-full table-auto">
+        <thead>
+          <tr className="white-text !text-white">
+            <th className="th border-b p-2 text-left capitalize dark:border-b-0">
+              Name
+            </th>
+            <th className="th border-b text-right uppercase dark:border-b-0">
+              yield
+            </th>
+            <th className="th border-b text-right uppercase dark:border-b-0">
+              chg
+            </th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {quotes.map((quote) => (
+            <tr
+              key={quote.symbol}
+              className="white-text text-black even:bg-[#F9F9F9] dark:border-b dark:border-b-white/10 dark:even:bg-transparent"
+            >
+              <td className="p-2 text-left text-sm font-bold uppercase">
+                {quote.symbol}
+              </td>
+              <td className="p-2 text-right text-sm font-bold">
+                {quote.change}
+              </td>
+              <td className="p-2 text-right text-sm font-bold">
+                {quote.changesPercentage}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
-
