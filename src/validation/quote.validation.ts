@@ -35,6 +35,18 @@ export const QuoteHistorySchema = z.object({
   volume: z.number(),
 }) satisfies ZodType<QuoteHistory>;
 
+export const QuoteHistoryTimeframeSchema = z.enum([
+  "1min",
+  "5min",
+  "15min",
+  "30min",
+  "1hour",
+  "4hour",
+  "1day",
+  "1week",
+  "1year",
+]);
+
 export const ShortQuoteSchema = z.object({
   symbol: z.string(),
   price: z.number(),

@@ -1,3 +1,6 @@
+import { QuoteHistoryTimeframeSchema } from "@/validation";
+import { z } from "zod";
+
 export type Quote = {
   symbol: string;
   name: string | null;
@@ -31,6 +34,8 @@ export type QuoteHistory = {
   close: number;
   volume: number;
 };
+
+export type QuoteHistoryTimeframe = z.infer<typeof QuoteHistoryTimeframeSchema>;
 
 export type ShortQuote = {
   symbol: string;

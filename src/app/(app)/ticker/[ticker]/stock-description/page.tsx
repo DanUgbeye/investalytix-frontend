@@ -5,6 +5,7 @@ import { serverAPI } from "@/config/server/api";
 import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
 import SummaryScreen from "./screen";
+import { errorUtils } from "@/utils/error.utils";
 
 export const metadata: Metadata = {
   title: "Search Ticker | Investalytix",
@@ -25,12 +26,8 @@ async function getTickerData(ticker: string) {
       outlook,
     };
   } catch (error: any) {
-    if (
-      error instanceof Error &&
-      error.message.toLowerCase().includes("not found")
-    ) {
-      metadata.title = "Ticker not found";
-      return notFound();
+    if (errorUtils.is404Error(error)) {
+      notFound();
     }
 
     throw error;

@@ -280,11 +280,13 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
                     {appUtils.formatNumber(tickerQuote.price || undefined)}
                   </span>
 
-                  <span className=" text-xs font-bold text-[#079516] ">
+                  <span className=" text-xs font-bold ">
                     {tickerQuote.change && (
                       <>
                         {tickerQuote.change > 0 && "+"}
-                        <ColoredNumber number={tickerQuote.change} />
+                        <ColoredNumber
+                          number={Number(tickerQuote.change.toFixed(2))}
+                        />
                       </>
                     )}{" "}
                     (

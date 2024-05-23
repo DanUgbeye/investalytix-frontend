@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
 import TickerLayout from "./ticker-layout";
-import { timeStamp } from "console";
+import { errorUtils } from "@/utils/error.utils";
 
 export const metadata: Metadata = {
   title: "Search ticker",
@@ -20,20 +20,15 @@ async function getTickerData(ticker: string) {
     ]);
 
     return {
-      timeStamp: new Date(),
       quote,
       outlook,
     };
   } catch (error: any) {
-    if (
-      error instanceof Error &&
-      error.message.toLowerCase().includes("not found")
-    ) {
-      metadata.title = "Ticker not found";
-      return notFound();
+    if (errorUtils.is404Error(error)) {
+      notFound();
     }
 
-    throw error;
+    throw new Error(error.message);
   }
 }
 

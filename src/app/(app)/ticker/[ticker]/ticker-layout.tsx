@@ -74,7 +74,9 @@ export default function TickerLayout(props: TickerLayoutProps) {
                       {tickerQuote.change && (
                         <>
                           {tickerQuote.change > 0 && "+"}
-                          <ColoredNumber number={tickerQuote.change} />
+                          <ColoredNumber
+                            number={Number(tickerQuote.change.toFixed(2))}
+                          />
                         </>
                       )}{" "}
                       (

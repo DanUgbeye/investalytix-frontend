@@ -1,12 +1,11 @@
-import { Metadata } from "next";
-import React from "react";
-import RevenueAndEPSScreen from "./screen";
-import { SearchTickerPageProps } from "../../page";
 import { serverAPI } from "@/config/server/api";
 import { TickerRepository } from "@/modules/ticker/repository";
-import { notFound } from "next/navigation";
+import { errorUtils } from "@/utils/error.utils";
+import { Metadata } from "next";
 import { cookies } from "next/headers";
-import { timeStamp } from "console";
+import { notFound } from "next/navigation";
+import { SearchTickerPageProps } from "../../page";
+import RevenueAndEPSScreen from "./screen";
 
 async function getData(ticker: string) {
   try {
@@ -19,7 +18,7 @@ async function getData(ticker: string) {
 
     let isAuthenticated = cookies().has("auth");
     let currentYr = new Date().getFullYear();
-    
+
     if (!isAuthenticated) {
       earnings = earnings.filter(
         (earning) => currentYr - earning.date.getFullYear() <= 10
@@ -28,12 +27,8 @@ async function getData(ticker: string) {
 
     return { quote, earnings, timeStamp: new Date() };
   } catch (error: any) {
-    if (
-      error instanceof Error &&
-      error.message.toLowerCase().includes("not found")
-    ) {
-      metadata.title = "Ticker not found";
-      return notFound();
+    if (errorUtils.is404Error(error)) {
+      notFound();
     }
 
     throw error;

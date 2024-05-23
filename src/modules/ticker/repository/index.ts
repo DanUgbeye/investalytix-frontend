@@ -19,8 +19,15 @@ import {
   IncomeStatementSchema,
 } from "../validation";
 import { ITickerRepository } from "./interface";
-import { Quote, SearchResult, ShortQuote } from "@/types";
 import {
+  Quote,
+  QuoteHistory,
+  QuoteHistoryTimeframe,
+  SearchResult,
+  ShortQuote,
+} from "@/types";
+import {
+  QuoteHistorySchema,
   QuoteSchema,
   SearchResultSchema,
   ShortQuoteSchema,
@@ -92,6 +99,37 @@ export class TickerRepository implements ITickerRepository {
     }
   }
 
+  async getQuoteHistory(
+    ticker: string,
+    timeframe: QuoteHistoryTimeframe,
+    filter?: { from?: Date; to?: Date },
+    options?: RequestOptions
+  ): Promise<QuoteHistory[]> {
+    try {
+      const searchParams = new URLSearchParams();
+      if (filter?.from) {
+        searchParams.append("from", filter.from.toDateString());
+      }
+      if (filter?.to) {
+        searchParams.append("to", filter.to.toDateString());
+      }
+
+      const path = `/tickers/${ticker}/historical-price/${timeframe}?${searchParams.toString()}`;
+      let res = await this.axios.get<{ data: QuoteHistory }>(path, options);
+
+      let validation = z.array(QuoteHistorySchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
   async getCompanyOutLook(
     ticker: string,
     options?: RequestOptions | undefined
@@ -119,7 +157,7 @@ export class TickerRepository implements ITickerRepository {
   ): Promise<Earning[]> {
     try {
       const path = `/tickers/${ticker}/earnings`;
-      let res = await this.axios.get<{ data: CompanyOutlook }>(path, options);
+      let res = await this.axios.get<{ data: Earning[] }>(path, options);
 
       let validation = z.array(EarningSchema).safeParse(res.data.data);
 
