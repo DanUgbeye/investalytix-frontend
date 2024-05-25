@@ -41,6 +41,7 @@ function ChartPage() {
           "enable_publishing": false,
           "allow_symbol_change": true,
           "calendar": false,
+          "hide_side_toolbar": false,
           "support_host": "https://www.tradingview.com"
         }`;
     ref.appendChild(script);
