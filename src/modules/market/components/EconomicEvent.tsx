@@ -85,6 +85,7 @@ async function getStockNewsData(params?: { limit?: number; page?: number }) {
 }
 
 export default async function EconomicEvent() {
+  // await getGeneralNewsData();
   const [general, forex, crypto, stock] = await Promise.all([
     getGeneralNewsData(),
     getForexNewsData(),

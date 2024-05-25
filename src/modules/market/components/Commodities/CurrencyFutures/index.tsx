@@ -37,8 +37,8 @@ export default async function CurrencyFutures() {
           quotes={data.data}
           fields={[
             {
-              label: "Symbol",
-              key: "symbol",
+              label: "Name",
+              key: "name",
             },
             {
               label: "price",

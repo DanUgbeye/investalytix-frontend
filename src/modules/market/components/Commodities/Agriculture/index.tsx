@@ -3,7 +3,7 @@ import Quotes from "../../Quotes";
 
 async function getData() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/commodities/livestock`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/commodities/agriculture`
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -37,8 +37,8 @@ export default async function Agriculture() {
           quotes={data.data}
           fields={[
             {
-              label: "Symbol",
-              key: "symbol",
+              label: "Name",
+              key: "name",
             },
             {
               label: "price",
