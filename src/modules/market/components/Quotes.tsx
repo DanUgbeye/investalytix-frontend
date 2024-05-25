@@ -8,12 +8,12 @@ import { Quote } from "@/types";
 import Link from "next/link";
 import { GoBellFill } from "react-icons/go";
 
-type Field = {
+export type QuoteField = {
   label: string;
-  key: keyof (typeof quotes)[number];
+  key: keyof Quote;
 };
 
-const defaultFields: Field[] = [
+const defaultFields: QuoteField[] = [
   {
     label: "Symbol",
     key: "symbol",
@@ -38,7 +38,7 @@ export default function Quotes({
   quotes: customQuotes,
 }: {
   quotes?: Quote[];
-  fields?: Field[];
+  fields?: QuoteField[];
   notifications?: boolean;
 }) {
   return (

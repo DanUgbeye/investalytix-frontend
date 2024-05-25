@@ -1,9 +1,9 @@
 import { Quote } from "@/types";
-import Quotes from "../Quotes";
+import Quotes, { QuoteField } from "../Quotes";
 
 async function getData() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/commodities`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/commodities/overview`
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -16,40 +16,42 @@ async function getData() {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: Quote[];
+    data: {
+      livestock: Quote[];
+      agriculture: Quote[];
+      energy: Quote[];
+      metal: Quote[];
+      currency: Quote[];
+      index: Quote[];
+      interestRate: Quote[];
+    };
   }>;
 }
 
 export default async function Commodities() {
   const data = await getData();
-  const quote = (
-    <Quotes
-      quotes={data.data}
-      fields={[
-        {
-          label: "Symbol",
-          key: "name",
-        },
-        {
-          label: "price",
-          key: "price",
-        },
-        {
-          label: "chg",
-          key: "change",
-        },
-        {
-          label: "%chg",
-          key: "changesPercentage",
-        },
-        {
-          label: "volume",
-          key: "volume",
-        },
-      ]}
-    />
-  );
-
+  const fields: QuoteField[] = [
+    {
+      label: "Symbol",
+      key: "name",
+    },
+    {
+      label: "price",
+      key: "price",
+    },
+    {
+      label: "chg",
+      key: "change",
+    },
+    {
+      label: "%chg",
+      key: "changesPercentage",
+    },
+    {
+      label: "volume",
+      key: "volume",
+    },
+  ];
   return (
     <>
       {/*ENERGY FUTURES */}
@@ -60,7 +62,7 @@ export default async function Commodities() {
           </h2>
         </header>
 
-        {quote}
+        <Quotes quotes={data.data.energy} fields={fields} />
       </section>
 
       {/*METAL FUTURES */}
@@ -71,7 +73,7 @@ export default async function Commodities() {
           </h2>
         </header>
 
-        {quote}
+        <Quotes quotes={data.data.metal} fields={fields} />
       </section>
 
       {/*AGRICULTURE FUTURES */}
@@ -82,7 +84,7 @@ export default async function Commodities() {
           </h2>
         </header>
 
-        {quote}
+        <Quotes quotes={data.data.agriculture} fields={fields} />
       </section>
       {/*LIVESTOCK FUTURES */}
       <section className="mt-11">
@@ -92,10 +94,10 @@ export default async function Commodities() {
           </h2>
         </header>
 
-        {quote}
+        <Quotes quotes={data.data.livestock} fields={fields} />
       </section>
       {/*LIVESTOCK FUTURES */}
-      <section className="mt-11">
+      {/* <section className="mt-11">
         <header className="mb-5">
           <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
             LIVESTOCK FUTURES
@@ -103,7 +105,7 @@ export default async function Commodities() {
         </header>
 
         {quote}
-      </section>
+      </section> */}
       {/*INDEX FUTURES */}
       <section className="mt-11">
         <header className="mb-5">
@@ -112,7 +114,7 @@ export default async function Commodities() {
           </h2>
         </header>
 
-        {quote}
+        <Quotes quotes={data.data.index} fields={fields} />
       </section>
       {/*INTEREST RATE FUTURES */}
       <section className="mt-11">
@@ -122,7 +124,7 @@ export default async function Commodities() {
           </h2>
         </header>
 
-        {quote}
+        <Quotes quotes={data.data.interestRate} fields={fields} />
       </section>
     </>
   );
