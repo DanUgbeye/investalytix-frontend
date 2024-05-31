@@ -57,7 +57,7 @@ export default async function NewsPage() {
                 {major.title}
               </Link>
 
-              <div className="my-5 h-[0.5px] w-full bg-white/80"></div>
+              <div className="my-5 h-[0.5px] w-full bg-white/20"></div>
 
               <Link
                 href={minor_major[0].url}
@@ -146,7 +146,7 @@ function INews({
     <Link
       href={news.url}
       target="_blank"
-      className="grid grid-cols-1 grid-rows-[200px,1fr] gap-5 border-b border-[#DCDCDC] py-4 lg:grid-cols-[max-content,1fr] lg:grid-rows-[auto,auto] lg:py-8"
+      className="grid grid-cols-1 grid-rows-[200px,1fr] gap-5 border-b border-black/20 py-4 lg:grid-cols-[max-content,1fr] lg:grid-rows-[auto,auto] lg:py-8 dark:border-b-white/20"
     >
       <div
         className={`relative h-full max-h-[200px] w-full overflow-hidden lg:w-80 ${latest ? "lg:w-96" : "w-80"}`}
@@ -169,7 +169,7 @@ function INews({
           )}
         </div>
         <p className="white-text mt-4 text-sm text-[#4B4646] lg:mt-8 lg:text-base">
-         {news.text}
+          {news.text}
         </p>
 
         {latest && (
