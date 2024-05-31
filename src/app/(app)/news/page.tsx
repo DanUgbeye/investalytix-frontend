@@ -169,10 +169,7 @@ function INews({
           )}
         </div>
         <p className="white-text mt-4 text-sm text-[#4B4646] lg:mt-8 lg:text-base">
-          Adobe system our appointment management solution streamlines
-          scheduling for real estate professionals, enhancing coordination
-          between agents and clients for smoother property transactions and
-          improved customer experiences.
+         {news.text}
         </p>
 
         {latest && (
