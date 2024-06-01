@@ -1,7 +1,7 @@
 export const FINANCIALS_MENU = {
   KEY_STATS: {
     label: "Key Stats",
-    path: "key-stats",
+    path: "",
   },
   INCOME_STATEMENT: {
     label: "Income Statement",

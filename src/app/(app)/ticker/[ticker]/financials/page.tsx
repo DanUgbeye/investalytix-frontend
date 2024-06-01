@@ -1,24 +1,22 @@
-import PAGES from "@/data/page-map";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import React from "react";
+import KeyStatsScreen from "./screen";
 import { SearchTickerPageProps } from "../page";
-import { FINANCIALS_MENU } from "./financials.types";
-import { TICKER_NAV_TABS } from "@/modules/ticker/components/ticker-nav/ticker-sidenav.types";
 
 export const metadata: Metadata = {
-  title: "Financials | Investalytix",
+  title: "Investalytix",
 };
 
-interface FinancalsPageProps extends SearchTickerPageProps {}
+interface KeyStatsPageProps extends SearchTickerPageProps {}
 
-function FinancalsPage(props: FinancalsPageProps) {
+function KeyStatsPage(props: KeyStatsPageProps) {
   const {
     params: { ticker },
   } = props;
 
-  return redirect(
-    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.FINANCIALS.path}/${FINANCIALS_MENU.KEY_STATS.path}`
-  );
+  metadata.title = `${ticker} Financials - Key Stats | Investalytix`;
+
+  return <KeyStatsScreen ticker={ticker} />;
 }
 
-export default FinancalsPage;
+export default KeyStatsPage;

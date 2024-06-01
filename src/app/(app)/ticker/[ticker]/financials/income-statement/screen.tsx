@@ -6,7 +6,7 @@ import { IncomeStatement } from "@/modules/ticker/types";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
-import { KEY_STATS_SAMPLE } from "../key-stats/sample";
+import { KEY_STATS_SAMPLE } from "../sample";
 
 const INCOME_STATEMENT_DATA =
   KEY_STATS_SAMPLE.income satisfies IncomeStatement[];

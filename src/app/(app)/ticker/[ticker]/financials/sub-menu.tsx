@@ -17,6 +17,13 @@ export default function FinancialsMenuBar(props: FinancialsMenuBarProps) {
 
   const menuTabs = useMemo(() => {
     return Object.values(FINANCIALS_MENU).map(({ path, label }) => {
+      if (label === "Key Stats") {
+        return {
+          label,
+          path: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.FINANCIALS.path}` as const,
+        };
+      }
+
       return {
         label,
         path: `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.FINANCIALS.path}/${path}` as const,
