@@ -22,8 +22,8 @@ export type CompanyOutlook = {
   financialsAnnual: Financials;
   financialsQuarter: Financials;
   metrics: CompanyMetrics;
+  splitsHistory: SplitsHistory[];
   // insideTrades: InsideTrade[];
-  // splitsHistory: SplitsHistory[];
   // rating: Rating[];
 };
 

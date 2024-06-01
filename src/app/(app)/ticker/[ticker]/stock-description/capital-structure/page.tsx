@@ -7,7 +7,7 @@ import CapitalStructureScreen from "./screen";
 import { errorUtils } from "@/utils/error.utils";
 
 export const metadata: Metadata = {
-  title: "Search Ticker | Investalytix",
+  title: "Investalytix",
 };
 
 async function getData(ticker: string) {

@@ -10,7 +10,7 @@ import { SearchTickerPageProps } from "../../page";
 import HistoricalDataScreen from "./screen";
 
 export const metadata: Metadata = {
-  title: "Search Ticker | Investalytix",
+  title: "Investalytix",
 };
 
 async function getData(

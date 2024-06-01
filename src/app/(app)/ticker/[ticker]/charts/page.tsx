@@ -4,7 +4,7 @@ import ChartsScreen from "./screen";
 import { SearchTickerPageProps } from "../page";
 
 export const metadata: Metadata = {
-  title: "Search Ticker | Investalytix",
+  title: "Investalytix",
 };
 
 interface ChartsPageProps extends SearchTickerPageProps {}

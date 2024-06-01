@@ -4,7 +4,6 @@ import { Container } from "@/components/container";
 import ColoredNumber from "@/components/ui/ColoredNumber";
 import QuotesBoard from "@/components/ui/QuotesBoard";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { QUERY_KEYS } from "@/data/query-keys";
 import { cn } from "@/lib/utils";
 import {
