@@ -2,7 +2,7 @@ import WithSidePanel, {
   SIDE_SECTIONS,
 } from "@/modules/market/components/WithSidePanel";
 import MarketHeader from "@/modules/market/components/MarketHeader";
-import Market from "@/modules/market/components/Market/Overview";
+import Market from "@/modules/market/components/Market/Market";
 import TrendingNow from "@/modules/market/components/Market/TrendingNow";
 
 export default function MarketPage() {
@@ -10,9 +10,9 @@ export default function MarketPage() {
     <main>
       <MarketHeader name="MARKET" />
 
-      {/* <WithSidePanel sections={SIDE_SECTIONS["ALL"]}>
+      <WithSidePanel sections={SIDE_SECTIONS["ALL"]}>
         <Market />
-      </WithSidePanel> */}
+      </WithSidePanel>
 
       {/* TRENDING NOW */}
       <TrendingNow />
