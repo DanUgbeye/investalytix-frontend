@@ -1,5 +1,8 @@
 "use client";
 
+import { InstitutionalHolder, MutualFundHolder } from "@/modules/ticker/types";
+import appUtils from "@/utils/app-util";
+
 const TOP_HOLDERS = [
   {
     name: "Schwab® S&P 500 Index",
@@ -65,10 +68,12 @@ const TOP_HOLDERS = [
 
 interface HoldersScreenProps {
   ticker: string;
+  institutionalHolders: InstitutionalHolder[];
+  mutualFundHolders: MutualFundHolder[];
 }
 
 export default function HoldersScreen(props: HoldersScreenProps) {
-  const { ticker } = props;
+  const { ticker, institutionalHolders, mutualFundHolders } = props;
 
   return (
     <section className=" space-y-10 pb-10 ">
@@ -80,66 +85,40 @@ export default function HoldersScreen(props: HoldersScreenProps) {
             <thead className="  ">
               <tr className=" th font-semibold dark:bg-white/20 ">
                 <td className=" px-2 py-3 ">Name</td>
-                <td className=" px-2 py-3 text-right ">% Total Shares Held</td>
-                <td className=" px-2 py-3 text-right ">
-                  % Total Assets Percentage
-                </td>
-                <td className=" px-2 py-3 text-right ">
-                  Trend in Prev. 8 Qtrs
-                </td>
+
                 <td className=" px-2 py-3 text-right ">Current Shares</td>
+
                 <td className=" px-2 py-3 text-right ">Change Amount</td>
-                <td className=" px-2 py-3 text-right ">Change %</td>
+
                 <td className=" px-2 py-3 text-right ">Date</td>
               </tr>
             </thead>
 
             <tbody className="  ">
-              {TOP_HOLDERS.map((item, index) => {
+              {institutionalHolders.map((holder, index) => {
                 return (
                   <tr
-                    key={`institutional-holder-${item.name}-${index}`}
+                    key={`institutional-holder-${holder.holder}-${index}`}
                     className="even:bg-main-gray-100  dark:even:bg-main-gray-900 "
                   >
-                    <td className=" px-2 py-3 font-medium ">{item.name}</td>
+                    <td className=" px-2 py-3 font-medium ">{holder.holder}</td>
 
                     <td className=" px-2 py-3 text-right ">
-                      {item.totalSharesHeldPercentage.toLocaleString(
-                        undefined,
-                        { maximumFractionDigits: 2 }
-                      )}
-                    </td>
-
-                    <td className=" px-2 py-3 text-right ">
-                      {item.totalAssetsPercentage.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
+                      {appUtils.formatNumber(holder.shares, {
+                        style: "decimal",
+                        maximumFractionDigits: 0,
                       })}
                     </td>
 
                     <td className=" px-2 py-3 text-right ">
-                      {item.prev8QrtsTrend}
-                    </td>
-
-                    <td className=" px-2 py-3 text-right ">
-                      {item.currentShares.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
+                      {appUtils.formatNumber(holder.change, {
+                        style: "decimal",
+                        maximumFractionDigits: 0,
                       })}
                     </td>
 
                     <td className=" px-2 py-3 text-right ">
-                      {item.changeAmount.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
-                      })}
-                    </td>
-
-                    <td className=" px-2 py-3 text-right ">
-                      {item.changePercentage.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
-                      })}
-                    </td>
-
-                    <td className=" px-2 py-3 text-right ">
-                      {item.date.toDateString()}
+                      {holder.dateReported.toDateString()}
                     </td>
                   </tr>
                 );
@@ -157,66 +136,53 @@ export default function HoldersScreen(props: HoldersScreenProps) {
             <thead className="  ">
               <tr className=" th font-semibold dark:bg-white/20 ">
                 <td className=" px-2 py-3 ">Name</td>
+
                 <td className=" px-2 py-3 text-right ">% Total Shares Held</td>
-                <td className=" px-2 py-3 text-right ">
-                  % Total Assets Percentage
-                </td>
-                <td className=" px-2 py-3 text-right ">
-                  Trend in Prev. 8 Qtrs
-                </td>
+
                 <td className=" px-2 py-3 text-right ">Current Shares</td>
+
                 <td className=" px-2 py-3 text-right ">Change Amount</td>
-                <td className=" px-2 py-3 text-right ">Change %</td>
+
                 <td className=" px-2 py-3 text-right ">Date</td>
               </tr>
             </thead>
 
             <tbody className="  ">
-              {TOP_HOLDERS.map((item, index) => {
+              {mutualFundHolders.map((holder, index) => {
                 return (
                   <tr
-                    key={`mutual-fund-holder-${item.name}-${index}`}
+                    key={`mutual-fund-holder-${holder.holder}-${index}`}
                     className=" even:bg-main-gray-100  dark:even:bg-main-gray-900 "
                   >
-                    <td className=" px-2 py-3 font-medium ">{item.name}</td>
+                    <td className=" px-2 py-3 font-medium ">{holder.holder}</td>
 
                     <td className=" px-2 py-3 text-right ">
-                      {item.totalSharesHeldPercentage.toLocaleString(
-                        undefined,
-                        { maximumFractionDigits: 2 }
+                      {appUtils.formatNumber(
+                        holder.weightPercent || undefined,
+                        {
+                          style: "decimal",
+                          maximumFractionDigits: 10,
+                          minimumFractionDigits: 10,
+                        }
                       )}
                     </td>
 
                     <td className=" px-2 py-3 text-right ">
-                      {item.totalAssetsPercentage.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
+                      {appUtils.formatNumber(holder.shares, {
+                        style: "decimal",
+                        maximumFractionDigits: 0,
                       })}
                     </td>
 
                     <td className=" px-2 py-3 text-right ">
-                      {item.prev8QrtsTrend}
-                    </td>
-
-                    <td className=" px-2 py-3 text-right ">
-                      {item.currentShares.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
+                      {appUtils.formatNumber(holder.change, {
+                        style: "decimal",
+                        maximumFractionDigits: 0,
                       })}
                     </td>
 
                     <td className=" px-2 py-3 text-right ">
-                      {item.changeAmount.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
-                      })}
-                    </td>
-
-                    <td className=" px-2 py-3 text-right ">
-                      {item.changePercentage.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
-                      })}
-                    </td>
-
-                    <td className=" px-2 py-3 text-right ">
-                      {item.date.toDateString()}
+                      {holder.dateReported.toDateString()}
                     </td>
                   </tr>
                 );

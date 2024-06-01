@@ -9,6 +9,8 @@ import {
   Earning,
   Financials,
   IncomeStatement,
+  InstitutionalHolder,
+  MutualFundHolder,
 } from "../types";
 import {
   BalanceSheetStatementSchema,
@@ -17,6 +19,8 @@ import {
   EarningSchema,
   FinancialsSchema,
   IncomeStatementSchema,
+  InstitutionalHolderSchema,
+  MutualFundHolderSchema,
 } from "../validation";
 import { ITickerRepository } from "./interface";
 import {
@@ -118,6 +122,56 @@ export class TickerRepository implements ITickerRepository {
       let res = await this.axios.get<{ data: QuoteHistory }>(path, options);
 
       let validation = z.array(QuoteHistorySchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getMutualFundHolders(
+    ticker: string,
+    options?: RequestOptions
+  ): Promise<MutualFundHolder[]> {
+    try {
+      const path = `/tickers/${ticker}/mutual-fund-holders`;
+      let res = await this.axios.get<{ data: MutualFundHolder[] }>(
+        path,
+        options
+      );
+
+      let validation = z.array(MutualFundHolderSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getInstitutionalHolders(
+    ticker: string,
+    options?: RequestOptions
+  ): Promise<InstitutionalHolder[]> {
+    try {
+      const path = `/tickers/${ticker}/institutional-holders`;
+      let res = await this.axios.get<{ data: InstitutionalHolder[] }>(
+        path,
+        options
+      );
+
+      let validation = z
+        .array(InstitutionalHolderSchema)
+        .safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");
