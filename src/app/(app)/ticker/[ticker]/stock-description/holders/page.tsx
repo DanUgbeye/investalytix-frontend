@@ -1,20 +1,56 @@
+import { serverAPI } from "@/config/server/api";
+import { TickerRepository } from "@/modules/ticker/repository";
+import { errorUtils } from "@/utils/error.utils";
 import { Metadata } from "next";
-import React from "react";
-import HoldersScreen from "./screen";
+import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../../page";
+import HoldersScreen from "./screen";
 
 export const metadata: Metadata = {
   title: "Investalytix",
 };
 
+async function getData(ticker: string) {
+  try {
+    const tickerRepo = new TickerRepository(serverAPI);
+    const [outlook, institutionalHolders, mutualFundHolders] =
+      await Promise.all([
+        tickerRepo.getCompanyOutLook(ticker),
+        tickerRepo.getInstitutionalHolders(ticker),
+        tickerRepo.getMutualFundHolders(ticker),
+      ]);
+
+    return {
+      outlook,
+      institutionalHolders,
+      mutualFundHolders,
+    };
+  } catch (error: any) {
+    if (errorUtils.is404Error(error)) {
+      notFound();
+    }
+
+    throw new Error(error.message);
+  }
+}
+
 interface HoldersPageProps extends SearchTickerPageProps {}
 
-export default function HoldersPage(props: HoldersPageProps) {
+export default async function HoldersPage(props: HoldersPageProps) {
   const {
     params: { ticker },
   } = props;
 
-  metadata.title = `${ticker} Stock Description - Holders | Investalytix`;
+  const { outlook, institutionalHolders, mutualFundHolders } =
+    await getData(ticker);
 
-  return <HoldersScreen ticker={ticker} />;
+  metadata.title = `${outlook.profile.companyName} (${ticker}) Stock Description - Holders | Investalytix`;
+
+  return (
+    <HoldersScreen
+      ticker={ticker}
+      institutionalHolders={institutionalHolders}
+      mutualFundHolders={mutualFundHolders}
+    />
+  );
 }

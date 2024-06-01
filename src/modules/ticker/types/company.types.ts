@@ -46,3 +46,18 @@ export type CompanyKeyExecutive = {
   yearBorn: number | null;
   titleSince: Date | null;
 };
+
+export type MutualFundHolder = {
+  holder: string;
+  shares: number;
+  dateReported: Date;
+  change: number;
+  weightPercent: number | null;
+};
+
+export type InstitutionalHolder = {
+  holder: string;
+  shares: number;
+  dateReported: Date;
+  change: number;
+};

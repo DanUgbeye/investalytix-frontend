@@ -6,6 +6,8 @@ import {
   CompanyProfile,
   CompanyMetrics,
   SplitsHistory,
+  MutualFundHolder,
+  InstitutionalHolder,
 } from "../types";
 import { DividendSchema } from "./dividend.validation";
 import { FinancialsSchema, RatioTTMSchema } from "./financials.validation";
@@ -84,3 +86,18 @@ export const CompanyOutlookSchema = z.object({
   metrics: CompanyMetricsSchema,
   splitsHistory: z.array(SplitsHistorySchema),
 }) satisfies ZodType<CompanyOutlook>;
+
+export const MutualFundHolderSchema = z.object({
+  holder: z.string(),
+  shares: z.number(),
+  dateReported: z.coerce.date(),
+  change: z.number(),
+  weightPercent: z.number().nullable(),
+}) satisfies ZodType<MutualFundHolder>;
+
+export const InstitutionalHolderSchema = z.object({
+  holder: z.string(),
+  shares: z.number(),
+  dateReported: z.coerce.date(),
+  change: z.number(),
+}) satisfies ZodType<InstitutionalHolder>;

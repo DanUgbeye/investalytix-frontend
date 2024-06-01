@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 async function getTickerData(ticker: string) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
-
     const outlook = await tickerRepo.getCompanyOutLook(ticker);
 
     return {
