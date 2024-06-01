@@ -1,28 +1,61 @@
 "use client";
 
+import { buttonVariants } from "@/components/ui/button";
 import WithToggle from "@/components/with-toggle";
 import { cn } from "@/lib/utils";
+import { Financials } from "@/modules/ticker/types";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
-import { KEY_STATS_SAMPLE } from "./sample";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+
+function getPeriodUrl(path: string, period: string) {
+  return `${path}?period=${period}`;
+}
 
 interface KeyStatsScreenProps {
   ticker: string;
+  financials: Financials;
 }
 
 export default function KeyStatsScreen(props: KeyStatsScreenProps) {
-  const { ticker } = props;
+  const { ticker, financials } = props;
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const period = searchParams.get("period");
 
   return (
     <section className=" pb-12 ">
+      <div className=" mb-6 flex items-center gap-2 ">
+        <Link
+          href={getPeriodUrl(pathname, "quarterly")}
+          className={cn(buttonVariants(), " h-9 ", {
+            " bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-100 ":
+              !!period && period !== "quarterly",
+          })}
+        >
+          Quarterly
+        </Link>
+
+        <Link
+          href={getPeriodUrl(pathname, "annual")}
+          className={cn(buttonVariants(), " h-9 ", {
+            " bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-100 ":
+              period !== "annual",
+          })}
+        >
+          Annual
+        </Link>
+      </div>
+
       <div className=" overflow-x-auto border dark:border-main-gray-600 ">
         <table className=" w-full min-w-[50rem] ">
           <thead>
             <tr className="  th text-sm font-bold ">
-              <th className=" px-2 py-3 text-left dark:bg-transparent"></th>
+              <th className=" sticky left-0 bg-inherit px-2 py-3 text-left dark:bg-inherit"></th>
 
-              {KEY_STATS_SAMPLE.balance.map((data, index) => {
+              {financials.balance.map((data, index) => {
                 return (
                   <td
                     key={`${data.date}-${index}`}
@@ -46,13 +79,13 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                     <tr
                       onClick={(e) => toggle()}
                       className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600",
+                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ",
                         {
                           " bg-main-gray-100 dark:bg-main-gray-900 ": state,
                         }
                       )}
                     >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
+                      <th className=" sticky left-0 bg-inherit px-2 py-3 text-left dark:bg-inherit">
                         <div className=" flex items-center gap-x-1 ">
                           <span>Income Statement</span>
                           <ChevronRight
@@ -63,7 +96,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </div>
                       </th>
 
-                      {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                      {financials.balance.map((data, index) => {
                         return <td key={`forecast-month-${index}`} />;
                       })}
                     </tr>
@@ -71,11 +104,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                     {state && (
                       <>
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black">
                             Total Revenue
                           </th>
 
-                          {KEY_STATS_SAMPLE.income.map((data, index) => {
+                          {financials.income.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -92,11 +125,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black">
                             Cost of Revenue
                           </th>
 
-                          {KEY_STATS_SAMPLE.income.map((data, index) => {
+                          {financials.income.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -113,11 +146,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black">
                             Gross Profit
                           </th>
 
-                          {KEY_STATS_SAMPLE.income.map((data, index) => {
+                          {financials.income.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -134,11 +167,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black">
                             EBITDA
                           </th>
 
-                          {KEY_STATS_SAMPLE.income.map((data, index) => {
+                          {financials.income.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -155,11 +188,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black">
                             EPS
                           </th>
 
-                          {KEY_STATS_SAMPLE.income.map((data, index) => {
+                          {financials.income.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -197,7 +230,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         }
                       )}
                     >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
+                      <th className=" sticky left-0 bg-inherit px-2 py-3 text-left dark:bg-inherit ">
                         <div className=" flex items-center gap-x-1 ">
                           <span>Balance Sheet</span>
                           <ChevronRight
@@ -208,7 +241,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </div>
                       </th>
 
-                      {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                      {financials.balance.map((data, index) => {
                         return <td key={`forecast-month-${index}`} />;
                       })}
                     </tr>
@@ -216,11 +249,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                     {state && (
                       <>
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6  pr-2 text-left font-normal dark:bg-black">
                             Total Assets
                           </th>
 
-                          {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                          {financials.balance.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -237,11 +270,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6  pr-2 text-left font-normal dark:bg-black">
                             Total Debt
                           </th>
 
-                          {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                          {financials.balance.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -258,11 +291,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6  pr-2 text-left font-normal dark:bg-black">
                             Net Debt
                           </th>
 
-                          {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                          {financials.balance.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -279,11 +312,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6  pr-2 text-left font-normal dark:bg-black">
                             Total Liabilities
                           </th>
 
-                          {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                          {financials.balance.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -300,11 +333,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6  pr-2 text-left font-normal dark:bg-black">
                             Stakeholder Equity
                           </th>
 
-                          {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                          {financials.balance.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -345,7 +378,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         }
                       )}
                     >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
+                      <th className=" sticky left-0 bg-inherit px-2 py-3 text-left dark:bg-inherit ">
                         <div className=" flex items-center gap-x-1 ">
                           <span>Cash Flow</span>
                           <ChevronRight
@@ -356,7 +389,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </div>
                       </th>
 
-                      {KEY_STATS_SAMPLE.balance.map((data, index) => {
+                      {financials.balance.map((data, index) => {
                         return <td key={`forecast-month-${index}`} />;
                       })}
                     </tr>
@@ -364,11 +397,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                     {state && (
                       <>
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black ">
                             Free Cash Flow
                           </th>
 
-                          {KEY_STATS_SAMPLE.cash.map((data, index) => {
+                          {financials.cash.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -385,11 +418,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black ">
                             Operating Cash Flow
                           </th>
 
-                          {KEY_STATS_SAMPLE.cash.map((data, index) => {
+                          {financials.cash.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -406,11 +439,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black ">
                             Net Income
                           </th>
 
-                          {KEY_STATS_SAMPLE.cash.map((data, index) => {
+                          {financials.cash.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -427,11 +460,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black ">
                             Stock Repurchases
                           </th>
 
-                          {KEY_STATS_SAMPLE.cash.map((data, index) => {
+                          {financials.cash.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
@@ -451,11 +484,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </tr>
 
                         <tr className=" text-sm ">
-                          <th className=" py-3 pl-6 pr-2 text-left font-normal dark:bg-transparent">
+                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black ">
                             Dividend Paid
                           </th>
 
-                          {KEY_STATS_SAMPLE.cash.map((data, index) => {
+                          {financials.cash.map((data, index) => {
                             return (
                               <td
                                 key={`forecast-month-${index}`}
