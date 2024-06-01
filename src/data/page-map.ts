@@ -4,6 +4,8 @@ const PAGES = {
   SIGNUP: "/signup",
   VERIFY_EMAIL: "/verify-email",
   FORGOT_PASSWORD: "/forgot-password",
+  CHART: "/chart",
+  ECONOMIC_CALENDAR: "/economic-calendar",
 
   PROFILE: "/profile",
   SETTINGS: "/settings",

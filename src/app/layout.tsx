@@ -3,6 +3,7 @@ import { interFont } from "./fonts";
 import GlobalComponents from "./global-components";
 import "./globals.css";
 import Providers from "./providers";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Investalytix",
@@ -22,6 +23,8 @@ export default function RootLayout({
         <Providers>
           <GlobalComponents>{children}</GlobalComponents>
         </Providers>
+
+        <Footer />
       </body>
     </html>
   );

@@ -10,9 +10,9 @@ export default function MarketPage() {
     <main>
       <MarketHeader name="MARKET" />
 
-      <WithSidePanel sections={SIDE_SECTIONS["ALL"]}>
+      {/* <WithSidePanel sections={SIDE_SECTIONS["ALL"]}>
         <Market />
-      </WithSidePanel>
+      </WithSidePanel> */}
 
       {/* TRENDING NOW */}
       <TrendingNow />
