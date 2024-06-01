@@ -30,20 +30,28 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
       <div className=" mb-6 flex items-center gap-2 ">
         <Link
           href={getPeriodUrl(pathname, "quarterly")}
-          className={cn(buttonVariants(), " h-9 ", {
-            " bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-100 ":
-              !!period && period !== "quarterly",
-          })}
+          className={cn(
+            buttonVariants(),
+            " pointer-events-none h-9 cursor-pointer ",
+            {
+              " pointer-events-auto bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-300 ":
+                !!period && period !== "quarterly",
+            }
+          )}
         >
           Quarterly
         </Link>
 
         <Link
           href={getPeriodUrl(pathname, "annual")}
-          className={cn(buttonVariants(), " h-9 ", {
-            " bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-100 ":
-              period !== "annual",
-          })}
+          className={cn(
+            buttonVariants(),
+            " pointer-events-none h-9 cursor-pointer ",
+            {
+              " pointer-events-auto bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-300 ":
+                period !== "annual",
+            }
+          )}
         >
           Annual
         </Link>
