@@ -11,6 +11,7 @@ import {
   IncomeStatement,
   InstitutionalHolder,
   MutualFundHolder,
+  News,
 } from "../types";
 import {
   BalanceSheetStatementSchema,
@@ -22,7 +23,6 @@ import {
   InstitutionalHolderSchema,
   MutualFundHolderSchema,
 } from "../validation";
-import { ITickerRepository } from "./interface";
 import {
   Quote,
   QuoteHistory,
@@ -36,8 +36,9 @@ import {
   SearchResultSchema,
   ShortQuoteSchema,
 } from "@/validation";
+import { NewsSchema } from "@/modules/news/validation";
 
-export class TickerRepository implements ITickerRepository {
+export class TickerRepository {
   constructor(private readonly axios: AxiosInstance) {}
 
   async search(
@@ -122,6 +123,37 @@ export class TickerRepository implements ITickerRepository {
       let res = await this.axios.get<{ data: QuoteHistory }>(path, options);
 
       let validation = z.array(QuoteHistorySchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getNews(
+    ticker: string,
+    filter?: { limit?: number; page?: number },
+    options?: RequestOptions
+  ): Promise<News[]> {
+    try {
+      const searchParams = new URLSearchParams();
+
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      const path = `/tickers/${ticker}/news?${searchParams.toString()}`;
+
+      let res = await this.axios.get<{ data: News }>(path.toString(), options);
+
+      let validation = z.array(NewsSchema).safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");
