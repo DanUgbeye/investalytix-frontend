@@ -4,7 +4,7 @@ import RatiosScreen from "./screen";
 import { SearchTickerPageProps } from "../../page";
 
 export const metadata: Metadata = {
-  title: "Search Ticker | Investalytix",
+  title: "Investalytix",
 };
 
 interface RatiosPageProps extends SearchTickerPageProps {}

@@ -36,7 +36,7 @@ async function getData(ticker: string) {
 }
 
 export const metadata: Metadata = {
-  title: "Search Ticker | Investalytix",
+  title: "Investalytix",
 };
 
 interface RevenueAndEPSPageProps extends SearchTickerPageProps {}

@@ -4,7 +4,7 @@ import NewsScreen from "./screen";
 import { SearchTickerPageProps } from "../page";
 
 export const metadata: Metadata = {
-  title: "Search Ticker | Investalytix",
+  title: "Investalytix",
 };
 
 interface NewsPageProps extends SearchTickerPageProps {}

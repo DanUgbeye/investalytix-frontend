@@ -5,6 +5,7 @@ import {
   CompanyOutlook,
   CompanyProfile,
   CompanyMetrics,
+  SplitsHistory,
 } from "../types";
 import { DividendSchema } from "./dividend.validation";
 import { FinancialsSchema, RatioTTMSchema } from "./financials.validation";
@@ -65,6 +66,13 @@ export const CompanyMetricsSchema = z.object({
   yearLow: z.number().nullable(),
 }) satisfies ZodType<CompanyMetrics>;
 
+export const SplitsHistorySchema = z.object({
+  date: z.coerce.date(),
+  label: z.string(),
+  numerator: z.number(),
+  denominator: z.number(),
+}) satisfies ZodType<SplitsHistory>;
+
 export const CompanyOutlookSchema = z.object({
   profile: CompanyProfileSchema,
   ratios: z.array(RatioTTMSchema),
@@ -74,4 +82,5 @@ export const CompanyOutlookSchema = z.object({
   financialsAnnual: FinancialsSchema,
   financialsQuarter: FinancialsSchema,
   metrics: CompanyMetricsSchema,
+  splitsHistory: z.array(SplitsHistorySchema),
 }) satisfies ZodType<CompanyOutlook>;

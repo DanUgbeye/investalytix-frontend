@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
 import TickerLayout from "./ticker-layout";
 
-
 async function getTickerData(ticker: string) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);

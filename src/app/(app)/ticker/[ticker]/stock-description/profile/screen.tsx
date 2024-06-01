@@ -1,25 +1,34 @@
 "use client";
 
+import { CompanyOutlook } from "@/modules/ticker/types";
+import appUtils from "@/utils/app-util";
+import { format } from "date-fns";
+import Link from "next/link";
+
 interface ProfileScreenProps {
   ticker: string;
+  outlook: CompanyOutlook;
 }
 
 export default function ProfileScreen(props: ProfileScreenProps) {
-  const { ticker } = props;
+  const { ticker, outlook } = props;
 
   return (
     <section className=" space-y-10 pb-10 ">
       <div className=" flex flex-wrap gap-x-10 gap-y-5 xl:grid xl:w-full xl:grid-cols-[1fr,2fr] xl:flex-nowrap xl:justify-between ">
         <div className=" flex flex-col space-y-2 xl:w-full ">
-          <h3 className=" text-2xl font-extrabold ">Apple Inc.</h3>
+          <h3 className=" text-2xl font-extrabold ">
+            {outlook.profile.companyName}
+          </h3>
 
-          <div className=" max-w-60 text-sm ">
-            One Apple Park Way, Cupertino, CA 95014, United States
-          </div>
+          <div className=" max-w-60 text-sm ">{outlook.profile.address}</div>
 
           <div className=" flex flex-col space-y-1 text-sm text-[#125BD4] ">
-            <span>408 996 1010</span>
-            <span>http://www.apple.com</span>
+            <span>{outlook.profile.phone}</span>
+
+            <Link href={outlook.profile.website} target="_blank">
+              {outlook.profile.website}
+            </Link>
           </div>
         </div>
 
@@ -28,30 +37,39 @@ export default function ProfileScreen(props: ProfileScreenProps) {
             <table className=" text-sm ">
               <tr>
                 <td className=" px-2 py-1  ">Sector:</td>
-                <td className=" px-2 py-1 font-medium ">Technology</td>
+                <td className=" px-2 py-1 font-medium ">
+                  {outlook.profile.sector}
+                </td>
               </tr>
 
               <tr>
                 <td className=" px-2 py-1  ">Industry:</td>
                 <td className=" px-2 py-1 font-medium ">
-                  Consumer Electronics
+                  {outlook.profile.industry}
                 </td>
               </tr>
 
               <tr>
                 <td className=" px-2 py-1  ">Full time Employees:</td>
-                <td className=" px-2 py-1 font-medium ">161,000</td>
+                <td className=" px-2 py-1 font-medium ">
+                  {appUtils.formatNumber(
+                    Number(outlook.profile.fullTimeEmployees),
+                    { style: "decimal" }
+                  )}
+                </td>
               </tr>
             </table>
           </div>
 
           <div className="  ">
             <table className=" text-sm ">
+              {/* TODO INPUT VALUE */}
               <tr>
                 <td className=" px-2 py-1  ">Shares Outstanding:</td>
                 <td className=" px-2 py-1 font-medium ">15.6B</td>
               </tr>
 
+              {/* TODO INPUT VALUE */}
               <tr>
                 <td className=" px-2 py-1  ">Institutional Ownership:</td>
                 <td className=" px-2 py-1 font-medium ">61.67%</td>
@@ -59,12 +77,18 @@ export default function ProfileScreen(props: ProfileScreenProps) {
 
               <tr>
                 <td className=" px-2 py-1  ">Market Cap:</td>
-                <td className=" px-2 py-1 font-medium ">3.1T</td>
+                <td className=" px-2 py-1 font-medium ">
+                  {appUtils.formatNumber(outlook.profile.mktCap, {
+                    notation: "compact",
+                  })}
+                </td>
               </tr>
 
               <tr>
-                <td className=" px-2 py-1  ">Last Stock Split None:</td>
-                <td className=" px-2 py-1 font-medium ">None</td>
+                <td className=" px-2 py-1  ">Last Stock Split Date:</td>
+                <td className=" px-2 py-1 font-medium ">
+                  {format(outlook.splitsHistory[0].date, "MMM dd, yyyy")}
+                </td>
               </tr>
             </table>
           </div>
@@ -75,54 +99,17 @@ export default function ProfileScreen(props: ProfileScreenProps) {
         <h4 className=" text-xl font-bold ">Description</h4>
 
         <p className=" whitespace-pre-line text-justify ">
-          Apple Inc. designs, manufactures, and markets smartphones, personal
-          computers, tablets, wearables, and accessories worldwide. The company
-          offers iPhone, a line of smartphones; Mac, a line of personal
-          computers; iPad, a line of multi-purpose tablets; and wearables, home,
-          and accessories comprising AirPods, Apple TV, Apple Watch, Beats
-          products, and HomePod. It also provides AppleCare support and cloud
-          services; and operates various platforms, including the App Store that
-          allow customers to discover and download applications and digital
-          content, such as books, music, video, games, and podcasts. In
-          addition, the company offers various services, such as Apple Arcade, a
-          game subscription service; Apple Fitness+, a personalized fitness
-          service; Apple Music, which offers users a curated listening
-          experience with on-demand radio stations; Apple News+, a subscription
-          news and magazine service; Apple TV+, which offers exclusive original
-          content; Apple Card, a co-branded credit card; and Apple Pay, a
-          cashless payment service, as well as licenses its intellectual
-          property. The company serves consumers, and small and mid-sized
-          businesses; and the education, enterprise, and government markets. It
-          distributes third-party applications for its products through the App
-          Store. The company also sells its products through its retail and
-          online stores, and direct sales force; and third-party cellular
-          network carriers, wholesalers, retailers, and resellers. Apple Inc.
-          was founded in 1976 and is headquartered in Cupertino, California.
+          {outlook.profile.description}
         </p>
       </div>
 
       <div className=" grid gap-10 border-2 p-10 md:grid-cols-2 dark:border-main-gray-600 ">
-        <div className=" space-y-1 ">
-          <div className=" font-medium ">Arthur Levinson Ph.D.</div>
-          <div className="  ">Independent Chairman of the Board</div>
-        </div>
-
-        <div className=" space-y-1 ">
-          <div className=" font-medium ">Jeffrey Williams</div>
-          <div className="  ">Chief Operating Officer</div>
-        </div>
-
-        <div className=" space-y-1 ">
-          <div className=" font-medium ">Timothy Cook</div>
-          <div className="  ">Chief Executive Officer, Director</div>
-        </div>
-
-        <div className=" space-y-1 ">
-          <div className=" font-medium ">Luca Maestri</div>
-          <div className="  ">
-            Chief Financial Officer, Senior Vice President
+        {outlook.keyExecutives.map((executive, index) => (
+          <div key={`${executive.title}-${index}`} className=" space-y-1 ">
+            <div className=" font-medium ">{executive.name}</div>
+            <div className="  ">{executive.title}</div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );

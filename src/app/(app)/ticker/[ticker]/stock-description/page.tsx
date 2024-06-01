@@ -8,7 +8,7 @@ import SummaryScreen from "./screen";
 import { errorUtils } from "@/utils/error.utils";
 
 export const metadata: Metadata = {
-  title: "Search Ticker | Investalytix",
+  title: "Investalytix",
 };
 
 async function getTickerData(ticker: string) {
