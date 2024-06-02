@@ -2,33 +2,74 @@
 
 import WithToggle from "@/components/with-toggle";
 import { cn } from "@/lib/utils";
-import { IncomeStatement } from "@/modules/ticker/types";
+import { FinancialPeriod, IncomeStatement } from "@/modules/ticker/types";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import { KEY_STATS_SAMPLE } from "../sample";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+import { buttonVariants } from "@/components/ui/button";
+
+function getPeriodUrl(path: string, period: string) {
+  return `${path}?period=${period}`;
+}
 
 const INCOME_STATEMENT_DATA =
   KEY_STATS_SAMPLE.income satisfies IncomeStatement[];
 
 interface IncomeStatementScreenProps {
   ticker: string;
+  incomeStatement: IncomeStatement[];
+  period: FinancialPeriod;
 }
 
 export default function IncomeStatementScreen(
   props: IncomeStatementScreenProps
 ) {
-  const { ticker } = props;
+  const { ticker, period, incomeStatement } = props;
+
+  const pathname = usePathname();
 
   return (
     <section className=" pb-12 ">
+      <div className=" mb-6 flex items-center gap-2 ">
+        <Link
+          href={getPeriodUrl(pathname, "quarterly")}
+          className={cn(
+            buttonVariants(),
+            " pointer-events-none h-9 cursor-pointer ",
+            {
+              " pointer-events-auto bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-300 ":
+                !!period && period !== "quarterly",
+            }
+          )}
+        >
+          Quarterly
+        </Link>
+
+        <Link
+          href={getPeriodUrl(pathname, "annual")}
+          className={cn(
+            buttonVariants(),
+            " pointer-events-none h-9 cursor-pointer ",
+            {
+              " pointer-events-auto bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-300 ":
+                period !== "annual",
+            }
+          )}
+        >
+          Annual
+        </Link>
+      </div>
+
       <div className=" overflow-x-auto border dark:border-main-gray-600 ">
         <table className=" w-full min-w-[50rem] ">
           <thead>
             <tr className="  th text-sm font-bold ">
               <th className=" w-[10rem] px-2 py-3 text-left md:w-[15rem] lg:w-[20rem] dark:bg-transparent"></th>
 
-              {INCOME_STATEMENT_DATA.map((data, index) => {
+              {incomeStatement.map((data, index) => {
                 return (
                   <td
                     key={`${data.date}-${index}`}

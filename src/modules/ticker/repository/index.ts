@@ -7,6 +7,7 @@ import {
   CashFlowStatement,
   CompanyOutlook,
   Earning,
+  FinancialPeriod,
   Financials,
   IncomeStatement,
   InstitutionalHolder,
@@ -282,10 +283,23 @@ export class TickerRepository {
 
   async getIncomeStatement(
     ticker: string,
+    filter?: { period?: FinancialPeriod; page?: number; limit?: number },
     options?: RequestOptions | undefined
   ): Promise<IncomeStatement[]> {
     try {
-      const path = `/ticker/${ticker}/financials/income-statement`;
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", filter.period);
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/ticker/${ticker}/financials/income-statement?${searchParams.toString()}`;
       let res = await this.axios.get<{ data: IncomeStatement[] }>(
         path,
         options
@@ -306,10 +320,23 @@ export class TickerRepository {
 
   async getBalanceSheetStatement(
     ticker: string,
+    filter?: { period?: FinancialPeriod; page?: number; limit?: number },
     options?: RequestOptions | undefined
   ): Promise<BalanceSheetStatement[]> {
     try {
-      const path = `/ticker/${ticker}/financials/balance-sheet-statement`;
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", filter.period);
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/ticker/${ticker}/financials/balance-sheet-statement?${searchParams.toString()}`;
       let res = await this.axios.get<{ data: BalanceSheetStatement[] }>(
         path,
         options
@@ -332,10 +359,23 @@ export class TickerRepository {
 
   async getCashFlowStatement(
     ticker: string,
+    filter?: { period?: FinancialPeriod; page?: number; limit?: number },
     options?: RequestOptions | undefined
   ): Promise<CashFlowStatement[]> {
     try {
-      const path = `/ticker/${ticker}/financials/cash-flow-statement`;
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", filter.period);
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/ticker/${ticker}/financials/cash-flow-statement?${searchParams.toString()}`;
       let res = await this.axios.get<{ data: CashFlowStatement[] }>(
         path,
         options
