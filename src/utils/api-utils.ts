@@ -1,5 +1,6 @@
 import useAuthStore from "@/modules/auth/store";
 import axios, { AxiosError, AxiosInstance } from "axios";
+import { errorUtils } from "./error.utils";
 
 function createAPIInstance(baseUrl?: string) {
   return axios.create({
@@ -16,27 +17,20 @@ function setAuthHeader(api: AxiosInstance, token: string) {
 function handleAPIError(
   error: AxiosError<{ message: string }> | Error | undefined
 ) {
-  if (error instanceof AxiosError) {
-    if (error.response?.data?.message) {
-      if (
-        error.response?.data?.message
-          .toLowerCase()
-          .includes("getaddrinfo enotfound")
-      ) {
-        throw new Error("Network Error");
-      }
-
-      return new Error(error.response.data.message);
-    }
-
-    if (error.message.toLowerCase().includes("getaddrinfo enotfound")) {
-      throw new Error("Network Error");
-    }
-
-    return new Error(error.message);
+  if (errorUtils.isNetworkError(error)) {
+    return new Error("Network Error");
   }
 
-  if (error instanceof Error) {
+  if (error instanceof AxiosError) {
+    if (error.response?.data?.message) {
+      let errMessage: string = error.response?.data?.message;
+      return new Error(errMessage);
+    }
+
+    return new Error(error.message || "Something went wrong");
+  }
+
+  if (error instanceof Error && error.message) {
     return new Error(error.message);
   }
 

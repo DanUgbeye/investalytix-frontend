@@ -265,7 +265,7 @@ export class TickerRepository {
     options?: RequestOptions | undefined
   ): Promise<Financials> {
     try {
-      const path = `/ticker/${ticker}/financials`;
+      const path = `/tickers/${ticker}/financials`;
       let res = await this.axios.get<{ data: Financials }>(path, options);
 
       let validation = FinancialsSchema.safeParse(res.data.data);
@@ -299,7 +299,7 @@ export class TickerRepository {
         searchParams.append("limit", String(filter.limit));
       }
 
-      const path = `/ticker/${ticker}/financials/income-statement?${searchParams.toString()}`;
+      const path = `/tickers/${ticker}/income-statement?${searchParams.toString()}`;
       let res = await this.axios.get<{ data: IncomeStatement[] }>(
         path,
         options
@@ -308,6 +308,7 @@ export class TickerRepository {
       let validation = z.array(IncomeStatementSchema).safeParse(res.data.data);
 
       if (validation.error) {
+        console.log(validation.error);
         throw new Error("Something went wrong on our end");
       }
 
@@ -336,7 +337,7 @@ export class TickerRepository {
         searchParams.append("limit", String(filter.limit));
       }
 
-      const path = `/ticker/${ticker}/financials/balance-sheet-statement?${searchParams.toString()}`;
+      const path = `/tickers/${ticker}/balance-sheet-statement?${searchParams.toString()}`;
       let res = await this.axios.get<{ data: BalanceSheetStatement[] }>(
         path,
         options
@@ -375,7 +376,7 @@ export class TickerRepository {
         searchParams.append("limit", String(filter.limit));
       }
 
-      const path = `/ticker/${ticker}/financials/cash-flow-statement?${searchParams.toString()}`;
+      const path = `/tickers/${ticker}/cash-flow-statement?${searchParams.toString()}`;
       let res = await this.axios.get<{ data: CashFlowStatement[] }>(
         path,
         options

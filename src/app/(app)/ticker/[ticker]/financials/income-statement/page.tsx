@@ -57,6 +57,10 @@ export default async function IncomeStatementPage(
   );
 
   return (
-    <IncomeStatementScreen ticker={ticker} incomeStatement={incomeStatement} period={data || "quarterly"} />
+    <IncomeStatementScreen
+      ticker={ticker}
+      incomeStatement={incomeStatement}
+      period={data || "quarterly"}
+    />
   );
 }
