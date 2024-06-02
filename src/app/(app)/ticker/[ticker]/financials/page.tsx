@@ -8,15 +8,31 @@ import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
 import KeyStatsScreen from "./screen";
 
-export const metadata: Metadata = {
-  title: "Investalytix",
-};
+export async function generateMetadata(props: {
+  params: { ticker: string };
+}): Promise<Metadata> {
+  try {
+    const {
+      params: { ticker },
+    } = props;
+
+    const tickerRepo = new TickerRepository(serverAPI);
+    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+
+    return {
+      title: `${outlook.profile.companyName} (${ticker}) Financials - Key Stats | Investalytix`,
+    };
+  } catch (error: any) {
+    return {
+      title: "Investalytix",
+    };
+  }
+}
 
 async function getData(ticker: string) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     const [outlook] = await Promise.all([tickerRepo.getCompanyOutLook(ticker)]);
-    metadata.title = `${outlook.profile.companyName} (${ticker}) Financials - Key Stats | Investalytix`;
 
     return {
       outlook,

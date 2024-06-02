@@ -9,9 +9,26 @@ import { errorUtils } from "@/utils/error.utils";
 import { FinancialPeriod } from "@/modules/ticker/types";
 import { FinancialPeriodSchema } from "@/modules/ticker/validation";
 
-export const metadata: Metadata = {
-  title: "Investalytix",
-};
+export async function generateMetadata(props: {
+  params: { ticker: string };
+}): Promise<Metadata> {
+  try {
+    const {
+      params: { ticker },
+    } = props;
+
+    const tickerRepo = new TickerRepository(serverAPI);
+    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+
+    return {
+      title: `${outlook.profile.companyName} (${ticker}) Financials - Income Statement | Investalytix`,
+    };
+  } catch (error: any) {
+    return {
+      title: "Investalytix",
+    };
+  }
+}
 
 async function getData(ticker: string, period: FinancialPeriod = "quarter") {
   try {
@@ -20,8 +37,6 @@ async function getData(ticker: string, period: FinancialPeriod = "quarter") {
       tickerRepo.getCompanyOutLook(ticker),
       tickerRepo.getIncomeStatement(ticker, { period }),
     ]);
-
-    metadata.title = `${outlook.profile.companyName} (${ticker}) Financials - ${period.toUpperCase()} Income Statement | Investalytix`;
 
     return {
       outlook,
