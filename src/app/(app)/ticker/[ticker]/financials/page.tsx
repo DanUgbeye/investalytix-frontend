@@ -1,24 +1,53 @@
-import PAGES from "@/data/page-map";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import React from "react";
+import KeyStatsScreen from "./screen";
 import { SearchTickerPageProps } from "../page";
-import { FINANCIALS_MENU } from "./financials.types";
-import { TICKER_NAV_TABS } from "@/modules/ticker/components/ticker-nav/ticker-sidenav.types";
+import { TickerRepository } from "@/modules/ticker/repository";
+import { serverAPI } from "@/config/server/api";
+import { errorUtils } from "@/utils/error.utils";
+import { notFound } from "next/navigation";
+import { FinancialPeriod } from "@/modules/ticker/types";
 
 export const metadata: Metadata = {
-  title: "Financials | Investalytix",
+  title: "Investalytix",
 };
 
-interface FinancalsPageProps extends SearchTickerPageProps {}
+async function getData(ticker: string) {
+  try {
+    const tickerRepo = new TickerRepository(serverAPI);
+    const [outlook] = await Promise.all([tickerRepo.getCompanyOutLook(ticker)]);
+    metadata.title = `${outlook.profile.companyName} (${ticker}) Financials - Key Stats | Investalytix`;
 
-function FinancalsPage(props: FinancalsPageProps) {
-  const {
-    params: { ticker },
-  } = props;
+    return {
+      outlook,
+    };
+  } catch (error: any) {
+    if (errorUtils.is404Error(error)) {
+      notFound();
+    }
 
-  return redirect(
-    `${PAGES.TICKER}/${ticker}/${TICKER_NAV_TABS.FINANCIALS.path}/${FINANCIALS_MENU.KEY_STATS.path}`
-  );
+    throw new Error(error.message);
+  }
 }
 
-export default FinancalsPage;
+interface KeyStatsPageProps extends SearchTickerPageProps {
+  searchParams: {
+    period?: FinancialPeriod;
+  };
+}
+
+export default async function KeyStatsPage(props: KeyStatsPageProps) {
+  const {
+    params: { ticker },
+    searchParams: { period },
+  } = props;
+
+  const { outlook } = await getData(ticker);
+
+  let financials = outlook.financialsQuarter;
+  if (period === "annual") {
+    financials = outlook.financialsAnnual;
+  }
+
+  return <KeyStatsScreen ticker={ticker} financials={financials} />;
+}

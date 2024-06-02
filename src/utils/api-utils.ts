@@ -18,7 +18,19 @@ function handleAPIError(
 ) {
   if (error instanceof AxiosError) {
     if (error.response?.data?.message) {
+      if (
+        error.response?.data?.message
+          .toLowerCase()
+          .includes("getaddrinfo enotfound")
+      ) {
+        throw new Error("Network Error");
+      }
+
       return new Error(error.response.data.message);
+    }
+
+    if (error.message.toLowerCase().includes("getaddrinfo enotfound")) {
+      throw new Error("Network Error");
     }
 
     return new Error(error.message);

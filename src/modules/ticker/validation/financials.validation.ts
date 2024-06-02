@@ -2,6 +2,7 @@ import { ZodType, z } from "zod";
 import {
   BalanceSheetStatement,
   CashFlowStatement,
+  FinancialPeriod,
   Financials,
   IncomeStatement,
   Ratio,
@@ -129,6 +130,11 @@ export const RatioSchema = z.object({
   enterpriseValueMultiple: z.union([z.number(), z.null()]),
   priceFairValue: z.number(),
 }) satisfies ZodType<Ratio>;
+
+export const FinancialPeriodSchema = z.enum([
+  "annual",
+  "quarterly",
+]) satisfies ZodType<FinancialPeriod>;
 
 export const IncomeStatementSchema = z.object({
   date: z.coerce.date(),

@@ -1,13 +1,22 @@
 "use client";
 
+import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { News } from "@/modules/ticker/types";
+import { Avatar } from "@radix-ui/react-avatar";
+import { format } from "date-fns";
 import Image from "next/image";
+import Link from "next/link";
 
 interface NewsScreenProps {
   ticker: string;
+  news: News[];
 }
 
 export default function NewsScreen(props: NewsScreenProps) {
-  const { ticker } = props;
+  const { ticker, news } = props;
+
+  const latest = news.slice(0, -4);
+  const others = news.slice(-4);
 
   return (
     <section className=" py-12 ">
@@ -25,63 +34,81 @@ export default function NewsScreen(props: NewsScreenProps) {
           </header>
 
           <div className=" w-full divide-y divide-inherit dark:border-main-gray-600 ">
-            {Array(10)
-              .fill("_")
-              .map((_, index) => {
-                return (
-                  <div key={`news-summary-${index}`} className=" w-full py-4 ">
-                    <div className="flex flex-col items-start justify-between gap-2">
-                      <p className="white-text font-bold lg:text-lg">
-                        Cardinal Health Started With Underweight at Wells Fargo,
-                        Shares Drop 6%
-                      </p>
+            {latest.map((item, index) => {
+              return (
+                <div key={`${item.title}-${index}`} className=" w-full py-4 ">
+                  <div className="flex flex-col items-start justify-between gap-2">
+                    <Link
+                      href={item.url}
+                      target="_blank"
+                      className="white-text font-bold duration-300 hover:text-primary-light lg:text-lg"
+                    >
+                      {item.title}
+                    </Link>
 
-                      <p className="white-text flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base">
-                        <span className="">ADBE</span>
-                        <span className="inline-block size-2 bg-[#0097F4]"></span>
-                        <span className="whitespace-nowrap">
-                          14 December, 2023
-                        </span>
-                      </p>
+                    <div className=" text-sm text-main-gray-500 ">
+                      {item.site}
                     </div>
+
+                    <p className="white-text flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base">
+                      <span className="">{item.symbol}</span>
+
+                      <span className="inline-block size-2 bg-[#0097F4]"></span>
+
+                      <span className="whitespace-nowrap">
+                        {format(item.publishedDate, "dd MMMM, yyyy")}
+                      </span>
+                    </p>
                   </div>
-                );
-              })}
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        <div className=" grid grid-cols-[repeat(auto-fit,minmax(0,20rem))] gap-5 xl:grid-cols-1 ">
-          {Array(3)
-            .fill("")
-            .map((_, index) => (
-              <div
-                key={`news-${index}`}
-                className={
-                  " grid grid-cols-1 grid-rows-[auto,auto] gap-5 border-[#DCDCDC] "
-                }
-              >
-                <Image
-                  src="/images/news1.jpg"
-                  alt=""
-                  className=" h-full w-full min-w-full object-cover "
+        <div className=" grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-5 xl:flex xl:flex-col xl:gap-y-6 ">
+          {others.map((item, index) => (
+            <div
+              key={`${item.title}-${index}`}
+              className={" flex flex-col gap-3 border-[#DCDCDC] "}
+            >
+              <Avatar className=" aspect-video h-60 w-full rounded-none ">
+                <AvatarImage
+                  src={item.image}
+                  alt={item.title}
+                  className="aspect-video h-full w-full object-cover "
                   width={196}
                   height={110}
                 />
 
-                <div className="flex flex-wrap items-start justify-between gap-2 ">
-                  <p className="white-text text-sm font-bold text-[#020224] lg:text-lg">
-                    Cardinal Health Started With Underweight at Wells Fargo,
-                    Shares Drop 6%
-                  </p>
+                <AvatarFallback className=" rounded-none">
+                  {item.symbol}
+                </AvatarFallback>
+              </Avatar>
 
-                  <p className="white-text flex flex-nowrap items-center gap-2 text-xs font-medium text-[#565555] lg:text-base">
-                    <span className="">ADBE</span>
-                    <span className="inline-block size-2 bg-[#0097F4]"></span>
-                    <span className="whitespace-nowrap">14 December, 2023</span>
-                  </p>
-                </div>
+              <div className="flex flex-col flex-wrap gap-y-1 ">
+                <Link
+                  href={item.url}
+                  target="_blank"
+                  className="white-text font-bold duration-300 hover:text-primary-light lg:text-lg"
+                >
+                  {item.title}
+                </Link>
+
+                <div className="text-sm text-main-gray-500 ">{item.site}</div>
+
+                <p className="white-text flex flex-nowrap items-center gap-2 text-xs font-medium text-[#565555] lg:text-base">
+                  <span className="">{item.symbol}</span>
+
+                  <span className="inline-block size-2 bg-[#0097F4]"></span>
+
+                  <span className="whitespace-nowrap">
+                    {format(item.publishedDate, "dd MMMM, yyyy")}
+                  </span>
+                </p>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       </div>
     </section>

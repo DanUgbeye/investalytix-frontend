@@ -7,10 +7,12 @@ import {
   CashFlowStatement,
   CompanyOutlook,
   Earning,
+  FinancialPeriod,
   Financials,
   IncomeStatement,
   InstitutionalHolder,
   MutualFundHolder,
+  News,
 } from "../types";
 import {
   BalanceSheetStatementSchema,
@@ -22,7 +24,6 @@ import {
   InstitutionalHolderSchema,
   MutualFundHolderSchema,
 } from "../validation";
-import { ITickerRepository } from "./interface";
 import {
   Quote,
   QuoteHistory,
@@ -36,8 +37,9 @@ import {
   SearchResultSchema,
   ShortQuoteSchema,
 } from "@/validation";
+import { NewsSchema } from "@/modules/news/validation";
 
-export class TickerRepository implements ITickerRepository {
+export class TickerRepository {
   constructor(private readonly axios: AxiosInstance) {}
 
   async search(
@@ -122,6 +124,37 @@ export class TickerRepository implements ITickerRepository {
       let res = await this.axios.get<{ data: QuoteHistory }>(path, options);
 
       let validation = z.array(QuoteHistorySchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getNews(
+    ticker: string,
+    filter?: { limit?: number; page?: number },
+    options?: RequestOptions
+  ): Promise<News[]> {
+    try {
+      const searchParams = new URLSearchParams();
+
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      const path = `/tickers/${ticker}/news?${searchParams.toString()}`;
+
+      let res = await this.axios.get<{ data: News }>(path.toString(), options);
+
+      let validation = z.array(NewsSchema).safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");
@@ -250,10 +283,23 @@ export class TickerRepository implements ITickerRepository {
 
   async getIncomeStatement(
     ticker: string,
+    filter?: { period?: FinancialPeriod; page?: number; limit?: number },
     options?: RequestOptions | undefined
   ): Promise<IncomeStatement[]> {
     try {
-      const path = `/ticker/${ticker}/financials/income-statement`;
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", filter.period);
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/ticker/${ticker}/financials/income-statement?${searchParams.toString()}`;
       let res = await this.axios.get<{ data: IncomeStatement[] }>(
         path,
         options
@@ -274,10 +320,23 @@ export class TickerRepository implements ITickerRepository {
 
   async getBalanceSheetStatement(
     ticker: string,
+    filter?: { period?: FinancialPeriod; page?: number; limit?: number },
     options?: RequestOptions | undefined
   ): Promise<BalanceSheetStatement[]> {
     try {
-      const path = `/ticker/${ticker}/financials/balance-sheet-statement`;
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", filter.period);
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/ticker/${ticker}/financials/balance-sheet-statement?${searchParams.toString()}`;
       let res = await this.axios.get<{ data: BalanceSheetStatement[] }>(
         path,
         options
@@ -300,10 +359,23 @@ export class TickerRepository implements ITickerRepository {
 
   async getCashFlowStatement(
     ticker: string,
+    filter?: { period?: FinancialPeriod; page?: number; limit?: number },
     options?: RequestOptions | undefined
   ): Promise<CashFlowStatement[]> {
     try {
-      const path = `/ticker/${ticker}/financials/cash-flow-statement`;
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", filter.period);
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/ticker/${ticker}/financials/cash-flow-statement?${searchParams.toString()}`;
       let res = await this.axios.get<{ data: CashFlowStatement[] }>(
         path,
         options

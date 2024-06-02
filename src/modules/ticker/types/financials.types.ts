@@ -119,6 +119,8 @@ export type Ratio = {
   priceFairValue: number;
 };
 
+export type FinancialPeriod = "annual" | "quarterly";
+
 export type Financials = {
   income: IncomeStatement[];
   cash: CashFlowStatement[];

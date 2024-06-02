@@ -5,7 +5,7 @@ import appUtils from "@/utils/app-util";
 import WithToggle from "@/components/with-toggle";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
-import { KEY_STATS_SAMPLE } from "../key-stats/sample";
+import { KEY_STATS_SAMPLE } from "../sample";
 
 const BALANCE_SHEET_SAMPLE = KEY_STATS_SAMPLE.balance;
 
