@@ -133,7 +133,7 @@ export const RatioSchema = z.object({
 
 export const FinancialPeriodSchema = z.enum([
   "annual",
-  "quarterly",
+  "quarter",
 ]) satisfies ZodType<FinancialPeriod>;
 
 export const IncomeStatementSchema = z.object({
@@ -173,8 +173,8 @@ export const IncomeStatementSchema = z.object({
   epsdiluted: z.number(),
   weightedAverageShsOut: z.number(),
   weightedAverageShsOutDil: z.number(),
-  link: z.string(),
-  finalLink: z.string(),
+  link: z.string().nullable(),
+  finalLink: z.string().nullable(),
 }) satisfies ZodType<IncomeStatement>;
 
 export const BalanceSheetStatementSchema = z.object({
@@ -230,8 +230,8 @@ export const BalanceSheetStatementSchema = z.object({
   totalInvestments: z.number(),
   totalDebt: z.number(),
   netDebt: z.number(),
-  link: z.string(),
-  finalLink: z.string(),
+  link: z.string().nullable(),
+  finalLink: z.string().nullable(),
 }) satisfies ZodType<BalanceSheetStatement>;
 
 export const CashFlowStatementSchema = z.object({
@@ -273,8 +273,8 @@ export const CashFlowStatementSchema = z.object({
   operatingCashFlow: z.number(),
   capitalExpenditure: z.number(),
   freeCashFlow: z.number(),
-  link: z.string(),
-  finalLink: z.string(),
+  link: z.string().nullable(),
+  finalLink: z.string().nullable(),
 }) satisfies ZodType<CashFlowStatement>;
 
 export const FinancialsSchema = z.object({

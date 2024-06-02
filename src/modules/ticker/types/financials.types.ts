@@ -119,7 +119,7 @@ export type Ratio = {
   priceFairValue: number;
 };
 
-export type FinancialPeriod = "annual" | "quarterly";
+export type FinancialPeriod = "annual" | "quarter";
 
 export type Financials = {
   income: IncomeStatement[];
@@ -164,8 +164,8 @@ export type IncomeStatement = {
   epsdiluted: number;
   weightedAverageShsOut: number;
   weightedAverageShsOutDil: number;
-  link: string;
-  finalLink: string;
+  link: string | null;
+  finalLink: string | null;
 };
 
 export type CashFlowStatement = {
@@ -207,8 +207,8 @@ export type CashFlowStatement = {
   operatingCashFlow: number;
   capitalExpenditure: number;
   freeCashFlow: number;
-  link: string;
-  finalLink: string;
+  link: string | null;
+  finalLink: string | null;
 };
 
 export type BalanceSheetStatement = {
@@ -264,8 +264,8 @@ export type BalanceSheetStatement = {
   totalInvestments: number;
   totalDebt: number;
   netDebt: number;
-  link: string;
-  finalLink: string;
+  link: string | null;
+  finalLink: string | null;
 };
 
 export type SecFiling = {

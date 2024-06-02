@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Investalytix",
 };
 
-async function getData(ticker: string, period: FinancialPeriod = "quarterly") {
+async function getData(ticker: string, period: FinancialPeriod = "quarter") {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     const [outlook, incomeStatement] = await Promise.all([
@@ -60,7 +60,7 @@ export default async function IncomeStatementPage(
     <IncomeStatementScreen
       ticker={ticker}
       incomeStatement={incomeStatement}
-      period={data || "quarterly"}
+      period={data}
     />
   );
 }

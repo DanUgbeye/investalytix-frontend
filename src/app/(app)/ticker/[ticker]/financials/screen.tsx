@@ -3,7 +3,7 @@
 import { buttonVariants } from "@/components/ui/button";
 import WithToggle from "@/components/with-toggle";
 import { cn } from "@/lib/utils";
-import { Financials } from "@/modules/ticker/types";
+import { FinancialPeriod, Financials } from "@/modules/ticker/types";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
@@ -16,26 +16,25 @@ function getPeriodUrl(path: string, period: string) {
 
 interface KeyStatsScreenProps {
   ticker: string;
+  period?: FinancialPeriod;
   financials: Financials;
 }
 
 export default function KeyStatsScreen(props: KeyStatsScreenProps) {
-  const { ticker, financials } = props;
-  const searchParams = useSearchParams();
+  const { ticker, financials, period } = props;
   const pathname = usePathname();
-  const period = searchParams.get("period");
 
   return (
     <section className=" pb-12 ">
       <div className=" mb-6 flex items-center gap-2 ">
         <Link
-          href={getPeriodUrl(pathname, "quarterly")}
+          href={getPeriodUrl(pathname, "quarter")}
           className={cn(
             buttonVariants(),
             " pointer-events-none h-9 cursor-pointer ",
             {
               " pointer-events-auto bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-300 ":
-                !!period && period !== "quarterly",
+                !!period && period !== "quarter",
             }
           )}
         >

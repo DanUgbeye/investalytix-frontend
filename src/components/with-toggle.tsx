@@ -16,10 +16,5 @@ export default function WithToggle(props: WithToggleProps) {
     set((prev) => (newState ? newState : !prev));
   }
 
-  const children = useMemo(
-    () => <ChildElement state={state} toggle={toggle} />,
-    [state]
-  );
-
-  return children;
+  return <ChildElement state={state} toggle={toggle} />;
 }

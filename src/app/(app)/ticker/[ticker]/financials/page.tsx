@@ -1,12 +1,12 @@
-import { Metadata } from "next";
-import React from "react";
-import KeyStatsScreen from "./screen";
-import { SearchTickerPageProps } from "../page";
-import { TickerRepository } from "@/modules/ticker/repository";
 import { serverAPI } from "@/config/server/api";
-import { errorUtils } from "@/utils/error.utils";
-import { notFound } from "next/navigation";
+import { TickerRepository } from "@/modules/ticker/repository";
 import { FinancialPeriod } from "@/modules/ticker/types";
+import { FinancialPeriodSchema } from "@/modules/ticker/validation";
+import { errorUtils } from "@/utils/error.utils";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { SearchTickerPageProps } from "../page";
+import KeyStatsScreen from "./screen";
 
 export const metadata: Metadata = {
   title: "Investalytix",
@@ -43,11 +43,14 @@ export default async function KeyStatsPage(props: KeyStatsPageProps) {
   } = props;
 
   const { outlook } = await getData(ticker);
+  const { success, data } = FinancialPeriodSchema.safeParse(period);
 
   let financials = outlook.financialsQuarter;
-  if (period === "annual") {
+  if (data === "annual") {
     financials = outlook.financialsAnnual;
   }
 
-  return <KeyStatsScreen ticker={ticker} financials={financials} />;
+  return (
+    <KeyStatsScreen ticker={ticker} financials={financials} period={data} />
+  );
 }

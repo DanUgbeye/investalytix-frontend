@@ -308,7 +308,7 @@ export class TickerRepository {
       let validation = z.array(IncomeStatementSchema).safeParse(res.data.data);
 
       if (validation.error) {
-        console.log(validation.error);
+        console.log(JSON.stringify(validation.error));
         throw new Error("Something went wrong on our end");
       }
 
