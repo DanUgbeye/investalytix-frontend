@@ -67,7 +67,7 @@ export default function IncomeStatementScreen(
         <table className=" w-full min-w-[50rem] ">
           <thead>
             <tr className="  th text-sm font-bold ">
-              <th className=" w-[10rem] px-2 py-3 text-left md:w-[15rem] lg:w-[20rem] dark:bg-transparent"></th>
+              <th className=" w-[10rem] px-2 py-3 text-left md:w-[15rem] lg:w-[20rem] sticky left-0 bg-inherit dark:bg-inherit "></th>
 
               {incomeStatement.map((data, index) => {
                 return (
@@ -84,7 +84,7 @@ export default function IncomeStatementScreen(
 
           <tbody>
             <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left sticky left-0 bg-white dark:bg-black">
                 Total Revenue
               </th>
 
@@ -105,7 +105,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left sticky left-0 bg-white dark:bg-black">
                 Cost of Revenue
               </th>
 
@@ -126,7 +126,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left sticky left-0 bg-white dark:bg-black">
                 Gross Profit
               </th>
 
@@ -161,7 +161,7 @@ export default function IncomeStatementScreen(
                         }
                       )}
                     >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
+                      <th className=" px-2 py-3 text-left sticky left-0 bg-inherit dark:bg-inherit">
                         <div className=" flex items-center gap-x-1 ">
                           <span>Operating Expenses</span>
                           <ChevronRight
@@ -191,7 +191,7 @@ export default function IncomeStatementScreen(
                     {state && (
                       <>
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left sticky left-0 bg-white dark:bg-black">
                             Research and Development
                           </td>
 
@@ -215,7 +215,7 @@ export default function IncomeStatementScreen(
                         </tr>
 
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left sticky left-0 bg-white dark:bg-black">
                             General & Administrative Expenses
                           </td>
 
@@ -239,7 +239,7 @@ export default function IncomeStatementScreen(
                         </tr>
 
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left sticky left-0 bg-white dark:bg-black">
                             Selling, General & Administrative Expenses
                           </td>
 
@@ -263,7 +263,7 @@ export default function IncomeStatementScreen(
                         </tr>
 
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left sticky left-0 bg-white dark:bg-black">
                             Selling & Marketing Expenses
                           </td>
 
@@ -287,7 +287,7 @@ export default function IncomeStatementScreen(
                         </tr>
 
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left sticky left-0 bg-white dark:bg-black">
                             Depreciation and Amortization
                           </td>
 
@@ -311,7 +311,7 @@ export default function IncomeStatementScreen(
                         </tr>
 
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left sticky left-0 bg-white dark:bg-black">
                             Other Expenses
                           </td>
 
@@ -352,7 +352,7 @@ export default function IncomeStatementScreen(
                         }
                       )}
                     >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
+                      <th className=" px-2 py-3 text-left sticky left-0 bg-inherit dark:bg-inherit">
                         <div className=" flex items-center gap-x-1 ">
                           <span>Operating Income</span>
                           <ChevronRight
@@ -382,7 +382,7 @@ export default function IncomeStatementScreen(
                     {state && (
                       <>
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left sticky left-0 bg-white dark:bg-black">
                             Total Other Income/Expenses Net
                           </td>
 
@@ -426,7 +426,7 @@ export default function IncomeStatementScreen(
                         }
                       )}
                     >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
+                      <th className=" px-2 py-3 text-left sticky left-0 bg-inherit dark:bg-inherit">
                         <div className=" flex items-center gap-x-1 ">
                           <span>Income Before Tax</span>
                           <ChevronRight
@@ -456,7 +456,7 @@ export default function IncomeStatementScreen(
                     {state && (
                       <>
                         <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
+                          <td className=" py-3 pl-6 pr-2 text-left sticky left-0 bg-white dark:bg-black">
                             Income Tax
                           </td>
 
@@ -483,7 +483,7 @@ export default function IncomeStatementScreen(
             </WithToggle>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left sticky left-0 bg-white dark:bg-black">
                 Net Income
               </th>
 
@@ -504,7 +504,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left sticky left-0 bg-white dark:bg-black">
                 EBITDA
               </th>
 
@@ -525,7 +525,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left sticky left-0 bg-white dark:bg-black">
                 Average Shares
               </th>
 
@@ -546,7 +546,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left sticky left-0 bg-white dark:bg-black">
                 Diluted Average Shares
               </th>
 
@@ -567,7 +567,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">EPS</th>
+              <th className=" px-2 py-3 text-left sticky left-0 bg-white dark:bg-black">EPS</th>
 
               {INCOME_STATEMENT_DATA.map((data, index) => {
                 return (
@@ -586,7 +586,7 @@ export default function IncomeStatementScreen(
             </tr>
 
             <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
+              <th className=" px-2 py-3 text-left sticky left-0 bg-white dark:bg-black">
                 EPS Diluted
               </th>
 
