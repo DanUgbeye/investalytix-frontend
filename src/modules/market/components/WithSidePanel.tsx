@@ -35,13 +35,13 @@ export default function WithSidePanel({
             url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
           />
         )}
-        {/* {(sections == SIDE_SECTIONS["ALL"] ||
+        {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["GAINERS"])) && (
           <SidePanel
             title="gainers"
             url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`}
           />
-        )} */}
+        )}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["LOSERS"])) && (
           <SidePanel

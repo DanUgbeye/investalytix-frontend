@@ -1,5 +1,9 @@
 const PAGES = {
   HOME: "/",
+  ABOUT_US: "/about-us",
+  PRICING: "/pricing",
+  NEWS: "/news",
+  MARKETS: "/markets",
   LOGIN: "/login",
   SIGNUP: "/signup",
   VERIFY_EMAIL: "/verify-email",
