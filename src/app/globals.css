@@ -34,7 +34,7 @@ input[type="number"] {
 }
 
 .text-hover-focus {
-  @apply duration-150 hover:text-primary-base focus:text-primary-base dark:hover:text-primary-light dark:focus:text-primary-light;
+  @apply duration-150 hover:text-primary-base focus:text-primary-base dark:hover:text-primary-light dark:focus:text-primary-light group-hover:text-primary-base group-focus:text-primary-base dark:group-hover:text-primary-light dark:group-focus:text-primary-light;
 }
 
 @media only screen and (min-width: 624px) {

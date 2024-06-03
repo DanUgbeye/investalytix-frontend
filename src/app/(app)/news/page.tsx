@@ -52,7 +52,7 @@ export default async function NewsPage() {
               <Link
                 href={major.url}
                 target="_blank"
-                className="text-3xl font-semibold hover:underline focus:underline"
+                className="text-3xl font-semibold text-hover-focus"
               >
                 {major.title}
               </Link>
@@ -62,7 +62,7 @@ export default async function NewsPage() {
               <Link
                 href={minor_major[0].url}
                 target="_blank"
-                className="font-semibold hover:underline focus:underline"
+                className="font-semibold text-hover-focus"
               >
                 {minor_major[0].title}
               </Link>
@@ -76,7 +76,7 @@ export default async function NewsPage() {
                 key={news.title.replaceAll(" ", "-")}
                 href={news.url}
                 target="_blank"
-                className="hover:underline focus:underline"
+                className="text-hover-focus"
               >
                 <div
                   className={`relative aspect-square w-full overflow-hidden`}
@@ -122,12 +122,12 @@ function LatestNews({ news }: { news: GeneralNews }) {
   return (
     <div className="border-b border-black/20 p-4 dark:border-b-white/20">
       <p className="text-sm font-bold uppercase">
-        {moment(news.publishedDate).toNow()}
+        {moment(news.publishedDate).fromNow()}
       </p>
       <Link
         href={news.url}
         target="_blank"
-        className="hover:underline focus:underline"
+        className="text-hover-focus"
       >
         {news.title}
       </Link>
@@ -146,7 +146,7 @@ function INews({
     <Link
       href={news.url}
       target="_blank"
-      className="grid grid-cols-1 grid-rows-[200px,1fr] gap-5 border-b border-black/20 py-4 lg:grid-cols-[max-content,1fr] lg:grid-rows-[auto,auto] lg:py-8 dark:border-b-white/20"
+      className="group grid grid-cols-1 grid-rows-[200px,1fr] gap-5 border-b border-black/20 py-4 lg:grid-cols-[max-content,1fr] lg:grid-rows-[auto,auto] lg:py-8 dark:border-b-white/20"
     >
       <div
         className={`relative h-full max-h-[200px] w-full overflow-hidden lg:w-80 ${latest ? "lg:w-96" : "w-80"}`}
@@ -155,7 +155,7 @@ function INews({
       </div>
       <div className="">
         <div className="flex flex-wrap items-start justify-between gap-2 xl:gap-5">
-          <p className="white-text font-extrabold text-[#020224] lg:text-xl">
+          <p className="white-text font-extrabold text-[#020224] lg:text-xl text-hover-focus">
             {news.title}
           </p>
           {!latest && (
