@@ -5,8 +5,8 @@ import { Container } from "./container";
 
 export default function Footer() {
   return (
-    <Container className="max-w-[110rem] bg-black sm:px-6 xl:px-6 text-white/80">
-      <footer>
+    <Container className="bg-black sm:px-6 xl:px-6 text-white/80">
+      <footer className="max-w-[110rem]">
         <div className="flex flex-wrap justify-between gap-10 py-6 md:gap-20 lg:gap-40">
           <div className="">
             <Link href={PAGES.HOME}>
