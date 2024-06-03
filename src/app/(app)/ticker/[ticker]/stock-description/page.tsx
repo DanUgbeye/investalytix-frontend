@@ -1,15 +1,31 @@
-import { Metadata } from "next";
-import React from "react";
-import { TickerRepository } from "@/modules/ticker/repository";
 import { serverAPI } from "@/config/server/api";
+import { TickerRepository } from "@/modules/ticker/repository";
+import { errorUtils } from "@/utils/error.utils";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
 import SummaryScreen from "./screen";
-import { errorUtils } from "@/utils/error.utils";
 
-export const metadata: Metadata = {
-  title: "Investalytix",
-};
+export async function generateMetadata(props: {
+  params: { ticker: string };
+}): Promise<Metadata> {
+  try {
+    const {
+      params: { ticker },
+    } = props;
+
+    const tickerRepo = new TickerRepository(serverAPI);
+    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+
+    return {
+      title: `${outlook.profile.companyName} (${ticker}) Stock Description - Summary | Investalytix`,
+    };
+  } catch (error: any) {
+    return {
+      title: "Investalytix",
+    };
+  }
+}
 
 async function getTickerData(ticker: string) {
   try {
@@ -42,8 +58,6 @@ async function SummaryPage(props: SummaryPageProps) {
   } = props;
 
   const { quote, outlook } = await getTickerData(ticker);
-
-  metadata.title = `${quote.name} (${ticker}) Stock Description - Summary | Investalytix`;
 
   return <SummaryScreen ticker={ticker} quote={quote} outlook={outlook} />;
 }

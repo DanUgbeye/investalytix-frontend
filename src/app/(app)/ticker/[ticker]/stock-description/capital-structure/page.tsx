@@ -1,14 +1,31 @@
 import { serverAPI } from "@/config/server/api";
 import { TickerRepository } from "@/modules/ticker/repository";
+import { errorUtils } from "@/utils/error.utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../../page";
 import CapitalStructureScreen from "./screen";
-import { errorUtils } from "@/utils/error.utils";
 
-export const metadata: Metadata = {
-  title: "Investalytix",
-};
+export async function generateMetadata(props: {
+  params: { ticker: string };
+}): Promise<Metadata> {
+  try {
+    const {
+      params: { ticker },
+    } = props;
+
+    const tickerRepo = new TickerRepository(serverAPI);
+    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+
+    return {
+      title: `${outlook.profile.companyName} (${ticker}) Stock Description - Capital Structure | Investalytix`,
+    };
+  } catch (error: any) {
+    return {
+      title: "Investalytix",
+    };
+  }
+}
 
 async function getData(ticker: string) {
   try {
@@ -39,8 +56,6 @@ export default async function CapitalStructurePage(
   } = props;
 
   const { outlook } = await getData(ticker);
-
-  metadata.title = `${outlook.profile.companyName} (${ticker}) Stock Description - Capital Structure | Investalytix`;
 
   const data = [
     {

@@ -2,16 +2,33 @@ import { serverAPI } from "@/config/server/api";
 import { TickerRepository } from "@/modules/ticker/repository";
 import { QuoteHistoryTimeframe } from "@/types";
 import { errorUtils } from "@/utils/error.utils";
-import { QuoteHistorySchema, QuoteHistoryTimeframeSchema } from "@/validation";
+import { QuoteHistoryTimeframeSchema } from "@/validation";
 import { isValid, subYears } from "date-fns";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../../page";
 import HistoricalDataScreen from "./screen";
 
-export const metadata: Metadata = {
-  title: "Investalytix",
-};
+export async function generateMetadata(props: {
+  params: { ticker: string };
+}): Promise<Metadata> {
+  try {
+    const {
+      params: { ticker },
+    } = props;
+
+    const tickerRepo = new TickerRepository(serverAPI);
+    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+
+    return {
+      title: `${outlook.profile.companyName} (${ticker}) Stock Description - Historical Data | Investalytix`,
+    };
+  } catch (error: any) {
+    return {
+      title: "Investalytix",
+    };
+  }
+}
 
 async function getData(
   ticker: string,
@@ -73,8 +90,6 @@ export default async function HistoricalDataPage(
   }
 
   const { quote, quoteHistory } = await getData(ticker, timeframe, filter);
-
-  metadata.title = `${quote.name} (${ticker}) Stock Description - Historical Data | Investalytix`;
 
   return <HistoricalDataScreen ticker={ticker} quoteHistory={quoteHistory} />;
 }
