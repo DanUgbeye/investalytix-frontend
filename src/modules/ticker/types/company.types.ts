@@ -9,7 +9,7 @@ export type CompanyProfile = {
   changes: number;
   companyName: string;
   currency: string;
-  cik: string;
+  cik: string | null;
   isin: string;
   cusip: string;
   exchange: string;
@@ -24,7 +24,7 @@ export type CompanyProfile = {
   phone: string;
   address: string;
   city: string;
-  state: string;
+  state: string | null;
   zip: string;
   dcfDiff: number;
   dcf: number;

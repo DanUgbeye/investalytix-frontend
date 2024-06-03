@@ -102,7 +102,7 @@ export default function NavBar() {
   return (
     <nav
       className={cn("sticky top-0 z-50 bg-black py-3 ", {
-        "  dark:border-b dark:border-main-gray-600 ": path !== "/",
+        "   ": path !== "/",
       })}
     >
       <Container className=" max-w-[110rem] sm:px-6 xl:px-6 ">

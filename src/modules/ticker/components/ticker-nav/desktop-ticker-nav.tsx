@@ -263,10 +263,10 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
 
   return (
     <aside {...rest} className={cn(" ", className)}>
-      <div className=" h-fit border-r dark:border-main-gray-600 ">
+      <div className=" h-fit dark:border-main-gray-600 ">
         {tickerQuote && (
           <div className=" flex flex-col ">
-            <div className=" space-y-2 py-3 ">
+            {/* <div className=" space-y-2 py-3 ">
               <div className=" px-4 ">
                 <div className=" font-bold text-primary-base ">
                   {tickerQuote.symbol}
@@ -312,7 +312,7 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
                   </div>
                 )}
               </div>
-            </div>
+            </div> */}
 
             {/* <div className=" space-y-1 bg-main-gray-100 px-4 py-3 dark:bg-main-gray-900 ">
               <div className=" flex items-center space-x-1.5 ">
@@ -330,7 +330,7 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
         )}
 
         {/* TICKER NAV LINKS */}
-        <div className=" divide-y border-y dark:divide-inherit dark:border-main-gray-600 ">
+        <div className="  dark:border-main-gray-600 ">
           {navTabs.map(({ label, path, icon }, index) => {
             return (
               <TickerNavLink
