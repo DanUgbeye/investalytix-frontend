@@ -19,7 +19,7 @@ export async function generateMetadata(props: {
     const outlook = await tickerRepo.getCompanyOutLook(ticker);
 
     return {
-      title: `${outlook.profile.companyName} (${ticker}) Stock Description - Revenue and EPS | Investalytix`,
+      title: `${outlook.profile.companyName} (${outlook.profile.symbol}) Stock Description - Revenue and EPS | Investalytix`,
     };
   } catch (error: any) {
     return {

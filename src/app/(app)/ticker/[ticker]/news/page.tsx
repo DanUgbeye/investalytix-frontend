@@ -40,7 +40,7 @@ export default async function NewsPage(props: NewsPageProps) {
 
   const { news, outlook } = await getData(ticker);
 
-  metadata.title = `${outlook.profile.companyName} (${ticker}) News | Investalytix`;
+  metadata.title = `${outlook.profile.companyName} (${outlook.profile.symbol}) News | Investalytix`;
 
   return <NewsScreen ticker={ticker} news={news} />;
 }

@@ -28,14 +28,13 @@ export default function IncomeStatementScreen(
   props: IncomeStatementScreenProps
 ) {
   const { ticker, period, incomeStatement } = props;
-
   const pathname = usePathname();
 
   return (
     <section className=" pb-12 ">
       <div className=" mb-6 flex items-center gap-2 ">
         <Link
-          href={getPeriodUrl(pathname, "quarterly")}
+          href={getPeriodUrl(pathname, "quarter")}
           className={cn(
             buttonVariants(),
             " pointer-events-none h-9 cursor-pointer ",

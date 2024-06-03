@@ -18,7 +18,7 @@ export async function generateMetadata(props: {
     const outlook = await tickerRepo.getCompanyOutLook(ticker);
 
     return {
-      title: `${outlook.profile.companyName} (${ticker}) Stock Description - Holders | Investalytix`,
+      title: `${outlook.profile.companyName} (${outlook.profile.symbol}) Stock Description - Holders | Investalytix`,
     };
   } catch (error: any) {
     return {
