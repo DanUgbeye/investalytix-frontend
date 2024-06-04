@@ -13,7 +13,7 @@ import { isValid, subYears } from "date-fns";
 function validatePeriod(period: unknown): QuoteHistoryTimeframe {
   let valid = QuoteHistoryTimeframeSchema.safeParse(period);
   if (valid.error) {
-    return "1week";
+    return "1day";
   }
   return valid.data;
 }

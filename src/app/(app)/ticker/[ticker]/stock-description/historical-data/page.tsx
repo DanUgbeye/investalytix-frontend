@@ -67,7 +67,7 @@ export default async function HistoricalDataPage(
   if (QuoteHistoryTimeframeSchema.safeParse(searchParams.period).success) {
     timeframe = searchParams.period as QuoteHistoryTimeframe;
   } else {
-    timeframe = "1week";
+    timeframe = "1day";
   }
 
   let filter: {
