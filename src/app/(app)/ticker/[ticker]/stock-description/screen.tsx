@@ -379,7 +379,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
               },
               {
                 label: "EX-DIVIDEND DATE",
-                value: outlook.stockDividend[0]
+                value: outlook.stockDividend[0]?.declarationDate
                   ? format(
                       new Date(outlook.stockDividend[0]?.declarationDate),
                       "MMM dd, yyyy"

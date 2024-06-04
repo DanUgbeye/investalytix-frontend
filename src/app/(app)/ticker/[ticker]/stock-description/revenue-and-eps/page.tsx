@@ -7,6 +7,27 @@ import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../../page";
 import RevenueAndEPSScreen from "./screen";
 
+export async function generateMetadata(props: {
+  params: { ticker: string };
+}): Promise<Metadata> {
+  try {
+    const {
+      params: { ticker },
+    } = props;
+
+    const tickerRepo = new TickerRepository(serverAPI);
+    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+
+    return {
+      title: `${outlook.profile.companyName} (${outlook.profile.symbol}) Stock Description - Revenue and EPS | Investalytix`,
+    };
+  } catch (error: any) {
+    return {
+      title: "Investalytix",
+    };
+  }
+}
+
 async function getData(ticker: string) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
@@ -34,11 +55,6 @@ async function getData(ticker: string) {
     throw error;
   }
 }
-
-export const metadata: Metadata = {
-  title: "Investalytix",
-};
-
 interface RevenueAndEPSPageProps extends SearchTickerPageProps {}
 
 export default async function RevenueAndEPSPage(props: RevenueAndEPSPageProps) {
@@ -47,8 +63,6 @@ export default async function RevenueAndEPSPage(props: RevenueAndEPSPageProps) {
   } = props;
 
   const { quote, earnings } = await getData(ticker);
-
-  metadata.title = `${quote.name} (${ticker}) Stock Description - Revenue and EPS | Investalytix`;
 
   return (
     <RevenueAndEPSScreen ticker={ticker} quote={quote} earnings={earnings} />

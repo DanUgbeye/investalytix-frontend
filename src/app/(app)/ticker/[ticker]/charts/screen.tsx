@@ -44,7 +44,7 @@ export default function ChartsScreen(props: ChartsScreenProps) {
 
   return (
     <div
-      className=" relative h-[calc(100vh_-_176px)] w-full overflow-hidden py-10"
+      className=" relative h-[calc(100vh_-_176px)] w-full overflow-hidden "
       ref={container}
     />
   );

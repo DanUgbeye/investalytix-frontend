@@ -3,7 +3,7 @@ export type Dividend = {
   label: string;
   adjDividend: number;
   dividend: number;
-  recordDate: Date;
-  paymentDate: Date;
-  declarationDate: Date;
+  recordDate: Date | null;
+  paymentDate: Date | null;
+  declarationDate: Date | null;
 };

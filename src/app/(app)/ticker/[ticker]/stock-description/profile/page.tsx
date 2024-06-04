@@ -7,9 +7,26 @@ import { serverAPI } from "@/config/server/api";
 import { errorUtils } from "@/utils/error.utils";
 import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Investalytix",
-};
+export async function generateMetadata(props: {
+  params: { ticker: string };
+}): Promise<Metadata> {
+  try {
+    const {
+      params: { ticker },
+    } = props;
+
+    const tickerRepo = new TickerRepository(serverAPI);
+    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+
+    return {
+      title: `${outlook.profile.companyName} (${outlook.profile.symbol}) Stock Description - Profile | Investalytix`,
+    };
+  } catch (error: any) {
+    return {
+      title: "Investalytix",
+    };
+  }
+}
 
 async function getTickerData(ticker: string) {
   try {
@@ -36,8 +53,6 @@ export default async function ProfilePage(props: ProfilePageProps) {
   } = props;
 
   const { outlook } = await getTickerData(ticker);
-
-  metadata.title = `${outlook.profile.companyName} (${ticker}) Stock Description - Profile | Investalytix`;
 
   return <ProfileScreen ticker={ticker} outlook={outlook} />;
 }

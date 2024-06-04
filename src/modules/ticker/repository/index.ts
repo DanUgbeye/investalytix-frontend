@@ -224,7 +224,6 @@ export class TickerRepository {
     try {
       const path = `/tickers/${ticker}`;
       let res = await this.axios.get<{ data: CompanyOutlook }>(path, options);
-
       let validation = CompanyOutlookSchema.safeParse(res.data.data);
 
       if (validation.error) {
