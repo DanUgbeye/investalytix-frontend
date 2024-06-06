@@ -53,6 +53,8 @@ export default function ChartSummary(props: { ticker: string }) {
   const { theme } = useTheme();
   const tickerRepo = useTickerRepository();
   const [activeTab, setActiveTab] = useState(TIMEFRAMES[0]);
+  const [loadingData, setLoadingData] = useState(false);
+  const [quoteData, setQuoteData] = useState<QuoteHistory[]>([]);
 
   async function getHistoricalData(timeframe: (typeof TIMEFRAMES)[number]) {
     let historyData: QuoteHistory[] = [];
@@ -135,58 +137,74 @@ export default function ChartSummary(props: { ticker: string }) {
     );
   }
 
+  function displayChart() {
+    if (!chartRef.current) return;
+
+    const children = chartRef.current!.childNodes;
+    children.forEach((child) => {
+      chartRef.current!.removeChild(child);
+    });
+
+    const newChartAPI = createChart(chartRef.current!, {
+      ...defaultChartOptions(theme),
+      handleScale: false,
+      handleScroll: false,
+      timeScale: {
+        timeVisible: true,
+        borderVisible: false,
+      },
+    });
+
+    const areaSeries = newChartAPI.addAreaSeries({
+      ...defaultAreaSeriesOptions(theme),
+    });
+
+    areaSeries.setData(
+      quoteData.map((data) => ({
+        ...data,
+        value: (data.high + data.low) / 2,
+        time: (new Date(data.date).getTime() / 1000) as Time,
+      }))
+    );
+
+    const ts = newChartAPI.timeScale();
+    ts.fitContent();
+  }
+
   function handleTimeframeChange(timeframe: (typeof TIMEFRAMES)[number]) {
     if (!chartRef.current) return;
     console.log("running change");
 
+    setLoadingData(true);
     getHistoricalData(timeframe)
       .then((quoteHistory) => {
-        const children = chartRef.current!.childNodes;
-        children.forEach((child) => {
-          chartRef.current!.removeChild(child);
-        });
-
-        const newChartAPI = createChart(chartRef.current!, {
-          ...defaultChartOptions(theme),
-          handleScale: false,
-          handleScroll: false,
-          timeScale: {
-            timeVisible: true,
-            borderVisible: false,
-          },
-        });
-
-        const areaSeries = newChartAPI.addAreaSeries({
-          ...defaultAreaSeriesOptions(theme),
-        });
-
-        areaSeries.setData(
-          quoteHistory.map((data) => ({
-            ...data,
-            value: (data.high + data.low) / 2,
-            time: (new Date(data.date).getTime() / 1000) as Time,
-          }))
-        );
-
-        const ts = newChartAPI.timeScale();
-        ts.fitContent();
+        setQuoteData(quoteHistory);
         setActiveTab(timeframe);
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoadingData(false);
       });
   }
 
   useEffect(() => {
     handleTimeframeChange(TIMEFRAMES[0]);
-  }, [theme]);
+  }, []);
+
+  useEffect(() => {
+    displayChart();
+  }, [theme, quoteData]);
 
   return (
     <div className=" space-y-4 ">
-      <div className=" h-72 w-full ">
+      <div className=" relative h-72 w-full ">
         <div
           ref={chartRef}
-          className={cn(`relative h-full w-full overflow-hidden `)}
+          className={cn(`relative h-full w-full overflow-hidden duration-150 `, {
+            " opacity-50": loadingData,
+          })}
         />
       </div>
 
