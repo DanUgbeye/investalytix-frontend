@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { QuoteHistory, QuoteHistoryTimeframe } from "@/types";
-import { QuoteHistoryTimeframeSchema } from "@/validation";
+import { QuoteHistory, QuoteTimeframe } from "@/types";
+import { QuoteTimeframeSchema } from "@/validation";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import { z } from "zod";
@@ -10,8 +10,8 @@ import QuoteHistoryTable from "./quote-history-table";
 import { Controller, useForm } from "react-hook-form";
 import { isValid, subYears } from "date-fns";
 
-function validatePeriod(period: unknown): QuoteHistoryTimeframe {
-  let valid = QuoteHistoryTimeframeSchema.safeParse(period);
+function validatePeriod(period: unknown): QuoteTimeframe {
+  let valid = QuoteTimeframeSchema.safeParse(period);
   if (valid.error) {
     return "1day";
   }

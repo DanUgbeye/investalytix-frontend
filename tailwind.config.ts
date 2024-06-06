@@ -26,6 +26,7 @@ const config = {
       fontFamily: {
         inter: ["var(--font-inter)"],
         mulish: ["var(--font-mulish)"],
+        manrope: ["var(--font-manrope)"],
       },
       colors: {
         primary: {
