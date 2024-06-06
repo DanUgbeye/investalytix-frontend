@@ -1,3 +1,11 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { QuoteHistory } from "@/types";
 import React from "react";
 
@@ -7,69 +15,71 @@ export default function QuoteHistoryTable(props: {
   const { quoteHistory } = props;
 
   return (
-    <div className=" overflow-x-auto border dark:border-main-gray-600 ">
-      <table className=" w-full min-w-[45rem] text-sm ">
-        <thead className="  ">
-          <tr className=" th font-semibold even:bg-main-gray-100  dark:bg-white/20 dark:even:bg-main-gray-900">
-            <td className=" px-2 py-3 ">Date</td>
-            <td className=" px-2 py-3 text-right ">Open</td>
-            <td className=" px-2 py-3 text-right ">High</td>
-            <td className=" px-2 py-3 text-right ">Low</td>
-            <td className=" px-2 py-3 text-right ">Close*</td>
-            {/* <td className=" px-2 py-3 text-right ">Adj Close**</td> */}
-            <td className=" px-2 py-3 text-right ">Volume</td>
-          </tr>
-        </thead>
+    <div className=" overflow-x-auto border-b dark:border-main-gray-600 ">
+      <Table className=" w-full min-w-[45rem] text-sm ">
+        <TableHeader className="  ">
+          <TableRow className=" font-semibold hover:bg-transparent dark:hover:bg-transparent ">
+            <TableHead className=" px-2 py-3 ">Date</TableHead>
+            <TableHead className=" px-2 py-3 text-right ">Open</TableHead>
+            <TableHead className=" px-2 py-3 text-right ">High</TableHead>
+            <TableHead className=" px-2 py-3 text-right ">Low</TableHead>
+            <TableHead className=" px-2 py-3 text-right ">Close*</TableHead>
+            {/* <TableHead className=" px-2 py-3 text-right ">Adj Close**</TableHead> */}
+            <TableHead className=" px-2 py-3 text-right ">Volume</TableHead>
+          </TableRow>
+        </TableHeader>
 
-        <tbody className="  ">
+        <TableBody className="  ">
           {quoteHistory.map((item, index) => {
             return (
-              <tr
+              <TableRow
                 key={`historical-data${index}`}
-                className=" even:bg-main-gray-100  dark:even:bg-main-gray-900 "
+                className=" odd:bg-main-gray-100 dark:odd:bg-main-gray-800/60 "
               >
-                <td className=" px-2 py-3 ">{item.date.toDateString()}</td>
+                <TableCell className=" px-2 py-3 ">
+                  {item.date.toDateString()}
+                </TableCell>
 
-                <td className=" px-2 py-3 text-right ">
+                <TableCell className=" px-2 py-3 text-right ">
                   {item.open.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
-                </td>
+                </TableCell>
 
-                <td className=" px-2 py-3 text-right ">
+                <TableCell className=" px-2 py-3 text-right ">
                   {item.high.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
-                </td>
+                </TableCell>
 
-                <td className=" px-2 py-3 text-right ">
+                <TableCell className=" px-2 py-3 text-right ">
                   {item.low.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
-                </td>
+                </TableCell>
 
-                <td className=" px-2 py-3 text-right ">
+                <TableCell className=" px-2 py-3 text-right ">
                   {item.close.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
-                </td>
+                </TableCell>
 
-                {/* <td className=" px-2 py-3 text-right ">
+                {/* <TableCell className=" px-2 py-3 text-right ">
                   {item.adjClose.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
-                </td> */}
+                </TableCell> */}
 
-                <td className=" px-2 py-3 text-right ">
+                <TableCell className=" px-2 py-3 text-right ">
                   {item.volume.toLocaleString(undefined, {
                     maximumFractionDigits: 2,
                   })}
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             );
           })}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }

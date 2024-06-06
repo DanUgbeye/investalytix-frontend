@@ -18,10 +18,10 @@ export async function generateMetadata(props: {
     } = props;
 
     const tickerRepo = new TickerRepository(serverAPI);
-    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+    const profile = await tickerRepo.getCompanyProfile(ticker);
 
     return {
-      title: `${outlook.profile.companyName} (${outlook.profile.symbol}) Stock Description - Historical Data | Investalytix`,
+      title: `${profile.companyName} (${profile.symbol}) Stock Description - Historical Data | Investalytix`,
     };
   } catch (error: any) {
     return {
@@ -37,12 +37,12 @@ async function getData(
 ) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
-    let [quote, quoteHistory] = await Promise.all([
-      tickerRepo.getQuote(ticker),
+    let [profile, quoteHistory] = await Promise.all([
+      tickerRepo.getCompanyProfile(ticker),
       tickerRepo.getQuoteHistory(ticker, timeframe, filter),
     ]);
 
-    return { quote, quoteHistory };
+    return { profile, quoteHistory };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
@@ -89,7 +89,13 @@ export default async function HistoricalDataPage(
     filter.to = new Date();
   }
 
-  const { quote, quoteHistory } = await getData(ticker, timeframe, filter);
+  const { quoteHistory, profile } = await getData(ticker, timeframe, filter);
 
-  return <HistoricalDataScreen ticker={ticker} quoteHistory={quoteHistory} />;
+  return (
+    <HistoricalDataScreen
+      ticker={ticker}
+      quoteHistory={quoteHistory}
+      currency={profile.currency}
+    />
+  );
 }

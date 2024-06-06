@@ -18,10 +18,10 @@ export async function generateMetadata(props: {
     } = props;
 
     const tickerRepo = new TickerRepository(serverAPI);
-    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+    const profile= await tickerRepo.getCompanyProfile(ticker);
 
     return {
-      title: `${outlook.profile.companyName} (${outlook.profile.symbol}) Financials - Income Statement | Investalytix`,
+      title: `${profile.companyName} (${profile.symbol}) Financials - Income Statement | Investalytix`,
     };
   } catch (error: any) {
     return {

@@ -3,12 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { QuoteHistory, QuoteTimeframe } from "@/types";
 import { QuoteTimeframeSchema } from "@/validation";
+import { isValid, subYears } from "date-fns";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import QuoteHistoryTable from "./quote-history-table";
-import { Controller, useForm } from "react-hook-form";
-import { isValid, subYears } from "date-fns";
 
 function validatePeriod(period: unknown): QuoteTimeframe {
   let valid = QuoteTimeframeSchema.safeParse(period);
@@ -29,10 +29,11 @@ function validateShow(show: unknown) {
 interface HistoricalDataScreenProps {
   ticker: string;
   quoteHistory?: QuoteHistory[];
+  currency: string;
 }
 
 export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
-  const { ticker, quoteHistory } = props;
+  const { ticker, quoteHistory, currency } = props;
   const searchParams = useSearchParams();
   const period = useMemo(
     () => validatePeriod(searchParams.get("period")),
@@ -51,7 +52,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
   }, [searchParams]);
 
   const to = useMemo(() => {
-    let param = searchParams.get("from");
+    let param = searchParams.get("to");
     if (param && isValid(new Date(param))) {
       return new Date(param);
     }
@@ -73,69 +74,69 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
   });
 
   return (
-    <section className=" space-y-12 pb-12 ">
-      <form className=" flex flex-col justify-between gap-3 rounded border border-primary-base bg-[#FFF3E9] p-6 md:flex-row md:flex-wrap dark:bg-primary-base/20 ">
-        <div className=" flex flex-col gap-x-4 gap-y-2 md:flex-row md:items-center ">
-          <div className=" flex flex-col flex-wrap gap-x-3 sm:flex-row sm:items-center ">
-            <span className=" font-semibold ">Time Period:</span>
+    <section className=" space-y-6 pb-12 ">
+      <form className=" flex flex-col justify-between gap-3 rounded md:flex-row md:flex-wrap ">
+        <div className=" flex flex-wrap gap-2 md:flex-row md:items-center ">
+          {/* <div className=" flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center "> */}
+          {/* <span className=" font-semibold ">Time Period:</span> */}
 
-            <div className=" flex flex-col sm:flex-row sm:gap-2 ">
-              <Controller
-                name="from"
-                control={control}
-                render={({ field: { value, onChange, ...rest } }) => {
-                  return (
-                    <div className=" flex items-center gap-1 ">
-                      <span className=" font-main-bg-gray-600 w-10 text-sm sm:hidden ">
+          {/* <div className=" flex flex-col sm:flex-row gap-2 "> */}
+          <Controller
+            name="from"
+            control={control}
+            render={({ field: { value, onChange, ...rest } }) => {
+              return (
+                <div className=" relative flex items-center gap-1 ">
+                  {/* <span className=" font-main-bg-gray-600 w-10 text-sm sm:hidden ">
                         From:
-                      </span>
+                      </span> */}
 
-                      <input
-                        {...rest}
-                        id="from"
-                        type="date"
-                        className=" w-full max-w-[7.5rem] bg-transparent text-primary-base outline-0 "
-                        value={value?.toLocaleDateString("en-CA")}
-                        onChange={(e) => {
-                          onChange(new Date(e.target.value));
-                        }}
-                      />
-                    </div>
-                  );
-                }}
-              />
+                  <input
+                    {...rest}
+                    id="from"
+                    type="date"
+                    className=" date-input w-full max-w-[10rem] rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm text-primary-base outline-0 dark:border-main-gray-500 "
+                    value={value?.toLocaleDateString("en-CA")}
+                    onChange={(e) => {
+                      onChange(new Date(e.target.value));
+                    }}
+                  />
+                </div>
+              );
+            }}
+          />
 
-              <span className=" hidden text-xl font-bold sm:flex">-</span>
+          {/* <span className=" hidden text-xl font-bold sm:flex">-</span> */}
 
-              <Controller
-                name="to"
-                control={control}
-                render={({ field: { value, onChange, ...rest } }) => {
-                  return (
-                    <div className=" flex items-center gap-1 ">
-                      <span className=" font-main-bg-gray-600 w-10 text-sm sm:hidden ">
+          <Controller
+            name="to"
+            control={control}
+            render={({ field: { value, onChange, ...rest } }) => {
+              return (
+                <div className=" relative flex items-center gap-1 ">
+                  {/* <span className=" font-main-bg-gray-600 w-10 text-sm sm:hidden ">
                         To:
-                      </span>
+                      </span> */}
 
-                      <input
-                        {...rest}
-                        id="to"
-                        type="date"
-                        className=" w-full max-w-[7.5rem] bg-transparent text-primary-base outline-0 "
-                        value={value?.toLocaleDateString("en-CA")}
-                        onChange={(e) => {
-                          onChange(new Date(e.target.value));
-                        }}
-                      />
-                    </div>
-                  );
-                }}
-              />
-            </div>
-          </div>
+                  <input
+                    {...rest}
+                    id="to"
+                    type="date"
+                    className=" date-input w-full max-w-[10rem] rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm text-primary-base outline-0 dark:border-main-gray-500 "
+                    value={value?.toLocaleDateString("en-CA")}
+                    onChange={(e) => {
+                      onChange(new Date(e.target.value));
+                    }}
+                  />
+                </div>
+              );
+            }}
+          />
+          {/* </div> */}
+          {/* </div> */}
 
           <div className=" flex flex-wrap items-center gap-x-3 ">
-            <span className=" font-semibold ">Show:</span>
+            {/* <span className=" font-semibold ">Show:</span> */}
 
             <Controller
               name="show"
@@ -145,10 +146,10 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   <select
                     {...field}
                     id="show"
-                    className=" bg-transparent text-primary-base outline-0 "
+                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm text-primary-base outline-0 dark:border-main-gray-500 "
                   >
                     <option value={"price"}>Historical Prices</option>
-                    <option value={"splits"}>Stock Splits</option>
+                    {/* <option value={"splits"}>Stock Splits</option> */}
                   </select>
                 );
               }}
@@ -156,7 +157,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
           </div>
 
           <div className=" flex flex-wrap items-center gap-x-3 ">
-            <span className=" font-semibold ">Frequency:</span>
+            {/* <span className=" font-semibold ">Frequency:</span> */}
 
             <Controller
               name="period"
@@ -166,7 +167,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   <select
                     {...field}
                     id="period"
-                    className=" bg-transparent text-primary-base outline-0 "
+                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm text-primary-base outline-0 dark:border-main-gray-500 "
                   >
                     <option value={"1day"}>Daily</option>
                     <option value={"1week"}>Weekly</option>
@@ -178,14 +179,14 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
           </div>
         </div>
 
-        <Button size={"sm"} className=" ml-auto px-6 md:px-4 ">
+        <Button size={"sm"} className=" ml-auto px-6 md:px-8 ">
           Apply
         </Button>
       </form>
 
-      <div className=" mx-auto grid space-y-5 ">
+      <div className=" mx-auto grid space-y-3 ">
         <div className=" flex items-center justify-between ">
-          <span className=" font-semibold ">Currency in USD</span>
+          <span className=" font-semibold text-sm ">Currency: {currency}</span>
 
           {/* <Button variant={"outline-orange"} className=" border-none ">
             Download

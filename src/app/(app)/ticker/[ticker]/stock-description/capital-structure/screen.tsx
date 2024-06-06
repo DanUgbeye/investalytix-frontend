@@ -50,7 +50,7 @@ export default function CapitalStructureScreen(
     <section className=" pb-12 ">
       <HeaderWithUnderline>Capital Structure ({currency})</HeaderWithUnderline>
 
-      <div className=" grid grid-cols-[auto,1fr] gap-5 pt-10 ">
+      <div className=" grid gap-5 pt-10 md:grid-cols-[auto,1fr] ">
         <div className=" w-full md:min-w-80 ">
           <div className=" grid place-items-center ">
             <PieChart width={300} height={300} className=" w-full ">
@@ -119,7 +119,7 @@ export default function CapitalStructureScreen(
                     key={`${item.label}-${index}`}
                     className=" odd:bg-main-gray-100 dark:odd:bg-main-gray-900/60 "
                   >
-                    <TableCell className=" font-semibold ">
+                    <TableCell className="">
                       <div className=" flex items-center gap-x-3 px-2 ">
                         <span
                           className=" size-7 "
