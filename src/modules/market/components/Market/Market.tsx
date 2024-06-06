@@ -159,7 +159,7 @@ const quotes = [
 const timeframes = ["1m", "5m", "15m", "1h", "2h", "4h", "1D"];
 
 export default function Market() {
-  return null;
+  // return null;
   return (
     <div className="overflow-hidden">
       <h2 className="white-text white-text mb-6 text-3xl font-extrabold">
