@@ -44,7 +44,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
         <QuotesBoard />
 
         <section className=" flex flex-col gap-5 px-6 sm:grid sm:grid-cols-[auto,1fr] md:grid-cols-[auto,1fr,auto] md:grid-rows-[auto,auto] md:gap-x-8 ">
-          <Avatar className="hidden size-20 place-items-center bg-main-gray-200/60 p-2 sm:grid md:row-span-full md:size-40 md:p-6 dark:bg-main-gray-900 ">
+          <Avatar className="hidden size-20 place-items-center bg-[#F0F3FA] p-2 sm:grid md:row-span-full md:size-40 md:p-6 dark:bg-[#48494A] ">
             <AvatarImage
               src={outlook.profile.image}
               className=" h-full w-full p-2 "
@@ -60,7 +60,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
               {tickerQuote.name}
             </div>
 
-            <div className=" flex flex-wrap items-center gap-2 font-medium ">
+            <div className=" flex w-fit flex-wrap items-center gap-2 rounded-lg bg-[#F0F3FA] px-4 py-2  font-medium dark:bg-[#48494A] ">
               <span className="  ">{outlook.profile.symbol}</span>
               <span className=" size-1 rounded-full bg-primary-base " />
               <span className="  ">{outlook.profile.exchange}</span>

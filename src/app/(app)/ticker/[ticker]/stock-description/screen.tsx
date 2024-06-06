@@ -229,7 +229,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
                   <span className=" truncate">{news.site}</span>
                 </div>
 
-                <div className=" font-medium ">{news.title}</div>
+                <div className=" font-medium line-clamp-3 ">{news.title}</div>
               </Link>
 
               // <div
