@@ -16,10 +16,10 @@ export async function generateMetadata(props: {
     } = props;
 
     const tickerRepo = new TickerRepository(serverAPI);
-    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+    const profile = await tickerRepo.getCompanyProfile(ticker);
 
     return {
-      title: `${outlook.profile.companyName} (${outlook.profile.symbol}) Stock Description - Revenue and EPS | Investalytix`,
+      title: `${profile.companyName} (${profile.symbol}) Stock Description - Revenue and EPS | Investalytix`,
     };
   } catch (error: any) {
     return {
@@ -32,23 +32,15 @@ async function getData(ticker: string) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
 
-    let [quote, earnings] = await Promise.all([
+    let [profile, quote, earnings] = await Promise.all([
+      tickerRepo.getCompanyProfile(ticker),
       tickerRepo.getQuote(ticker),
       tickerRepo.getEarningsHistory(ticker),
     ]);
 
-    let isAuthenticated = cookies().has("auth");
-    let currentYr = new Date().getFullYear();
-
-    if (!isAuthenticated) {
-      earnings = earnings.filter(
-        (earning) => currentYr - earning.date.getFullYear() <= 10
-      );
-    }
-
-    return { quote, earnings, timeStamp: new Date() };
+    return { quote, earnings, profile, timeStamp: new Date() };
   } catch (error: any) {
-    console.log(error)
+    console.log(error);
     if (errorUtils.is404Error(error)) {
       notFound();
     }
@@ -64,9 +56,14 @@ export default async function RevenueAndEPSPage(props: RevenueAndEPSPageProps) {
     params: { ticker },
   } = props;
 
-  const { quote, earnings } = await getData(ticker);
+  const { quote, earnings, profile } = await getData(ticker);
 
   return (
-    <RevenueAndEPSScreen ticker={ticker} quote={quote} earnings={earnings} />
+    <RevenueAndEPSScreen
+      ticker={ticker}
+      quote={quote}
+      earnings={earnings}
+      currency={profile.currency}
+    />
   );
 }

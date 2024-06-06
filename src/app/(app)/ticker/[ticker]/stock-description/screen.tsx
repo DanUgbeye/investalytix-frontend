@@ -12,10 +12,11 @@ interface SummaryScreenProps {
   ticker: string;
   quote: Quote;
   outlook: CompanyOutlook;
+  currency: string;
 }
 
 export default function SummaryScreen(props: SummaryScreenProps) {
-  const { ticker, quote, outlook } = props;
+  const { ticker, quote, outlook, currency } = props;
 
   return (
     <section className=" space-y-8 pb-8 ">
@@ -30,7 +31,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
             <span className=" text-sm font-bold ">Open</span>
 
             <span className=" text-xl ">
-              {appUtils.formatNumber(quote.open || undefined)}
+              {appUtils.formatNumber(quote.open || undefined, { currency })}
             </span>
           </div>
 
@@ -38,7 +39,9 @@ export default function SummaryScreen(props: SummaryScreenProps) {
             <span className=" text-sm font-bold ">Prev Close</span>
 
             <span className=" text-xl ">
-              {appUtils.formatNumber(quote.previousClose || undefined)}
+              {appUtils.formatNumber(quote.previousClose || undefined, {
+                currency,
+              })}
             </span>
           </div>
 
@@ -46,7 +49,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
             <span className=" text-sm font-bold ">Day High</span>
 
             <span className=" text-xl ">
-              {appUtils.formatNumber(quote.dayHigh || undefined)}
+              {appUtils.formatNumber(quote.dayHigh || undefined, { currency })}
             </span>
           </div>
 
@@ -54,7 +57,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
             <span className=" text-sm font-bold ">Day Low</span>
 
             <span className=" text-xl ">
-              {appUtils.formatNumber(quote.dayLow || undefined)}
+              {appUtils.formatNumber(quote.dayLow || undefined, { currency })}
             </span>
           </div>
 
@@ -62,7 +65,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
             <span className=" text-sm font-bold ">52 Week High</span>
 
             <span className=" text-xl ">
-              {appUtils.formatNumber(quote.yearHigh || undefined)}
+              {appUtils.formatNumber(quote.yearHigh || undefined, { currency })}
             </span>
           </div>
 
@@ -70,7 +73,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
             <span className=" text-sm font-bold ">52 Week Low</span>
 
             <span className=" text-xl ">
-              {appUtils.formatNumber(quote.yearLow || undefined)}
+              {appUtils.formatNumber(quote.yearLow || undefined, { currency })}
             </span>
           </div>
 
@@ -229,7 +232,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
                   <span className=" truncate">{news.site}</span>
                 </div>
 
-                <div className=" font-medium line-clamp-3 ">{news.title}</div>
+                <div className=" line-clamp-3 font-medium ">{news.title}</div>
               </Link>
 
               // <div

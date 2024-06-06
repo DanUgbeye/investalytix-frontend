@@ -6,6 +6,7 @@ import {
   BalanceSheetStatement,
   CashFlowStatement,
   CompanyOutlook,
+  CompanyProfile,
   Earning,
   FinancialPeriod,
   Financials,
@@ -18,6 +19,7 @@ import {
   BalanceSheetStatementSchema,
   CashFlowStatementSchema,
   CompanyOutlookSchema,
+  CompanyProfileSchema,
   EarningSchema,
   FinancialsSchema,
   IncomeStatementSchema,
@@ -232,7 +234,28 @@ export class TickerRepository {
 
       return validation.data;
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getCompanyProfile(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<CompanyProfile> {
+    try {
+      const path = `/tickers/${ticker}/profile`;
+      let res = await this.axios.get<{ data: CompanyProfile }>(path, options);
+      let validation = CompanyProfileSchema.safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      console.log(error);
       let err = handleAPIError(error);
       throw err;
     }

@@ -5,33 +5,6 @@ import useTheme from "@/store/theme/useTheme";
 import { useMemo } from "react";
 import { Pie, PieChart, Tooltip } from "recharts";
 
-const CAPITAL_STRUCTURE_DATA = [
-  {
-    label: "Market Cap",
-    value: 2_662_325.9,
-    percentage: 95.6,
-    fill: "#F94144",
-  },
-  {
-    label: "ST Debt",
-    value: 17_382.0,
-    percentage: 0.6,
-    fill: "#F8961E",
-  },
-  {
-    label: "LT Debt",
-    value: 106_548.0,
-    percentage: 3.8,
-    fill: "#F3722C",
-  },
-  {
-    label: "Pref. Eqty",
-    value: 0.0,
-    percentage: 0.0,
-    fill: "#F9C74F",
-  },
-];
-
 interface CapitalStructureScreenProps {
   ticker: string;
   capitalStructure: {

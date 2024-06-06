@@ -59,7 +59,14 @@ async function SummaryPage(props: SummaryPageProps) {
 
   const { quote, outlook } = await getTickerData(ticker);
 
-  return <SummaryScreen ticker={ticker} quote={quote} outlook={outlook} />;
+  return (
+    <SummaryScreen
+      ticker={ticker}
+      quote={quote}
+      outlook={outlook}
+      currency={outlook.profile.currency}
+    />
+  );
 }
 
 export default SummaryPage;

@@ -42,7 +42,12 @@ export default async function Layout(props: TickerLayoutProps) {
   const { quote, outlook } = await getTickerData(ticker);
 
   return (
-    <TickerLayout ticker={ticker} quote={quote} outlook={outlook}>
+    <TickerLayout
+      ticker={ticker}
+      quote={quote}
+      outlook={outlook}
+      currency={outlook.profile.currency}
+    >
       {children}
     </TickerLayout>
   );

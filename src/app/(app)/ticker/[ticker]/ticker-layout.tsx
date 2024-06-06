@@ -25,10 +25,11 @@ export interface TickerLayoutProps extends HTMLAttributes<HTMLElement> {
   ticker: string;
   quote: Quote;
   outlook: CompanyOutlook;
+  currency: string;
 }
 
 export default function TickerLayout(props: TickerLayoutProps) {
-  const { className, children, ticker, quote, outlook, ...rest } = props;
+  const { className, children, ticker, quote, outlook, currency, ...rest } = props;
   const tickerRepo = useTickerRepository();
 
   const { data: tickerQuote } = useQuery({
@@ -71,7 +72,9 @@ export default function TickerLayout(props: TickerLayoutProps) {
             <div className=" space-y-1 md:space-y-3 ">
               <div className=" flex flex-wrap items-end space-x-1.5 ">
                 <span className=" text-3xl font-semibold md:text-5xl ">
-                  {appUtils.formatNumber(tickerQuote.price || undefined)}
+                  {appUtils.formatNumber(tickerQuote.price || undefined, {
+                    currency,
+                  })}
                 </span>
 
                 <span className=" flex items-center gap-2 text-base font-bold md:text-lg ">

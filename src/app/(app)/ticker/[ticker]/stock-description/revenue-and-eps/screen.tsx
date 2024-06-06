@@ -33,13 +33,19 @@ interface RevenueAndEPSScreenProps {
   ticker: string;
   quote: Quote;
   earnings: Earning[];
+  currency: string;
 }
 
 export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
-  const { ticker, quote, earnings } = props;
+  const { ticker, quote, earnings, currency } = props;
   const { theme } = useTheme();
   const user = useAuthStore(({ user }) => user);
   const [showAll, setShowAll] = useState<"EPS" | "Revenue" | undefined>();
+
+  function handleShoMore(show?: typeof showAll) {
+    // TODO handle unauthenticated users
+    setShowAll(showAll === show ? undefined : show);
+  }
 
   return (
     <section className=" space-y-12 pb-12 ">
@@ -309,9 +315,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   <Button
                     variant={"link"}
                     className=" h-fit gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base "
-                    onClick={() =>
-                      setShowAll(showAll === "EPS" ? undefined : "EPS")
-                    }
+                    onClick={() => handleShoMore("EPS")}
                   >
                     {showAll === "EPS" ? (
                       <>
@@ -569,6 +573,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                   {appUtils.formatNumber(
                                     earning.revenueEstimated || undefined,
                                     {
+                                      currency,
                                       notation: "compact",
                                       minimumFractionDigits: 2,
                                     }
@@ -594,6 +599,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                   {appUtils.formatNumber(
                                     earning.revenue || undefined,
                                     {
+                                      currency,
                                       notation: "compact",
                                       minimumFractionDigits: 2,
                                     }
@@ -605,6 +611,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                 {appUtils.formatNumber(
                                   earnings[index + 1]?.revenue || undefined,
                                   {
+                                    currency,
                                     notation: "compact",
                                     minimumFractionDigits: 2,
                                   }
@@ -621,9 +628,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   <Button
                     variant={"link"}
                     className=" gap-x-2 text-primary-base hover:no-underline dark:text-primary-base "
-                    onClick={() =>
-                      setShowAll(showAll === "Revenue" ? undefined : "Revenue")
-                    }
+                    onClick={() => handleShoMore("Revenue")}
                   >
                     {showAll === "Revenue" ? (
                       <>
