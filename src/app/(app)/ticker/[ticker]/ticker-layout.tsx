@@ -29,7 +29,8 @@ export interface TickerLayoutProps extends HTMLAttributes<HTMLElement> {
 }
 
 export default function TickerLayout(props: TickerLayoutProps) {
-  const { className, children, ticker, quote, outlook, currency, ...rest } = props;
+  const { className, children, ticker, quote, outlook, currency, ...rest } =
+    props;
   const tickerRepo = useTickerRepository();
 
   const { data: tickerQuote } = useQuery({
@@ -51,8 +52,8 @@ export default function TickerLayout(props: TickerLayoutProps) {
               className=" h-full w-full p-2 "
             />
 
-            <AvatarFallback className=" h-full w-full bg-transparent p-2 text-lg dark:bg-transparent ">
-              {outlook.profile.symbol}
+            <AvatarFallback className=" grid h-full w-full justify-start bg-transparent p-2 text-2xl font-bold dark:bg-transparent ">
+              <span className=" truncate ">{outlook.profile.symbol}</span>
             </AvatarFallback>
           </Avatar>
 

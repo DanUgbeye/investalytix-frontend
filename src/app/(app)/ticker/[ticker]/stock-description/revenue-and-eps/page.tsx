@@ -32,13 +32,12 @@ async function getData(ticker: string) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
 
-    let [profile, quote, earnings] = await Promise.all([
+    let [profile, earnings] = await Promise.all([
       tickerRepo.getCompanyProfile(ticker),
-      tickerRepo.getQuote(ticker),
       tickerRepo.getEarningsHistory(ticker),
     ]);
 
-    return { quote, earnings, profile, timeStamp: new Date() };
+    return { earnings, profile, timeStamp: new Date() };
   } catch (error: any) {
     console.log(error);
     if (errorUtils.is404Error(error)) {
@@ -56,12 +55,11 @@ export default async function RevenueAndEPSPage(props: RevenueAndEPSPageProps) {
     params: { ticker },
   } = props;
 
-  const { quote, earnings, profile } = await getData(ticker);
+  const { earnings, profile } = await getData(ticker);
 
   return (
     <RevenueAndEPSScreen
       ticker={ticker}
-      quote={quote}
       earnings={earnings}
       currency={profile.currency}
     />

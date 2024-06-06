@@ -31,13 +31,12 @@ import {
 
 interface RevenueAndEPSScreenProps {
   ticker: string;
-  quote: Quote;
   earnings: Earning[];
   currency: string;
 }
 
 export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
-  const { ticker, quote, earnings, currency } = props;
+  const { ticker, earnings, currency } = props;
   const { theme } = useTheme();
   const user = useAuthStore(({ user }) => user);
   const [showAll, setShowAll] = useState<"EPS" | "Revenue" | undefined>();
