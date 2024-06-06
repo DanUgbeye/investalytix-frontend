@@ -27,7 +27,7 @@ import {
 import {
   Quote,
   QuoteHistory,
-  QuoteHistoryTimeframe,
+  QuoteTimeframe,
   SearchResult,
   ShortQuote,
 } from "@/types";
@@ -107,7 +107,7 @@ export class TickerRepository {
 
   async getQuoteHistory(
     ticker: string,
-    timeframe: QuoteHistoryTimeframe,
+    timeframe: QuoteTimeframe,
     filter?: { from?: Date; to?: Date },
     options?: RequestOptions
   ): Promise<QuoteHistory[]> {
@@ -232,6 +232,7 @@ export class TickerRepository {
 
       return validation.data;
     } catch (error: any) {
+      console.log(error)
       let err = handleAPIError(error);
       throw err;
     }

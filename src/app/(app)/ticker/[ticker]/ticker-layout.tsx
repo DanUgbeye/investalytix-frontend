@@ -166,7 +166,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
         <DesktopTickerNav
           quote={tickerQuote}
           ticker={ticker}
-          className=" sticky top-[88px] col-start-1 row-start-1 mb-8 hidden h-fit w-[15rem] overflow-y-auto lg:flex "
+          className=" sticky top-[88px] col-start-1 row-start-1 mb-8 hidden h-fit max-h-[calc(100dvh-5rem)] w-[18rem] overflow-y-auto lg:flex "
         />
 
         <MobileTickerNav
@@ -174,7 +174,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
           className=" sticky top-[85px] z-40 flex md:top-[89px] lg:hidden "
         />
 
-        <main className=" col-start-1 lg:row-start-1 lg:ml-[15rem] ">
+        <main className=" col-start-1 lg:row-start-1 lg:ml-[18rem] ">
           <Container className=" lg:px-10 xl:px-10 ">
             <section className="  ">{children}</section>
           </Container>

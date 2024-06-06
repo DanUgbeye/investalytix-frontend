@@ -22,7 +22,10 @@ class ErrorUtils {
     if (error instanceof Error) {
       let errMessage = (error.message || "").toLowerCase();
 
-      if (errMessage.includes("enotfound")) {
+      if (
+        errMessage.includes("enotfound") ||
+        errMessage.includes("econnreset")
+      ) {
         return true;
       }
     }

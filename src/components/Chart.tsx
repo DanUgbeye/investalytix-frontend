@@ -33,10 +33,23 @@ export default function Chart({ className = "" }: ChartProps) {
       grid: {
         vertLines: {
           color: theme === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)",
+          visible: false,
         },
         horzLines: {
           color: theme === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)",
+          visible: false,
         },
+      },
+      timeScale: {
+        borderVisible: false,
+      },
+      rightPriceScale: {
+        borderVisible: false,
+        // tickLength: 0,
+        // scaleMargins: {top: 0.9}
+      },
+      leftPriceScale: {
+        borderVisible: false,
       },
     });
     const data = chartData.map((data) => ({
@@ -50,9 +63,13 @@ export default function Chart({ className = "" }: ChartProps) {
         theme === "dark"
           ? tailwindCSS().theme.colors.primary.base
           : tailwindCSS().theme.colors.primary.base;
+
       const lineSeries = chart.addAreaSeries({
         lineColor: color,
-        topColor: color,
+        topColor:
+          theme === "dark"
+            ? "rgba(251, 146, 60, 0.3)"
+            : "rgba(251, 146, 60, 0.3)",
         bottomColor:
           theme === "dark"
             ? "rgba(255, 139, 30, 0.28)"

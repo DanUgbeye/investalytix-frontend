@@ -1,8 +1,8 @@
 import { serverAPI } from "@/config/server/api";
 import { TickerRepository } from "@/modules/ticker/repository";
-import { QuoteHistoryTimeframe } from "@/types";
+import { QuoteTimeframe } from "@/types";
 import { errorUtils } from "@/utils/error.utils";
-import { QuoteHistoryTimeframeSchema } from "@/validation";
+import { QuoteTimeframeSchema } from "@/validation";
 import { isValid, subYears } from "date-fns";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -32,7 +32,7 @@ export async function generateMetadata(props: {
 
 async function getData(
   ticker: string,
-  timeframe: QuoteHistoryTimeframe,
+  timeframe: QuoteTimeframe,
   filter?: { from?: Date; to?: Date }
 ) {
   try {
@@ -63,9 +63,9 @@ export default async function HistoricalDataPage(
     searchParams,
   } = props;
 
-  let timeframe: QuoteHistoryTimeframe;
-  if (QuoteHistoryTimeframeSchema.safeParse(searchParams.period).success) {
-    timeframe = searchParams.period as QuoteHistoryTimeframe;
+  let timeframe: QuoteTimeframe;
+  if (QuoteTimeframeSchema.safeParse(searchParams.period).success) {
+    timeframe = searchParams.period as QuoteTimeframe;
   } else {
     timeframe = "1day";
   }

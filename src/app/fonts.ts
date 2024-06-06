@@ -1,4 +1,4 @@
-import { Inter, Mulish } from "next/font/google";
+import { Inter, Manrope, Mulish } from "next/font/google";
 
 export const interFont = Inter({
   subsets: ["latin"],
@@ -8,4 +8,9 @@ export const interFont = Inter({
 export const mulishFont = Mulish({
   subsets: ["latin"],
   variable: "--font-mulish",
+});
+
+export const manropeFont = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
 });

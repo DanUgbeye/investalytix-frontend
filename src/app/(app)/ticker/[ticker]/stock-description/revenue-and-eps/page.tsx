@@ -48,6 +48,7 @@ async function getData(ticker: string) {
 
     return { quote, earnings, timeStamp: new Date() };
   } catch (error: any) {
+    console.log(error)
     if (errorUtils.is404Error(error)) {
       notFound();
     }
@@ -55,6 +56,7 @@ async function getData(ticker: string) {
     throw error;
   }
 }
+
 interface RevenueAndEPSPageProps extends SearchTickerPageProps {}
 
 export default async function RevenueAndEPSPage(props: RevenueAndEPSPageProps) {
