@@ -32,14 +32,13 @@ export default function Home() {
           </div>
 
           <div className="z-20 text-white">
-            <h1 className="whitespace-nowrap text-6xl font-bold leading-[1.5em] max-xs:text-center md:text-7xl xl:text-8xl">
-              Look first /
-              <br />
-              Then leap.
+            <h1 style={{lineHeight:"1.2"}} className="text-4xl font-bold max-xs:text-center md:text-5xl xl:text-6xl max-w-sm lg:max-w-lg xl:max-w-xl">
+              Integrating Macro, Technical Strategy, and Fundamentals
             </h1>
 
             <p className="mt-5 max-w-sm text-lg font-medium max-xs:text-center lg:max-w-lg xl:mt-8 xl:max-w-xl xl:text-xl">
-              The best trades require research, then commitment.
+              Providing data-driven investment decisions with a comprehensive
+              suite of financial analysis tools.
             </p>
 
             <div className="relative mt-10 h-fit">
