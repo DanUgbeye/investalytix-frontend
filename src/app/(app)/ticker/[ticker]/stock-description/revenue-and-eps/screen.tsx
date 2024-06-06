@@ -190,11 +190,10 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
           </div>
 
           <div className=" space-y-6 ">
-            <div className="  ">
+            <div className=" flex flex-wrap items-end gap-4 ">
               <h3 className=" font-extrabold ">Earning History</h3>
-              {/* <span className="  ">
-                Currency: USD
-              </span> */}
+
+              <span className=" gap-x-1 text-xs ">Currency: {currency}</span>
             </div>
 
             <div className=" space-y-6 ">
@@ -503,7 +502,11 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
           </div>
 
           <div className=" space-y-6 ">
-            <h3 className="font-extrabold ">Revenue History</h3>
+            <div className=" flex flex-wrap items-end gap-4 ">
+              <h3 className=" font-extrabold ">Revenue History</h3>
+
+              <span className=" gap-x-1 text-xs ">Currency: {currency}</span>
+            </div>
 
             <div className=" space-y-6 ">
               <div className=" ">

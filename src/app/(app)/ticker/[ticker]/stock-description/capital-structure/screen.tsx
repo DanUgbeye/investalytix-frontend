@@ -1,7 +1,17 @@
 "use client";
 
+import HeaderWithUnderline from "@/components/heading";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { tailwindCSS } from "@/lib/utils";
 import useTheme from "@/store/theme/useTheme";
+import appUtils from "@/utils/app-util";
 import { useMemo } from "react";
 import { Pie, PieChart, Tooltip } from "recharts";
 
@@ -13,12 +23,13 @@ interface CapitalStructureScreenProps {
     fill: string;
     currency: string;
   }[];
+  currency: string;
 }
 
 export default function CapitalStructureScreen(
   props: CapitalStructureScreenProps
 ) {
-  const { ticker, capitalStructure } = props;
+  const { ticker, capitalStructure, currency } = props;
   const { theme } = useTheme();
 
   const parsedData = useMemo(() => {
@@ -36,110 +47,123 @@ export default function CapitalStructureScreen(
   }, [capitalStructure]);
 
   return (
-    <section className=" grid gap-7 pb-12 md:grid-cols-[max-content,1fr] ">
-      <div className=" w-full space-y-5 border md:min-w-80 dark:border-main-gray-600 ">
-        <div className=" border-b p-4 dark:border-main-gray-600 ">
-          <h4 className=" text-xl font-semibold ">
-            Capital Structure ({parsedData.data[0].currency}){" "}
-          </h4>
-        </div>
+    <section className=" pb-12 ">
+      <HeaderWithUnderline>Capital Structure ({currency})</HeaderWithUnderline>
 
-        <div className=" grid place-items-center ">
-          <PieChart width={300} height={300} className=" w-full ">
-            <Pie
-              data={capitalStructure}
-              dataKey={"value"}
-              nameKey={"label"}
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              label={{ display: "none" }}
-              labelLine={{ style: { display: "none" } }}
-              fill="#fff"
-            />
+      <div className=" grid grid-cols-[auto,1fr] gap-5 pt-10 ">
+        <div className=" w-full md:min-w-80 ">
+          <div className=" grid place-items-center ">
+            <PieChart width={300} height={300} className=" w-full ">
+              <Pie
+                data={capitalStructure}
+                dataKey={"value"}
+                nameKey={"label"}
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                innerRadius={60}
+                paddingAngle={2}
+                stroke="0"
+              />
 
-            <Tooltip
-              wrapperClassName=" dark:bg-gray-700 white-text "
-              formatter={(value, name, item, index) =>
-                Number(value).toLocaleString(undefined, {
-                  style: "currency",
-                  currency: item.payload.currency,
-                  notation: "compact",
-                })
-              }
-              contentStyle={{
-                backgroundColor:
-                  theme === "dark"
-                    ? tailwindCSS().theme.colors.main.gray[300]
-                    : "white",
-                border: "none",
-              }}
-            />
-          </PieChart>
-        </div>
-      </div>
+              <Tooltip
+                content={(props) => {
+                  const { payload, label } = props;
 
-      <div className=" h-fit w-full max-w-xl overflow-x-auto border dark:border-main-gray-600 ">
-        <table className=" w-full text-sm ">
-          <thead>
-            <tr className=" th font-bold ">
-              <td className=" px-2 py-3 "></td>
-              <td className=" px-2 py-3 ">VALUE</td>
-              <td className=" w-fit max-w-40 px-2 py-3 text-right ">
-                PERCENTAGE
-              </td>
-            </tr>
-          </thead>
+                  return (
+                    <div className=" rounded bg-main-gray-700 p-2 text-main-gray-300 ">
+                      {payload &&
+                        payload.map((pl, index) => {
+                          const { name, value } = pl;
 
-          <tbody className="  ">
-            {parsedData.data.map((item, index) => {
-              return (
-                <tr
-                  key={`${item.label}-${index}`}
-                  className=" even:bg-main-gray-100 dark:border-main-gray-600  dark:even:bg-main-gray-900 "
-                >
-                  <td className=" font-semibold ">
-                    <div className=" flex items-center gap-x-2 px-2 ">
-                      <span
-                        className=" size-7 "
-                        style={{ backgroundColor: item.fill }}
-                      />
-                      <span className=" px-2 py-3 ">{item.label}</span>
+                          return (
+                            <div
+                              key={`${value}-${index}`}
+                              className=" text-main-gray-300 "
+                            >
+                              {name}:{" "}
+                              {appUtils.formatNumber(value as number, {
+                                style: "decimal",
+                                notation: "compact",
+                                maximumFractionDigits: 2,
+                              })}
+                            </div>
+                          );
+                        })}
                     </div>
-                  </td>
+                  );
+                }}
+              />
+            </PieChart>
+          </div>
+        </div>
 
-                  <td className=" px-2 py-3 ">
-                    {item.value.toLocaleString(undefined, {
-                      style: "currency",
-                      currency: item.currency,
-                      maximumFractionDigits: 0,
-                    })}
-                  </td>
+        <div className=" h-fit w-full max-w-xl overflow-x-auto ">
+          <Table className=" w-full text-sm ">
+            <TableHeader>
+              <TableRow className=" font-bold hover:bg-transparent dark:hover:bg-transparent ">
+                <TableHead className=" px-2 py-3 "></TableHead>
 
-                  <td className=" w-fit max-w-40 px-2 py-3 text-right ">
-                    {item.percentage.toLocaleString(undefined, {
-                      maximumFractionDigits: 3,
-                    })}
-                    %
-                  </td>
-                </tr>
-              );
-            })}
+                <TableHead className=" px-2 py-3 ">Value</TableHead>
 
-            <tr className=" font-bold even:bg-main-gray-100 dark:border-main-gray-600 dark:even:bg-main-gray-900  ">
-              <td className=" px-2 py-3 ">Total</td>
-              <td className=" px-2 py-3 ">
-                {parsedData.total.toLocaleString(undefined, {
-                  maximumFractionDigits: 0,
-                  style: "currency",
-                  currency: parsedData.data[0].currency,
-                })}
-              </td>
+                <TableHead className=" w-fit max-w-40 px-2 py-3 text-right ">
+                  Percentage
+                </TableHead>
+              </TableRow>
+            </TableHeader>
 
-              <td className=" w-fit max-w-40 px-2 py-3 text-right ">100%</td>
-            </tr>
-          </tbody>
-        </table>
+            <TableBody className="  ">
+              {parsedData.data.map((item, index) => {
+                return (
+                  <TableRow
+                    key={`${item.label}-${index}`}
+                    className=" odd:bg-main-gray-100 dark:odd:bg-main-gray-900/60 "
+                  >
+                    <TableCell className=" font-semibold ">
+                      <div className=" flex items-center gap-x-3 px-2 ">
+                        <span
+                          className=" size-7 "
+                          style={{ backgroundColor: item.fill }}
+                        />
+                        <span className=" ">{item.label}</span>
+                      </div>
+                    </TableCell>
+
+                    <TableCell className=" ">
+                      {item.value.toLocaleString(undefined, {
+                        style: "currency",
+                        currency: item.currency,
+                        maximumFractionDigits: 0,
+                      })}
+                    </TableCell>
+
+                    <TableCell className=" w-fit max-w-40 text-right ">
+                      {item.percentage.toLocaleString(undefined, {
+                        maximumFractionDigits: 3,
+                      })}
+                      %
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+
+              {/* <TableRow className=" font-bold odd:bg-main-gray-100 dark:odd:bg-main-gray-900/60  ">
+                <TableCell className=" pl-16 ">Total</TableCell>
+                <TableCell className=" ">
+                  {parsedData.total.toLocaleString(undefined, {
+                    maximumFractionDigits: 0,
+                    style: "currency",
+                    currency: parsedData.data[0].currency,
+                  })}
+                </TableCell>
+
+                <TableCell className=" w-fit max-w-40 text-right ">
+                  100%
+                </TableCell>
+              </TableRow> */}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </section>
   );

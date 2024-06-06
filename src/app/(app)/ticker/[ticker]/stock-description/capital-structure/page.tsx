@@ -61,28 +61,34 @@ export default async function CapitalStructurePage(
     {
       label: "Market Cap",
       value: outlook.profile.mktCap,
-      fill: "#F94144",
+      fill: "#4489FF",
       currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
     },
     {
       label: "ST Debt",
       value: outlook.financialsAnnual.balance[0]?.shortTermDebt ?? 0,
-      fill: "#F8961E",
+      fill: "#F57F17",
       currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
     },
     {
       label: "LT Debt",
       value: outlook.financialsAnnual.balance[0]?.longTermDebt ?? 0,
-      fill: "#F3722C",
+      fill: "#4DD0E1",
       currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
     },
     {
       label: "Pref. Equity",
       value: outlook.financialsAnnual.balance[0]?.preferredStock ?? 0,
-      fill: "#F9C74F",
+      fill: "#EB4335",
       currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
     },
   ];
 
-  return <CapitalStructureScreen ticker={ticker} capitalStructure={data} />;
+  return (
+    <CapitalStructureScreen
+      ticker={ticker}
+      capitalStructure={data}
+      currency={outlook.profile.currency}
+    />
+  );
 }
