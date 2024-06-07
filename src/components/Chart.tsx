@@ -45,7 +45,7 @@ export default function Chart({ className = "" }: ChartProps) {
       },
       rightPriceScale: {
         borderVisible: false,
-        // tickLength: 0,
+        // tickLength: 1,
         // scaleMargins: {top: 0.9}
       },
       leftPriceScale: {
@@ -66,6 +66,8 @@ export default function Chart({ className = "" }: ChartProps) {
 
       const lineSeries = chart.addAreaSeries({
         lineColor: color,
+        lineWidth:1,
+
         topColor:
           theme === "dark"
             ? "rgba(251, 146, 60, 0.3)"

@@ -63,7 +63,7 @@ export default function Quotes({
           {(customQuotes ? customQuotes : quotes).map((quote) => (
             <tr
               key={quote.symbol}
-              className="white-text text-black odd:bg-[#F9F9F9] dark:border-b dark:border-b-white/10 dark:text-[#F8F7F7] dark:odd:bg-transparent"
+              className="white-text text-black odd:bg-primary-base/5 dark:border-b-0 dark:border-b-white/10 dark:text-[#F8F7F7] dark:odd:bg-primary-base/[0.08]"
             >
               <td className="p-2 text-left text-sm font-bold uppercase">
                 <Link

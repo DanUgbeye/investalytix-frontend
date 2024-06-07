@@ -1,55 +1,29 @@
-import Quotes from "@/modules/market/components/Quotes";
+import Dow30 from "./Dow30";
+import MarketMovers from "./MarketMovers";
+import NASDAQ100 from "./NASDAQ100";
+import Overview from "./Overview";
+import Sectors from "./Sectors";
 
 export default function USMarkets() {
   return (
-    <section>
-      <>
-        <Quotes />
-
-        {/* STOCK INDEXES */}
-        <section className="mt-11">
-          <header className="mb-5">
-            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-              STOCK INDEXES
-            </h2>
-          </header>
-
-          <Quotes />
-        </section>
-
-        {/* COMMODITIES */}
-        <section className="mt-11">
-          <header className="mb-5">
-            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-              COMMODITIES
-            </h2>
-          </header>
-
-          <Quotes />
-        </section>
-
-        {/* TREASURYS */}
-        <section className="mt-11">
-          <header className="mb-5">
-            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-              TREASURYS
-            </h2>
-          </header>
-
-          <Quotes />
-        </section>
-
-        {/* CURRENCIES */}
-        <section className="mt-11">
-          <header className="mb-5">
-            <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-              CURRENCIES
-            </h2>
-          </header>
-
-          <Quotes />
-        </section>
-      </>
-    </section>
+    <>
+      <Overview />
+      <br />
+      <br />
+      <br />
+      <MarketMovers />
+      <br />
+      <br />
+      <br />
+      <Dow30 />
+      <br />
+      <br />
+      <br />
+      <NASDAQ100 />
+      <br />
+      <br />
+      <br />
+      <Sectors />
+    </>
   );
 }

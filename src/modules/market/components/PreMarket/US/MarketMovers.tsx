@@ -1,6 +1,7 @@
 "use client";
 import ColoredNumber from "@/components/ui/ColoredNumber";
 import Divider from "@/components/ui/Divider";
+import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import { Tab } from "@headlessui/react";
 import { Fragment } from "react";
 import { FiPlus } from "react-icons/fi";
@@ -28,14 +29,16 @@ export default function MarketMovers() {
 
   return (
     <>
+      <MarketSectionHeader label="MARKET MOVERS" id="market-movers" />
+
       {/* divider */}
       {/* <Divider /> */}
 
       {/* MARKET MOVERS */}
-      <div className="px-6">
+      <div className="mt-11">
         <Tab.Group>
           <div className="mb-7 text-[#252525] lg:flex">
-            <h1 className="white-text whitespace-nowrap text-2xl font-extrabold max-lg:mb-5">
+            <h1 className="white-text whitespace-nowrap text-2xl font-extrabold max-lg:mb-5 opacity-0">
               MARKET MOVERS
             </h1>
             <Tab.List

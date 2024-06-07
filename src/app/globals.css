@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -35,6 +39,10 @@ input[type="number"] {
 
 .text-hover-focus {
   @apply duration-150 hover:text-primary-base focus:text-primary-base group-hover:text-primary-base group-focus:text-primary-base dark:hover:text-primary-light dark:focus:text-primary-light dark:group-hover:text-primary-light dark:group-focus:text-primary-light;
+}
+
+.bg-hover-focus {
+  @apply hover:bg-primary-base/10 hover:text-primary-base  focus:bg-primary-base/10 focus:text-primary-base;
 }
 
 .hide-scrollbar {
