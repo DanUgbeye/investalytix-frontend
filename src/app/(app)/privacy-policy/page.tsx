@@ -4,7 +4,7 @@ import Markdown from 'react-markdown';
 
 const markdown = `
 
-**Privacy Policy**\n
+**Privacy Policy**
 
 **Introduction**
 

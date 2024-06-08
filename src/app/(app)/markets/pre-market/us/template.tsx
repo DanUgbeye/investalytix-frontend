@@ -10,10 +10,10 @@ export default function USMarketTemplate({
   children: React.ReactNode;
 }>) {
   const markets = [
-    { label: "MARKET MOVERS", href: "/markets/pre-market/us/market-movers" },
-    { label: "DOW 30", href: "/markets/pre-market/us/dow-30" },
-    { label: "NASDAQ 100", href: "/markets/pre-market/us/nasdaq-100" },
-    { label: "SECTORS", href: "/markets/pre-market/us/sectors" },
+    { label: "MARKET MOVERS", href: "#market-movers" },
+    { label: "DOW 30", href: "#dow-30" },
+    { label: "NASDAQ 100", href: "#nasdaq-100" },
+    { label: "SECTORS", href: "#sectors" },
   ];
 
   const pathname = usePathname();

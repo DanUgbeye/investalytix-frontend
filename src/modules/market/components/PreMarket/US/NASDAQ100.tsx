@@ -1,13 +1,18 @@
+import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import Quotes from "../../Quotes";
 
 export default function NASDAQ100() {
   return (
-    <>
-      <header className="mb-5">
+    <section>
+      <MarketSectionHeader label="NASDAQ 100" id="nasdaq-100" />
+
+      <div className="mt-11"></div>
+
+      {/* <header className="mb-5">
         <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
           NASDAQ 100
         </h2>
-      </header>
+      </header> */}
       <Quotes
         fields={[
           {
@@ -44,6 +49,6 @@ export default function NASDAQ100() {
           },
         ]}
       />
-    </>
+    </section>
   );
 }
