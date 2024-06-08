@@ -1,13 +1,13 @@
 "use client";
 
 import HeaderWithUnderline from "@/components/heading";
+import NewsCard from "@/modules/news/components/news-card";
+import NewsLink from "@/modules/news/components/news-link";
 import { CompanyOutlook } from "@/modules/ticker/types";
 import { Quote } from "@/types";
 import appUtils from "@/utils/app-util";
-import { format, formatDistanceToNowStrict } from "date-fns";
-import Link from "next/link";
+import { format } from "date-fns";
 import ChartSummary from "./chart-summary";
-import NewsCard from "@/modules/news/components/news-card";
 
 interface SummaryScreenProps {
   ticker: string;
@@ -215,14 +215,9 @@ export default function SummaryScreen(props: SummaryScreenProps) {
         <div className=" grid grid-cols-[repeat(auto-fill,minmax(17rem,1fr))] gap-4 py-8 sm:gap-8 ">
           {outlook.stockNews.map((news, index) => {
             return (
-              <Link
-                key={`${news.title}`}
-                href={news.url}
-                target="_blank"
-                className=" "
-              >
+              <NewsLink key={`${news.title}`} news={news}>
                 <NewsCard news={news} />
-              </Link>
+              </NewsLink>
             );
           })}
         </div>

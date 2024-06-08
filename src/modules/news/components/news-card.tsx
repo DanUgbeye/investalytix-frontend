@@ -13,16 +13,16 @@ export default function NewsCard(props: NewsCardProps) {
   return (
     <div
       {...rest}
-      className=" group rounded-lg p-2 pr-3 duration-300 hover:bg-primary-base/10 "
+      className=" group rounded-lg p-2 pr-4 duration-300 hover:bg-primary-base/10 "
     >
-      <div className="  grid grid-cols-[auto,1fr] gap-2 ">
+      <div className="  grid grid-cols-[auto,1fr] gap-4 ">
         <Avatar className=" size-24 overflow-clip rounded-lg">
           <AvatarImage
             src={news.image}
             className=" h-full w-full object-cover "
           />
 
-          <AvatarFallback className=" h-full w-full ">
+          <AvatarFallback className=" h-full w-full rounded-lg bg-main-gray-200 dark:bg-main-gray-700 ">
             <span className=" truncate ">{news.symbol}</span>
           </AvatarFallback>
         </Avatar>
