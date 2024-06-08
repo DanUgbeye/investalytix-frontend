@@ -1,3 +1,12 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
 export default function Futures({
   isFairValue = false,
 }: {
@@ -5,38 +14,31 @@ export default function Futures({
 }) {
   return (
     <div className="mt-8">
-      <p className="white-text mb-4 font-bold uppercase  text-[#2F3A48]">
+      <p className="white-text mb-4 font-bold uppercase text-[#2F3A48] border-b-main-gray-200/40 border-b pb-5 dark:border-b dark:border-b-white/8">
         {isFairValue ? "FAIR VALUE FUTURES (-27.48)" : "FUTURES"}
       </p>
 
-      <table className="w-full table-fixed">
-        <thead>
-          <tr className="">
-            <th className="border border-[#E1E6EF] bg-[#020224] p-3 text-center text-sm font-bold text-[#F8F7F7] dark:border-white/30  dark:bg-white/10">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="capitalize">
               {isFairValue ? "FV CLOSE" : "IND CLOSE"}
-            </th>
-            <th className="border border-[#E1E6EF] bg-[#020224] p-3 text-center text-sm font-bold text-[#F8F7F7] dark:border-white/30  dark:bg-white/10">
-              FUTURE
-            </th>
-            <th className="border border-[#E1E6EF] bg-[#020224] p-3 text-center text-sm font-bold text-[#F8F7F7] dark:border-white/30  dark:bg-white/10">
+            </TableHead>
+            <TableHead className="capitalize">FUTURE</TableHead>
+            <TableHead className="capitalize">
               {isFairValue ? "IML OPEN" : "CHANGE"}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="w-auto">
-            <td className="white-text border border-[#E1E6EF] p-3 text-center text-sm font-bold text-[#636363]  dark:border-white/30">
-              37,656.52
-            </td>
-            <td className="white-text border border-[#E1E6EF] p-3 text-center text-sm font-bold text-[#636363]  dark:border-white/30">
-              37,945
-            </td>
-            <td className="white-text border border-[#E1E6EF] p-3 text-center text-sm font-bold text-[#636363]  dark:border-white/30">
-              -61
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
+          <TableRow className="border-none odd:bg-[#F0F3FA] dark:odd:bg-main-gray-200/10">
+            <TableCell>37,656.52</TableCell>
+            <TableCell> 37,945</TableCell>
+            <TableCell>-61</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { Quote } from "@/types";
 import Quotes, { QuoteField } from "../Quotes";
+import MarketHeading from "../MarketHeading";
 
 async function getData() {
   const res = await fetch(
@@ -56,43 +57,27 @@ export default async function Commodities() {
     <>
       {/*ENERGY FUTURES */}
       <section className="">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            ENERGY FUTURES
-          </h2>
-        </header>
+        <MarketHeading label="ENERGY FUTURES" />
 
         <Quotes quotes={data.data.energy} fields={fields} />
       </section>
 
       {/*METAL FUTURES */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            METAL FUTURES
-          </h2>
-        </header>
+        <MarketHeading label="METAL FUTURES" />
 
         <Quotes quotes={data.data.metal} fields={fields} />
       </section>
 
       {/*AGRICULTURE FUTURES */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            AGRICULTURE FUTURES
-          </h2>
-        </header>
+        <MarketHeading label="AGRICULTURE FUTURES" />
 
         <Quotes quotes={data.data.agriculture} fields={fields} />
       </section>
       {/*LIVESTOCK FUTURES */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            LIVESTOCK FUTURES
-          </h2>
-        </header>
+        <MarketHeading label="LIVESTOCK FUTURES" />
 
         <Quotes quotes={data.data.livestock} fields={fields} />
       </section>
@@ -108,21 +93,13 @@ export default async function Commodities() {
       </section> */}
       {/*INDEX FUTURES */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            INDEX FUTURES
-          </h2>
-        </header>
+        <MarketHeading label="INDEX FUTURES" />
 
         <Quotes quotes={data.data.index} fields={fields} />
       </section>
       {/*INTEREST RATE FUTURES */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            INTEREST RATE FUTURES
-          </h2>
-        </header>
+        <MarketHeading label="INTEREST RAT FUTURES" />
 
         <Quotes quotes={data.data.interestRate} fields={fields} />
       </section>

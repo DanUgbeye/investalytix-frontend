@@ -1,8 +1,6 @@
-"use client";
-import MarketSelector from "@/modules/market/components/PreMarket/MarketSelector";
+import MarketSelector from "@/modules/market/components/MarketSelector";
 import MarketHeader from "@/modules/market/components/MarketHeader";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import MarketSubLinks from "@/modules/market/components/MarketSubLinks";
 
 export default function USMarketTemplate({
   children,
@@ -16,31 +14,18 @@ export default function USMarketTemplate({
     { label: "SECTORS", href: "#sectors" },
   ];
 
-  const pathname = usePathname();
+  const marketSelectors = [
+    { label: "U.S", href: "/markets/pre-market/us" },
+    { label: "AMERICAS", href: "/markets/pre-market/americas" },
+  ] as const;
+
   return (
     <>
-      <div>
-        <MarketHeader name="US MARKET" active="PRE-MKT" />
+      <MarketHeader name="US MARKET" active="PRE-MKT" />
 
-        <MarketSelector active="U.S" />
+      <MarketSelector active="U.S" selectors={marketSelectors} className="mb-10" />
 
-        <div className="mx-auto mb-14 flex items-center justify-center gap-5 overflow-auto p-3">
-          {markets.map((market, index) => (
-            <>
-              <Link
-                key={market.href}
-                href={market.href}
-                className={`text-hover-focus whitespace-nowrap text-sm font-bold ${market.href === pathname ? "text-primary-base" : ""}`}
-              >
-                {market.label}
-              </Link>
-              {index !== markets.length - 1 && (
-                <p className="text-sm font-bold">|</p>
-              )}
-            </>
-          ))}
-        </div>
-      </div>
+      <MarketSubLinks markets={markets} />
 
       {children}
     </>

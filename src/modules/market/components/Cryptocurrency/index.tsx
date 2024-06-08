@@ -1,16 +1,13 @@
 import Quotes from "@/modules/market/components/Quotes";
 import { Quote } from "@/types";
+import MarketHeading from "../MarketHeading";
 
 export default function Cryptocurrency({ quotes }: { quotes: Quote[] }) {
   return (
     <>
       {/* CRYPTOCURRENCY PAIRS */}
       <section className="">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            CRYPTOCURRENCY PAIRS
-          </h2>
-        </header>
+        <MarketHeading label="CRYPTOCURRENCY PAIRS" />
 
         <Quotes
           quotes={quotes}

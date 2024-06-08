@@ -25,7 +25,7 @@ input[type="number"] {
 }
 
 .th {
-  @apply bg-main-gray-800 text-sm font-extrabold text-white dark:bg-main-gray-700 dark:text-main-gray-300;
+  @apply text-sm font-normal capitalize text-[#6A6D78];
 }
 
 .white-text {

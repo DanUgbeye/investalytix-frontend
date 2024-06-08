@@ -1,5 +1,6 @@
 import Quotes from "@/modules/market/components/Quotes";
 import { Quote } from "@/types";
+import MarketHeading from "../MarketHeading";
 
 async function getData() {
   const res = await fetch(
@@ -31,44 +32,28 @@ export default async function FX() {
     <div>
       {/* MAJOR CURRENCIES PAIRS */}
       <section className="">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            MAJOR CURRENCIES PAIRS
-          </h2>
-        </header>
+        <MarketHeading label="MAJOR CURRENCIES PAIRS" />
 
         <Quotes />
       </section>
 
       {/* AMERICAS */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            AMERICAS
-          </h2>
-        </header>
+        <MarketHeading label="AMERICAS" />
 
         <Quotes quotes={data.data.american} />
       </section>
 
       {/* ASIA - PACIFIC */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            ASIA - PACIFIC
-          </h2>
-        </header>
+        <MarketHeading label="ASIA - PACIFIC" />
 
         <Quotes quotes={data.data.asian} />
       </section>
 
       {/* EUROPE */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            EUROPE
-          </h2>
-        </header>
+        <MarketHeading label="EUROPE" />
 
         <Quotes quotes={data.data.europe} />
       </section>

@@ -4,14 +4,19 @@ import WithSidePanel, {
   SIDE_SECTIONS,
 } from "@/modules/market/components/WithSidePanel";
 import PreMarket from "@/modules/market/components/PreMarket";
-import MarketSelector from "@/modules/market/components/PreMarket/MarketSelector";
+import MarketSelector from "@/modules/market/components/MarketSelector";
 
 export default function PreMarketPage() {
+  const marketSelectors = [
+    { label: "U.S", href: "/markets/pre-market/us" },
+    { label: "AMERICAS", href: "/markets/pre-market/americas" },
+  ] as const;
+
   return (
     <main>
       <MarketHeader name="PRE-MARKET DATA" active="PRE-MKT" />
 
-      <MarketSelector />
+      <MarketSelector selectors={marketSelectors} className="mb-10"/>
 
       <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
         <PreMarket />

@@ -1,5 +1,6 @@
 import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import Quotes from "@/modules/market/components/Quotes";
+import MarketHeading from "../../MarketHeading";
 
 export default function Overview() {
   return (
@@ -9,44 +10,28 @@ export default function Overview() {
 
       {/* STOCK INDEXES */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            STOCK INDEXES
-          </h2>
-        </header>
+        <MarketHeading label="STOCK INDEXES" />
 
         <Quotes />
       </section>
 
       {/* COMMODITIES */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            COMMODITIES
-          </h2>
-        </header>
+        <MarketHeading label="COMMODITIES" />
 
         <Quotes />
       </section>
 
       {/* TREASURYS */}
       <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            TREASURYS
-          </h2>
-        </header>
+        <MarketHeading label="TREASURYS" />
 
         <Quotes />
       </section>
 
       {/* CURRENCIES */}
       <section className="mt-11" id="currencies">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            CURRENCIES
-          </h2>
-        </header>
+        <MarketHeading label="CURRENCIES" />
 
         <Quotes />
       </section>

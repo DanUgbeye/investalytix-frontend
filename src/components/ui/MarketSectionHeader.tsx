@@ -9,9 +9,9 @@ export default function MarketSectionHeader({
   return (
     <header
       id={id}
-      className="border-b-[6px] border-b-[#1D1D1D] pb-10 dark:border-b-2 dark:border-b-white"
+      className="border-b border-b-black/8 pb-10 dark:border-b dark:border-b-white mb-5"
     >
-      <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
+      <h2 className="white-text text-3xl font-extrabold">
         {label}
       </h2>
     </header>

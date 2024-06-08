@@ -5,7 +5,6 @@ import useInput from "@/hooks/useInput";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
-import "swiper/css";
 
 export default function Home() {
   const [query, queryOpts] = useInput("");

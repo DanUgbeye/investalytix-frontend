@@ -24,7 +24,7 @@ export default function WithSidePanel({
   sections?: SIDE_SECTIONS[] | SIDE_SECTIONS;
 }>) {
   return (
-    <div className="grid">
+    <>
       <div>{children}</div>
 
       <div className="grid gap-14 border-[#DCDCDC] py-10 md:grid-cols-2 dark:border-white/10">
@@ -91,6 +91,6 @@ export default function WithSidePanel({
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
