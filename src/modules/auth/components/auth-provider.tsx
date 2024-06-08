@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PropsWithChildren, useEffect } from "react";
 import { z } from "zod";
 import { useAppStore } from "@/store";
-import { AuthState } from "../types/store.types.ts";
+import { AuthState } from "@/store/auth";
 import { AuthSchema } from "../validation";
 import { useAuthRepo } from "../repository";
 import useLogout from "../hooks/use-logout.hook";
