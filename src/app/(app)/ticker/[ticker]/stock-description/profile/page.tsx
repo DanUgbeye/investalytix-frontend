@@ -16,7 +16,7 @@ export async function generateMetadata(props: {
     } = props;
 
     const tickerRepo = new TickerRepository(serverAPI);
-    const profile= await tickerRepo.getCompanyProfile(ticker);
+    const profile = await tickerRepo.getCompanyProfile(ticker);
 
     return {
       title: `${profile.companyName} (${profile.symbol}) Stock Description - Profile | Investalytix`,
@@ -31,10 +31,14 @@ export async function generateMetadata(props: {
 async function getTickerData(ticker: string) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
-    const outlook = await tickerRepo.getCompanyOutLook(ticker);
+    const [quote, outlook] = await Promise.all([
+      tickerRepo.getQuote(ticker),
+      tickerRepo.getCompanyOutLook(ticker),
+    ]);
 
     return {
       outlook,
+      quote,
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
@@ -52,7 +56,7 @@ export default async function ProfilePage(props: ProfilePageProps) {
     params: { ticker },
   } = props;
 
-  const { outlook } = await getTickerData(ticker);
+  const { outlook, quote } = await getTickerData(ticker);
 
-  return <ProfileScreen ticker={ticker} outlook={outlook} />;
+  return <ProfileScreen ticker={ticker} outlook={outlook} quote={quote} />;
 }

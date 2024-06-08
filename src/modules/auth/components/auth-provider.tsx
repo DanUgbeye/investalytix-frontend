@@ -7,24 +7,27 @@ import { UserSchema } from "@/modules/user/validation";
 import { useQuery } from "@tanstack/react-query";
 import { PropsWithChildren, useEffect } from "react";
 import { z } from "zod";
-import useAuthStore from "../store";
+import { useAppStore } from "@/store";
 import { AuthState } from "../types/store.types.ts";
 import { AuthSchema } from "../validation";
 import { useAuthRepo } from "../repository";
 import useLogout from "../hooks/use-logout.hook";
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-  const initialiseStore = useAuthStore(
-    ({ initialiseStore }) => initialiseStore
-  );
-  const initialised = useAuthStore(({ initialised }) => initialised);
-  const set = useAuthStore(({ set }) => set);
-  const reset = useAuthStore(({ reset }) => reset);
-  const auth = useAuthStore(({ auth }) => auth);
-  const user = useAuthStore(({ user }) => user);
+  const initialiseStore = useAppStore(({ initialiseStore }) => initialiseStore);
+  const initialised = useAppStore(({ initialised }) => initialised);
+  const set = useAppStore(({ setAuth }) => setAuth);
+  const reset = useAppStore(({ reset }) => reset);
+  const auth = useAppStore(({ auth }) => auth);
+  const user = useAppStore(({ user }) => user);
   const userRepo = useUserRepo();
   const authRepo = useAuthRepo();
   const logout = useLogout();
+
+  const defaultAuth = {
+    user: undefined,
+    auth: undefined,
+  };
 
   const { data } = useQuery({
     enabled: !!user,
@@ -51,7 +54,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       // fetch auth data locally
       const saved = localStorage.getItem(LOCALSTORAGE_KEYS.AUTH);
       if (saved === null) {
-        return initialiseStore({});
+        return initialiseStore(defaultAuth);
       }
 
       const data = JSON.parse(saved); // can throw error
@@ -62,13 +65,13 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
       if (!validation.success) {
         localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH);
-        return initialiseStore({});
+        return initialiseStore(defaultAuth);
       }
 
       return initialiseStore(validation.data);
     } catch (error: any) {
       localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH);
-      return initialiseStore({});
+      return initialiseStore(defaultAuth);
     }
   }
 

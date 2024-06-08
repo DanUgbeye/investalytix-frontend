@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PAGES from "@/data/page-map";
 import { useAuthRepo } from "@/modules/auth/repository";
-import useAuthStore from "@/modules/auth/store";
+import { useAppStore } from "@/store";
 import { LoginData } from "@/modules/auth/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
@@ -21,7 +21,7 @@ import { ZodType, z } from "zod";
 export default function LoginScreen() {
   const router = useRouter();
   const authRepo = useAuthRepo();
-  const setAuth = useAuthStore(({ set }) => set);
+  const setAuth = useAppStore(({ setAuth }) => setAuth);
   const {
     control,
     formState: { isSubmitting, isDirty },

@@ -1,6 +1,7 @@
 "use client";
 
 import { CompanyOutlook } from "@/modules/ticker/types";
+import { Quote } from "@/types";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import Link from "next/link";
@@ -8,10 +9,11 @@ import Link from "next/link";
 interface ProfileScreenProps {
   ticker: string;
   outlook: CompanyOutlook;
+  quote: Quote;
 }
 
 export default function ProfileScreen(props: ProfileScreenProps) {
-  const { ticker, outlook } = props;
+  const { ticker, outlook, quote } = props;
 
   return (
     <section className=" space-y-10 pb-10 ">
@@ -63,17 +65,21 @@ export default function ProfileScreen(props: ProfileScreenProps) {
 
           <div className="  ">
             <table className=" text-sm ">
-              {/* TODO INPUT VALUE */}
               <tr>
                 <td className=" px-2 py-1  ">Shares Outstanding:</td>
-                <td className=" px-2 py-1 font-medium ">15.6B</td>
+                <td className=" px-2 py-1 font-medium ">
+                  {appUtils.formatNumber(quote.sharesOutstanding || undefined, {
+                    style: "decimal",
+                    notation: "compact"
+                  })}
+                </td>
               </tr>
 
               {/* TODO INPUT VALUE */}
-              <tr>
+              {/* <tr>
                 <td className=" px-2 py-1  ">Institutional Ownership:</td>
                 <td className=" px-2 py-1 font-medium ">61.67%</td>
-              </tr>
+              </tr> */}
 
               <tr>
                 <td className=" px-2 py-1  ">Market Cap:</td>

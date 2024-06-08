@@ -11,10 +11,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import useAuthStore from "@/modules/auth/store";
 import { Earning } from "@/modules/ticker/types";
 import useTheme from "@/store/theme/useTheme";
-import { Quote } from "@/types";
 import appUtils from "@/utils/app-util";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
@@ -38,7 +36,6 @@ interface RevenueAndEPSScreenProps {
 export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
   const { ticker, earnings, currency } = props;
   const { theme } = useTheme();
-  const user = useAuthStore(({ user }) => user);
   const [showAll, setShowAll] = useState<"EPS" | "Revenue" | undefined>();
 
   function handleShoMore(show?: typeof showAll) {

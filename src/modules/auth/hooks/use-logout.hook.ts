@@ -1,10 +1,10 @@
 import { clientAPI } from "@/config/client/api";
 import { AuthRepository } from "../repository";
 import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
-import useAuthStore from "../store";
+import { useAppStore } from "@/store";
 
 async function logout() {
-  const resetAuth = useAuthStore.getState().reset;
+  const resetAuth = useAppStore.getState().reset;
   const authRepo = new AuthRepository(clientAPI);
 
   await authRepo.logout();

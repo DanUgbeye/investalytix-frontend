@@ -1,4 +1,3 @@
-import useAuthStore from "@/modules/auth/store";
 import axios, { AxiosError, AxiosInstance } from "axios";
 import { errorUtils } from "./error.utils";
 
@@ -37,16 +36,26 @@ function handleAPIError(
   return new Error("something went wrong");
 }
 
-function addAuthInterceptor(api: AxiosInstance) {
-  api.interceptors.request.use((config) => {
-    const { auth } = useAuthStore.getState();
+function addAuthInterceptor(
+  axios: AxiosInstance,
+  token?: (() => string | undefined) | string
+) {
+  axios.interceptors.request.use((config) => {
     // console.log("interceptor running");
-    if (auth && auth.token) {
+    if (typeof token === "string") {
       // console.log("interceptor auth token added");
-      config.headers["authorization"] = `Bearer ${auth.token}`;
+      config.headers["authorization"] = `Bearer ${token}`;
+    } else if (typeof token === "function") {
+      let tokenString = token();
+
+      if (tokenString) {
+        config.headers["authorization"] = `Bearer ${tokenString}`;
+      }
     }
+
     return config;
   });
 }
 
-export { createAPIInstance, setAuthHeader, handleAPIError, addAuthInterceptor };
+export { addAuthInterceptor, createAPIInstance, handleAPIError, setAuthHeader };
+

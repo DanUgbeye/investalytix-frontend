@@ -1,7 +1,7 @@
 "use client";
 
 import AuthProvider from "@/modules/auth/components/auth-provider";
-import ThemeContextProvider from "@/store/theme/store";
+import ThemeProvider from "@/store/theme/provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PropsWithChildren } from "react";
 
@@ -11,7 +11,7 @@ export default function Providers({ children }: PropsWithChildren) {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ThemeContextProvider>{children}</ThemeContextProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
