@@ -234,7 +234,6 @@ export class TickerRepository {
 
       return validation.data;
     } catch (error: any) {
-      console.log(error);
       let err = handleAPIError(error);
       throw err;
     }
@@ -255,7 +254,6 @@ export class TickerRepository {
 
       return validation.data;
     } catch (error: any) {
-      console.log(error);
       let err = handleAPIError(error);
       throw err;
     }
@@ -331,7 +329,6 @@ export class TickerRepository {
       let validation = z.array(IncomeStatementSchema).safeParse(res.data.data);
 
       if (validation.error) {
-        console.log(JSON.stringify(validation.error));
         throw new Error("Something went wrong on our end");
       }
 

@@ -39,7 +39,6 @@ async function getData(ticker: string) {
 
     return { earnings, profile, timeStamp: new Date() };
   } catch (error: any) {
-    console.log(error);
     if (errorUtils.is404Error(error)) {
       notFound();
     }

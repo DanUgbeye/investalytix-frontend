@@ -1,5 +1,14 @@
 "use client";
 
+import HeaderWithUnderline from "@/components/heading";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { CompanyOutlook } from "@/modules/ticker/types";
 import { Quote } from "@/types";
 import appUtils from "@/utils/app-util";
@@ -17,105 +26,163 @@ export default function ProfileScreen(props: ProfileScreenProps) {
 
   return (
     <section className=" space-y-10 pb-10 ">
-      <div className=" flex flex-wrap gap-x-10 gap-y-5 xl:grid xl:w-full xl:grid-cols-[1fr,2fr] xl:flex-nowrap xl:justify-between ">
-        <div className=" flex flex-col space-y-2 xl:w-full ">
-          <h3 className=" text-2xl font-extrabold ">
-            {outlook.profile.companyName}
-          </h3>
+      <HeaderWithUnderline className="  ">
+        About {outlook.profile.companyName}
+      </HeaderWithUnderline>
 
-          <div className=" max-w-60 text-sm ">{outlook.profile.address}</div>
-
-          <div className=" flex flex-col space-y-1 text-sm text-[#125BD4] ">
-            <span>{outlook.profile.phone}</span>
-
-            <Link href={outlook.profile.website} target="_blank">
-              {outlook.profile.website}
-            </Link>
-          </div>
+      <div className=" grid grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] gap-5 lg:grid-cols-4 ">
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">Sector</span>
+          <span className=" font-bold ">{outlook.profile.sector}</span>
         </div>
 
-        <div className=" flex flex-wrap gap-x-10 gap-y-5 xl:w-full xl:justify-between ">
-          <div className="  ">
-            <table className=" text-sm ">
-              <tr>
-                <td className=" px-2 py-1  ">Sector:</td>
-                <td className=" px-2 py-1 font-medium ">
-                  {outlook.profile.sector}
-                </td>
-              </tr>
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">Industry</span>
+          <span className=" font-bold ">{outlook.profile.industry}</span>
+        </div>
 
-              <tr>
-                <td className=" px-2 py-1  ">Industry:</td>
-                <td className=" px-2 py-1 font-medium ">
-                  {outlook.profile.industry}
-                </td>
-              </tr>
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">CEO</span>
+          <span className=" font-bold ">{outlook.profile.ceo}</span>
+        </div>
 
-              <tr>
-                <td className=" px-2 py-1  ">Full time Employees:</td>
-                <td className=" px-2 py-1 font-medium ">
-                  {appUtils.formatNumber(
-                    Number(outlook.profile.fullTimeEmployees),
-                    { style: "decimal" }
-                  )}
-                </td>
-              </tr>
-            </table>
-          </div>
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">Country</span>
+          <span className=" font-bold ">{outlook.profile.country}</span>
+        </div>
 
-          <div className="  ">
-            <table className=" text-sm ">
-              <tr>
-                <td className=" px-2 py-1  ">Shares Outstanding:</td>
-                <td className=" px-2 py-1 font-medium ">
-                  {appUtils.formatNumber(quote.sharesOutstanding || undefined, {
-                    style: "decimal",
-                    notation: "compact"
-                  })}
-                </td>
-              </tr>
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">City</span>
+          <span className=" font-bold ">{outlook.profile.city}</span>
+        </div>
 
-              {/* TODO INPUT VALUE */}
-              {/* <tr>
-                <td className=" px-2 py-1  ">Institutional Ownership:</td>
-                <td className=" px-2 py-1 font-medium ">61.67%</td>
-              </tr> */}
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">Address</span>
+          <span className=" font-bold ">{outlook.profile.address}</span>
+        </div>
 
-              <tr>
-                <td className=" px-2 py-1  ">Market Cap:</td>
-                <td className=" px-2 py-1 font-medium ">
-                  {appUtils.formatNumber(outlook.profile.mktCap, {
-                    notation: "compact",
-                  })}
-                </td>
-              </tr>
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">Phone</span>
+          <span className=" font-bold ">{outlook.profile.phone}</span>
+        </div>
 
-              <tr>
-                <td className=" px-2 py-1  ">Last Stock Split Date:</td>
-                <td className=" px-2 py-1 font-medium ">
-                  {format(outlook.splitsHistory[0].date, "MMM dd, yyyy")}
-                </td>
-              </tr>
-            </table>
-          </div>
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">Website</span>
+          <span className=" font-bold ">{outlook.profile.website}</span>
+        </div>
+
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">Full Time Empoyees</span>
+          <span className=" font-bold ">
+            {appUtils.formatNumber(Number(outlook.profile.fullTimeEmployees), {
+              style: "decimal",
+            })}
+          </span>
+        </div>
+
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">IPO Date</span>
+          <span className=" font-bold ">
+            {new Date(outlook.profile.ipoDate).toDateString()}
+          </span>
+        </div>
+
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">Shares Outstanding</span>
+          <span className=" font-bold ">
+            {appUtils.formatNumber(quote.sharesOutstanding || undefined, {
+              style: "decimal",
+              notation: "compact",
+            })}
+          </span>
+        </div>
+
+        <div className=" flex flex-col ">
+          <span className=" text-sm ">Market Cap</span>
+          <span className=" font-bold ">
+            {appUtils.formatNumber(outlook.profile.mktCap, {
+              notation: "compact",
+            })}
+          </span>
         </div>
       </div>
+
+      <p className=" max-w-3xl whitespace-pre-line ">
+        {outlook.profile.description}
+      </p>
 
       <div className=" space-y-4 ">
-        <h4 className=" text-xl font-bold ">Description</h4>
+        <h3 className=" font-extrabold ">Key Executives</h3>
 
-        <p className=" whitespace-pre-line text-justify ">
-          {outlook.profile.description}
-        </p>
-      </div>
+        <div className=" overflow-y-auto ">
+          <Table className="w-full min-w-[50rem] border-b dark:border-main-gray-900 ">
+            <TableHeader>
+              <TableRow className=" border-y text-sm hover:bg-transparent dark:border-y-main-gray-900 dark:hover:bg-transparent ">
+                <TableHead className=" px-2 py-2 text-left ">Name</TableHead>
 
-      <div className=" grid gap-10 border-2 p-10 md:grid-cols-2 dark:border-main-gray-600 ">
-        {outlook.keyExecutives.map((executive, index) => (
-          <div key={`${executive.title}-${index}`} className=" space-y-1 ">
-            <div className=" font-medium ">{executive.name}</div>
-            <div className="  ">{executive.title}</div>
-          </div>
-        ))}
+                <TableHead className=" py-4 text-left font-normal ">
+                  Title
+                </TableHead>
+
+                <TableHead className=" py-4 text-left font-normal ">
+                  Pay
+                </TableHead>
+
+                <TableHead className=" px-2 py-2 text-left ">
+                  Held Since
+                </TableHead>
+
+                <TableHead className=" px-2 py-2 text-center ">
+                  Year Born
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {outlook.keyExecutives.map((executive, index) => {
+                return (
+                  <TableRow
+                    key={`${executive.name}`}
+                    className=" border-y text-sm dark:border-main-gray-900 dark:text-main-gray-300 dark:odd:bg-transparent "
+                    colorMode="odd"
+                  >
+                    <TableCell className=" px-2 py-2 text-left ">
+                      {executive.name}
+                    </TableCell>
+
+                    <TableCell className={` py-3 text-left `}>
+                      {executive.title}
+                    </TableCell>
+
+                    <TableCell className={` py-3 text-left `}>
+                      {appUtils.formatNumber(executive.pay || undefined, {
+                        currency:
+                          executive.currencyPay || outlook.profile.currency,
+                        notation: "compact",
+                        minimumFractionDigits: 2,
+                      })}
+                    </TableCell>
+
+                    <TableCell className=" px-2 py-2 text-left">
+                      <span className=" ">
+                        {executive.titleSince
+                          ? format(
+                              new Date(executive.titleSince),
+                              "MMM dd, yyyy"
+                            )
+                          : "-"}
+                      </span>
+                    </TableCell>
+
+                    <TableCell className=" px-2 py-2 text-center">
+                      {executive.yearBorn}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </section>
   );

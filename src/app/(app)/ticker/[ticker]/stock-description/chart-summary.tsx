@@ -173,7 +173,6 @@ export default function ChartSummary(props: { ticker: string }) {
 
   function handleTimeframeChange(timeframe: (typeof TIMEFRAMES)[number]) {
     if (!chartRef.current) return;
-    console.log("running change");
 
     setLoadingData(true);
     getHistoricalData(timeframe)
@@ -202,9 +201,10 @@ export default function ChartSummary(props: { ticker: string }) {
       <div className=" relative h-72 w-full ">
         <div
           ref={chartRef}
-          className={cn(`relative h-full w-full overflow-hidden duration-150 `, {
-            " opacity-50": loadingData,
-          })}
+          className={cn(
+            `relative h-full w-full overflow-hidden duration-150 `,
+            { " opacity-50": loadingData }
+          )}
         />
       </div>
 

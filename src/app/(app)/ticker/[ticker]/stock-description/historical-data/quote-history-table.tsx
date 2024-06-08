@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableBody,
@@ -7,10 +9,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { QuoteHistory } from "@/types";
-import React from "react";
+import React, { useState } from "react";
 
 export default function QuoteHistoryTable(props: {
   quoteHistory: QuoteHistory[];
+  showAll?: boolean;
 }) {
   const { quoteHistory } = props;
 
@@ -34,7 +37,8 @@ export default function QuoteHistoryTable(props: {
             return (
               <TableRow
                 key={`historical-data${index}`}
-                className=" odd:bg-main-gray-100 dark:odd:bg-main-gray-800/60 "
+                className=" "
+                colorMode="odd"
               >
                 <TableCell className=" px-2 py-3 ">
                   {item.date.toDateString()}
@@ -42,36 +46,42 @@ export default function QuoteHistoryTable(props: {
 
                 <TableCell className=" px-2 py-3 text-right ">
                   {item.open.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
 
                 <TableCell className=" px-2 py-3 text-right ">
                   {item.high.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
 
                 <TableCell className=" px-2 py-3 text-right ">
                   {item.low.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
 
                 <TableCell className=" px-2 py-3 text-right ">
                   {item.close.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
 
                 {/* <TableCell className=" px-2 py-3 text-right ">
                   {item.adjClose.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell> */}
 
                 <TableCell className=" px-2 py-3 text-right ">
                   {item.volume.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>

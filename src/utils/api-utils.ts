@@ -41,9 +41,7 @@ function addAuthInterceptor(
   token?: (() => string | undefined) | string
 ) {
   axios.interceptors.request.use((config) => {
-    // console.log("interceptor running");
     if (typeof token === "string") {
-      // console.log("interceptor auth token added");
       config.headers["authorization"] = `Bearer ${token}`;
     } else if (typeof token === "function") {
       let tokenString = token();
@@ -58,4 +56,3 @@ function addAuthInterceptor(
 }
 
 export { addAuthInterceptor, createAPIInstance, handleAPIError, setAuthHeader };
-

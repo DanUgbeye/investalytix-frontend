@@ -1,4 +1,6 @@
+import { serverAPI } from "@/config/server/api";
 import SERVER_CONFIG from "@/config/server/app";
+import { COOKIE_KEYS } from "@/data/cookie-keys";
 import { AuthData } from "@/modules/auth/types";
 import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
 import { AxiosError } from "axios";
@@ -10,19 +12,17 @@ import { NextRequest, NextResponse } from "next/server";
  * @route POST - .../auth/refresh-token
  */
 async function RefreshToken(req: NextRequest) {
-  const api = createAPIInstance(SERVER_CONFIG.API_BASE_URL);
-
   try {
-    if (!cookies().has("auth")) {
+    if (!cookies().has(COOKIE_KEYS.AUTH)) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    let { data: res } = await api.post<{ data: { auth: AuthData } }>(
+    let { data: res } = await serverAPI.post<{ data: { auth: AuthData } }>(
       "/auth/refresh-token"
     );
 
-    cookies().delete("auth");
-    cookies().set("auth", res.data.auth.token, {
+    cookies().delete(COOKIE_KEYS.AUTH);
+    cookies().set(COOKIE_KEYS.AUTH, JSON.stringify(res.data.auth), {
       secure: true,
       httpOnly: true,
       expires: res.data.auth.expiresIn,
