@@ -13,16 +13,13 @@ import {
   Line,
   ComposedChart,
 } from "recharts";
+import MarketHeading from "../MarketHeading";
 
 export default function InvestorSentiment() {
   const timeframes = ["1m", "5m", "15m", "1h"];
   return (
     <>
-      <header className="mb-6">
-        <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-          INVESTOR SENTIMENT
-        </h2>
-      </header>
+      <MarketHeading label="INVESTOR SENTIMENT" />
 
       <p className="my-4 text-xl font-bold">Level Chart</p>
       <div className="flex items-center gap-6">

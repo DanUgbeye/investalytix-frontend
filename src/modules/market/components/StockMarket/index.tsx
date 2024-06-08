@@ -2,6 +2,7 @@
 import Quotes from "@/modules/market/components/Quotes";
 import FearAndGreed from "./FearAndGreed";
 import InvestorSentiment from "./InvestorSentiment";
+import MarketHeading from "../MarketHeading";
 
 export default function StockMarket() {
   return (
@@ -10,11 +11,8 @@ export default function StockMarket() {
 
       {/*  STOCK INDEXES */}
       <section className="mt-8">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            STOCK INDEXES
-          </h2>
-        </header>
+        <MarketHeading label="STOCK INDEXES" />
+
         <Quotes />
       </section>
 
@@ -30,22 +28,15 @@ export default function StockMarket() {
 
       {/* COMMODITIES */}
       <section className="mt-8">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            COMMODITIES
-          </h2>
-        </header>
+        <MarketHeading label="COMMODITIES" />
 
         <Quotes />
       </section>
 
       {/* TREASURYS */}
       <section className="mt-8">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            TREASURYS
-          </h2>
-        </header>
+        <MarketHeading label="TREASURYS" />
+
         <Quotes
           fields={[
             { label: "symbol", key: "symbol" },
@@ -57,11 +48,8 @@ export default function StockMarket() {
 
       {/* CURRENCIES */}
       <section className="mt-8">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            CURRENCIES
-          </h2>
-        </header>
+        <MarketHeading label="CURRENCIES" />
+
         <Quotes />
       </section>
     </div>

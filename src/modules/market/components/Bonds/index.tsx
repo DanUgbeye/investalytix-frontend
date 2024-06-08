@@ -1,83 +1,52 @@
 import Quotes from "../Quotes";
+import Australia from "./Australia";
+import Brazil from "./Brazil";
+import Canada from "./Canada";
+import France from "./France";
+import Germany from "./Germany";
+import Italy from "./Italy";
+import Japan from "./Japan";
+import Treasury from "./Treasury";
+import UK from "./UK";
 
 export default function Bonds() {
   return (
     <>
-      {/* U.S TREASURYS  */}
-      <section className="">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold uppercase">
-            U.S TREASURYS
-          </h2>
-        </header>
+      <Treasury />
+      <br />
+      <br />
+      <br />
+      <UK />
+      <br />
+      <br />
+      <br />
+      <Germany />
+      <br />
+      <br />
+      <br />
+      <Italy />
+      <br />
+      <br />
+      <br />
+      <France />
+      <br />
+      <br />
+      <br />
+      <Japan />
 
-        <Quotes
-          fields={[
-            {
-              label: "Symbol",
-              key: "symbol",
-            },
-            {
-              label: "price",
-              key: "price",
-            },
-            {
-              label: "%chg",
-              key: "changesPercentage",
-            },
-          ]}
-        />
-      </section>
-      {/* U.K. Government Bonds (GILT)  */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold uppercase">
-            U.K. Government Bonds (GILT)
-          </h2>
-        </header>
+      <br />
+      <br />
+      <br />
+      <Australia />
+      <br />
+      <br />
+      <br />
+      <Canada />
+      <br />
+      <br />
+      <br />
 
-        <Quotes
-          fields={[
-            {
-              label: "Symbol",
-              key: "symbol",
-            },
-            {
-              label: "price",
-              key: "price",
-            },
-            {
-              label: "%chg",
-              key: "changesPercentage",
-            },
-          ]}
-        />
-      </section>
-      {/* German Government Bonds (BUND)  */}
-      <section className="mt-11">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold uppercase">
-            German Government Bonds (BUND)
-          </h2>
-        </header>
-
-        <Quotes
-          fields={[
-            {
-              label: "Symbol",
-              key: "symbol",
-            },
-            {
-              label: "price",
-              key: "price",
-            },
-            {
-              label: "%chg",
-              key: "changesPercentage",
-            },
-          ]}
-        />
-      </section>
+      <Brazil />
     </>
   );
 }
