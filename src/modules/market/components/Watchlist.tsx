@@ -1,9 +1,9 @@
 "use client";
 
-import useAuthStore from "@/modules/auth/store";
+import { useAppStore } from "@/store";
 
 export default function Watchlist() {
-  const { auth } = useAuthStore();
+  const { auth } = useAppStore();
 
   // url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/watchlists`}
 

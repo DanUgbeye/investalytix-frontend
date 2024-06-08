@@ -1,5 +1,5 @@
 import { ZodType, z } from "zod";
-import { ServerUserData, UserData } from "../user.types";
+import { ServerUserData, UserData } from "../types";
 
 export const ServerUserSchema = z.object({
   _id: z.string(),

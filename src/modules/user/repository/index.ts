@@ -2,7 +2,7 @@ import { clientAPI } from "@/config/client/api";
 import { RequestOptions } from "@/types/api.types";
 import { handleAPIError } from "@/utils/api-utils";
 import { AxiosInstance } from "axios";
-import { UserData } from "../user.types";
+import { UserData } from "../types";
 import { UserSchema } from "../validation";
 
 export class UserRepository {

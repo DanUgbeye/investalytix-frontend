@@ -1,3 +1,5 @@
+import { COOKIE_KEYS } from "@/data/cookie-keys";
+import { AuthSchema } from "@/modules/auth/validation";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,11 +9,12 @@ import { NextRequest, NextResponse } from "next/server";
  */
 async function CheckAuthStatus(req: NextRequest) {
   try {
-    if (cookies().has("auth")) {
-      const auth = cookies().get("auth")!;
+    const authCookie = cookies().get(COOKIE_KEYS.AUTH);
+    if (authCookie !== undefined && authCookie.value !== undefined) {
+      const auth = AuthSchema.parse(JSON.parse(authCookie.value));
 
       return NextResponse.json(
-        { data: { authenticated: true, token: auth.value } },
+        { data: { authenticated: true, ...auth } },
         { status: 200 }
       );
     }

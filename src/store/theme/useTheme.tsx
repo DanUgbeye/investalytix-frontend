@@ -1,9 +1,8 @@
-"use client";
-import { useContext } from "react";
-import { ThemeContext } from "./store";
+import { useAppStore } from "..";
 
 export default function useTheme() {
-  const data = useContext(ThemeContext);
-
-  return data;
+  return useAppStore(({ theme, toggleTheme }) => ({
+    theme,
+    toggleTheme,
+  }));
 }

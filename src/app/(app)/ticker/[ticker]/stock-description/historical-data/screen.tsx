@@ -95,7 +95,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                     {...rest}
                     id="from"
                     type="date"
-                    className=" date-input w-full max-w-[10rem] rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm text-primary-base outline-0 dark:border-main-gray-500 "
+                    className=" date-input w-full max-w-[10rem] rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
                     value={value?.toLocaleDateString("en-CA")}
                     onChange={(e) => {
                       onChange(new Date(e.target.value));
@@ -122,7 +122,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                     {...rest}
                     id="to"
                     type="date"
-                    className=" date-input w-full max-w-[10rem] rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm text-primary-base outline-0 dark:border-main-gray-500 "
+                    className=" date-input w-full max-w-[10rem] rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
                     value={value?.toLocaleDateString("en-CA")}
                     onChange={(e) => {
                       onChange(new Date(e.target.value));
@@ -146,7 +146,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   <select
                     {...field}
                     id="show"
-                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm text-primary-base outline-0 dark:border-main-gray-500 "
+                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
                   >
                     <option value={"price"}>Historical Prices</option>
                     {/* <option value={"splits"}>Stock Splits</option> */}
@@ -167,7 +167,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   <select
                     {...field}
                     id="period"
-                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm text-primary-base outline-0 dark:border-main-gray-500 "
+                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
                   >
                     <option value={"1day"}>Daily</option>
                     <option value={"1week"}>Weekly</option>
@@ -179,7 +179,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
           </div>
         </div>
 
-        <Button size={"sm"} className=" ml-auto px-6 md:px-8 ">
+        <Button className=" h-9 ml-auto px-6 md:px-8 ">
           Apply
         </Button>
       </form>

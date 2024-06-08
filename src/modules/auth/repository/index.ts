@@ -1,5 +1,5 @@
 import { clientAPI } from "@/config/client/api";
-import { ServerUserData } from "@/modules/user/user.types";
+import { ServerUserData } from "@/modules/user/types";
 import { ServerUserSchema } from "@/modules/user/validation";
 import { RequestOptions } from "@/types/api.types";
 import { createAPIInstance, handleAPIError } from "@/utils/api-utils";

@@ -19,7 +19,7 @@ import PAGES from "@/data/page-map";
 import useInput from "@/hooks/useInput";
 import { cn } from "@/lib/utils";
 import useLogout from "@/modules/auth/hooks/use-logout.hook";
-import useAuthStore from "@/modules/auth/store";
+import { useAppStore } from "@/store";
 import { useTickerRepository } from "@/modules/ticker/hooks";
 import tickerUtils from "@/modules/ticker/utils";
 import useTheme from "@/store/theme/useTheme";
@@ -92,11 +92,15 @@ const routes: RouteLink[] = [
 export default function NavBar() {
   const { toggleTheme, theme } = useTheme();
   const path = usePathname();
-  const user = useAuthStore(({ user }) => user);
+  const user = useAppStore(({ user }) => user);
   const logout = useLogout();
 
   function handleLogout() {
     logout().catch((err) => {});
+  }
+
+  function handleToggleTheme() {
+    toggleTheme();
   }
 
   return (
@@ -174,7 +178,7 @@ export default function NavBar() {
             <button
               title="theme"
               className=" inline-block rounded-full p-2 font-bold text-white dark:text-main-gray-300"
-              onClick={toggleTheme}
+              onClick={handleToggleTheme}
             >
               {theme === "light" ? (
                 <FiMoon className="size-5 xl:size-4" />
@@ -290,7 +294,7 @@ NavLink.displayName = "NavLink";
 
 function MobileMenu() {
   const [history, setHistory] = useState<RouteLink[]>([]);
-  const user = useAuthStore(({ user }) => user);
+  const user = useAppStore(({ user }) => user);
 
   const lastHistory = () => history[history.length - 1];
 

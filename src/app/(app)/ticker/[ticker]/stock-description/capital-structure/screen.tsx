@@ -40,11 +40,17 @@ export default function CapitalStructureScreen(
     return {
       data: capitalStructure.map((entry) => ({
         ...entry,
-        percentage: entry.value / total,
+        percentage: (entry.value / total) * 100,
       })),
       total,
     };
   }, [capitalStructure]);
+
+  const largestPercentage = useMemo(() => {
+    return parsedData.data.reduce((max, currentEntry) => {
+      return currentEntry.percentage > max ? currentEntry.percentage : max;
+    }, 0);
+  }, [parsedData]);
 
   return (
     <section className=" pb-12 ">
@@ -52,8 +58,12 @@ export default function CapitalStructureScreen(
 
       <div className=" grid gap-5 pt-10 md:grid-cols-[auto,1fr] ">
         <div className=" w-full md:min-w-80 ">
-          <div className=" grid place-items-center ">
-            <PieChart width={300} height={300} className=" w-full ">
+          <div className=" grid grid-cols-1 grid-rows-1 place-items-center ">
+            <PieChart
+              width={300}
+              height={300}
+              className=" col-start-1 row-start-1 w-full  "
+            >
               <Pie
                 data={capitalStructure}
                 dataKey={"value"}
@@ -95,6 +105,14 @@ export default function CapitalStructureScreen(
                 }}
               />
             </PieChart>
+
+            <div className=" absolute -z-10 text-lg col-start-1 row-start-1 ">
+              {appUtils.formatNumber(largestPercentage, {
+                style: "decimal",
+                maximumFractionDigits: 3,
+              })}
+              %
+            </div>
           </div>
         </div>
 

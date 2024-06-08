@@ -173,7 +173,6 @@ export default function ChartSummary(props: { ticker: string }) {
 
   function handleTimeframeChange(timeframe: (typeof TIMEFRAMES)[number]) {
     if (!chartRef.current) return;
-    console.log("running change");
 
     setLoadingData(true);
     getHistoricalData(timeframe)
@@ -202,9 +201,10 @@ export default function ChartSummary(props: { ticker: string }) {
       <div className=" relative h-72 w-full ">
         <div
           ref={chartRef}
-          className={cn(`relative h-full w-full overflow-hidden duration-150 `, {
-            " opacity-50": loadingData,
-          })}
+          className={cn(
+            `relative h-full w-full overflow-hidden duration-150 `,
+            { " opacity-50": loadingData }
+          )}
         />
       </div>
 
@@ -217,9 +217,9 @@ export default function ChartSummary(props: { ticker: string }) {
               className={cn(
                 " w-full min-w-fit rounded-lg p-4 text-sm duration-300 ",
                 {
-                  " hover:bg-[#F0F3FA] dark:hover:bg-[#48494A] ":
+                  " hover:bg-main-gray-100 dark:hover:bg-main-gray-700/50 ":
                     tf.label !== activeTab.label,
-                  " bg-[#F0F3FA] dark:bg-[#48494A] ":
+                  " bg-main-gray-200/50 dark:bg-main-gray-700 ":
                     tf.label === activeTab.label,
                 }
               )}

@@ -1,3 +1,4 @@
+import { serverAPI } from "@/config/server/api";
 import SERVER_CONFIG from "@/config/server/app";
 import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
 import { AxiosError } from "axios";
@@ -8,11 +9,9 @@ import { NextRequest, NextResponse } from "next/server";
  * @route POST - .../auth/signup
  */
 async function Signup(req: NextRequest) {
-  const api = createAPIInstance(SERVER_CONFIG.API_BASE_URL);
-
   try {
     let body = await req.json();
-    let { data } = await api.post("/auth/register", body);
+    let { data } = await serverAPI.post("/auth/register", body);
 
     return NextResponse.json(data, { status: 201 });
   } catch (err: any) {

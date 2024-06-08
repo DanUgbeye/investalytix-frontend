@@ -1,4 +1,4 @@
-import { UserData } from "../user.types";
+import { UserData } from "../types";
 
 export class UserUtils {
   getUserInitials(user?: UserData): string {

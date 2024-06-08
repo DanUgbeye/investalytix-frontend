@@ -1,3 +1,4 @@
+import { COOKIE_KEYS } from "@/data/cookie-keys";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -8,8 +9,8 @@ import { NextRequest, NextResponse } from "next/server";
 async function Logout(req: NextRequest) {
   try {
     let serverCookies = cookies();
-    if (serverCookies.has("auth")) {
-      serverCookies.delete("auth");
+    if (serverCookies.has(COOKIE_KEYS.AUTH)) {
+      serverCookies.delete(COOKIE_KEYS.AUTH);
     }
 
     return NextResponse.json({ message: "success" }, { status: 200 });
