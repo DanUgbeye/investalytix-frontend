@@ -6,20 +6,37 @@ import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
 import NewsScreen from "./screen";
 
-export const metadata: Metadata = {
-  title: "Investalytix",
-};
+export async function generateMetadata(props: {
+  params: { ticker: string };
+}): Promise<Metadata> {
+  try {
+    const {
+      params: { ticker },
+    } = props;
+
+    const tickerRepo = new TickerRepository(serverAPI);
+    const profile = await tickerRepo.getCompanyProfile(ticker);
+
+    return {
+      title: `${profile.companyName} (${profile.symbol}) News | Investalytix`,
+    };
+  } catch (error: any) {
+    return {
+      title: "Investalytix",
+    };
+  }
+}
 
 async function getData(ticker: string) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
-    const [outlook, news] = await Promise.all([
-      tickerRepo.getCompanyOutLook(ticker),
+    const [profile, news] = await Promise.all([
+      tickerRepo.getCompanyProfile(ticker),
       tickerRepo.getNews(ticker, { limit: 15 }),
     ]);
 
     return {
-      outlook,
+      profile,
       news,
     };
   } catch (error: any) {
@@ -38,9 +55,17 @@ export default async function NewsPage(props: NewsPageProps) {
     params: { ticker },
   } = props;
 
-  const { news, outlook } = await getData(ticker);
+  const { news, profile } = await getData(ticker);
 
-  metadata.title = `${outlook.profile.companyName} (${outlook.profile.symbol}) News | Investalytix`;
-
-  return <NewsScreen ticker={ticker} news={news} />;
+  return (
+    <NewsScreen
+      ticker={ticker}
+      news={news.filter(
+        (news) =>
+          !news.title.toLowerCase().includes("aljazeera") ||
+          !news.title.toLowerCase().includes("al jazeera")
+      )}
+      profile={profile}
+    />
+  );
 }
