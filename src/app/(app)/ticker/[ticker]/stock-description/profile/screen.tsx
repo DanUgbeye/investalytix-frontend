@@ -143,7 +143,7 @@ export default function ProfileScreen(props: ProfileScreenProps) {
                 return (
                   <TableRow
                     key={`${executive.name}`}
-                    className=" border-y text-sm dark:border-main-gray-900 dark:text-main-gray-300 dark:odd:bg-transparent "
+                    className=" text-sm dark:border-main-gray-900 dark:text-main-gray-300 dark:odd:bg-transparent "
                     colorMode="odd"
                   >
                     <TableCell className=" px-2 py-2 text-left ">

@@ -217,9 +217,9 @@ export default function ChartSummary(props: { ticker: string }) {
               className={cn(
                 " w-full min-w-fit rounded-lg p-4 text-sm duration-300 ",
                 {
-                  " hover:bg-[#F0F3FA] dark:hover:bg-[#48494A] ":
+                  " hover:bg-main-gray-100 dark:hover:bg-main-gray-700/50 ":
                     tf.label !== activeTab.label,
-                  " bg-[#F0F3FA] dark:bg-[#48494A] ":
+                  " bg-main-gray-200/50 dark:bg-main-gray-700 ":
                     tf.label === activeTab.label,
                 }
               )}
