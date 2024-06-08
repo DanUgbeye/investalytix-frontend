@@ -1,7 +1,19 @@
 "use client";
 
+import HeaderWithUnderline from "@/components/heading";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { InstitutionalHolder, MutualFundHolder } from "@/modules/ticker/types";
 import appUtils from "@/utils/app-util";
+import { Minus, Plus } from "lucide-react";
+import { useState } from "react";
 
 const TOP_HOLDERS = [
   {
@@ -74,121 +86,187 @@ interface HoldersScreenProps {
 
 export default function HoldersScreen(props: HoldersScreenProps) {
   const { ticker, institutionalHolders, mutualFundHolders } = props;
+  const [showAll, setShowAll] = useState({
+    mutual: false,
+    institutional: false,
+  });
+
+  function toggleShowAll(select: keyof typeof showAll) {
+    setShowAll((prev) => ({ ...prev, [select]: !prev[select] }));
+  }
 
   return (
     <section className=" space-y-10 pb-10 ">
-      <div className=" space-y-3 ">
-        <h3 className=" text-2xl font-extrabold ">Top Institutional Holders</h3>
+      <div className=" space-y-10 ">
+        <HeaderWithUnderline className=" text-2xl font-extrabold ">
+          Top Institutional Holders
+        </HeaderWithUnderline>
 
-        <div className=" overflow-x-auto border dark:border-main-gray-600 ">
-          <table className=" w-full min-w-[50rem] text-xs ">
-            <thead className="  ">
-              <tr className=" th font-semibold dark:bg-white/20 ">
-                <td className=" px-2 py-3 ">Name</td>
+        <div className="  ">
+          <div className=" overflow-x-auto ">
+            <Table className=" w-full min-w-[50rem] ">
+              <TableHeader className="  ">
+                <TableRow className=" border-0 " isHeaderRow>
+                  <TableHead className=" ">Name</TableHead>
 
-                <td className=" px-2 py-3 text-right ">Current Shares</td>
+                  <TableHead className=" ">Current Shares</TableHead>
 
-                <td className=" px-2 py-3 text-right ">Change Amount</td>
+                  <TableHead className=" ">Change Amount</TableHead>
 
-                <td className=" px-2 py-3 text-right ">Date</td>
-              </tr>
-            </thead>
+                  <TableHead className=" ">Date</TableHead>
+                </TableRow>
+              </TableHeader>
 
-            <tbody className="  ">
-              {institutionalHolders.map((holder, index) => {
-                return (
-                  <tr
-                    key={`institutional-holder-${holder.holder}-${index}`}
-                    className="even:bg-main-gray-100  dark:even:bg-main-gray-900 "
-                  >
-                    <td className=" px-2 py-3 font-medium ">{holder.holder}</td>
+              <TableBody className="  ">
+                {institutionalHolders
+                  .slice(0, showAll.institutional ? -1 : 10)
+                  .map((holder, index) => {
+                    return (
+                      <TableRow
+                        key={`institutional-holder-${holder.holder}-${index}`}
+                        className=" "
+                        colorMode="odd"
+                      >
+                        <TableCell className=" font-medium ">
+                          {holder.holder}
+                        </TableCell>
 
-                    <td className=" px-2 py-3 text-right ">
-                      {appUtils.formatNumber(holder.shares, {
-                        style: "decimal",
-                        maximumFractionDigits: 0,
-                      })}
-                    </td>
+                        <TableCell className=" ">
+                          {appUtils.formatNumber(holder.shares, {
+                            style: "decimal",
+                            maximumFractionDigits: 0,
+                          })}
+                        </TableCell>
 
-                    <td className=" px-2 py-3 text-right ">
-                      {appUtils.formatNumber(holder.change, {
-                        style: "decimal",
-                        maximumFractionDigits: 0,
-                      })}
-                    </td>
+                        <TableCell className=" ">
+                          {appUtils.formatNumber(holder.change, {
+                            style: "decimal",
+                            maximumFractionDigits: 0,
+                          })}
+                        </TableCell>
 
-                    <td className=" px-2 py-3 text-right ">
-                      {holder.dateReported.toDateString()}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                        <TableCell className=" ">
+                          {holder.dateReported.toDateString()}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </div>
+
+          <div className=" flex justify-center ">
+            <Button
+              variant={"link"}
+              className=" h-fit gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base w-full "
+              onClick={() => toggleShowAll("institutional")}
+            >
+              {showAll.institutional ? (
+                <>
+                  <Minus className=" size-4 " />
+                  Show Less
+                </>
+              ) : (
+                <>
+                  <Plus className=" size-4 " />
+                  Show More
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </div>
 
-      <div className=" space-y-3 ">
-        <h3 className=" text-2xl font-extrabold ">Top Mutual Fund Holders</h3>
+      <div className=" space-y-10 ">
+        <HeaderWithUnderline className=" text-2xl font-extrabold ">
+          Top Mutual Fund Holders
+        </HeaderWithUnderline>
 
-        <div className=" overflow-x-auto border dark:border-main-gray-600 ">
-          <table className=" w-full min-w-[50rem] text-xs ">
-            <thead className="  ">
-              <tr className=" th font-semibold dark:bg-white/20 ">
-                <td className=" px-2 py-3 ">Name</td>
+        <div className=" ">
+          <div className=" overflow-x-auto ">
+            <Table className=" w-full min-w-[50rem] ">
+              <TableHeader className="  ">
+                <TableRow className="  " isHeaderRow>
+                  <TableHead className=" ">Name</TableHead>
 
-                <td className=" px-2 py-3 text-right ">% Total Shares Held</td>
+                  <TableHead className=" ">% Total Shares Held</TableHead>
 
-                <td className=" px-2 py-3 text-right ">Current Shares</td>
+                  <TableHead className=" ">Current Shares</TableHead>
 
-                <td className=" px-2 py-3 text-right ">Change Amount</td>
+                  <TableHead className=" ">Change Amount</TableHead>
 
-                <td className=" px-2 py-3 text-right ">Date</td>
-              </tr>
-            </thead>
+                  <TableHead className=" ">Date</TableHead>
+                </TableRow>
+              </TableHeader>
 
-            <tbody className="  ">
-              {mutualFundHolders.map((holder, index) => {
-                return (
-                  <tr
-                    key={`mutual-fund-holder-${holder.holder}-${index}`}
-                    className=" even:bg-main-gray-100  dark:even:bg-main-gray-900 "
-                  >
-                    <td className=" px-2 py-3 font-medium ">{holder.holder}</td>
+              <TableBody className="  ">
+                {mutualFundHolders
+                  .slice(0, showAll.mutual ? -1 : 10)
+                  .map((holder, index) => {
+                    return (
+                      <TableRow
+                        key={`mutual-fund-holder-${holder.holder}-${index}`}
+                        className=" "
+                        colorMode="odd"
+                      >
+                        <TableCell className=" font-medium ">
+                          {holder.holder}
+                        </TableCell>
 
-                    <td className=" px-2 py-3 text-right ">
-                      {appUtils.formatNumber(
-                        holder.weightPercent || undefined,
-                        {
-                          style: "decimal",
-                          maximumFractionDigits: 10,
-                          minimumFractionDigits: 10,
-                        }
-                      )}
-                    </td>
+                        <TableCell className=" ">
+                          {appUtils.formatNumber(
+                            holder.weightPercent || undefined,
+                            {
+                              style: "decimal",
+                              maximumFractionDigits: 10,
+                              minimumFractionDigits: 10,
+                            }
+                          )}
+                        </TableCell>
 
-                    <td className=" px-2 py-3 text-right ">
-                      {appUtils.formatNumber(holder.shares, {
-                        style: "decimal",
-                        maximumFractionDigits: 0,
-                      })}
-                    </td>
+                        <TableCell className=" ">
+                          {appUtils.formatNumber(holder.shares, {
+                            style: "decimal",
+                            maximumFractionDigits: 0,
+                          })}
+                        </TableCell>
 
-                    <td className=" px-2 py-3 text-right ">
-                      {appUtils.formatNumber(holder.change, {
-                        style: "decimal",
-                        maximumFractionDigits: 0,
-                      })}
-                    </td>
+                        <TableCell className=" ">
+                          {appUtils.formatNumber(holder.change, {
+                            style: "decimal",
+                            maximumFractionDigits: 0,
+                          })}
+                        </TableCell>
 
-                    <td className=" px-2 py-3 text-right ">
-                      {holder.dateReported.toDateString()}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                        <TableCell className=" ">
+                          {holder.dateReported.toDateString()}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </div>
+
+          <div className=" flex justify-center ">
+            <Button
+              variant={"link"}
+              className=" h-fit gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base w-full "
+              onClick={() => toggleShowAll("mutual")}
+            >
+              {showAll.mutual ? (
+                <>
+                  <Minus className=" size-4 " />
+                  Show Less
+                </>
+              ) : (
+                <>
+                  <Plus className=" size-4 " />
+                  Show More
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </div>
     </section>

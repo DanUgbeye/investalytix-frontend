@@ -55,17 +55,19 @@ const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement> & {
     colorMode?: "odd" | "even";
+    isHeaderRow?: boolean;
   }
->(({ className, colorMode, ...props }, ref) => (
+>(({ className, colorMode, isHeaderRow, ...props }, ref) => (
   <tr
     ref={ref}
     className={cn(
       "border-y transition-colors hover:bg-main-gray-200/40 data-[state=selected]:bg-gray-100 dark:border-main-gray-900 dark:hover:bg-main-gray-800 dark:data-[state=selected]:bg-gray-800 ",
       {
-        " odd:bg-main-gray-100 dark:odd:bg-main-gray-800/60 border-y-0 ":
+        " border-y-0 odd:bg-main-gray-100 dark:odd:bg-main-gray-800/60 ":
           colorMode === "odd",
-        " even:bg-main-gray-100 dark:even:bg-main-gray-800/60 border-y-0 ":
+        " border-y-0 even:bg-main-gray-100 dark:even:bg-main-gray-800/60 ":
           colorMode === "even",
+        " hover:bg-transparent dark:hover:bg-transparent border-transparent ": isHeaderRow,
       },
       className
     )}

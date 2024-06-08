@@ -21,7 +21,7 @@ export default function HeaderWithUnderline(props: Props) {
         {children}
       </h3>
 
-      <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] dark:from-primary-base/80 from-40% to-[#545454] to-40% dark:to-white/20" />
+      <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] dark:from-primary-base/80 from-40% to-main-gray-300 to-40% dark:to-white/20" />
     </header>
   );
 }
