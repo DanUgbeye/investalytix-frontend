@@ -1,3 +1,4 @@
+import MarketHeading from "../../MarketHeading";
 import Quotes from "../../Quotes";
 
 export default function Germany() {
@@ -5,11 +6,7 @@ export default function Germany() {
     /*German Government Bonds (BUND) */
     <>
       <section className="">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold uppercase">
-            German Government Bonds (BUND)
-          </h2>
-        </header>
+        <MarketHeading label="German Government Bonds (BUND)" id="germany" />
 
         <Quotes
           fields={[

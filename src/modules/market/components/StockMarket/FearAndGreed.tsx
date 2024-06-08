@@ -88,18 +88,18 @@ export default function FearAndGreed() {
   return (
     <>
       <header className="mb-6 flex items-center justify-between">
-        <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-          FEAR & GREED INDEX
+        <h2 className="white-text text-2xl font-extrabold capitalize">
+          Fear & Greed Index
         </h2>
 
-        <div className="grid w-fit grid-cols-2 rounded bg-[#F9F9F9] p-3 dark:bg-[#13151D]">
+        <div className="flex gap-2">
           {markets.map((market, index) => (
             <button
               key={market}
-              className={`whitespace-nowrap rounded px-14 py-2 text-center font-semibold hover:text-primary-base focus:bg-primary-base focus:text-white ${
+              className={`whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
                 selectedIndex === index
                   ? "bg-primary-base text-white"
-                  : "white-text bg-transparent text-[#636363]"
+                  : "bg-hover-focus white-text bg-main-gray-200/20 text-[#636363]"
               }`}
               onClick={() => updateSelectedIndex(index)}
             >

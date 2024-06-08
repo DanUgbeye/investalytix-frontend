@@ -1,5 +1,6 @@
 import { Quote } from "@/types";
 import Quotes from "../../Quotes";
+import MarketHeading from "../../MarketHeading";
 
 async function getData() {
   const res = await fetch(
@@ -27,11 +28,7 @@ export default async function CurrencyFutures() {
     /*CURRENCY FUTURES */
     <>
       <section className="">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold uppercase">
-            CURRENCY FUTURES
-          </h2>
-        </header>
+        <MarketHeading label="CURRENCY FUTURES" id="currency-futures" />
 
         <Quotes
           quotes={data.data}

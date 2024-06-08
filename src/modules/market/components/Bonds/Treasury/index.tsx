@@ -1,3 +1,4 @@
+import MarketHeading from "../../MarketHeading";
 import Quotes from "../../Quotes";
 
 export default function Treasury() {
@@ -5,11 +6,7 @@ export default function Treasury() {
     /*U.S TREASURYS */
     <>
       <section className="">
-        <header className="mb-5">
-          <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold uppercase">
-            U.S TREASURYS
-          </h2>
-        </header>
+        <MarketHeading label=" U.S TREASURYS" id="treasury" />
 
         <Quotes
           fields={[

@@ -53,11 +53,11 @@ export default function Quotes({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead key={fields[0].label} className="py-2 text-sm capitalize">
+          <TableHead key={fields[0].label} className="!py-2 !text-sm capitalize">
             {fields[0].label}
           </TableHead>
           {fields.slice(1).map((field) => (
-            <TableHead key={field.label} className="py-2 text-sm capitalize text-right">
+            <TableHead key={field.label} className="!py-2 !text-sm capitalize text-right">
               {field.label}
             </TableHead>
           ))}

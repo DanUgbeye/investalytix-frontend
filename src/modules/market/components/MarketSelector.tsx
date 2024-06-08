@@ -7,7 +7,6 @@ type MarketSelectorProps = {
   selectors: readonly {
     label: string;
     href: string;
-    
   }[];
 };
 
