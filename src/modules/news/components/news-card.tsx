@@ -27,8 +27,8 @@ export default function NewsCard(props: NewsCardProps) {
           </AvatarFallback>
         </Avatar>
 
-        <div className=" space-y-1 ">
-          <div className=" grid grid-cols-[auto,auto,1fr] items-center gap-2 rounded-lg text-main-gray-600 sm:text-xs dark:text-main-gray-500 ">
+        <div className=" space-y-2 ">
+          <div className=" grid grid-cols-[auto,auto,1fr] items-center gap-2 rounded-lg text-main-gray-600 text-xs dark:text-main-gray-500 ">
             <span>
               {formatDistanceToNowStrict(new Date(news.publishedDate), {
                 addSuffix: true,

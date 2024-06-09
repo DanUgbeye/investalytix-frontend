@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const usePreventNavigation = (onNavigate: (event: PopStateEvent) => void) => {
+const useOnNavigate = (onNavigate: (event: PopStateEvent) => void) => {
   useEffect(() => {
     window.addEventListener("popstate", onNavigate);
 
@@ -10,4 +10,4 @@ const usePreventNavigation = (onNavigate: (event: PopStateEvent) => void) => {
   }, [onNavigate]);
 };
 
-export default usePreventNavigation;
+export default useOnNavigate;
