@@ -15,6 +15,7 @@ import { FiCheck, FiSearch } from "react-icons/fi";
 
 const plans = [
   {
+    popular: false,
     name: "Basic plan",
     desc: "Lorem ipsum dolor sit amet",
     monthly: 19,
@@ -26,6 +27,7 @@ const plans = [
     ],
   },
   {
+    popular: true,
     name: "Business plan",
     desc: "Lorem ipsum dolor sit amet",
     monthly: 29,
@@ -37,7 +39,8 @@ const plans = [
     ],
   },
   {
-    name: "Basic plan",
+    popular: false,
+    name: "Pro plan",
     desc: "Lorem ipsum dolor sit amet",
     monthly: 49,
     yearly: 499,
@@ -70,15 +73,15 @@ export default function Home() {
       <main className="relative isolate flex min-h-[500px] w-full items-center justify-center overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-center bg-no-repeat md:min-h-[700px] lg:min-h-[calc(100dvh_-_100px)]">
         <div className="absolute inset-0 -z-10 bg-black/70"></div>
 
-        <Container className="z-20 mx-auto flex flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl">
+        <Container className="z-20 mx-auto flex flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-6xl">
           <h1
             style={{ lineHeight: "1.2" }}
-            className="text-4xl font-bold max-xs:text-center md:text-5xl  xl:text-6xl"
+            className="text-4xl font-bold max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl 2xl:text-7xl"
           >
             Integrating Macro, Technical Strategy, and Fundamentals
           </h1>
 
-          <p className="mx-auto mt-5 w-3/4 text-lg font-medium  max-xs:text-center xl:mt-8 xl:text-xl">
+          <p className="mx-auto mt-5 w-3/4 text-lg font-medium max-xs:text-center  lg:w-3/5 xl:mt-8 xl:text-xl">
             Providing data-driven investment decisions with a comprehensive
             suite of financial analysis tools.
           </p>
@@ -207,7 +210,7 @@ export default function Home() {
 
         <Container className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 lg:grid-cols-3">
           {plans.map((plan) => (
-            <Plan key={plan.name} plan={plan} />
+            <Plan key={plan.name} plan={plan} frequency={pricingFrequency} />
           ))}
         </Container>
       </section>
@@ -245,33 +248,68 @@ function Loader() {
   );
 }
 
-function Plan({ plan }: { plan: (typeof plans)[number] }) {
+function Plan({
+  plan,
+  frequency,
+}: {
+  plan: (typeof plans)[number];
+  frequency: "monthly" | "annualy";
+}) {
   return (
-    <div className="rounded-t-2xl border border-black p-8 dark:border-white/10">
+    <div
+      className={`rounded-2xl border border-black p-8 ${plan.popular ? "bg-black text-white" : ""}`}
+    >
       <p className="text-xl font-bold">{plan.name}</p>
-      <p className="mb-8 mt-1">{plan.desc}</p>
-
-      <hr className="border-black dark:border-white/10" />
-
-      <p className="mt-8 text-6xl font-bold">
-        ${plan.monthly}
-        <span className="text-3xl">/mo</span>
+      <p className="mt-2 text-6xl font-bold">
+        ${frequency === "monthly" ? plan.monthly : plan.yearly}
+        <span className="text-3xl">
+          /{frequency === "monthly" ? "mo" : "yr"}
+        </span>
       </p>
-      <p className="mt-2">or ${plan.yearly} yearly</p>
 
-      <button className="my-8 w-full bg-primary-base px-6 py-3 text-white dark:bg-primary-light">
+      <button
+        className={`mb-7 mt-10 w-full rounded-xl border px-6 py-3  ${plan.popular ? "bg-transparent hover:bg-white hover:text-black focus:bg-white focus:text-black" : "hover:bg-black hover:text-white focus:bg-black focus:text-white"}`}
+      >
         Get started
       </button>
 
-      <hr className="border-black dark:border-white/10" />
+      {/* <p className="mt-2">or ${plan.yearly} yearly</p> */}
 
-      <div className="mt-8 flex flex-col gap-4">
+      <hr
+        className={` ${plan.popular ? "border border-white/50" : "border-black dark:border-white/10"}`}
+      />
+
+      <p className="mt-9">Features</p>
+      <div className="mt-5 flex flex-col gap-4">
         {plan.features.map((feature, index) => (
           <div
             className="flex items-center gap-4"
             key={feature.replaceAll(" ", "-") + index}
           >
-            <FiCheck />
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_225_25)">
+                <path
+                  d="M7.96723 17C7.65661 16.9559 7.34389 16.9223 7.03537 16.8678C5.09821 16.5258 3.47377 15.6109 2.16204 14.1526C1.00562 12.8664 0.296239 11.3599 0.0779672 9.64562C-0.238946 7.1508 0.409572 4.91826 2.03612 2.99417C3.32056 1.47714 4.9555 0.520338 6.91155 0.157341C9.17821 -0.264407 11.2854 0.165734 13.2162 1.43098C13.5625 1.65759 13.6528 2.08773 13.4366 2.41925C13.2204 2.74868 12.7902 2.841 12.4418 2.61229C11.5309 2.01219 10.5424 1.62402 9.45945 1.48763C7.54328 1.24423 5.795 1.68277 4.25241 2.8431C2.73081 3.98664 1.77377 5.51207 1.50933 7.39839C1.11686 10.1912 2.0655 12.4866 4.31118 14.1988C5.79291 15.3277 7.5013 15.7431 9.34821 15.5312C12.2886 15.1955 14.7483 12.9734 15.4011 10.0883C15.6655 8.91752 15.6403 7.7509 15.3192 6.59267C15.187 6.11426 15.4136 5.71979 15.8649 5.63586C16.2175 5.56872 16.5785 5.78064 16.6603 6.14994C16.782 6.69968 16.866 7.25571 16.9667 7.80965C16.9772 7.8642 16.9877 7.91666 16.9982 7.97121V9.03293C16.9898 9.0707 16.9751 9.10637 16.9709 9.14413C16.8954 10.1744 16.6519 11.1647 16.1965 12.0901C14.9099 14.7024 12.8385 16.3034 9.97784 16.8678C9.66513 16.9286 9.34612 16.958 9.0292 17H7.96723Z"
+                  className={`${plan.popular ? "fill-white" : "fill-black dark:fill-white"}`}
+                />
+                <path
+                  d="M16.9997 2.25971C16.8864 2.42547 16.7961 2.61641 16.6576 2.75489C14.1307 5.28957 11.5975 7.81796 9.06845 10.3505C8.84808 10.5709 8.60043 10.6905 8.29191 10.5856C8.17648 10.5457 8.06105 10.4722 7.975 10.3862C7.04314 9.46299 6.11759 8.53556 5.19203 7.60814C4.88771 7.30179 4.87932 6.87165 5.16475 6.58419C5.45438 6.29463 5.88882 6.30513 6.19944 6.61567C6.92142 7.33327 7.63919 8.05506 8.35907 8.77476C8.40105 8.81673 8.43043 8.87338 8.4724 8.93213C8.55006 8.85869 8.59833 8.81463 8.6445 8.76847C11.0077 6.40584 13.3709 4.04322 15.7341 1.68059C16.1707 1.24415 16.7373 1.35536 16.9703 1.92189C16.9766 1.93658 16.9892 1.94497 16.9997 1.95756V2.25551V2.25971Z"
+                  className={`${plan.popular ? "fill-white" : "fill-black dark:fill-white"}`}
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_225_25">
+                  <rect width="17" height="17" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+
             {feature}
           </div>
         ))}
