@@ -9,7 +9,43 @@ import WithSidePanel, {
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, Suspense } from "react";
-import { FiSearch } from "react-icons/fi";
+import { FiCheck, FiSearch } from "react-icons/fi";
+
+const plans = [
+  {
+    name: "Basic plan",
+    desc: "Lorem ipsum dolor sit amet",
+    monthly: 19,
+    yearly: 199,
+    features: [
+      "Feature text goes here",
+      "Feature text goes here",
+      "Feature text goes here",
+    ],
+  },
+  {
+    name: "Business plan",
+    desc: "Lorem ipsum dolor sit amet",
+    monthly: 29,
+    yearly: 299,
+    features: [
+      "Feature text goes here",
+      "Feature text goes here",
+      "Feature text goes here",
+    ],
+  },
+  {
+    name: "Basic plan",
+    desc: "Lorem ipsum dolor sit amet",
+    monthly: 49,
+    yearly: 499,
+    features: [
+      "Feature text goes here",
+      "Feature text goes here",
+      "Feature text goes here",
+    ],
+  },
+];
 
 export default function Home() {
   const [query, queryOpts] = useInput("");
@@ -22,10 +58,10 @@ export default function Home() {
 
   return (
     <>
-      <main className="flex items-center justify-center relative isolate min-h-[500px] md:min-h-[700px] w-full overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-center bg-no-repeat lg:min-h-[calc(100dvh_-_100px)]">
+      <main className="relative isolate flex min-h-[500px] w-full items-center justify-center overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-center bg-no-repeat md:min-h-[700px] lg:min-h-[calc(100dvh_-_100px)]">
         <div className="absolute inset-0 -z-10 bg-black/70"></div>
 
-        <Container className="z-20 mx-auto flex md:max-w-3xl flex-col items-center justify-center py-10 text-center text-white">
+        <Container className="z-20 mx-auto flex flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl">
           <h1
             style={{ lineHeight: "1.2" }}
             className="text-4xl font-bold max-xs:text-center md:text-5xl  xl:text-6xl"
@@ -46,7 +82,7 @@ export default function Home() {
         {/* <MarketMovers /> */}
         <Suspense
           fallback={
-            <div className="grid md:grid-cols-2 gap-x-20 gap-y-10">
+            <div className="grid gap-x-20 gap-y-10 md:grid-cols-2">
               <Loader />
               <Loader />
               <Loader />
@@ -73,7 +109,7 @@ export default function Home() {
         </Suspense>
       </Container>
 
-      <section className="flex items-center justify-center relative isolate min-h-[700px] lg:h-screen w-full bg-[url('/images/bg.jpg')] bg-cover bg-center">
+      <section className="relative isolate flex min-h-[700px] w-full items-center justify-center bg-[url('/images/bg.jpg')] bg-cover bg-center lg:h-screen">
         <div className="absolute inset-0 -z-10 bg-black/70"></div>
 
         <Container className="z-20 mx-auto flex max-w-6xl flex-col items-center justify-center py-10 text-center text-white">
@@ -84,7 +120,7 @@ export default function Home() {
             About Investalytix
           </h1>
 
-          <p className="mx-auto mt-10 lg:w-3/5 text-lg font-medium  max-xs:text-center xl:mt-10 xl:text-xl">
+          <p className="mx-auto mt-10 text-lg font-medium max-xs:text-center  lg:w-3/5 xl:mt-10 xl:text-xl">
             Welcome to Investalytix, the forefront of financial expertise and
             technological innovation in investment analysis.
             <br />
@@ -109,11 +145,16 @@ export default function Home() {
           30 days.
         </p>
 
-        <div className="relative bg-gray-200 dark:bg-gray-100/10 w-fit mx-auto rounded-full mt-8">
-          <button className="px-7 py-3 rounded-full font-medium bg-black dark:bg-white dark:text-black text-white">Monthly</button>
-          <button className="px-7 py-3 rounded-full font-medium bg-transparent text-black dark:text-white">Annual</button>
+        <div className="relative mx-auto mt-8 w-fit rounded-full bg-gray-200 dark:bg-gray-100/10">
+          <button className="rounded-full bg-black px-7 py-3 font-medium text-white dark:bg-white dark:text-black">
+            Monthly
+          </button>
+          <button className="rounded-full bg-transparent px-7 py-3 font-medium text-black dark:text-white">
+            Annual
+          </button>
 
-          <svg className="absolute -right-full top-0 hidden md:block"
+          <svg
+            className="absolute -right-full top-0 hidden md:block"
             width="215"
             height="85"
             viewBox="0 0 215 85"
@@ -142,6 +183,13 @@ export default function Home() {
             </defs>
           </svg>
         </div>
+
+
+        <Container className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 lg:grid-cols-3">
+          {plans.map((plan) => (
+            <Plan key={plan.name} plan={plan} />
+          ))}
+        </Container>
       </section>
     </>
   );
@@ -149,7 +197,7 @@ export default function Home() {
 
 function Loader() {
   const Row = (
-    <div className="flex items-center justify-between border-b dark:dark:border-gray-100/10 py-2">
+    <div className="flex items-center justify-between border-b py-2 dark:dark:border-gray-100/10">
       <div className="flex w-[40%] items-center gap-2">
         <div className="h-6 w-6 shrink-0 animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
         <div className="h-4 w-full animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
@@ -173,6 +221,41 @@ function Loader() {
       {Row}
       {Row}
       {Row}
+    </div>
+  );
+}
+
+function Plan({ plan }: { plan: (typeof plans)[number] }) {
+  return (
+    <div className="rounded-t-2xl border border-black p-8 dark:border-white/10">
+      <p className="text-xl font-bold">{plan.name}</p>
+      <p className="mb-8 mt-1">{plan.desc}</p>
+
+      <hr className="border-black dark:border-white/10" />
+
+      <p className="mt-8 text-6xl font-bold">
+        ${plan.monthly}
+        <span className="text-3xl">/mo</span>
+      </p>
+      <p className="mt-2">or ${plan.yearly} yearly</p>
+
+      <button className="my-8 w-full bg-primary-base dark:bg-primary-light px-6 py-3 text-white">
+        Get started
+      </button>
+
+      <hr className="border-black dark:border-white/10" />
+
+      <div className="mt-8 flex flex-col gap-4">
+        {plan.features.map((feature, index) => (
+          <div
+            className="flex items-center gap-4"
+            key={feature.replaceAll(" ", "-") + index}
+          >
+            <FiCheck />
+            {feature}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
