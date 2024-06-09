@@ -1,5 +1,6 @@
 "use client";
 
+import NewsDisplayModal from "@/modules/news/components/news-display-modal";
 import useTheme from "@/store/theme/useTheme";
 import { PropsWithChildren } from "react";
 import { ToastContainer } from "react-toastify";
@@ -17,6 +18,7 @@ export default function GlobalComponents({ children }: PropsWithChildren) {
         stacked
         hideProgressBar
       />
+      <NewsDisplayModal />
 
       {children}
     </>

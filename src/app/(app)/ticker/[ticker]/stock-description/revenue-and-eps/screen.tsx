@@ -244,19 +244,19 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                               className=" text-sm dark:text-main-gray-300 dark:odd:bg-transparent "
                               colorMode="odd"
                             >
-                              <TableCell className=" py-3 text-left ">
+                              <TableCell className=" text-left ">
                                 {earning.date.toDateString()}
                               </TableCell>
 
-                              <TableCell className={` py-3 text-center `}>
+                              <TableCell className={` text-center `}>
                                 {year}
                               </TableCell>
 
-                              <TableCell className={` py-3 text-center `}>
+                              <TableCell className={` text-center `}>
                                 {quarter}
                               </TableCell>
 
-                              <TableCell className=" py-3 text-center ">
+                              <TableCell className=" text-center ">
                                 <span className=" ">
                                   {appUtils.formatNumber(
                                     earning.epsEstimated || undefined,
@@ -268,7 +268,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                 </span>
                               </TableCell>
 
-                              <TableCell className=" py-3 text-center ">
+                              <TableCell className=" text-center ">
                                 <span
                                   className={cn({
                                     " text-green-600 ":
@@ -291,7 +291,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                 </span>
                               </TableCell>
 
-                              <TableCell className=" py-3 text-center ">
+                              <TableCell className=" text-center ">
                                 {appUtils.formatNumber(
                                   earnings[index + 1]?.eps || undefined,
                                   {
@@ -561,11 +561,11 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                 {earning.date.toDateString()}
                               </TableCell>
 
-                              <TableCell className={` py-3 text-center `}>
+                              <TableCell className={` text-center `}>
                                 {year}
                               </TableCell>
 
-                              <TableCell className={` py-3 text-center `}>
+                              <TableCell className={` text-center `}>
                                 {quarter}
                               </TableCell>
 

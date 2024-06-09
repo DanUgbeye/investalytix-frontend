@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { AuthState, AuthStore, createAuthStore } from "./auth";
+import { NewsStore, createNewsStore } from "./news";
 
 export type Theme = "light" | "dark";
 
@@ -21,7 +22,7 @@ export type GeneralStore = {
   toggleTheme(theme?: Theme): void;
 };
 
-export type AppStore = BaseStore & AuthStore & GeneralStore;
+export type AppStore = BaseStore & AuthStore & GeneralStore & NewsStore;
 
 export const useAppStore = create<AppStore>((...a) => ({
   ...{
@@ -70,4 +71,5 @@ export const useAppStore = create<AppStore>((...a) => ({
     },
   },
   ...createAuthStore(...a),
+  ...createNewsStore(...a),
 }));

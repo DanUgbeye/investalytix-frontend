@@ -22,13 +22,13 @@ export default function QuoteHistoryTable(props: {
       <Table className=" w-full min-w-[45rem] text-sm ">
         <TableHeader className="  ">
           <TableRow className=" font-semibold hover:bg-transparent dark:hover:bg-transparent ">
-            <TableHead className=" px-2 py-3 ">Date</TableHead>
-            <TableHead className=" px-2 py-3 text-right ">Open</TableHead>
-            <TableHead className=" px-2 py-3 text-right ">High</TableHead>
-            <TableHead className=" px-2 py-3 text-right ">Low</TableHead>
-            <TableHead className=" px-2 py-3 text-right ">Close*</TableHead>
-            {/* <TableHead className=" px-2 py-3 text-right ">Adj Close**</TableHead> */}
-            <TableHead className=" px-2 py-3 text-right ">Volume</TableHead>
+            <TableHead className=" ">Date</TableHead>
+            <TableHead className=" text-center ">Open</TableHead>
+            <TableHead className=" text-center ">High</TableHead>
+            <TableHead className=" text-center ">Low</TableHead>
+            <TableHead className=" text-center ">Close*</TableHead>
+            {/* <TableHead className=" text-center ">Adj Close**</TableHead> */}
+            <TableHead className=" text-right ">Volume</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -36,50 +36,50 @@ export default function QuoteHistoryTable(props: {
           {quoteHistory.map((item, index) => {
             return (
               <TableRow
-                key={`historical-data${index}`}
+                key={`historical-data-${index}`}
                 className=" "
                 colorMode="odd"
               >
-                <TableCell className=" px-2 py-3 ">
+                <TableCell className=" ">
                   {item.date.toDateString()}
                 </TableCell>
 
-                <TableCell className=" px-2 py-3 text-right ">
+                <TableCell className=" text-center ">
                   {item.open.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
 
-                <TableCell className=" px-2 py-3 text-right ">
+                <TableCell className=" text-center ">
                   {item.high.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
 
-                <TableCell className=" px-2 py-3 text-right ">
+                <TableCell className=" text-center ">
                   {item.low.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
 
-                <TableCell className=" px-2 py-3 text-right ">
+                <TableCell className=" text-center ">
                   {item.close.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell>
 
-                {/* <TableCell className=" px-2 py-3 text-right ">
+                {/* <TableCell className=" text-center ">
                   {item.adjClose.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </TableCell> */}
 
-                <TableCell className=" px-2 py-3 text-right ">
+                <TableCell className=" text-right ">
                   {item.volume.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
