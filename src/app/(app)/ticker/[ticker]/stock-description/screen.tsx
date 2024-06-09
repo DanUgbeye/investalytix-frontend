@@ -27,7 +27,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
       <section className=" space-y-6 ">
         <HeaderWithUnderline>Key Stats</HeaderWithUnderline>
 
-        <div className=" grid grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] gap-8 p-4 xl:grid-cols-4 xl:justify-between ">
+        <div className=" grid grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] gap-6 p-4 xl:grid-cols-4 xl:justify-between ">
           <div className=" flex flex-col gap-1 ">
             <span className=" text-sm font-bold ">Open</span>
 

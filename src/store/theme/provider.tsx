@@ -27,18 +27,5 @@ export default function ThemeProvider({
     onThemeChange();
   }, [theme]);
 
-  // initialize theme from local storage
-  useEffect(() => {
-    const theme = localStorage.getItem(LOCALSTORAGE_KEYS.THEME) as Theme;
-
-    if (theme === "light") {
-      toggleTheme("light");
-    } else if (theme === "dark") {
-      toggleTheme("dark");
-    } else {
-      localStorage.removeItem(LOCALSTORAGE_KEYS.THEME);
-    }
-  }, []);
-
   return <>{children}</>;
 }

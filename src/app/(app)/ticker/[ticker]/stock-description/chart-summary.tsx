@@ -8,7 +8,15 @@ import { cn } from "@/lib/utils";
 import { useTickerRepository } from "@/modules/ticker/hooks";
 import useTheme from "@/store/theme/useTheme";
 import { QuoteHistory, QuoteTimeframe } from "@/types";
-import { startOfYear, subDays, subMonths, subYears } from "date-fns";
+import {
+  isWeekend,
+  previousFriday,
+  startOfDay,
+  startOfYear,
+  subDays,
+  subMonths,
+  subYears,
+} from "date-fns";
 import { Time, createChart } from "lightweight-charts";
 import { useEffect, useRef, useState } from "react";
 
@@ -64,8 +72,10 @@ export default function ChartSummary(props: { ticker: string }) {
         ticker,
         timeframe.timeframe,
         {
-          from: subDays(new Date(), 1),
-          to: new Date(),
+          from: isWeekend(new Date())
+            ? startOfDay(previousFriday(new Date()))
+            : new Date(),
+          to: subDays(new Date(), 1),
         }
       );
     } else if (timeframe.label === "5 Days") {

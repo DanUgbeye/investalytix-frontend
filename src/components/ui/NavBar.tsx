@@ -105,7 +105,7 @@ export default function NavBar() {
 
   return (
     <nav
-      className={cn("sticky top-0 z-50 bg-black py-3 ", {
+      className={cn("sticky top-0 z-[1000] bg-black py-3 ", {
         "   ": path !== "/",
       })}
     >

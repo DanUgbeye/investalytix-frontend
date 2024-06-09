@@ -8,9 +8,9 @@ import {
   DialogHeader,
   DialogOverlay,
   DialogPortal,
-  DialogTitle
+  DialogTitle,
 } from "@/components/ui/dialog";
-import usePreventNavigation from "@/hooks/use-prevent-navigation";
+import useOnNavigate from "@/hooks/use-on-navigate";
 import { cn } from "@/lib/utils";
 import tickerUtils from "@/modules/ticker/utils";
 import { useAppStore } from "@/store";
@@ -22,13 +22,16 @@ import Link from "next/link";
 export default function NewsDisplayModal() {
   const { currentNews, setNews } = useAppStore();
 
-  usePreventNavigation((e) => {
-    e.preventDefault();
+  function stopBack() {
+    window.history.go(1);
     console.log("stopped");
+  }
+
+  useOnNavigate((e) => {
+    e.preventDefault();
+    stopBack();
     setNews();
   });
-
-  console.log(currentNews);
 
   return (
     <section
@@ -38,14 +41,14 @@ export default function NewsDisplayModal() {
     >
       <Dialog open={currentNews !== undefined} onOpenChange={() => setNews()}>
         <DialogPortal>
-          <DialogOverlay className=" z-[49] bg-white dark:bg-black " />
+          <DialogOverlay className=" z-[49] " />
 
           <DialogPrimitive.Content
             className={cn(
               "bottom fixed inset-x-0 top-[88px] z-50 w-full bg-white duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-bottom-1/2 dark:bg-black"
             )}
           >
-            <div className=" absolute right-10 top-3 z-10 flex w-full justify-center xl:right-0 sm:top-5 ">
+            <div className=" absolute right-10 top-3 z-10 flex w-full justify-center sm:top-5 xl:right-0 ">
               <div className=" flex w-full max-w-4xl justify-end ">
                 <DialogClose className=" rounded-full bg-main-gray-200/40 p-2 text-main-gray-600 dark:bg-main-gray-200/20 dark:text-main-gray-300 ">
                   <X className=" size-6 sm:size-8" />

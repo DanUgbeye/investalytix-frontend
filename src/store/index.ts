@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { AuthState, AuthStore, createAuthStore } from "./auth";
 import { NewsStore, createNewsStore } from "./news";
+import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
 
 export type Theme = "light" | "dark";
 
@@ -23,6 +24,24 @@ export type GeneralStore = {
 };
 
 export type AppStore = BaseStore & AuthStore & GeneralStore & NewsStore;
+
+function getSavedTheme(): Theme {
+  if (typeof window === "undefined") {
+    return "light";
+  }
+
+  const theme = localStorage.getItem(LOCALSTORAGE_KEYS.THEME) as Theme;
+
+  if (!theme) {
+    return "light";
+  }
+  if (theme === "dark") {
+    return "dark";
+  }
+
+  localStorage.removeItem(LOCALSTORAGE_KEYS.THEME);
+  return "light";
+}
 
 export const useAppStore = create<AppStore>((...a) => ({
   ...{
@@ -52,7 +71,7 @@ export const useAppStore = create<AppStore>((...a) => ({
     },
 
     // THEME
-    theme: "light",
+    theme: getSavedTheme(),
     toggleTheme(theme) {
       const [set, get] = a;
 
