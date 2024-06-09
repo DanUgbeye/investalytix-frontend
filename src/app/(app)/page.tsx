@@ -77,7 +77,7 @@ export default function Home() {
         <Container className="z-20 mx-auto flex flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-6xl">
           <h1
             style={{ lineHeight: "1.2" }}
-            className="text-4xl font-bold max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl !leading-[1.3em]"
+            className="text-4xl font-bold !leading-[1.3em] max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl"
           >
             Integrating Macro, Technical Strategy, and Fundamentals
           </h1>
@@ -105,7 +105,7 @@ export default function Home() {
         {/* <MarketMovers /> */}
         <Suspense
           fallback={
-            <div className="grid gap-x-20 gap-y-10 md:grid-cols-2">
+            <div className="grid gap-x-20 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
               <Loader />
               <Loader />
               <Loader />
@@ -135,15 +135,15 @@ export default function Home() {
       <section className="relative isolate flex min-h-[700px] w-full items-center justify-center bg-[url('/images/about-us.jpg')] bg-cover bg-center lg:h-screen">
         <div className="absolute inset-0 -z-10 bg-black/70"></div>
 
-        <Container className="z-20 mx-auto flex max-w-6xl flex-col items-center justify-center py-10 text-center text-white">
+        <Container className="z-20 mx-auto flex max-w-6xl flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-6xl">
           <h1
             style={{ lineHeight: "1.2" }}
-            className="text-4xl font-bold max-xs:text-center md:text-5xl xl:text-6xl"
+            className="text-4xl font-bold !leading-[1.3em] max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl"
           >
             About Investalytix
           </h1>
 
-          <p className="mx-auto mt-10 text-lg font-medium max-xs:text-center  lg:w-3/5 xl:mt-10 xl:text-xl">
+          <p className="mx-auto mt-10 text-lg font-medium max-xs:text-center  lg:w-4/5 xl:mt-10 xl:text-xl">
             Welcome to Investalytix, the forefront of financial expertise and
             technological innovation in investment analysis.
             <br />
