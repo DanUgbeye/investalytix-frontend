@@ -218,15 +218,15 @@ export default function Summary() {
           {mockNews.map((news, index) => (
             <TableRow key={index} className="white-text text-[#212529] w-full">
               <TableCell className="whitespace-nowrap w-fit">
-                <div className="grid grid-cols-3 gap-10 ">
-                  <span>{moment(news.time).format("HH:MM A")}</span>
+                <div className="grid grid-cols-[150px,150px,auto] place-content-start gap-10 ">
+                  <p>{moment(news.time).format("HH:MM A")}</p>
 
-                  <span className="flex items-center gap-1 px-10">
+                  <p className="flex items-center gap-1 px-10">
                     <FiFlag />
                     {news.country}
-                  </span>
+                  </p>
 
-                  <span> {news.name}</span>
+                  <p> {news.name}</p>
                 </div>
               </TableCell>
 
