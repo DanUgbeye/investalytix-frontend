@@ -1,4 +1,5 @@
 import NewsCard from "@/modules/news/components/news-card";
+import NewsLink from "@/modules/news/components/news-link";
 import { GeneralNews } from "@/modules/news/types";
 import { News } from "@/modules/ticker/types";
 import moment from "moment";
@@ -30,9 +31,11 @@ export default async function LatestNews() {
     <>
       <h2 className="mb-12 text-2xl font-extrabold">Latest news</h2>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-14 gap-y-1">
+      <div className="grid gap-x-14 gap-y-1 md:grid-cols-2 lg:grid-cols-3">
         {data.data.map((news) => (
-          <NewsCard news={news} />
+          <NewsLink news={news}>
+            <NewsCard news={news} />
+          </NewsLink>
         ))}
       </div>
     </>

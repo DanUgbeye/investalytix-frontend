@@ -89,19 +89,31 @@ export default function Footer() {
               </Link>
 
               <div className="flex items-center gap-4">
-                <Link href="https://www.facebook.com/investalytix01" target="_blank">
+                <Link
+                  href="https://www.facebook.com/investalytix01"
+                  target="_blank"
+                >
                   <FiFacebook />
                 </Link>
                 <Link href="https://x.com/investalytix" target="_blank">
                   <FaXTwitter />
                 </Link>
-                <Link href="https://www.instagram.com/investalytix1/" target="_blank">
+                <Link
+                  href="https://www.instagram.com/investalytix1/"
+                  target="_blank"
+                >
                   <FiInstagram />
                 </Link>
-                <Link href="https://www.linkedin.com/company/investalytix1/" target="_blank">
+                <Link
+                  href="https://www.linkedin.com/company/investalytix1/"
+                  target="_blank"
+                >
                   <FiLinkedin />
                 </Link>
-                <Link href="https://truthsocial.com/@investalytix" target="_blank">
+                <Link
+                  href="https://truthsocial.com/@investalytix"
+                  target="_blank"
+                >
                   <svg
                     className="h-4 w-4"
                     xmlns="http://www.w3.org/2000/svg"
@@ -111,24 +123,23 @@ export default function Footer() {
                   >
                     <g
                       fill="#ffffff"
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       stroke="none"
-                      stroke-width="1"
-                      stroke-linecap="butt"
-                      stroke-linejoin="miter"
-                      stroke-miterlimit="10"
-                      stroke-dasharray=""
-                      stroke-dashoffset="0"
-                      font-family="none"
-                      font-weight="none"
-                      font-size="none"
-                      text-anchor="none"
+                      strokeWidth={1}
+                      strokeLinecap="butt"
+                      strokeLinejoin="miter"
+                      strokeMiterlimit={10}
+                      strokeDashoffset={0}
+                      fontFamily="none"
+                      fontWeight="none"
+                      fontSize="none"
+                      textAnchor="none"
                       style={{ mixBlendMode: "normal" }}
                     >
                       <g transform="scale(5.33333,5.33333)">
-                        <rect x="3" y="6" width="11" height="10"></rect>
-                        <rect x="34" y="33" width="11" height="10"></rect>
-                        <path d="M18,6v37h11v-27h16v-10z"></path>
+                        <rect x={3} y={6} width={11} height={10} />
+                        <rect x={34} y={33} width={11} height={10} />
+                        <path d="M18,6v37h11v-27h16v-10z" />
                       </g>
                     </g>
                   </svg>

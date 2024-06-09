@@ -9,6 +9,7 @@ import WithSidePanel, {
   SIDE_SECTIONS,
 } from "@/modules/market/components/WithSidePanel";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, Suspense, useState } from "react";
 import { FiCheck, FiSearch } from "react-icons/fi";
@@ -76,12 +77,12 @@ export default function Home() {
         <Container className="z-20 mx-auto flex flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-6xl">
           <h1
             style={{ lineHeight: "1.2" }}
-            className="text-4xl font-bold max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl 2xl:text-7xl"
+            className="text-4xl font-bold !leading-[1.3em] max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl"
           >
             Integrating Macro, Technical Strategy, and Fundamentals
           </h1>
 
-          <p className="mx-auto mt-5 w-3/4 text-lg font-medium max-xs:text-center  lg:w-3/5 xl:mt-8 xl:text-xl">
+          <p className="mx-auto mt-5 w-3/4 text-lg font-medium max-xs:text-center lg:w-3/5  xl:mt-8 xl:text-xl ">
             Providing data-driven investment decisions with a comprehensive
             suite of financial analysis tools.
           </p>
@@ -89,6 +90,7 @@ export default function Home() {
           <FiSearch className="mt-16 size-16" />
         </Container>
       </main>
+
       <p className=" z-50 bg-black px-5 py-20 text-center text-xl font-bold text-white lg:text-3xl dark:border-t dark:border-t-white/10">
         Trusted by more than 89,300 successful value investors
       </p>
@@ -103,7 +105,7 @@ export default function Home() {
         {/* <MarketMovers /> */}
         <Suspense
           fallback={
-            <div className="grid gap-x-20 gap-y-10 md:grid-cols-2">
+            <div className="grid gap-x-20 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
               <Loader />
               <Loader />
               <Loader />
@@ -133,15 +135,15 @@ export default function Home() {
       <section className="relative isolate flex min-h-[700px] w-full items-center justify-center bg-[url('/images/about-us.jpg')] bg-cover bg-center lg:h-screen">
         <div className="absolute inset-0 -z-10 bg-black/70"></div>
 
-        <Container className="z-20 mx-auto flex max-w-6xl flex-col items-center justify-center py-10 text-center text-white">
+        <Container className="z-20 mx-auto flex max-w-6xl flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-6xl">
           <h1
             style={{ lineHeight: "1.2" }}
-            className="text-4xl font-bold max-xs:text-center md:text-5xl xl:text-6xl"
+            className="text-4xl font-bold !leading-[1.3em] max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl"
           >
             About Investalytix
           </h1>
 
-          <p className="mx-auto mt-10 text-lg font-medium max-xs:text-center  lg:w-3/5 xl:mt-10 xl:text-xl">
+          <p className="mx-auto mt-10 text-lg font-medium max-xs:text-center  lg:w-4/5 xl:mt-10 xl:text-xl">
             Welcome to Investalytix, the forefront of financial expertise and
             technological innovation in investment analysis.
             <br />
@@ -151,9 +153,12 @@ export default function Home() {
             make sophisticated analysis accessible to all investors.
           </p>
 
-          <button className="mt-16 rounded bg-[#EB4335] px-5 py-3 text-white hover:bg-[#ae3d32] focus:bg-[#ae3d32]">
+          <Link
+            href="/about-us"
+            className="mt-16 rounded bg-[#EB4335] px-5 py-3 text-white hover:bg-[#ae3d32] focus:bg-[#ae3d32]"
+          >
             More About Us
-          </button>
+          </Link>
         </Container>
       </section>
 

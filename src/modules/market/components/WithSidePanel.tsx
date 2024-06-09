@@ -27,7 +27,7 @@ export default function WithSidePanel({
     <>
       <div>{children}</div>
 
-      <div className="grid gap-14 border-[#DCDCDC] py-10 md:grid-cols-2 dark:border-white/10">
+      <div className="grid gap-14 border-[#DCDCDC] py-10 md:grid-cols-2 xl:grid-cols-3 dark:border-white/10">
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["HOT_PICKS"])) && (
           <SidePanel
