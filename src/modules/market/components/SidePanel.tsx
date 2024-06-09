@@ -1,4 +1,5 @@
 import { Quote } from "@/types";
+import Link from "next/link";
 
 async function getData(url: string) {
   const res = await fetch(url + "?limit=5");
@@ -27,25 +28,32 @@ export default async function SidePanel({
   const data = await getData(url);
   return (
     <div>
-      <header className="relative mb-4">
+      <header className="relative mb-5 flex items-center justify-between">
         <p className="white-text text-2xl font-bold capitalize text-[#2A3037]">
           {title}
         </p>
 
-        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white/30"></div>
+        <Link href="" className="text-hover-focus py-1 text-sm rounded-full">
+          view all
+        </Link>
       </header>
-      <div className="flex flex-col gap-6">
+
+      <div className="flex flex-col">
         {data.data.slice(0, 5).map((quote) => {
           if (!quote.changesPercentage) return null;
           const isPositive = quote.changesPercentage >= 0;
+
           return (
             <div
               key={quote.name}
-              className="white-text grid grid-cols-3 border-b border-[#DCDCDC] pb-2 font-bold text-[#636363]  dark:border-white/30"
+              className="grid grid-cols-3 border-b dark:dark:border-white/10 py-2"
             >
-              <p className="">{quote.symbol}</p>
-              <p
-                className={`self-center rounded px-4  py-1 text-center font-bold ${
+              <div className="flex w-[40%] items-center gap-2">
+                <div className="h-6 w-6 shrink-0 animate-pulse rounded-full bg-gray-200"></div>
+                <div className="">{quote.symbol}</div>
+              </div>
+              <div
+                className={`self-center rounded px-4 w-fit place-self-center py-1 text-center font-bold ${
                   isPositive
                     ? "bg-[#D6FFEF] text-[#00CA5F]"
                     : "bg-[#FEDEDF] text-[#E74C3C]"
@@ -53,7 +61,7 @@ export default async function SidePanel({
               >
                 {isPositive && "+"}
                 {quote.changesPercentage.toFixed(2)}%
-              </p>
+              </div>
               <p className="white-text text-end">${quote.price}</p>
             </div>
           );
