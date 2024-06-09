@@ -28,8 +28,10 @@ export default function NewsDisplayModal() {
   }
 
   useOnNavigate((e) => {
-    e.preventDefault();
-    stopBack();
+    if (currentNews !== undefined) {
+      e.preventDefault();
+      stopBack();
+    }
     setNews();
   });
 

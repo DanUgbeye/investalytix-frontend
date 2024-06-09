@@ -6,7 +6,7 @@ const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto border-t-[0.5px] dark:border-main-gray-900/10">
+  <div className="relative w-full overflow-auto dark:border-main-gray-900/10">
     <table
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}
@@ -20,7 +20,7 @@ const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("[&_tr]:border-y ", className)} {...props} />
+  <thead ref={ref} className={cn(" ", className)} {...props} />
 ));
 TableHeader.displayName = "TableHeader";
 
@@ -28,11 +28,7 @@ const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <tbody
-    ref={ref}
-    className={cn("[&_tr:last-child]:border-0", className)}
-    {...props}
-  />
+  <tbody ref={ref} className={cn(" ", className)} {...props} />
 ));
 TableBody.displayName = "TableBody";
 
@@ -54,20 +50,21 @@ TableFooter.displayName = "TableFooter";
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement> & {
-    colorMode?: "odd" | "even";
-    isHeaderRow?: boolean;
+    highlightPattern?: "odd" | "even" | "none";
+    headerRow?: boolean;
   }
->(({ className, colorMode, isHeaderRow, ...props }, ref) => (
+>(({ className, highlightPattern = "odd", headerRow, ...props }, ref) => (
   <tr
     ref={ref}
     className={cn(
-      "border-none dark:border-solid dark:border-t transition-colors hover:bg-main-gray-200/40 data-[state=selected]:bg-gray-100 dark:border-main-gray-900 dark:hover:bg-main-gray-800 dark:data-[state=selected]:bg-gray-800 odd:bg-[#F0F3FA] dark:odd:bg-transparent",
+      "border-none transition-colors hover:bg-main-gray-200/40 data-[state=selected]:bg-gray-100 dark:border-t dark:border-solid dark:border-main-gray-900 dark:hover:bg-main-gray-800 dark:data-[state=selected]:bg-main-gray-800",
       {
         " odd:bg-[#F0F3FA] dark:odd:bg-transparent ":
-          colorMode === "odd",
-        " border-y-0 even:bg-main-gray-100 dark:even:bg-main-gray-800/60 ":
-          colorMode === "even",
-        " hover:bg-transparent dark:hover:bg-transparent border-transparent ": isHeaderRow,
+          highlightPattern === "odd" && !headerRow,
+        " border-y-0 even:bg-[#F0F3FA] dark:even:bg-transparent ":
+          highlightPattern === "even" && !headerRow,
+        " border-t border-solid bg-transparent hover:bg-transparent dark:hover:bg-transparent ":
+          headerRow,
       },
       className
     )}
@@ -83,7 +80,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      "h-12 px-4 py-2 text-sm capitalize text-left align-middle font-medium text-main-gray-400 dark:text-main-gray-500 [&:has([role=checkbox])]:pr-0",
+      "h-12 px-4 py-2 text-left align-middle text-sm font-medium capitalize text-main-gray-400 dark:text-main-gray-500 [&:has([role=checkbox])]:pr-0",
       className
     )}
     {...props}
@@ -97,7 +94,10 @@ const TableCell = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <td
     ref={ref}
-    className={cn("px-4 py-2 text-sm align-middle [&:has([role=checkbox])]:pr-0", className)}
+    className={cn(
+      "px-4 py-2 align-middle text-sm [&:has([role=checkbox])]:pr-0",
+      className
+    )}
     {...props}
   />
 ));
@@ -116,13 +116,7 @@ const TableCaption = React.forwardRef<
 TableCaption.displayName = "TableCaption";
 
 export {
-  Table,
-  TableHeader,
-  TableBody,
-  TableFooter,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableCaption,
+  Table, TableBody, TableCaption, TableCell, TableFooter,
+  TableHead, TableHeader, TableRow
 };
 

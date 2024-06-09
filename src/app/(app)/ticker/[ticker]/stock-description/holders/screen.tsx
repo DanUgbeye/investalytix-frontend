@@ -106,7 +106,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
           <div className=" overflow-x-auto ">
             <Table className=" w-full min-w-[50rem] ">
               <TableHeader className="  ">
-                <TableRow className=" border-0 " isHeaderRow>
+                <TableRow className=" border-0 " headerRow>
                   <TableHead className=" ">Name</TableHead>
 
                   <TableHead className=" ">Current Shares</TableHead>
@@ -125,7 +125,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                       <TableRow
                         key={`institutional-holder-${holder.holder}-${index}`}
                         className=" "
-                        colorMode="odd"
+                        highlightPattern="odd"
                       >
                         <TableCell className=" font-medium ">
                           {holder.holder}
@@ -186,7 +186,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
           <div className=" overflow-x-auto ">
             <Table className=" w-full min-w-[50rem] ">
               <TableHeader className="  ">
-                <TableRow className="  " isHeaderRow>
+                <TableRow className="  " headerRow>
                   <TableHead className=" ">Name</TableHead>
 
                   <TableHead className=" ">% Total Shares Held</TableHead>
@@ -207,7 +207,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                       <TableRow
                         key={`mutual-fund-holder-${holder.holder}-${index}`}
                         className=" "
-                        colorMode="odd"
+                        highlightPattern="odd"
                       >
                         <TableCell className=" font-medium ">
                           {holder.holder}

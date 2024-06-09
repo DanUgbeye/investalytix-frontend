@@ -1,0 +1,35 @@
+/* DEFAULT OVER RIDES */
+@screen sm {
+  *::-webkit-scrollbar {
+    @apply w-3 bg-white lg:w-[14px] dark:bg-[#23242C];
+  }
+
+  *::-webkit-scrollbar:horizontal {
+    @apply h-2;
+  }
+
+  *::-webkit-scrollbar-track {
+    @apply bg-white dark:bg-black;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply rounded-2xl border-[3px] border-solid border-white bg-gray-300 duration-300 hover:bg-gray-400 dark:border-black dark:bg-main-gray-700 dark:hover:bg-main-gray-600;
+  }
+}
+
+/* For Chrome browsers */
+.thumb::-webkit-slider-thumb,
+.thumb::-moz-range-thumb {
+  box-shadow: 0 0 1px 1px #ced4da;
+  pointer-events: all;
+  @apply relative mt-1 size-5 cursor-pointer rounded-[50%] border-0 bg-[#f1f5f7] dark:bg-[#34353D];
+}
+
+/* USER STYLES */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  @apply hidden;
+}

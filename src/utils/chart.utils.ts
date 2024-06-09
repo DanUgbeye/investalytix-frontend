@@ -4,7 +4,7 @@ import {
   AreaStyleOptions,
   DeepPartial,
   SeriesOptionsCommon,
-  TimeChartOptions
+  TimeChartOptions,
 } from "lightweight-charts";
 
 export function defaultChartOptions(
@@ -18,17 +18,14 @@ export function defaultChartOptions(
     },
     grid: {
       vertLines: {
-        color: theme === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)",
         visible: false,
       },
       horzLines: {
-        color: theme === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)",
         visible: false,
       },
     },
     timeScale: {
       borderVisible: false,
-      // tickMarkFormatter: ()
     },
     rightPriceScale: {
       borderVisible: false,
@@ -44,11 +41,12 @@ export function defaultAreaSeriesOptions(
 ): DeepPartial<AreaStyleOptions & SeriesOptionsCommon> {
   return {
     lineColor: tailwindCSS().theme.colors.primary.base,
+    lineWidth: 2,
     topColor:
-      theme === "dark" ? "rgba(251, 146, 60, 0.3)" : "rgba(251, 146, 60, 0.3)",
+      theme === "dark" ? "rgba(251, 146, 60, 0.1)" : "rgba(251, 146, 60, 0.1)",
     bottomColor:
       theme === "dark"
-        ? "rgba(255, 139, 30, 0.28)"
-        : "rgba(251, 139, 30, 0.28)",
+        ? "black"
+        : "white",
   };
 }

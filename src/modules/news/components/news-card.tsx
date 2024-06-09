@@ -22,7 +22,7 @@ export default function NewsCard(props: NewsCardProps) {
             className=" h-full w-full object-cover "
           />
 
-          <AvatarFallback className=" h-full w-full rounded-lg bg-main-gray-200 dark:bg-main-gray-700 ">
+          <AvatarFallback className=" h-full w-full rounded-lg ">
             <span className=" truncate ">{news.symbol}</span>
           </AvatarFallback>
         </Avatar>

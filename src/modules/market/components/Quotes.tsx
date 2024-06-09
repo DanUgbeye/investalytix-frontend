@@ -52,7 +52,7 @@ export default function Quotes({
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow headerRow>
           <TableHead key={fields[0].label} className="!py-2 !text-sm capitalize">
             {fields[0].label}
           </TableHead>

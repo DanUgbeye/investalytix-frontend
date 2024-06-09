@@ -196,9 +196,9 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             <div className=" space-y-6 ">
               <div className=" space-y-1 ">
                 <div className=" overflow-y-auto ">
-                  <Table className=" w-full min-w-[50rem] border-b dark:border-main-gray-900 ">
+                  <Table className=" w-full min-w-[50rem] ">
                     <TableHeader className="">
-                      <TableRow className=" text-sm hover:bg-transparent dark:hover:bg-transparent ">
+                      <TableRow headerRow className="  ">
                         <TableHead className=" py-4 text-left font-normal ">
                           Report Date
                         </TableHead>
@@ -241,8 +241,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                           return (
                             <TableRow
                               key={`earning-history-${index}`}
-                              className=" text-sm dark:text-main-gray-300 dark:odd:bg-transparent "
-                              colorMode="odd"
+                              className="  "
                             >
                               <TableCell className=" text-left ">
                                 {earning.date.toDateString()}
@@ -509,9 +508,9 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             <div className=" space-y-6 ">
               <div className=" ">
                 <div className=" overflow-y-auto ">
-                  <Table className="w-full min-w-[50rem] border-b dark:border-main-gray-900 ">
+                  <Table className="w-full min-w-[50rem]">
                     <TableHeader>
-                      <TableRow className=" text-sm hover:bg-transparent dark:hover:bg-transparent ">
+                      <TableRow headerRow className=" ">
                         <TableHead className=" px-2 py-2 text-left ">
                           Report Date
                         </TableHead>
@@ -552,11 +551,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                           );
 
                           return (
-                            <TableRow
-                              key={`revenue-history-${index}`}
-                              className=" border-y text-sm dark:border-main-gray-900 dark:text-main-gray-300 dark:odd:bg-transparent "
-                              colorMode="odd"
-                            >
+                            <TableRow key={`revenue-history-${index}`}>
                               <TableCell className=" px-2 py-2 text-left ">
                                 {earning.date.toDateString()}
                               </TableCell>

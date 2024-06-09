@@ -18,10 +18,10 @@ export default function QuoteHistoryTable(props: {
   const { quoteHistory } = props;
 
   return (
-    <div className=" overflow-x-auto border-b dark:border-main-gray-600 ">
+    <div className=" overflow-x-auto ">
       <Table className=" w-full min-w-[45rem] text-sm ">
         <TableHeader className="  ">
-          <TableRow className=" font-semibold hover:bg-transparent dark:hover:bg-transparent ">
+          <TableRow headerRow className=" ">
             <TableHead className=" ">Date</TableHead>
             <TableHead className=" text-center ">Open</TableHead>
             <TableHead className=" text-center ">High</TableHead>
@@ -38,11 +38,9 @@ export default function QuoteHistoryTable(props: {
               <TableRow
                 key={`historical-data-${index}`}
                 className=" "
-                colorMode="odd"
+                highlightPattern="odd"
               >
-                <TableCell className=" ">
-                  {item.date.toDateString()}
-                </TableCell>
+                <TableCell className=" ">{item.date.toDateString()}</TableCell>
 
                 <TableCell className=" text-center ">
                   {item.open.toLocaleString(undefined, {

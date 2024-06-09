@@ -43,6 +43,7 @@ import { Container } from "../container";
 import Spinner from "../spinner";
 import { Button } from "./button";
 import { Separator } from "./separator";
+import { Table, TableBody, TableCell, TableRow } from "./table";
 
 type RouteLink = { label: string; children?: RouteLink[]; href: string };
 
@@ -503,7 +504,7 @@ function Search() {
   function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (searchResults.length < 0) {
-      return router.push(`${PAGES.TICKER}/${query}`);
+      return;
     }
 
     router.push(`${PAGES.TICKER}/${searchResults[0].symbol}`);
@@ -572,13 +573,13 @@ function Search() {
                     {searchResults.length > 0 ? (
                       <>
                         <section className="  ">
-                          <table className=" w-full overflow-x-clip ">
-                            <tbody>
+                          <Table className=" w-full overflow-x-clip ">
+                            <TableBody>
                               {searchResults
                                 .slice(0, 50)
                                 .map((searchResult, index) => {
                                   return (
-                                    <tr
+                                    <TableRow
                                       key={`${searchResult.name}-${index}`}
                                       className=" cursor-pointer rounded-lg text-sm duration-300 hover:bg-main-gray-200 dark:hover:bg-main-gray-900 "
                                       onClick={() => {
@@ -587,19 +588,19 @@ function Search() {
                                         );
                                       }}
                                     >
-                                      <td className=" max-w-[10rem] py-2 pl-2 pr-4 ">
+                                      <TableCell className=" max-w-[10rem] py-2 pl-2 pr-4 ">
                                         <div className=" flex items-center gap-x-3 ">
-                                          <Avatar className=" rounded-none text-xxs ">
+                                          <Avatar className=" rounded-full text-xxs p-2 size-12 ">
                                             <AvatarImage
                                               crossOrigin="anonymous"
-                                              className=" rounded-none "
+                                              className=" rounded-full "
                                               src={tickerUtils.getTickerLogoUrl(
                                                 searchResult.symbol
                                               )}
                                             />
 
-                                            <AvatarFallback className=" ">
-                                              {searchResult.symbol.slice(0, 6)}
+                                            <AvatarFallback className=" truncate p-2 ">
+                                              {searchResult.symbol.slice(0, 4)}
                                             </AvatarFallback>
                                           </Avatar>
 
@@ -607,20 +608,20 @@ function Search() {
                                             {searchResult.symbol}
                                           </span>
                                         </div>
-                                      </td>
+                                      </TableCell>
 
-                                      <td className=" px-4 py-2 ">
+                                      <TableCell className=" px-4 py-2 ">
                                         {searchResult.name}
-                                      </td>
+                                      </TableCell>
 
-                                      <td className=" hidden px-4 py-2 text-right sm:table-cell ">
+                                      <TableCell className=" sm:Table-cell hidden px-4 py-2 text-right ">
                                         {searchResult.exchangeShortName}
-                                      </td>
-                                    </tr>
+                                      </TableCell>
+                                    </TableRow>
                                   );
                                 })}
-                            </tbody>
-                          </table>
+                            </TableBody>
+                          </Table>
                         </section>
                       </>
                     ) : (

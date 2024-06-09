@@ -177,8 +177,7 @@ export default function ChartSummary(props: { ticker: string }) {
       }))
     );
 
-    const ts = newChartAPI.timeScale();
-    ts.fitContent();
+    newChartAPI.timeScale().fitContent();
   }
 
   function handleTimeframeChange(timeframe: (typeof TIMEFRAMES)[number]) {
