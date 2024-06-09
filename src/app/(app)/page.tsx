@@ -2,6 +2,8 @@
 
 import { Container } from "@/components/container";
 import useInput from "@/hooks/useInput";
+import LatestNews from "@/modules/homepage/components/LatestNews";
+import LoadingNews from "@/modules/homepage/components/LoadingNews";
 import MarketMovers from "@/modules/market/components/PreMarket/US/MarketMovers";
 import WithSidePanel, {
   SIDE_SECTIONS,
@@ -85,6 +87,12 @@ export default function Home() {
         </Container>
       </main>
 
+      <Container className="pt-20">
+        <Suspense fallback={<LoadingNews />}>
+          <LatestNews />
+        </Suspense>
+      </Container>
+
       <Container className="py-20">
         {/* <MarketMovers /> */}
         <Suspense
@@ -116,7 +124,7 @@ export default function Home() {
         </Suspense>
       </Container>
 
-      <section className="relative isolate flex min-h-[700px] w-full items-center justify-center bg-[url('/images/bg.jpg')] bg-cover bg-center lg:h-screen">
+      <section className="relative isolate flex min-h-[700px] w-full items-center justify-center bg-[url('/images/about-us.jpg')] bg-cover bg-center lg:h-screen">
         <div className="absolute inset-0 -z-10 bg-black/70"></div>
 
         <Container className="z-20 mx-auto flex max-w-6xl flex-col items-center justify-center py-10 text-center text-white">
