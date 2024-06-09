@@ -90,7 +90,8 @@ const routes: RouteLink[] = [
   },
 ];
 
-export default function NavBar() {
+export default function NavBar(props: { className?: string }) {
+  const { className } = props;
   const { toggleTheme, theme } = useTheme();
   const path = usePathname();
   const user = useAppStore(({ user }) => user);
@@ -106,8 +107,8 @@ export default function NavBar() {
 
   return (
     <nav
-      className={cn("sticky top-0 z-[1000] bg-black py-3 ", {
-        "   ": path !== "/",
+      className={cn("sticky top-0 z-50 bg-black py-3 ", {
+        className,
       })}
     >
       <Container className=" max-w-[110rem] sm:px-6 xl:px-6 ">
@@ -590,7 +591,7 @@ function Search() {
                                     >
                                       <TableCell className=" max-w-[10rem] py-2 pl-2 pr-4 ">
                                         <div className=" flex items-center gap-x-3 ">
-                                          <Avatar className=" rounded-full text-xxs p-2 size-12 ">
+                                          <Avatar className=" size-12 rounded-full p-2 text-xxs ">
                                             <AvatarImage
                                               crossOrigin="anonymous"
                                               className=" rounded-full "
