@@ -217,8 +217,8 @@ export default function Summary() {
         <TableBody>
           {mockNews.map((news, index) => (
             <TableRow key={index} className="white-text text-[#212529] w-full">
-              <TableCell className="whitespace-nowrap w-full">
-                <div className="grid grid-cols-3 gap-10 bg-red-500 ">
+              <TableCell className="whitespace-nowrap w-fit">
+                <div className="grid grid-cols-3 gap-10 ">
                   <span>{moment(news.time).format("HH:MM A")}</span>
 
                   <span className="flex items-center gap-1 px-10">

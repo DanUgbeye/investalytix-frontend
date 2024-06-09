@@ -73,10 +73,10 @@ export default function Home() {
       <main className="relative isolate flex min-h-[500px] w-full items-center justify-center overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-center bg-no-repeat md:min-h-[700px] lg:min-h-[calc(100dvh_-_100px)]">
         <div className="absolute inset-0 -z-10 bg-black/70"></div>
 
-        <Container className="z-20 mx-auto flex flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-6xl">
+        <Container className="z-20 mx-auto flex flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-7xl">
           <h1
             style={{ lineHeight: "1.2" }}
-            className="text-4xl font-bold max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl 2xl:text-7xl"
+            className="text-4xl font-bold max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl 2xl:text-8xl"
           >
             Integrating Macro, Technical Strategy, and Fundamentals
           </h1>
@@ -89,6 +89,7 @@ export default function Home() {
           <FiSearch className="mt-16 size-16" />
         </Container>
       </main>
+
       <p className=" z-50 bg-black px-5 py-20 text-center text-xl font-bold text-white lg:text-3xl dark:border-t dark:border-t-white/10">
         Trusted by more than 89,300 successful value investors
       </p>
