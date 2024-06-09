@@ -9,6 +9,7 @@ import WithSidePanel, {
   SIDE_SECTIONS,
 } from "@/modules/market/components/WithSidePanel";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, Suspense, useState } from "react";
 import { FiCheck, FiSearch } from "react-icons/fi";
@@ -73,15 +74,15 @@ export default function Home() {
       <main className="relative isolate flex min-h-[500px] w-full items-center justify-center overflow-hidden bg-[url('/images/bg.jpg')] bg-cover bg-center bg-no-repeat md:min-h-[700px] lg:min-h-[calc(100dvh_-_100px)]">
         <div className="absolute inset-0 -z-10 bg-black/70"></div>
 
-        <Container className="z-20 mx-auto flex flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-7xl">
+        <Container className="z-20 mx-auto flex flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-6xl">
           <h1
             style={{ lineHeight: "1.2" }}
-            className="text-4xl font-bold max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl 2xl:text-8xl"
+            className="text-4xl font-bold max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl !leading-[1.3em]"
           >
             Integrating Macro, Technical Strategy, and Fundamentals
           </h1>
 
-          <p className="mx-auto mt-5 w-3/4 text-lg font-medium max-xs:text-center  lg:w-3/5 xl:mt-8 xl:text-xl">
+          <p className="mx-auto mt-5 w-3/4 text-lg font-medium max-xs:text-center lg:w-3/5  xl:mt-8 xl:text-xl ">
             Providing data-driven investment decisions with a comprehensive
             suite of financial analysis tools.
           </p>
@@ -152,9 +153,12 @@ export default function Home() {
             make sophisticated analysis accessible to all investors.
           </p>
 
-          <button className="mt-16 rounded bg-[#EB4335] px-5 py-3 text-white hover:bg-[#ae3d32] focus:bg-[#ae3d32]">
+          <Link
+            href="/about-us"
+            className="mt-16 rounded bg-[#EB4335] px-5 py-3 text-white hover:bg-[#ae3d32] focus:bg-[#ae3d32]"
+          >
             More About Us
-          </button>
+          </Link>
         </Container>
       </section>
 
