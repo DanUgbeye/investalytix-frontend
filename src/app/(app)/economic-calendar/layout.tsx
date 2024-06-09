@@ -8,8 +8,8 @@ export default function CalendarLayout({
 }>) {
   return (
     <Container>
-      <div className="py-10">
-        <h1 className="white-text mb-7 border-b-[6px] border-primary-base pb-5 text-center text-3xl font-extrabold">
+      <div className="pt-24">
+        <h1 className="white-text mb-7 pb-5 text-center text-6xl font-extrabold">
           ECONOMIC CALENDAR
         </h1>
       </div>

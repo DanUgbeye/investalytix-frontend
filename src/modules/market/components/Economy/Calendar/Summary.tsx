@@ -4,8 +4,19 @@ import { tailwindCSS } from "@/lib/utils";
 import useTheme from "@/store/theme/useTheme";
 import { Popover } from "@headlessui/react";
 import moment from "moment";
+import { useState } from "react";
 import { FiFlag } from "react-icons/fi";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const mockNews = [
   {
@@ -145,63 +156,93 @@ const data = [
   },
 ];
 
-export default function Summary() {
-  const { theme } = useTheme();
-  return (
-    <div className="overflow-auto">
-      <table className="w-full table-auto">
-        <thead>
-          <tr className="white-text text-left text-[#212529]">
-            <th className="whitespace-nowrap border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent">
-              Tuesday March 12 2024
-            </th>
-            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent"></th>
-            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent"></th>
-            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent">
-              Actual
-            </th>
-            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent">
-              Previous
-            </th>
-            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent">
-              Consensus
-            </th>
-            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent">
-              Forecast
-            </th>
-            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent"></th>
-            <th className="border-b border-b-[#DEE2E6] bg-[#F5F5F5]  p-2 font-normal dark:border-b-[#191919] dark:bg-transparent"></th>
-          </tr>
-        </thead>
+enum FILTERS {
+  YESTERDAY = "YESTERDAY",
+  TODAY = "TODAY",
+  TOMORROW = "TOMORROW",
+  THIS_WEEK = "THIS_WEEK",
+}
 
-        <tbody>
+export default function Summary() {
+  const [filter, setFilter] = useState<FILTERS>(FILTERS["TODAY"]);
+  const { theme } = useTheme();
+
+  function updateFilter(filter: FILTERS) {
+    setFilter(filter);
+  }
+
+  return (
+    <div className="mt-12">
+      <div className="mx-auto mb-12 flex w-full items-center justify-center gap-2 sm:w-fit">
+        <Swiper spaceBetween={24} slidesPerView={"auto"} freeMode>
+          {Object.keys(FILTERS).map((entry) => {
+            const isActive = entry === filter;
+            return (
+              <SwiperSlide
+                key={entry}
+                className={`z-[1] !w-fit !flex-shrink grow-0 border-b-2 py-2 ${
+                  isActive
+                    ? "border-primary-base "
+                    : // : "border-primary-base"
+                      "border-transparent"
+                }`}
+              >
+                <button
+                  key={entry}
+                  onClick={() => updateFilter(entry)}
+                  className={`bg-hover-focus whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
+                    isActive ? "text-primary-base" : ""
+                  }`}
+                >
+                  {entry.toLowerCase().replace("_", " ")}
+                </button>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
+
+      <Table className="table-auto">
+        <TableHeader>
+          <TableRow className="bg-[#F0F3FA]">
+            <TableHead className="whitespace-nowrap">Sunday, June 9</TableHead>
+            <TableHead>Actual</TableHead>
+            <TableHead>Forecast</TableHead>
+            <TableHead>Prior</TableHead>
+            <TableHead>Consensus</TableHead>
+            <TableHead></TableHead>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
           {mockNews.map((news, index) => (
-            <tr key={index} className="white-text text-left text-[#212529]">
-              <td className="whitespace-nowrap border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
-                {moment(news.time).format("HH:MM A")}
-              </td>
-              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
-                <span className="flex items-center gap-1 px-10">
-                  <FiFlag />
-                  {news.country}
-                </span>
-              </td>
-              <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-[#191919]">
-                {news.name}
-              </td>
-              <td className="border-b border-b-[#DEE2E6] p-2 font-normal dark:border-b-[#191919]">
+            <TableRow key={index} className="white-text text-[#212529] w-full">
+              <TableCell className="whitespace-nowrap w-full">
+                <div className="grid grid-cols-3 gap-10 bg-red-500 ">
+                  <span>{moment(news.time).format("HH:MM A")}</span>
+
+                  <span className="flex items-center gap-1 px-10">
+                    <FiFlag />
+                    {news.country}
+                  </span>
+
+                  <span> {news.name}</span>
+                </div>
+              </TableCell>
+
+              <TableCell>
                 <ColoredNumber number={news.actual} />
-              </td>
-              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
+              </TableCell>
+              <TableCell>
                 <ColoredNumber number={news.previous} />
-              </td>
-              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
+              </TableCell>
+              <TableCell>
                 {news.consensus && <ColoredNumber number={news.consensus} />}
-              </td>
-              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
+              </TableCell>
+              <TableCell>
                 <ColoredNumber number={news.forecast} colored={false} />
-              </td>
-              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
+              </TableCell>
+              <TableCell className="flex items-center gap-5">
                 <Popover className="relative">
                   <Popover.Button>
                     <svg
@@ -273,8 +314,7 @@ export default function Summary() {
                     </div>
                   </Popover.Panel>
                 </Popover>
-              </td>
-              <td className="border-b border-b-[#DEE2E6] p-2  font-normal dark:border-b-[#191919]">
+
                 <svg
                   width={14}
                   height={16}
@@ -287,11 +327,11 @@ export default function Summary() {
                     fill="#DDDDDD"
                   />
                 </svg>
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }

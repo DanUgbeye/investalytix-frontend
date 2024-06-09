@@ -66,7 +66,7 @@ export default function Quotes({
 
       <TableBody>
         {(customQuotes ? customQuotes : quotes).map((quote) => (
-          <TableRow className="border-none odd:bg-[#F0F3FA] dark:odd:bg-main-gray-200/10">
+          <TableRow className="">
             <TableCell className="py-2 text-sm">
               {quote[fields[0].key]}
             </TableCell>
