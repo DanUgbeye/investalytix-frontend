@@ -1,4 +1,6 @@
+import NewsCard from "@/modules/news/components/news-card";
 import { GeneralNews } from "@/modules/news/types";
+import { News } from "@/modules/ticker/types";
 import moment from "moment";
 
 async function getData(params?: { limit?: number; page?: number }) {
@@ -18,7 +20,7 @@ async function getData(params?: { limit?: number; page?: number }) {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: GeneralNews[];
+    data: News[];
   }>;
 }
 
@@ -30,24 +32,9 @@ export default async function LatestNews() {
 
       <div className="grid grid-cols-3 gap-14">
         {data.data.map((news) => (
-          <News news={news} />
+          <NewsCard news={news} />
         ))}
       </div>
     </>
-  );
-}
-
-function News({ news }: { news: GeneralNews }) {
-  return (
-    <div className="">
-      <div className="flex items-center gap-2">
-        <div className="h-6 w-6 shrink-0 rounded-full bg-gray-200"></div>
-        <p className="text-sm">{moment(news.publishedDate).fromNow()}</p>
-        <div className="h-1 w-1 shrink-0 rounded-full bg-black"></div>
-        <p className="text-sm">{news.site}</p>
-      </div>
-
-      <p className="mt-2 text-sm">{news.title}</p>
-    </div>
   );
 }
