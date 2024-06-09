@@ -10,7 +10,7 @@ export default function LoadingNews() {
         <p className="h-6 w-10 animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></p>
       </div>
 
-      <div className="grid grid-cols-3 gap-14">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
         <NewsCardLoading />
         <NewsCardLoading />
         <NewsCardLoading />
