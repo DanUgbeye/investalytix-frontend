@@ -89,6 +89,9 @@ export default function Home() {
           <FiSearch className="mt-16 size-16" />
         </Container>
       </main>
+      <p className=" z-50 bg-black py-20 px-5 text-xl lg:text-3xl text-center font-bold text-white dark:border-t dark:border-t-white/10">
+        Trusted by more than 89,300 successful value investors
+      </p>
 
       <Container className="pt-20">
         <Suspense fallback={<LoadingNews />}>
@@ -257,7 +260,7 @@ function Plan({
 }) {
   return (
     <div
-      className={`rounded-2xl border border-black p-8 ${plan.popular ? "bg-black text-white" : ""}`}
+      className={`rounded-2xl border border-black p-8 ${plan.popular ? "bg-black text-white dark:bg-white/90 dark:text-black/90" : "border-black/30 dark:border-white/30"}`}
     >
       <p className="text-xl font-bold">{plan.name}</p>
       <p className="mt-2 text-6xl font-bold">
@@ -268,7 +271,7 @@ function Plan({
       </p>
 
       <button
-        className={`mb-7 mt-10 w-full rounded-xl border px-6 py-3  ${plan.popular ? "bg-transparent hover:bg-white hover:text-black focus:bg-white focus:text-black" : "hover:bg-black hover:text-white focus:bg-black focus:text-white"}`}
+        className={`mb-7 mt-10 w-full rounded-xl border px-6 py-3  ${plan.popular ? "bg-transparent hover:bg-white hover:text-black focus:bg-white focus:text-black dark:bg-black dark:text-white/80 " : "hover:bg-black hover:text-white focus:bg-black focus:text-white"}`}
       >
         Get started
       </button>
@@ -276,7 +279,7 @@ function Plan({
       {/* <p className="mt-2">or ${plan.yearly} yearly</p> */}
 
       <hr
-        className={` ${plan.popular ? "border border-white/50" : "border-black dark:border-white/10"}`}
+        className={` ${plan.popular ? "border border-white/50 dark:border-black/50" : "border-black dark:border-white/30"}`}
       />
 
       <p className="mt-9">Features</p>
@@ -296,11 +299,11 @@ function Plan({
               <g clip-path="url(#clip0_225_25)">
                 <path
                   d="M7.96723 17C7.65661 16.9559 7.34389 16.9223 7.03537 16.8678C5.09821 16.5258 3.47377 15.6109 2.16204 14.1526C1.00562 12.8664 0.296239 11.3599 0.0779672 9.64562C-0.238946 7.1508 0.409572 4.91826 2.03612 2.99417C3.32056 1.47714 4.9555 0.520338 6.91155 0.157341C9.17821 -0.264407 11.2854 0.165734 13.2162 1.43098C13.5625 1.65759 13.6528 2.08773 13.4366 2.41925C13.2204 2.74868 12.7902 2.841 12.4418 2.61229C11.5309 2.01219 10.5424 1.62402 9.45945 1.48763C7.54328 1.24423 5.795 1.68277 4.25241 2.8431C2.73081 3.98664 1.77377 5.51207 1.50933 7.39839C1.11686 10.1912 2.0655 12.4866 4.31118 14.1988C5.79291 15.3277 7.5013 15.7431 9.34821 15.5312C12.2886 15.1955 14.7483 12.9734 15.4011 10.0883C15.6655 8.91752 15.6403 7.7509 15.3192 6.59267C15.187 6.11426 15.4136 5.71979 15.8649 5.63586C16.2175 5.56872 16.5785 5.78064 16.6603 6.14994C16.782 6.69968 16.866 7.25571 16.9667 7.80965C16.9772 7.8642 16.9877 7.91666 16.9982 7.97121V9.03293C16.9898 9.0707 16.9751 9.10637 16.9709 9.14413C16.8954 10.1744 16.6519 11.1647 16.1965 12.0901C14.9099 14.7024 12.8385 16.3034 9.97784 16.8678C9.66513 16.9286 9.34612 16.958 9.0292 17H7.96723Z"
-                  className={`${plan.popular ? "fill-white" : "fill-black dark:fill-white"}`}
+                  className={`${plan.popular ? "fill-white dark:fill-black" : "fill-black dark:fill-white"}`}
                 />
                 <path
                   d="M16.9997 2.25971C16.8864 2.42547 16.7961 2.61641 16.6576 2.75489C14.1307 5.28957 11.5975 7.81796 9.06845 10.3505C8.84808 10.5709 8.60043 10.6905 8.29191 10.5856C8.17648 10.5457 8.06105 10.4722 7.975 10.3862C7.04314 9.46299 6.11759 8.53556 5.19203 7.60814C4.88771 7.30179 4.87932 6.87165 5.16475 6.58419C5.45438 6.29463 5.88882 6.30513 6.19944 6.61567C6.92142 7.33327 7.63919 8.05506 8.35907 8.77476C8.40105 8.81673 8.43043 8.87338 8.4724 8.93213C8.55006 8.85869 8.59833 8.81463 8.6445 8.76847C11.0077 6.40584 13.3709 4.04322 15.7341 1.68059C16.1707 1.24415 16.7373 1.35536 16.9703 1.92189C16.9766 1.93658 16.9892 1.94497 16.9997 1.95756V2.25551V2.25971Z"
-                  className={`${plan.popular ? "fill-white" : "fill-black dark:fill-white"}`}
+                  className={`${plan.popular ? "fill-white dark:fill-black" : "fill-black dark:fill-white"}`}
                 />
               </g>
               <defs>

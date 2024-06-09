@@ -46,7 +46,7 @@ export default async function SidePanel({
           return (
             <div
               key={quote.name}
-              className="grid grid-cols-3 border-b dark:dark:border-gray-100/30 py-2"
+              className="grid grid-cols-3 border-b dark:dark:border-white/10 py-2"
             >
               <div className="flex w-[40%] items-center gap-2">
                 <div className="h-6 w-6 shrink-0 animate-pulse rounded-full bg-gray-200"></div>
