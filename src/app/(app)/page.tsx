@@ -89,7 +89,7 @@ export default function Home() {
           <FiSearch className="mt-16 size-16" />
         </Container>
       </main>
-      <p className=" z-50 bg-black py-20 px-5 text-xl lg:text-3xl text-center font-bold text-white dark:border-t dark:border-t-white/10">
+      <p className=" z-50 bg-black px-5 py-20 text-center text-xl font-bold text-white lg:text-3xl dark:border-t dark:border-t-white/10">
         Trusted by more than 89,300 successful value investors
       </p>
 
@@ -168,12 +168,14 @@ export default function Home() {
 
         <div className="relative mx-auto mt-8 w-fit rounded-full bg-gray-200 dark:bg-gray-100/10">
           <button
+            type="button"
             onClick={() => updatePricingFrequency("monthly")}
             className={`rounded-full px-7 py-3 font-medium ${pricingFrequency === "monthly" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white"}`}
           >
             Monthly
           </button>
           <button
+            type="button"
             onClick={() => updatePricingFrequency("annualy")}
             className={`rounded-full px-7 py-3 font-medium ${pricingFrequency === "annualy" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white"}`}
           >
