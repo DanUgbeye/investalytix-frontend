@@ -40,7 +40,7 @@ export default function NewsCard(props: NewsCardProps) {
             <span className=" truncate ">{news.site}</span>
           </div>
 
-          <div className=" line-clamp-3 font-medium sm:text-sm ">
+          <div className=" line-clamp-3 font-medium text-sm ">
             {news.title}
           </div>
         </div>
