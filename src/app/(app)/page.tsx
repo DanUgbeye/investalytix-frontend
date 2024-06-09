@@ -8,7 +8,7 @@ import WithSidePanel, {
 } from "@/modules/market/components/WithSidePanel";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { FormEvent, Suspense } from "react";
+import { FormEvent, Suspense, useState } from "react";
 import { FiCheck, FiSearch } from "react-icons/fi";
 
 const plans = [
@@ -48,8 +48,15 @@ const plans = [
 ];
 
 export default function Home() {
+  const [pricingFrequency, setPricingFrequency] = useState<
+    "monthly" | "annualy"
+  >("monthly");
   const [query, queryOpts] = useInput("");
   const router = useRouter();
+
+  function updatePricingFrequency(value: typeof pricingFrequency) {
+    setPricingFrequency(value);
+  }
 
   function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -146,11 +153,17 @@ export default function Home() {
         </p>
 
         <div className="relative mx-auto mt-8 w-fit rounded-full bg-gray-200 dark:bg-gray-100/10">
-          <button className="rounded-full bg-black px-7 py-3 font-medium text-white dark:bg-white dark:text-black">
+          <button
+            onClick={() => updatePricingFrequency("monthly")}
+            className={`rounded-full px-7 py-3 font-medium ${pricingFrequency === "monthly" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white"}`}
+          >
             Monthly
           </button>
-          <button className="rounded-full bg-transparent px-7 py-3 font-medium text-black dark:text-white">
-            Annual
+          <button
+            onClick={() => updatePricingFrequency("annualy")}
+            className={`rounded-full px-7 py-3 font-medium ${pricingFrequency === "annualy" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white"}`}
+          >
+            Annualy
           </button>
 
           <svg
@@ -183,7 +196,6 @@ export default function Home() {
             </defs>
           </svg>
         </div>
-
 
         <Container className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 lg:grid-cols-3">
           {plans.map((plan) => (
@@ -239,7 +251,7 @@ function Plan({ plan }: { plan: (typeof plans)[number] }) {
       </p>
       <p className="mt-2">or ${plan.yearly} yearly</p>
 
-      <button className="my-8 w-full bg-primary-base dark:bg-primary-light px-6 py-3 text-white">
+      <button className="my-8 w-full bg-primary-base px-6 py-3 text-white dark:bg-primary-light">
         Get started
       </button>
 
