@@ -189,7 +189,7 @@ export default function Summary() {
               >
                 <button
                   key={entry}
-                  onClick={() => updateFilter(entry)}
+                  onClick={() => updateFilter(entry as FILTERS)}
                   className={`bg-hover-focus whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
                     isActive ? "text-primary-base" : ""
                   }`}
