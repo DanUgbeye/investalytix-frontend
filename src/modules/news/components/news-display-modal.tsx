@@ -105,12 +105,14 @@ export default function NewsDisplayModal() {
                       </div>
                     </DialogHeader>
 
-                    <Avatar className=" aspect-video h-full max-h-[20rem] w-full rounded-none ">
-                      <AvatarImage
-                        src={currentNews.image}
-                        className=" h-full w-full overflow-clip rounded-lg object-cover "
-                      />
-                    </Avatar>
+                    {currentNews.image && (
+                      <Avatar className=" aspect-video h-full max-h-[20rem] w-full rounded-none ">
+                        <AvatarImage
+                          src={currentNews.image}
+                          className=" h-full w-full overflow-clip rounded-lg object-cover "
+                        />
+                      </Avatar>
+                    )}
 
                     <DialogDescription className=" whitespace-pre-line text-xl  ">
                       {currentNews.text}
