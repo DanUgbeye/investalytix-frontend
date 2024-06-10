@@ -9,10 +9,10 @@ export default function MarketSectionHeader({
   return (
     <header
       id={id}
-      className="border-b border-b-black/8 pb-10 dark:border-b dark:border-b-white mb-5"
+      className="pb-10"
     >
-      <h2 className="white-text text-3xl font-extrabold">
-        {label}
+      <h2 className="white-text text-3xl font-extrabold !capitalize">
+        {label.toLowerCase()}
       </h2>
     </header>
   );

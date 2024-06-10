@@ -10,6 +10,7 @@ const PAGES = {
   FORGOT_PASSWORD: "/forgot-password",
   CHART: "/chart",
   ECONOMIC_CALENDAR: "/economic-calendar",
+  PRIVACY_POLICY: "/privacy-policy",
 
   PROFILE: "/profile",
   SETTINGS: "/settings",

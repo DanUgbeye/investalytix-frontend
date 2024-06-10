@@ -84,7 +84,7 @@ export default function Footer() {
               <Link className="text-hover-focus" href={PAGES.CHART}>
                 Terms and conditions
               </Link>
-              <Link className="text-hover-focus" href={PAGES.ECONOMIC_CALENDAR}>
+              <Link className="text-hover-focus" href={PAGES.PRIVACY_POLICY}>
                 privacy policy
               </Link>
 

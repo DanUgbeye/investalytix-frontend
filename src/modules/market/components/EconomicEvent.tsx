@@ -102,7 +102,7 @@ export default async function EconomicEvent() {
         <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white/30"></div>
       </header>
 
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-1">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {[0, 1].map((index) => (
           <>
             <Event news={general.data[index]} key={`general${index}`} />

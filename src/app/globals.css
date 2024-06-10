@@ -47,6 +47,20 @@ input[type="number"] {
   @apply hover:bg-primary-base/10 hover:text-primary-base  focus:bg-primary-base/10 focus:text-primary-base;
 }
 
+/* start privacy policy */
+
+#privacy-policy > h2 {
+  @apply text-xl mt-10 mb-1;
+}
+#privacy-policy > ul {
+  @apply list-disc pl-8;
+}
+#privacy-policy a {
+  @apply duration-150 hover:text-primary-base focus:text-primary-base group-hover:text-primary-base group-focus:text-primary-base dark:hover:text-primary-light dark:focus:text-primary-light dark:group-hover:text-primary-light dark:group-focus:text-primary-light;;
+}
+
+/* end privacy policy */
+
 @media (min-width: 1024px) {
   .testimony:nth-child(3n + 2) {
     transform: translateY(32px);

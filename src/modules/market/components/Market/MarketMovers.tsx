@@ -3,37 +3,46 @@ import ColoredNumber from "@/components/ui/ColoredNumber";
 import { Tab } from "@headlessui/react";
 import { Fragment } from "react";
 import { FiPlus } from "react-icons/fi";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 const marketMovers = ["S&P", "NASDAQ", "DOW", "EUR", "ASIA", "COVID19"];
 
 export default function MarketMovers() {
   return (
     <div>
+      <h1 className="white-text whitespace-nowrap text-2xl font-extrabold capitalize max-lg:mb-5">
+        market movers
+      </h1>
       <Tab.Group>
-        <div className="white-text mb-7 text-[#252525]  lg:flex">
-          <h1 className="white-text whitespace-nowrap text-2xl font-extrabold max-lg:mb-5">
-            MARKET MOVERS
-          </h1>
+        <div className="white-text mb-12 mt-10 text-[#252525]">
           <Tab.List
-            className={
-              "flex w-full items-center justify-between gap-4 md:justify-center"
-            }
+            as={Swiper}
+            spaceBetween={16}
+            slidesPerView={"auto"}
+            freeMode
+            // className={"flex w-full items-center gap-4 md:justify-start"}
           >
+            {/* <Swiper spaceBetween={24} slidesPerView={"auto"} freeMode> */}
             {marketMovers.map((market) => (
-              <Tab as={Fragment} key={market}>
-                {({ selected }) => (
-                  <button
-                    className={`text-hover-focus border-b-2 pb-2 text-sm font-extrabold outline-none ${
-                      selected
-                        ? "border-primary-base dark:border-primary-light"
-                        : "border-transparent"
-                    }`}
-                  >
-                    {market}
-                  </button>
-                )}
-              </Tab>
+              <SwiperSlide
+                className={"z-[1] !w-fit !flex-shrink grow-0"}
+              >
+                <Tab as={Fragment} key={market}>
+                  {({ selected }) => (
+                    <button
+                      className={` rounded-full px-4 py-1 text-sm font-extrabold outline-none ${
+                        selected
+                          ? "bg-primary-base text-white dark:bg-primary-light dark:text-black"
+                          : "bg-hover-focus"
+                      }`}
+                    >
+                      {market}
+                    </button>
+                  )}
+                </Tab>
+              </SwiperSlide>
             ))}
+            {/* </Swiper> */}
           </Tab.List>
         </div>
 
@@ -62,7 +71,7 @@ function Panel() {
     <Tab.Panel>
       <div className="grid gap-10 pb-14 md:grid-cols-2">
         <div className="">
-          <p className="white-text mb-7 font-bold">Top</p>
+          <p className="white-text mb-11 text-2xl font-bold">Top gainers</p>
 
           <div className="flex flex-col gap-5">
             {topMovers.map((mover) => (
@@ -93,7 +102,7 @@ function Panel() {
           </div>
         </div>
         <div className="">
-          <p className="white-text mb-7 font-bold">Bottom</p>
+          <p className="white-text mb-11 text-2xl font-bold">Top decliners</p>
 
           <div className="flex flex-col gap-5">
             {topMovers.map((mover) => (

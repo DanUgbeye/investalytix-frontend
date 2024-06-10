@@ -8,6 +8,14 @@ import { EuropeanMarket } from "./EuropeanMarket";
 import { AsianMarket } from "./AsianMarket";
 import { AmericansMarket } from "./AmericansMarket";
 import MarketMovers from "./MarketMovers";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const quotes = [
   {
@@ -162,13 +170,13 @@ export default function Market() {
   // return null;
   return (
     <div className="overflow-hidden">
-      <h2 className="white-text white-text mb-6 text-3xl font-extrabold">
-        MAJOR INDEXES
+      <h2 className="white-text white-text mb-6 text-3xl font-extrabold capitalize">
+        Major indexes
       </h2>
 
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="mb-20 grid gap-5">
         <div className="">
-          <div className="flex items-center justify-between md:gap-4">
+          <div className="flex w-fit items-center justify-between md:gap-4">
             {timeframes.map((tf) => (
               <button
                 key={tf}
@@ -193,9 +201,6 @@ export default function Market() {
         </div>
       </div>
 
-      {/* divider */}
-      <Divider />
-
       {/* MARKET MOVERS */}
       <MarketMovers />
 
@@ -204,99 +209,47 @@ export default function Market() {
       <section className="mt-11">
         <MarketSectionHeader label="SECURITIES" />
 
-        {/* bonds */}
-        <section>
-          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">BONDS</h2>
-          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
+        <div className="grid gap-x-20 gap-y-5 md:grid-cols-2">
+          {/* bonds */}
+          <section>
+            <h2 className="white-text mb-6 text-2xl font-bold capitalize">
+              bonds
+            </h2>
             <YieldTable />
+          </section>
 
-            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Stock and bonds markets will see a&apos;year for non consensus
-                in 2024, technical strategist says
-              </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Treasury yields climb as 2024 trading begins
-              </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                10-year Treasury yield finishes flat near 3.86% as traders wrap
-                up a roller coater year.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* divider */}
-        <Divider />
-
-        {/* FUTURES & COMMODITIES */}
-        <section>
-          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
-            FUTURES & COMMODITIES
-          </h2>
-          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
+          {/* FUTURES & COMMODITIES */}
+          <section>
+            <h2 className="white-text mb-6 text-2xl font-bold capitalize">
+              futures & commodities
+            </h2>
             <Quotes />
-            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
-                hope
-              </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Copper could skyrocket over 75% to record highs by 2025 — brace
-                for deficits, analysts sa
-              </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Oil prices fall as traders monitor rising tensions in Red Sea
-              </p>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* divider */}
-        <Divider />
-
-        {/* CURRENCIES */}
-        <section>
-          <h2 className="white-text mb-6 mt-8 text-2xl font-bold">
-            CURRENCIES
-          </h2>
-          <div className="grid gap-5 lg:grid-cols-[4fr,3fr]">
+          {/* CURRENCIES */}
+          <section className="md:col-span-2">
+            <h2 className="white-text mb-6 text-2xl font-bold capitalize">
+              currencies
+            </h2>
             <Quotes />
-            <div className="text-[#2A3037] dark:text-[#F8F7F7]">
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                CNBC Daily Open: A bumpy start to the year, but don&apos;t lose
-                hope
-              </p>
-              <p className="border-t border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Copper could skyrocket over 75% to record highs by 2025 — brace
-                for deficits, analysts sa
-              </p>
-              <p className="border-y border-dashed border-[#D9D9D9] py-4 font-medium dark:border-[#D9D9D9]">
-                Oil prices fall as traders monitor rising tensions in Red Sea
-              </p>
-            </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </section>
 
       {/* REGIONAL */}
       <section className="mt-16">
         <MarketSectionHeader label="REGIONAL" />
 
-        {/* AMERICAS MARKET */}
-        <AmericansMarket />
+        <div className="grid gap-x-20 gap-y-5 md:grid-cols-2">
+          {/* AMERICAS MARKET */}
+          <AmericansMarket />
 
-        {/* divider */}
-        <Divider />
+          {/* EUROPE MARKET */}
+          <EuropeanMarket />
 
-        {/* EUROPE MARKET */}
-        <EuropeanMarket />
-
-        {/* divider */}
-        <Divider />
-
-        {/* ASIAN MARKET */}
-        <AsianMarket />
+          {/* ASIAN MARKET */}
+          <AsianMarket />
+        </div>
       </section>
     </div>
   );
@@ -304,40 +257,25 @@ export default function Market() {
 
 function YieldTable() {
   return (
-    <div className="w-full overflow-auto">
-      <table className="w-full table-auto">
-        <thead>
-          <tr className="white-text !text-white">
-            <th className="th border-b p-2 text-left capitalize dark:border-b-0">
-              Name
-            </th>
-            <th className="th border-b text-right uppercase dark:border-b-0">
-              yield
-            </th>
-            <th className="th border-b text-right uppercase dark:border-b-0">
-              chg
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {quotes.map((quote) => (
-            <tr
-              key={quote.symbol}
-              className="white-text text-black even:bg-[#F9F9F9] dark:border-b dark:border-b-white/10 dark:even:bg-transparent"
-            >
-              <td className="p-2 text-left text-sm font-bold uppercase">
-                {quote.symbol}
-              </td>
-              <td className="p-2 text-right text-sm font-bold">
-                {quote.change}
-              </td>
-              <td className="p-2 text-right text-sm font-bold">
-                {quote.changesPercentage}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Table>
+      <TableHeader>
+        <TableRow headerRow>
+          <TableHead>Name</TableHead>
+          <TableHead>yield</TableHead>
+          <TableHead>chg</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {quotes.map((quote) => (
+          <TableRow key={quote.symbol} className="">
+            <TableCell className="text-left">{quote.symbol}</TableCell>
+            <TableCell className="text-right">{quote.change}</TableCell>
+            <TableCell className="text-right">
+              {quote.changesPercentage}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }
