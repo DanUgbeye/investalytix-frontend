@@ -117,7 +117,7 @@ export default function ProfileScreen(props: ProfileScreenProps) {
         <div className=" overflow-y-auto ">
           <Table className="w-full min-w-[50rem] border-b dark:border-main-gray-900 ">
             <TableHeader>
-              <TableRow className=" border-y text-sm hover:bg-transparent dark:border-y-main-gray-900 dark:hover:bg-transparent ">
+              <TableRow headerRow className="  ">
                 <TableHead className=" px-2 py-2 text-left ">Name</TableHead>
 
                 <TableHead className=" py-4 text-left font-normal ">

@@ -119,7 +119,7 @@ export default function CapitalStructureScreen(
         <div className=" h-fit w-full max-w-xl overflow-x-auto ">
           <Table className=" w-full text-sm ">
             <TableHeader>
-              <TableRow className=" font-bold hover:bg-transparent dark:hover:bg-transparent ">
+              <TableRow headerRow className=" ">
                 <TableHead className=" px-2 py-3 "></TableHead>
 
                 <TableHead className=" px-2 py-3 ">Value</TableHead>

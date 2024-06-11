@@ -50,19 +50,20 @@ TableFooter.displayName = "TableFooter";
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement> & {
-    highlightPattern?: "odd" | "even" | "none";
+    highlightPattern?: "odd" | "even" | "current" | "none";
     headerRow?: boolean;
   }
 >(({ className, highlightPattern = "odd", headerRow, ...props }, ref) => (
   <tr
     ref={ref}
     className={cn(
-      "border-none transition-colors hover:bg-main-gray-200/40 data-[state=selected]:bg-gray-100 dark:border-t dark:border-solid dark:border-main-gray-900 dark:hover:bg-main-gray-800 dark:data-[state=selected]:bg-main-gray-800",
+      "border-0 transition-colors hover:bg-main-gray-200/40 data-[state=selected]:bg-gray-100 dark:border-t dark:border-solid dark:border-main-gray-900 dark:hover:bg-main-gray-800 dark:data-[state=selected]:bg-main-gray-800",
       {
         " odd:bg-[#F0F3FA] dark:odd:bg-transparent ":
           highlightPattern === "odd" && !headerRow,
-        " border-y-0 even:bg-[#F0F3FA] dark:even:bg-transparent ":
+        "  even:bg-[#F0F3FA] dark:even:bg-transparent ":
           highlightPattern === "even" && !headerRow,
+        "  bg-[#F0F3FA] dark:bg-transparent ": highlightPattern === "current",
         " border-t border-solid bg-transparent hover:bg-transparent dark:hover:bg-transparent ":
           headerRow,
       },
@@ -116,7 +117,12 @@ const TableCaption = React.forwardRef<
 TableCaption.displayName = "TableCaption";
 
 export {
-  Table, TableBody, TableCaption, TableCell, TableFooter,
-  TableHead, TableHeader, TableRow
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
 };
-
