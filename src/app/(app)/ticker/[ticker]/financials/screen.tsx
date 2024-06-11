@@ -109,7 +109,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
           <Table>
             <TableHeader>
               <TableRow headerRow>
-                <TableHead>Currency: {currency}</TableHead>
+                <TableHead className=" min-w-[10rem] ">Currency: {currency}</TableHead>
 
                 {financials.income.map((incomeSheet, index) => {
                   return (
@@ -195,7 +195,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
           <Table>
             <TableHeader>
               <TableRow headerRow>
-                <TableHead>Currency: {currency}</TableHead>
+                <TableHead className=" min-w-[10rem] ">Currency: {currency}</TableHead>
 
                 {financials.balance.map((balanceSheet, index) => {
                   return (
@@ -281,7 +281,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
           <Table>
             <TableHeader>
               <TableRow headerRow>
-                <TableHead>Currency: {currency}</TableHead>
+                <TableHead className=" min-w-[10rem] ">Currency: {currency}</TableHead>
 
                 {financials.cash.map((cashFlow, index) => {
                   return (
