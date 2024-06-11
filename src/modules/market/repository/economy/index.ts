@@ -8,42 +8,34 @@ import {
   InterestRate,
   UnemploymentRate,
 } from "../../types";
+import { RequestOptions } from "@/types/api.types";
+import { handleAPIError } from "@/utils/api-utils";
+import { AxiosInstance } from "axios";
 
-export interface IEconomyMarketRepository {
-  getGDPGrowthRate(continent?: EconomyContinent): Promise<GDPGrowthRate[]>;
-  getInflationRate(): Promise<InflationRate[]>;
-  getInterestRate(): Promise<InterestRate[]>;
-  getUnemploymentRate(
-    continent?: EconomyContinent
-  ): Promise<UnemploymentRate[]>;
-  getDebtToGDPRate(continent?: EconomyContinent): Promise<DebtToGDPRate[]>;
-  getCreditRating(continent?: EconomyContinent): Promise<CreditRating[]>;
-}
+export class EconomyMarketRepository {
+  constructor(private readonly axios: AxiosInstance) {}
 
-export class EconomyMarketRepository implements IEconomyMarketRepository {
-  constructor(private BASE_URL: string) {}
+  async getEconomicCalendar(
+    query: string,
+    options?: RequestOptions | undefined
+  ): Promise<SearchResult[]> {
+    try {
+      const searchParams = new URLSearchParams();
+      searchParams.append("query", query);
 
-  async getGDPGrowthRate(continent?: EconomyContinent) {
-    return [];
-  }
+      const path = `/tickers?${searchParams.toString()}`;
+      let res = await this.axios.get<{ data: SearchResult[] }>(path, options);
 
-  async getInflationRate() {
-    return [];
-  }
+      let validation = z.array(SearchResultSchema).safeParse(res.data.data);
 
-  async getInterestRate(): Promise<BaseRateChange[]> {
-    return [];
-  }
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
 
-  async getUnemploymentRate(continent?: EconomyContinent | undefined) {
-    return [];
-  }
-
-  async getDebtToGDPRate(continent?: EconomyContinent | undefined) {
-    return [];
-  }
-
-  async getCreditRating(continent?: EconomyContinent | undefined) {
-    return [];
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
   }
 }
