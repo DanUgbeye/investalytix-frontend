@@ -1,525 +1,312 @@
 "use client";
 
-import { buttonVariants } from "@/components/ui/button";
-import { Table } from "@/components/ui/table";
-import WithToggle from "@/components/with-toggle";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import { FinancialPeriod, Financials } from "@/modules/ticker/types";
-import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
-import { ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-
-function getPeriodUrl(path: string, period: string) {
-  return `${path}?period=${period}`;
-}
+import { usePathname } from "next/navigation";
+import { useMemo, useState } from "react";
+import { generateKeyStatsTableData } from "./generate-table-data";
 
 interface KeyStatsScreenProps {
   ticker: string;
-  period?: FinancialPeriod;
-  financials: Financials;
+  financials: {
+    annual: Financials;
+    quarter: Financials;
+  };
+  currency: string;
 }
 
 export default function KeyStatsScreen(props: KeyStatsScreenProps) {
-  const { ticker, financials, period } = props;
+  const {
+    ticker,
+    currency,
+    financials: { annual, quarter },
+  } = props;
   const pathname = usePathname();
 
+  const [viewPeriods, setViewPeriods] = useState<{
+    income: FinancialPeriod;
+    cash: FinancialPeriod;
+    balance: FinancialPeriod;
+  }>({
+    income: "quarter",
+    cash: "quarter",
+    balance: "quarter",
+  });
+
+  const financials = useMemo<Financials>(() => {
+    return {
+      income: viewPeriods.income === "annual" ? annual.income : quarter.income,
+      balance:
+        viewPeriods.balance === "annual" ? annual.balance : quarter.balance,
+      cash: viewPeriods.cash === "annual" ? annual.cash : quarter.cash,
+    };
+  }, [viewPeriods]);
+
+  const dataRows = useMemo(() => {
+    return generateKeyStatsTableData(financials);
+  }, [financials]);
+
+  function handlePeriodChange(
+    select: keyof Financials,
+    period: FinancialPeriod
+  ) {
+    setViewPeriods((prev) => ({
+      ...prev,
+      [select]: period,
+    }));
+  }
+
   return (
-    <section className=" pb-12 ">
-      <div className=" mb-6 flex items-center gap-2 ">
-        <Link
-          href={getPeriodUrl(pathname, "quarter")}
-          className={cn(
-            buttonVariants(),
-            " pointer-events-none h-9 cursor-pointer ",
-            {
-              " pointer-events-auto bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-300 ":
-                !!period && period !== "quarter",
-            }
-          )}
-        >
-          Quarterly
-        </Link>
+    <main className=" space-y-12 pb-12 ">
+      {/* INCOME SHEET */}
+      <section className=" space-y-5 ">
+        <div className=" flex items-center justify-between gap-10 ">
+          <h2 className=" font-bold ">Income Statement</h2>
 
-        <Link
-          href={getPeriodUrl(pathname, "annual")}
-          className={cn(
-            buttonVariants(),
-            " pointer-events-none h-9 cursor-pointer ",
-            {
-              " pointer-events-auto bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-300 ":
-                period !== "annual",
-            }
-          )}
-        >
-          Annual
-        </Link>
-      </div>
+          {/* PERIOD FILTERS */}
+          <div className=" ml-auto flex items-center gap-2 ">
+            <Button
+              variant={"link"}
+              className={cn(
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                {
+                  " bg-[#F0F3FA] font-bold ": viewPeriods.income === "quarter",
+                }
+              )}
+              onClick={() => handlePeriodChange("income", "quarter")}
+            >
+              Quarterly
+            </Button>
 
-      <div className=" overflow-x-auto ">
-        <Table className=" w-full min-w-[50rem] ">
-          <thead>
-            <tr className="  th text-sm font-bold ">
-              <th className=" sticky left-0 bg-inherit px-2 py-3 text-left dark:bg-inherit"></th>
+            <Button
+              variant={"link"}
+              className={cn(
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                {
+                  " bg-[#F0F3FA] font-bold ": viewPeriods.income === "annual",
+                }
+              )}
+              onClick={() => handlePeriodChange("income", "annual")}
+            >
+              Annual
+            </Button>
+          </div>
+        </div>
 
-              {financials.balance.map((data, index) => {
+        <div className=" overflow-x-auto ">
+          <Table>
+            <TableHeader>
+              <TableRow headerRow>
+                <TableHead>Currency: {currency}</TableHead>
+
+                {financials.income.map((incomeSheet, index) => {
+                  return (
+                    <TableHead
+                      key={`income-${incomeSheet.calendarYear}-${incomeSheet.period}-${index}`}
+                    >
+                      <div className=" flex flex-col gap-1 ">
+                        <span className=" ">{incomeSheet.calendarYear}</span>
+
+                        <span className=" text-xs ">
+                          {format(new Date(incomeSheet.date), "MMM yyyy ")}
+                        </span>
+                      </div>
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {dataRows.income.map((rowData) => {
                 return (
-                  <td
-                    key={`${data.date}-${index}`}
-                    className=" px-2 py-3 text-center dark:bg-transparent"
-                  >
-                    {format(new Date(data.date), "MMM yy ")}
-                  </td>
+                  <TableRow key={`row-${rowData.label}`}>
+                    <TableCell> {rowData.label}</TableCell>
+
+                    {rowData.cols.map((data, index) => {
+                      return (
+                        <TableCell key={`income-${rowData.label}-${index}`}>
+                          {data}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
                 );
               })}
-            </tr>
-          </thead>
+            </TableBody>
+          </Table>
+        </div>
+      </section>
 
-          <tbody>
-            {/* INCOME STATEMENT */}
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
+      {/* BALANCE SHEET */}
+      <section className=" space-y-5 ">
+        <div className=" flex items-center justify-between gap-10 ">
+          <h2 className=" font-bold ">Balance Statement</h2>
 
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
+          {/* PERIOD FILTERS */}
+          <div className=" ml-auto flex items-center gap-2 ">
+            <Button
+              variant={"link"}
+              className={cn(
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                {
+                  " bg-[#F0F3FA] font-bold ": viewPeriods.balance === "quarter",
+                }
+              )}
+              onClick={() => handlePeriodChange("balance", "quarter")}
+            >
+              Quarterly
+            </Button>
+
+            <Button
+              variant={"link"}
+              className={cn(
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                {
+                  " bg-[#F0F3FA] font-bold ": viewPeriods.balance === "annual",
+                }
+              )}
+              onClick={() => handlePeriodChange("balance", "annual")}
+            >
+              Annual
+            </Button>
+          </div>
+        </div>
+
+        <div className=" overflow-x-auto ">
+          <Table>
+            <TableHeader>
+              <TableRow headerRow>
+                <TableHead>Currency: {currency}</TableHead>
+
+                {financials.balance.map((balanceSheet, index) => {
+                  return (
+                    <TableHead
+                      key={`balance-${balanceSheet.calendarYear}-${balanceSheet.period}-${index}`}
                     >
-                      <th className=" sticky left-0 bg-inherit px-2 py-3 text-left dark:bg-inherit">
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Income Statement</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
+                      <div className=" flex flex-col gap-1 ">
+                        <span className=" ">{balanceSheet.calendarYear}</span>
 
-                      {financials.balance.map((data, index) => {
-                        return <td key={`forecast-month-${index}`} />;
-                      })}
-                    </tr>
+                        <span className=" text-xs ">
+                          {format(new Date(balanceSheet.date), "MMM yyyy ")}
+                        </span>
+                      </div>
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            </TableHeader>
 
-                    {state && (
-                      <>
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black">
-                            Total Revenue
-                          </th>
-
-                          {financials.income.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.revenue, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black">
-                            Cost of Revenue
-                          </th>
-
-                          {financials.income.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.costOfRevenue, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black">
-                            Gross Profit
-                          </th>
-
-                          {financials.income.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.grossProfit, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black">
-                            EBITDA
-                          </th>
-
-                          {financials.income.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.ebitda, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black">
-                            EPS
-                          </th>
-
-                          {financials.income.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.eps, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
-
-            {/* BALANCE SHEET STATEMENT */}
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
-
+            <TableBody>
+              {dataRows.balance.map((rowData) => {
                 return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th className=" sticky left-0 bg-inherit px-2 py-3 text-left dark:bg-inherit ">
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Balance Sheet</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
+                  <TableRow key={`row-${rowData.label}`}>
+                    <TableCell> {rowData.label}</TableCell>
 
-                      {financials.balance.map((data, index) => {
-                        return <td key={`forecast-month-${index}`} />;
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6  pr-2 text-left font-normal dark:bg-black">
-                            Total Assets
-                          </th>
-
-                          {financials.balance.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.totalAssets, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6  pr-2 text-left font-normal dark:bg-black">
-                            Total Debt
-                          </th>
-
-                          {financials.balance.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.totalDebt, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6  pr-2 text-left font-normal dark:bg-black">
-                            Net Debt
-                          </th>
-
-                          {financials.balance.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.netDebt, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6  pr-2 text-left font-normal dark:bg-black">
-                            Total Liabilities
-                          </th>
-
-                          {financials.balance.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.totalLiabilities, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6  pr-2 text-left font-normal dark:bg-black">
-                            Stakeholder Equity
-                          </th>
-
-                          {financials.balance.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.totalStockholdersEquity,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
+                    {rowData.cols.map((data, index) => {
+                      return (
+                        <TableCell key={`balance-${rowData.label}-${index}`}>
+                          {data}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
                 );
-              }}
-            </WithToggle>
+              })}
+            </TableBody>
+          </Table>
+        </div>
+      </section>
 
-            {/* CASH FLOW STATEMENT */}
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
+      {/* CASH SHEET */}
+      <section className=" space-y-5 ">
+        <div className=" flex items-center justify-between gap-10 ">
+          <h2 className=" font-bold ">Cash Flow Statement</h2>
 
+          {/* PERIOD FILTERS */}
+          <div className=" ml-auto flex items-center gap-2 ">
+            <Button
+              variant={"link"}
+              className={cn(
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                {
+                  " bg-[#F0F3FA] font-bold ": viewPeriods.cash === "quarter",
+                }
+              )}
+              onClick={() => handlePeriodChange("cash", "quarter")}
+            >
+              Quarterly
+            </Button>
+
+            <Button
+              variant={"link"}
+              className={cn(
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                {
+                  " bg-[#F0F3FA] font-bold ": viewPeriods.cash === "annual",
+                }
+              )}
+              onClick={() => handlePeriodChange("cash", "annual")}
+            >
+              Annual
+            </Button>
+          </div>
+        </div>
+
+        <div className=" overflow-x-auto ">
+          <Table>
+            <TableHeader>
+              <TableRow headerRow>
+                <TableHead>Currency: {currency}</TableHead>
+
+                {financials.cash.map((cashFlow, index) => {
+                  return (
+                    <TableHead
+                      key={`cash-${cashFlow.calendarYear}-${cashFlow.period}-${index}`}
+                    >
+                      <div className=" flex flex-col gap-1 ">
+                        <span className=" ">{cashFlow.calendarYear}</span>
+
+                        <span className=" text-xs ">
+                          {format(new Date(cashFlow.date), "MMM yyyy ")}
+                        </span>
+                      </div>
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {dataRows.cash.map((rowData) => {
                 return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th className=" sticky left-0 bg-inherit px-2 py-3 text-left dark:bg-inherit ">
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Cash Flow</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
+                  <TableRow key={`row-${rowData.label}`}>
+                    <TableCell> {rowData.label}</TableCell>
 
-                      {financials.balance.map((data, index) => {
-                        return <td key={`forecast-month-${index}`} />;
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black ">
-                            Free Cash Flow
-                          </th>
-
-                          {financials.cash.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.freeCashFlow, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black ">
-                            Operating Cash Flow
-                          </th>
-
-                          {financials.cash.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.operatingCashFlow, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black ">
-                            Net Income
-                          </th>
-
-                          {financials.cash.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.netIncome, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black ">
-                            Stock Repurchases
-                          </th>
-
-                          {financials.cash.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.commonStockRepurchased,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" text-sm ">
-                          <th className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left font-normal dark:bg-black ">
-                            Dividend Paid
-                          </th>
-
-                          {financials.cash.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.dividendsPaid, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
+                    {rowData.cols.map((data, index) => {
+                      return (
+                        <TableCell key={`cash-${rowData.label}-${index}`}>
+                          {data}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
                 );
-              }}
-            </WithToggle>
-          </tbody>
-        </Table>
-      </div>
-    </section>
+              })}
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+    </main>
   );
 }
