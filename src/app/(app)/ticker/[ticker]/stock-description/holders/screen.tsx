@@ -106,7 +106,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
           <div className=" overflow-x-auto ">
             <Table className=" w-full min-w-[50rem] ">
               <TableHeader className="  ">
-                <TableRow className=" border-0 " headerRow>
+                <TableRow className=" " headerRow>
                   <TableHead className=" ">Name</TableHead>
 
                   <TableHead className=" ">Current Shares</TableHead>
