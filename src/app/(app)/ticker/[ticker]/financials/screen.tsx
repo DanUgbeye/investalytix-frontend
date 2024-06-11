@@ -78,9 +78,10 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
                 {
-                  " bg-[#F0F3FA] font-bold ": viewPeriods.income === "quarter",
+                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                    viewPeriods.income === "quarter",
                 }
               )}
               onClick={() => handlePeriodChange("income", "quarter")}
@@ -91,9 +92,10 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
                 {
-                  " bg-[#F0F3FA] font-bold ": viewPeriods.income === "annual",
+                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                    viewPeriods.income === "annual",
                 }
               )}
               onClick={() => handlePeriodChange("income", "annual")}
@@ -115,7 +117,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`income-${incomeSheet.calendarYear}-${incomeSheet.period}-${index}`}
                     >
                       <div className=" flex flex-col gap-1 ">
-                        <span className=" ">{incomeSheet.calendarYear}</span>
+                        <span className=" ">
+                          {viewPeriods.income === "quarter" &&
+                            `${incomeSheet.period} '`}
+                          {incomeSheet.calendarYear}
+                        </span>
 
                         <span className=" text-xs ">
                           {format(new Date(incomeSheet.date), "MMM yyyy ")}
@@ -158,9 +164,10 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
                 {
-                  " bg-[#F0F3FA] font-bold ": viewPeriods.balance === "quarter",
+                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                    viewPeriods.balance === "quarter",
                 }
               )}
               onClick={() => handlePeriodChange("balance", "quarter")}
@@ -171,9 +178,10 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
                 {
-                  " bg-[#F0F3FA] font-bold ": viewPeriods.balance === "annual",
+                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                    viewPeriods.balance === "annual",
                 }
               )}
               onClick={() => handlePeriodChange("balance", "annual")}
@@ -195,7 +203,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`balance-${balanceSheet.calendarYear}-${balanceSheet.period}-${index}`}
                     >
                       <div className=" flex flex-col gap-1 ">
-                        <span className=" ">{balanceSheet.calendarYear}</span>
+                        <span className=" ">
+                          {viewPeriods.balance === "quarter" &&
+                            `${balanceSheet.period} '`}
+                          {balanceSheet.calendarYear}
+                        </span>
 
                         <span className=" text-xs ">
                           {format(new Date(balanceSheet.date), "MMM yyyy ")}
@@ -238,9 +250,10 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
                 {
-                  " bg-[#F0F3FA] font-bold ": viewPeriods.cash === "quarter",
+                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                    viewPeriods.cash === "quarter",
                 }
               )}
               onClick={() => handlePeriodChange("cash", "quarter")}
@@ -251,9 +264,10 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline ",
+                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
                 {
-                  " bg-[#F0F3FA] font-bold ": viewPeriods.cash === "annual",
+                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                    viewPeriods.cash === "annual",
                 }
               )}
               onClick={() => handlePeriodChange("cash", "annual")}
@@ -275,7 +289,11 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`cash-${cashFlow.calendarYear}-${cashFlow.period}-${index}`}
                     >
                       <div className=" flex flex-col gap-1 ">
-                        <span className=" ">{cashFlow.calendarYear}</span>
+                        <span className=" ">
+                          {viewPeriods.cash === "quarter" &&
+                            `${cashFlow.period} '`}
+                          {cashFlow.calendarYear}
+                        </span>
 
                         <span className=" text-xs ">
                           {format(new Date(cashFlow.date), "MMM yyyy ")}
