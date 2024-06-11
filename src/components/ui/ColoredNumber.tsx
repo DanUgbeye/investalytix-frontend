@@ -6,11 +6,15 @@ export default function ColoredNumber({
   percent = false,
   className = "",
 }: {
-  number: number;
+  number?: number | null;
   colored?: boolean;
   percent?: boolean;
   className?: HTMLElement["className"];
 }) {
+  if (Number.isNaN(number)) {
+    return <span>-</span>;
+  }
+
   const isNegative = Number(number) < 0;
   const shouldColor = colored && Number(number) !== 0;
   return (

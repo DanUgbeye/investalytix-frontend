@@ -1,5 +1,5 @@
 export type EconomicCalendar = {
-  date: Date;
+  date: string;
   country: string;
   event: string;
   currency: string;

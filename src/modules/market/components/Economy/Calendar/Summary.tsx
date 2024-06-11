@@ -4,7 +4,7 @@ import { tailwindCSS } from "@/lib/utils";
 import useTheme from "@/store/theme/useTheme";
 import { Popover } from "@headlessui/react";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiFlag } from "react-icons/fi";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,6 +17,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useFetcher from "@/hooks/useFetcher";
+import { EconomyMarketRepository } from "@/modules/market/repository/economy";
+import { clientAPI } from "@/config/client/api";
+import { EconomicCalendar } from "@/modules/market/types";
 
 const mockNews = [
   {
@@ -111,50 +115,50 @@ const mockNews = [
   },
 ];
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+// const data = [
+//   {
+//     name: "Page A",
+//     uv: 4000,
+//     pv: 2400,
+//     amt: 2400,
+//   },
+//   {
+//     name: "Page B",
+//     uv: 3000,
+//     pv: 1398,
+//     amt: 2210,
+//   },
+//   {
+//     name: "Page C",
+//     uv: 2000,
+//     pv: 9800,
+//     amt: 2290,
+//   },
+//   {
+//     name: "Page D",
+//     uv: 2780,
+//     pv: 3908,
+//     amt: 2000,
+//   },
+//   {
+//     name: "Page E",
+//     uv: 1890,
+//     pv: 4800,
+//     amt: 2181,
+//   },
+//   {
+//     name: "Page F",
+//     uv: 2390,
+//     pv: 3800,
+//     amt: 2500,
+//   },
+//   {
+//     name: "Page G",
+//     uv: 3490,
+//     pv: 4300,
+//     amt: 2100,
+//   },
+// ];
 
 enum FILTERS {
   YESTERDAY = "YESTERDAY",
@@ -163,9 +167,116 @@ enum FILTERS {
   THIS_WEEK = "THIS_WEEK",
 }
 
+function thisWeek() {
+  // Create a new Date object for the current date and time
+  const today = new Date();
+
+  // Get the current day of the week (0-6) where 0 is Sunday and 6 is Saturday
+  const dayOfWeek = today.getDay();
+
+  // Calculate the start and end dates of the current week
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(today.getDate() - dayOfWeek); // Subtract days to get to Sunday
+
+  const endOfWeek = new Date(today);
+  endOfWeek.setDate(today.getDate() + (6 - dayOfWeek)); // Add days to get to Saturday
+
+  return { from: startOfWeek, to: endOfWeek };
+}
+
 export default function Summary() {
   const [filter, setFilter] = useState<FILTERS>(FILTERS["TODAY"]);
   const { theme } = useTheme();
+  const [calendar, setCalendar] = useState<EconomicCalendar[]>([]);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+
+  const { wrapper, loading, data, error } =
+    useFetcher<EconomicCalendar[]>(null);
+
+  useEffect(() => {
+    const date = new Date();
+    switch (filter) {
+      case FILTERS["TODAY"]:
+        const today = new Date(
+          Date.UTC(
+            date.getUTCFullYear(),
+            date.getUTCMonth(),
+            date.getUTCDate(),
+            0,
+            0,
+            0,
+            0
+          )
+        );
+        setFrom(today.toString());
+        setTo(today.toString());
+        break;
+      case FILTERS["YESTERDAY"]:
+        const yesterdaysDate = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+        const yesterday = new Date(
+          Date.UTC(
+            yesterdaysDate.getUTCFullYear(),
+            yesterdaysDate.getUTCMonth(),
+            yesterdaysDate.getUTCDate(),
+            0,
+            0,
+            0,
+            0
+          )
+        );
+        setFrom(yesterday.toString());
+        setTo(yesterday.toString());
+        break;
+      case FILTERS["TOMORROW"]:
+        const tomorrow = new Date(
+          date.setHours(0, 0, 0, 0) + 24 * 60 * 60 * 1000
+        );
+
+        setFrom(tomorrow.toString());
+        setTo(tomorrow.toString());
+        break;
+      case FILTERS["THIS_WEEK"]:
+        const currentWeek = thisWeek();
+        setFrom(currentWeek.from.toString());
+        setTo(currentWeek.to.toString());
+        break;
+    }
+  }, [filter]);
+
+  useEffect(() => {
+    if (!from && !to) return;
+    const repo = new EconomyMarketRepository(clientAPI);
+    wrapper(() =>
+      repo.getEconomicCalendar({
+        from,
+        to,
+      })
+    );
+  }, [from, to]);
+
+  useEffect(() => {
+    if (loading || !data) return;
+    setCalendar(
+      data
+        .filter(
+          (a) =>
+            new Date(a.date).getTime() >= new Date(from).getTime() &&
+            new Date(a.date).getTime() <= new Date(to).setHours(23, 59, 59)
+        )
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    );
+    console.log(data);
+  }, [loading, data]);
+
+  useEffect(() => {
+    if (!error) return;
+    console.log(error);
+  }, [error]);
+
+  useEffect(() => {
+    console.log(loading);
+  }, [loading]);
 
   function updateFilter(filter: FILTERS) {
     setFilter(filter);
@@ -202,47 +313,58 @@ export default function Summary() {
         </Swiper>
       </div>
 
-      <Table className="table-auto">
-        <TableHeader>
-          <TableRow className="bg-[#F0F3FA]">
-            <TableHead className="whitespace-nowrap">Sunday, June 9</TableHead>
-            <TableHead>Actual</TableHead>
-            <TableHead>Forecast</TableHead>
-            <TableHead>Prior</TableHead>
-            <TableHead>Consensus</TableHead>
-            <TableHead></TableHead>
-          </TableRow>
-        </TableHeader>
+      {calendar && (
+        <Table className="table-auto">
+          <TableHeader>
+            <TableRow headerRow>
+              <TableHead className="whitespace-nowrap">
+                {filter === FILTERS["TODAY"]
+                  ? moment(new Date()).format("dddd, MMMM Do")
+                  : filter === FILTERS["THIS_WEEK"]
+                    ? `${moment(from).format("dddd, MMMM Do")} - ${moment(to).format("dddd, MMMM Do")}`
+                    : moment(from).format("dddd, MMMM Do")}
+              </TableHead>
+              <TableHead>Prior</TableHead>
+              <TableHead>Forecast</TableHead>
+              <TableHead>Actual</TableHead>
+              {/* <TableHead>Consensus</TableHead> */}
+              <TableHead></TableHead>
+            </TableRow>
+          </TableHeader>
 
-        <TableBody>
-          {mockNews.map((news, index) => (
-            <TableRow key={index} className="white-text text-[#212529] w-full">
-              <TableCell className="whitespace-nowrap w-fit">
-                <div className="grid grid-cols-[150px,150px,auto] place-content-start gap-10 ">
-                  <p>{moment(news.time).format("HH:MM A")}</p>
+          <TableBody>
+            {calendar.map((news, index) => (
+              <TableRow
+                key={index}
+                className="white-text w-full text-[#212529]"
+              >
+                <TableCell className="w-fit whitespace-nowrap">
+                  <div className="max-mdgap-10 grid grid-cols-[max-content,100px,auto] place-content-start md:gap-5 ">
+                    <p>{moment(news.date).format("DD/MM - HH:mm A")}</p>
 
-                  <p className="flex items-center gap-1 px-10">
-                    <FiFlag />
-                    {news.country}
-                  </p>
+                    <p className="flex items-center gap-1 place-self-center">
+                      <FiFlag />
+                      {news.country}
+                    </p>
 
-                  <p> {news.name}</p>
-                </div>
-              </TableCell>
+                    <p> {news.event}</p>
+                  </div>
+                </TableCell>
 
-              <TableCell>
-                <ColoredNumber number={news.actual} />
-              </TableCell>
-              <TableCell>
-                <ColoredNumber number={news.previous} />
-              </TableCell>
-              <TableCell>
-                {news.consensus && <ColoredNumber number={news.consensus} />}
-              </TableCell>
-              <TableCell>
-                <ColoredNumber number={news.forecast} colored={false} />
-              </TableCell>
-              <TableCell className="flex items-center gap-5">
+                <TableCell>
+                  {news.previous && <ColoredNumber number={news.previous} />}
+                </TableCell>
+                <TableCell>
+                  <ColoredNumber number={news.estimate} />
+                </TableCell>
+                <TableCell>
+                  <ColoredNumber number={news.actual} />
+                </TableCell>
+                {/* <TableCell>
+                  <ColoredNumber number={news.impact} colored={false} />
+                </TableCell> */}
+                <TableCell className="flex items-center gap-5">
+                  {/* 
                 <Popover className="relative">
                   <Popover.Button>
                     <svg
@@ -314,24 +436,26 @@ export default function Summary() {
                     </div>
                   </Popover.Panel>
                 </Popover>
+                 */}
 
-                <svg
-                  width={14}
-                  height={16}
-                  viewBox="0 0 14 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6.55 15.8809C7.08333 15.8809 7.53333 15.6975 7.9 15.3309C8.26667 14.9642 8.45 14.5142 8.45 13.9809H4.7C4.7 14.5142 4.875 14.9642 5.225 15.3309C5.575 15.6975 6.01667 15.8809 6.55 15.8809ZM7.5 1.93086C7.5 1.73086 7.45833 1.55586 7.375 1.40586C7.29167 1.25586 7.175 1.13086 7.025 1.03086C6.875 0.93086 6.71667 0.880859 6.55 0.880859C6.38333 0.880859 6.225 0.93086 6.075 1.03086C5.925 1.13086 5.80833 1.25586 5.725 1.40586C5.64167 1.55586 5.6 1.73086 5.6 1.93086C4.53333 2.13086 3.64167 2.66419 2.925 3.53086C2.20833 4.39753 1.85 5.39753 1.85 6.53086C1.85 6.99753 1.8 7.64753 1.7 8.48086C1.53333 9.51419 1.33333 10.4142 1.1 11.1809C0.766667 12.1475 0.4 12.7809 0 13.0809H13.1C12.7 12.7809 12.3333 12.1475 12 11.1809C11.7667 10.4142 11.5667 9.51419 11.4 8.48086C11.3 7.64753 11.25 6.98086 11.25 6.48086C11.25 5.38086 10.8917 4.39753 10.175 3.53086C9.45833 2.66419 8.56667 2.13086 7.5 1.93086Z"
-                    fill="#DDDDDD"
-                  />
-                </svg>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+                  <svg
+                    width={14}
+                    height={16}
+                    viewBox="0 0 14 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6.55 15.8809C7.08333 15.8809 7.53333 15.6975 7.9 15.3309C8.26667 14.9642 8.45 14.5142 8.45 13.9809H4.7C4.7 14.5142 4.875 14.9642 5.225 15.3309C5.575 15.6975 6.01667 15.8809 6.55 15.8809ZM7.5 1.93086C7.5 1.73086 7.45833 1.55586 7.375 1.40586C7.29167 1.25586 7.175 1.13086 7.025 1.03086C6.875 0.93086 6.71667 0.880859 6.55 0.880859C6.38333 0.880859 6.225 0.93086 6.075 1.03086C5.925 1.13086 5.80833 1.25586 5.725 1.40586C5.64167 1.55586 5.6 1.73086 5.6 1.93086C4.53333 2.13086 3.64167 2.66419 2.925 3.53086C2.20833 4.39753 1.85 5.39753 1.85 6.53086C1.85 6.99753 1.8 7.64753 1.7 8.48086C1.53333 9.51419 1.33333 10.4142 1.1 11.1809C0.766667 12.1475 0.4 12.7809 0 13.0809H13.1C12.7 12.7809 12.3333 12.1475 12 11.1809C11.7667 10.4142 11.5667 9.51419 11.4 8.48086C11.3 7.64753 11.25 6.98086 11.25 6.48086C11.25 5.38086 10.8917 4.39753 10.175 3.53086C9.45833 2.66419 8.56667 2.13086 7.5 1.93086Z"
+                      fill="#DDDDDD"
+                    />
+                  </svg>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 }
