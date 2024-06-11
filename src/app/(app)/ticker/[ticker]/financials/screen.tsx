@@ -1,6 +1,7 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
+import { Table } from "@/components/ui/table";
 import WithToggle from "@/components/with-toggle";
 import { cn } from "@/lib/utils";
 import { FinancialPeriod, Financials } from "@/modules/ticker/types";
@@ -56,8 +57,8 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
         </Link>
       </div>
 
-      <div className=" overflow-x-auto border dark:border-main-gray-600 ">
-        <table className=" w-full min-w-[50rem] ">
+      <div className=" overflow-x-auto ">
+        <Table className=" w-full min-w-[50rem] ">
           <thead>
             <tr className="  th text-sm font-bold ">
               <th className=" sticky left-0 bg-inherit px-2 py-3 text-left dark:bg-inherit"></th>
@@ -517,7 +518,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
               }}
             </WithToggle>
           </tbody>
-        </table>
+        </Table>
       </div>
     </section>
   );
