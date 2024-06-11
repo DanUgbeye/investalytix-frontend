@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
 
-export class MarketEconomyRepository {
+export class MarketRepository {
   constructor(private axios: AxiosInstance) {}
 }

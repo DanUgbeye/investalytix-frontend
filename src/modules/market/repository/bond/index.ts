@@ -1,13 +1,5 @@
-import { BondCountry, Quote } from "../../types";
+import { AxiosInstance } from "axios";
 
-export interface IBondMarketRepository {
-  getBondsByCountry(country: BondCountry): Promise<Quote[]>;
-}
-
-export class BondMarketRepository implements IBondMarketRepository {
-  constructor(private BASE_URL: string) {}
-
-  async getBondsByCountry(country: BondCountry) {
-    return [];
-  }
+export class MarketBondRepository {
+  constructor(private axios: AxiosInstance) {}
 }

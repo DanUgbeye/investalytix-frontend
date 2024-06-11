@@ -1,23 +1,5 @@
-import { CommoditySector, Quote } from "../../types";
+import { AxiosInstance } from "axios";
 
-export interface ICommodityMarketRepository {
-  getCommodityPairs(): Promise<Quote[]>;
-  getCommiditiesBySector(sector: CommoditySector): Promise<Quote[]>;
-}
-
-export class CommodityMarketRepository implements ICommodityMarketRepository {
-  constructor(private BASE_URL: string) {}
-
-  async getCommodityPairs() {
-    let data: Quote[] = [];
-
-    try {
-    } catch (error) {}
-
-    return data;
-  }
-
-  async getCommiditiesBySector(sector: CommoditySector) {
-    return [];
-  }
+export class MarketCommodityRepository {
+  constructor(private axios: AxiosInstance) {}
 }
