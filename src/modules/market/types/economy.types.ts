@@ -1,22 +1,15 @@
-export const ECONOMY_CONTINENTS = {
-  WORLD: "WORLD",
-  AMERICA: "AMERICA",
-  ASIA: "ASIA",
-  AFRICA: "AFRICA",
-  AUSTRALIA: "AUSTRALIA",
-  EUROPE: "EUROPE",
-  G20: "G20",
-} as const;
+export type EconomicCalendar = {
+  date: string;
+  country: string;
+  event: string;
+  currency: string;
+  previous: number | null;
+  estimate: number | null;
+  actual: number | null;
+  change: number | null;
+  impact: EconomicCalendarImpact;
+  changePercentage: number;
+  unit: string;
+};
 
-export type EconomyContinent =
-  (typeof ECONOMY_CONTINENTS)[keyof typeof ECONOMY_CONTINENTS];
-
-export type BaseRateChange = { previous: number };
-
-export type GDPGrowthRate = BaseRateChange;
-export type InflationRate = BaseRateChange;
-export type InterestRate = BaseRateChange;
-export type UnemploymentRate = BaseRateChange;
-export type DebtToGDPRate = BaseRateChange;
-
-export type CreditRating = {};
+export type EconomicCalendarImpact = "Low" | "Medium" | "High" | "None";

@@ -74,8 +74,8 @@ export default function ChartSummary(props: { ticker: string }) {
         {
           from: isWeekend(new Date())
             ? startOfDay(previousFriday(new Date()))
-            : new Date(),
-          to: subDays(new Date(), 1),
+            : subDays(new Date(), 1),
+          to: new Date(),
         }
       );
     } else if (timeframe.label === "5 Days") {

@@ -1,38 +1,42 @@
-import {
-  BaseRateChange,
-  CreditRating,
-  DebtToGDPRate,
-  EconomyContinent,
-  GDPGrowthRate,
-  InflationRate,
-  InterestRate,
-  UnemploymentRate,
-} from "../../types";
 import { RequestOptions } from "@/types/api.types";
 import { handleAPIError } from "@/utils/api-utils";
 import { AxiosInstance } from "axios";
+import { EconomicCalendar } from "../../types";
 
 export class EconomyMarketRepository {
   constructor(private readonly axios: AxiosInstance) {}
 
-  async getEconomicCalendar(
-    query: string,
-    options?: RequestOptions | undefined
-  ): Promise<SearchResult[]> {
+  async getEconomicCalendar({
+    from,
+    to,
+    options,
+  }: {
+    from: string;
+    to?: string;
+    options?: RequestOptions | undefined;
+  }): Promise<EconomicCalendar[]> {
     try {
       const searchParams = new URLSearchParams();
-      searchParams.append("query", query);
+      searchParams.append("from", from);
+      searchParams.append("to", to ?? "");
 
-      const path = `/tickers?${searchParams.toString()}`;
-      let res = await this.axios.get<{ data: SearchResult[] }>(path, options);
+      const path = `/market/economic-calendar?${searchParams.toString()}`;
 
-      let validation = z.array(SearchResultSchema).safeParse(res.data.data);
+      let res = await this.axios.get<{ data: EconomicCalendar[] }>(
+        path,
+        options
+      );
+      console.log(res.data);
 
-      if (validation.error) {
-        throw new Error("Something went wrong on our end");
-      }
+      return res.data.data;
 
-      return validation.data;
+      // let validation = z.array(SearchResultSchema).safeParse(res.data.data);
+
+      // if (validation.error) {
+      //   throw new Error("Something went wrong on our end");
+      // }
+
+      // return validation.data;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
