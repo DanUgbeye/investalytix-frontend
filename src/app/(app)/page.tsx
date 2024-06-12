@@ -138,9 +138,9 @@ export default function Home() {
         <Container className="z-20 mx-auto flex max-w-6xl flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-6xl">
           <h1
             style={{ lineHeight: "1.2" }}
-            className="text-4xl font-bold !leading-[1.3em] max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl"
+            className="text-4xl text-center font-bold !leading-[1.3em] max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl"
           >
-            About Investalytix
+            About <br/> Investalytix
           </h1>
 
           <p className="mx-auto mt-10 text-lg font-medium max-xs:text-center  lg:w-4/5 xl:mt-10 xl:text-xl">
