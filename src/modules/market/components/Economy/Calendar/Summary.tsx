@@ -25,6 +25,7 @@ import Calendar from "react-calendar";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
 import "react-calendar/dist/Calendar.css";
+import Spinner from "@/components/spinner";
 
 enum FILTERS {
   YESTERDAY = "YESTERDAY",
@@ -180,7 +181,7 @@ export default function Summary() {
 
   return (
     <div className="mt-12">
-      <div className="mb-12 flex w-full items-center justify-between flex-wrap gap-5 md:gap-2">
+      <div className="mb-12 flex w-full flex-wrap items-center justify-between gap-5 md:gap-2">
         <Swiper
           spaceBetween={24}
           slidesPerView={"auto"}
@@ -202,8 +203,8 @@ export default function Summary() {
                 <button
                   key={entry}
                   onClick={() => updateFilter(entry as FILTERS)}
-                  className={`bg-hover-focus whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
-                    isActive ? "text-primary-base" : ""
+                  className={`whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
+                    isActive ? "text-primary-base" : "bg-hover-focus"
                   }`}
                 >
                   {entry.toLowerCase().replace("_", " ")}
@@ -222,7 +223,9 @@ export default function Summary() {
         />
       </div>
 
-      {calendar && (
+      {loading ? (
+        <Spinner className="mx-auto"/>
+      ) : calendar ? (
         <>
           {Object.keys(calendar).map((date) => (
             <Table key={date}>
@@ -368,7 +371,7 @@ export default function Summary() {
             </Table>
           ))}
         </>
-      )}
+      ) : null}
     </div>
   );
 }
