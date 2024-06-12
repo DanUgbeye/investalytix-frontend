@@ -1,819 +1,188 @@
 "use client";
 
-import WithToggle from "@/components/with-toggle";
+import { RowWithChildren } from "@/components/row-with-children";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  tableHeaderCellVariants,
+} from "@/components/ui/table";
+import useScroll from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
-import { CashFlowStatement } from "@/modules/ticker/types";
-import appUtils from "@/utils/app-util";
+import { CashFlowStatement, FinancialPeriod } from "@/modules/ticker/types";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
-import { KEY_STATS_SAMPLE } from "../sample";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useMemo } from "react";
+import { generateCashFlowTableData } from "./generate-table-data";
 
-const CASH_FLOW_DATA = KEY_STATS_SAMPLE.cash satisfies CashFlowStatement[];
+function getPeriodUrl(path: string, period: string) {
+  return `${path}?period=${period}`;
+}
 
 interface CashFlowStatementScreenProps {
   ticker: string;
+  cashFlowStatement: CashFlowStatement[];
+  period?: FinancialPeriod;
+  currency: string;
 }
 
 export default function CashFlowStatementScreen(
   props: CashFlowStatementScreenProps
 ) {
-  const { ticker } = props;
+  const { ticker, currency, period, cashFlowStatement } = props;
+  const pathname = usePathname();
+
+  const tableData = useMemo(() => {
+    return generateCashFlowTableData(cashFlowStatement);
+  }, [cashFlowStatement]);
+
+  const { ref, isScrolled } = useScroll<HTMLDivElement>();
 
   return (
-    <section className=" pb-12 ">
-      <div className=" overflow-x-auto border dark:border-main-gray-600 ">
-        <table className=" w-full min-w-[50rem] ">
-          <thead>
-            <tr className="  th text-sm font-bold ">
-              <th className=" w-[10rem] px-2 py-3 text-left md:w-[15rem] lg:w-[20rem] dark:bg-transparent"></th>
+    <main className=" space-y-5 pb-12 ">
+      <div className=" flex items-center justify-between gap-10 ">
+        <h2 className=" font-bold ">CashFlow Statement</h2>
 
-              {CASH_FLOW_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`${data.date}-${index}`}
-                    className=" px-2 py-3 text-center dark:bg-transparent"
-                  >
-                    {format(new Date(data.date), "MMM yy ")}
-                  </td>
-                );
-              })}
-            </tr>
-          </thead>
+        {/* PERIOD FILTERS */}
+        <div className=" ml-auto flex items-center gap-2 ">
+          <Link
+            href={getPeriodUrl(pathname, "quarter")}
+            className={cn(
+              " h-fit rounded-md p-2 text-xs duration-300 hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+              {
+                " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  !period || period === "quarter",
+              }
+            )}
+          >
+            Quarterly
+          </Link>
 
-          <tbody>
-            {/* OPERATING CASH FLOW */}
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
-
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Operating Cash Flow</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
-
-                      {CASH_FLOW_DATA.map((data, index) => {
-                        return (
-                          <td
-                            key={`forecast-month-${index}`}
-                            className=" px-2 py-3 text-center dark:bg-transparent"
-                          >
-                            {appUtils.formatNumber(data.operatingCashFlow, {
-                              notation: "compact",
-                              minimumFractionDigits: 1,
-                              maximumFractionDigits: 2,
-                            })}
-                          </td>
-                        );
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Net Income
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.netIncome, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Depreciation & Amortization
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.depreciationAndAmortization,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Deferred Income Taxes
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.deferredIncomeTax, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Stock Based Compensation
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.stockBasedCompensation,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Change in Working Capital
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.changeInWorkingCapital,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Accounts Receivable
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.accountsReceivables,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Inventory
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.inventory, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Accounts Payable
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.accountsPayables, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Other Working Capital
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.otherWorkingCapital,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Other Non-Cash Items
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.otherNonCashItems, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
-
-            {/* INVESTING CASH FLOW */}
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
-
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Investing Cash Flow</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
-
-                      {CASH_FLOW_DATA.map((data, index) => {
-                        return (
-                          <td
-                            key={`forecast-month-${index}`}
-                            className=" px-2 py-3 text-center dark:bg-transparent"
-                          >
-                            {appUtils.formatNumber(
-                              data.netCashUsedForInvestingActivites,
-                              {
-                                notation: "compact",
-                                minimumFractionDigits: 1,
-                                maximumFractionDigits: 2,
-                              }
-                            )}
-                          </td>
-                        );
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Investments in Property, Plant & Equipment
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.investmentsInPropertyPlantAndEquipment,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Net Acquisitions
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.acquisitionsNet, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Investment Purchases
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.purchasesOfInvestments,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Sales/Maturities of Investments
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.salesMaturitiesOfInvestments,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Other Investing Activites
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.otherInvestingActivites,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
-
-            {/* FINANCING CASH FLOW */}
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
-
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Financing Cash Flow</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
-
-                      {CASH_FLOW_DATA.map((data, index) => {
-                        return (
-                          <td
-                            key={`forecast-month-${index}`}
-                            className=" px-2 py-3 text-center dark:bg-transparent"
-                          >
-                            {appUtils.formatNumber(
-                              data.netCashUsedProvidedByFinancingActivities,
-                              {
-                                notation: "compact",
-                                minimumFractionDigits: 1,
-                                maximumFractionDigits: 2,
-                              }
-                            )}
-                          </td>
-                        );
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Debt Repayment
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.debtRepayment, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Common Stock Issued
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.commonStockIssued, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Common Stock Repurchased
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.commonStockRepurchased,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Dividends Paid
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.dividendsPaid, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Other Financing Activites
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.otherFinancingActivites,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
-
-            {/* FREE CASH FLOW */}
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
-
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Free Cash Flow</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
-
-                      {CASH_FLOW_DATA.map((data, index) => {
-                        return (
-                          <td
-                            key={`forecast-month-${index}`}
-                            className=" px-2 py-3 text-center dark:bg-transparent"
-                          >
-                            {appUtils.formatNumber(data.freeCashFlow, {
-                              notation: "compact",
-                              minimumFractionDigits: 1,
-                              maximumFractionDigits: 2,
-                            })}
-                          </td>
-                        );
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Operating Cash Flow
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.operatingCashFlow, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Capital Expenditures
-                          </td>
-
-                          {CASH_FLOW_DATA.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.capitalExpenditure,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
-
-            <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
-                Cash at Beginning of Period
-              </th>
-
-              {CASH_FLOW_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.cashAtBeginningOfPeriod, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-
-            <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
-                Cash at End of Period
-              </th>
-
-              {CASH_FLOW_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.cashAtEndOfPeriod, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-
-            <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" px-2 py-3 text-left dark:bg-transparent">
-                Net Change In Cash
-              </th>
-
-              {CASH_FLOW_DATA.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-2 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.netChangeInCash, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-          </tbody>
-        </table>
+          <Link
+            href={getPeriodUrl(pathname, "annual")}
+            className={cn(
+              " h-fit rounded-md p-2 text-xs duration-300 hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+              {
+                " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  period === "annual",
+              }
+            )}
+          >
+            Annual
+          </Link>
+        </div>
       </div>
-    </section>
+
+      <div ref={ref} className=" overflow-x-auto ">
+        <Table className=" w-full min-w-[50rem] ">
+          <TableHeader>
+            <TableRow headerRow>
+              <TableHead
+                className={cn(
+                  tableHeaderCellVariants({ scrolled: isScrolled }),
+                  " min-w-[10rem] sm:min-w-[20rem] "
+                )}
+              >
+                <span className="  ">Currency: {currency}</span>
+              </TableHead>
+
+              {cashFlowStatement.map((incomeSheet, index) => {
+                return (
+                  <TableHead
+                    key={`income-${incomeSheet.period}-${index}`}
+                    className=" text-right "
+                  >
+                    <div className=" flex flex-col gap-1 w-20 ">
+                      <span className=" ">
+                        {(!period || period === "quarter") &&
+                          `${incomeSheet.period} '`}
+                        {incomeSheet.calendarYear}
+                      </span>
+
+                      <span className=" text-xs ">
+                        {format(new Date(incomeSheet.date), "MMM yyyy")}
+                      </span>
+                    </div>
+                  </TableHead>
+                );
+              })}
+            </TableRow>
+          </TableHeader>
+
+          <TableBody>
+            {tableData.map((rowData, index) => {
+              return (
+                <RowWithChildren
+                  row={rowData}
+                  renderRow={({
+                    data,
+                    hasChildren,
+                    level,
+                    expanded,
+                    onToggle,
+                  }) => {
+                    const hightlight = level === 1 && (index + 1) % 2 === 1;
+
+                    return (
+                      <TableRow
+                        key={`row-${data.label}`}
+                        highlightPattern={hightlight ? "current" : "none"}
+                        className={cn(" group border-y ", {
+                          "cursor-pointer": hasChildren,
+                        })}
+                      >
+                        <TableCell
+                          className={cn(
+                            tableHeaderCellVariants({
+                              scrolled: isScrolled,
+                              highlight: hightlight,
+                            }),
+                            " px-0 "
+                          )}
+                          onClick={() => onToggle && onToggle()}
+                        >
+                          <div
+                            className={cn(" flex items-center gap-x-1 ")}
+                            style={{
+                              paddingLeft: (level || 1) * 16,
+                            }}
+                          >
+                            <span>{data.label}</span>
+
+                            {hasChildren && (
+                              <ChevronRight
+                                className={cn(" size-4 duration-300 ", {
+                                  " rotate-90 ": expanded,
+                                })}
+                              />
+                            )}
+                          </div>
+                        </TableCell>
+
+                        {data.cols.map((colData, index) => {
+                          return (
+                            <TableCell
+                              key={`income-${data.label}-${index}`}
+                              className=" text-right"
+                            >
+                              {colData}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  }}
+                />
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
+    </main>
   );
 }
