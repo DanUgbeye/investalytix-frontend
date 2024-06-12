@@ -140,7 +140,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`income-${incomeSheet.period}-${index}`}
                       className=" text-right "
                     >
-                      <div className=" flex flex-col gap-1 w-20 ">
+                      <div className=" flex w-20 flex-col gap-1 sm:w-full ">
                         <span className=" ">
                           {viewPeriods.income === "quarter" &&
                             `${incomeSheet.period} '`}
@@ -252,7 +252,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`balance-${balanceSheet.period}-${index}`}
                       className=" text-right "
                     >
-                      <div className=" flex flex-col gap-1 w-20 ">
+                      <div className=" flex w-20 flex-col gap-1 sm:w-full ">
                         <span className="  ">
                           {viewPeriods.balance === "quarter" &&
                             `${balanceSheet.period} '`}
@@ -364,7 +364,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`cash-${cashFlow.period}-${index}`}
                       className=" text-right "
                     >
-                      <div className=" flex flex-col gap-1 w-20 ">
+                      <div className=" flex w-20 flex-col gap-1 sm:w-full ">
                         <span className=" ">
                           {viewPeriods.cash === "quarter" &&
                             `${cashFlow.period} '`}

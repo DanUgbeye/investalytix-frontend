@@ -1,7 +1,5 @@
 import { serverAPI } from "@/config/server/api";
 import { TickerRepository } from "@/modules/ticker/repository";
-import { FinancialPeriod } from "@/modules/ticker/types";
-import { FinancialPeriodSchema } from "@/modules/ticker/validation";
 import { errorUtils } from "@/utils/error.utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";

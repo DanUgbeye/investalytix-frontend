@@ -18,7 +18,6 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-import { KEY_STATS_SAMPLE } from "../sample";
 import { generateIncomeTableData } from "./generate-table-data";
 
 function getPeriodUrl(path: string, period: string) {

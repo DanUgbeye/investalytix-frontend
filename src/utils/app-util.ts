@@ -8,7 +8,7 @@ class AppUtils {
   }
 
   formatNumber(
-    amount?: number,
+    amount?: number | null,
     opts?: Intl.NumberFormatOptions,
     locale = "en-US"
   ) {
