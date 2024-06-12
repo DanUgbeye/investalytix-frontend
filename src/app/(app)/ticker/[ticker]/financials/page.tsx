@@ -17,7 +17,7 @@ export async function generateMetadata(props: {
     } = props;
 
     const tickerRepo = new TickerRepository(serverAPI);
-    const profile= await tickerRepo.getCompanyProfile(ticker);
+    const profile = await tickerRepo.getCompanyProfile(ticker);
 
     return {
       title: `${profile.companyName} (${profile.symbol}) Financials - Key Stats | Investalytix`,
@@ -46,27 +46,23 @@ async function getData(ticker: string) {
   }
 }
 
-interface KeyStatsPageProps extends SearchTickerPageProps {
-  searchParams: {
-    period?: FinancialPeriod;
-  };
-}
+interface KeyStatsPageProps extends SearchTickerPageProps {}
 
 export default async function KeyStatsPage(props: KeyStatsPageProps) {
   const {
     params: { ticker },
-    searchParams: { period },
   } = props;
 
   const { outlook } = await getData(ticker);
-  const { success, data } = FinancialPeriodSchema.safeParse(period);
-
-  let financials = outlook.financialsQuarter;
-  if (data === "annual") {
-    financials = outlook.financialsAnnual;
-  }
 
   return (
-    <KeyStatsScreen ticker={ticker} financials={financials} period={data} />
+    <KeyStatsScreen
+      ticker={ticker}
+      currency={outlook.profile.currency}
+      financials={{
+        annual: outlook.financialsAnnual,
+        quarter: outlook.financialsQuarter,
+      }}
+    />
   );
 }
