@@ -18,7 +18,7 @@ export async function generateMetadata(props: {
     } = props;
 
     const tickerRepo = new TickerRepository(serverAPI);
-    const profile= await tickerRepo.getCompanyProfile(ticker);
+    const profile = await tickerRepo.getCompanyProfile(ticker);
 
     return {
       title: `${profile.companyName} (${profile.symbol}) Financials - Income Statement | Investalytix`,
@@ -76,6 +76,7 @@ export default async function IncomeStatementPage(
       ticker={ticker}
       incomeStatement={incomeStatement}
       period={data}
+      currency={outlook.profile.currency}
     />
   );
 }

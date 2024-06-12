@@ -1,629 +1,189 @@
 "use client";
 
-import { buttonVariants } from "@/components/ui/button";
-import WithToggle from "@/components/with-toggle";
+import { RowWithChildren } from "@/components/row-with-children";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  tableHeaderCellVariants,
+} from "@/components/ui/table";
+import useScroll from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { FinancialPeriod, IncomeStatement } from "@/modules/ticker/types";
-import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useMemo } from "react";
 import { KEY_STATS_SAMPLE } from "../sample";
+import { generateIncomeTableData } from "./generate-table-data";
 
 function getPeriodUrl(path: string, period: string) {
   return `${path}?period=${period}`;
 }
 
-const INCOME_STATEMENT_DATA =
-  KEY_STATS_SAMPLE.income satisfies IncomeStatement[];
-
 interface IncomeStatementScreenProps {
   ticker: string;
   incomeStatement: IncomeStatement[];
   period?: FinancialPeriod;
+  currency: string;
 }
 
 export default function IncomeStatementScreen(
   props: IncomeStatementScreenProps
 ) {
-  const { ticker, period, incomeStatement } = props;
+  const { ticker, currency, period, incomeStatement } = props;
   const pathname = usePathname();
 
+  const tableData = useMemo(() => {
+    return generateIncomeTableData(incomeStatement);
+  }, [incomeStatement]);
+
+  const { ref, isScrolled } = useScroll<HTMLDivElement>();
+
   return (
-    <section className=" pb-12 ">
-      <div className=" mb-6 flex items-center gap-2 ">
-        <Link
-          href={getPeriodUrl(pathname, "quarter")}
-          className={cn(
-            buttonVariants(),
-            " pointer-events-none h-9 cursor-pointer ",
-            {
-              " pointer-events-auto bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-300 ":
-                !!period && period !== "quarter",
-            }
-          )}
-        >
-          Quarterly
-        </Link>
+    <main className=" space-y-5 pb-12 ">
+      <div className=" flex items-center justify-between gap-10 ">
+        <h2 className=" font-bold ">Income Statement</h2>
 
-        <Link
-          href={getPeriodUrl(pathname, "annual")}
-          className={cn(
-            buttonVariants(),
-            " pointer-events-none h-9 cursor-pointer ",
-            {
-              " pointer-events-auto bg-transparent text-main-gray-700 hover:text-white dark:text-main-gray-300 ":
-                period !== "annual",
-            }
-          )}
-        >
-          Annual
-        </Link>
+        {/* PERIOD FILTERS */}
+        <div className=" ml-auto flex items-center gap-2 ">
+          <Link
+            href={getPeriodUrl(pathname, "quarter")}
+            className={cn(
+              " h-fit rounded-md p-2 text-xs duration-300 hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+              {
+                " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  !period || period === "quarter",
+              }
+            )}
+          >
+            Quarterly
+          </Link>
+
+          <Link
+            href={getPeriodUrl(pathname, "annual")}
+            className={cn(
+              " h-fit rounded-md p-2 text-xs duration-300 hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+              {
+                " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  period === "annual",
+              }
+            )}
+          >
+            Annual
+          </Link>
+        </div>
       </div>
 
-      <div className=" overflow-x-auto border dark:border-main-gray-600 ">
-        <table className=" w-full min-w-[50rem] ">
-          <thead>
-            <tr className="  th text-sm font-bold ">
-              <th className=" sticky left-0 min-w-[20rem] bg-inherit px-4 py-3 text-left dark:bg-inherit "></th>
+      <div ref={ref} className=" overflow-x-auto ">
+        <Table className=" w-full min-w-[50rem] ">
+          <TableHeader>
+            <TableRow headerRow>
+              <TableHead
+                className={cn(
+                  tableHeaderCellVariants({ scrolled: isScrolled }),
+                  " min-w-[10rem] sm:min-w-[20rem] "
+                )}
+              >
+                <span className="  ">Currency: {currency}</span>
+              </TableHead>
 
-              {incomeStatement.map((data, index) => {
+              {incomeStatement.map((incomeSheet, index) => {
                 return (
-                  <td
-                    key={`${data.date}-${index}`}
-                    className=" px-4 py-3 text-center dark:bg-transparent"
+                  <TableHead
+                    key={`income-${incomeSheet.period}-${index}`}
+                    className=" text-right "
                   >
-                    {format(new Date(data.date), "MMM yy ")}
-                  </td>
+                    <div className=" flex flex-col gap-1 w-20 ">
+                      <span className=" ">
+                        {(!period || period === "quarter") &&
+                          `${incomeSheet.period} '`}
+                        {incomeSheet.calendarYear}
+                      </span>
+
+                      <span className=" text-xs ">
+                        {format(new Date(incomeSheet.date), "MMM yyyy")}
+                      </span>
+                    </div>
+                  </TableHead>
                 );
               })}
-            </tr>
-          </thead>
+            </TableRow>
+          </TableHeader>
 
-          <tbody>
-            <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" sticky left-0 bg-white px-4 py-3 text-left dark:bg-black">
-                Total Revenue
-              </th>
+          <TableBody>
+            {tableData.map((rowData, index) => {
+              return (
+                <RowWithChildren
+                  row={rowData}
+                  renderRow={({
+                    data,
+                    hasChildren,
+                    level,
+                    expanded,
+                    onToggle,
+                  }) => {
+                    const hightlight = level === 1 && (index + 1) % 2 === 1;
 
-              {incomeStatement.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-4 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.revenue, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-
-            <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" sticky left-0 bg-white px-4 py-3 text-left dark:bg-black">
-                Cost of Revenue
-              </th>
-
-              {incomeStatement.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-4 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.costOfRevenue, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-
-            <tr className=" border-y text-sm font-bold dark:border-main-gray-600">
-              <th className=" sticky left-0 bg-white px-4 py-3 text-left dark:bg-black">
-                Gross Profit
-              </th>
-
-              {incomeStatement.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-4 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.costOfRevenue, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
-
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th
-                        className={cn(
-                          " sticky left-0 bg-white px-4 py-3 text-left dark:bg-black",
-                          { " bg-inherit dark:bg-inherit": state }
-                        )}
+                    return (
+                      <TableRow
+                        key={`row-${data.label}`}
+                        highlightPattern={hightlight ? "current" : "none"}
+                        className={cn(" group border-y ", {
+                          "cursor-pointer": hasChildren,
+                        })}
                       >
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Operating Expenses</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
-
-                      {incomeStatement.map((data, index) => {
-                        return (
-                          <td
-                            key={`forecast-month-${index}`}
-                            className=" px-4 py-3 text-center dark:bg-transparent"
+                        <TableCell
+                          className={cn(
+                            tableHeaderCellVariants({
+                              scrolled: isScrolled,
+                              highlight: hightlight,
+                            }),
+                            " px-0 "
+                          )}
+                          onClick={() => onToggle && onToggle()}
+                        >
+                          <div
+                            className={cn(" flex items-center gap-x-1 ")}
+                            style={{
+                              paddingLeft: (level || 1) * 16,
+                            }}
                           >
-                            {appUtils.formatNumber(data.operatingExpenses, {
-                              notation: "compact",
-                              minimumFractionDigits: 1,
-                              maximumFractionDigits: 2,
-                            })}
-                          </td>
-                        );
-                      })}
-                    </tr>
+                            <span>{data.label}</span>
 
-                    {state && (
-                      <>
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left dark:bg-black">
-                            Research and Development
-                          </td>
-
-                          {incomeStatement.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-4 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.researchAndDevelopmentExpenses,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left dark:bg-black">
-                            General & Administrative Expenses
-                          </td>
-
-                          {incomeStatement.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-4 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.generalAndAdministrativeExpenses,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left dark:bg-black">
-                            Selling, General & Administrative Expenses
-                          </td>
-
-                          {incomeStatement.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-4 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.sellingGeneralAndAdministrativeExpenses,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left dark:bg-black">
-                            Selling & Marketing Expenses
-                          </td>
-
-                          {incomeStatement.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-4 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.sellingAndMarketingExpenses,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left dark:bg-black">
-                            Depreciation and Amortization
-                          </td>
-
-                          {incomeStatement.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-4 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.depreciationAndAmortization,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left dark:bg-black">
-                            Other Expenses
-                          </td>
-
-                          {incomeStatement.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-4 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.otherExpenses, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
+                            {hasChildren && (
+                              <ChevronRight
+                                className={cn(" size-4 duration-300 ", {
+                                  " rotate-90 ": expanded,
                                 })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
+                              />
+                            )}
+                          </div>
+                        </TableCell>
 
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
-
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th
-                        className={cn(
-                          " sticky left-0 bg-white px-4 py-3 text-left dark:bg-black",
-                          { " bg-inherit dark:bg-inherit": state }
-                        )}
-                      >
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Operating Income</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
-
-                      {incomeStatement.map((data, index) => {
-                        return (
-                          <td
-                            key={`forecast-month-${index}`}
-                            className=" px-4 py-3 text-center dark:bg-transparent"
-                          >
-                            {appUtils.formatNumber(data.operatingExpenses, {
-                              notation: "compact",
-                              minimumFractionDigits: 1,
-                              maximumFractionDigits: 2,
-                            })}
-                          </td>
-                        );
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left dark:bg-black">
-                            Total Other Income/Expenses Net
-                          </td>
-
-                          {incomeStatement.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-4 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.totalOtherIncomeExpensesNet,
-                                  {
-                                    notation: "compact",
-                                    minimumFractionDigits: 1,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
-
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
-
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th
-                        className={cn(
-                          " sticky left-0 bg-white px-4 py-3 text-left dark:bg-black",
-                          { " bg-inherit dark:bg-inherit": state }
-                        )}
-                      >
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Income Before Tax</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
-
-                      {incomeStatement.map((data, index) => {
-                        return (
-                          <td
-                            key={`forecast-month-${index}`}
-                            className=" px-4 py-3 text-center dark:bg-transparent"
-                          >
-                            {appUtils.formatNumber(data.incomeBeforeTax, {
-                              notation: "compact",
-                              minimumFractionDigits: 1,
-                              maximumFractionDigits: 2,
-                            })}
-                          </td>
-                        );
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" sticky left-0 bg-white py-3 pl-6 pr-2 text-left dark:bg-black">
-                            Income Tax
-                          </td>
-
-                          {incomeStatement.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-4 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.incomeTaxExpense, {
-                                  notation: "compact",
-                                  minimumFractionDigits: 1,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
-
-            <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ">
-              <th className=" sticky left-0 bg-white px-4 py-3 text-left dark:bg-black">
-                Net Income
-              </th>
-
-              {incomeStatement.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-4 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.netIncome, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-
-            <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ">
-              <th className=" sticky left-0 bg-white px-4 py-3 text-left dark:bg-black">
-                EBITDA
-              </th>
-
-              {incomeStatement.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-4 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.ebitda, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-
-            <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ">
-              <th className=" sticky left-0 bg-white px-4 py-3 text-left dark:bg-black">
-                Average Shares
-              </th>
-
-              {incomeStatement.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-4 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.weightedAverageShsOut, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-
-            <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ">
-              <th className=" sticky left-0 bg-white px-4 py-3 text-left dark:bg-black">
-                Diluted Average Shares
-              </th>
-
-              {incomeStatement.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-4 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.weightedAverageShsOutDil, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-
-            <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ">
-              <th className=" sticky left-0 bg-white px-4 py-3 text-left dark:bg-black">
-                EPS
-              </th>
-
-              {incomeStatement.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-4 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.eps, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-
-            <tr className=" cursor-pointer border-y text-sm font-bold dark:border-main-gray-600 ">
-              <th className=" sticky left-0 bg-white px-4 py-3 text-left dark:bg-black">
-                EPS Diluted
-              </th>
-
-              {incomeStatement.map((data, index) => {
-                return (
-                  <td
-                    key={`forecast-month-${index}`}
-                    className=" px-4 py-3 text-center dark:bg-transparent"
-                  >
-                    {appUtils.formatNumber(data.epsdiluted, {
-                      notation: "compact",
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 2,
-                    })}
-                  </td>
-                );
-              })}
-            </tr>
-          </tbody>
-        </table>
+                        {data.cols.map((colData, index) => {
+                          return (
+                            <TableCell
+                              key={`income-${data.label}-${index}`}
+                              className=" text-right"
+                            >
+                              {colData}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  }}
+                />
+              );
+            })}
+          </TableBody>
+        </Table>
       </div>
-    </section>
+    </main>
   );
 }
