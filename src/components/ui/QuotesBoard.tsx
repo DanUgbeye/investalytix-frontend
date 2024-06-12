@@ -21,7 +21,7 @@ export default function QuotesBoard() {
   };
   return (
     <section className="slider-container">
-      <div className="mb-4 py-8">
+      <div className="mb-4 py-4">
         <Slider {...settings}>
           {quotes.map((quote, index) => (
             <Quote quote={quote} key={quote.symbol} className={`mr-10`} />
