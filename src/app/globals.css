@@ -61,6 +61,12 @@ input[type="number"] {
 
 /* end privacy policy */
 
+/* start calendar for date picker */
+.react-daterange-picker__wrapper{
+  @apply px-2 py-1 rounded-full;
+}
+/* end calendar for date picker */
+
 @media (min-width: 1024px) {
   .testimony:nth-child(3n + 2) {
     transform: translateY(32px);

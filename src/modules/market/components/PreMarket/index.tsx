@@ -2,17 +2,14 @@
 import Futures from "./Futures";
 import Quotes from "@/modules/market/components/Quotes";
 import Chart from "@/components/Chart";
+import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 
 export default function PreMarket() {
   return (
     <div className="grid gap-10 lg:grid-cols-2">
       {/* DOW (Mini) */}
       <section className="">
-        <header className="mb-8">
-          <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            DOW (Mini)
-          </h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="DOW (Mini)" />
 
         <div className="h-80 w-full">
           <Chart />
@@ -28,11 +25,7 @@ export default function PreMarket() {
 
       {/* S&P 500 (Mini) */}
       <section className="">
-        <header className="mb-8">
-          <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            S&P 500 (Mini)
-          </h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="S&P 500 (Mini)" />
 
         <div className="h-80 w-full">
           <Chart />
@@ -48,11 +41,7 @@ export default function PreMarket() {
 
       {/* NASDAQ (Mini) */}
       <section className="mt-11">
-        <header className="mb-8">
-          <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            NASDAQ (Mini)
-          </h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="NASDAQ (Mini)" />
 
         <div className="h-80 w-full">
           <Chart />
@@ -68,11 +57,7 @@ export default function PreMarket() {
 
       {/* RUSELL (Mini) */}
       <section className="mt-11">
-        <header className="mb-8">
-          <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-            RUSELL (Mini)
-          </h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="RUSELL (Mini)" />
 
         <div className="h-80 w-full">
           <Chart />
@@ -88,11 +73,7 @@ export default function PreMarket() {
 
       {/* Asia-Pacific */}
       <section className="mt-11">
-        <header className="mb-4">
-          <h2 className="white-text white-text text-2xl font-bold">
-            Asia-Pacific
-          </h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Asia-Pacific" />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           Hang Seng Index
@@ -109,9 +90,7 @@ export default function PreMarket() {
 
       {/* Europe */}
       <section className="mt-11">
-        <header className="mb-4">
-          <h2 className="white-text text-2xl font-bold">Europe</h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Europe" />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           FTSE 100
@@ -128,9 +107,7 @@ export default function PreMarket() {
 
       {/* Commodities */}
       <section className="mt-11">
-        <header className="mb-4">
-          <h2 className="white-text text-2xl font-bold">Commodities</h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Commodities" />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           Hang Seng Index
@@ -147,9 +124,7 @@ export default function PreMarket() {
 
       {/* Currencies */}
       <section className="mt-11">
-        <header className="mb-4">
-          <h2 className="white-text text-2xl font-bold">Currencies</h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Currencies" />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           FTSE 100
@@ -166,11 +141,7 @@ export default function PreMarket() {
 
       {/* Volatility & Global Indexes */}
       <section className="mt-11">
-        <header className="mb-4">
-          <h2 className="white-text text-2xl font-bold">
-            Volatility & Global Indexes
-          </h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Volatility & Global Indexes" />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           Hang Seng Index
@@ -187,9 +158,7 @@ export default function PreMarket() {
 
       {/* U.S. Treasurys */}
       <section className="mt-11">
-        <header className="mb-4">
-          <h2 className="white-text text-2xl font-bold">U.S. Treasurys</h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="U.S. Treasurys" />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           FTSE 100
@@ -206,9 +175,7 @@ export default function PreMarket() {
 
       {/* U.S. Indexes */}
       <section className="mt-11">
-        <header className="mb-4">
-          <h2 className="white-text text-2xl font-bold">U.S. Indexes</h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Indexes" />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           Hang Seng Index
@@ -225,9 +192,7 @@ export default function PreMarket() {
 
       {/* Sectors */}
       <section className="mt-11">
-        <header className="mb-4">
-          <h2 className="white-text text-2xl font-bold">Sectors</h2>
-        </header>
+        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Sectors"  />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           FTSE 100

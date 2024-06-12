@@ -6,7 +6,7 @@ export default function MarketHeading({
   id?: string;
 }) {
   return (
-    <header id={id} className="border-b-black/8 border-b pb-5 dark:border-b dark:border-b-main-gray-200/40">
+    <header id={id} className="pb-5">
       <h2 className="white-text text-2xl font-extrabold capitalize">
         {label.toLowerCase()}
       </h2>

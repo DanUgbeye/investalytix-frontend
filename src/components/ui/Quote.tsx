@@ -15,11 +15,11 @@ export default function Quote({
   return (
     <div
       className={twMerge(
-        "white-text w-[220px] rounded-md bg-primary-light/10 px-3 py-2 text-sm font-bold text-[#252525] dark:bg-[#191919]",
+        "white-text w-fit rounded-md px-3 py-0 text-sm font-bold text-[#252525]",
         className
       )}
     >
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-5">
         <p className="">{quote.symbol}</p>
         <div
           className={`flex items-center justify-between py-3 ${
