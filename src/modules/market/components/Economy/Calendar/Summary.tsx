@@ -152,7 +152,7 @@ export default function Summary() {
     const filtered = data
       .filter(
         (a) =>
-          new Date(a.date).getTime() >= new Date(from).getTime() &&
+          new Date(a.date).getTime() >= new Date(from).setHours(0,0,0,0) &&
           new Date(a.date).getTime() <= new Date(to).setHours(23, 59, 59)
       )
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -233,7 +233,7 @@ export default function Summary() {
                 <TableHeader>
                   <TableRow headerRow>
                     <TableHead className="whitespace-nowrap">
-                      {moment(from).format("dddd, MMMM Do")}
+                      {moment(date).format("dddd, MMMM Do")}
                       {/* {new Date(to).getTime() > new Date(from).getTime()
                       ? `${moment(from).format("dddd, MMMM Do")} - ${moment(to).format("dddd, MMMM Do")}`
                       : moment(from).format("dddd, MMMM Do")} */}
