@@ -17,7 +17,6 @@ export type RowWithChildrenProps<TData extends Object> = {
       level?: number;
       expanded?: boolean;
       onToggle?: (state?: boolean) => void;
-      isFirstRow?: boolean;
     }
   >;
 };
@@ -33,14 +32,7 @@ export function RowWithChildren<TData extends Object>(
   }, [children]);
 
   if (!hasChildren) {
-    return (
-      <RenderRow
-        data={data}
-        level={level}
-        hasChildren={hasChildren}
-        isFirstRow
-      />
-    );
+    return <RenderRow data={data} level={level} hasChildren={hasChildren} />;
   }
 
   return (
@@ -54,7 +46,6 @@ export function RowWithChildren<TData extends Object>(
               hasChildren={hasChildren}
               expanded={isExpanded}
               onToggle={toggle}
-              isFirstRow
             />
 
             {isExpanded &&
