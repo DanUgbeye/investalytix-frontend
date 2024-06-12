@@ -1,47 +1,46 @@
 "use client";
 
-import { Container } from "@/components/container";
-import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { SecFiling } from "@/modules/ticker/types";
+import { format } from "date-fns";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
-import { SEC_FILINGS_SAMPLE } from "./sample";
 import { z } from "zod";
-import { format } from "date-fns";
 
-const SEC_TYPE_SORT = [
+export const SEC_TYPE_SORT = [
   {
     label: "All",
     value: "",
-    types: [],
   },
   {
     label: "Periodic Financial Report",
-    value: "periodic-financial-report",
-    types: ["10-K", "10-Q"],
+    value: "10-K",
+  },
+  {
+    label: "Periodic Financial Report",
+    value: "10-Q",
   },
   {
     label: "Corporate Changes & Voting Matters",
-    value: "corporate-voting-matters",
-    types: ["8-K", "DEF 14A"],
+    value: "8-K",
+  },
+  {
+    label: "Corporate Changes & Voting Matters",
+    value: "DEF 14A",
   },
   {
     label: "Proxy Statements",
-    value: "proxy-statements",
-    types: ["DEF 14A"],
+    value: "DEF 14A",
   },
   {
     label: "Offering Registration",
-    value: "offering-registration",
-    types: ["S-1"],
+    value: "S-1",
   },
-  {
-    label: "Tender Offer/Acquisition Reports",
-    value: "tender-acquisition-reports",
-    types: [""],
-  },
-] as const;
+  // {
+  //   label: "Tender Offer/Acquisition Reports",
+  //   value: "",
+  // },
+];
 
 type SecFilingType = (typeof SEC_TYPE_SORT)[number]["value"];
 
@@ -63,33 +62,22 @@ function verifySecFilingType(type: unknown) {
 
 function getSecFilingNameFromType(type: string) {
   // TODO input appropriate
-  return "10-K Periodic Financial Report";
+  return SEC_TYPE_SORT.find((sec) => sec.value === type)?.label || type;
 }
 
 interface RatioScreenProps {
   ticker: string;
+  SECFilings: SecFiling[];
+  filters?: {
+    type?: string;
+    page?: number;
+    limit?: number;
+  };
 }
 
 export default function RatioScreen(props: RatioScreenProps) {
-  const { ticker } = props;
+  const { ticker, SECFilings, filters } = props;
   const searchParams = useSearchParams();
-  const activeSecType = verifySecFilingType(searchParams.get("sort"));
-
-  const secFilings = useMemo(() => {
-    if (!activeSecType) return SEC_FILINGS_SAMPLE;
-    return SEC_FILINGS_SAMPLE.filter((secFiling) => {
-      const typeValues = SEC_TYPE_SORT.find(
-        (filing) => filing.value === activeSecType
-      );
-
-      if (!typeValues) return SEC_FILINGS_SAMPLE;
-      return SEC_FILINGS_SAMPLE.filter((filing) => {
-        return ([...typeValues.types] as string[]).includes(
-          filing.type as string
-        );
-      });
-    });
-  }, [activeSecType]);
 
   function getSortUrl(sort: string) {
     let params = new URLSearchParams(searchParams);
@@ -101,6 +89,8 @@ export default function RatioScreen(props: RatioScreenProps) {
     return params.toString();
   }
 
+  console.log(filters);
+
   return (
     <section className=" space-y-12 pb-12 ">
       <div className=" flex gap-2 overflow-x-auto md:flex-wrap ">
@@ -109,12 +99,12 @@ export default function RatioScreen(props: RatioScreenProps) {
 
           return (
             <Link
-              key={sorting.label}
+              key={`sorting.label-${index}`}
               href={`?${url}`}
               className={cn(
-                buttonVariants({ variant: "outline" }),
-                (activeSecType || "") === sorting.value &&
-                  buttonVariants({ variant: "default" })
+                " min-w-fit h-fit rounded-full border px-4 py-2 text-xs duration-300 hover:border-primary-base hover:text-primary-base dark:border-main-gray-700",
+                (filters?.type || "") === sorting.value &&
+                  " border-primary-base text-primary-base dark:border-primary-base  "
               )}
             >
               {sorting.label}
@@ -124,11 +114,11 @@ export default function RatioScreen(props: RatioScreenProps) {
       </div>
 
       <div className=" grid place-items-center gap-8 sm:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] ">
-        {secFilings.map((filing, index) => {
+        {SECFilings.map((filing, index) => {
           return (
             <div
               key={index}
-              className=" w-full max-w-xs border text-sm sm:max-w-sm dark:border-main-gray-600 "
+              className=" w-full max-w-xs rounded-lg border text-sm sm:max-w-sm dark:border-main-gray-700 "
             >
               <div className=" space-y-10 p-3 text-center ">
                 <div className=" space-y-1 pt-4 ">
@@ -143,9 +133,10 @@ export default function RatioScreen(props: RatioScreenProps) {
                 </div>
               </div>
 
-              <div className=" border-t p-3 text-center dark:border-main-gray-600 ">
+              <div className=" border-t p-3 text-center dark:border-main-gray-700 ">
                 <Link
-                  href={filing.link}
+                  href={filing.finalLink}
+                  target={"_blank"}
                   className=" text-primary-base underline decoration-transparent underline-offset-4 duration-300 hover:decoration-primary-base "
                 >
                   View Filing
