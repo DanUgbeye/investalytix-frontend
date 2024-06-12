@@ -18,7 +18,7 @@ export async function generateMetadata(props: {
     } = props;
 
     const tickerRepo = new TickerRepository(serverAPI);
-    const profile= await tickerRepo.getCompanyProfile(ticker);
+    const profile = await tickerRepo.getCompanyProfile(ticker);
 
     return {
       title: `${profile.companyName} (${profile.symbol}) Financials - Balance Sheet | Investalytix`,
@@ -71,6 +71,7 @@ export default async function BalanceSheetPage(props: BalanceSheetPageProps) {
       ticker={ticker}
       period={data}
       balanceSheet={balanceSheet}
+      currency={outlook.profile.currency}
     />
   );
 }
