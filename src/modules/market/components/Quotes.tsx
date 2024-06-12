@@ -50,36 +50,44 @@ export default function Quotes({
   notifications?: boolean;
 }) {
   return (
-    <Table>
-      <TableHeader>
-        <TableRow headerRow>
-          <TableHead key={fields[0].label} className="!py-2 !text-sm capitalize">
-            {fields[0].label}
-          </TableHead>
-          {fields.slice(1).map((field) => (
-            <TableHead key={field.label} className="!py-2 !text-sm capitalize text-right">
-              {field.label}
+    <div className="w-full overflow-auto">
+      <Table>
+        <TableHeader>
+          <TableRow headerRow>
+            <TableHead
+              key={fields[0].label}
+              className="!py-2 !text-sm capitalize"
+            >
+              {fields[0].label}
             </TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-
-      <TableBody>
-        {(customQuotes ? customQuotes : quotes).map((quote) => (
-          <TableRow className="">
-            <TableCell className="py-2 text-sm">
-              {quote[fields[0].key]}
-            </TableCell>
-
             {fields.slice(1).map((field) => (
-              <TableCell className="py-2 text-right text-sm">
-                {quote[field.key]}
-              </TableCell>
+              <TableHead
+                key={field.label}
+                className="!py-2 text-right !text-sm capitalize"
+              >
+                {field.label}
+              </TableHead>
             ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+
+        <TableBody>
+          {(customQuotes ? customQuotes : quotes).map((quote) => (
+            <TableRow className="">
+              <TableCell className="py-2 text-sm">
+                {quote[fields[0].key]}
+              </TableCell>
+
+              {fields.slice(1).map((field) => (
+                <TableCell className="py-2 text-right text-sm">
+                  {quote[field.key]}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 }
 

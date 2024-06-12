@@ -224,61 +224,62 @@ export default function Summary() {
       </div>
 
       {loading ? (
-        <Spinner className="mx-auto"/>
+        <Spinner className="mx-auto" />
       ) : calendar ? (
         <>
           {Object.keys(calendar).map((date) => (
-            <Table key={date}>
-              <TableHeader>
-                <TableRow headerRow>
-                  <TableHead className="whitespace-nowrap">
-                    {moment(from).format("dddd, MMMM Do")}
-                    {/* {new Date(to).getTime() > new Date(from).getTime()
+            <div className="w-full overflow-auto">
+              <Table key={date}>
+                <TableHeader>
+                  <TableRow headerRow>
+                    <TableHead className="whitespace-nowrap">
+                      {moment(from).format("dddd, MMMM Do")}
+                      {/* {new Date(to).getTime() > new Date(from).getTime()
                       ? `${moment(from).format("dddd, MMMM Do")} - ${moment(to).format("dddd, MMMM Do")}`
                       : moment(from).format("dddd, MMMM Do")} */}
-                  </TableHead>
-                  <TableHead>Prior</TableHead>
-                  <TableHead>Forecast</TableHead>
-                  <TableHead>Actual</TableHead>
-                  {/* <TableHead>Consensus</TableHead> */}
-                  <TableHead></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {calendar[date].map((news, index) => (
-                  <TableRow
-                    key={index}
-                    className="white-text w-full text-[#212529]"
-                  >
-                    <TableCell className="w-fit whitespace-nowrap">
-                      <div className="max-mdgap-10 grid grid-cols-[max-content,100px,auto] place-content-start md:gap-5 ">
-                        <p>{moment(news.date).format("HH:mm")}</p>
+                    </TableHead>
+                    <TableHead>Prior</TableHead>
+                    <TableHead>Forecast</TableHead>
+                    <TableHead>Actual</TableHead>
+                    {/* <TableHead>Consensus</TableHead> */}
+                    <TableHead></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {calendar[date].map((news, index) => (
+                    <TableRow
+                      key={index}
+                      className="white-text w-full text-[#212529]"
+                    >
+                      <TableCell className="w-fit whitespace-nowrap">
+                        <div className="max-mdgap-10 grid grid-cols-[max-content,100px,auto] place-content-start md:gap-5 ">
+                          <p>{moment(news.date).format("HH:mm")}</p>
 
-                        <p className="flex items-center gap-1 place-self-center">
-                          <FiFlag />
-                          {news.country}
-                        </p>
+                          <p className="flex items-center gap-1 place-self-center">
+                            <FiFlag />
+                            {news.country}
+                          </p>
 
-                        <p> {news.event}</p>
-                      </div>
-                    </TableCell>
+                          <p> {news.event}</p>
+                        </div>
+                      </TableCell>
 
-                    <TableCell>
-                      {news.previous && (
-                        <ColoredNumber number={news.previous} />
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <ColoredNumber number={news.estimate} />
-                    </TableCell>
-                    <TableCell>
-                      <ColoredNumber number={news.actual} />
-                    </TableCell>
-                    {/* <TableCell>
+                      <TableCell>
+                        {news.previous && (
+                          <ColoredNumber number={news.previous} />
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <ColoredNumber number={news.estimate} />
+                      </TableCell>
+                      <TableCell>
+                        <ColoredNumber number={news.actual} />
+                      </TableCell>
+                      {/* <TableCell>
    <ColoredNumber number={news.impact} colored={false} />
  </TableCell> */}
-                    <TableCell className="flex items-center gap-5">
-                      {/* 
+                      <TableCell className="flex items-center gap-5">
+                        {/* 
  <Popover className="relative">
    <Popover.Button>
      <svg
@@ -352,23 +353,24 @@ export default function Summary() {
  </Popover>
   */}
 
-                      <svg
-                        width={14}
-                        height={16}
-                        viewBox="0 0 14 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.55 15.8809C7.08333 15.8809 7.53333 15.6975 7.9 15.3309C8.26667 14.9642 8.45 14.5142 8.45 13.9809H4.7C4.7 14.5142 4.875 14.9642 5.225 15.3309C5.575 15.6975 6.01667 15.8809 6.55 15.8809ZM7.5 1.93086C7.5 1.73086 7.45833 1.55586 7.375 1.40586C7.29167 1.25586 7.175 1.13086 7.025 1.03086C6.875 0.93086 6.71667 0.880859 6.55 0.880859C6.38333 0.880859 6.225 0.93086 6.075 1.03086C5.925 1.13086 5.80833 1.25586 5.725 1.40586C5.64167 1.55586 5.6 1.73086 5.6 1.93086C4.53333 2.13086 3.64167 2.66419 2.925 3.53086C2.20833 4.39753 1.85 5.39753 1.85 6.53086C1.85 6.99753 1.8 7.64753 1.7 8.48086C1.53333 9.51419 1.33333 10.4142 1.1 11.1809C0.766667 12.1475 0.4 12.7809 0 13.0809H13.1C12.7 12.7809 12.3333 12.1475 12 11.1809C11.7667 10.4142 11.5667 9.51419 11.4 8.48086C11.3 7.64753 11.25 6.98086 11.25 6.48086C11.25 5.38086 10.8917 4.39753 10.175 3.53086C9.45833 2.66419 8.56667 2.13086 7.5 1.93086Z"
-                          fill="#DDDDDD"
-                        />
-                      </svg>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                        <svg
+                          width={14}
+                          height={16}
+                          viewBox="0 0 14 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.55 15.8809C7.08333 15.8809 7.53333 15.6975 7.9 15.3309C8.26667 14.9642 8.45 14.5142 8.45 13.9809H4.7C4.7 14.5142 4.875 14.9642 5.225 15.3309C5.575 15.6975 6.01667 15.8809 6.55 15.8809ZM7.5 1.93086C7.5 1.73086 7.45833 1.55586 7.375 1.40586C7.29167 1.25586 7.175 1.13086 7.025 1.03086C6.875 0.93086 6.71667 0.880859 6.55 0.880859C6.38333 0.880859 6.225 0.93086 6.075 1.03086C5.925 1.13086 5.80833 1.25586 5.725 1.40586C5.64167 1.55586 5.6 1.73086 5.6 1.93086C4.53333 2.13086 3.64167 2.66419 2.925 3.53086C2.20833 4.39753 1.85 5.39753 1.85 6.53086C1.85 6.99753 1.8 7.64753 1.7 8.48086C1.53333 9.51419 1.33333 10.4142 1.1 11.1809C0.766667 12.1475 0.4 12.7809 0 13.0809H13.1C12.7 12.7809 12.3333 12.1475 12 11.1809C11.7667 10.4142 11.5667 9.51419 11.4 8.48086C11.3 7.64753 11.25 6.98086 11.25 6.48086C11.25 5.38086 10.8917 4.39753 10.175 3.53086C9.45833 2.66419 8.56667 2.13086 7.5 1.93086Z"
+                            fill="#DDDDDD"
+                          />
+                        </svg>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           ))}
         </>
       ) : null}
