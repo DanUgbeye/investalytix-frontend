@@ -8,11 +8,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  tableHeaderCellVariants,
 } from "@/components/ui/table";
+import useScroll from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { FinancialPeriod, Financials } from "@/modules/ticker/types";
 import { format } from "date-fns";
-import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 import { generateKeyStatsTableData } from "./generate-table-data";
 
@@ -31,7 +32,22 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
     currency,
     financials: { annual, quarter },
   } = props;
-  const pathname = usePathname();
+
+  const {
+    ref: incomeTableRef,
+    isScrolled: incomeTableScrolled,
+    onScroll: onIncomeTableScroll,
+  } = useScroll<HTMLDivElement>();
+  const {
+    ref: balanceTableRef,
+    isScrolled: balanceTableScrolled,
+    onScroll: onBalanceTableScroll,
+  } = useScroll<HTMLDivElement>();
+  const {
+    ref: cashTableRef,
+    isScrolled: cashTableScrolled,
+    onScroll: onCashTableScroll,
+  } = useScroll<HTMLDivElement>();
 
   const [viewPeriods, setViewPeriods] = useState<{
     income: FinancialPeriod;
@@ -105,16 +121,24 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
           </div>
         </div>
 
-        <div className=" overflow-x-auto ">
+        <div ref={incomeTableRef} className=" overflow-x-auto ">
           <Table>
             <TableHeader>
               <TableRow headerRow>
-                <TableHead className=" min-w-[10rem] ">Currency: {currency}</TableHead>
+                <TableHead
+                  className={cn(
+                    tableHeaderCellVariants({ scrolled: incomeTableScrolled }),
+                    " min-w-[10rem] "
+                  )}
+                >
+                  <span className="  ">Currency: {currency}</span>
+                </TableHead>
 
                 {financials.income.map((incomeSheet, index) => {
                   return (
                     <TableHead
-                      key={`income-${incomeSheet.calendarYear}-${incomeSheet.period}-${index}`}
+                      key={`income-${incomeSheet.period}-${index}`}
+                      className=" text-right "
                     >
                       <div className=" flex flex-col gap-1 ">
                         <span className=" ">
@@ -124,7 +148,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </span>
 
                         <span className=" text-xs ">
-                          {format(new Date(incomeSheet.date), "MMM yyyy ")}
+                          {format(new Date(incomeSheet.date), "MMM yyyy")}
                         </span>
                       </div>
                     </TableHead>
@@ -134,14 +158,32 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             </TableHeader>
 
             <TableBody>
-              {dataRows.income.map((rowData) => {
+              {dataRows.income.map((rowData, index) => {
                 return (
-                  <TableRow key={`row-${rowData.label}`}>
-                    <TableCell> {rowData.label}</TableCell>
+                  <TableRow
+                    key={`row-${rowData.label}`}
+                    highlightPattern={
+                      (index + 1) % 2 === 1 ? "current" : "none"
+                    }
+                    className=" group "
+                  >
+                    <TableCell
+                      className={cn(
+                        tableHeaderCellVariants({
+                          scrolled: incomeTableScrolled,
+                          highlight: (index + 1) % 2 === 1,
+                        })
+                      )}
+                    >
+                      <span>{rowData.label}</span>
+                    </TableCell>
 
                     {rowData.cols.map((data, index) => {
                       return (
-                        <TableCell key={`income-${rowData.label}-${index}`}>
+                        <TableCell
+                          key={`income-${rowData.label}-${index}`}
+                          className=" text-right"
+                        >
                           {data}
                         </TableCell>
                       );
@@ -191,26 +233,34 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
           </div>
         </div>
 
-        <div className=" overflow-x-auto ">
+        <div ref={balanceTableRef} className=" overflow-x-auto ">
           <Table>
             <TableHeader>
               <TableRow headerRow>
-                <TableHead className=" min-w-[10rem] ">Currency: {currency}</TableHead>
+                <TableHead
+                  className={cn(
+                    tableHeaderCellVariants({ scrolled: balanceTableScrolled }),
+                    " min-w-[10rem] "
+                  )}
+                >
+                  <span>Currency: {currency}</span>
+                </TableHead>
 
                 {financials.balance.map((balanceSheet, index) => {
                   return (
                     <TableHead
-                      key={`balance-${balanceSheet.calendarYear}-${balanceSheet.period}-${index}`}
+                      key={`balance-${balanceSheet.period}-${index}`}
+                      className=" text-right "
                     >
                       <div className=" flex flex-col gap-1 ">
-                        <span className=" ">
+                        <span className="  ">
                           {viewPeriods.balance === "quarter" &&
                             `${balanceSheet.period} '`}
                           {balanceSheet.calendarYear}
                         </span>
 
                         <span className=" text-xs ">
-                          {format(new Date(balanceSheet.date), "MMM yyyy ")}
+                          {format(new Date(balanceSheet.date), "MMM yyyy")}
                         </span>
                       </div>
                     </TableHead>
@@ -220,14 +270,32 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             </TableHeader>
 
             <TableBody>
-              {dataRows.balance.map((rowData) => {
+              {dataRows.balance.map((rowData, index) => {
                 return (
-                  <TableRow key={`row-${rowData.label}`}>
-                    <TableCell> {rowData.label}</TableCell>
+                  <TableRow
+                    key={`row-${rowData.label}`}
+                    highlightPattern={
+                      (index + 1) % 2 === 1 ? "current" : "none"
+                    }
+                    className=" group "
+                  >
+                    <TableCell
+                      className={cn(
+                        tableHeaderCellVariants({
+                          scrolled: balanceTableScrolled,
+                          highlight: (index + 1) % 2 === 1,
+                        })
+                      )}
+                    >
+                      <span>{rowData.label}</span>
+                    </TableCell>
 
                     {rowData.cols.map((data, index) => {
                       return (
-                        <TableCell key={`balance-${rowData.label}-${index}`}>
+                        <TableCell
+                          key={`balance-${rowData.label}-${index}`}
+                          className=" text-right"
+                        >
                           {data}
                         </TableCell>
                       );
@@ -277,16 +345,24 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
           </div>
         </div>
 
-        <div className=" overflow-x-auto ">
+        <div ref={cashTableRef} className=" overflow-x-auto ">
           <Table>
             <TableHeader>
               <TableRow headerRow>
-                <TableHead className=" min-w-[10rem] ">Currency: {currency}</TableHead>
+                <TableHead
+                  className={cn(
+                    tableHeaderCellVariants({ scrolled: cashTableScrolled }),
+                    " min-w-[10rem] "
+                  )}
+                >
+                  <span>Currency: {currency}</span>
+                </TableHead>
 
                 {financials.cash.map((cashFlow, index) => {
                   return (
                     <TableHead
-                      key={`cash-${cashFlow.calendarYear}-${cashFlow.period}-${index}`}
+                      key={`cash-${cashFlow.period}-${index}`}
+                      className=" text-right "
                     >
                       <div className=" flex flex-col gap-1 ">
                         <span className=" ">
@@ -296,7 +372,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                         </span>
 
                         <span className=" text-xs ">
-                          {format(new Date(cashFlow.date), "MMM yyyy ")}
+                          {format(new Date(cashFlow.date), "MMM yyyy")}
                         </span>
                       </div>
                     </TableHead>
@@ -306,14 +382,32 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             </TableHeader>
 
             <TableBody>
-              {dataRows.cash.map((rowData) => {
+              {dataRows.cash.map((rowData, index) => {
                 return (
-                  <TableRow key={`row-${rowData.label}`}>
-                    <TableCell> {rowData.label}</TableCell>
+                  <TableRow
+                    key={`row-${rowData.label}`}
+                    highlightPattern={
+                      (index + 1) % 2 === 1 ? "current" : "none"
+                    }
+                    className=" group "
+                  >
+                    <TableCell
+                      className={cn(
+                        tableHeaderCellVariants({
+                          scrolled: cashTableScrolled,
+                          highlight: (index + 1) % 2 === 1,
+                        })
+                      )}
+                    >
+                      <span>{rowData.label}</span>
+                    </TableCell>
 
                     {rowData.cols.map((data, index) => {
                       return (
-                        <TableCell key={`cash-${rowData.label}-${index}`}>
+                        <TableCell
+                          key={`cash-${rowData.label}-${index}`}
+                          className=" text-right"
+                        >
                           {data}
                         </TableCell>
                       );

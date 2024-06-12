@@ -1,18 +1,33 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { cva } from "class-variance-authority";
+
+export const tableHeaderCellVariants = cva(
+  " sticky left-0 bg-white dark:bg-black group-hover:bg-inherit ",
+  {
+    variants: {
+      scrolled: {
+        true: "  [&>*:first-child]:border-r [&>*:first-child]:border-main-gray-300 p-0 [&>*:first-child]:px-4 [&>*:first-child]:py-2 [&>*:first-child]:flex [&>*:first-child]:h-full [&>*:first-child]:items-center [&>*:first-child]:dark:border-main-gray-800 ",
+        false: "  ",
+      },
+      highlight: {
+        true: " bg-[#F0F3FA] dark:bg-black ",
+        false: "",
+      },
+    },
+  }
+);
 
 const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto dark:border-main-gray-900/10">
-    <table
-      ref={ref}
-      className={cn("w-full caption-bottom text-sm", className)}
-      {...props}
-    />
-  </div>
+  <table
+    ref={ref}
+    className={cn("w-full caption-bottom text-sm", className)}
+    {...props}
+  />
 ));
 Table.displayName = "Table";
 
@@ -57,7 +72,7 @@ const TableRow = React.forwardRef<
   <tr
     ref={ref}
     className={cn(
-      "border-0 transition-colors hover:bg-main-gray-200/40 data-[state=selected]:bg-gray-100 dark:border-t dark:border-solid dark:border-main-gray-900 dark:hover:bg-main-gray-800 dark:data-[state=selected]:bg-main-gray-800",
+      "border-0 hover:bg-main-gray-200 data-[state=selected]:bg-gray-100 dark:border-t dark:border-solid dark:border-main-gray-900 dark:hover:bg-main-gray-800 dark:data-[state=selected]:bg-main-gray-800",
       {
         " odd:bg-[#F0F3FA] dark:odd:bg-transparent ":
           highlightPattern === "odd" && !headerRow,
