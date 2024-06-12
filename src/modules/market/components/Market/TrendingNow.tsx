@@ -1,4 +1,6 @@
-import { GeneralNews } from "@/modules/news/types";
+import NewsCard from "@/modules/news/components/news-card";
+import NewsLink from "@/modules/news/components/news-link";
+import { News } from "@/modules/news/types";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,7 +22,7 @@ async function getForexNewsData(params?: { limit?: number; page?: number }) {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: GeneralNews[];
+    data: News[];
   }>;
 }
 async function getCryptoNewsData(params?: { limit?: number; page?: number }) {
@@ -40,7 +42,7 @@ async function getCryptoNewsData(params?: { limit?: number; page?: number }) {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: GeneralNews[];
+    data: News[];
   }>;
 }
 async function getStockNewsData(params?: { limit?: number; page?: number }) {
@@ -60,7 +62,7 @@ async function getStockNewsData(params?: { limit?: number; page?: number }) {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: GeneralNews[];
+    data: News[];
   }>;
 }
 
@@ -72,7 +74,7 @@ export default async function TrendingNow() {
   ]);
 
   return (
-    <section className="mt-16 overflow-hidden">
+    <section className="md:mt-16 overflow-hidden">
       <header className="pb-10">
         <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
           TRENDING NOW
@@ -80,33 +82,16 @@ export default async function TrendingNow() {
       </header>
 
       <div className="flex flex-col gap-5 md:flex-col">
-        <MarketEvent news={forex.data[5]} />
-        <MarketEvent news={crypto.data[5]} />
-        <MarketEvent news={stock.data[5]} />
+        <NewsLink news={forex.data[5]}>
+          <NewsCard news={forex.data[5]}></NewsCard>
+        </NewsLink>
+        <NewsLink news={crypto.data[5]}>
+          <NewsCard news={crypto.data[5]}></NewsCard>
+        </NewsLink>
+        <NewsLink news={stock.data[5]}>
+          <NewsCard news={stock.data[5]}></NewsCard>
+        </NewsLink>
       </div>
     </section>
-  );
-}
-
-function MarketEvent({ news }: { news: GeneralNews }) {
-  return (
-    <Link href={news.url} target="_blank" className="group flex w-full gap-2">
-      <div className="relative h-[110px] w-28 flex-shrink-0 overflow-hidden bg-red-500">
-        <Image src={news.image} alt="" fill className="object-cover" />
-      </div>
-
-      <div className="">
-        <p className="white-text text-sm font-bold text-[#000000] group-hover:underline group-focus:underline">
-          {news.title}
-        </p>
-        <p className="white-text mt-8 flex flex-wrap items-center gap-1 text-sm text-[#565555]">
-          <span className="uppercase">{news.site}</span>
-          <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
-          <span className="whitespace-nowrap">
-            {moment(news.publishedDate).format("Do MMMM, YYYY")}
-          </span>
-        </p>
-      </div>
-    </Link>
   );
 }

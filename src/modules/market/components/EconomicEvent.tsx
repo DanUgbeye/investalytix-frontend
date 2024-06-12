@@ -1,4 +1,6 @@
-import { GeneralNews } from "@/modules/news/types";
+import NewsCard from "@/modules/news/components/news-card";
+import NewsLink from "@/modules/news/components/news-link";
+import { GeneralNews, News } from "@/modules/news/types";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,7 +22,7 @@ async function getGeneralNewsData(params?: { limit?: number; page?: number }) {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: GeneralNews[];
+    data: News[];
   }>;
 }
 async function getForexNewsData(params?: { limit?: number; page?: number }) {
@@ -40,7 +42,7 @@ async function getForexNewsData(params?: { limit?: number; page?: number }) {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: GeneralNews[];
+    data: News[];
   }>;
 }
 async function getCryptoNewsData(params?: { limit?: number; page?: number }) {
@@ -60,7 +62,7 @@ async function getCryptoNewsData(params?: { limit?: number; page?: number }) {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: GeneralNews[];
+    data: News[];
   }>;
 }
 async function getStockNewsData(params?: { limit?: number; page?: number }) {
@@ -80,7 +82,7 @@ async function getStockNewsData(params?: { limit?: number; page?: number }) {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: GeneralNews[];
+    data: News[];
   }>;
 }
 
@@ -105,41 +107,21 @@ export default async function EconomicEvent() {
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {[0, 1].map((index) => (
           <>
-            <Event news={general.data[index]} key={`general${index}`} />
-            <Event news={crypto.data[index]} key={`crypto${index}`} />
-            <Event news={forex.data[index]} key={`forex${index}`} />
-            <Event news={stock.data[index]} key={`stock${index}`} />
+            <NewsLink news={general.data[index]}>
+              <NewsCard news={general.data[index]}></NewsCard>
+            </NewsLink>
+            <NewsLink news={crypto.data[index]}>
+              <NewsCard news={crypto.data[index]}></NewsCard>
+            </NewsLink>
+            <NewsLink news={forex.data[index]}>
+              <NewsCard news={forex.data[index]}></NewsCard>
+            </NewsLink>
+            <NewsLink news={stock.data[index]}>
+              <NewsCard news={stock.data[index]}></NewsCard>
+            </NewsLink>
           </>
         ))}
       </div>
     </div>
-  );
-}
-
-function Event({ news }: { news: GeneralNews }) {
-  return (
-    <Link href={news.url} target="_blank" className="group flex w-full gap-2">
-      <div className="relative h-[110px] w-28 flex-shrink-0 overflow-hidden bg-red-500">
-        <Image
-          src={news.image}
-          alt=""
-          fill
-          className="object-cover object-center"
-        />
-      </div>
-
-      <div className="">
-        <p className="white-text text-sm font-bold text-[#000000] group-hover:underline group-focus:underline">
-          {news.title}
-        </p>
-        <p className="white-text mt-8 flex flex-wrap items-center gap-1 text-sm text-[#565555]">
-          <span className="uppercase">{news.site}</span>
-          <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
-          <span className="whitespace-nowrap">
-            {moment(news.publishedDate).format("Do MMMM, YYYY")}
-          </span>
-        </p>
-      </div>
-    </Link>
   );
 }
