@@ -15,7 +15,7 @@ export default function Quote({
   return (
     <div
       className={twMerge(
-        "white-text w-fit rounded-md px-3 py-2 text-sm font-bold text-[#252525]",
+        "white-text w-fit rounded-md px-3 py-0 text-sm font-bold text-[#252525]",
         className
       )}
     >

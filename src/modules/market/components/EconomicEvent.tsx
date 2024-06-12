@@ -4,6 +4,7 @@ import { GeneralNews, News } from "@/modules/news/types";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
+import MarketHeading from "./MarketHeading";
 
 async function getGeneralNewsData(params?: { limit?: number; page?: number }) {
   const { limit, page } = params ?? {};
@@ -96,15 +97,9 @@ export default async function EconomicEvent() {
   ]);
   return (
     <div>
-      <header className="relative mb-4">
-        <p className="white-text text-2xl font-bold  text-[#2A3037]">
-          Top Economic Event
-        </p>
+      <MarketHeading label="Top Economic Event"/>
 
-        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white/30"></div>
-      </header>
-
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {[0, 1].map((index) => (
           <>
             <NewsLink news={general.data[index]}>

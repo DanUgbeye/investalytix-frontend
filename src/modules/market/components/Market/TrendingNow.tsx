@@ -4,6 +4,7 @@ import { News } from "@/modules/news/types";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
+import MarketHeading from "../MarketHeading";
 
 async function getForexNewsData(params?: { limit?: number; page?: number }) {
   const { limit, page } = params ?? {};
@@ -74,14 +75,10 @@ export default async function TrendingNow() {
   ]);
 
   return (
-    <section className="md:mt-16 overflow-hidden">
-      <header className="pb-10">
-        <h2 className="white-text border-l-[6px] border-l-primary-base pl-5 text-3xl font-extrabold">
-          TRENDING NOW
-        </h2>
-      </header>
+    <section className="overflow-hidden">
+      <MarketHeading label="trending now"/>
 
-      <div className="flex flex-col gap-5 md:flex-col">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <NewsLink news={forex.data[5]}>
           <NewsCard news={forex.data[5]}></NewsCard>
         </NewsLink>
