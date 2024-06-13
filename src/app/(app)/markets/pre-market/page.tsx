@@ -16,7 +16,7 @@ export default function PreMarketPage() {
     <main>
       <MarketHeader name="PRE-MARKET DATA" active="PRE-MKT" />
 
-      <MarketSelector selectors={marketSelectors} className="mb-10"/>
+      <MarketSelector selectors={marketSelectors} className="mb-10" />
 
       <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
         <PreMarket />

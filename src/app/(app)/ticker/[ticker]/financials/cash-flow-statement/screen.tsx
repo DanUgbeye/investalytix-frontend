@@ -97,7 +97,7 @@ export default function CashFlowStatementScreen(
                     key={`income-${incomeSheet.period}-${index}`}
                     className=" text-right "
                   >
-                    <div className=" flex flex-col gap-1 w-20 ">
+                    <div className=" flex w-20 flex-col gap-1 ">
                       <span className=" ">
                         {(!period || period === "quarter") &&
                           `${incomeSheet.period} '`}

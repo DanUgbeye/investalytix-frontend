@@ -13,10 +13,14 @@ export default function MarketSectionHeader({
   ...props
 }: MarketSectionHeaderProps) {
   return (
-    <header id={id} {...props} className={twMerge(`pb-10 text-3xl font-extrabold capitalize ${className}`)}>
-      <h2 className="white-text">
-        {label.toLowerCase()}
-      </h2>
+    <header
+      id={id}
+      {...props}
+      className={twMerge(
+        `pb-10 text-3xl font-extrabold capitalize ${className}`
+      )}
+    >
+      <h2 className="white-text">{label.toLowerCase()}</h2>
     </header>
   );
 }

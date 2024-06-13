@@ -179,14 +179,12 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
           </div>
         </div>
 
-        <Button className=" h-9 ml-auto px-6 md:px-8 ">
-          Apply
-        </Button>
+        <Button className=" ml-auto h-9 px-6 md:px-8 ">Apply</Button>
       </form>
 
       <div className=" mx-auto grid space-y-3 ">
         <div className=" flex items-center justify-between ">
-          <span className=" font-semibold text-sm ">Currency: {currency}</span>
+          <span className=" text-sm font-semibold ">Currency: {currency}</span>
 
           {/* <Button variant={"outline-orange"} className=" border-none ">
             Download

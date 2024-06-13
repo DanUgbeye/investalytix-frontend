@@ -6,8 +6,7 @@ export default function Japan() {
     /*Japan Government Bonds */
     <>
       <section className="">
-      <MarketHeading label="Japan Government Bonds" id="japan" />
-
+        <MarketHeading label="Japan Government Bonds" id="japan" />
 
         <Quotes
           fields={[

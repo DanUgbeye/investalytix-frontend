@@ -14,7 +14,11 @@ export default function AmericasPage() {
     <main>
       <MarketHeader name="Americas MARKET" active="PRE-MKT" />
 
-      <MarketSelector active="AMERICAS" selectors={marketSelectors} className="mb-10"/>
+      <MarketSelector
+        active="AMERICAS"
+        selectors={marketSelectors}
+        className="mb-10"
+      />
 
       <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
         <Americas />

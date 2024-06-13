@@ -4,7 +4,7 @@ import Quotes from "../../Quotes";
 export default function Dow30() {
   return (
     <section>
-      <MarketSectionHeader label="DOW 30" id="dow-30"/>
+      <MarketSectionHeader label="DOW 30" id="dow-30" />
       <div className="mt-11"></div>
 
       {/* <header className="mb-5">

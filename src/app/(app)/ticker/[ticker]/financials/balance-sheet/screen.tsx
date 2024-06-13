@@ -95,7 +95,7 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
                     key={`income-${balance.period}-${index}`}
                     className=" text-right "
                   >
-                    <div className=" flex flex-col gap-1 w-20 ">
+                    <div className=" flex w-20 flex-col gap-1 ">
                       <span className=" ">
                         {(!period || period === "quarter") &&
                           `${balance.period} '`}

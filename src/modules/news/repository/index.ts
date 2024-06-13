@@ -31,5 +31,4 @@ export class NewsRepository {
       throw err;
     }
   }
-  
 }

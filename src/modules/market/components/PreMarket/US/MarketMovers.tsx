@@ -38,7 +38,7 @@ export default function MarketMovers() {
       <div className="mt-11">
         <Tab.Group>
           <div className="mb-7 text-[#252525] lg:flex">
-            <h1 className="white-text whitespace-nowrap text-2xl font-extrabold max-lg:mb-5 opacity-0">
+            <h1 className="white-text whitespace-nowrap text-2xl font-extrabold opacity-0 max-lg:mb-5">
               MARKET MOVERS
             </h1>
             <Tab.List

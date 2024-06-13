@@ -15,7 +15,7 @@ export async function generateMetadata(props: {
     } = props;
 
     const tickerRepo = new TickerRepository(serverAPI);
-    const profile= await tickerRepo.getCompanyProfile(ticker);
+    const profile = await tickerRepo.getCompanyProfile(ticker);
 
     return {
       title: `${profile.companyName} (${profile.symbol}) Stock Description - Holders | Investalytix`,

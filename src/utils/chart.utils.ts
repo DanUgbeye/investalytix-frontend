@@ -44,9 +44,6 @@ export function defaultAreaSeriesOptions(
     lineWidth: 2,
     topColor:
       theme === "dark" ? "rgba(251, 146, 60, 0.1)" : "rgba(251, 146, 60, 0.1)",
-    bottomColor:
-      theme === "dark"
-        ? "black"
-        : "white",
+    bottomColor: theme === "dark" ? "black" : "white",
   };
 }

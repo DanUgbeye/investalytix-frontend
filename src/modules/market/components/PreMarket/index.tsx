@@ -9,7 +9,10 @@ export default function PreMarket() {
     <div className="grid gap-10 lg:grid-cols-2">
       {/* DOW (Mini) */}
       <section className="">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="DOW (Mini)" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="DOW (Mini)"
+        />
 
         <div className="h-80 w-full">
           <Chart />
@@ -25,7 +28,10 @@ export default function PreMarket() {
 
       {/* S&P 500 (Mini) */}
       <section className="">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="S&P 500 (Mini)" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="S&P 500 (Mini)"
+        />
 
         <div className="h-80 w-full">
           <Chart />
@@ -41,7 +47,10 @@ export default function PreMarket() {
 
       {/* NASDAQ (Mini) */}
       <section className="mt-11">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="NASDAQ (Mini)" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="NASDAQ (Mini)"
+        />
 
         <div className="h-80 w-full">
           <Chart />
@@ -57,7 +66,10 @@ export default function PreMarket() {
 
       {/* RUSELL (Mini) */}
       <section className="mt-11">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="RUSELL (Mini)" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="RUSELL (Mini)"
+        />
 
         <div className="h-80 w-full">
           <Chart />
@@ -73,7 +85,10 @@ export default function PreMarket() {
 
       {/* Asia-Pacific */}
       <section className="mt-11">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Asia-Pacific" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="Asia-Pacific"
+        />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           Hang Seng Index
@@ -90,7 +105,10 @@ export default function PreMarket() {
 
       {/* Europe */}
       <section className="mt-11">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Europe" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="Europe"
+        />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           FTSE 100
@@ -107,7 +125,10 @@ export default function PreMarket() {
 
       {/* Commodities */}
       <section className="mt-11">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Commodities" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="Commodities"
+        />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           Hang Seng Index
@@ -124,7 +145,10 @@ export default function PreMarket() {
 
       {/* Currencies */}
       <section className="mt-11">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Currencies" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="Currencies"
+        />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           FTSE 100
@@ -141,7 +165,10 @@ export default function PreMarket() {
 
       {/* Volatility & Global Indexes */}
       <section className="mt-11">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Volatility & Global Indexes" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="Volatility & Global Indexes"
+        />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           Hang Seng Index
@@ -158,7 +185,10 @@ export default function PreMarket() {
 
       {/* U.S. Treasurys */}
       <section className="mt-11">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="U.S. Treasurys" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="U.S. Treasurys"
+        />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           FTSE 100
@@ -175,7 +205,10 @@ export default function PreMarket() {
 
       {/* U.S. Indexes */}
       <section className="mt-11">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Indexes" />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="Indexes"
+        />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           Hang Seng Index
@@ -192,7 +225,10 @@ export default function PreMarket() {
 
       {/* Sectors */}
       <section className="mt-11">
-        <MarketSectionHeader className="text-2xl font-bold pb-4" label="Sectors"  />
+        <MarketSectionHeader
+          className="pb-4 text-2xl font-bold"
+          label="Sectors"
+        />
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           FTSE 100

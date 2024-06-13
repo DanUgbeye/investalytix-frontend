@@ -23,7 +23,11 @@ export default function USMarketTemplate({
     <>
       <MarketHeader name="US MARKET" active="PRE-MKT" />
 
-      <MarketSelector active="U.S" selectors={marketSelectors} className="mb-10" />
+      <MarketSelector
+        active="U.S"
+        selectors={marketSelectors}
+        className="mb-10"
+      />
 
       <MarketSubLinks markets={markets} />
 

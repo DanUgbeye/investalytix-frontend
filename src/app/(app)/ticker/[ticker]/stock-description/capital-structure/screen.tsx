@@ -106,7 +106,7 @@ export default function CapitalStructureScreen(
               />
             </PieChart>
 
-            <div className=" absolute -z-10 text-lg col-start-1 row-start-1 ">
+            <div className=" absolute -z-10 col-start-1 row-start-1 text-lg ">
               {appUtils.formatNumber(largestPercentage, {
                 style: "decimal",
                 maximumFractionDigits: 3,

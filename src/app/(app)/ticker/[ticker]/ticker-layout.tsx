@@ -62,7 +62,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
               {tickerQuote.name}
             </div>
 
-            <div className=" text-sm flex w-fit flex-wrap items-center gap-2 rounded-lg bg-main-gray-200/40 px-4 py-2 font-medium dark:bg-main-gray-800 ">
+            <div className=" flex w-fit flex-wrap items-center gap-2 rounded-lg bg-main-gray-200/40 px-4 py-2 text-sm font-medium dark:bg-main-gray-800 ">
               <span className="  ">{outlook.profile.symbol}</span>
               <span className=" size-1 rounded-full bg-primary-base " />
               <span className="  ">{outlook.profile.exchange}</span>

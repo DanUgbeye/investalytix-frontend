@@ -52,7 +52,7 @@ export default async function NewsPage() {
               <Link
                 href={major.url}
                 target="_blank"
-                className="text-3xl font-semibold text-hover-focus"
+                className="text-hover-focus text-3xl font-semibold"
               >
                 {major.title}
               </Link>
@@ -62,7 +62,7 @@ export default async function NewsPage() {
               <Link
                 href={minor_major[0].url}
                 target="_blank"
-                className="font-semibold text-hover-focus"
+                className="text-hover-focus font-semibold"
               >
                 {minor_major[0].title}
               </Link>
@@ -124,11 +124,7 @@ function LatestNews({ news }: { news: GeneralNews }) {
       <p className="text-sm font-bold uppercase">
         {moment(news.publishedDate).fromNow()}
       </p>
-      <Link
-        href={news.url}
-        target="_blank"
-        className="text-hover-focus"
-      >
+      <Link href={news.url} target="_blank" className="text-hover-focus">
         {news.title}
       </Link>
     </div>
@@ -155,7 +151,7 @@ function INews({
       </div>
       <div className="">
         <div className="flex flex-wrap items-start justify-between gap-2 xl:gap-5">
-          <p className="white-text font-extrabold text-[#020224] lg:text-xl text-hover-focus">
+          <p className="white-text text-hover-focus font-extrabold text-[#020224] lg:text-xl">
             {news.title}
           </p>
           {!latest && (
