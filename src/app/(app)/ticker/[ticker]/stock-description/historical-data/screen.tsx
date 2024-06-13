@@ -3,17 +3,17 @@
 import { Button } from "@/components/ui/button";
 import { QuoteHistory, QuoteTimeframe } from "@/types";
 import { QuoteTimeframeSchema } from "@/validation";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
+import { cva } from "class-variance-authority";
 import { isValid, subYears } from "date-fns";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
+import "react-calendar/dist/Calendar.css";
 import { Controller, useForm } from "react-hook-form";
+import { FiCalendar } from "react-icons/fi";
 import { z } from "zod";
 import QuoteHistoryTable from "./quote-history-table";
-import DateRangePicker from "@wojtekmaj/react-daterange-picker";
-import { FiCalendar } from "react-icons/fi";
-import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
-import "react-calendar/dist/Calendar.css";
-import { cva } from "class-variance-authority";
 
 function validatePeriod(period: unknown): QuoteTimeframe {
   let valid = QuoteTimeframeSchema.safeParse(period);
@@ -39,7 +39,9 @@ interface HistoricalDataScreenProps {
 
 export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
   const { ticker, quoteHistory, currency } = props;
+  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const defaultValues = useMemo(() => {
     let from = subYears(new Date(), 1);
@@ -62,12 +64,9 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
     };
   }, [searchParams]);
 
-  const { control, setValue, watch } = useForm<{
-    period: string;
-    show: string;
-    from?: Date;
-    to?: Date;
-  }>({
+  const { control, setValue, watch, handleSubmit } = useForm<
+    typeof defaultValues
+  >({
     defaultValues,
   });
 
@@ -82,13 +81,33 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
     setValue("to", toDate || undefined);
   }
 
+  function onSubmit(data: typeof defaultValues) {
+    let searchParams = new URLSearchParams();
+
+    Object.keys(data).forEach((key) => {
+      let formData: any = data[key as keyof typeof defaultValues];
+
+      if (formData instanceof Date) {
+        formData = formData.toLocaleDateString("en-CA");
+      }
+      searchParams.append(key, String(formData));
+    });
+
+    router.push(`${pathname}?${searchParams.toString()}`);
+  }
+
   return (
     <section className=" space-y-6 pb-12 ">
-      <form className=" flex flex-col justify-between gap-3 rounded md:flex-row md:flex-wrap ">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className=" flex flex-col justify-between gap-3 rounded md:flex-row md:flex-wrap "
+      >
         <div className=" flex flex-wrap gap-2 md:flex-row md:items-center ">
           <DateRangePicker
             className={" text-sm "}
-            calendarProps={{className: cva(" text-black dark:bg-main-gray-700 z-50 ")(), }}
+            calendarProps={{
+              className: cva(" text-black dark:bg-main-gray-700 z-50 ")(),
+            }}
             onChange={handleDateIput}
             value={[from!, to!]}
             calendarIcon={FiCalendar}
@@ -96,8 +115,6 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
           />
 
           <div className=" flex flex-wrap items-center gap-x-3 ">
-            {/* <span className=" font-semibold ">Show:</span> */}
-
             <Controller
               name="show"
               control={control}
@@ -108,8 +125,10 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                     id="show"
                     className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1.5 text-sm outline-0 dark:border-main-gray-500 "
                   >
-                    <option value={"price"}>Historical Prices</option>
-                    {/* <option value={"splits"}>Stock Splits</option> */}
+                    <option className="text-black" value={"price"}>
+                      Historical Prices
+                    </option>
+                    {/* <option className="text-black" value={"splits"}>Stock Splits</option> */}
                   </select>
                 );
               }}
@@ -117,8 +136,6 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
           </div>
 
           <div className=" flex flex-wrap items-center gap-x-3 ">
-            {/* <span className=" font-semibold ">Frequency:</span> */}
-
             <Controller
               name="period"
               control={control}
@@ -129,9 +146,15 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                     id="period"
                     className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1.5 text-sm outline-0 dark:border-main-gray-500 "
                   >
-                    <option value={"1day"}>Daily</option>
-                    <option value={"1week"}>Weekly</option>
-                    <option value={"1month"}>Monthly</option>
+                    <option className="text-black" value={"1day"}>
+                      Daily
+                    </option>
+                    <option className="text-black" value={"1week"}>
+                      Weekly
+                    </option>
+                    <option className="text-black" value={"1month"}>
+                      Monthly
+                    </option>
                   </select>
                 );
               }}

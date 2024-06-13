@@ -175,7 +175,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
         <MobileTickerNav
           ticker={ticker}
-          className=" sticky top-[85px] z-40 flex md:top-[89px] lg:hidden "
+          className=" sticky top-[85px] z-40 h-fit flex md:top-[89px] lg:hidden "
         />
 
         <main className=" col-start-1 lg:row-start-1 lg:ml-[18rem] ">
