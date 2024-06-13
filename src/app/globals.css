@@ -115,3 +115,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transform: translateX(-50%);
   pointer-events: none;
 }
+
+div.react-daterange-picker__calendar {
+  @apply z-[45];
+}

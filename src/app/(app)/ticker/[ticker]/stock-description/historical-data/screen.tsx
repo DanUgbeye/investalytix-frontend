@@ -9,6 +9,11 @@ import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import QuoteHistoryTable from "./quote-history-table";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import { FiCalendar } from "react-icons/fi";
+import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
+import "react-calendar/dist/Calendar.css";
+import { cva } from "class-variance-authority";
 
 function validatePeriod(period: unknown): QuoteTimeframe {
   let valid = QuoteTimeframeSchema.safeParse(period);
@@ -35,105 +40,60 @@ interface HistoricalDataScreenProps {
 export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
   const { ticker, quoteHistory, currency } = props;
   const searchParams = useSearchParams();
-  const period = useMemo(
-    () => validatePeriod(searchParams.get("period")),
-    [searchParams]
-  );
-  const show = useMemo(
-    () => validateShow(searchParams.get("show")),
-    [searchParams]
-  );
-  const from = useMemo(() => {
-    let param = searchParams.get("from");
-    if (param && isValid(new Date(param))) {
-      return new Date(param);
+
+  const defaultValues = useMemo(() => {
+    let from = subYears(new Date(), 1);
+    let fromParam = searchParams.get("from");
+    if (fromParam && isValid(new Date(fromParam))) {
+      from = new Date(fromParam);
     }
-    return subYears(new Date(), 1);
+
+    let to = new Date();
+    let toParam = searchParams.get("to");
+    if (toParam && isValid(new Date(toParam))) {
+      to = new Date(toParam);
+    }
+
+    return {
+      period: validatePeriod(searchParams.get("period")),
+      show: validateShow(searchParams.get("show")),
+      from,
+      to,
+    };
   }, [searchParams]);
 
-  const to = useMemo(() => {
-    let param = searchParams.get("to");
-    if (param && isValid(new Date(param))) {
-      return new Date(param);
-    }
-    return new Date();
-  }, [searchParams]);
-
-  const { control } = useForm<{
+  const { control, setValue, watch } = useForm<{
     period: string;
     show: string;
     from?: Date;
     to?: Date;
   }>({
-    defaultValues: {
-      period,
-      show,
-      from,
-      to,
-    },
+    defaultValues,
   });
+
+  const from = watch("from");
+  const to = watch("to");
+
+  function handleDateIput(range: any) {
+    const fromDate = range[0] as Date;
+    const toDate = range[1] as Date;
+
+    setValue("from", fromDate || undefined);
+    setValue("to", toDate || undefined);
+  }
 
   return (
     <section className=" space-y-6 pb-12 ">
       <form className=" flex flex-col justify-between gap-3 rounded md:flex-row md:flex-wrap ">
         <div className=" flex flex-wrap gap-2 md:flex-row md:items-center ">
-          {/* <div className=" flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center "> */}
-          {/* <span className=" font-semibold ">Time Period:</span> */}
-
-          {/* <div className=" flex flex-col sm:flex-row gap-2 "> */}
-          <Controller
-            name="from"
-            control={control}
-            render={({ field: { value, onChange, ...rest } }) => {
-              return (
-                <div className=" relative flex items-center gap-1 ">
-                  {/* <span className=" font-main-bg-gray-600 w-10 text-sm sm:hidden ">
-                        From:
-                      </span> */}
-
-                  <input
-                    {...rest}
-                    id="from"
-                    type="date"
-                    className=" date-input w-full max-w-[10rem] rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
-                    value={value?.toLocaleDateString("en-CA")}
-                    onChange={(e) => {
-                      onChange(new Date(e.target.value));
-                    }}
-                  />
-                </div>
-              );
-            }}
+          <DateRangePicker
+            className={" text-sm "}
+            calendarProps={{className: cva(" text-black dark:bg-main-gray-700 z-50 ")(), }}
+            onChange={handleDateIput}
+            value={[from!, to!]}
+            calendarIcon={FiCalendar}
+            clearIcon={null}
           />
-
-          {/* <span className=" hidden text-xl font-bold sm:flex">-</span> */}
-
-          <Controller
-            name="to"
-            control={control}
-            render={({ field: { value, onChange, ...rest } }) => {
-              return (
-                <div className=" relative flex items-center gap-1 ">
-                  {/* <span className=" font-main-bg-gray-600 w-10 text-sm sm:hidden ">
-                        To:
-                      </span> */}
-
-                  <input
-                    {...rest}
-                    id="to"
-                    type="date"
-                    className=" date-input w-full max-w-[10rem] rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
-                    value={value?.toLocaleDateString("en-CA")}
-                    onChange={(e) => {
-                      onChange(new Date(e.target.value));
-                    }}
-                  />
-                </div>
-              );
-            }}
-          />
-          {/* </div> */}
-          {/* </div> */}
 
           <div className=" flex flex-wrap items-center gap-x-3 ">
             {/* <span className=" font-semibold ">Show:</span> */}
@@ -146,7 +106,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   <select
                     {...field}
                     id="show"
-                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
+                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1.5 text-sm outline-0 dark:border-main-gray-500 "
                   >
                     <option value={"price"}>Historical Prices</option>
                     {/* <option value={"splits"}>Stock Splits</option> */}
@@ -167,7 +127,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   <select
                     {...field}
                     id="period"
-                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
+                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1.5 text-sm outline-0 dark:border-main-gray-500 "
                   >
                     <option value={"1day"}>Daily</option>
                     <option value={"1week"}>Weekly</option>
@@ -191,7 +151,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
           </Button> */}
         </div>
 
-        {show === "price" && quoteHistory && (
+        {defaultValues.show === "price" && quoteHistory && (
           <QuoteHistoryTable quoteHistory={quoteHistory} />
         )}
       </div>
