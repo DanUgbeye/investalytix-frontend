@@ -1,120 +1,113 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SecFiling } from "@/modules/ticker/types";
 import { format } from "date-fns";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { z } from "zod";
+import { useMemo, useState } from "react";
 
-export const SEC_TYPE_SORT = [
+export const SEC_FILING_TYPES = [
   {
     label: "All",
-    value: "",
+    value: [],
+  },
+  {
+    label: "Annual Report to Shareholders",
+    value: ["ARS"],
   },
   {
     label: "Periodic Financial Report",
-    value: "10-K",
-  },
-  {
-    label: "Periodic Financial Report",
-    value: "10-Q",
+    value: ["10-K", "10-Q"],
   },
   {
     label: "Corporate Changes & Voting Matters",
-    value: "8-K",
-  },
-  {
-    label: "Corporate Changes & Voting Matters",
-    value: "DEF 14A",
+    value: ["8-K"],
   },
   {
     label: "Proxy Statements",
-    value: "DEF 14A",
+    value: ["DEFA14A", "DEF 14A"],
   },
   {
     label: "Offering Registration",
-    value: "S-1",
+    value: ["S-1", "S-8", "S-8 POS"],
   },
-  // {
-  //   label: "Tender Offer/Acquisition Reports",
-  //   value: "",
-  // },
+  {
+    label: "Tender Offer/Acquisition Reports",
+    value: ["SC 13G/A"],
+  },
 ];
 
-type SecFilingType = (typeof SEC_TYPE_SORT)[number]["value"];
-
-function verifySecFilingType(type: unknown) {
-  const validation = z
-    .enum([
-      SEC_TYPE_SORT[0].value,
-      SEC_TYPE_SORT[1].value,
-      SEC_TYPE_SORT[2].value,
-      SEC_TYPE_SORT[3].value,
-      SEC_TYPE_SORT[4].value,
-      SEC_TYPE_SORT[5].value,
-    ])
-    .safeParse(type);
-
-  if (validation.error) return SEC_TYPE_SORT[0].value;
-  return validation.data;
-}
-
 function getSecFilingNameFromType(type: string) {
-  // TODO input appropriate
-  return SEC_TYPE_SORT.find((sec) => sec.value === type)?.label || type;
+  return (
+    SEC_FILING_TYPES.find((sec) => sec.value.includes(type))?.label || type
+  );
 }
 
 interface RatioScreenProps {
   ticker: string;
   SECFilings: SecFiling[];
-  filters?: {
-    type?: string;
-    page?: number;
-    limit?: number;
-  };
 }
 
 export default function RatioScreen(props: RatioScreenProps) {
-  const { ticker, SECFilings, filters } = props;
-  const searchParams = useSearchParams();
+  const { ticker, SECFilings } = props;
 
-  function getSortUrl(sort: string) {
-    let params = new URLSearchParams(searchParams);
-    if (sort) {
-      params.set("sort", sort);
-    } else {
-      params.delete("sort");
+  const [currentFormType, setCurrentFormType] = useState<string>("All");
+
+  const SECFilingsToDisplay = useMemo(() => {
+    const currentFormValues = SEC_FILING_TYPES.find(
+      (formType) => formType.label == currentFormType
+    );
+    if (!currentFormValues || currentFormType === "All") {
+      let allTypes = getAvailableTypes();
+      return SECFilings.filter((filing) => allTypes.includes(filing.type));
     }
-    return params.toString();
+
+    return SECFilings.filter((filing) =>
+      currentFormValues.value.includes(filing.type)
+    );
+  }, [SECFilings, currentFormType]);
+
+  function getAvailableTypes() {
+    let formTypes: string[] = [];
+
+    for (const formTypeEntry of SEC_FILING_TYPES) {
+      formTypes.push(...formTypeEntry.value);
+    }
+
+    return formTypes;
   }
 
-  console.log(filters);
+  function handleFormSort(type: string) {
+    setCurrentFormType(type);
+  }
 
   return (
     <section className=" space-y-12 pb-12 ">
       <div className=" flex gap-2 overflow-x-auto md:flex-wrap ">
-        {SEC_TYPE_SORT.map((sorting, index) => {
-          const url = getSortUrl(sorting.value);
+        {SEC_FILING_TYPES.map((formType, index) => {
+          const isActive = currentFormType === formType.label;
 
           return (
-            <Link
-              key={`sorting.label-${index}`}
-              href={`?${url}`}
+            <Button
+              key={`formType.label-${index}`}
+              variant={"link"}
               className={cn(
-                " min-w-fit h-fit rounded-full border px-4 py-2 text-xs duration-300 hover:border-primary-base hover:text-primary-base dark:border-main-gray-700",
-                (filters?.type || "") === sorting.value &&
-                  " border-primary-base text-primary-base dark:border-primary-base  "
+                " h-fit min-w-fit rounded-lg border px-4 py-2 text-xs duration-300 hover:border-primary-base hover:text-primary-base hover:no-underline dark:border-main-gray-700",
+                isActive &&
+                  " border-primary-base text-primary-base dark:border-primary-base dark:text-primary-base  "
               )}
+              onClick={() => handleFormSort(formType.label)}
             >
-              {sorting.label}
-            </Link>
+              {formType.label}
+            </Button>
           );
         })}
       </div>
 
       <div className=" grid place-items-center gap-8 sm:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] ">
-        {SECFilings.map((filing, index) => {
+        {SECFilingsToDisplay.map((filing, index) => {
           return (
             <div
               key={index}

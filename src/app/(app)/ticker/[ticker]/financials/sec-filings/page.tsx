@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-import React from "react";
-import SECFilingsScreen from "./screen";
-import { SearchTickerPageProps } from "../../page";
-import { TickerRepository } from "@/modules/ticker/repository";
 import { serverAPI } from "@/config/server/api";
+import { TickerRepository } from "@/modules/ticker/repository";
 import { errorUtils } from "@/utils/error.utils";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { SearchTickerPageProps } from "../../page";
+import SECFilingsScreen from "./screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -28,18 +27,13 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(
-  ticker: string,
-  filters?: { type?: string; page?: number; limit?: number }
-) {
+async function getData(ticker: string) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     const [outlook, SECFilings] = await Promise.all([
       tickerRepo.getCompanyOutLook(ticker),
       tickerRepo.getSECFilings(ticker, {
-        page: filters?.page || 1,
-        limit: filters?.limit || 50,
-        type: filters?.type,
+        limit: 100,
       }),
     ]);
 
@@ -67,34 +61,9 @@ interface SECFilingsPageProps extends SearchTickerPageProps {
 export default async function SECFilingsPage(props: SECFilingsPageProps) {
   const {
     params: { ticker },
-    searchParams: { type, limit, page },
   } = props;
 
-  let filters: {
-    type?: string;
-    page?: number;
-    limit?: number;
-  } = {};
+  const { SECFilings } = await getData(ticker);
 
-  if (type) {
-    filters.type = type;
-  }
-
-  if (page && Number.isSafeInteger(Number(page))) {
-    filters.page = Number(page);
-  }
-
-  if (limit && Number.isSafeInteger(Number(limit))) {
-    filters.limit = Number(limit);
-  }
-
-  const { SECFilings } = await getData(ticker, filters);
-
-  return (
-    <SECFilingsScreen
-      ticker={ticker}
-      SECFilings={SECFilings}
-      filters={filters}
-    />
-  );
+  return <SECFilingsScreen ticker={ticker} SECFilings={SECFilings} />;
 }
