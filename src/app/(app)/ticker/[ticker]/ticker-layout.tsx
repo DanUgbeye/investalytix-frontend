@@ -15,6 +15,7 @@ import { useTickerRepository } from "@/modules/ticker/hooks";
 import { CompanyOutlook } from "@/modules/ticker/types";
 import { Quote } from "@/types";
 import appUtils from "@/utils/app-util";
+import { useInViewport } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { HTMLAttributes } from "react";
@@ -32,6 +33,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
   const { className, children, ticker, quote, outlook, currency, ...rest } =
     props;
   const tickerRepo = useTickerRepository();
+  const { ref, inViewport } = useInViewport();
 
   const { data: tickerQuote } = useQuery({
     queryKey: [QUERY_KEYS.GET_TICKER_QUOTE, ticker],
@@ -45,7 +47,10 @@ export default function TickerLayout(props: TickerLayoutProps) {
       <Container className=" px-0 sm:px-0 sm:pb-8 xl:px-0 ">
         <QuotesBoard />
 
-        <section className=" flex flex-col gap-5 px-6 sm:grid sm:grid-cols-[auto,1fr] md:grid-cols-[auto,1fr,auto] md:grid-rows-[auto,auto] md:gap-x-8 ">
+        <section
+          id={"ticker-stats"}
+          className=" flex flex-col gap-5 px-6 sm:grid sm:grid-cols-[auto,1fr] md:grid-cols-[auto,1fr,auto] md:grid-rows-[auto,auto] md:gap-x-8 "
+        >
           <Avatar className="hidden size-20 place-items-center bg-main-gray-200/40 p-2 sm:grid md:row-span-full md:size-40 md:p-6 dark:bg-main-gray-800 ">
             <AvatarImage
               src={outlook.profile.image}
@@ -57,7 +62,10 @@ export default function TickerLayout(props: TickerLayoutProps) {
             </AvatarFallback>
           </Avatar>
 
-          <div className=" col-span-2 col-start-1 space-y-2 sm:col-start-2 lg:col-span-1 ">
+          <div
+            ref={ref}
+            className=" col-span-2 col-start-1 space-y-2 sm:col-start-2 lg:col-span-1 "
+          >
             <div className=" text-3xl font-bold md:text-4xl ">
               {tickerQuote.name}
             </div>
@@ -105,7 +113,10 @@ export default function TickerLayout(props: TickerLayoutProps) {
               {tickerQuote.timestamp && (
                 <div className=" text-sm text-main-gray-400 ">
                   At close:{" "}
-                  {format(new Date(tickerQuote.timestamp), "MMMM dd hh:mm a")}
+                  {format(
+                    new Date(tickerQuote.timestamp * 1000),
+                    "MMMM dd hh:mm a"
+                  )}
                 </div>
               )}
             </div>
@@ -169,13 +180,16 @@ export default function TickerLayout(props: TickerLayoutProps) {
       <Container className=" grid min-h-[calc(100dvh-5rem)] grid-cols-1 grid-rows-[auto,1fr] px-0 pt-8 sm:px-0 md:grid-rows-1 xl:px-0 ">
         <DesktopTickerNav
           quote={tickerQuote}
+          statsVisible={inViewport}
           ticker={ticker}
           className=" sticky top-[88px] col-start-1 row-start-1 mb-8 hidden h-fit max-h-[calc(100dvh-5rem)] w-[18rem] overflow-y-auto lg:flex "
         />
 
         <MobileTickerNav
+          quote={tickerQuote}
+          statsVisible={inViewport}
           ticker={ticker}
-          className=" sticky top-[85px] z-40 h-fit flex md:top-[89px] lg:hidden "
+          className=" sticky top-[84px] z-40 flex h-fit md:top-[88px] lg:hidden "
         />
 
         <main className=" col-start-1 lg:row-start-1 lg:ml-[18rem] ">
