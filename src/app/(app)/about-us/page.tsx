@@ -151,7 +151,7 @@ function AboutAlan() {
         />
 
         <div className="fixed inset-0 flex h-screen w-screen items-start justify-center overflow-hidden">
-          <div className="h-screen w-full overflow-auto bg-white">
+          <div className="h-screen w-full overflow-auto bg-white dark:bg-black">
             <Dialog.Panel className="w-full h-full">
               <div className="mx-auto flex max-w-4xl flex-col gap-12 rounded-xl md:flex-row relative px-5 md:px-14 py-20">
                 {/* close btn */}
@@ -159,7 +159,7 @@ function AboutAlan() {
                   <FiX className="size-6" />
                 </button>
 
-                <div className="h-52 w-52 shrink-0 rounded-full bg-black"></div>
+                <div className="h-52 w-52 shrink-0 rounded-full bg-black dark:bg-white/5"></div>
 
                 <div className="">
                   <h1 className="mb-3 text-5xl font-bold">Jimmy Alan</h1>
