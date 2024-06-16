@@ -33,11 +33,11 @@ export default function MarketHeader({
   function hoverLeaveHandler(
     e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
   ) {
-    // const current = ref.current;
-    // if (current === null) return;
-    // e.preventDefault();
-    // current.style.width = `0px`;
-    // current.style.left = `0px`;
+    const current = ref.current;
+    if (current === null) return;
+    e.preventDefault();
+    current.style.width = `0px`;
+    current.style.left = `0px`;
   }
 
   return (
@@ -51,10 +51,10 @@ export default function MarketHeader({
         {name.toLowerCase()}
       </h1>
 
-      <div className="relative">
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-black/10"></div>
+      <div className="relative isolate" onMouseLeave={hoverLeaveHandler}>
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-black/10 -z-[1]"></div>
 
-        <div className="relative md:mx-auto md:w-fit">
+        <div className="relative md:mx-auto md:w-fit z-10">
           <div
             className="absolute bottom-0 left-0 z-[2] h-[2px] w-[0px] bg-primary-base duration-150"
             ref={ref}
@@ -73,7 +73,6 @@ export default function MarketHeader({
                         "border-transparent"
                   }`}
                   onMouseOver={hoverHandler}
-                  onMouseLeave={hoverLeaveHandler}
                 >
                   <Link
                     href={mkt.href}
