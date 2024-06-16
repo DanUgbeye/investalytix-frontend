@@ -41,17 +41,17 @@ export default function AboutUsPage() {
         </p>
       </header>
 
-      <Container className="">
+      <Container className="max-w-[1440px]">
         {data.map((about, index) => (
           <div
             key={about.category.replaceAll(" ", "-")}
-            className={`mt-24 grid gap-10 md:gap-14 grid-rows-[300px,1fr] md:grid-rows-1 ${index % 2 === 0 ? "md:grid-cols-[3fr,2fr] lg:grid-cols-[55%,45%]" : "grid-cols-reverse md:grid-cols-[2fr,3fr] lg:grid-cols-[45%,55%]"}`}
+            className={`mt-24 grid gap-10 md:gap-14 grid-rows-[300px,1fr] md:grid-rows-1 items-center ${index % 2 === 0 ? "md:grid-cols-[3fr,2fr] lg:grid-cols-[55%,45%]" : "grid-cols-reverse md:grid-cols-[2fr,3fr] lg:grid-cols-[45%,55%]"}`}
           >
             <div className="rounded-xl bg-gray-200 xl:min-h-[400px]"></div>
             <div className={`${index % 2 === 0 ? "" : "md:-order-1"}`}>
               <h2 className="text-xl font-medium">{about.category}</h2>
               <h3 className="mb-9 mt-4 text-3xl font-bold">{about.title}</h3>
-              <p className="">{about.desc}</p>
+              <p className="lg:text-xl">{about.desc}</p>
             </div>
           </div>
         ))}
@@ -59,7 +59,7 @@ export default function AboutUsPage() {
         <div className="lg:px-24">
           <div className="mt-24">
             <h2 className="mb-8 text-5xl font-bold">Team and Commitment</h2>
-            <p>
+            <p className="text-xl">
               Our team reflects our values of thoroughness and dedication. We
               strive to understand the underlying dynamics of market behaviors
               and prove our ideas through tangible evidence and advanced tools.
@@ -79,7 +79,7 @@ export default function AboutUsPage() {
               <p className="text-3xl font-bold max-sm:text-center">About Jimmy Alan</p>
               <p className="mb-3 max-sm:text-center">founder</p>
 
-              <p className="max-sm:text-center">
+              <p className="max-sm:text-center text-xl">
                 Jimmy Alan's journey began as a young 15-year-old Iraqi
                 immigrant who escaped the country after the Desert Storm war and
                 moved to America. Coming from a poor family, Jimmy faced
@@ -94,7 +94,7 @@ export default function AboutUsPage() {
         <div className="mx-auto max-w-7xl grid max-md:grid-rows-[300px,1fr] md:grid-cols-2 gap-10 md:gap-14">
           <div className="">
             <h1 className="text-3xl">Connect With Us</h1>
-            <p className="mb-8 mt-3">
+            <p className="mb-8 mt-3 text-xl">
               We're always here to help and answer any questions you might have.
               Please fill out the form below, and we'll get back to you as soon
               as possible.
@@ -103,7 +103,7 @@ export default function AboutUsPage() {
             <Button>Contact us</Button>
           </div>
 
-          <div className="bg-black rounded-xl max-md:-order-1"></div>
+          <div className="bg-black rounded-xl max-md:-order-1 md:h-[400px]"></div>
         </div>
       </div>
     </main>
