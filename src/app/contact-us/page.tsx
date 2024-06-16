@@ -26,7 +26,7 @@ export default function ContactUsPage() {
         </p>
 
         <form className="mt-7">
-          <div className="flex gap-7">
+          <div className="flex flex-col md:flex-row gap-7">
             <div className="w-full">
               <FormLabel htmlFor="name">Name</FormLabel>
               <Input
