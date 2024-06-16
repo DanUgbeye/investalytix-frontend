@@ -15,11 +15,11 @@ export default function ContactUsPage() {
   return (
     <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid">
       <div className="px-14 py-24">
-        <h1 className="text-7xl font-bold lg:text-8xl">
+        <h1 className="text-6xl sm:text-7xl font-bold lg:text-8xl">
           Connect with{" "}
           <span className="text-primary-base dark:text-primary-light">us</span>
         </h1>
-        <p className="mt-7 text-xl md:text-2xl">
+        <p className="mt-7 text-lg sm:text-xl md:text-2xl">
           We're always here to help and answer any questions you might have.
           Please fill out the form below, and we'll get back to you as soon as
           possible.
