@@ -25,7 +25,7 @@ export default function Footer() {
             <div className="flex flex-grow flex-wrap gap-10  sm:justify-between">
               {/* visit */}
               <div className="flex flex-col gap-4 capitalize">
-                <p className="text-xs font-extrabold uppercase">Visit</p>
+                <p className="text-lg font-bold capitalize">Visit</p>
                 <Link className="text-hover-focus" href={PAGES.ABOUT_US}>
                   About us
                 </Link>
@@ -41,7 +41,7 @@ export default function Footer() {
               </div>
               {/* products */}
               <div className="flex flex-col gap-4 capitalize">
-                <p className="text-xs font-extrabold uppercase">products</p>
+                <p className="text-lg font-bold capitalize">products</p>
                 <Link className="text-hover-focus" href={PAGES.CHART}>
                   chart
                 </Link>
