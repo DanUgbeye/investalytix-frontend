@@ -112,7 +112,7 @@ export default function AboutUsPage() {
 }
 
 function AboutAlan() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const toggleOpen = () => {
     setOpen((s) => !s);
