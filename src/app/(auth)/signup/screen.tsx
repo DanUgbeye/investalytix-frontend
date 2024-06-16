@@ -276,7 +276,7 @@ export default function SignupScreen() {
 
               <Button
                 disabled={isSubmitting || !isDirty || !termsAccepted}
-                className="h-fit w-full cursor-pointer rounded-md bg-black py-4 text-white/70"
+                className="h-fit w-full cursor-pointer rounded-md bg-black py-4"
               >
                 {isSubmitting ? (
                   <PiSpinnerGap className=" size-5 animate-spin " />
@@ -291,7 +291,7 @@ export default function SignupScreen() {
               <div className="absolute left-0 right-0 top-1/2 -z-[1] h-[0.5px] translate-y-1/2 bg-black/20"></div>
             </div>
 
-            <button className="mb-5 flex w-full items-center justify-center gap-3 rounded-md border border-black px-4 py-3 hover:bg-black hover:text-white/70 focus:bg-black focus:text-white/70">
+            <button className="group mb-5 flex w-full items-center justify-center gap-3 rounded-md border border-black px-4 py-3 hover:bg-black hover:text-white/70 focus:bg-black focus:text-white/70">
               <svg
                 width={16}
                 height={17}
@@ -316,7 +316,7 @@ export default function SignupScreen() {
                   fill="#EA4335"
                 />
               </svg>
-              <span className="text-sm font-medium">Sign up with Google</span>
+              <span className="text-sm font-medium dark:text-black group-hover:text-white group-focus:text-white">Sign up with Google</span>
             </button>
 
             <p className="text-center">
