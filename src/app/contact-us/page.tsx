@@ -15,7 +15,7 @@ export default function ContactUsPage() {
   return (
     <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid">
       <div className="px-14 py-24">
-        <h1 className="text-6xl sm:text-7xl font-bold lg:text-8xl">
+        <h1 className="text-5xl sm:text-7xl font-bold lg:text-8xl">
           Connect with{" "}
           <span className="text-primary-base dark:text-primary-light">us</span>
         </h1>
