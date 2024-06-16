@@ -68,8 +68,8 @@ export default function SignupScreen() {
 
   return (
     <>
-      <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid max-md:pb-20">
-        <div className="flex gap-10 w-full flex-col justify-between px-14 py-24 max-md:h-screen">
+      <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] max-md:pb-20 md:grid bg-white">
+        <div className="flex w-full flex-col justify-between gap-10 px-14 py-24 max-md:h-screen">
           <Link href="/">
             <svg
               id="Layer_1"
@@ -129,59 +129,61 @@ export default function SignupScreen() {
                 Create your free account
               </h1>
 
-              <Controller
-                control={control}
-                name="firstname"
-                rules={{ required: true }}
-                render={({ field, fieldState }) => (
-                  <FormItem className="mt-3">
-                    <FormLabel
-                      htmlFor="firstname"
-                      error={!!fieldState.error}
-                      className=" mb-3 text-[#3C4257] "
-                    >
-                      Firstname
-                    </FormLabel>
+              <div className="flex flex-col md:flex-row md:gap-6">
+                <Controller
+                  control={control}
+                  name="firstname"
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <FormItem className="mt-3 w-full">
+                      <FormLabel
+                        htmlFor="firstname"
+                        error={!!fieldState.error}
+                        className=" mb-3 text-[#3C4257] "
+                      >
+                        Firstname
+                      </FormLabel>
 
-                    <Input
-                      {...field}
-                      id="firstname"
-                      className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
-                      type="text"
-                      placeholder="John"
-                    />
+                      <Input
+                        {...field}
+                        id="firstname"
+                        className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                        type="text"
+                        placeholder="John"
+                      />
 
-                    <FormMessage message={fieldState.error?.message} />
-                  </FormItem>
-                )}
-              />
+                      <FormMessage message={fieldState.error?.message} />
+                    </FormItem>
+                  )}
+                />
 
-              <Controller
-                control={control}
-                name="lastname"
-                rules={{ required: true }}
-                render={({ field, fieldState }) => (
-                  <FormItem className="mt-3">
-                    <FormLabel
-                      htmlFor="lastname"
-                      error={!!fieldState.error}
-                      className=" mb-3 text-[#3C4257]"
-                    >
-                      Lastname
-                    </FormLabel>
+                <Controller
+                  control={control}
+                  name="lastname"
+                  rules={{ required: true }}
+                  render={({ field, fieldState }) => (
+                    <FormItem className="mt-3 w-full">
+                      <FormLabel
+                        htmlFor="lastname"
+                        error={!!fieldState.error}
+                        className=" mb-3 text-[#3C4257]"
+                      >
+                        Lastname
+                      </FormLabel>
 
-                    <Input
-                      {...field}
-                      id="lastname"
-                      className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
-                      type="text"
-                      placeholder="Doe"
-                    />
+                      <Input
+                        {...field}
+                        id="lastname"
+                        className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                        type="text"
+                        placeholder="Doe"
+                      />
 
-                    <FormMessage message={fieldState.error?.message} />
-                  </FormItem>
-                )}
-              />
+                      <FormMessage message={fieldState.error?.message} />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
               <Controller
                 control={control}

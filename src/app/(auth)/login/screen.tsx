@@ -55,7 +55,7 @@ export default function LoginScreen() {
 
   return (
     <>
-      <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid">
+      <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid bg-white">
         <div className="max-md:h-screen flex gap-10 w-full flex-col justify-between px-14 py-24">
           <Link href="/">
             <svg
