@@ -26,7 +26,7 @@ export default function USMarketTemplate({
       <MarketSelector
         active="U.S"
         selectors={marketSelectors}
-        className="mb-10"
+        className="mb-6"
       />
 
       <MarketSubLinks markets={markets} />

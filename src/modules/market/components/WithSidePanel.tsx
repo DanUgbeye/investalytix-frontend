@@ -27,7 +27,7 @@ export default function WithSidePanel({
     <>
       <div>{children}</div>
 
-      <div className="mt-20 grid gap-14 border-[#DCDCDC] pb-10 md:grid-cols-2 xl:grid-cols-3 dark:border-white/10">
+      <div className="mt-20 grid gap-14 border-[#DCDCDC] pb-10 md:grid-cols-2 dark:border-white/10">
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["HOT_PICKS"])) && (
           <SidePanel
@@ -81,11 +81,11 @@ export default function WithSidePanel({
           sections.includes(SIDE_SECTIONS["WATCHLIST"])) && <Watchlist />}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["TOP_ECONOMIC_EVENT"])) && (
-          <div className="md:col-span-2 xl:col-span-3">
+          <div className="md:col-span-2">
             <EconomicEvent />
           </div>
         )}
-        <div className="md:col-span-2 xl:col-span-3">
+        <div className="md:col-span-2">
           {sections.includes(SIDE_SECTIONS["TRENDING_NOW"]) && (
             <EconomicEvent />
           )}

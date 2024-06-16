@@ -77,7 +77,7 @@ export default function MarketHeader({
                 >
                   <Link
                     href={mkt.href}
-                    className={`bg-hover-focus text-hover-focus whitespace-nowrap rounded-full px-3 py-1 text-sm font-bold capitalize ${isActive ? "text-primary-base" : ""}`}
+                    className={`bg-hover-focus text-hover-focus whitespace-nowrap rounded-md px-3 py-1 text-sm font-bold capitalize ${isActive ? "text-primary-base" : ""}`}
                   >
                     {mkt.label.toLowerCase()}
                   </Link>

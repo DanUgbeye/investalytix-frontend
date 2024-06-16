@@ -25,7 +25,7 @@ export default function MarketSelector({
         <Link
           key={selector.href}
           href={selector.href}
-          className={`bg-hover-focus whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
+          className={`bg-hover-focus whitespace-nowrap rounded-md px-4 py-1 text-center text-sm capitalize ${
             active === selector.label ? "bg-primary-base text-white" : ""
           }`}
         >

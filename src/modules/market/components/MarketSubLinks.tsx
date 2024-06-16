@@ -41,7 +41,7 @@ export default function MarketSubLinks({
                 <Link
                   key={market.href}
                   href={market.href}
-                  className={`bg-hover-focus whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
+                  className={`bg-hover-focus whitespace-nowrap rounded-md px-4 py-1 text-center text-sm capitalize ${
                     market.href === pathname ? "text-primary-base" : ""
                   }`}
                 >

@@ -17,7 +17,7 @@ export default function AmericasPage() {
       <MarketSelector
         active="AMERICAS"
         selectors={marketSelectors}
-        className="mb-10"
+        className="mb-6"
       />
 
       <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>

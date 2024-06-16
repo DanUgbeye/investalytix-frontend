@@ -99,7 +99,7 @@ export default async function EconomicEvent() {
     <div>
       <MarketHeading label="Top Economic Event" />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2">
         {[0, 1].map((index) => (
           <>
             <NewsLink news={general.data[index]}>

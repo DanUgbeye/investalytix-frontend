@@ -78,7 +78,7 @@ export default async function TrendingNow() {
     <section className="overflow-hidden">
       <MarketHeading label="trending now" />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2">
         <NewsLink news={forex.data[5]}>
           <NewsCard news={forex.data[5]}></NewsCard>
         </NewsLink>
