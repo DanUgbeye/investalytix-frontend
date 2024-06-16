@@ -68,7 +68,7 @@ export default function SignupScreen() {
 
   return (
     <>
-      <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid pb-20">
+      <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid max-md:pb-20">
         <div className="flex gap-10 w-full flex-col justify-between px-14 py-24 max-md:h-screen">
           <Link href="/">
             <svg

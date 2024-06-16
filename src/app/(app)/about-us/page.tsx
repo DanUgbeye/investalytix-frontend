@@ -107,7 +107,7 @@ export default function AboutUsPage() {
 
             <Link
               href=""
-              className="h-11 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md bg-primary-base text-sm font-medium text-white ring-offset-white transition-colors duration-300 hover:bg-primary-base/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300"
+              className="h-12 px-8 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md bg-primary-base text-lg font-medium text-white ring-offset-white transition-colors duration-300 hover:bg-primary-base/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300"
             >
               Contact us
             </Link>
