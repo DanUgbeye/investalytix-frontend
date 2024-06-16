@@ -14,6 +14,14 @@ import {
   ComposedChart,
 } from "recharts";
 import MarketHeading from "../MarketHeading";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export default function InvestorSentiment() {
   const timeframes = ["1m", "5m", "15m", "1h"];
@@ -74,9 +82,9 @@ export default function InvestorSentiment() {
       </div>
 
       {/* divider */}
-      <div className="mb-6 mt-8 h-[6px] w-full bg-[#1D1D1D]"></div>
+      {/* <div className="mb-6 mt-8 h-[6px] w-full bg-[#1D1D1D]"></div> */}
 
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 mt-8 flex items-center justify-between">
         <p className="font-bold">Historical Data</p>
         <p className="font-bold">
           View and Export this Data back to 1987.{" "}
@@ -96,21 +104,19 @@ export default function InvestorSentiment() {
 
 function HistoricalTable() {
   return (
-    <table className="w-full table-auto">
-      <thead>
-        <tr className="text-white dark:text-white/80">
-          <th className="th text-left uppercase">DATE</th>
-          <th className="th text-right uppercase">VALUE</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
-          <td className="p-2 text-left text-sm font-bold uppercase">
-            January 04, 2024
-          </td>
-          <td className="p-2 text-right text-sm font-bold">48.56%</td>
-        </tr>
-      </tbody>
-    </table>
+    <Table className="w-full table-auto">
+      <TableHeader>
+        <TableRow className="" headerRow>
+          <TableHead className="text-left capitalize">date</TableHead>
+          <TableHead className="text-right capitalize">value</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell>January 04, 2024</TableCell>
+          <TableCell className="text-right">48.56%</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
   );
 }

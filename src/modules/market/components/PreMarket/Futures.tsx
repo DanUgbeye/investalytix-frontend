@@ -23,11 +23,11 @@ export default function Futures({
           <TableHeader>
             <TableRow headerRow>
               <TableHead className="capitalize">
-                {isFairValue ? "FV CLOSE" : "IND CLOSE"}
+                {isFairValue ? "FV close" : "IND close"}
               </TableHead>
-              <TableHead className="capitalize">FUTURE</TableHead>
+              <TableHead className="capitalize">future</TableHead>
               <TableHead className="capitalize">
-                {isFairValue ? "IML OPEN" : "CHANGE"}
+                {isFairValue ? "IML open" : "change"}
               </TableHead>
             </TableRow>
           </TableHeader>
