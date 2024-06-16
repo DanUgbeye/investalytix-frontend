@@ -1,5 +1,7 @@
 import { Container } from "@/components/container";
-import { GeneralNews } from "@/modules/news/types";
+import NewsCard from "@/modules/news/components/news-card";
+import NewsLink from "@/modules/news/components/news-link";
+import { GeneralNews, News } from "@/modules/news/types";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,7 +23,7 @@ async function getData(params?: { limit?: number; page?: number }) {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: GeneralNews[];
+    data: News[];
   }>;
 }
 
@@ -49,58 +51,55 @@ export default async function NewsPage() {
 
             {/*  */}
             <div className="absolute bottom-0 left-0 right-0 h-fit bg-gradient-to-b from-transparent to-black to-30% p-5 pt-20 text-white/80">
-              <Link
-                href={major.url}
-                target="_blank"
-                className="text-3xl font-semibold text-hover-focus"
-              >
-                {major.title}
-              </Link>
+              <NewsLink news={major}>
+                <p className="text-hover-focus text-3xl font-semibold">
+                  {major.title}
+                </p>
+              </NewsLink>
 
               <div className="my-5 h-[0.5px] w-full bg-white/20"></div>
 
-              <Link
-                href={minor_major[0].url}
-                target="_blank"
-                className="font-semibold text-hover-focus"
-              >
-                {minor_major[0].title}
-              </Link>
+              <NewsLink news={minor_major[0]}>
+                <p className="text-hover-focus font-semibold">
+                  {minor_major[0].title}
+                </p>
+              </NewsLink>
             </div>
           </div>
 
           {/* 2 */}
           <div className="flex h-fit justify-between gap-5 lg:flex-col">
             {minor_major.slice(1).map((news) => (
-              <Link
-                key={news.title.replaceAll(" ", "-")}
-                href={news.url}
-                target="_blank"
-                className="text-hover-focus"
-              >
-                <div
-                  className={`relative aspect-square w-full overflow-hidden`}
-                >
-                  <Image
-                    src={news.image}
-                    alt=""
-                    fill
-                    className="object-cover"
-                  />
+              <NewsLink news={news} key={news.title.replaceAll(" ", "-")}>
+                <div className="text-hover-focus">
+                  <div
+                    className={`relative aspect-square w-full overflow-hidden`}
+                  >
+                    <Image
+                      src={news.image}
+                      alt=""
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="mt-4 font-semibold leading-tight">
+                    {news.title}
+                  </p>
                 </div>
-                <p className="mt-4 font-semibold leading-tight">{news.title}</p>
-              </Link>
+              </NewsLink>
             ))}
           </div>
         </div>
 
         {/* 3 */}
         <div className="grid-rows-[max-content,1fr] gap-4 lg:grid lg:overflow-hidden">
-          <p className="text-3xl font-bold">Latest News</p>
+          <p className="text-3xl font-bold max-xl:mb-4 ">Latest News</p>
           <div className="relative lg:overflow-hidden">
-            <div className="lg:absolute lg:inset-0 lg:overflow-auto">
-              {latest.map((news) => (
-                <LatestNews news={news} key={news.title.replaceAll(" ", "-")} />
+            <div className="gap-x-10 gap-y-4 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 lg:absolute lg:inset-0 lg:overflow-auto">
+              {latest.slice(0, 14).map((news) => (
+                <NewsLink news={news} key={news.title.replaceAll(" ", "-")}>
+                  <NewsCard news={news} />
+                </NewsLink>
               ))}
             </div>
 
@@ -109,9 +108,11 @@ export default async function NewsPage() {
         </div>
       </div>
 
-      <div className="grid">
+      <div className="mb-16 grid gap-x-10 gap-y-4 md:grid-cols-2 lg:mt-16 xl:grid-cols-3">
         {otherNews.data.map((news, index) => (
-          <INews latest={index === 0} news={news} />
+          <NewsLink news={news} key={news.title.replaceAll(" ", "-")}>
+            <NewsCard news={news} />
+          </NewsLink>
         ))}
       </div>
     </Container>
@@ -124,64 +125,7 @@ function LatestNews({ news }: { news: GeneralNews }) {
       <p className="text-sm font-bold uppercase">
         {moment(news.publishedDate).fromNow()}
       </p>
-      <Link
-        href={news.url}
-        target="_blank"
-        className="text-hover-focus"
-      >
-        {news.title}
-      </Link>
+      <p>{news.title}</p>
     </div>
-  );
-}
-
-function INews({
-  latest = false,
-  news,
-}: {
-  latest?: boolean;
-  news: GeneralNews;
-}) {
-  return (
-    <Link
-      href={news.url}
-      target="_blank"
-      className="group grid grid-cols-1 grid-rows-[200px,1fr] gap-5 border-b border-black/20 py-4 lg:grid-cols-[max-content,1fr] lg:grid-rows-[auto,auto] lg:py-8 dark:border-b-white/20"
-    >
-      <div
-        className={`relative h-full max-h-[200px] w-full overflow-hidden lg:w-80 ${latest ? "lg:w-96" : "w-80"}`}
-      >
-        <Image src={news.image} alt="" fill className="object-cover" />
-      </div>
-      <div className="">
-        <div className="flex flex-wrap items-start justify-between gap-2 xl:gap-5">
-          <p className="white-text font-extrabold text-[#020224] lg:text-xl text-hover-focus">
-            {news.title}
-          </p>
-          {!latest && (
-            <p className="white-text flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base">
-              <span className="uppercase">{news.site}</span>
-              <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
-              <span className="whitespace-nowrap">
-                {moment(news.publishedDate).format("Do MMMM, YYYY")}
-              </span>
-            </p>
-          )}
-        </div>
-        <p className="white-text mt-4 text-sm text-[#4B4646] lg:mt-8 lg:text-base">
-          {news.text}
-        </p>
-
-        {latest && (
-          <p className="white-text mt-8 flex flex-nowrap items-center gap-2 text-sm font-medium text-[#565555] lg:text-base">
-            <span className="uppercase">{news.site}</span>
-            <span className="inline-block h-1 w-1 bg-[#0097F4]"></span>
-            <span className="whitespace-nowrap">
-              {moment(news.publishedDate).format("Do MMMM, YYYY")}
-            </span>
-          </p>
-        )}
-      </div>
-    </Link>
   );
 }
