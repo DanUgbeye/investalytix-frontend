@@ -1,17 +1,20 @@
+"use client";
 import { FormLabel } from "@/components/fom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { FiArrowLeft, FiChevronLeft } from "react-icons/fi";
 
 export default function ContactUsPage() {
+  const [file, setFile] = useState();
   function goBack() {
     window.history.back();
   }
   return (
     <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid">
-      <div className="ml-auto max-w-[600px] px-14 py-24">
+      <div className="px-14 py-24">
         <h1 className="text-7xl font-bold lg:text-8xl">
           Connect with{" "}
           <span className="text-primary-base dark:text-primary-light">us</span>
@@ -51,9 +54,36 @@ export default function ContactUsPage() {
             />
           </div>
 
-          <div className="mt-7"></div>
+          <div className="mt-7">
+            <FormLabel htmlFor="how">How can we help you?</FormLabel>
 
-          <Button type="submit">Submit</Button>
+            <select
+              id="name"
+              // placeholder="Enter your phone number"
+              className="mt-3 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:ring-offset-gray-950 dark:placeholder:text-gray-400 dark:focus-visible:ring-gray-300"
+            >
+              <option value="">option 1</option>
+              <option value="">option 2</option>
+              <option value="">option 3</option>
+            </select>
+          </div>
+
+          <div className="mt-7">
+            <FormLabel htmlFor="message">Message</FormLabel>
+            <textarea
+              name="message"
+              id="message"
+              className="mt-3 flex h-10 min-h-[200px] w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:ring-offset-gray-950 dark:placeholder:text-gray-400 dark:focus-visible:ring-gray-300"
+            ></textarea>
+          </div>
+
+          <div className="mt-7">
+            {/* <File /> */}
+          </div>
+
+          <Button type="submit" className="mt-3">
+            Submit
+          </Button>
         </form>
       </div>
       <div className="bg-[url('/images/contact-us.jpg')] bg-cover bg-left bg-no-repeat md:relative">
