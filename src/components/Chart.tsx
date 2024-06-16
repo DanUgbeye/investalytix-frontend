@@ -66,7 +66,7 @@ export default function Chart({ className = "" }: ChartProps) {
 
       const lineSeries = chart.addAreaSeries({
         lineColor: color,
-        lineWidth:1,
+        lineWidth: 1,
 
         topColor:
           theme === "dark"

@@ -33,7 +33,7 @@ export default async function SidePanel({
           {title}
         </p>
 
-        <Link href="" className="text-hover-focus py-1 text-sm rounded-full">
+        <Link href="" className="text-hover-focus rounded-full py-1 text-sm">
           view all
         </Link>
       </header>
@@ -46,14 +46,14 @@ export default async function SidePanel({
           return (
             <div
               key={quote.name}
-              className="grid grid-cols-3 border-b dark:dark:border-white/10 py-2"
+              className="grid grid-cols-3 border-b py-2 dark:dark:border-white/10"
             >
               <div className="flex w-[40%] items-center gap-2">
                 <div className="h-6 w-6 shrink-0 animate-pulse rounded-full bg-gray-200"></div>
                 <div className="">{quote.symbol}</div>
               </div>
               <div
-                className={`self-center rounded px-4 w-fit place-self-center py-1 text-center font-bold ${
+                className={`w-fit place-self-center self-center rounded px-4 py-1 text-center font-bold ${
                   isPositive
                     ? "bg-[#D6FFEF] text-[#00CA5F]"
                     : "bg-[#FEDEDF] text-[#E74C3C]"

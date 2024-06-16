@@ -4,18 +4,21 @@ import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 
 export const tableHeaderCellVariants = cva(
-  " sticky left-0 bg-white dark:bg-black group-hover:bg-inherit ",
+  " sticky left-0 bg-white dark:bg-black group-hover:bg-inherit " +
+    " [&>*:first-child]:border-r p-0 [&>*:first-child]:px-4 [&>*:first-child]:py-2 [&>*:first-child]:flex [&>*:first-child]:h-full [&>*:first-child]:items-center ",
   {
     variants: {
       scrolled: {
-        true: "  [&>*:first-child]:border-r [&>*:first-child]:border-main-gray-300 p-0 [&>*:first-child]:px-4 [&>*:first-child]:py-2 [&>*:first-child]:flex [&>*:first-child]:h-full [&>*:first-child]:items-center [&>*:first-child]:dark:border-main-gray-800 ",
-        false: "  ",
+        true: "  [&>*:first-child]:dark:border-main-gray-800 ",
+        false:
+          "  [&>*:first-child]:border-r-transparent [&>*:dark:first-child]:border-r-transparent ",
       },
       highlight: {
         true: " bg-[#F0F3FA] dark:bg-black ",
         false: "",
       },
     },
+    defaultVariants: { scrolled: false, highlight: false },
   }
 );
 

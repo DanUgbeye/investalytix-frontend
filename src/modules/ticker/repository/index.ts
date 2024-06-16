@@ -14,6 +14,8 @@ import {
   InstitutionalHolder,
   MutualFundHolder,
   News,
+  Ratio,
+  SecFiling,
 } from "../types";
 import {
   BalanceSheetStatementSchema,
@@ -25,6 +27,8 @@ import {
   IncomeStatementSchema,
   InstitutionalHolderSchema,
   MutualFundHolderSchema,
+  RatioSchema,
+  SecFilingSchema,
 } from "../validation";
 import {
   Quote,
@@ -407,6 +411,75 @@ export class TickerRepository {
         .safeParse(res.data.data);
 
       if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getRatios(
+    ticker: string,
+    filter?: { period?: FinancialPeriod; page?: number; limit?: number },
+    options?: RequestOptions | undefined
+  ): Promise<Ratio[]> {
+    try {
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", filter.period);
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/tickers/${ticker}/ratios?${searchParams.toString()}`;
+      let res = await this.axios.get<{ data: Ratio[] }>(path, options);
+
+      let validation = z.array(RatioSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getSECFilings(
+    ticker: string,
+    filter?: { type?: string; page?: number; limit?: number },
+    options?: RequestOptions | undefined
+  ): Promise<SecFiling[]> {
+    try {
+      let searchParams = new URLSearchParams();
+
+      if (filter?.type) {
+        searchParams.append("type", filter.type);
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/tickers/${ticker}/sec-filings?${searchParams.toString()}`;
+      let res = await this.axios.get<{ data: SecFiling[] }>(path, options);
+
+      let validation = z.array(SecFilingSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        console.log(JSON.stringify(validation.error, null, 2));
         throw new Error("Something went wrong on our end");
       }
 

@@ -1,21 +1,17 @@
 "use client";
 
-import Spinner from "@/components/spinner";
+import ColoredNumber from "@/components/ui/ColoredNumber";
 import PAGES from "@/data/page-map";
 import { cn } from "@/lib/utils";
+import { Quote } from "@/types";
+import appUtils from "@/utils/app-util";
+import { format } from "date-fns";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { MdOutlineInsertChart } from "react-icons/md";
 import { TickerNavProps } from ".";
 import TickerNavLink from "../ticker-nav-link";
 import { TICKER_NAV_TABS } from "./ticker-sidenav.types";
-import { Quote } from "@/types";
-import appUtils from "@/utils/app-util";
-import ColoredNumber from "@/components/ui/ColoredNumber";
-import { format } from "date-fns";
-import { useTickerRepository } from "../../hooks";
-import { useQuery } from "@tanstack/react-query";
-import { QUERY_KEYS } from "@/data/query-keys";
 
 function getNavTabIcon(
   tab: (typeof TICKER_NAV_TABS)[keyof typeof TICKER_NAV_TABS]["label"]
@@ -222,19 +218,18 @@ function getNavTabIcon(
 
 export interface DesktopTickerNavProps extends TickerNavProps {
   quote: Quote;
+  statsVisible: boolean;
 }
 
 export function DesktopTickerNav(props: DesktopTickerNavProps) {
-  const { ticker, className, quote, ...rest } = props;
-  const tickerRepo = useTickerRepository();
+  const {
+    ticker,
+    className,
+    quote: tickerQuote,
+    statsVisible,
+    ...rest
+  } = props;
   const pathname = usePathname();
-
-  const { data: tickerQuote } = useQuery({
-    queryKey: [QUERY_KEYS.GET_TICKER_QUOTE, ticker],
-    queryFn: ({ signal }) => tickerRepo.getQuote(ticker, { signal }),
-    initialData: quote,
-    refetchInterval: 30_000,
-  });
 
   const navTabs = useMemo(() => {
     return Object.values(TICKER_NAV_TABS).map(({ label, path }) => ({
@@ -263,71 +258,81 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
 
   return (
     <aside {...rest} className={cn(" ", className)}>
-      <div className=" h-fit dark:border-main-gray-600 ">
-        {tickerQuote && (
-          <div className=" flex flex-col ">
-            {/* <div className=" space-y-2 py-3 ">
-              <div className=" px-4 ">
-                <div className=" font-bold text-primary-base ">
-                  {tickerQuote.symbol}
-                </div>
-                <div className=" text-2xl font-bold ">{tickerQuote.name}</div>
-              </div>
+      <div className=" h-fit ">
+        <div
+          className={cn(" hidden w-full duration-300 ", {
+            " flex ": !statsVisible,
+          })}
+        >
+          {tickerQuote && (
+            <div className=" flex w-full flex-col ">
+              <div className=" space-y-1 py-3 ">
+                <div className=" space-y-1 px-4 ">
+                  <div className=" text-2xl font-bold ">{tickerQuote.name}</div>
 
-              <div className=" space-y-1 px-4 py-2 ">
-                <div className=" flex items-center space-x-1.5 ">
-                  <span className=" font-bold ">
-                    {appUtils.formatNumber(tickerQuote.price || undefined)}
-                  </span>
-
-                  <span className=" text-xs font-bold ">
-                    {tickerQuote.change && (
-                      <>
-                        {tickerQuote.change > 0 && "+"}
-                        <ColoredNumber
-                          number={Number(tickerQuote.change.toFixed(2))}
-                        />
-                      </>
-                    )}{" "}
-                    (
-                    {tickerQuote.changesPercentage && (
-                      <>
-                        {tickerQuote.changesPercentage > 0 && "+"}
-                        <ColoredNumber
-                          percent
-                          number={Number(
-                            tickerQuote.changesPercentage.toFixed(2)
-                          )}
-                        />
-                      </>
-                    )}
-                    )
-                  </span>
-                </div>
-
-                {tickerQuote.timestamp && (
-                  <div className=" text-xs text-main-gray-400 ">
-                    At close:{" "}
-                    {format(new Date(tickerQuote.timestamp), "MMMM dd hh:mm a")}
+                  <div className=" flex w-fit flex-wrap items-center gap-1 text-xs font-medium text-main-gray-400 ">
+                    <span className="  ">{tickerQuote.symbol}</span>
+                    <span className=" size-1 rounded-full bg-primary-base " />
+                    <span className="  ">{tickerQuote.exchange}</span>
                   </div>
-                )}
-              </div>
-            </div> */}
+                </div>
 
-            {/* <div className=" space-y-1 bg-main-gray-100 px-4 py-3 dark:bg-main-gray-900 ">
-              <div className=" flex items-center space-x-1.5 ">
-                <span className=" font-bold ">$20.56</span>
-                <span className=" text-xs font-bold text-red-500 ">
-                  -0.68 (-0.42%)
-                </span>
+                <div className=" space-y-1 px-4 ">
+                  <div className=" flex flex-wrap items-end gap-1.5 ">
+                    <span className=" text-2xl font-bold ">
+                      {appUtils.formatNumber(tickerQuote.price || undefined)}
+                    </span>
+
+                    <span className=" text-sm font-bold ">
+                      {tickerQuote.change && (
+                        <>
+                          {tickerQuote.change > 0 && "+"}
+                          <ColoredNumber
+                            number={Number(tickerQuote.change.toFixed(2))}
+                          />
+                        </>
+                      )}{" "}
+                      {tickerQuote.changesPercentage && (
+                        <>
+                          {tickerQuote.changesPercentage > 0 && "+"}
+                          <ColoredNumber
+                            percent
+                            number={Number(
+                              tickerQuote.changesPercentage.toFixed(2)
+                            )}
+                          />
+                        </>
+                      )}
+                    </span>
+                  </div>
+
+                  {tickerQuote.timestamp && (
+                    <div className=" text-xs text-main-gray-400 ">
+                      At close:{" "}
+                      {format(
+                        new Date(tickerQuote.timestamp * 1000),
+                        "MMMM dd hh:mm a"
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
 
-              <div className=" text-xs text-main-gray-400 ">
-                After hours: January 12 07:59 PM EST
-              </div>
-            </div> */}
-          </div>
-        )}
+              {/* <div className=" w-full space-y-1 bg-main-gray-100 px-4 py-3 dark:bg-main-gray-900 ">
+                <div className=" flex items-center space-x-1.5 ">
+                  <span className=" font-bold ">$20.56</span>
+                  <span className=" text-xs font-bold text-red-500 ">
+                    -0.68 (-0.42%)
+                  </span>
+                </div>
+
+                <div className=" text-xs text-main-gray-400 ">
+                  After hours: January 12 07:59 PM EST
+                </div>
+              </div> */}
+            </div>
+          )}
+        </div>
 
         {/* TICKER NAV LINKS */}
         <div className="  dark:border-main-gray-600 ">

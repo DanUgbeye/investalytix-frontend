@@ -28,7 +28,10 @@ export default async function IntrestRateFutures() {
     /*INTEREST RATE FUTURES */
     <>
       <section className="">
-      <MarketHeading label="INTEREST RATE FUTURES" id="interest-rate-futures"/>
+        <MarketHeading
+          label="INTEREST RATE FUTURES"
+          id="interest-rate-futures"
+        />
 
         <Quotes
           quotes={data.data}

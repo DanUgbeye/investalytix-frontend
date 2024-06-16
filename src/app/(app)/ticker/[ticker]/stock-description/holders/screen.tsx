@@ -158,7 +158,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
           <div className=" flex justify-center ">
             <Button
               variant={"link"}
-              className=" h-fit gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base w-full "
+              className=" h-fit w-full gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base "
               onClick={() => toggleShowAll("institutional")}
             >
               {showAll.institutional ? (
@@ -251,7 +251,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
           <div className=" flex justify-center ">
             <Button
               variant={"link"}
-              className=" h-fit gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base w-full "
+              className=" h-fit w-full gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base "
               onClick={() => toggleShowAll("mutual")}
             >
               {showAll.mutual ? (

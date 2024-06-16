@@ -1,134 +1,117 @@
 "use client";
 
-import { Container } from "@/components/container";
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { SecFiling } from "@/modules/ticker/types";
+import { format } from "date-fns";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
-import { SEC_FILINGS_SAMPLE } from "./sample";
-import { z } from "zod";
-import { format } from "date-fns";
+import { useMemo, useState } from "react";
 
-const SEC_TYPE_SORT = [
+export const SEC_FILING_TYPES = [
   {
     label: "All",
-    value: "",
-    types: [],
+    value: [],
+  },
+  {
+    label: "Annual Report to Shareholders",
+    value: ["ARS"],
   },
   {
     label: "Periodic Financial Report",
-    value: "periodic-financial-report",
-    types: ["10-K", "10-Q"],
+    value: ["10-K", "10-Q"],
   },
   {
     label: "Corporate Changes & Voting Matters",
-    value: "corporate-voting-matters",
-    types: ["8-K", "DEF 14A"],
+    value: ["8-K"],
   },
   {
     label: "Proxy Statements",
-    value: "proxy-statements",
-    types: ["DEF 14A"],
+    value: ["DEFA14A", "DEF 14A"],
   },
   {
     label: "Offering Registration",
-    value: "offering-registration",
-    types: ["S-1"],
+    value: ["S-1", "S-8", "S-8 POS"],
   },
   {
     label: "Tender Offer/Acquisition Reports",
-    value: "tender-acquisition-reports",
-    types: [""],
+    value: ["SC 13G/A"],
   },
-] as const;
-
-type SecFilingType = (typeof SEC_TYPE_SORT)[number]["value"];
-
-function verifySecFilingType(type: unknown) {
-  const validation = z
-    .enum([
-      SEC_TYPE_SORT[0].value,
-      SEC_TYPE_SORT[1].value,
-      SEC_TYPE_SORT[2].value,
-      SEC_TYPE_SORT[3].value,
-      SEC_TYPE_SORT[4].value,
-      SEC_TYPE_SORT[5].value,
-    ])
-    .safeParse(type);
-
-  if (validation.error) return SEC_TYPE_SORT[0].value;
-  return validation.data;
-}
+];
 
 function getSecFilingNameFromType(type: string) {
-  // TODO input appropriate
-  return "10-K Periodic Financial Report";
+  return (
+    SEC_FILING_TYPES.find((sec) => sec.value.includes(type))?.label || type
+  );
 }
 
 interface RatioScreenProps {
   ticker: string;
+  SECFilings: SecFiling[];
 }
 
 export default function RatioScreen(props: RatioScreenProps) {
-  const { ticker } = props;
-  const searchParams = useSearchParams();
-  const activeSecType = verifySecFilingType(searchParams.get("sort"));
+  const { ticker, SECFilings } = props;
 
-  const secFilings = useMemo(() => {
-    if (!activeSecType) return SEC_FILINGS_SAMPLE;
-    return SEC_FILINGS_SAMPLE.filter((secFiling) => {
-      const typeValues = SEC_TYPE_SORT.find(
-        (filing) => filing.value === activeSecType
-      );
+  const [currentFormType, setCurrentFormType] = useState<string>("All");
 
-      if (!typeValues) return SEC_FILINGS_SAMPLE;
-      return SEC_FILINGS_SAMPLE.filter((filing) => {
-        return ([...typeValues.types] as string[]).includes(
-          filing.type as string
-        );
-      });
-    });
-  }, [activeSecType]);
-
-  function getSortUrl(sort: string) {
-    let params = new URLSearchParams(searchParams);
-    if (sort) {
-      params.set("sort", sort);
-    } else {
-      params.delete("sort");
+  const SECFilingsToDisplay = useMemo(() => {
+    const currentFormValues = SEC_FILING_TYPES.find(
+      (formType) => formType.label == currentFormType
+    );
+    if (!currentFormValues || currentFormType === "All") {
+      let allTypes = getAvailableTypes();
+      return SECFilings.filter((filing) => allTypes.includes(filing.type));
     }
-    return params.toString();
+
+    return SECFilings.filter((filing) =>
+      currentFormValues.value.includes(filing.type)
+    );
+  }, [SECFilings, currentFormType]);
+
+  function getAvailableTypes() {
+    let formTypes: string[] = [];
+
+    for (const formTypeEntry of SEC_FILING_TYPES) {
+      formTypes.push(...formTypeEntry.value);
+    }
+
+    return formTypes;
+  }
+
+  function handleFormSort(type: string) {
+    setCurrentFormType(type);
   }
 
   return (
     <section className=" space-y-12 pb-12 ">
       <div className=" flex gap-2 overflow-x-auto md:flex-wrap ">
-        {SEC_TYPE_SORT.map((sorting, index) => {
-          const url = getSortUrl(sorting.value);
+        {SEC_FILING_TYPES.map((formType, index) => {
+          const isActive = currentFormType === formType.label;
 
           return (
-            <Link
-              key={sorting.label}
-              href={`?${url}`}
+            <Button
+              key={`formType.label-${index}`}
+              variant={"link"}
               className={cn(
-                buttonVariants({ variant: "outline" }),
-                (activeSecType || "") === sorting.value &&
-                  buttonVariants({ variant: "default" })
+                " h-fit min-w-fit rounded-lg border px-4 py-2 text-xs duration-300 hover:border-primary-base hover:text-primary-base hover:no-underline dark:border-main-gray-700",
+                isActive &&
+                  " border-primary-base text-primary-base dark:border-primary-base dark:text-primary-base  "
               )}
+              onClick={() => handleFormSort(formType.label)}
             >
-              {sorting.label}
-            </Link>
+              {formType.label}
+            </Button>
           );
         })}
       </div>
 
       <div className=" grid place-items-center gap-8 sm:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] ">
-        {secFilings.map((filing, index) => {
+        {SECFilingsToDisplay.map((filing, index) => {
           return (
             <div
               key={index}
-              className=" w-full max-w-xs border text-sm sm:max-w-sm dark:border-main-gray-600 "
+              className=" w-full max-w-xs rounded-lg border text-sm sm:max-w-sm dark:border-main-gray-700 "
             >
               <div className=" space-y-10 p-3 text-center ">
                 <div className=" space-y-1 pt-4 ">
@@ -143,9 +126,10 @@ export default function RatioScreen(props: RatioScreenProps) {
                 </div>
               </div>
 
-              <div className=" border-t p-3 text-center dark:border-main-gray-600 ">
+              <div className=" border-t p-3 text-center dark:border-main-gray-700 ">
                 <Link
-                  href={filing.link}
+                  href={filing.finalLink}
+                  target={"_blank"}
                   className=" text-primary-base underline decoration-transparent underline-offset-4 duration-300 hover:decoration-primary-base "
                 >
                   View Filing

@@ -59,7 +59,7 @@ export default function MarketHeader({
             className="absolute bottom-0 left-0 z-[2] h-[2px] w-[0px] bg-primary-base duration-150"
             ref={ref}
           ></div>
-          
+
           <Swiper spaceBetween={24} slidesPerView={"auto"} freeMode>
             {markets.map((mkt) => {
               const isActive = mkt.label === active;

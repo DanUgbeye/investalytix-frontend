@@ -21,7 +21,7 @@ export default function MarketSubLinks({
   return (
     <div
       className={twMerge(
-        `sticky top-[84px] z-10 mb-14 bg-white dark:bg-black md:top-[88px] ${className}`
+        `sticky top-[84px] z-10 mb-14 bg-white md:top-[88px] dark:bg-black ${className}`
       )}
     >
       <div className="mx-auto w-full items-center justify-center gap-2 sm:w-fit">

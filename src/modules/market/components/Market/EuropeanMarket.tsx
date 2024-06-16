@@ -30,7 +30,7 @@ export async function EuropeanMarket() {
         europe market
       </h2>
       <Suspense fallback="loading european market">
-        <Quotes quotes={data.data.slice(0,10)} />
+        <Quotes quotes={data.data.slice(0, 10)} />
       </Suspense>
     </section>
   );

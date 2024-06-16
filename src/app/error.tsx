@@ -24,7 +24,7 @@ export default function Error({
       <Container>
         <main className="flex flex-col-reverse items-center justify-center overflow-hidden max-md:min-h-[calc(100vh_-_88px)] max-md:pb-10 md:grid md:h-[calc(100vh_-_88px)] md:grid-cols-[auto,1fr]">
           <div className="flex flex-col items-start justify-center px-8 sm:px-[5%] md:h-full md:px-24 md:pl-0">
-            <h1 className="white-text mb-8 sm:max-w-[15ch] text-center text-3xl font-bold leading-[1.2] text-[#0B0B0B] md:text-left md:text-5xl ">
+            <h1 className="white-text mb-8 text-center text-3xl font-bold leading-[1.2] text-[#0B0B0B] sm:max-w-[15ch] md:text-left md:text-5xl ">
               {error.message === "fetch failed"
                 ? "You don't have an internet connection"
                 : error.message}
@@ -45,7 +45,7 @@ export default function Error({
             width="0"
             height="0"
             sizes="100vw"
-            className="h-auto w-full object-contain object-center max-lg:max-w-sm lg:max-w-md xl:h-[110vh] xl:max-w-full xl:-translate-y-[10%] xl:rotate-[1deg] sm:min-w-[20rem]"
+            className="h-auto w-full object-contain object-center max-lg:max-w-sm sm:min-w-[20rem] lg:max-w-md xl:h-[110vh] xl:max-w-full xl:-translate-y-[10%] xl:rotate-[1deg]"
           />
           {/* <Image src="/images/404.png" alt="" fill className="w-screen h-auto object-right-top" /> */}
           {/* </div> */}

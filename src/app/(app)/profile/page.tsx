@@ -46,7 +46,7 @@ export default function ProfilePage(props: PageProps) {
         {active === "subscription and billing" ? (
           <div className="mx-auto flex w-full flex-col gap-2 py-10">
             <h3 className="font-semibold">MY PLAN</h3>
-            <div className="mb-10 flex flex-wrap gap-10 items-center justify-between rounded-lg border p-6">
+            <div className="mb-10 flex flex-wrap items-center justify-between gap-10 rounded-lg border p-6">
               <div className="">
                 <p className="text-xs uppercase">current plan</p>
                 <p className="text-xl font-bold">Basic Free</p>
@@ -72,7 +72,7 @@ export default function ProfilePage(props: PageProps) {
 
                 <tbody>
                   <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
-                    <td className="p-2 text-left whitespace-nowrap">
+                    <td className="whitespace-nowrap p-2 text-left">
                       {moment("2024/4/25").format("MMM Do, YYYY")}
                     </td>
                     <td className="p-2 text-left">subscription</td>
@@ -80,7 +80,7 @@ export default function ProfilePage(props: PageProps) {
                     <td className="p-2 text-left">$10,000</td>
                   </tr>
                   <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
-                    <td className="p-2 text-left whitespace-nowrap">
+                    <td className="whitespace-nowrap p-2 text-left">
                       {moment("2024/3/5").format("MMM Do, YYYY")}
                     </td>
                     <td className="p-2 text-left">subscription</td>
@@ -88,7 +88,7 @@ export default function ProfilePage(props: PageProps) {
                     <td className="p-2 text-left">$10,000</td>
                   </tr>
                   <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
-                    <td className="p-2 text-left whitespace-nowrap">
+                    <td className="whitespace-nowrap p-2 text-left">
                       {moment("2024/2/23").format("MMM Do, YYYY")}
                     </td>
                     <td className="p-2 text-left">subscription</td>
@@ -96,7 +96,7 @@ export default function ProfilePage(props: PageProps) {
                     <td className="p-2 text-left">$10,000</td>
                   </tr>
                   <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
-                    <td className="p-2 text-left whitespace-nowrap">
+                    <td className="whitespace-nowrap p-2 text-left">
                       {moment("2024/1/5").format("MMM Do, YYYY")}
                     </td>
                     <td className="p-2 text-left">subscription</td>
@@ -104,7 +104,7 @@ export default function ProfilePage(props: PageProps) {
                     <td className="p-2 text-left">$10,000</td>
                   </tr>
                   <tr className="odd:bg-[#F9F9F9] dark:odd:bg-transparent">
-                    <td className="p-2 text-left whitespace-nowrap">
+                    <td className="whitespace-nowrap p-2 text-left">
                       {moment("2023/1/5").format("MMM Do, YYYY")}
                     </td>
                     <td className="p-2 text-left">subscription</td>

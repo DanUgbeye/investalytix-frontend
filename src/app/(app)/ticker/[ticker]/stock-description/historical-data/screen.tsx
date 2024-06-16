@@ -3,10 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { QuoteHistory, QuoteTimeframe } from "@/types";
 import { QuoteTimeframeSchema } from "@/validation";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
+import { cva } from "class-variance-authority";
 import { isValid, subYears } from "date-fns";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
+import "react-calendar/dist/Calendar.css";
 import { Controller, useForm } from "react-hook-form";
+import { FiCalendar } from "react-icons/fi";
 import { z } from "zod";
 import QuoteHistoryTable from "./quote-history-table";
 
@@ -34,110 +39,82 @@ interface HistoricalDataScreenProps {
 
 export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
   const { ticker, quoteHistory, currency } = props;
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const period = useMemo(
-    () => validatePeriod(searchParams.get("period")),
-    [searchParams]
-  );
-  const show = useMemo(
-    () => validateShow(searchParams.get("show")),
-    [searchParams]
-  );
-  const from = useMemo(() => {
-    let param = searchParams.get("from");
-    if (param && isValid(new Date(param))) {
-      return new Date(param);
-    }
-    return subYears(new Date(), 1);
-  }, [searchParams]);
+  const router = useRouter();
 
-  const to = useMemo(() => {
-    let param = searchParams.get("to");
-    if (param && isValid(new Date(param))) {
-      return new Date(param);
+  const defaultValues = useMemo(() => {
+    let from = subYears(new Date(), 1);
+    let fromParam = searchParams.get("from");
+    if (fromParam && isValid(new Date(fromParam))) {
+      from = new Date(fromParam);
     }
-    return new Date();
-  }, [searchParams]);
 
-  const { control } = useForm<{
-    period: string;
-    show: string;
-    from?: Date;
-    to?: Date;
-  }>({
-    defaultValues: {
-      period,
-      show,
+    let to = new Date();
+    let toParam = searchParams.get("to");
+    if (toParam && isValid(new Date(toParam))) {
+      to = new Date(toParam);
+    }
+
+    return {
+      period: validatePeriod(searchParams.get("period")),
+      show: validateShow(searchParams.get("show")),
       from,
       to,
-    },
+    };
+  }, [searchParams]);
+
+  const { control, setValue, watch, handleSubmit } = useForm<
+    typeof defaultValues
+  >({
+    defaultValues,
   });
+
+  const from = watch("from");
+  const to = watch("to");
+
+  function handleDateIput(range: any) {
+    const fromDate = range[0] as Date;
+    const toDate = range[1] as Date;
+
+    setValue("from", fromDate || undefined);
+    setValue("to", toDate || undefined);
+  }
+
+  function onSubmit(data: typeof defaultValues) {
+    let searchParams = new URLSearchParams();
+
+    Object.keys(data).forEach((key) => {
+      let formData: any = data[key as keyof typeof defaultValues];
+
+      if (formData instanceof Date) {
+        formData = formData.toLocaleDateString("en-CA");
+      }
+      searchParams.append(key, String(formData));
+    });
+
+    router.push(`${pathname}?${searchParams.toString()}`);
+  }
 
   return (
     <section className=" space-y-6 pb-12 ">
-      <form className=" flex flex-col justify-between gap-3 rounded md:flex-row md:flex-wrap ">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className=" flex flex-col justify-between gap-3 rounded md:flex-row md:flex-wrap "
+      >
         <div className=" flex flex-wrap gap-2 md:flex-row md:items-center ">
-          {/* <div className=" flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center "> */}
-          {/* <span className=" font-semibold ">Time Period:</span> */}
-
-          {/* <div className=" flex flex-col sm:flex-row gap-2 "> */}
-          <Controller
-            name="from"
-            control={control}
-            render={({ field: { value, onChange, ...rest } }) => {
-              return (
-                <div className=" relative flex items-center gap-1 ">
-                  {/* <span className=" font-main-bg-gray-600 w-10 text-sm sm:hidden ">
-                        From:
-                      </span> */}
-
-                  <input
-                    {...rest}
-                    id="from"
-                    type="date"
-                    className=" date-input w-full max-w-[10rem] rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
-                    value={value?.toLocaleDateString("en-CA")}
-                    onChange={(e) => {
-                      onChange(new Date(e.target.value));
-                    }}
-                  />
-                </div>
-              );
+          <DateRangePicker
+            className={" text-sm "}
+            calendarProps={{
+              className: cva(" text-black dark:bg-main-gray-700 z-50 ")(),
             }}
+            onChange={handleDateIput}
+            value={[from!, to!]}
+            calendarIcon={FiCalendar}
+            clearIcon={null}
           />
-
-          {/* <span className=" hidden text-xl font-bold sm:flex">-</span> */}
-
-          <Controller
-            name="to"
-            control={control}
-            render={({ field: { value, onChange, ...rest } }) => {
-              return (
-                <div className=" relative flex items-center gap-1 ">
-                  {/* <span className=" font-main-bg-gray-600 w-10 text-sm sm:hidden ">
-                        To:
-                      </span> */}
-
-                  <input
-                    {...rest}
-                    id="to"
-                    type="date"
-                    className=" date-input w-full max-w-[10rem] rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
-                    value={value?.toLocaleDateString("en-CA")}
-                    onChange={(e) => {
-                      onChange(new Date(e.target.value));
-                    }}
-                  />
-                </div>
-              );
-            }}
-          />
-          {/* </div> */}
-          {/* </div> */}
 
           <div className=" flex flex-wrap items-center gap-x-3 ">
-            {/* <span className=" font-semibold ">Show:</span> */}
-
             <Controller
               name="show"
               control={control}
@@ -146,10 +123,12 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   <select
                     {...field}
                     id="show"
-                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
+                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1.5 text-sm outline-0 dark:border-main-gray-500 "
                   >
-                    <option value={"price"}>Historical Prices</option>
-                    {/* <option value={"splits"}>Stock Splits</option> */}
+                    <option className="text-black" value={"price"}>
+                      Historical Prices
+                    </option>
+                    {/* <option className="text-black" value={"splits"}>Stock Splits</option> */}
                   </select>
                 );
               }}
@@ -157,8 +136,6 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
           </div>
 
           <div className=" flex flex-wrap items-center gap-x-3 ">
-            {/* <span className=" font-semibold ">Frequency:</span> */}
-
             <Controller
               name="period"
               control={control}
@@ -167,11 +144,17 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   <select
                     {...field}
                     id="period"
-                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1 text-sm outline-0 dark:border-main-gray-500 "
+                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1.5 text-sm outline-0 dark:border-main-gray-500 "
                   >
-                    <option value={"1day"}>Daily</option>
-                    <option value={"1week"}>Weekly</option>
-                    <option value={"1month"}>Monthly</option>
+                    <option className="text-black" value={"1day"}>
+                      Daily
+                    </option>
+                    <option className="text-black" value={"1week"}>
+                      Weekly
+                    </option>
+                    <option className="text-black" value={"1month"}>
+                      Monthly
+                    </option>
                   </select>
                 );
               }}
@@ -179,21 +162,19 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
           </div>
         </div>
 
-        <Button className=" h-9 ml-auto px-6 md:px-8 ">
-          Apply
-        </Button>
+        <Button className=" ml-auto h-9 px-6 md:px-8 ">Apply</Button>
       </form>
 
       <div className=" mx-auto grid space-y-3 ">
         <div className=" flex items-center justify-between ">
-          <span className=" font-semibold text-sm ">Currency: {currency}</span>
+          <span className=" text-sm font-semibold ">Currency: {currency}</span>
 
           {/* <Button variant={"outline-orange"} className=" border-none ">
             Download
           </Button> */}
         </div>
 
-        {show === "price" && quoteHistory && (
+        {defaultValues.show === "price" && quoteHistory && (
           <QuoteHistoryTable quoteHistory={quoteHistory} />
         )}
       </div>

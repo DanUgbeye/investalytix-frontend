@@ -75,8 +75,11 @@ export default function Quotes({
           {(customQuotes ? customQuotes : quotes).map((quote) => (
             <TableRow className="">
               <TableCell className="py-2 text-sm">
-                <Link className="text-hover-focus" href={`/ticker/${quote.symbol}`}>
-                {quote[fields[0].key]}
+                <Link
+                  className="text-hover-focus"
+                  href={`/ticker/${quote.symbol}`}
+                >
+                  {quote[fields[0].key]}
                 </Link>
               </TableCell>
 

@@ -152,7 +152,7 @@ export default function Summary() {
     const filtered = data
       .filter(
         (a) =>
-          new Date(a.date).getTime() >= new Date(from).setHours(0,0,0,0) &&
+          new Date(a.date).getTime() >= new Date(from).setHours(0, 0, 0, 0) &&
           new Date(a.date).getTime() <= new Date(to).setHours(23, 59, 59)
       )
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Container } from "@/components/container";
 import Image from "next/image";
 import { FiArrowUp } from "react-icons/fi";

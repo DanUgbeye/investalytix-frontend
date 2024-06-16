@@ -25,10 +25,10 @@ export async function AmericansMarket() {
 
   return (
     <section>
-      <h2 className="capitalize white-text mb-6 mt-8 text-2xl font-bold">
+      <h2 className="white-text mb-6 mt-8 text-2xl font-bold capitalize">
         americas market
       </h2>
-      <Quotes quotes={data.data.slice(0,10)} />
+      <Quotes quotes={data.data.slice(0, 10)} />
     </section>
   );
 }

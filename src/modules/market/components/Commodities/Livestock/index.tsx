@@ -28,7 +28,7 @@ export default async function Livestock() {
     /*Livestock FUTURES */
     <>
       <section className="">
-        <MarketHeading label="Livestock FUTURES" id="livestock"/>
+        <MarketHeading label="Livestock FUTURES" id="livestock" />
 
         <Quotes
           quotes={data.data}

@@ -102,9 +102,11 @@ export default function PrivacyPolicy() {
   return (
     <Container>
       <header>
-        <h1 className="text-6xl font-bold pt-16 pb-10 text-center">Privacy Policy</h1>
+        <h1 className="pb-10 pt-16 text-center text-6xl font-bold">
+          Privacy Policy
+        </h1>
       </header>
-      <div id="privacy-policy" className="mx-auto pb-16 max-w-2xl">
+      <div id="privacy-policy" className="mx-auto max-w-2xl pb-16">
         <Markdown remarkPlugins={[gfm]}>{markdown}</Markdown>
       </div>
     </Container>

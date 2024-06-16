@@ -1,514 +1,186 @@
 "use client";
 
-import WithToggle from "@/components/with-toggle";
+import { RowWithChildren } from "@/components/row-with-children";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  tableHeaderCellVariants,
+} from "@/components/ui/table";
+import useScroll from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
-import appUtils from "@/utils/app-util";
+import { FinancialPeriod, Ratio } from "@/modules/ticker/types";
 import { format } from "date-fns";
 import { ChevronRight } from "lucide-react";
-import { RATIOS_SAMPLE } from "./sample";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useMemo } from "react";
+import { generateRatiosTableData } from "./generate-table-data";
 
-interface RatioScreenProps {
-  ticker: string;
+function getPeriodUrl(path: string, period: string) {
+  return `${path}?period=${period}`;
 }
 
-export default function RatioScreen(props: RatioScreenProps) {
-  const { ticker } = props;
+interface RatiosScreenProps {
+  ticker: string;
+  ratios: Ratio[];
+  period?: FinancialPeriod;
+  currency: string;
+}
+
+export default function RatiosScreen(props: RatiosScreenProps) {
+  const { ticker, currency, period, ratios } = props;
+  const pathname = usePathname();
+
+  const tableData = useMemo(() => {
+    return generateRatiosTableData(ratios);
+  }, [ratios]);
+
+  const { ref, isScrolled } = useScroll<HTMLDivElement>();
 
   return (
-    <section className=" pb-12 ">
-      <div className=" overflow-x-auto border dark:border-main-gray-600 ">
-        <table className=" w-full min-w-[50rem] ">
-          <thead>
-            <tr className="  th text-sm font-bold ">
-              <th className=" w-[10rem] px-2 py-3 text-left md:w-[15rem] lg:w-[20rem] dark:bg-transparent"></th>
+    <main className=" space-y-5 pb-12 ">
+      <div className=" flex items-center justify-between gap-10 ">
+        <h2 className=" font-bold ">Ratios</h2>
 
-              {RATIOS_SAMPLE.map((data, index) => {
+        {/* PERIOD FILTERS */}
+        <div className=" ml-auto flex items-center gap-2 ">
+          <Link
+            href={getPeriodUrl(pathname, "quarter")}
+            className={cn(
+              " h-fit rounded-md p-2 text-xs duration-300 hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+              {
+                " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  !period || period === "quarter",
+              }
+            )}
+          >
+            Quarterly
+          </Link>
+
+          <Link
+            href={getPeriodUrl(pathname, "annual")}
+            className={cn(
+              " h-fit rounded-md p-2 text-xs duration-300 hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+              {
+                " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  period === "annual",
+              }
+            )}
+          >
+            Annual
+          </Link>
+        </div>
+      </div>
+
+      <div ref={ref} className=" overflow-x-auto ">
+        <Table className=" w-full min-w-[50rem] ">
+          <TableHeader>
+            <TableRow headerRow>
+              <TableHead
+                className={cn(
+                  tableHeaderCellVariants({ scrolled: isScrolled }),
+                  " min-w-[10rem] sm:min-w-[20rem] "
+                )}
+              >
+                <span className="  "></span>
+              </TableHead>
+
+              {ratios.map((incomeSheet, index) => {
                 return (
-                  <td
-                    key={`${data.date}-${index}`}
-                    className=" px-2 py-3 text-center dark:bg-transparent"
+                  <TableHead
+                    key={`income-${incomeSheet.period}-${index}`}
+                    className=" text-right "
                   >
-                    {format(new Date(data.date), "MMM yy ")}
-                  </td>
+                    <div className=" flex w-20 flex-col gap-1 ">
+                      <span className=" ">
+                        {(!period || period === "quarter") &&
+                          `${incomeSheet.period} '`}
+                        {incomeSheet.calendarYear}
+                      </span>
+
+                      <span className=" text-xs ">
+                        {format(new Date(incomeSheet.date), "MMM yyyy")}
+                      </span>
+                    </div>
+                  </TableHead>
                 );
               })}
-            </tr>
-          </thead>
+            </TableRow>
+          </TableHeader>
 
-          <tbody>
-            {/* RETURNS */}
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
+          <TableBody>
+            {tableData.map((rowData, index) => {
+              return (
+                <RowWithChildren
+                  row={rowData}
+                  renderRow={({
+                    data,
+                    hasChildren,
+                    level,
+                    expanded,
+                    onToggle,
+                  }) => {
+                    const hightlight = level === 1;
 
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Returns</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
+                    return (
+                      <TableRow
+                        key={`row-${data.label}`}
+                        highlightPattern={hightlight ? "current" : "none"}
+                        className={cn(" group border-y ", {
+                          "cursor-pointer": hasChildren,
+                        })}
+                      >
+                        <TableCell
+                          className={cn(
+                            tableHeaderCellVariants({
+                              scrolled: isScrolled,
+                              highlight: hightlight,
+                            }),
+                            " px-0 "
+                          )}
+                          onClick={() => onToggle && onToggle()}
+                        >
+                          <div
+                            className={cn(" flex items-center gap-x-1 ")}
+                            style={{
+                              paddingLeft: (level || 1) * 16,
+                            }}
+                          >
+                            <span>{data.label}</span>
 
-                      {RATIOS_SAMPLE.map((data, index) => {
-                        return <td key={`forecast-month-${index}`} />;
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Return on Equity
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.returnOnEquity, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
+                            {hasChildren && (
+                              <ChevronRight
+                                className={cn(" size-4 duration-300 ", {
+                                  " rotate-90 ": expanded,
                                 })}
-                              </td>
-                            );
-                          })}
-                        </tr>
+                              />
+                            )}
+                          </div>
+                        </TableCell>
 
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Return on Assets
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.returnOnAssets, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Return on Capital
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.returnOnCapitalEmployed,
-                                  {
-                                    style: "decimal",
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
-
-            {/* MARGINS */}
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
-
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Margins</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
-
-                      {RATIOS_SAMPLE.map((data, index) => {
-                        return <td key={`forecast-month-${index}`} />;
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Gross Profit Margin
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.grossProfitMargin, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Operating Profit Margin
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.operatingProfitMargin,
-                                  {
-                                    style: "decimal",
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Pretax Profit Margin
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.pretaxProfitMargin,
-                                  {
-                                    style: "decimal",
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Net profit Margin
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.netProfitMargin, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
-
-            {/* Additional */}
-            <WithToggle initial={true}>
-              {(props) => {
-                const { state, toggle } = props;
-
-                return (
-                  <>
-                    <tr
-                      onClick={(e) => toggle()}
-                      className={cn(
-                        " cursor-pointer border-y text-sm font-bold dark:border-main-gray-600",
-                        {
-                          " bg-main-gray-100 dark:bg-main-gray-900 ": state,
-                        }
-                      )}
-                    >
-                      <th className=" px-2 py-3 text-left dark:bg-transparent">
-                        <div className=" flex items-center gap-x-1 ">
-                          <span>Additional</span>
-                          <ChevronRight
-                            className={cn(" size-4 duration-300 ", {
-                              " rotate-90 ": state,
-                            })}
-                          />
-                        </div>
-                      </th>
-
-                      {RATIOS_SAMPLE.map((data, index) => {
-                        return <td key={`forecast-month-${index}`} />;
-                      })}
-                    </tr>
-
-                    {state && (
-                      <>
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Effective Tax Rate
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.effectiveTaxRate, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Price Fair Value
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.priceFairValue, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Dividend Yield
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.dividendYield, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Cash Per Share
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.cashPerShare, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Asset Turnover
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.assetTurnover, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Fixed Asset Turnover
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.fixedAssetTurnover,
-                                  {
-                                    style: "decimal",
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Inventory Turnover
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.inventoryTurnover, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Recieveables Turnover
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(
-                                  data.receivablesTurnover,
-                                  {
-                                    style: "decimal",
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-
-                        <tr className=" cursor-pointer text-sm ">
-                          <td className=" py-3 pl-6 pr-2 text-left dark:bg-transparent">
-                            Payables Turnover
-                          </td>
-
-                          {RATIOS_SAMPLE.map((data, index) => {
-                            return (
-                              <td
-                                key={`forecast-month-${index}`}
-                                className=" px-2 py-3 text-center dark:bg-transparent"
-                              >
-                                {appUtils.formatNumber(data.payablesTurnover, {
-                                  style: "decimal",
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </WithToggle>
-          </tbody>
-        </table>
+                        {data.cols.map((colData, index) => {
+                          return (
+                            <TableCell
+                              key={`income-${data.label}-${index}`}
+                              className=" text-right"
+                            >
+                              {colData}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  }}
+                />
+              );
+            })}
+          </TableBody>
+        </Table>
       </div>
-    </section>
+    </main>
   );
 }

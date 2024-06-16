@@ -13,7 +13,7 @@ export default function NewsCard(props: NewsCardProps) {
   return (
     <div
       {...rest}
-      className=" group rounded-lg p-2 pr-4 duration-300 hover:bg-primary-base/10 hover:dark:bg-primary-light/15 cursor-pointer "
+      className=" group cursor-pointer rounded-lg p-2 pr-4 duration-300 hover:bg-primary-base/10 hover:dark:bg-primary-light/15 "
     >
       <div className="  grid grid-cols-[auto,1fr] gap-4 ">
         <Avatar className=" size-24 overflow-clip rounded-lg">
@@ -28,7 +28,7 @@ export default function NewsCard(props: NewsCardProps) {
         </Avatar>
 
         <div className=" space-y-2 ">
-          <div className=" grid grid-cols-[auto,auto,1fr] items-center gap-2 rounded-lg text-main-gray-600 text-xs dark:text-main-gray-500 ">
+          <div className=" grid grid-cols-[auto,auto,1fr] items-center gap-2 rounded-lg text-xs text-main-gray-600 dark:text-main-gray-500 ">
             <span>
               {formatDistanceToNowStrict(new Date(news.publishedDate), {
                 addSuffix: true,
@@ -40,9 +40,7 @@ export default function NewsCard(props: NewsCardProps) {
             <span className=" truncate ">{news.site}</span>
           </div>
 
-          <div className=" line-clamp-3 font-medium text-sm ">
-            {news.title}
-          </div>
+          <div className=" line-clamp-3 text-sm font-medium ">{news.title}</div>
         </div>
       </div>
     </div>

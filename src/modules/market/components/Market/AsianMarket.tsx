@@ -28,7 +28,7 @@ export async function AsianMarket() {
       <h2 className="white-text mb-6 mt-8 text-2xl font-bold capitalize">
         asian market
       </h2>
-      <Quotes quotes={data.data.slice(0,10)} />
+      <Quotes quotes={data.data.slice(0, 10)} />
     </section>
   );
 }
