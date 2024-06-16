@@ -4,19 +4,22 @@ import MarketHeading from "../../MarketHeading";
 
 export default function Overview() {
   return (
-    <section>
+    <section className="grid lg:grid-cols-2 gap-x-20">
+      {/* <section>
+
       <MarketSectionHeader label="OVERVIEW" id="overview" />
       <Quotes />
+      </section> */}
 
       {/* STOCK INDEXES */}
-      <section className="mt-11">
+      <section className="">
         <MarketHeading label="STOCK INDEXES" />
 
         <Quotes />
       </section>
 
       {/* COMMODITIES */}
-      <section className="mt-11">
+      <section className="">
         <MarketHeading label="COMMODITIES" />
 
         <Quotes />
