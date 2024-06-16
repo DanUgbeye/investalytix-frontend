@@ -26,6 +26,9 @@ import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
 import "react-calendar/dist/Calendar.css";
 import Spinner from "@/components/spinner";
+import Link from "next/link";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { GoBellFill } from "react-icons/go";
 
 enum FILTERS {
   YESTERDAY = "YESTERDAY",
@@ -275,11 +278,29 @@ export default function Summary() {
                       <TableCell>
                         <ColoredNumber number={news.actual} />
                       </TableCell>
+                      <TableCell className="p-2 text-right text-sm font-bold">
+                        <HoverCard>
+                          <div className="grid place-content-center">
+                            <HoverCardTrigger className="cursor-pointer">
+                              <div className="relative w-fit place-content-center">
+                                <GoBellFill className="size-5 text-primary-base dark:text-primary-light" />
+                                <span className="absolute right-0 top-0 flex h-1 w-1  items-center justify-center rounded-full  bg-primary-base dark:bg-primary-light"></span>
+                              </div>
+                            </HoverCardTrigger>
+                          </div>
+                          <HoverCardContent
+                            align="end"
+                            className="bg-white p-0 text-left dark:border-[#191919] dark:bg-black"
+                          >
+                            <Notification />
+                          </HoverCardContent>
+                        </HoverCard>
+                      </TableCell>
                       {/* <TableCell>
    <ColoredNumber number={news.impact} colored={false} />
  </TableCell> */}
-                      <TableCell className="flex items-center gap-5">
-                        {/* 
+                      {/* <TableCell className="flex items-center gap-5"> */}
+                      {/* 
  <Popover className="relative">
    <Popover.Button>
      <svg
@@ -353,7 +374,7 @@ export default function Summary() {
  </Popover>
   */}
 
-                        <svg
+                      {/* <svg
                           width={14}
                           height={16}
                           viewBox="0 0 14 16"
@@ -365,7 +386,7 @@ export default function Summary() {
                             fill="#DDDDDD"
                           />
                         </svg>
-                      </TableCell>
+                      </TableCell> */}
                     </TableRow>
                   ))}
                 </TableBody>
@@ -375,5 +396,51 @@ export default function Summary() {
         </>
       ) : null}
     </div>
+  );
+}
+
+function Notification() {
+  return (
+    <div className="">
+      <header className="bg-[#191919] p-2 text-left text-white/80">
+        <p className="">Apple Notifications</p>
+      </header>
+
+      <section className="">
+        <News />
+        <News />
+        <News />
+      </section>
+
+      <footer className="flex justify-between bg-[#191919] p-2 text-white/80">
+        <Link href="" className="text-hover-focus">
+          Analysis
+        </Link>
+        <Link href="" className="text-hover-focus">
+          Forecast
+        </Link>
+        <Link href="" className="text-hover-focus">
+          Chart
+        </Link>
+        <Link href="" className="text-hover-focus">
+          News
+        </Link>
+      </footer>
+    </div>
+  );
+}
+
+function News() {
+  return (
+    <Link
+      href=""
+      className="group inline-block border-b border-dashed border-black/20 p-2 text-xs font-light dark:border-b-white/10"
+    >
+      <p className="">April 01, 2024</p>
+      <p className="white-text py-1 font-normal group-hover:text-primary-base group-focus:text-primary-base dark:group-hover:text-primary-light dark:group-focus:text-primary-light">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+      </p>
+      <p className="">Investalytix News</p>
+    </Link>
   );
 }

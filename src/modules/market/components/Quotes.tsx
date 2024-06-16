@@ -68,6 +68,7 @@ export default function Quotes({
                 {field.label}
               </TableHead>
             ))}
+            {notifications && <TableHead className=""></TableHead>}
           </TableRow>
         </TableHeader>
 
@@ -88,6 +89,27 @@ export default function Quotes({
                   {quote[field.key]}
                 </TableCell>
               ))}
+
+              {notifications && (
+                <TableCell className="p-2 text-right text-sm font-bold">
+                  <HoverCard>
+                    <div className="grid place-content-center">
+                      <HoverCardTrigger className="cursor-pointer">
+                        <div className="relative w-fit place-content-center">
+                          <GoBellFill className="size-5 text-primary-base dark:text-primary-light" />
+                          <span className="absolute right-0 top-0 flex h-1 w-1  items-center justify-center rounded-full  bg-primary-base dark:bg-primary-light"></span>
+                        </div>
+                      </HoverCardTrigger>
+                    </div>
+                    <HoverCardContent
+                      align="end"
+                      className="bg-white p-0 text-left dark:border-[#191919] dark:bg-black"
+                    >
+                      <Notification />
+                    </HoverCardContent>
+                  </HoverCard>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>
