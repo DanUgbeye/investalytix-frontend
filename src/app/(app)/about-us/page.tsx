@@ -31,7 +31,7 @@ const data = [
 export default function AboutUsPage() {
   return (
     <main>
-      <header className="bg-black/5 py-24 text-center px-10">
+      <header className="bg-black/5 dark:bg-white/5 py-24 text-center px-10">
         <h1 className=" text-center text-5xl md:text-8xl lg:text-9xl font-bold">
           Where Finance <br /> Meets Tech.
         </h1>
@@ -72,7 +72,7 @@ export default function AboutUsPage() {
             </p>
           </div>
 
-          <div className="mt-16 flex flex-col md:flex-row max-md:items-center gap-12 rounded-xl bg-black/5 px-14 py-20">
+          <div className="mt-16 flex flex-col md:flex-row max-md:items-center gap-12 rounded-xl bg-black/5 dark:bg-white/5 px-14 py-20">
             <div className="h-52 w-52 shrink-0 rounded-full bg-black"></div>
 
             <div className="">
@@ -90,7 +90,7 @@ export default function AboutUsPage() {
         </div>
       </Container>
 
-      <div className="mt-24 bg-black/5 px-12 py-12">
+      <div className="mt-24 bg-black/5 dark:bg-white/5 px-12 py-12">
         <div className="mx-auto max-w-7xl grid max-md:grid-rows-[300px,1fr] md:grid-cols-2 gap-10 md:gap-14">
           <div className="">
             <h1 className="text-3xl">Connect With Us</h1>
