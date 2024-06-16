@@ -245,7 +245,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="rounded-xl bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:h-[400px]"></div>
+          <div className="rounded-xl bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:h-[400px] h-full"></div>
         </div>
       </div>
     </>
