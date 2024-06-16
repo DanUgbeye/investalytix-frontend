@@ -69,7 +69,7 @@ function Panel() {
     <Tab.Panel>
       <div className="grid gap-10 pb-14 md:grid-cols-2">
         <div className="">
-          <p className="white-text mb-11 text-2xl font-bold">Top gainers</p>
+          <p className="white-text mb-11 text-2xl font-bold capitalize">Top gainers</p>
 
           <div className="flex flex-col gap-5">
             {topMovers.map((mover) => (
@@ -90,7 +90,7 @@ function Panel() {
                   />
                   <div className="w-full">
                     <div
-                      className="h-full bg-[#006400] dark:bg-[#67c967]"
+                      className="h-full bg-main-green-light dark:bg-main-green-dark"
                       style={{ width: `${mover.changePercent * 5}%` }}
                     ></div>
                   </div>
@@ -100,7 +100,7 @@ function Panel() {
           </div>
         </div>
         <div className="">
-          <p className="white-text mb-11 text-2xl font-bold">Top decliners</p>
+          <p className="white-text mb-11 text-2xl font-bold capitalize">Top decliners</p>
 
           <div className="flex flex-col gap-5">
             {topMovers.map((mover) => (
@@ -121,7 +121,7 @@ function Panel() {
                   />
                   <div className="w-full">
                     <div
-                      className="h-full bg-[#8B0000] dark:bg-[#ca5a5a]"
+                      className="h-full bg-main-red-light dark:bg-main-red-dark"
                       style={{ width: `${mover.changePercent * 5}%` }}
                     ></div>
                   </div>

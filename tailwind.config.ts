@@ -35,8 +35,8 @@ const config = {
         },
         main: {
           blue: { base: "#125BD4", light: "#33548B" },
-          red: { light: "#8B0000", dark: "#cA5A5A" },
-          green: { light: "#006400", dark: "#079516" },
+          red: { light: "#EB4335", dark: "#EB4335" },
+          green: { light: "#268740", dark: "#34A853" },
 
           gray: {
             50: "#F9FAFB",
