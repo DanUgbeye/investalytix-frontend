@@ -45,9 +45,9 @@ export default function AboutUsPage() {
         {data.map((about, index) => (
           <div
             key={about.category.replaceAll(" ", "-")}
-            className={`mt-24 grid gap-10 md:gap-14 grid-rows-[300px,1fr] md:grid-rows-1 items-center ${index % 2 === 0 ? "md:grid-cols-[3fr,2fr] lg:grid-cols-[55%,45%]" : "grid-cols-reverse md:grid-cols-[2fr,3fr] lg:grid-cols-[45%,55%]"}`}
+            className={`mt-24 grid gap-10 md:gap-14 grid-rows-[300px,1fr] md:grid-rows-1 items-center ${index % 2 === 0 ? "md:grid-cols-[3fr,2fr]" : "grid-cols-reverse md:grid-cols-[2fr,3fr] "}`}
           >
-            <div className="rounded-xl bg-gray-200 xl:min-h-[400px]"></div>
+            <div className="rounded-xl bg-gray-200 h-full xl:min-h-[400px]"></div>
             <div className={`${index % 2 === 0 ? "" : "md:-order-1"}`}>
               <h2 className="text-xl font-medium">{about.category}</h2>
               <h3 className="mb-9 mt-4 text-3xl font-bold">{about.title}</h3>
@@ -91,7 +91,7 @@ export default function AboutUsPage() {
       </Container>
 
       <div className="mt-24 bg-black/5 dark:bg-white/5 px-12 py-12">
-        <div className="mx-auto max-w-7xl grid max-md:grid-rows-[300px,1fr] md:grid-cols-2 gap-10 md:gap-14">
+        <div className="mx-auto max-w-7xl grid max-md:grid-rows-[300px,1fr] md:grid-cols-2 gap-10 md:gap-14 items-center">
           <div className="">
             <h1 className="text-3xl">Connect With Us</h1>
             <p className="mb-8 mt-3 text-xl">
