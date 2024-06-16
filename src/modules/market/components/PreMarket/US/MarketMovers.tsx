@@ -35,23 +35,18 @@ export default function MarketMovers() {
       {/* <Divider /> */}
 
       {/* MARKET MOVERS */}
-      <div className="mt-11">
+      <div className="mt-0">
         <Tab.Group>
-          <div className="mb-7 text-[#252525] lg:flex">
-            <h1 className="white-text whitespace-nowrap text-2xl font-extrabold opacity-0 max-lg:mb-5">
-              MARKET MOVERS
-            </h1>
-            <Tab.List
-              className={"flex w-full items-center justify-center gap-4"}
-            >
+          <div className="mb-7 text-[#252525]">
+            <Tab.List className={"flex w-full items-center gap-4"}>
               {marketMovers.map((market) => (
                 <Tab as={Fragment} key={market}>
                   {({ selected }) => (
                     <button
-                      className={`white-text text-hover-focus border-b-2 pb-2 text-sm font-extrabold outline-none ${
+                      className={`rounded-md px-4 py-1 text-sm font-extrabold outline-none ${
                         selected
-                          ? "border-primary-base dark:border-primary-light"
-                          : "border-transparent"
+                          ? "bg-primary-base text-white dark:bg-primary-light dark:text-black"
+                          : "bg-hover-focus bg-[#EBEEF3] dark:bg-[#EBEEF3]/20 dark:text-white/70"
                       }`}
                     >
                       {market}

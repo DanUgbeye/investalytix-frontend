@@ -28,10 +28,10 @@ export default function MarketMovers() {
                 <Tab as={Fragment} key={market}>
                   {({ selected }) => (
                     <button
-                      className={` rounded-full px-4 py-1 text-sm font-extrabold outline-none ${
+                      className={`rounded-md px-4 py-1 text-sm font-extrabold outline-none ${
                         selected
                           ? "bg-primary-base text-white dark:bg-primary-light dark:text-black"
-                          : "bg-hover-focus"
+                          : "bg-hover-focus bg-[#EBEEF3] dark:bg-[#EBEEF3]/20 dark:text-white/70"
                       }`}
                     >
                       {market}
