@@ -66,9 +66,13 @@ export default function SignupScreen() {
     }
   }
 
+  function goBack() {
+    window.history.back();
+  }
+
   return (
     <>
-      <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] max-md:pb-20 md:grid bg-white">
+      <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] bg-white max-md:pb-20 md:grid">
         <div className="flex w-full flex-col justify-between gap-10 px-14 py-24 max-md:h-screen">
           <Link href="/">
             <svg
@@ -339,12 +343,12 @@ export default function SignupScreen() {
         </div>
 
         <div className="bg-[url('/images/signup.jpg')] bg-cover bg-left bg-no-repeat md:relative">
-          <Link
-            href="/"
+          <button
+            onClick={goBack}
             className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
           >
             <FiArrowLeft className="size-6 text-white md:size-10" />
-          </Link>
+          </button>
         </div>
       </main>
     </>

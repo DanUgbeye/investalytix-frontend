@@ -53,15 +53,19 @@ export default function LoginScreen() {
     }
   }
 
+  function goBack() {
+    window.history.back();
+  }
+
   return (
     <>
-      <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid bg-white">
-        <div className="max-md:h-screen flex gap-10 w-full flex-col justify-between px-14 py-24">
+      <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] bg-white md:grid">
+        <div className="flex w-full flex-col justify-between gap-10 px-14 py-24 max-md:h-screen">
           <Link href="/">
             <svg
               id="Layer_1"
               data-name="Layer 1"
-              className="h-14 md:h-24 w-auto self-start"
+              className="h-14 w-auto self-start md:h-24"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 850 260"
             >
@@ -266,12 +270,12 @@ export default function LoginScreen() {
         </div>
 
         <div className="bg-[url('/images/login.jpg')] bg-cover bg-left bg-no-repeat md:relative">
-          <Link
-            href="/"
+          <button
+            onClick={goBack}
             className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
           >
             <FiArrowLeft className="size-6 text-white md:size-10" />
-          </Link>
+          </button>
         </div>
       </main>
     </>

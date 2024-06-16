@@ -6,10 +6,13 @@ import Link from "next/link";
 import { FiArrowLeft, FiChevronLeft } from "react-icons/fi";
 
 export default function ContactUsPage() {
+  function goBack() {
+    window.history.back();
+  }
   return (
-    <main className="mx-auto md:grid min-h-screen grid-cols-[1fr,1fr]">
+    <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid">
       <div className="ml-auto max-w-[600px] px-14 py-24">
-        <h1 className="text-7xl lg:text-8xl font-bold">
+        <h1 className="text-7xl font-bold lg:text-8xl">
           Connect with{" "}
           <span className="text-primary-base dark:text-primary-light">us</span>
         </h1>
@@ -23,11 +26,19 @@ export default function ContactUsPage() {
           <div className="flex gap-7">
             <div className="w-full">
               <FormLabel htmlFor="name">Name</FormLabel>
-              <Input id="name" placeholder="Enter your fullname" className="mt-3"/>
+              <Input
+                id="name"
+                placeholder="Enter your fullname"
+                className="mt-3"
+              />
             </div>
             <div className="w-full">
               <FormLabel htmlFor="name">Phone (optional)</FormLabel>
-              <Input id="name" placeholder="Enter your phone number" className="mt-3"/>
+              <Input
+                id="name"
+                placeholder="Enter your phone number"
+                className="mt-3"
+              />
             </div>
           </div>
 
@@ -36,7 +47,8 @@ export default function ContactUsPage() {
             <Input
               id="name"
               placeholder="Enter your Investalytix account email."
-            className="mt-3"/>
+              className="mt-3"
+            />
           </div>
 
           <div className="mt-7"></div>
@@ -45,9 +57,12 @@ export default function ContactUsPage() {
         </form>
       </div>
       <div className="bg-[url('/images/contact-us.jpg')] bg-cover bg-left bg-no-repeat md:relative">
-        <Link href="/" className="bg-primary-base inline-block p-2 rounded-full absolute top-5 right-5">
-          <FiArrowLeft className="size-6 md:size-10 text-white"/>
-        </Link>
+        <button
+          onClick={goBack}
+          className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
+        >
+          <FiArrowLeft className="size-6 text-white md:size-10" />
+        </button>
       </div>
     </main>
   );
