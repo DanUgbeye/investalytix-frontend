@@ -93,7 +93,7 @@ export default function AboutUsPage() {
       <div className="mt-24 bg-black/5 dark:bg-white/5 px-12 py-12">
         <div className="mx-auto max-w-7xl grid max-md:grid-rows-[300px,1fr] md:grid-cols-2 gap-10 md:gap-14 items-center">
           <div className="">
-            <h1 className="text-3xl">Connect With Us</h1>
+            <h1 className="text-6xl md:text-7xl lg:text-6xl font-bold">Connect With Us</h1>
             <p className="mb-8 mt-3 text-xl">
               We're always here to help and answer any questions you might have.
               Please fill out the form below, and we'll get back to you as soon
