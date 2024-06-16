@@ -133,7 +133,7 @@ export default function LoginScreen() {
                     <Input
                       {...field}
                       id="email"
-                      className="mt-3"
+                      className="mt-3 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:!border-gray-200 dark:!bg-white dark:!ring-offset-white dark:!placeholder:text-gray-500 dark:!focus-visible:ring-gray-950"
                       type="email"
                       placeholder="example@example.com"
                     />
@@ -203,7 +203,7 @@ export default function LoginScreen() {
 
               <Button
                 disabled={isSubmitting || !isDirty}
-                className="h-fit w-full cursor-pointer rounded-md bg-black py-4 text-white/70"
+                className="h-fit w-full cursor-pointer rounded-md bg-black py-4 text-white/70 dark:text-white"
               >
                 {isSubmitting ? (
                   <PiSpinnerGap className=" size-5 animate-spin " />
@@ -218,7 +218,7 @@ export default function LoginScreen() {
               <div className="absolute left-0 right-0 top-1/2 -z-[1] h-[0.5px] translate-y-1/2 bg-black/20"></div>
             </div>
 
-            <button className="mb-5 flex w-full items-center justify-center gap-3 rounded-md border border-black px-4 py-3 hover:bg-black hover:text-white/70 focus:bg-black focus:text-white/70">
+            <button className="group mb-5 flex w-full items-center justify-center gap-3 rounded-md border  border-black px-4 py-3 hover:bg-black hover:text-white/70 focus:bg-black focus:text-white/70">
               <svg
                 width={16}
                 height={17}
@@ -243,7 +243,7 @@ export default function LoginScreen() {
                   fill="#EA4335"
                 />
               </svg>
-              <span className="text-sm font-medium">Sign up with Google</span>
+              <span className="text-sm font-medium dark:text-black group-hover:text-white group-focus:text-white">Sign up with Google</span>
             </button>
 
             <p className="text-center">
