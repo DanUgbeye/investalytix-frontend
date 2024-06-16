@@ -87,7 +87,7 @@ export default function Home() {
             suite of financial analysis tools.
           </p>
 
-          <FiSearch className="mt-16 size-16" />
+          {/* <FiSearch className="mt-16 size-16" /> */}
         </Container>
       </main>
 
