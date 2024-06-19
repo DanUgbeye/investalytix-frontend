@@ -165,8 +165,9 @@ export default function CapitalStructureScreen(
                 );
               })}
 
-              {/* <TableRow className=" font-bold odd:bg-main-gray-100 dark:odd:bg-main-gray-900/60  ">
+              <TableRow className=" font-semibold odd:bg-main-gray-100 dark:odd:bg-main-gray-900/60  ">
                 <TableCell className=" pl-16 ">Total</TableCell>
+                
                 <TableCell className=" ">
                   {parsedData.total.toLocaleString(undefined, {
                     maximumFractionDigits: 0,
@@ -178,7 +179,7 @@ export default function CapitalStructureScreen(
                 <TableCell className=" w-fit max-w-40 text-right ">
                   100%
                 </TableCell>
-              </TableRow> */}
+              </TableRow>
             </TableBody>
           </Table>
         </div>
