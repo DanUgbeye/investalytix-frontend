@@ -33,124 +33,6 @@ import {
   YAxis,
 } from "recharts";
 
-const STOCK_FORECAST = [
-  {
-    date: new Date("2024-01-10"),
-    company: "Redburn Atlantic",
-    analyst: "Donald Doe",
-    action: "Downgrade",
-    from: "Buy",
-    to: "Neutral",
-  },
-  {
-    date: new Date("2023-11-24"),
-    company: "Piper Sandler",
-    analyst: "Donald Doe",
-    action: "Downgrade",
-    from: "Overweight",
-    to: "Neutral",
-  },
-  {
-    date: new Date("2023-11-16"),
-    company: "DA Davidson",
-    analyst: "Donald Doe",
-    action: "Initialize",
-    from: "",
-    to: "Neutral",
-  },
-  {
-    date: new Date("2023-11-03"),
-    company: "Barclays",
-    analyst: "Donald Doe",
-    action: "Downgrade",
-    from: "Equal-Weight",
-    to: "Underweight",
-  },
-  {
-    date: new Date("2023-11-03"),
-    company: "Wedbush",
-    analyst: "Donald Doe",
-    action: "Reiterate",
-    from: "Outperform",
-    to: "Outperform",
-  },
-];
-
-const recommendation_trends_data = [
-  {
-    date: "Nov 23",
-    sell: 5,
-    strongSell: 6,
-    hold: 5,
-    buy: 1,
-    strongBuy: 2,
-  },
-  {
-    date: "Dec 23",
-    sell: 1,
-    strongSell: 6,
-    hold: 0,
-    buy: 10,
-    strongBuy: 20,
-  },
-  {
-    date: "Jan 24",
-    sell: 10,
-    strongSell: 6,
-    hold: 5,
-    buy: 1,
-    strongBuy: 2,
-  },
-  {
-    date: "Feb 24",
-    sell: 2,
-    strongSell: 1,
-    hold: 10,
-    buy: 6,
-    strongBuy: 2,
-  },
-  {
-    date: "Mar 24",
-    sell: 10,
-    strongSell: 3,
-    hold: 5,
-    buy: 4,
-    strongBuy: 4,
-  },
-  {
-    date: "Apr 24",
-    sell: 4,
-    strongSell: 8,
-    hold: 20,
-    buy: 4,
-    strongBuy: 6,
-  },
-  {
-    date: "May 24",
-    sell: 1,
-    strongSell: 2,
-    hold: 2,
-    buy: 10,
-    strongBuy: 12,
-  },
-  {
-    date: "Jun 24",
-    sell: 10,
-    strongSell: 12,
-    hold: 2,
-    buy: 1,
-    strongBuy: 2,
-  },
-  {
-    date: "Jul 24",
-    sell: 20,
-    strongSell: 2,
-    hold: 2,
-    buy: 1,
-    strongBuy: 2,
-  },
-];
-
 const RECOMMENDATION_COLORS = {
   strongSell: "#A43E35",
   sell: "#FB3827",
@@ -348,7 +230,7 @@ export default function AnalystRecommendationScreen(
             {profile.symbol} Stock 12 Months Forecast
           </h4>
 
-          <div className=" grid min-h-80 grid-rows-[1fr,auto] border dark:border-main-gray-600 ">
+          <div className=" grid min-h-80 grid-rows-[1fr,auto] ">
             <div className=" grid h-full grid-rows-[auto,1fr] gap-y-4 p-3 ">
               <div className=" grid items-center gap-3 xl:grid-cols-[auto,auto,1fr] ">
                 <div className=" flex flex-col gap-y-1 text-[#008133] ">
@@ -372,7 +254,7 @@ export default function AnalystRecommendationScreen(
               <div className=" min-h-40 bg-gray-600 "></div>
             </div>
 
-            <div className=" flex flex-col flex-wrap divide-inherit border-t py-2 max-xl:divide-y xl:flex-row xl:divide-x dark:border-main-gray-600 ">
+            <div className=" flex flex-col flex-wrap divide-inherit border-t py-2 max-xl:divide-y xl:flex-row xl:divide-x dark:border-main-gray-700 ">
               <div className=" flex items-center gap-2 px-3 py-1 ">
                 <span className=" text-sm ">High Price Target</span>
                 <span className=" font-bold text-[#008133] xl:text-2xl ">

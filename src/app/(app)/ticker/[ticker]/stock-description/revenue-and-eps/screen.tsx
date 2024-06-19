@@ -116,14 +116,20 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                         <div className="">
                           {payload &&
                             payload.map((pl, index) => {
-                              const { name, value } = pl;
+                              const { name, value, color } = pl;
 
                               return (
                                 <div
                                   key={`${value}-${index}`}
-                                  className=" text-main-gray-300 "
+                                  className=" flex items-center gap-2 text-main-gray-300 "
                                 >
-                                  {name}: {value}
+                                  <span
+                                    className=" size-3 "
+                                    style={{ backgroundColor: color }}
+                                  />
+                                  <span>
+                                    {name}: {value}
+                                  </span>
                                 </div>
                               );
                             })}
@@ -138,7 +144,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   name={"Reported"}
                   fill="#448AFF"
                   radius={[2, 2, 0, 0]}
-                  maxBarSize={25}
+                  maxBarSize={35}
                 />
 
                 <Bar
@@ -146,7 +152,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   name={"Estimate"}
                   fill={theme === "dark" ? "#434651" : "#E0E3EB"}
                   radius={[2, 2, 0, 0]}
-                  maxBarSize={25}
+                  maxBarSize={35}
                 />
 
                 <Legend
@@ -423,19 +429,26 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                         <div className="">
                           {payload &&
                             payload.map((pl, index) => {
-                              const { name, value } = pl;
+                              const { name, value, color } = pl;
 
                               return (
                                 <div
                                   key={`${value}-${index}`}
-                                  className=" text-main-gray-300 "
+                                  className=" flex items-center gap-2 text-main-gray-300 "
                                 >
-                                  {name}:{" "}
-                                  {appUtils.formatNumber(value as number, {
-                                    style: "decimal",
-                                    notation: "compact",
-                                    maximumFractionDigits: 2,
-                                  })}
+                                  <span
+                                    className=" size-3 "
+                                    style={{ backgroundColor: color }}
+                                  />
+                                  <span>
+                                    {name}:{" "}
+                                    {appUtils.formatNumber(value as number, {
+                                      style: "decimal",
+                                      notation: "compact",
+                                      maximumFractionDigits: 2,
+                                      minimumFractionDigits: 2
+                                    })}
+                                  </span>
                                 </div>
                               );
                             })}
@@ -450,7 +463,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   name={"Reported"}
                   fill="#FBBC05"
                   radius={[2, 2, 0, 0]}
-                  maxBarSize={25}
+                  maxBarSize={35}
                 />
 
                 <Bar
@@ -458,7 +471,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   name={"Estimate"}
                   fill={theme === "dark" ? "#434651" : "#E0E3EB"}
                   radius={[2, 2, 0, 0]}
-                  maxBarSize={25}
+                  maxBarSize={35}
                 />
 
                 <Legend
