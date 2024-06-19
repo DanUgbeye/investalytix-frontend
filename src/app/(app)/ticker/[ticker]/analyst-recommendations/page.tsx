@@ -2,21 +2,77 @@ import { Metadata } from "next";
 import React from "react";
 import AnalystRecommendationScreen from "./screen";
 import { SearchTickerPageProps } from "../page";
+import { TickerRepository } from "@/modules/ticker/repository";
+import { serverAPI } from "@/config/server/api";
+import { errorUtils } from "@/utils/error.utils";
+import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Investalytix",
-};
+export async function generateMetadata(props: {
+  params: { ticker: string };
+}): Promise<Metadata> {
+  try {
+    const {
+      params: { ticker },
+    } = props;
+
+    const tickerRepo = new TickerRepository(serverAPI);
+    const profile = await tickerRepo.getCompanyProfile(ticker);
+
+    return {
+      title: `${profile.companyName} (${profile.symbol}) Analyst Recommendation | Investalytix`,
+    };
+  } catch (error: any) {
+    return {
+      title: "Investalytix",
+    };
+  }
+}
+
+async function getData(ticker: string) {
+  try {
+    const tickerRepo = new TickerRepository(serverAPI);
+    let [profile, consensus, analystRecommendation, upgradesDowngrades] =
+      await Promise.all([
+        tickerRepo.getCompanyProfile(ticker),
+        tickerRepo.getTickerUpgradesDowngradesConsensus(ticker),
+        tickerRepo.getTickerAnalystRecommendations(ticker),
+        tickerRepo.getTickerUpgradesDowngrades(ticker),
+      ]);
+
+    return {
+      profile,
+      consensus,
+      analystRecommendation,
+      upgradesDowngrades,
+    };
+  } catch (error: any) {
+    if (errorUtils.is404Error(error)) {
+      notFound();
+    }
+
+    throw error;
+  }
+}
 
 interface AnalystRecommendationPageProps extends SearchTickerPageProps {}
 
-function AnalystRecommendationPage(props: AnalystRecommendationPageProps) {
+export default async function AnalystRecommendationPage(
+  props: AnalystRecommendationPageProps
+) {
   const {
     params: { ticker },
   } = props;
 
-  metadata.title = `${ticker} Analyst Recommendation | Investalytix`;
+  const { analystRecommendation, consensus, profile, upgradesDowngrades } =
+    await getData(ticker);
 
-  return <AnalystRecommendationScreen ticker={ticker} />;
+  return (
+    <AnalystRecommendationScreen
+      ticker={ticker}
+      analystRecommendation={analystRecommendation}
+      profile={profile}
+      consensus={consensus}
+      upgradesDowngrades={upgradesDowngrades}
+    />
+  );
 }
-
-export default AnalystRecommendationPage;

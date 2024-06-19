@@ -3,10 +3,11 @@ import { CompanyKeyExecutive, CompanyProfile } from "./company.types";
 import { Dividend } from "./dividend.types";
 import { Financials, RatioTTM } from "./financials.types";
 
+export * from "./analysis.types";
 export * from "./company.types";
 export * from "./dividend.types";
-export * from "./financials.types";
 export * from "./earnings.types";
+export * from "./financials.types";
 
 export type TickerData = {
   outlook: CompanyOutlook;

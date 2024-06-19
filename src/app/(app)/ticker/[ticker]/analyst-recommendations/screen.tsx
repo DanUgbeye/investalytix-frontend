@@ -1,8 +1,24 @@
 "use client";
 
+import HeaderWithUnderline from "@/components/heading";
 import { Button } from "@/components/ui/button";
-import { tailwindCSS } from "@/lib/utils";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  CompanyProfile,
+  TickerAnalystRecommendation,
+  TickerUpgradeDowngradeConsensus,
+  TickerUpgradesDowngrades,
+} from "@/modules/ticker/types";
 import useTheme from "@/store/theme/useTheme";
+import { format } from "date-fns";
+import { Minus, Plus } from "lucide-react";
+import { useMemo, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -60,33 +76,9 @@ const STOCK_FORECAST = [
   },
 ];
 
-const ANALYST_CONSENSUS = {
-  symbol: "AAPL",
-  strongBuy: 0,
-  buy: 22,
-  hold: 9,
-  sell: 2,
-  strongSell: 0,
-  consensus: "Strong Buy",
-};
-
-const data = [
-  {
-    name: "Buy",
-    value: ANALYST_CONSENSUS.buy + ANALYST_CONSENSUS.strongBuy,
-    color: "#008133",
-  },
-  { name: "Hold", value: ANALYST_CONSENSUS.hold, color: "#FF7E36" },
-  {
-    name: "Sell",
-    value: ANALYST_CONSENSUS.sell + ANALYST_CONSENSUS.strongSell,
-    color: "#8F79D4",
-  },
-];
-
 const recommendation_trends_data = [
   {
-    name: "Nov 23",
+    date: "Nov 23",
     sell: 5,
     strongSell: 6,
     hold: 5,
@@ -94,7 +86,7 @@ const recommendation_trends_data = [
     strongBuy: 2,
   },
   {
-    name: "Dec 23",
+    date: "Dec 23",
     sell: 1,
     strongSell: 6,
     hold: 0,
@@ -102,7 +94,7 @@ const recommendation_trends_data = [
     strongBuy: 20,
   },
   {
-    name: "Jan 24",
+    date: "Jan 24",
     sell: 10,
     strongSell: 6,
     hold: 5,
@@ -110,7 +102,7 @@ const recommendation_trends_data = [
     strongBuy: 2,
   },
   {
-    name: "Feb 24",
+    date: "Feb 24",
     sell: 2,
     strongSell: 1,
     hold: 10,
@@ -118,7 +110,7 @@ const recommendation_trends_data = [
     strongBuy: 2,
   },
   {
-    name: "Mar 24",
+    date: "Mar 24",
     sell: 10,
     strongSell: 3,
     hold: 5,
@@ -126,7 +118,7 @@ const recommendation_trends_data = [
     strongBuy: 4,
   },
   {
-    name: "Apr 24",
+    date: "Apr 24",
     sell: 4,
     strongSell: 8,
     hold: 20,
@@ -134,7 +126,7 @@ const recommendation_trends_data = [
     strongBuy: 6,
   },
   {
-    name: "May 24",
+    date: "May 24",
     sell: 1,
     strongSell: 2,
     hold: 2,
@@ -142,7 +134,7 @@ const recommendation_trends_data = [
     strongBuy: 12,
   },
   {
-    name: "Jun 24",
+    date: "Jun 24",
     sell: 10,
     strongSell: 12,
     hold: 2,
@@ -150,7 +142,7 @@ const recommendation_trends_data = [
     strongBuy: 2,
   },
   {
-    name: "Jul 24",
+    date: "Jul 24",
     sell: 20,
     strongSell: 2,
     hold: 2,
@@ -160,31 +152,95 @@ const recommendation_trends_data = [
 ];
 
 const RECOMMENDATION_COLORS = {
-  sell: "#9500C9",
-  strongSell: "#F94144",
-  hold: "#F68500",
-  buy: "#2D9CDB",
-  strongBuy: "#90BE6D",
+  strongSell: "#A43E35",
+  sell: "#FB3827",
+  hold: "#4DD0E1",
+  buy: "#49DA70",
+  strongBuy: "#258D41",
+};
+
+const ANALYST_RATING_COLORS = {
+  sell: "#EB4335",
+  strongSell: "#EB4335",
+  hold: "#F57F17",
+  buy: "#008133",
+  strongBuy: "#008133",
 };
 
 interface AnalystRecommendationScreenProps {
   ticker: string;
+  profile: CompanyProfile;
+  consensus: TickerUpgradeDowngradeConsensus;
+  analystRecommendation: TickerAnalystRecommendation[];
+  upgradesDowngrades: TickerUpgradesDowngrades[];
 }
 
 export default function AnalystRecommendationScreen(
   props: AnalystRecommendationScreenProps
 ) {
-  const { ticker } = props;
+  const {
+    ticker,
+    analystRecommendation,
+    consensus,
+    profile,
+    upgradesDowngrades,
+  } = props;
   const { theme } = useTheme();
+  const [showAllUpgrades, setShowAllUpgrades] = useState(false);
+
+  const totalRatings = useMemo(() => {
+    const { buy, hold, sell, strongBuy, strongSell } = consensus;
+    return buy + hold + sell + strongBuy + strongSell;
+  }, [consensus]);
+
+  const analystRatings = useMemo(() => {
+    return [
+      {
+        name: "Buy",
+        value: consensus.buy + consensus.strongBuy,
+        color: "#008133",
+      },
+      { name: "Hold", value: consensus.hold, color: "#F57F17" },
+      {
+        name: "Sell",
+        value: consensus.sell + consensus.strongSell,
+        color: "#EB4335",
+      },
+    ];
+  }, [consensus]);
+
+  const analystRecommendationTrend = useMemo(() => {
+    return analystRecommendation.slice(0, 13).map((rec) => ({
+      date: rec.date,
+      strongBuy: rec.analystRatingsStrongBuy,
+      buy: rec.analystRatingsbuy,
+      hold: rec.analystRatingsHold,
+      sell: rec.analystRatingsSell,
+      strongSell: rec.analystRatingsStrongSell,
+    }));
+  }, [analystRecommendation]);
+
+  const analystUpgradesDowngrades = useMemo(() => {
+    return upgradesDowngrades
+      .filter(
+        (ud) =>
+          new Date(ud.publishedDate).getFullYear() === new Date().getFullYear()
+      )
+      .slice(0, showAllUpgrades ? -1 : 11);
+  }, [upgradesDowngrades, showAllUpgrades]);
+
+  function handleShowMoreUpgrades() {
+    setShowAllUpgrades((prev) => !prev);
+  }
 
   return (
     <section className=" space-y-10 py-5 ">
       <div className=" space-y-5 ">
-        <h2 className=" text-2xl font-semibold md:text-3xl ">
-          Apple Stock Forecast & Price Target
-        </h2>
+        <HeaderWithUnderline>
+          {profile.companyName} Forecast & Price Target
+        </HeaderWithUnderline>
 
-        <div className=" flex flex-wrap gap-3 rounded border border-primary-base bg-[#FFF3E9] px-6  py-3 text-xs dark:bg-primary-base/20 ">
+        {/* <div className=" flex flex-wrap gap-3 rounded px-6 py-3 text-xs ">
           <div className=" flex flex-wrap items-center gap-x-8 gap-y-2 ">
             <span className=" ">See the Price Targets and Ratings of:</span>
 
@@ -219,60 +275,77 @@ export default function AnalystRecommendationScreen(
               </label>
             </fieldset>
           </div>
-        </div>
+        </div> */}
       </div>
 
-      <div className=" grid gap-x-5 gap-y-10 lg:grid-cols-[auto,1fr] ">
+      <div className=" grid gap-x-10 gap-y-10 lg:grid-cols-[auto,1fr] ">
         <div className=" space-y-3 lg:max-w-96 ">
-          <h4 className=" font-bold sm:text-xl ">AAPL Analyst Ratings</h4>
+          <h4 className=" w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700  ">
+            {profile.symbol} Analyst Ratings
+          </h4>
 
-          <div className=" grid min-h-80 grid-rows-[1fr,auto] border dark:border-main-gray-600 ">
-            <div className=" space-y-4 py-4 ">
-              <div className=" text-center text-lg font-bold ">
-                {ANALYST_CONSENSUS.consensus}
+          <div className=" grid min-h-80 grid-rows-[1fr,auto] ">
+            <div className=" space-y-1 py-4 ">
+              <div
+                className={" text-center text-2xl font-extrabold "}
+                style={{
+                  color:
+                    ANALYST_RATING_COLORS[
+                      consensus.consensus.toLowerCase() as keyof typeof ANALYST_RATING_COLORS
+                    ],
+                }}
+              >
+                {consensus.consensus}
               </div>
 
               <div className=" relative mx-auto grid w-fit place-items-center ">
-                <PieChart width={300} height={250}>
+                <PieChart width={300} height={230}>
                   <Pie
-                    data={data}
+                    data={analystRatings}
                     innerRadius={60}
-                    outerRadius={80}
+                    outerRadius={90}
                     fill="#8884d8"
                     dataKey="value"
+                    stroke="none"
+                    paddingAngle={4}
                   >
-                    {data.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={data[index].color} />
+                    {analystRatings.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={analystRatings[index].color}
+                      />
                     ))}
                   </Pie>
+
                   <Legend
                     iconType="square"
                     formatter={(value, entry, index) => {
                       return (
                         <span className=" ml-1 mr-3 text-xs sm:text-sm ">
-                          {data[index].value} {value}
+                          {analystRatings[index].value} {value}
                         </span>
                       );
                     }}
                   />
                 </PieChart>
 
-                <span className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[calc(50%+0.8rem)] text-xl font-bold ">
-                  {20}%
-                </span>
+                <div className=" absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-[calc(50%+0.8rem)] flex-col items-center text-2xl font-bold ">
+                  <span>{totalRatings}</span>
+                  <span className=" text-xs font-light">Ratings</span>
+                </div>
               </div>
             </div>
 
-            <div className=" border-t p-2 text-center text-xs dark:border-main-gray-600 ">
+            {/* <div className=" border-t p-2 text-center text-xs dark:border-main-gray-600 ">
               Based on 33 analyst giving stock ratings to Apple in the past 3
               months.
-            </div>
+            </div> */}
           </div>
         </div>
 
         <div className=" space-y-3 ">
-          <h4 className=" font-bold sm:text-xl ">
-            AAPL Stock 12 Months Forecast
+          <h4 className=" w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700 ">
+            {profile.symbol} Stock 12 Months Forecast
           </h4>
 
           <div className=" grid min-h-80 grid-rows-[1fr,auto] border dark:border-main-gray-600 ">
@@ -325,84 +398,152 @@ export default function AnalystRecommendationScreen(
 
       <div className=" space-y-5 ">
         <div className=" space-y-2 ">
-          <h5 className=" text-lg font-bold ">Recommendation Trends</h5>
+          <h5 className=" text-xl font-bold ">Recommendation Trends</h5>
 
           <p className="  ">
-            The latest consensus rating for Apple is &apos;Buy&apos;. This is
-            the average recommendation of 48 analysts: 0 strong sell, 1 sell, 13
-            hold, 22 buy, 12 strong buy. In the previous period, 50 analysts
-            also majorly recommended &apos;Buy&apos; for Apple.
+            The latest consensus rating for Apple is &apos;
+            {consensus.consensus}&apos;. This is the average recommendation of{" "}
+            {totalRatings} analysts: {consensus.strongSell} strong sell,{" "}
+            {consensus.sell} sell, {consensus.hold}
+            hold, {consensus.buy} buy, {consensus.strongBuy} strong buy. In the
+            previous period, 50 analysts also majorly recommended
+            &apos;Buy&apos; for Apple.
           </p>
         </div>
 
         <div className=" ">
           <ResponsiveContainer
             width="100%"
-            height={350}
-            className={" text-xs "}
+            height={200}
+            className={" text-sm "}
           >
-            <BarChart
-              width={500}
-              height={300}
-              data={recommendation_trends_data}
-              className=" !-ml-6"
-            >
+            <BarChart data={analystRecommendationTrend} className=" ">
               <CartesianGrid
                 vertical={false}
                 strokeDasharray="3 3"
-                className=" stroke-main-gray-400 dark:stroke-white/40"
+                className=" stroke-main-gray-200 dark:stroke-main-gray-700 "
               />
-              <XAxis tickLine={false} dataKey="name" />
-              <YAxis tickLine={false} />
+
+              <XAxis
+                tickLine={false}
+                axisLine={false}
+                dataKey="date"
+                tickFormatter={(value) => format(new Date(value), "MMM yy")}
+              />
+
+              <YAxis tickLine={false} axisLine={false} orientation="right" />
+
               <Tooltip
                 cursor={{
-                  className: " fill-main-gray-200/50 dark:fill-white/20 ",
+                  className: " fill-main-gray-200/30 dark:fill-white/10 ",
                 }}
-                contentStyle={{
-                  backgroundColor:
-                    theme === "dark"
-                      ? tailwindCSS().theme.colors.main.gray[900]
-                      : "white",
-                  borderColor:
-                    theme === "dark"
-                      ? tailwindCSS().theme.colors.main.gray[500]
-                      : tailwindCSS().theme.colors.main.gray[300],
+                content={(props) => {
+                  const { payload, label } = props;
+
+                  return (
+                    <div className=" space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300 ">
+                      {label && (
+                        <div className="  ">
+                          {format(new Date(label), "MMM yy")}
+                        </div>
+                      )}
+
+                      <div className="">
+                        {payload &&
+                          payload.map((pl, index) => {
+                            const { name, value, color } = pl;
+
+                            return (
+                              <div
+                                key={`${value}-${index}`}
+                                className=" flex items-center gap-2 text-main-gray-300 "
+                              >
+                                <span
+                                  className=" size-3 "
+                                  style={{ backgroundColor: color }}
+                                />
+                                <span>
+                                  {name}: {value}
+                                </span>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    </div>
+                  );
                 }}
-                labelClassName=" font-semibold text-black dark:text-main-gray-300 "
               />
-              <Legend iconType="circle" />
+
+              <Legend
+                content={(props) => {
+                  const { payload } = props;
+
+                  return (
+                    <div className=" flex items-center gap-x-4 py-2 sm:justify-center ">
+                      {payload &&
+                        payload.map((pl, index) => {
+                          const { value, color } = pl;
+
+                          return (
+                            <span
+                              key={`${value}`}
+                              className=" text-black dark:text-main-gray-300 "
+                            >
+                              <span
+                                style={{
+                                  display: "inline-block",
+                                  width: 12,
+                                  height: 12,
+                                  backgroundColor: color,
+                                  marginRight: 8,
+                                }}
+                              ></span>
+
+                              {value}
+                            </span>
+                          );
+                        })}
+                    </div>
+                  );
+                }}
+              />
+
               <Bar
                 dataKey="strongSell"
                 stackId="a"
-                maxBarSize={50}
+                maxBarSize={40}
                 fill={RECOMMENDATION_COLORS["strongSell"]}
                 name={"Strong Sell"}
               />
+
               <Bar
                 dataKey="sell"
                 stackId="a"
-                maxBarSize={50}
+                maxBarSize={40}
                 fill={RECOMMENDATION_COLORS["sell"]}
                 name={"Sell"}
               />
+
               <Bar
                 dataKey="hold"
                 stackId="a"
-                maxBarSize={50}
+                maxBarSize={40}
                 fill={RECOMMENDATION_COLORS["hold"]}
                 name={"Hold"}
               />
+
               <Bar
                 dataKey="buy"
                 stackId="a"
-                maxBarSize={50}
+                maxBarSize={40}
                 fill={RECOMMENDATION_COLORS["buy"]}
                 name={"Buy"}
               />
+
               <Bar
                 dataKey="strongBuy"
                 stackId="a"
-                maxBarSize={50}
+                maxBarSize={40}
                 fill={RECOMMENDATION_COLORS["strongBuy"]}
                 name={"Strong Buy"}
               />
@@ -412,56 +553,81 @@ export default function AnalystRecommendationScreen(
       </div>
 
       <div className=" space-y-5 ">
-        <h5 className=" text-lg font-bold ">
+        <h5 className=" text-xl font-bold ">
           Apple Stock Forecast - Upgrades & Downgrades
         </h5>
 
-        <div className=" space-y-20 ">
-          <div className=" overflow-x-auto border dark:border-main-gray-600 ">
-            <table className="w-full min-w-[50rem] ">
-              <thead>
-                <tr className=" th text-sm font-bold dark:bg-white/20 ">
-                  <th className=" px-2 py-4 text-left ">Date</th>
+        <div className="  ">
+          <div className=" overflow-x-auto ">
+            <Table className="w-full min-w-[50rem] ">
+              <TableHeader>
+                <TableRow headerRow>
+                  <TableCell className=" py-4 text-left ">Date</TableCell>
 
-                  <th className=" px-2 py-4 text-left ">Company</th>
+                  <TableCell className=" py-4 text-left ">Company</TableCell>
 
-                  <th className=" px-2 py-4 text-left ">Analyst</th>
+                  <TableCell className=" py-4 text-left ">Analyst</TableCell>
 
-                  <th className=" px-2 py-4 text-right ">Action</th>
+                  <TableCell className=" py-4 text-right ">Action</TableCell>
 
-                  <th className=" px-2 py-4 text-right ">From</th>
+                  <TableCell className=" py-4 text-right ">From</TableCell>
 
-                  <th className=" px-2 py-4 text-right ">To</th>
-                </tr>
-              </thead>
+                  <TableCell className=" py-4 text-right ">To</TableCell>
+                </TableRow>
+              </TableHeader>
 
-              <tbody className=" ">
-                {STOCK_FORECAST.map((item, index) => {
+              <TableBody className=" ">
+                {analystUpgradesDowngrades.map((item, index) => {
                   return (
-                    <tr
-                      key={`forecast-${index}`}
-                      className=" text-sm even:bg-main-gray-100  dark:even:bg-main-gray-900 "
-                    >
-                      <td className=" white-text px-2 py-4 text-left text-[#333333]">
-                        {item.date.toDateString()}
-                      </td>
+                    <TableRow key={`forecast-${index}`}>
+                      <TableCell className=" white-text text-left text-[#333333]">
+                        {item.publishedDate.toDateString()}
+                      </TableCell>
 
-                      <td className={` px-2 py-4 text-left`}>{item.company}</td>
+                      <TableCell className={` text-left`}>
+                        {item.gradingCompany}
+                      </TableCell>
 
-                      <td className={` px-2 py-4 text-left`}>{item.analyst}</td>
+                      <TableCell className={` text-left`}>
+                        {item.newsPublisher}
+                      </TableCell>
 
-                      <td className=" px-2 py-4 text-right text-primary-base ">
+                      <TableCell className=" text-right capitalize text-primary-base ">
                         {item.action}
-                      </td>
+                      </TableCell>
 
-                      <td className=" px-2 py-4 text-right">{item.from}</td>
+                      <TableCell className=" text-right">
+                        {item.previousGrade}
+                      </TableCell>
 
-                      <td className=" px-2 py-4 text-right">{item.to}</td>
-                    </tr>
+                      <TableCell className=" text-right">
+                        {item.newGrade}
+                      </TableCell>
+                    </TableRow>
                   );
                 })}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
+          </div>
+
+          <div className=" flex justify-center ">
+            <Button
+              variant={"link"}
+              className=" gap-x-2 text-primary-base hover:no-underline dark:text-primary-base "
+              onClick={handleShowMoreUpgrades}
+            >
+              {showAllUpgrades ? (
+                <>
+                  <Minus className=" size-4 " />
+                  Show Less
+                </>
+              ) : (
+                <>
+                  <Plus className=" size-4 " />
+                  Show More
+                </>
+              )}
+            </Button>
           </div>
         </div>
       </div>

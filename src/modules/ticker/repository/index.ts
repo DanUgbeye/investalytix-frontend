@@ -1,5 +1,19 @@
+import { NewsSchema } from "@/modules/news/validation";
+import {
+  Quote,
+  QuoteHistory,
+  QuoteTimeframe,
+  SearchResult,
+  ShortQuote,
+} from "@/types";
 import { RequestOptions } from "@/types/api.types";
 import { handleAPIError } from "@/utils/api-utils";
+import {
+  QuoteHistorySchema,
+  QuoteSchema,
+  SearchResultSchema,
+  ShortQuoteSchema,
+} from "@/validation";
 import { AxiosInstance } from "axios";
 import { z } from "zod";
 import {
@@ -16,6 +30,9 @@ import {
   News,
   Ratio,
   SecFiling,
+  TickerAnalystRecommendation,
+  TickerUpgradeDowngradeConsensus,
+  TickerUpgradesDowngrades,
 } from "../types";
 import {
   BalanceSheetStatementSchema,
@@ -29,21 +46,10 @@ import {
   MutualFundHolderSchema,
   RatioSchema,
   SecFilingSchema,
+  TickerAnalystRecommendationSchema,
+  TickerUpgradeDowngradeConsensusSchema,
+  TickerUpgradesDowngradesSchema,
 } from "../validation";
-import {
-  Quote,
-  QuoteHistory,
-  QuoteTimeframe,
-  SearchResult,
-  ShortQuote,
-} from "@/types";
-import {
-  QuoteHistorySchema,
-  QuoteSchema,
-  SearchResultSchema,
-  ShortQuoteSchema,
-} from "@/validation";
-import { NewsSchema } from "@/modules/news/validation";
 
 export class TickerRepository {
   constructor(private readonly axios: AxiosInstance) {}
@@ -480,6 +486,84 @@ export class TickerRepository {
 
       if (validation.error) {
         console.log(JSON.stringify(validation.error, null, 2));
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  // ANALYSIS
+  async getTickerAnalystRecommendations(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<TickerAnalystRecommendation[]> {
+    try {
+      const path = `/tickers/${ticker}/analyst-recommendation`;
+      let res = await this.axios.get<{ data: TickerAnalystRecommendation[] }>(
+        path,
+        options
+      );
+
+      let validation = z
+        .array(TickerAnalystRecommendationSchema)
+        .safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getTickerUpgradesDowngrades(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<TickerUpgradesDowngrades[]> {
+    try {
+      const path = `/tickers/${ticker}/upgrades-downgrades`;
+      let res = await this.axios.get<{ data: TickerUpgradesDowngrades[] }>(
+        path,
+        options
+      );
+
+      let validation = z
+        .array(TickerUpgradesDowngradesSchema)
+        .safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getTickerUpgradesDowngradesConsensus(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<TickerUpgradeDowngradeConsensus> {
+    try {
+      const path = `/tickers/${ticker}/upgrades-downgrades-consensus`;
+      let res = await this.axios.get<{
+        data: TickerUpgradeDowngradeConsensus;
+      }>(path, options);
+
+      let validation = TickerUpgradeDowngradeConsensusSchema.safeParse(
+        res.data.data
+      );
+
+      if (validation.error) {
         throw new Error("Something went wrong on our end");
       }
 
