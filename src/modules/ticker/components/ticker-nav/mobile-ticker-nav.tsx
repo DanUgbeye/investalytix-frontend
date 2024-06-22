@@ -45,8 +45,6 @@ export function MobileTickerNav(props: Props) {
     return activePath;
   }, [pathname, navTabs]);
 
-  console.log(statsVisible);
-
   return (
     <aside
       {...rest}
