@@ -1,20 +1,30 @@
 "use client";
 
-import { tailwindCSS } from "@/lib/utils";
-import useTheme from "@/store/theme/useTheme";
-import { Dividend } from "@/modules/ticker/types";
+import HeaderWithUnderline from "@/components/heading";
+import { Button } from "@/components/ui/button";
 import {
-  Area,
-  AreaChart,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { CompanyOutlook, Dividend, Ratio } from "@/modules/ticker/types";
+import useTheme from "@/store/theme/useTheme";
+import appUtils from "@/utils/app-util";
+import { format } from "date-fns";
+import { Minus, Plus } from "lucide-react";
+import { useMemo, useState } from "react";
+import {
+  Bar,
+  BarChart,
   CartesianGrid,
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis,
+  YAxis
 } from "recharts";
-import { HISTORICAL_DIVIDENDS } from "./sample";
-import { format } from "date-fns";
-import appUtils from "@/utils/app-util";
 
 function formatDividendData(data: Dividend[]) {
   const dataMap = new Map<number, { year: number; from: number; to: number }>();
@@ -44,209 +54,278 @@ function formatDividendData(data: Dividend[]) {
 
 interface DividendsScreenProps {
   ticker: string;
+  outlook: CompanyOutlook;
+  dividends: Dividend[];
+  currency: string;
+  ratio: Ratio;
 }
 
 export default function DividendsScreen(props: DividendsScreenProps) {
-  const { ticker } = props;
+  const { currency, ticker, dividends, outlook, ratio } = props;
   const { theme } = useTheme();
 
+  const [showAllDividends, setShowAllDividends] = useState(false);
+
+  const dividendsToDisplay = useMemo(() => {
+    if (showAllDividends) return dividends;
+    return dividends.filter(
+      (dividend) =>
+        new Date().getFullYear() - new Date(dividend.date).getFullYear() < 3
+    );
+  }, [dividends, showAllDividends]);
+
+  function handleShowMoreDividends() {
+    setShowAllDividends((prev) => !prev);
+  }
+
   return (
-    <section className=" max-w-7xl space-y-12 py-12 ">
-      <header className="relative w-full ">
-        <div className=" flex w-full py-4 ">
-          <h2 className=" white-text text-xl font-bold text-[#2A3037] sm:text-3xl">
-            Apple Dividend
-          </h2>
+    <main className=" max-w-7xl space-y-10 pb-12 ">
+      <HeaderWithUnderline>
+        {outlook.profile.companyName} Dividends Overview
+      </HeaderWithUnderline>
+
+      <div className=" grid grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] gap-6 p-4 xl:grid-cols-4 xl:justify-between ">
+        <div className=" flex flex-col gap-1 ">
+          <span className=" text-sm font-bold ">Last Ex-Dividend Date</span>
+
+          <span className=" text-xl ">
+            {dividends[0] &&
+              format(new Date(dividends[0].date), "MMMM dd, yyyy")}
+          </span>
         </div>
 
-        <div className="absolute h-[2px] w-full bg-gradient-to-r from-[#FB8B1E] from-50% to-[#545454] to-50% dark:to-white/50 "></div>
-      </header>
+        <div className=" flex flex-col gap-1 ">
+          <span className=" text-sm font-bold ">Dividend Amount Per Share</span>
 
-      <div className=" space-y-5 border py-3 dark:border-main-gray-600  ">
-        <h4 className=" px-4 text-lg font-bold sm:text-2xl ">Data</h4>
-
-        <div className=" white-text flex flex-col divide-y divide-inherit text-gray-700 xl:flex-row xl:divide-x xl:divide-y-0 dark:border-main-gray-600 ">
-          <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
-            <span className=" font-bold ">Last Ex-Dividend Date</span>
-            <span className="  ">2023-11-16</span>
-          </div>
-
-          <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
-            <span className=" font-bold ">Dividend Amount Per Share</span>
-            <span className="  ">$0.24</span>
-          </div>
-
-          <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
-            <span className=" font-bold ">Dividend Yield</span>
-            <span className="  ">0.5</span>
-          </div>
-
-          <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
-            <span className=" font-bold ">Payout Ratio</span>
-            <span className="  ">15.49%</span>
-          </div>
-
-          <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
-            <span className=" font-bold ">Dividend Growth</span>
-            <span className="  ">1.57%</span>
-          </div>
-
-          <div className=" flex min-w-24 flex-col gap-y-1 px-4 py-3 ">
-            <span className=" font-bold ">P/E</span>
-            <span className="  ">31.4</span>
-          </div>
+          <span className=" text-xl ">
+            {appUtils.formatNumber(dividends[0]?.dividend || undefined, {
+              currency,
+            })}
+          </span>
         </div>
+
+        <div className=" flex flex-col gap-1 ">
+          <span className=" text-sm font-bold ">Dividend Yield</span>
+
+          <span className=" text-xl ">
+            {appUtils.formatNumber(
+              outlook.ratios[0]?.dividendYielPercentageTTM || undefined,
+              {
+                style: "decimal",
+              }
+            )}
+            {outlook.ratios[0]?.dividendYielPercentageTTM && "%"}
+          </span>
+        </div>
+
+        <div className=" flex flex-col gap-1 ">
+          <span className=" text-sm font-bold ">Payout Ratio</span>
+
+          <span className=" text-xl ">
+            {appUtils.formatNumber(
+              ratio.dividendPayoutRatio
+                ? ratio.dividendPayoutRatio * 100
+                : undefined,
+              {
+                style: "decimal",
+              }
+            )}
+            {ratio.dividendPayoutRatio && "%"}
+          </span>
+        </div>
+
+        {/* <div className=" flex flex-col gap-1 ">
+          <span className=" text-sm font-bold ">P/E</span>
+
+          <span className=" text-xl ">
+            {appUtils.formatNumber(quote.pe || undefined, {
+              style: "decimal",
+            })}
+          </span>
+        </div> */}
       </div>
 
-      <div className=" border dark:border-main-gray-600 ">
-        <h4 className=" border-b px-4 py-5 text-lg font-bold sm:text-2xl dark:border-main-gray-600 ">
-          Dividend Yield Range
-        </h4>
+      <div className=" space-y-5 ">
+        <h4 className=" text-xl font-bold ">Dividend Amount Per Share</h4>
 
-        <div className=" overflow-x-auto px-4 ">
-          <ResponsiveContainer width={"100%"} height={500}>
-            <AreaChart
-              data={formatDividendData(HISTORICAL_DIVIDENDS)}
-              margin={{
-                top: 40,
-                right: 40,
-                left: 0,
-                bottom: 40,
-              }}
-            >
+        <div className="  ">
+          <ResponsiveContainer
+            width={"100%"}
+            height={200}
+            className={" text-xs md:text-sm "}
+          >
+            <BarChart data={dividends.slice(0, 10).toReversed()}>
               <CartesianGrid
                 vertical={false}
                 strokeDasharray="3 3"
-                className=" stroke-main-gray-400 dark:stroke-white/40"
+                className=" stroke-main-gray-200 dark:stroke-main-gray-700"
               />
+
               <XAxis
-                dataKey="year"
+                axisLine={false}
                 tickLine={false}
-                style={{ paddingTop: 20 }}
-                tickMargin={10}
-                padding={{ left: 20 }}
+                dataKey={"date"}
+                className=" text-xs"
+                tickFormatter={(value) => {
+                  const { quarter, year } = appUtils.getYearAndQuarter(
+                    value || new Date()
+                  );
+                  return `${quarter} '${year}`;
+                }}
               />
-              <YAxis tickLine={false} />
+
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                orientation="right"
+                className=" text-xs"
+                tickFormatter={(value) =>
+                  appUtils.formatNumber(value, {
+                    style: "decimal",
+                    minimumFractionDigits: 2,
+                  })
+                }
+              />
+
               <Tooltip
-                cursor={false}
-                contentStyle={{
-                  backgroundColor:
-                    theme === "dark"
-                      ? tailwindCSS().theme.colors.main.gray[900]
-                      : "white",
-                  borderColor:
-                    theme === "dark"
-                      ? tailwindCSS().theme.colors.main.gray[500]
-                      : tailwindCSS().theme.colors.main.gray[300],
+                cursor={{
+                  className: " fill-main-gray-200/20 dark:fill-white/10 ",
                 }}
-                labelClassName=" text-black dark:text-main-gray-300 "
+                content={(props) => {
+                  const { payload, label } = props;
+
+                  return (
+                    <div className=" space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300 ">
+                      {label && (
+                        <div className="  ">
+                          {format(new Date(label), "MMM dd, yyyy")}
+                        </div>
+                      )}
+
+                      <div className="">
+                        {payload &&
+                          payload.map((pl, index) => {
+                            const { name, value, color } = pl;
+
+                            return (
+                              <div
+                                key={`${value}-${index}`}
+                                className=" flex items-center gap-2 text-main-gray-300 "
+                              >
+                                <span
+                                  className=" size-3 "
+                                  style={{ backgroundColor: color }}
+                                />
+                                <span>
+                                  {name}:{" "}
+                                  {appUtils.formatNumber(
+                                    (value || undefined) as number | undefined,
+                                    { currency }
+                                  )}
+                                </span>
+                              </div>
+                            );
+                          })}
+                      </div>
+                    </div>
+                  );
+                }}
               />
-              <Area
-                dataKey="from"
-                name="From"
-                dot={{
-                  r: 6,
-                  z: 100,
-                  fill: tailwindCSS().theme.colors.primary.base,
-                  fillOpacity: 1,
-                  stroke: tailwindCSS().theme.colors.primary.base,
-                }}
-                activeDot={{
-                  r: 6,
-                }}
-                strokeWidth={2}
-                stackId="1"
-                fill={"none"}
-                stroke={tailwindCSS().theme.colors.primary.base}
+
+              <Bar
+                dataKey="dividend"
+                name={"Dividend"}
+                fill="#448AFF"
+                radius={[2, 2, 0, 0]}
+                maxBarSize={35}
               />
-              <Area
-                dataKey="to"
-                name="To"
-                dot={{
-                  r: 6,
-                  z: 100,
-                  fill: tailwindCSS().theme.colors.primary.base,
-                  fillOpacity: 1,
-                  stroke: tailwindCSS().theme.colors.primary.base,
-                }}
-                activeDot={{
-                  r: 6,
-                }}
-                strokeWidth={2}
-                stackId="1"
-                fill={tailwindCSS().theme.colors.primary.light}
-                stroke={tailwindCSS().theme.colors.primary.base}
-              />
-            </AreaChart>
+            </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       <div className="  ">
-        <h4 className=" py-5 text-lg font-bold sm:text-2xl ">
-          Dividend History
+        <h4 className=" py-5 text-xl font-bold ">
+          {outlook.profile.companyName} Dividend History
         </h4>
 
-        <div className=" overflow-x-auto border dark:border-main-gray-600 ">
-          <table className="w-full min-w-[50rem] ">
-            <thead>
-              <tr className=" th text-sm font-bold ">
-                <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-left ">Declaration Date</div>
-                </th>
+        <div className="  ">
+          <div className=" overflow-x-auto ">
+            <Table className="w-full min-w-[50rem] ">
+              <TableHeader>
+                <TableRow headerRow>
+                  <TableHead className=" ">Ex-Date</TableHead>
 
-                <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-left ">Payment Date</div>
-                </th>
+                  <TableHead className=" ">Amount</TableHead>
 
-                <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-left ">Record Date</div>
-                </th>
+                  <TableHead className=" ">Declaration Date</TableHead>
 
-                <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-right ">Amount</div>
-                </th>
+                  <TableHead className=" ">Payment Date</TableHead>
 
-                <th className=" p-0 ">
-                  <div className=" px-2 py-4 text-right ">Currency</div>
-                </th>
-              </tr>
-            </thead>
+                  <TableHead className=" ">Record Date</TableHead>
+                </TableRow>
+              </TableHeader>
 
-            <tbody>
-              {HISTORICAL_DIVIDENDS.toReversed().map((dividend, index) => {
-                return (
-                  <tr
-                    key={`dividends-${index}`}
-                    className=" text-sm even:bg-main-gray-100 dark:even:bg-main-gray-900 "
-                  >
-                    <td className=" px-2 py-4 text-left ">
-                      {format(dividend.declarationDate, "yyyy-MM-dd")}
-                    </td>
+              <TableBody>
+                {dividendsToDisplay.map((dividend, index) => {
+                  return (
+                    <TableRow key={`dividends-${index}`} className=" text-sm ">
+                      <TableCell className="  ">
+                        {format(dividend.date, "MMM dd, yyyy")}
+                      </TableCell>
 
-                    <td className={` px-2 py-4 text-left`}>
-                      {format(dividend.paymentDate, "yyyy-MM-dd")}
-                    </td>
+                      <TableCell className=" ">
+                        {appUtils.formatNumber(dividend.dividend, {
+                          currency,
+                          maximumFractionDigits: undefined,
+                        })}
+                      </TableCell>
 
-                    <td className=" px-2 py-4 text-left ">
-                      {format(dividend.recordDate, "yyyy-MM-dd")}
-                    </td>
+                      <TableCell className="  ">
+                        {dividend.declarationDate
+                          ? format(dividend.declarationDate, "MMM dd, yyyy")
+                          : "-"}
+                      </TableCell>
 
-                    <td className=" px-2 py-4 text-right">
-                      {appUtils.formatNumber(dividend.dividend, {
-                        style: "decimal",
-                        maximumFractionDigits: 2,
-                      })}
-                    </td>
+                      <TableCell className="  ">
+                        {dividend.recordDate
+                          ? format(dividend.recordDate, "MMM dd, yyyy")
+                          : "-"}
+                      </TableCell>
 
-                    <td className=" px-2 py-4 text-right">USD</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                      <TableCell className={` `}>
+                        {dividend.paymentDate
+                          ? format(dividend.paymentDate, "MMM dd, yyyy")
+                          : "-"}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
+
+          <div className=" flex justify-center ">
+            <Button
+              variant={"link"}
+              className=" gap-x-2 text-primary-base hover:no-underline dark:text-primary-base "
+              onClick={handleShowMoreDividends}
+            >
+              {showAllDividends ? (
+                <>
+                  <Minus className=" size-4 " />
+                  Show Less
+                </>
+              ) : (
+                <>
+                  <Plus className=" size-4 " />
+                  Show More
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </div>
-    </section>
+    </main>
   );
 }

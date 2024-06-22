@@ -8,15 +8,15 @@ export const DividendSchema = z.object({
   adjDividend: z.number(),
   dividend: z.number(),
   recordDate: z.string().transform((date) => {
-    if (isValid(date)) return new Date(date);
+    if (isValid(new Date(date))) return new Date(date);
     return null;
   }) as unknown as ZodType<Date | null>,
   paymentDate: z.string().transform((date) => {
-    if (isValid(date)) return new Date(date);
+    if (isValid(new Date(date))) return new Date(date);
     return null;
   }) as unknown as ZodType<Date | null>,
   declarationDate: z.string().transform((date) => {
-    if (isValid(date)) return new Date(date);
+    if (isValid(new Date(date))) return new Date(date);
     return null;
   }) as unknown as ZodType<Date | null>,
 }) satisfies ZodType<Dividend>;
