@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import {
   CompanyProfile,
   TickerAnalystRecommendation,
@@ -52,7 +53,7 @@ const ANALYST_RATING_COLORS = {
 interface AnalystRecommendationScreenProps {
   ticker: string;
   profile: CompanyProfile;
-  consensus: TickerUpgradeDowngradeConsensus;
+  consensus?: TickerUpgradeDowngradeConsensus;
   analystRecommendation: TickerAnalystRecommendation[];
   upgradesDowngrades: TickerUpgradesDowngrades[];
 }
@@ -71,11 +72,27 @@ export default function AnalystRecommendationScreen(
   const [showAllUpgrades, setShowAllUpgrades] = useState(false);
 
   const totalRatings = useMemo(() => {
+    if (!consensus) return undefined;
     const { buy, hold, sell, strongBuy, strongSell } = consensus;
     return buy + hold + sell + strongBuy + strongSell;
   }, [consensus]);
 
   const analystRatings = useMemo(() => {
+    if (!consensus)
+      return [
+        {
+          name: "Buy",
+          value: 0,
+          color: "#008133",
+        },
+        { name: "Hold", value: 0, color: "#F57F17" },
+        {
+          name: "Sell",
+          value: 0,
+          color: "#EB4335",
+        },
+      ];
+
     return [
       {
         name: "Buy",
@@ -160,70 +177,78 @@ export default function AnalystRecommendationScreen(
         </div> */}
       </div>
 
-      <div className=" grid gap-x-10 gap-y-10 lg:grid-cols-[auto,1fr] ">
-        <div className=" space-y-3 lg:max-w-96 ">
-          <h4 className=" w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700  ">
-            {profile.symbol} Analyst Ratings
-          </h4>
+      <div
+        className={cn(" grid gap-x-10 gap-y-10 lg:grid-cols-[auto,1fr] ", {
+          " grid-cols-1": !consensus,
+        })}
+      >
+        {consensus && (
+          <div className=" space-y-3 lg:max-w-96 ">
+            <h4 className=" w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700  ">
+              {profile.symbol} Analyst Ratings
+            </h4>
 
-          <div className=" grid min-h-80 grid-rows-[1fr,auto] ">
-            <div className=" space-y-1 py-4 ">
-              <div
-                className={" text-center text-2xl font-extrabold "}
-                style={{
-                  color:
-                    ANALYST_RATING_COLORS[
-                      consensus.consensus.toLowerCase() as keyof typeof ANALYST_RATING_COLORS
-                    ],
-                }}
-              >
-                {consensus.consensus}
-              </div>
-
-              <div className=" relative mx-auto grid w-fit place-items-center ">
-                <PieChart width={300} height={230}>
-                  <Pie
-                    data={analystRatings}
-                    innerRadius={60}
-                    outerRadius={90}
-                    fill="#8884d8"
-                    dataKey="value"
-                    stroke="none"
-                    paddingAngle={4}
-                  >
-                    {analystRatings.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={analystRatings[index].color}
-                      />
-                    ))}
-                  </Pie>
-
-                  <Legend
-                    iconType="square"
-                    formatter={(value, entry, index) => {
-                      return (
-                        <span className=" ml-1 mr-3 text-xs sm:text-sm ">
-                          {analystRatings[index].value} {value}
-                        </span>
-                      );
+            <div className=" grid min-h-80 grid-rows-[1fr,auto] ">
+              <div className=" space-y-1 py-4 ">
+                {consensus && (
+                  <div
+                    className={" text-center text-2xl font-extrabold "}
+                    style={{
+                      color:
+                        ANALYST_RATING_COLORS[
+                          consensus.consensus.toLowerCase() as keyof typeof ANALYST_RATING_COLORS
+                        ],
                     }}
-                  />
-                </PieChart>
+                  >
+                    {consensus.consensus}
+                  </div>
+                )}
 
-                <div className=" absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-[calc(50%+0.8rem)] flex-col items-center text-2xl font-bold ">
-                  <span>{totalRatings}</span>
-                  <span className=" text-xs font-light">Ratings</span>
+                <div className=" relative mx-auto grid w-fit place-items-center ">
+                  <PieChart width={300} height={230}>
+                    <Pie
+                      data={analystRatings}
+                      innerRadius={60}
+                      outerRadius={90}
+                      fill="#8884d8"
+                      dataKey="value"
+                      stroke="none"
+                      paddingAngle={4}
+                    >
+                      {analystRatings.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={analystRatings[index].color}
+                        />
+                      ))}
+                    </Pie>
+
+                    <Legend
+                      iconType="square"
+                      formatter={(value, entry, index) => {
+                        return (
+                          <span className=" ml-1 mr-3 text-xs sm:text-sm ">
+                            {analystRatings[index].value} {value}
+                          </span>
+                        );
+                      }}
+                    />
+                  </PieChart>
+
+                  <div className=" absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-[calc(50%+0.8rem)] flex-col items-center text-2xl font-bold ">
+                    <span>{totalRatings}</span>
+                    <span className=" text-xs font-light">Ratings</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* <div className=" border-t p-2 text-center text-xs dark:border-main-gray-600 ">
+              {/* <div className=" border-t p-2 text-center text-xs dark:border-main-gray-600 ">
               Based on 33 analyst giving stock ratings to Apple in the past 3
               months.
             </div> */}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className=" space-y-3 ">
           <h4 className=" w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700 ">
@@ -283,13 +308,19 @@ export default function AnalystRecommendationScreen(
           <h5 className=" text-xl font-bold ">Recommendation Trends</h5>
 
           <p className="  ">
-            The latest consensus rating for Apple is &apos;
-            {consensus.consensus}&apos;. This is the average recommendation of{" "}
-            {totalRatings} analysts: {consensus.strongSell} strong sell,{" "}
-            {consensus.sell} sell, {consensus.hold}
-            hold, {consensus.buy} buy, {consensus.strongBuy} strong buy. In the
-            previous period, 50 analysts also majorly recommended
-            &apos;Buy&apos; for Apple.
+            {consensus ? (
+              <>
+                The latest consensus rating for Apple is &apos;
+                {consensus.consensus}&apos;. This is the average recommendation
+                of {totalRatings} analysts: {consensus.strongSell} strong sell,{" "}
+                {consensus.sell} sell, {consensus.hold}
+                hold, {consensus.buy} buy, {consensus.strongBuy} strong buy. In
+                the previous period, 50 analysts also majorly recommended
+                &apos;Buy&apos; for Apple.
+              </>
+            ) : (
+              <></>
+            )}
           </p>
         </div>
 
@@ -440,77 +471,89 @@ export default function AnalystRecommendationScreen(
         </h5>
 
         <div className="  ">
-          <div className=" overflow-x-auto ">
-            <Table className="w-full min-w-[50rem] ">
-              <TableHeader>
-                <TableRow headerRow>
-                  <TableCell className=" py-4 text-left ">Date</TableCell>
+          {analystUpgradesDowngrades.length <= 0 ? (
+            <div className=" text-center border-t dark:border-main-gray-700 p-5 text-main-gray-400 w-full ">No Data Available</div>
+          ) : (
+            <div className="  ">
+              <div className=" overflow-x-auto ">
+                <Table className="w-full min-w-[50rem] ">
+                  <TableHeader>
+                    <TableRow headerRow>
+                      <TableCell className=" py-4 text-left ">Date</TableCell>
 
-                  <TableCell className=" py-4 text-left ">Company</TableCell>
-
-                  <TableCell className=" py-4 text-left ">Analyst</TableCell>
-
-                  <TableCell className=" py-4 text-right ">Action</TableCell>
-
-                  <TableCell className=" py-4 text-right ">From</TableCell>
-
-                  <TableCell className=" py-4 text-right ">To</TableCell>
-                </TableRow>
-              </TableHeader>
-
-              <TableBody className=" ">
-                {analystUpgradesDowngrades.map((item, index) => {
-                  return (
-                    <TableRow key={`forecast-${index}`}>
-                      <TableCell className=" white-text text-left text-[#333333]">
-                        {item.publishedDate.toDateString()}
+                      <TableCell className=" py-4 text-left ">
+                        Company
                       </TableCell>
 
-                      <TableCell className={` text-left`}>
-                        {item.gradingCompany}
+                      <TableCell className=" py-4 text-left ">
+                        Analyst
                       </TableCell>
 
-                      <TableCell className={` text-left`}>
-                        {item.newsPublisher}
+                      <TableCell className=" py-4 text-right ">
+                        Action
                       </TableCell>
 
-                      <TableCell className=" text-right capitalize text-primary-base ">
-                        {item.action}
-                      </TableCell>
+                      <TableCell className=" py-4 text-right ">From</TableCell>
 
-                      <TableCell className=" text-right">
-                        {item.previousGrade}
-                      </TableCell>
-
-                      <TableCell className=" text-right">
-                        {item.newGrade}
-                      </TableCell>
+                      <TableCell className=" py-4 text-right ">To</TableCell>
                     </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </div>
+                  </TableHeader>
 
-          <div className=" flex justify-center ">
-            <Button
-              variant={"link"}
-              className=" gap-x-2 text-primary-base hover:no-underline dark:text-primary-base "
-              onClick={handleShowMoreUpgrades}
-            >
-              {showAllUpgrades ? (
-                <>
-                  <Minus className=" size-4 " />
-                  Show Less
-                </>
-              ) : (
-                <>
-                  <Plus className=" size-4 " />
-                  Show More
-                </>
-              )}
-            </Button>
-          </div>
+                  <TableBody className=" ">
+                    {analystUpgradesDowngrades.map((item, index) => {
+                      return (
+                        <TableRow key={`forecast-${index}`}>
+                          <TableCell className=" white-text text-left text-[#333333]">
+                            {item.publishedDate.toDateString()}
+                          </TableCell>
+
+                          <TableCell className={` text-left`}>
+                            {item.gradingCompany}
+                          </TableCell>
+
+                          <TableCell className={` text-left`}>
+                            {item.newsPublisher}
+                          </TableCell>
+
+                          <TableCell className=" text-right capitalize text-primary-base ">
+                            {item.action}
+                          </TableCell>
+
+                          <TableCell className=" text-right">
+                            {item.previousGrade}
+                          </TableCell>
+
+                          <TableCell className=" text-right">
+                            {item.newGrade}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+
+              <div className=" flex justify-center ">
+                <Button
+                  variant={"link"}
+                  className=" gap-x-2 text-primary-base hover:no-underline dark:text-primary-base "
+                  onClick={handleShowMoreUpgrades}
+                >
+                  {showAllUpgrades ? (
+                    <>
+                      <Minus className=" size-4 " />
+                      Show Less
+                    </>
+                  ) : (
+                    <>
+                      <Plus className=" size-4 " />
+                      Show More
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

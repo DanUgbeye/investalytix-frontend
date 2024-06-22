@@ -52,6 +52,7 @@ import {
   TickerUpgradeDowngradeConsensusSchema,
   TickerUpgradesDowngradesSchema,
 } from "../validation";
+import { union } from "lodash";
 
 export class TickerRepository {
   constructor(private readonly axios: AxiosInstance) {}
@@ -576,18 +577,19 @@ export class TickerRepository {
   async getTickerUpgradesDowngradesConsensus(
     ticker: string,
     options?: RequestOptions | undefined
-  ): Promise<TickerUpgradeDowngradeConsensus> {
+  ): Promise<TickerUpgradeDowngradeConsensus | undefined> {
     try {
       const path = `/tickers/${ticker}/upgrades-downgrades-consensus`;
       let res = await this.axios.get<{
         data: TickerUpgradeDowngradeConsensus;
       }>(path, options);
 
-      let validation = TickerUpgradeDowngradeConsensusSchema.safeParse(
-        res.data.data
-      );
+      let validation = z
+        .union([z.undefined(), TickerUpgradeDowngradeConsensusSchema])
+        .safeParse(res.data.data);
 
       if (validation.error) {
+        console.log(validation.error.issues);
         throw new Error("Something went wrong on our end");
       }
 
