@@ -21,6 +21,7 @@ import {
   CashFlowStatement,
   CompanyOutlook,
   CompanyProfile,
+  Dividend,
   Earning,
   FinancialPeriod,
   Financials,
@@ -39,6 +40,7 @@ import {
   CashFlowStatementSchema,
   CompanyOutlookSchema,
   CompanyProfileSchema,
+  DividendSchema,
   EarningSchema,
   FinancialsSchema,
   IncomeStatementSchema,
@@ -50,6 +52,7 @@ import {
   TickerUpgradeDowngradeConsensusSchema,
   TickerUpgradesDowngradesSchema,
 } from "../validation";
+import { union } from "lodash";
 
 export class TickerRepository {
   constructor(private readonly axios: AxiosInstance) {}
@@ -66,6 +69,46 @@ export class TickerRepository {
       let res = await this.axios.get<{ data: SearchResult[] }>(path, options);
 
       let validation = z.array(SearchResultSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getCompanyOutLook(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<CompanyOutlook> {
+    try {
+      const path = `/tickers/${ticker}`;
+      let res = await this.axios.get<{ data: CompanyOutlook }>(path, options);
+      let validation = CompanyOutlookSchema.safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getCompanyProfile(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<CompanyProfile> {
+    try {
+      const path = `/tickers/${ticker}/profile`;
+      let res = await this.axios.get<{ data: CompanyProfile }>(path, options);
+      let validation = CompanyProfileSchema.safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");
@@ -148,6 +191,48 @@ export class TickerRepository {
     }
   }
 
+  async getDividendHistory(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<Dividend[]> {
+    try {
+      const path = `/tickers/${ticker}/dividend`;
+      let res = await this.axios.get<{ data: Dividend[] }>(path, options);
+
+      let validation = z.array(DividendSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getEarningsHistory(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<Earning[]> {
+    try {
+      const path = `/tickers/${ticker}/earnings`;
+      let res = await this.axios.get<{ data: Earning[] }>(path, options);
+
+      let validation = z.array(EarningSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
   async getNews(
     ticker: string,
     filter?: { limit?: number; page?: number },
@@ -179,6 +264,7 @@ export class TickerRepository {
     }
   }
 
+  // HOLDERS
   async getMutualFundHolders(
     ticker: string,
     options?: RequestOptions
@@ -217,67 +303,6 @@ export class TickerRepository {
       let validation = z
         .array(InstitutionalHolderSchema)
         .safeParse(res.data.data);
-
-      if (validation.error) {
-        throw new Error("Something went wrong on our end");
-      }
-
-      return validation.data;
-    } catch (error: any) {
-      let err = handleAPIError(error);
-      throw err;
-    }
-  }
-
-  async getCompanyOutLook(
-    ticker: string,
-    options?: RequestOptions | undefined
-  ): Promise<CompanyOutlook> {
-    try {
-      const path = `/tickers/${ticker}`;
-      let res = await this.axios.get<{ data: CompanyOutlook }>(path, options);
-      let validation = CompanyOutlookSchema.safeParse(res.data.data);
-
-      if (validation.error) {
-        throw new Error("Something went wrong on our end");
-      }
-
-      return validation.data;
-    } catch (error: any) {
-      let err = handleAPIError(error);
-      throw err;
-    }
-  }
-
-  async getCompanyProfile(
-    ticker: string,
-    options?: RequestOptions | undefined
-  ): Promise<CompanyProfile> {
-    try {
-      const path = `/tickers/${ticker}/profile`;
-      let res = await this.axios.get<{ data: CompanyProfile }>(path, options);
-      let validation = CompanyProfileSchema.safeParse(res.data.data);
-
-      if (validation.error) {
-        throw new Error("Something went wrong on our end");
-      }
-
-      return validation.data;
-    } catch (error: any) {
-      let err = handleAPIError(error);
-      throw err;
-    }
-  }
-
-  async getEarningsHistory(
-    ticker: string,
-    options?: RequestOptions | undefined
-  ): Promise<Earning[]> {
-    try {
-      const path = `/tickers/${ticker}/earnings`;
-      let res = await this.axios.get<{ data: Earning[] }>(path, options);
-
-      let validation = z.array(EarningSchema).safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");
@@ -552,18 +577,19 @@ export class TickerRepository {
   async getTickerUpgradesDowngradesConsensus(
     ticker: string,
     options?: RequestOptions | undefined
-  ): Promise<TickerUpgradeDowngradeConsensus> {
+  ): Promise<TickerUpgradeDowngradeConsensus | undefined> {
     try {
       const path = `/tickers/${ticker}/upgrades-downgrades-consensus`;
       let res = await this.axios.get<{
         data: TickerUpgradeDowngradeConsensus;
       }>(path, options);
 
-      let validation = TickerUpgradeDowngradeConsensusSchema.safeParse(
-        res.data.data
-      );
+      let validation = z
+        .union([z.undefined(), TickerUpgradeDowngradeConsensusSchema])
+        .safeParse(res.data.data);
 
       if (validation.error) {
+        console.log(validation.error.issues);
         throw new Error("Something went wrong on our end");
       }
 
