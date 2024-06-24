@@ -9,6 +9,8 @@ import { useTickerRepository } from "@/modules/ticker/hooks";
 import useTheme from "@/store/theme/useTheme";
 import { QuoteHistory, QuoteTimeframe } from "@/types";
 import {
+  getHours,
+  isMonday,
   isWeekend,
   previousFriday,
   startOfDay,
@@ -66,15 +68,18 @@ export default function ChartSummary(props: { ticker: string }) {
 
   async function getHistoricalData(timeframe: (typeof TIMEFRAMES)[number]) {
     let historyData: QuoteHistory[] = [];
+    console.log(getHours(new Date()))
 
     if (timeframe.label === "1 Day") {
       historyData = await tickerRepo.getQuoteHistory(
         ticker,
         timeframe.timeframe,
         {
-          from: isWeekend(new Date())
-            ? startOfDay(previousFriday(new Date()))
-            : subDays(new Date(), 1),
+          from:
+            isWeekend(new Date()) ||
+            (isMonday(new Date()) && getHours(new Date()) < 18)
+              ? startOfDay(previousFriday(new Date()))
+              : subDays(new Date(), 1),
           to: new Date(),
         }
       );
