@@ -30,6 +30,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "gsap": "^3.12.5",
     "lightweight-charts": "^4.1.4",
     "lodash": "^4.17.21",
     "lucide-react": "^0.378.0",

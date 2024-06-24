@@ -316,7 +316,9 @@ export default function SignupScreen() {
                   fill="#EA4335"
                 />
               </svg>
-              <span className="text-sm font-medium dark:text-black group-hover:text-white group-focus:text-white">Sign up with Google</span>
+              <span className="text-sm font-medium group-hover:text-white group-focus:text-white dark:text-black">
+                Sign up with Google
+              </span>
             </button>
 
             <p className="text-center">
@@ -342,13 +344,15 @@ export default function SignupScreen() {
           </p>
         </div>
 
-        <div className="bg-[url('/images/signup.jpg')] bg-cover bg-left bg-no-repeat md:relative">
-          <button
-            onClick={goBack}
-            className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
-          >
-            <FiArrowLeft className="size-6 text-white md:size-10" />
-          </button>
+        <div className="md:relative">
+          <div className="bg-[url('/images/signup.jpg')] bg-cover bg-left bg-no-repeat md:sticky top-0 md:h-screen">
+            <button
+              onClick={goBack}
+              className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
+            >
+              <FiArrowLeft className="size-6 text-white md:size-10" />
+            </button>
+          </div>
         </div>
       </main>
     </>

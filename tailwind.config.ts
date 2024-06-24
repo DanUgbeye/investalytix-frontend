@@ -27,6 +27,7 @@ const config = {
         inter: ["var(--font-inter)"],
         mulish: ["var(--font-mulish)"],
         manrope: ["var(--font-manrope)"],
+        raleway: ["var(--font-raleway)"],
       },
       colors: {
         primary: {

@@ -133,7 +133,7 @@ export default function LoginScreen() {
                     <Input
                       {...field}
                       id="email"
-                      className="mt-3 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:!border-gray-200 dark:!bg-white dark:!ring-offset-white dark:!placeholder:text-gray-500 dark:!focus-visible:ring-gray-950"
+                      className="dark:!placeholder:text-gray-500 dark:!focus-visible:ring-gray-950 mt-3 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:!border-gray-200 dark:!bg-white dark:!ring-offset-white"
                       type="email"
                       placeholder="example@example.com"
                     />
@@ -243,7 +243,9 @@ export default function LoginScreen() {
                   fill="#EA4335"
                 />
               </svg>
-              <span className="text-sm font-medium dark:text-black group-hover:text-white group-focus:text-white">Sign up with Google</span>
+              <span className="text-sm font-medium group-hover:text-white group-focus:text-white dark:text-black">
+                Sign up with Google
+              </span>
             </button>
 
             <p className="text-center">
@@ -269,13 +271,15 @@ export default function LoginScreen() {
           </p>
         </div>
 
-        <div className="bg-[url('/images/login.jpg')] bg-cover bg-left bg-no-repeat md:relative">
-          <button
-            onClick={goBack}
-            className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
-          >
-            <FiArrowLeft className="size-6 text-white md:size-10" />
-          </button>
+        <div className="md:relative">
+          <div className="bg-[url('/images/login.jpg')] bg-cover bg-left bg-no-repeat md:sticky top-0 md:h-screen">
+            <button
+              onClick={goBack}
+              className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
+            >
+              <FiArrowLeft className="size-6 text-white md:size-10" />
+            </button>
+          </div>
         </div>
       </main>
     </>
