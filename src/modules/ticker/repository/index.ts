@@ -52,7 +52,6 @@ import {
   TickerUpgradeDowngradeConsensusSchema,
   TickerUpgradesDowngradesSchema,
 } from "../validation";
-import { union } from "lodash";
 
 export class TickerRepository {
   constructor(private readonly axios: AxiosInstance) {}
@@ -587,6 +586,30 @@ export class TickerRepository {
       let validation = z
         .union([z.undefined(), TickerUpgradeDowngradeConsensusSchema])
         .safeParse(res.data.data);
+
+      if (validation.error) {
+        console.log(validation.error.issues);
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getTickerSimilarStocks(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<Quote[]> {
+    try {
+      const path = `/tickers/${ticker}/similar-stocks`;
+      let res = await this.axios.get<{
+        data: Quote[];
+      }>(path, options);
+
+      let validation = z.array(QuoteSchema).safeParse(res.data.data);
 
       if (validation.error) {
         console.log(validation.error.issues);

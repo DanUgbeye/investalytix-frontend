@@ -1,7 +1,26 @@
 "use client";
 
-import { cn, tailwindCSS } from "@/lib/utils";
+import ColoredText from "@/components/colored-text";
+import HeaderWithUnderline from "@/components/heading";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { tailwindCSS } from "@/lib/utils";
+import { SectorPerformanceHistory } from "@/modules/market/types";
+import { CompanyProfile } from "@/modules/ticker/types";
+import tickerUtils from "@/modules/ticker/utils";
+import { getTickerStockDescriptionRoute } from "@/route";
 import useTheme from "@/store/theme/useTheme";
+import { Quote } from "@/types";
+import appUtils from "@/utils/app-util";
+import { format } from "date-fns";
+import Link from "next/link";
 import { useState } from "react";
 import {
   CartesianGrid,
@@ -117,12 +136,17 @@ const data = [
 
 interface IndustrySectorComparisonScreenProps {
   ticker: string;
+  currency: string;
+  profile: CompanyProfile;
+  similarStocks: Quote[];
+  sectorPerformaceHistory: SectorPerformanceHistory[];
 }
 
 export default function IndustrySectorComparisonScreen(
   props: IndustrySectorComparisonScreenProps
 ) {
-  const { ticker } = props;
+  const { ticker, currency, profile, sectorPerformaceHistory, similarStocks } =
+    props;
   const { theme } = useTheme();
   const [tab, setTab] = useState<"Industry" | "Sector">("Industry");
 
@@ -131,241 +155,301 @@ export default function IndustrySectorComparisonScreen(
   }
 
   return (
-    <section className=" space-y-10 py-10 ">
-      <div className=" flex w-fit gap-2 rounded bg-[#F5F5F5] p-2 dark:bg-main-gray-900 ">
-        <button
-          type="button"
-          className={cn(
-            `flex h-8 items-center justify-center whitespace-nowrap rounded px-4 text-sm font-medium duration-300 hover:bg-black/10 sm:px-7 dark:hover:bg-main-gray-700 `,
-            {
-              "bg-primary-base text-white hover:bg-primary-base hover:text-white dark:hover:bg-primary-base ":
-                tab === "Industry",
-            }
-          )}
-          onClick={(e) => handleTabChange("Industry")}
-        >
-          INDUSTRY
-        </button>
+    <main className=" space-y-14 py-10 ">
+      <HeaderWithUnderline>
+        {profile.companyName} Similar Stocks
+      </HeaderWithUnderline>
 
-        <button
-          type="button"
-          className={cn(
-            `flex h-8 items-center justify-center whitespace-nowrap rounded px-4 text-sm font-medium duration-300 hover:bg-black/10 sm:px-7 dark:hover:bg-main-gray-700  `,
-            {
-              "bg-primary-base text-white hover:bg-primary-base hover:text-white dark:hover:bg-primary-base ":
-                tab === "Sector",
-            }
-          )}
-          onClick={(e) => handleTabChange("Sector")}
-        >
-          SECTOR
-        </button>
-      </div>
+      <section className=" space-y-4 ">
+        <h3 className=" font-bold ">By Industry</h3>
 
-      <div className=" overflow-x-auto border dark:border-main-gray-600 ">
-        <table className=" w-full min-w-[50rem] ">
-          <thead>
-            <tr className=" th text-sm font-bold ">
-              <th className=" min-w-28 px-2 py-4 text-left ">Name</th>
+        <div className=" space-y-8 ">
+          <div className="  ">
+            <div className=" overflow-x-auto text-sm ">
+              <ResponsiveContainer width={"100%"} height={500}>
+                <LineChart data={data} margin={{ top: 40, right: 40 }}>
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    className=" stroke-main-gray-200 dark:stroke-main-gray-900"
+                  />
+                  <XAxis
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={10}
+                    dataKey="date"
+                  />
+                  <YAxis
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={5}
+                    orientation="right"
+                    padding={{ bottom: 20 }}
+                    tickFormatter={(value) => `${value}%`}
+                  />
 
-              <th className=" px-2 py-4 text-left ">Price</th>
+                  <Tooltip
+                    cursor={{
+                      className: " fill-main-gray-200/20 dark:fill-white/10 ",
+                    }}
+                    content={(props) => {
+                      const { payload, label } = props;
 
-              <th className=" px-2 py-4 text-right ">Market Cap</th>
+                      return (
+                        <div className=" space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300 ">
+                          {label && (
+                            <div className="  ">
+                              {format(new Date(label), "MMM dd, yyyy")}
+                            </div>
+                          )}
 
-              <th className=" px-2 py-4 text-right ">P/E Ratio</th>
+                          <div className="">
+                            {payload &&
+                              payload.map((pl, index) => {
+                                const { name, value, color } = pl;
 
-              <th className=" px-2 py-4 text-right ">Yearly Gain</th>
+                                return (
+                                  <div
+                                    key={`${value}-${index}`}
+                                    className=" flex items-center gap-2 text-main-gray-300 "
+                                  >
+                                    <span
+                                      className=" size-3 "
+                                      style={{ backgroundColor: color }}
+                                    />
 
-              <th className=" px-2 py-4 text-right ">Analyst Consensus</th>
+                                    <div className=" flex gap-4 justify-between w-full ">
+                                      <span>{name}</span>
+                                      <span>
+                                        {appUtils.formatNumber(
+                                          (value || undefined) as
+                                            | number
+                                            | undefined,
+                                          { currency }
+                                        )}
+                                      </span>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        </div>
+                      );
+                    }}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Basic Materials"
+                    dataKey="basicMaterialsChangesPercentage"
+                    stroke="#8884d8"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Communication Services"
+                    dataKey="communicationServicesChangesPercentage"
+                    stroke="#82ca9d"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Consumer Cyclical"
+                    dataKey="consumerCyclicalChangesPercentage"
+                    stroke="#ff7300"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Consumer Defensive"
+                    dataKey="consumerDefensiveChangesPercentage"
+                    stroke="#0088FE"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Energy"
+                    dataKey="energyChangesPercentage"
+                    stroke="#FF0080"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Financial Services"
+                    dataKey="financialServicesChangesPercentage"
+                    stroke="#FFBB28"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Healthcare"
+                    dataKey="healthcareChangesPercentage"
+                    stroke="#00C49F"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Industrials"
+                    dataKey="industrialsChangesPercentage"
+                    stroke="#FF8042"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Real Estate"
+                    dataKey="realEstateChangesPercentage"
+                    stroke="#bcbd22"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Technology"
+                    dataKey="technologyChangesPercentage"
+                    stroke="#ff0000"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="monotone"
+                    name="Utilities"
+                    dataKey="utilitiesChangesPercentage"
+                    stroke="#8A2BE2"
+                    strokeWidth={3}
+                  />
 
-              <th className=" px-2 py-4 text-right ">Analyst Price Target</th>
+                  <Legend iconType="circle" wrapperStyle={{ padding: 20 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
 
-              <th className=" px-2 py-4 text-right ">
-                Top Analyst Price Target
-              </th>
+            <p className=" border-t bg-gray-100 p-3 text-xs dark:border-main-gray-700 dark:bg-white/10 ">
+              Compare key indicators and discover each stock&apos;s average
+              analyst price target, as well as the latest recommendations by top
+              Wall Street experts
+            </p>
+          </div>
 
-              <th className=" px-2 py-4 text-right ">Smart Score</th>
-            </tr>
-          </thead>
+          <div className=" overflow-x-auto ">
+            <Table className=" w-full min-w-[50rem] ">
+              <TableHeader>
+                <TableRow headerRow>
+                  <TableHead className=" min-w-[12rem] ">Name</TableHead>
 
-          <tbody>
-            {Array(10)
-              .fill("_")
-              .map((_, index) => {
-                return (
-                  <tr
-                    key={`forecast-${index}`}
-                    className=" text-sm even:bg-main-gray-100  dark:even:bg-main-gray-900 "
-                  >
-                    <td className=" white-text p-2 text-left text-[#333333]">
-                      <div className=" flex flex-col space-y-1 ">
-                        <span className=" font-semibold text-[#125BD4] ">
-                          AAPL
-                        </span>
+                  <TableHead className=" ">Price</TableHead>
 
-                        <span className=" font-bold ">Apple</span>
-                      </div>
-                    </td>
+                  <TableHead className="  ">Market Cap</TableHead>
 
-                    <td className={` p-2 text-left`}>$185.92</td>
+                  <TableHead className="  ">P/E</TableHead>
 
-                    <td className=" p-2 text-right ">$2.89T</td>
+                  <TableHead className="  ">EPS</TableHead>
 
-                    <td className=" p-2 text-right">30.32</td>
+                  <TableHead className="  ">Change</TableHead>
 
-                    <td className=" p-2 text-right text-green-700 ">38.73%</td>
+                  <TableHead className="  ">Change %</TableHead>
+                </TableRow>
+              </TableHeader>
 
-                    <td className=" p-2 text-right text-[#125BD4] ">
-                      Moderate Buy
-                    </td>
+              <TableBody>
+                {similarStocks.map((similarStock, index) => {
+                  return (
+                    <TableRow key={`forecast-${index}`} className="  ">
+                      <TableCell className=" ">
+                        <div className=" flex items-center gap-4 ">
+                          <Avatar className=" size-10 rounded-full bg-main-gray-200/50 p-2 text-xxs dark:bg-main-gray-800 ">
+                            <AvatarImage
+                              crossOrigin="anonymous"
+                              className=" rounded-full "
+                              src={tickerUtils.getTickerLogoUrl(
+                                similarStock.symbol
+                              )}
+                            />
 
-                    <td className=" p-2 text-right text-[#125BD4]">
-                      9.38% Upside
-                    </td>
+                            <AvatarFallback className=" truncate bg-transparent p-2 ">
+                              {similarStock.symbol.slice(0, 4)}
+                            </AvatarFallback>
+                          </Avatar>
 
-                    <td className=" p-2 text-right text-[#125BD4]">
-                      9.65% Upside
-                    </td>
+                          <div className=" flex flex-col space-y-1 ">
+                            <Link
+                              href={getTickerStockDescriptionRoute(
+                                similarStock.symbol
+                              )}
+                              className=" w-fit text-base font-semibold text-[#125BD4] underline-offset-2 hover:underline "
+                            >
+                              {similarStock.symbol}
+                            </Link>
 
-                    <td className=" p-2 text-right text-green-700 ">8</td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-      </div>
+                            <span className=" text-xs font-semibold ">
+                              {similarStock.name}
+                            </span>
+                          </div>
+                        </div>
+                      </TableCell>
 
-      <div className=" border dark:border-main-gray-600 ">
-        <div className=" overflow-x-auto ">
-          <ResponsiveContainer width={"100%"} height={500}>
-            <LineChart data={data} margin={{ top: 40, right: 40 }}>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                className=" stroke-main-gray-400 dark:stroke-white/40"
-              />
-              <XAxis
-                tickLine={false}
-                axisLine={false}
-                tickMargin={10}
-                dataKey="date"
-              />
-              <YAxis
-                tickLine={false}
-                tickMargin={5}
-                padding={{ bottom: 20 }}
-                tickFormatter={(value) => `${value}%`}
-              />
-              <Tooltip
-                cursor={false}
-                contentStyle={{
-                  backgroundColor:
-                    theme === "dark"
-                      ? tailwindCSS().theme.colors.main.gray[900]
-                      : "white",
-                  borderColor:
-                    theme === "dark"
-                      ? tailwindCSS().theme.colors.main.gray[500]
-                      : tailwindCSS().theme.colors.main.gray[300],
-                }}
-                labelClassName=" font-semibold text-black dark:text-main-gray-300 "
-                formatter={(value) => {
-                  const numValue = Number(value);
+                      <TableCell className={``}>
+                        {appUtils.formatNumber(similarStock.price)}
+                      </TableCell>
 
-                  if (isNaN(numValue)) {
-                    return "nil";
-                  }
+                      <TableCell className=" ">
+                        {appUtils.formatNumber(similarStock.marketCap, {
+                          notation: "compact",
+                        })}
+                      </TableCell>
 
-                  return `${numValue.toFixed(2)}%`;
-                }}
-              />
-              <Line
-                type="monotone"
-                name="Basic Materials"
-                dataKey="basicMaterialsChangesPercentage"
-                stroke="#8884d8"
-                strokeWidth={3}
-              />
-              <Line
-                type="monotone"
-                name="Communication Services"
-                dataKey="communicationServicesChangesPercentage"
-                stroke="#82ca9d"
-                strokeWidth={3}
-              />
-              <Line
-                type="monotone"
-                name="Consumer Cyclical"
-                dataKey="consumerCyclicalChangesPercentage"
-                stroke="#ff7300"
-                strokeWidth={3}
-              />
-              <Line
-                type="monotone"
-                name="Consumer Defensive"
-                dataKey="consumerDefensiveChangesPercentage"
-                stroke="#0088FE"
-                strokeWidth={3}
-              />
-              <Line
-                type="monotone"
-                name="Energy"
-                dataKey="energyChangesPercentage"
-                stroke="#FF0080"
-                strokeWidth={3}
-              />
-              <Line
-                type="monotone"
-                name="Financial Services"
-                dataKey="financialServicesChangesPercentage"
-                stroke="#FFBB28"
-                strokeWidth={3}
-              />
-              <Line
-                type="monotone"
-                name="Healthcare"
-                dataKey="healthcareChangesPercentage"
-                stroke="#00C49F"
-                strokeWidth={3}
-              />
-              <Line
-                type="monotone"
-                name="Industrials"
-                dataKey="industrialsChangesPercentage"
-                stroke="#FF8042"
-                strokeWidth={3}
-              />
-              <Line
-                type="monotone"
-                name="Real Estate"
-                dataKey="realEstateChangesPercentage"
-                stroke="#bcbd22"
-                strokeWidth={3}
-              />
-              <Line
-                type="monotone"
-                name="Technology"
-                dataKey="technologyChangesPercentage"
-                stroke="#ff0000"
-                strokeWidth={3}
-              />
-              <Line
-                type="monotone"
-                name="Utilities"
-                dataKey="utilitiesChangesPercentage"
-                stroke="#8A2BE2"
-                strokeWidth={3}
-              />
-              <Legend iconType="circle" wrapperStyle={{ padding: 20 }} />
-            </LineChart>
-          </ResponsiveContainer>
+                      <TableCell className="">
+                        {appUtils.formatNumber(similarStock.pe, {
+                          style: "decimal",
+                        })}
+                      </TableCell>
+
+                      <TableCell className="">
+                        {appUtils.formatNumber(similarStock.eps, {
+                          style: "decimal",
+                        })}
+                      </TableCell>
+
+                      <TableCell className=" text-green-700 ">
+                        <ColoredText
+                          isPositive={(() => {
+                            if (similarStock.change) {
+                              if (similarStock.change > 0) return true;
+                              if (similarStock.change < 0) return false;
+                            }
+                            return undefined;
+                          })()}
+                        >
+                          {appUtils.formatNumber(similarStock.change, {
+                            style: "decimal",
+                          })}
+                        </ColoredText>
+                      </TableCell>
+
+                      <TableCell className=" text-[#125BD4] ">
+                        <ColoredText
+                          isPositive={(() => {
+                            if (similarStock.changesPercentage) {
+                              if (similarStock.changesPercentage > 0)
+                                return true;
+                              if (similarStock.changesPercentage < 0)
+                                return false;
+                            }
+                            return undefined;
+                          })()}
+                        >
+                          {appUtils.formatNumber(
+                            similarStock.changesPercentage,
+                            {
+                              style: "decimal",
+                            }
+                          )}
+                          {similarStock.changesPercentage && "%"}
+                        </ColoredText>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </div>
         </div>
-
-        <p className=" border-t bg-gray-100 p-3 text-xs dark:border-main-gray-600 dark:bg-white/10 ">
-          Compare key indicators and discover each stock&apos;s average analyst
-          price target, as well as the latest recommendations by top Wall Street
-          experts
-        </p>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }

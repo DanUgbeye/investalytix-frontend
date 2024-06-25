@@ -22,3 +22,23 @@ export type Quote = {
   sharesOutstanding: null;
   timestamp: number;
 };
+
+export type SectorPerformance = {
+  sector: string;
+  changesPercentage: string;
+};
+
+export type SectorPerformanceHistory = {
+  date: Date;
+  basicMaterialsChangesPercentage: number | null;
+  communicationServicesChangesPercentage: number | null;
+  consumerCyclicalChangesPercentage: number | null;
+  consumerDefensiveChangesPercentage: number | null;
+  energyChangesPercentage: number | null;
+  financialServicesChangesPercentage: number | null;
+  healthcareChangesPercentage: number | null;
+  industrialsChangesPercentage: number | null;
+  realEstateChangesPercentage: number | null;
+  technologyChangesPercentage: number | null;
+  utilitiesChangesPercentage: number | null;
+};

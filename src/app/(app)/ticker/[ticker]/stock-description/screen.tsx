@@ -116,9 +116,8 @@ export default function SummaryScreen(props: SummaryScreenProps) {
 
             <span className=" text-xl ">
               {appUtils.formatNumber(quote.marketCap || undefined, {
-                style: "decimal",
+                currency,
                 notation: "compact",
-                compactDisplay: "short",
               })}
             </span>
           </div>

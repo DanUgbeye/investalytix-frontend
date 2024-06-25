@@ -57,7 +57,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
               className=" h-full w-full p-2 "
             />
 
-            <AvatarFallback className=" grid h-full w-full justify-start bg-transparent p-2 text-2xl font-bold dark:bg-transparent ">
+            <AvatarFallback className=" grid h-full w-full bg-transparent p-2 text-2xl font-bold dark:bg-transparent ">
               <span className=" truncate ">{outlook.profile.symbol}</span>
             </AvatarFallback>
           </Avatar>
