@@ -1,4 +1,5 @@
 import { Container } from "@/components/container";
+import MarketHeader from "@/modules/market/components/MarketHeader";
 import Image from "next/image";
 
 export default function CalendarLayout({
@@ -7,12 +8,8 @@ export default function CalendarLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container>
-      <div className="pt-24">
-        <h1 className="white-text mb-7 pb-5 text-center text-6xl font-extrabold capitalize">
-          Economic calendar
-        </h1>
-      </div>
+    <Container className="pt-24">
+      <MarketHeader name="Economic calendar" active="ECONOMY"/>
 
       {children}
     </Container>

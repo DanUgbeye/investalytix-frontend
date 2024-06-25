@@ -11,8 +11,17 @@ import WithSidePanel, {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, Suspense, useState } from "react";
+import {
+  FormEvent,
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { FiCheck, FiSearch } from "react-icons/fi";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const plans = [
   {
@@ -59,6 +68,7 @@ export default function Home() {
   >("monthly");
   const [query, queryOpts] = useInput("");
   const router = useRouter();
+  gsap.registerPlugin(ScrollTrigger);
 
   function updatePricingFrequency(value: typeof pricingFrequency) {
     setPricingFrequency(value);
@@ -162,6 +172,7 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* <Products /> */}
       <section className="py-20">
         <h1 className="mb-6 text-center text-6xl font-extrabold">
           Pricing Plans
@@ -245,7 +256,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="rounded-xl bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:h-[400px] h-full"></div>
+          <div className="h-full rounded-xl bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:h-[400px]"></div>
         </div>
       </div>
     </>
@@ -349,5 +360,54 @@ function Plan({
         ))}
       </div>
     </div>
+  );
+}
+
+function Products() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const horizontalContext = gsap.context(() => {
+      const horizontalScrollData = gsap.utils.toArray(".horizontalSection");
+      gsap.to(horizontalScrollData, {
+        xPercent: -100 * (horizontalScrollData.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          scrub: 1,
+          pin: true,
+          // snap: 1 / (horizontalScrollData.length - 1),
+          snap: {
+            snapTo: 1 / (horizontalScrollData.length - 1),
+            duration: { min: 0.25, max: 0.75 },
+            delay: 0.125,
+            ease: "power1.inOut",
+          },
+          end: () => `+=${containerRef?.current?.offsetWidth}`,
+        },
+      });
+    }, mainRef);
+
+    return () => {
+      horizontalContext.revert();
+    };
+  }, []);
+
+  return (
+    // <div className="mt-24">
+    //   <h1 className="mb-6 w-screen text-center text-6xl font-extrabold">
+    //     Products
+    //   </h1>
+      <div ref={mainRef}>
+        <section
+          ref={containerRef}
+          className="relative flex h-screen w-[200vw]"
+        >
+          <div className="horizontalSection h-screen w-screen bg-red-500"></div>
+          <div className="horizontalSection h-screen w-screen bg-blue-500"></div>
+        </section>
+      </div>
+    // </div>
   );
 }

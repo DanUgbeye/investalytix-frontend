@@ -13,20 +13,20 @@ export default function ContactUsPage() {
     window.history.back();
   }
   return (
-    <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid">
-      <div className="px-14 py-24">
-        <h1 className="text-5xl sm:text-7xl font-bold lg:text-8xl">
+    <main className="relative mx-auto grid-cols-[1fr,1fr] md:grid">
+      <div className="mx-auto max-w-5xl px-14 py-24">
+        <h1 className="text-5xl font-bold sm:text-7xl lg:text-8xl">
           Connect with{" "}
           <span className="text-primary-base dark:text-primary-light">us</span>
         </h1>
-        <p className="mt-7 text-lg sm:text-xl md:text-2xl">
+        <p className="mt-7 text-lg sm:text-lg xl:text-2xl">
           We're always here to help and answer any questions you might have.
           Please fill out the form below, and we'll get back to you as soon as
           possible.
         </p>
 
         <form className="mt-7">
-          <div className="flex flex-col md:flex-row gap-7">
+          <div className="flex flex-col gap-7 md:flex-row">
             <div className="w-full">
               <FormLabel htmlFor="name">Name</FormLabel>
               <Input
@@ -77,22 +77,22 @@ export default function ContactUsPage() {
             ></textarea>
           </div>
 
-          <div className="mt-7">
-            {/* <File /> */}
-          </div>
+          <div className="mt-7">{/* <File /> */}</div>
 
           <Button type="submit" className="mt-3">
             Submit
           </Button>
         </form>
       </div>
-      <div className="bg-[url('/images/contact-us.jpg')] bg-cover bg-left bg-no-repeat md:relative">
-        <button
-          onClick={goBack}
-          className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
-        >
-          <FiArrowLeft className="size-6 text-white md:size-10" />
-        </button>
+      <div className="md:relative">
+        <div className="top-0 bg-[url('/images/contact-us.jpg')] bg-cover bg-center bg-no-repeat md:sticky md:h-screen w-full">
+          <button
+            onClick={goBack}
+            className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
+          >
+            <FiArrowLeft className="size-6 text-white md:size-10" />
+          </button>
+        </div>
       </div>
     </main>
   );
