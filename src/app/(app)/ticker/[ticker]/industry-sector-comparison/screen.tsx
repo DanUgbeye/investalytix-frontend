@@ -154,7 +154,7 @@ export default function IndustrySectorComparisonScreen(
   }
 
   return (
-    <main className=" space-y-14 py-10 ">
+    <main className=" space-y-14 pb-10 ">
       <HeaderWithUnderline>
         {profile.companyName} Similar Stocks
       </HeaderWithUnderline>
