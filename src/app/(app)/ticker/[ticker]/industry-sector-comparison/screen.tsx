@@ -11,7 +11,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { tailwindCSS } from "@/lib/utils";
 import { SectorPerformanceHistory } from "@/modules/market/types";
 import { CompanyProfile } from "@/modules/ticker/types";
 import tickerUtils from "@/modules/ticker/utils";
@@ -166,25 +165,26 @@ export default function IndustrySectorComparisonScreen(
         <div className=" space-y-8 ">
           <div className="  ">
             <div className=" overflow-x-auto text-sm ">
-              <ResponsiveContainer width={"100%"} height={500}>
-                <LineChart data={data} margin={{ top: 40, right: 40 }}>
+              <ResponsiveContainer width={"100%"} height={350}>
+                <LineChart data={data}>
                   <CartesianGrid
                     strokeDasharray="3 3"
+                    vertical={false}
                     className=" stroke-main-gray-200 dark:stroke-main-gray-900"
                   />
                   <XAxis
                     tickLine={false}
                     axisLine={false}
-                    tickMargin={10}
                     dataKey="date"
+                    tickFormatter={(value) => format(new Date(value), "MMM yy")}
                   />
                   <YAxis
                     tickLine={false}
                     axisLine={false}
-                    tickMargin={5}
                     orientation="right"
-                    padding={{ bottom: 20 }}
-                    tickFormatter={(value) => `${value}%`}
+                    tickFormatter={(value) =>
+                      appUtils.formatNumber(value, { currency })
+                    }
                   />
 
                   <Tooltip
@@ -217,7 +217,7 @@ export default function IndustrySectorComparisonScreen(
                                       style={{ backgroundColor: color }}
                                     />
 
-                                    <div className=" flex gap-4 justify-between w-full ">
+                                    <div className=" flex w-full justify-between gap-4 ">
                                       <span>{name}</span>
                                       <span>
                                         {appUtils.formatNumber(
@@ -236,6 +236,41 @@ export default function IndustrySectorComparisonScreen(
                       );
                     }}
                   />
+
+                  <Legend
+                    content={(props) => {
+                      const { payload } = props;
+
+                      return (
+                        <div className=" flex flex-wrap items-center gap-x-4 pt-4  ">
+                          {payload &&
+                            payload.map((pl, index) => {
+                              const { value, color } = pl;
+
+                              return (
+                                <span
+                                  key={`${value}`}
+                                  className=" text-black dark:text-main-gray-300 "
+                                >
+                                  <span
+                                    style={{
+                                      display: "inline-block",
+                                      width: 12,
+                                      height: 12,
+                                      backgroundColor: color,
+                                      marginRight: 8,
+                                    }}
+                                  ></span>
+
+                                  {value}
+                                </span>
+                              );
+                            })}
+                        </div>
+                      );
+                    }}
+                  />
+
                   <Line
                     type="monotone"
                     name="Basic Materials"
@@ -313,8 +348,6 @@ export default function IndustrySectorComparisonScreen(
                     stroke="#8A2BE2"
                     strokeWidth={3}
                   />
-
-                  <Legend iconType="circle" wrapperStyle={{ padding: 20 }} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
