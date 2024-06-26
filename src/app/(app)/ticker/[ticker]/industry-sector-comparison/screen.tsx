@@ -45,10 +45,13 @@ export default function IndustrySectorComparisonScreen(
 
       {/* INDUSTRY PERFORMANACE */}
       <section className=" space-y-4 ">
-        <h3 className=" font-bold text-2xl ">By Industry</h3>
+        <h3 className=" text-2xl font-bold ">By Industry</h3>
 
         <div className=" space-y-8 ">
-          <IndustryComparisonChart currency={currency} />
+          <IndustryComparisonChart
+            currency={currency}
+            tickers={similarStocks.map((quote) => quote.symbol)}
+          />
 
           <div className=" overflow-x-auto ">
             <Table className=" w-full min-w-[50rem] ">
@@ -177,7 +180,7 @@ export default function IndustrySectorComparisonScreen(
 
       {/* SECTOR PERFORMANACE */}
       <section className=" space-y-4 ">
-        <h3 className=" font-bold text-2xl ">By Sector</h3>
+        <h3 className=" text-2xl font-bold ">By Sector</h3>
 
         <div className=" space-y-8 ">
           <SectorComparisonChart currency={currency} />
@@ -306,8 +309,6 @@ export default function IndustrySectorComparisonScreen(
           </div>
         </div>
       </section>
-
-
     </main>
   );
 }

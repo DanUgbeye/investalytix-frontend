@@ -1,11 +1,13 @@
 "use client";
 
 import { clientAPI } from "@/config/client/api";
+import { cn } from "@/lib/utils";
 import { TickerRepository } from "@/modules/ticker/repository";
-import { Quote, QuoteHistory } from "@/types";
+import { QuoteHistory } from "@/types";
 import appUtils from "@/utils/app-util";
 import { format, subYears } from "date-fns";
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 import {
   CartesianGrid,
   Legend,
@@ -16,168 +18,152 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { symbol } from "zod";
 
-const data = [
-  {
-    date: "2024-05-07",
-    basicMaterialsChangesPercentage: -0.0934,
-    communicationServicesChangesPercentage: 1.26249,
-    consumerCyclicalChangesPercentage: 0.29312,
-    consumerDefensiveChangesPercentage: 0.60606,
-    energyChangesPercentage: 0.58913,
-    financialServicesChangesPercentage: 0.72193,
-    healthcareChangesPercentage: -0.38694,
-    industrialsChangesPercentage: 0.28425,
-    realEstateChangesPercentage: -1.37528,
-    technologyChangesPercentage: 1.76193,
-    utilitiesChangesPercentage: -0.00015,
-  },
-  {
-    date: "2024-05-06",
-    basicMaterialsChangesPercentage: -0.0934,
-    communicationServicesChangesPercentage: 1.26249,
-    consumerCyclicalChangesPercentage: 0.29312,
-    consumerDefensiveChangesPercentage: 0.60606,
-    energyChangesPercentage: 0.58913,
-    financialServicesChangesPercentage: 0.72199,
-    healthcareChangesPercentage: -0.38694,
-    industrialsChangesPercentage: 0.28425,
-    realEstateChangesPercentage: -1.37528,
-    technologyChangesPercentage: 1.76193,
-    utilitiesChangesPercentage: -0.00015,
-  },
-  {
-    date: "2024-05-03",
-    basicMaterialsChangesPercentage: 1.10443,
-    communicationServicesChangesPercentage: 0.84,
-    consumerCyclicalChangesPercentage: 0.87542,
-    consumerDefensiveChangesPercentage: 0.85901,
-    energyChangesPercentage: 1.89802,
-    financialServicesChangesPercentage: 5.29977,
-    healthcareChangesPercentage: 1.41727,
-    industrialsChangesPercentage: 0.56529,
-    realEstateChangesPercentage: 0.37973,
-    technologyChangesPercentage: 2.44522,
-    utilitiesChangesPercentage: 1.66244,
-  },
-  {
-    date: "2024-05-02",
-    basicMaterialsChangesPercentage: -3.59657,
-    communicationServicesChangesPercentage: 1.56931,
-    consumerCyclicalChangesPercentage: 2.51543,
-    consumerDefensiveChangesPercentage: 0.8855,
-    energyChangesPercentage: 0.92033,
-    financialServicesChangesPercentage: -0.8938,
-    healthcareChangesPercentage: 0.81091,
-    industrialsChangesPercentage: 0.93674,
-    realEstateChangesPercentage: 0.99022,
-    technologyChangesPercentage: 1.69558,
-    utilitiesChangesPercentage: 0.64711,
-  },
-  {
-    date: "2024-05-01",
-    basicMaterialsChangesPercentage: 0.23439,
-    communicationServicesChangesPercentage: 0.8385,
-    consumerCyclicalChangesPercentage: 0.279,
-    consumerDefensiveChangesPercentage: -0.62577,
-    energyChangesPercentage: -1.94269,
-    financialServicesChangesPercentage: 0.19996,
-    healthcareChangesPercentage: 1.9434,
-    industrialsChangesPercentage: 0.49965,
-    realEstateChangesPercentage: -0.6631,
-    technologyChangesPercentage: -0.89902,
-    utilitiesChangesPercentage: 0.62743,
-  },
-  {
-    date: "2024-04-30",
-    basicMaterialsChangesPercentage: -1.44095,
-    communicationServicesChangesPercentage: -1.81674,
-    consumerCyclicalChangesPercentage: -3.10486,
-    consumerDefensiveChangesPercentage: -0.41263,
-    energyChangesPercentage: 1.33031,
-    financialServicesChangesPercentage: 2.80296,
-    healthcareChangesPercentage: -0.30533,
-    industrialsChangesPercentage: -1.79814,
-    realEstateChangesPercentage: -1.90272,
-    technologyChangesPercentage: -1.8592,
-    utilitiesChangesPercentage: -0.99954,
-  },
-  {
-    date: "2024-04-29",
-    basicMaterialsChangesPercentage: 0.16287,
-    communicationServicesChangesPercentage: -2.19341,
-    consumerCyclicalChangesPercentage: 2.44805,
-    consumerDefensiveChangesPercentage: 0.16651,
-    energyChangesPercentage: 0.44145,
-    financialServicesChangesPercentage: -0.38682,
-    healthcareChangesPercentage: 0.31399,
-    industrialsChangesPercentage: -0.81845,
-    realEstateChangesPercentage: -2.79866,
-    technologyChangesPercentage: -0.99677,
-    utilitiesChangesPercentage: -0.6847,
-  },
-].reverse();
+type QuoteHistoryWithSymbol = { symbol: string; data: QuoteHistory[] };
 
-function convertData(data: QuoteHistory[]) {
-  if(data.length <= 0) return []
-  let sortedData = data.toSorted((a, b) =>  new Date(a.date).getTime() - new Date(b.date).getTime()) 
+function convertData(quoteHistory: QuoteHistoryWithSymbol) {
+  const { data, symbol } = quoteHistory;
+
+  if (data.length <= 0) return { symbol, data: [] };
+
+  let sortedData = data.toSorted(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
   let firstItem = sortedData[0];
+  let referencePrice = (firstItem.high + firstItem.low) / 2;
 
-  return sortedData.map(quote => {
-    
-  })
+  return {
+    symbol,
+    data: sortedData.map((quote) => {
+      const currentPrice = (quote.high + quote.low) / 2;
+      const percentage =
+        ((currentPrice - referencePrice) / referencePrice) * 100;
+
+      return {
+        date: quote.date,
+        percentage,
+      };
+    }),
+  };
+}
+
+function createColorPicker() {
+  const colors = [
+    "#FF5733",
+    "#33FF57",
+    "#3357FF",
+    "#FF33A1",
+    "#A1FF33",
+    "#33A1FF",
+    "#FF7133",
+    "#71FF33",
+    "#7133FF",
+    "#FF3381",
+  ];
+  let lastColorIndex = -1;
+  let currentIndex = 0;
+
+  return function pickColor() {
+    if (currentIndex === lastColorIndex) {
+      currentIndex = (currentIndex + 1) % colors.length;
+    }
+    const pickedColor = colors[currentIndex];
+    lastColorIndex = currentIndex;
+    currentIndex = (currentIndex + 1) % colors.length;
+    console.log(pickedColor);
+    return pickedColor;
+  };
 }
 
 interface Props {
   currency: string;
+  tickers: string[];
 }
 
 export default function IndustryComparisonChart(props: Props) {
-  const { currency } = props;
+  const { currency, tickers } = props;
   const tickerRepo = new TickerRepository(clientAPI);
+  const [isLoading, setIsLoading] = useState(false);
+  const [quotesHistory, setQuotesHistory] = useState<QuoteHistoryWithSymbol[]>(
+    []
+  );
 
-  const [quotesHistory, setQuotesHistory] = useState<QuoteHistory[][]>([]);
+  const getNextColor = useCallback(createColorPicker(), []);
 
-  async function loadQuotesHistory(quotes: string[]) {
+  const percentageHistory = useMemo(() => {
+    if (!quotesHistory) return [];
+
+    return quotesHistory.map((history) => {
+      return convertData(history);
+    });
+  }, [quotesHistory]);
+
+  async function loadHistoryData(tickerSymbols: string[]) {
     try {
+      setIsLoading(true);
       const res = await Promise.all(
-        quotes.map((symbol) =>
-          tickerRepo.getQuoteHistory(symbol, "1day", {
-            from: subYears(new Date(), 3),
-          })
+        tickerSymbols.map((symbol) =>
+          tickerRepo
+            .getQuoteHistory(symbol, "1month", {
+              from: subYears(new Date(), 1),
+            })
+            .then(
+              (data) =>
+                ({
+                  data,
+                  symbol,
+                }) satisfies QuoteHistoryWithSymbol
+            )
         )
       );
 
-      setQuotesHistory(res)
+      setQuotesHistory(res);
     } catch (error: any) {
-      return [];
+      console.log(error)
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
+  useEffect(() => {
+    loadHistoryData(tickers);
+  }, []);
+
   return (
     <div className="  ">
-      <div className=" overflow-x-auto text-xs ">
+      <div
+        className={cn("text-xs  ", {
+          isLoading: " pointer-events-none opacity-50 ",
+        })}
+      >
         <ResponsiveContainer width={"100%"} height={350}>
-          <LineChart data={data}>
+          <LineChart>
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
               className=" stroke-main-gray-200 dark:stroke-main-gray-900"
             />
+
             <XAxis
               tickLine={false}
               axisLine={false}
               dataKey="date"
+              type="category"
+              allowDuplicatedCategory={false}
               tickFormatter={(value) => format(new Date(value), "MMM yy")}
               padding={{ right: 20 }}
             />
+
             <YAxis
               tickLine={false}
               axisLine={false}
+              dataKey={"percentage"}
               orientation="right"
               tickFormatter={(value) =>
-                appUtils.formatNumber(value, { currency })
+                `${appUtils.formatNumber((value || 0) as number, {
+                  style: "decimal",
+                })}%`
               }
             />
 
@@ -215,9 +201,10 @@ export default function IndustryComparisonChart(props: Props) {
                                 <span>{name}</span>
                                 <span>
                                   {appUtils.formatNumber(
-                                    (value || undefined) as number | undefined,
-                                    { currency }
+                                    (value || 0) as number,
+                                    { style: "decimal" }
                                   )}
+                                  %
                                 </span>
                               </div>
                             </div>
@@ -263,83 +250,15 @@ export default function IndustryComparisonChart(props: Props) {
               }}
             />
 
-            <Line
-              type="monotone"
-              name="Basic Materials"
-              dataKey="basicMaterialsChangesPercentage"
-              stroke="#8884d8"
-              strokeWidth={3}
-            />
-            <Line
-              type="monotone"
-              name="Communication Services"
-              dataKey="communicationServicesChangesPercentage"
-              stroke="#82ca9d"
-              strokeWidth={3}
-            />
-            <Line
-              type="monotone"
-              name="Consumer Cyclical"
-              dataKey="consumerCyclicalChangesPercentage"
-              stroke="#ff7300"
-              strokeWidth={3}
-            />
-            <Line
-              type="monotone"
-              name="Consumer Defensive"
-              dataKey="consumerDefensiveChangesPercentage"
-              stroke="#0088FE"
-              strokeWidth={3}
-            />
-            <Line
-              type="monotone"
-              name="Energy"
-              dataKey="energyChangesPercentage"
-              stroke="#FF0080"
-              strokeWidth={3}
-            />
-            <Line
-              type="monotone"
-              name="Financial Services"
-              dataKey="financialServicesChangesPercentage"
-              stroke="#FFBB28"
-              strokeWidth={3}
-            />
-            <Line
-              type="monotone"
-              name="Healthcare"
-              dataKey="healthcareChangesPercentage"
-              stroke="#00C49F"
-              strokeWidth={3}
-            />
-            <Line
-              type="monotone"
-              name="Industrials"
-              dataKey="industrialsChangesPercentage"
-              stroke="#FF8042"
-              strokeWidth={3}
-            />
-            <Line
-              type="monotone"
-              name="Real Estate"
-              dataKey="realEstateChangesPercentage"
-              stroke="#bcbd22"
-              strokeWidth={3}
-            />
-            <Line
-              type="monotone"
-              name="Technology"
-              dataKey="technologyChangesPercentage"
-              stroke="#ff0000"
-              strokeWidth={3}
-            />
-            <Line
-              type="monotone"
-              name="Utilities"
-              dataKey="utilitiesChangesPercentage"
-              stroke="#8A2BE2"
-              strokeWidth={3}
-            />
+            {percentageHistory.map((history) => (
+              <Line
+                dataKey="percentage"
+                data={history.data}
+                name={history.symbol}
+                key={history.symbol}
+                color={getNextColor()}
+              />
+            ))}
           </LineChart>
         </ResponsiveContainer>
       </div>

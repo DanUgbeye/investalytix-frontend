@@ -217,7 +217,7 @@ export default function ChartSummary(props: { ticker: string }) {
           ref={chartRef}
           className={cn(
             `relative h-full w-full overflow-hidden duration-150 `,
-            { " opacity-50": loadingData }
+            { " opacity-50 pointer-events-none ": loadingData }
           )}
         />
       </div>

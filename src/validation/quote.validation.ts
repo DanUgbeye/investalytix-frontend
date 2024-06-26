@@ -44,6 +44,7 @@ export const QuoteTimeframeSchema = z.enum([
   "4hour",
   "1day",
   "1week",
+  "1month",
   "1year",
 ]);
 
