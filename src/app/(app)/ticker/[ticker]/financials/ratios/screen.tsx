@@ -122,7 +122,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
                     hasChildren,
                     level,
                     expanded,
-                    onToggle,
+                    onStateToggle: onToggle,
                   }) => {
                     const hightlight = level === 1;
 

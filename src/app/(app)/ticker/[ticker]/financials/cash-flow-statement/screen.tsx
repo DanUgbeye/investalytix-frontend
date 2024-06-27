@@ -124,7 +124,7 @@ export default function CashFlowStatementScreen(
                     hasChildren,
                     level,
                     expanded,
-                    onToggle,
+                    onStateToggle: onToggle,
                   }) => {
                     const hightlight = level === 1 && (index + 1) % 2 === 1;
 

@@ -37,10 +37,23 @@ export class MarketRepository {
   }
 
   async getSectorPerformanceHistory(
+    filter?: { from?: Date; to?: Date; limit?: number },
     options?: RequestOptions
   ): Promise<SectorPerformanceHistory[]> {
     try {
-      const path = `/market/sector-performance-history`;
+      const searchParams = new URLSearchParams();
+
+      if (filter?.from) {
+        searchParams.append("from", filter.from.toLocaleDateString("en-CA"));
+      }
+      if (filter?.to) {
+        searchParams.append("to", filter.to.toLocaleDateString("en-CA"));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/market/sector-performance-history?${searchParams.toString()}`;
       let res = await this.axios.get<{
         data: SectorPerformanceHistory[];
       }>(path, options);

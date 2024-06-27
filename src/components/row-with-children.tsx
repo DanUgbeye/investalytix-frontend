@@ -16,7 +16,7 @@ export type RowWithChildrenProps<TData extends Object> = {
       hasChildren?: boolean;
       level?: number;
       expanded?: boolean;
-      onToggle?: (state?: boolean) => void;
+      onStateToggle?: (state?: boolean) => void;
     }
   >;
 };
@@ -45,7 +45,7 @@ export function RowWithChildren<TData extends Object>(
               level={level}
               hasChildren={hasChildren}
               expanded={isExpanded}
-              onToggle={toggle}
+              onStateToggle={toggle}
             />
 
             {isExpanded &&
