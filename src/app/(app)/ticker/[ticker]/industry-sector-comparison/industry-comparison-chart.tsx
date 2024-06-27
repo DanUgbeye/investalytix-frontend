@@ -21,10 +21,10 @@ import {
 
 type QuoteHistoryWithSymbol = { symbol: string; data: QuoteHistory[] };
 
-function convertData(quoteHistory: QuoteHistoryWithSymbol) {
+function convertData(quoteHistory: QuoteHistoryWithSymbol, color: string) {
   const { data, symbol } = quoteHistory;
 
-  if (data.length <= 0) return { symbol, data: [] };
+  if (data.length <= 0) return { symbol, data: [], color };
 
   let sortedData = data.toSorted(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -34,6 +34,7 @@ function convertData(quoteHistory: QuoteHistoryWithSymbol) {
 
   return {
     symbol,
+    color,
     data: sortedData.map((quote) => {
       const currentPrice = (quote.high + quote.low) / 2;
       const percentage =
@@ -88,13 +89,13 @@ export default function IndustryComparisonChart(props: Props) {
     []
   );
 
-  const getNextColor = useCallback(createColorPicker(), []);
+  const getNextColor = useMemo(() => createColorPicker(), []);
 
   const percentageHistory = useMemo(() => {
     if (!quotesHistory) return [];
 
     return quotesHistory.map((history) => {
-      return convertData(history);
+      return convertData(history, getNextColor());
     });
   }, [quotesHistory]);
 
@@ -119,7 +120,7 @@ export default function IndustryComparisonChart(props: Props) {
 
       setQuotesHistory(res);
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       toast.error(error.message);
     } finally {
       setIsLoading(false);
@@ -166,6 +167,53 @@ export default function IndustryComparisonChart(props: Props) {
                 })}%`
               }
             />
+
+            <Legend
+              content={(props) => {
+                const { payload } = props;
+
+                return (
+                  <div className=" flex flex-wrap items-center gap-x-4 pt-4  ">
+                    {payload &&
+                      payload.map((pl, index) => {
+                        const { value, color } = pl;
+
+                        return (
+                          <span
+                            key={`${value}`}
+                            className=" text-black dark:text-main-gray-300 "
+                          >
+                            <span
+                              style={{
+                                display: "inline-block",
+                                width: 12,
+                                height: 12,
+                                backgroundColor: color,
+                                marginRight: 8,
+                              }}
+                            ></span>
+
+                            {value}
+                          </span>
+                        );
+                      })}
+                  </div>
+                );
+              }}
+            />
+
+            {percentageHistory.map((history) => (
+              <Line
+                key={history.symbol}
+                dataKey="percentage"
+                data={history.data}
+                name={history.symbol}
+                stroke={history.color}
+                strokeWidth={2}
+                dot={false}
+                activeDot={{ style: { backgroundColor: history.color, width: 300, height: 300 } }}
+              />
+            ))}
 
             <Tooltip
               cursor={{
@@ -215,50 +263,6 @@ export default function IndustryComparisonChart(props: Props) {
                 );
               }}
             />
-
-            <Legend
-              content={(props) => {
-                const { payload } = props;
-
-                return (
-                  <div className=" flex flex-wrap items-center gap-x-4 pt-4  ">
-                    {payload &&
-                      payload.map((pl, index) => {
-                        const { value, color } = pl;
-
-                        return (
-                          <span
-                            key={`${value}`}
-                            className=" text-black dark:text-main-gray-300 "
-                          >
-                            <span
-                              style={{
-                                display: "inline-block",
-                                width: 12,
-                                height: 12,
-                                backgroundColor: color,
-                                marginRight: 8,
-                              }}
-                            ></span>
-
-                            {value}
-                          </span>
-                        );
-                      })}
-                  </div>
-                );
-              }}
-            />
-
-            {percentageHistory.map((history) => (
-              <Line
-                dataKey="percentage"
-                data={history.data}
-                name={history.symbol}
-                key={history.symbol}
-                color={getNextColor()}
-              />
-            ))}
           </LineChart>
         </ResponsiveContainer>
       </div>

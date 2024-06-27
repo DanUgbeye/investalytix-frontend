@@ -19,9 +19,10 @@ import PAGES from "@/data/page-map";
 import useInput from "@/hooks/useInput";
 import { cn } from "@/lib/utils";
 import useLogout from "@/modules/auth/hooks/use-logout.hook";
-import { useAppStore } from "@/store";
 import { useTickerRepository } from "@/modules/ticker/hooks";
 import tickerUtils from "@/modules/ticker/utils";
+import { getTickerStockDescriptionRoute } from "@/route";
+import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
 import { SearchResult } from "@/types";
 import { Dialog, Menu } from "@headlessui/react";
@@ -585,7 +586,7 @@ function Search() {
                                       className=" cursor-pointer rounded-lg text-sm duration-300 hover:bg-main-gray-200 dark:hover:bg-main-gray-900 "
                                       onClick={() => {
                                         router.push(
-                                          `${PAGES.TICKER}/${searchResult.symbol}`
+                                          getTickerStockDescriptionRoute(searchResult.symbol)
                                         );
                                       }}
                                     >
