@@ -1,5 +1,6 @@
 "use client";
 
+import { SectorPerformanceHistory } from "@/modules/market/types";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import {
@@ -116,6 +117,7 @@ const data = [
 
 interface Props {
   currency: string;
+  sectorPerformaceHistory: SectorPerformanceHistory[];
 }
 
 export default function SectorComparisonChart(props: Props) {

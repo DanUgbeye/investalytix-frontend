@@ -156,7 +156,6 @@ export default function IndustryComparisonChart(props: Props) {
 
       setQuotesHistory(res);
     } catch (error: any) {
-      console.log(error);
       toast.error(error.message);
     } finally {
       setIsLoading(false);

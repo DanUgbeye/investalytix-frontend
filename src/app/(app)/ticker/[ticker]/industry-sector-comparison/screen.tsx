@@ -183,7 +183,10 @@ export default function IndustrySectorComparisonScreen(
         <h3 className=" text-2xl font-bold ">By Sector</h3>
 
         <div className=" space-y-8 ">
-          <SectorComparisonChart currency={currency} />
+          <SectorComparisonChart
+            currency={currency}
+            sectorPerformaceHistory={sectorPerformaceHistory}
+          />
 
           <div className=" overflow-x-auto ">
             <Table className=" w-full min-w-[50rem] ">
