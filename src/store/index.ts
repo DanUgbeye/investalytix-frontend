@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { AuthState, AuthStore, createAuthStore } from "./auth";
 import { NewsStore, createNewsStore } from "./news";
 import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
+import { WatchlistStore, createWatchlistStore } from "./watchlist";
 
 export type Theme = "light" | "dark";
 
@@ -23,7 +24,11 @@ export type GeneralStore = {
   toggleTheme(theme?: Theme): void;
 };
 
-export type AppStore = BaseStore & AuthStore & GeneralStore & NewsStore;
+export type AppStore = BaseStore &
+  AuthStore &
+  GeneralStore &
+  NewsStore &
+  WatchlistStore;
 
 function getSavedTheme(): Theme {
   if (typeof window === "undefined") {
@@ -91,4 +96,5 @@ export const useAppStore = create<AppStore>((...a) => ({
   },
   ...createAuthStore(...a),
   ...createNewsStore(...a),
+  ...createWatchlistStore(...a),
 }));

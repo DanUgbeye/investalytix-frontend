@@ -1,16 +1,16 @@
 "use client";
 
-import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
-import { createContext, useEffect } from "react";
-import { Theme } from "..";
+import { useEffect } from "react";
 import useTheme from "./useTheme";
+import { useAppStore } from "..";
 
 export default function ThemeProvider({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { theme, toggleTheme } = useTheme();
+  const store = useAppStore()
+  const { theme } = useTheme();
 
   function onThemeChange() {
     localStorage.setItem("theme", theme);
@@ -27,5 +27,6 @@ export default function ThemeProvider({
     onThemeChange();
   }, [theme]);
 
+  console.log(store)
   return <>{children}</>;
 }

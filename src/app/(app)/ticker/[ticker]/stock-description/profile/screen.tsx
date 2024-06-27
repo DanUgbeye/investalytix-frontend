@@ -69,7 +69,7 @@ export default function ProfileScreen(props: ProfileScreenProps) {
 
         <div className=" flex flex-col ">
           <span className=" text-sm ">Website</span>
-          <span className=" font-bold ">{outlook.profile.website}</span>
+          <span className=" font-bold truncate ">{outlook.profile.website}</span>
         </div>
 
         <div className=" flex flex-col ">

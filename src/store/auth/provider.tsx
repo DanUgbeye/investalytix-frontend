@@ -2,16 +2,16 @@
 
 import { QUERY_KEYS } from "@/data/query-keys";
 import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
+import useLogout from "@/modules/auth/hooks/use-logout.hook";
+import { useAuthRepo } from "@/modules/auth/repository";
+import { AuthSchema } from "@/modules/auth/validation";
 import { useUserRepo } from "@/modules/user/repository";
 import { UserSchema } from "@/modules/user/validation";
+import { useAppStore } from "@/store";
+import { AuthState } from "@/store/auth";
 import { useQuery } from "@tanstack/react-query";
 import { PropsWithChildren, useEffect } from "react";
 import { z } from "zod";
-import { useAppStore } from "@/store";
-import { AuthState } from "@/store/auth";
-import { AuthSchema } from "../validation";
-import { useAuthRepo } from "../repository";
-import useLogout from "../hooks/use-logout.hook";
 
 export default function AuthProvider({ children }: PropsWithChildren) {
   const initialiseStore = useAppStore(({ initialiseStore }) => initialiseStore);
@@ -30,10 +30,10 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   };
 
   const { data } = useQuery({
-    enabled: !!user,
+    enabled: user !== undefined,
     queryKey: [QUERY_KEYS.GET_USER_PROFILE, user?.id],
     queryFn: ({ signal }) => userRepo.getUserProfile(user!.id, { signal }),
-    refetchInterval: 900_000, // 15 mins
+    refetchInterval: 300_000, // 5 mins
   });
 
   // check auth status

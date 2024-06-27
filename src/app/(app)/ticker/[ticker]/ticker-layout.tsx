@@ -2,10 +2,11 @@
 
 import ColoredText from "@/components/colored-text";
 import { Container } from "@/components/container";
-import ColoredNumber from "@/components/ui/ColoredNumber";
+import Spinner from "@/components/spinner";
 import QuotesBoard from "@/components/ui/QuotesBoard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { clientAPI } from "@/config/client/api";
 import { QUERY_KEYS } from "@/data/query-keys";
 import { cn } from "@/lib/utils";
 import {
@@ -14,13 +15,17 @@ import {
 } from "@/modules/ticker/components/ticker-nav";
 import { useTickerRepository } from "@/modules/ticker/hooks";
 import { CompanyOutlook } from "@/modules/ticker/types";
+import WatchlistRepository from "@/modules/watchlist/repository";
+import { NewWatchlist } from "@/modules/watchlist/types";
+import { useAppStore } from "@/store";
 import { Quote } from "@/types";
 import appUtils from "@/utils/app-util";
 import { useInViewport } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { HTMLAttributes } from "react";
-import { RiStarSLine } from "react-icons/ri";
+import { HTMLAttributes, useMemo, useState } from "react";
+import { FaRegStar, FaStar } from "react-icons/fa6";
+import { toast } from "react-toastify";
 import "swiper/css";
 
 export interface TickerLayoutProps extends HTMLAttributes<HTMLElement> {
@@ -33,8 +38,20 @@ export interface TickerLayoutProps extends HTMLAttributes<HTMLElement> {
 export default function TickerLayout(props: TickerLayoutProps) {
   const { className, children, ticker, quote, outlook, currency, ...rest } =
     props;
+  const watchlistRepo = new WatchlistRepository(clientAPI);
+  const watchlist = useAppStore(({ watchlist }) => watchlist);
+  const { addToWatchList: addToWatchListStore } = useAppStore();
   const tickerRepo = useTickerRepository();
   const { ref, inViewport } = useInViewport();
+  const [isSaving, setIsSaving] = useState(false);
+
+  const isSavedToWatchlist = useMemo(() => {
+    return (
+      watchlist.find(
+        (wt) => wt.symbol.toLowerCase() === ticker.toLowerCase()
+      ) !== undefined
+    );
+  }, [watchlist]);
 
   const { data: tickerQuote } = useQuery({
     queryKey: [QUERY_KEYS.GET_TICKER_QUOTE, ticker],
@@ -42,6 +59,28 @@ export default function TickerLayout(props: TickerLayoutProps) {
     initialData: quote,
     refetchInterval: 10_000,
   });
+
+  async function addToWatchList() {
+    try {
+      if (!outlook) return;
+      setIsSaving(true);
+
+      const watchlistData: NewWatchlist = {
+        stockExchange: outlook.profile.exchange,
+        name: outlook.profile.companyName,
+        symbol: outlook.profile.symbol,
+        exchangeShortName: outlook.profile.exchangeShortName,
+      };
+
+      const watchlist = await watchlistRepo.addToWatchlist(watchlistData);
+      addToWatchListStore(watchlist);
+      toast.success("added to watchlist");
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setIsSaving(false);
+    }
+  }
 
   return (
     <section {...rest} className={cn(" ", className)}>
@@ -136,14 +175,30 @@ export default function TickerLayout(props: TickerLayoutProps) {
           </div>
 
           <div className=" col-start-3 row-start-2 lg:row-span-2 lg:row-start-1 lg:my-auto">
-            <Button
-              variant={"outline"}
-              size={"lg"}
-              className=" gap-x-1.5 px-3 text-base "
-            >
-              <RiStarSLine className=" size-6" />
-              <span className="  ">Add to Favourite</span>
-            </Button>
+            {isSavedToWatchlist ? (
+              <Button
+                variant={"outline"}
+                size={"lg"}
+                className=" pointer-events-none gap-x-1.5 px-3 text-base "
+              >
+                <FaStar className=" size-5 fill-yellow-500 " />
+                <span className="  ">Saved</span>
+              </Button>
+            ) : (
+              <Button
+                variant={"outline"}
+                size={"lg"}
+                className=" gap-x-2 px-3 text-base "
+                onClick={addToWatchList}
+              >
+                {!isSaving ? (
+                  <FaRegStar className=" size-5 " />
+                ) : (
+                  <Spinner className=" size-5 " />
+                )}
+                <span className="  ">Add to Watchlist</span>
+              </Button>
+            )}
           </div>
         </section>
       </Container>
