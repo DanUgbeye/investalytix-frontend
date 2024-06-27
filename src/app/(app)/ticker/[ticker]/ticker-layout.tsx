@@ -189,7 +189,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
           quote={tickerQuote}
           statsVisible={inViewport}
           ticker={ticker}
-          className=" sticky top-[84px] z-40 flex h-fit md:top-[88px] lg:hidden "
+          className=" sticky top-[84px] z-40 flex h-fit md:top-[88px] lg:hidden dark:border-y dark:border-main-gray-700 "
         />
 
         <main className=" col-start-1 lg:row-start-1 lg:ml-[18rem] ">

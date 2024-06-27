@@ -217,7 +217,7 @@ export default function IndustryComparisonChart(props: Props) {
                 const { payload } = props;
 
                 return (
-                  <div className=" flex flex-wrap items-center gap-x-4 py-4  ">
+                  <div className=" flex flex-wrap items-center gap-x-4 gap-y-1 py-4  ">
                     {payload &&
                       payload.map((pl, index) => {
                         const { value, color } = pl;
