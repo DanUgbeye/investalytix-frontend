@@ -1,12 +1,15 @@
 "use client";
 
+import Spinner from "@/components/spinner";
 import { clientAPI } from "@/config/client/api";
 import { cn } from "@/lib/utils";
 import { TickerRepository } from "@/modules/ticker/repository";
+import { Theme } from "@/store";
+import useTheme from "@/store/theme/useTheme";
 import { QuoteHistory } from "@/types";
 import appUtils from "@/utils/app-util";
 import { format, subYears } from "date-fns";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import {
   CartesianGrid,
@@ -19,37 +22,56 @@ import {
   YAxis,
 } from "recharts";
 
+type chartData = Map<string, Record<string, Date | string | number>>;
+
 type QuoteHistoryWithSymbol = { symbol: string; data: QuoteHistory[] };
 
-function convertData(quoteHistory: QuoteHistoryWithSymbol, color: string) {
-  const { data, symbol } = quoteHistory;
+function toChartData(quoteHistory: QuoteHistoryWithSymbol[]) {
+  let chartData: chartData = new Map();
 
-  if (data.length <= 0) return { symbol, data: [], color };
+  for (
+    let quoteHistoryIndex = 0;
+    quoteHistoryIndex < quoteHistory.length;
+    quoteHistoryIndex++
+  ) {
+    let { data, symbol } = quoteHistory[quoteHistoryIndex];
 
-  let sortedData = data.toSorted(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
-  let firstItem = sortedData[0];
-  let referencePrice = (firstItem.high + firstItem.low) / 2;
+    if (data.length <= 0) continue;
 
-  return {
-    symbol,
-    color,
-    data: sortedData.map((quote) => {
-      const currentPrice = (quote.high + quote.low) / 2;
+    let sortedData = data.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+    let firstItem = sortedData[0];
+    let referencePrice = (firstItem.high + firstItem.low) / 2;
+
+    for (let dataIndex = 0; dataIndex < sortedData.length; dataIndex++) {
+      let { date, high, low } = sortedData[dataIndex];
+      let dateAsString = date.toString();
+
+      const currentPrice = (high + low) / 2;
       const percentage =
         ((currentPrice - referencePrice) / referencePrice) * 100;
 
-      return {
-        date: quote.date,
-        percentage,
-      };
-    }),
-  };
+      let entryData = chartData.get(dateAsString);
+
+      if (entryData) {
+        entryData[symbol] = percentage;
+      } else {
+        entryData = {
+          date,
+          [symbol]: percentage,
+        };
+      }
+
+      chartData.set(dateAsString, entryData);
+    }
+  }
+
+  return Array.from(chartData.values());
 }
 
-function createColorPicker() {
-  const colors = [
+function createColorPicker(theme: Theme) {
+  let colors = [
     "#FF5733",
     "#33FF57",
     "#3357FF",
@@ -61,6 +83,22 @@ function createColorPicker() {
     "#7133FF",
     "#FF3381",
   ];
+
+  if (theme === "dark") {
+    colors = [
+      "#FF8C00", // DarkOrange
+      "#1E90FF", // DodgerBlue
+      "#9370DB", // MediumPurple
+      "#32CD32", // LimeGreen
+      "#FF4500", // OrangeRed
+      "#3CB371", // MediumSeaGreen
+      "#4682B4", // SteelBlue
+      "#9ACD32", // YellowGreen
+      "#FF6347", // Tomato
+      "#87CEFA", // LightSkyBlue
+    ];
+  }
+
   let lastColorIndex = -1;
   let currentIndex = 0;
 
@@ -83,20 +121,18 @@ interface Props {
 
 export default function IndustryComparisonChart(props: Props) {
   const { currency, tickers } = props;
+  const { theme } = useTheme();
   const tickerRepo = new TickerRepository(clientAPI);
   const [isLoading, setIsLoading] = useState(false);
   const [quotesHistory, setQuotesHistory] = useState<QuoteHistoryWithSymbol[]>(
     []
   );
 
-  const getNextColor = useMemo(() => createColorPicker(), []);
+  const getNextColor = useMemo(() => createColorPicker(theme), [theme]);
 
-  const percentageHistory = useMemo(() => {
+  const chartData = useMemo(() => {
     if (!quotesHistory) return [];
-
-    return quotesHistory.map((history) => {
-      return convertData(history, getNextColor());
-    });
+    return toChartData(quotesHistory);
   }, [quotesHistory]);
 
   async function loadHistoryData(tickerSymbols: string[]) {
@@ -106,7 +142,7 @@ export default function IndustryComparisonChart(props: Props) {
         tickerSymbols.map((symbol) =>
           tickerRepo
             .getQuoteHistory(symbol, "1month", {
-              from: subYears(new Date(), 1),
+              from: subYears(new Date(), 2),
             })
             .then(
               (data) =>
@@ -133,13 +169,23 @@ export default function IndustryComparisonChart(props: Props) {
 
   return (
     <div className="  ">
-      <div
-        className={cn("text-xs  ", {
-          isLoading: " pointer-events-none opacity-50 ",
-        })}
-      >
-        <ResponsiveContainer width={"100%"} height={350}>
-          <LineChart>
+      <div className={cn(" relative ")}>
+        <div
+          className={cn(" pointer-events-none hidden pt-12 ", {
+            " inset-0 grid h-full w-full place-items-center ": isLoading,
+          })}
+        >
+          <Spinner />
+        </div>
+
+        <ResponsiveContainer
+          width={"100%"}
+          height={350}
+          className={cn("  text-xs  ", {
+            " pointer-events-none opacity-50 ": isLoading,
+          })}
+        >
+          <LineChart data={chartData}>
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
@@ -150,8 +196,6 @@ export default function IndustryComparisonChart(props: Props) {
               tickLine={false}
               axisLine={false}
               dataKey="date"
-              type="category"
-              allowDuplicatedCategory={false}
               tickFormatter={(value) => format(new Date(value), "MMM yy")}
               padding={{ right: 20 }}
             />
@@ -159,13 +203,14 @@ export default function IndustryComparisonChart(props: Props) {
             <YAxis
               tickLine={false}
               axisLine={false}
-              dataKey={"percentage"}
               orientation="right"
-              tickFormatter={(value) =>
-                `${appUtils.formatNumber((value || 0) as number, {
-                  style: "decimal",
-                })}%`
-              }
+              tickFormatter={(value) => {
+                return value
+                  ? `${appUtils.formatNumber((value || 0) as number, {
+                      style: "decimal",
+                    })}%`
+                  : `0%`;
+              }}
             />
 
             <Legend
@@ -173,7 +218,7 @@ export default function IndustryComparisonChart(props: Props) {
                 const { payload } = props;
 
                 return (
-                  <div className=" flex flex-wrap items-center gap-x-4 pt-4  ">
+                  <div className=" flex flex-wrap items-center gap-x-4 py-4  ">
                     {payload &&
                       payload.map((pl, index) => {
                         const { value, color } = pl;
@@ -202,28 +247,37 @@ export default function IndustryComparisonChart(props: Props) {
               }}
             />
 
-            {percentageHistory.map((history) => (
-              <Line
-                key={history.symbol}
-                dataKey="percentage"
-                data={history.data}
-                name={history.symbol}
-                stroke={history.color}
-                strokeWidth={2}
-                dot={false}
-                activeDot={{ style: { backgroundColor: history.color, width: 300, height: 300 } }}
-              />
-            ))}
+            {tickers.map((symbol) => {
+              const currentColor = getNextColor();
+
+              return (
+                <Line
+                  key={symbol}
+                  isAnimationActive={false}
+                  dataKey={symbol}
+                  stroke={currentColor}
+                  strokeWidth={2}
+                  dot={false}
+                  activeDot={{
+                    style: {
+                      stroke: currentColor,
+                      strokeWidth: 4,
+                      outline: 0,
+                    },
+                  }}
+                />
+              );
+            })}
 
             <Tooltip
               cursor={{
-                className: " fill-main-gray-200/20 dark:fill-white/10 ",
+                className: " stroke-transparent ",
               }}
               content={(props) => {
                 const { payload, label } = props;
 
                 return (
-                  <div className=" space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300 ">
+                  <div className=" space-y-2 rounded bg-main-gray-700 p-2 text-sm text-main-gray-300 ">
                     {label && (
                       <div className="  ">
                         {format(new Date(label), "MMM dd, yyyy")}
@@ -248,11 +302,14 @@ export default function IndustryComparisonChart(props: Props) {
                               <div className=" flex w-full justify-between gap-4 ">
                                 <span>{name}</span>
                                 <span>
-                                  {appUtils.formatNumber(
-                                    (value || 0) as number,
-                                    { style: "decimal" }
-                                  )}
-                                  %
+                                  {value
+                                    ? `${appUtils.formatNumber(
+                                        (value || 0) as number,
+                                        {
+                                          style: "decimal",
+                                        }
+                                      )}%`
+                                    : `0%`}
                                 </span>
                               </div>
                             </div>
