@@ -94,7 +94,9 @@ export function MobileTickerNav(props: Props) {
                         }}
                       >
                         {tickerQuote.change > 0 && "+"}
-                        {Number(tickerQuote.change.toFixed(2))}
+                        {appUtils.formatNumber(tickerQuote.change, {
+                          style: "decimal",
+                        })}
                       </ColoredText>
                     )}{" "}
                     {tickerQuote.changesPercentage && (
@@ -107,7 +109,10 @@ export function MobileTickerNav(props: Props) {
                         }}
                       >
                         {tickerQuote.changesPercentage > 0 && "+"}
-                        {Number(tickerQuote.changesPercentage.toFixed(2))}%
+                        {appUtils.formatNumber(tickerQuote.changesPercentage, {
+                          style: "decimal",
+                        })}
+                        %
                       </ColoredText>
                     )}
                   </span>

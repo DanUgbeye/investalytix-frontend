@@ -295,7 +295,9 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
                           }}
                         >
                           {tickerQuote.change > 0 && "+"}
-                          {Number(tickerQuote.change.toFixed(2))}
+                          {appUtils.formatNumber(tickerQuote.change, {
+                            style: "decimal",
+                          })}
                         </ColoredText>
                       )}{" "}
                       {tickerQuote.changesPercentage && (
@@ -309,7 +311,13 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
                           }}
                         >
                           {tickerQuote.changesPercentage > 0 && "+"}
-                          {Number(tickerQuote.changesPercentage.toFixed(2))}%
+                          {appUtils.formatNumber(
+                            tickerQuote.changesPercentage,
+                            {
+                              style: "decimal",
+                            }
+                          )}
+                          %
                         </ColoredText>
                       )}
                     </span>

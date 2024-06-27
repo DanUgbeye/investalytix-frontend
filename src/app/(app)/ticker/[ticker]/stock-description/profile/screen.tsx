@@ -130,10 +130,6 @@ export default function ProfileScreen(props: ProfileScreenProps) {
                   Pay
                 </TableHead>
 
-                <TableHead className=" px-2 py-2 text-left ">
-                  Held Since
-                </TableHead>
-
                 <TableHead className=" px-2 py-2 text-center ">
                   Year Born
                 </TableHead>
@@ -163,17 +159,6 @@ export default function ProfileScreen(props: ProfileScreenProps) {
                         notation: "compact",
                         minimumFractionDigits: 2,
                       })}
-                    </TableCell>
-
-                    <TableCell className=" px-2 py-2 text-left">
-                      <span className=" ">
-                        {executive.titleSince
-                          ? format(
-                              new Date(executive.titleSince),
-                              "MMM dd, yyyy"
-                            )
-                          : "-"}
-                      </span>
                     </TableCell>
 
                     <TableCell className=" px-2 py-2 text-center">

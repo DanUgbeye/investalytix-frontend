@@ -78,16 +78,16 @@ export default function TickerLayout(props: TickerLayoutProps) {
             </div>
           </div>
 
-          <div className="  col-span-2 col-start-1 row-start-2 grid w-full grid-cols-[auto,auto,auto] md:col-start-2 md:row-start-2 ">
+          <div className="  col-span-2 col-start-1 row-start-2 grid w-full grid-cols-[auto,auto,auto] md:col-span-1 md:col-start-2 md:row-start-2 ">
             <div className=" space-y-1 md:space-y-3 ">
               <div className=" flex flex-wrap items-end space-x-1.5 ">
-                <span className=" text-3xl font-semibold md:text-5xl ">
+                <span className=" text-3xl font-semibold lg:text-5xl ">
                   {appUtils.formatNumber(tickerQuote.price || undefined, {
                     currency,
                   })}
                 </span>
 
-                <span className=" flex items-center gap-2 text-base font-bold md:text-lg ">
+                <span className=" flex items-center gap-2 text-base font-bold lg:text-lg ">
                   {tickerQuote.change && (
                     <ColoredText
                       isPositive={() => {
@@ -98,7 +98,9 @@ export default function TickerLayout(props: TickerLayoutProps) {
                       }}
                     >
                       {tickerQuote.change > 0 && "+"}
-                      {Number(tickerQuote.change.toFixed(2))}
+                      {appUtils.formatNumber(tickerQuote.change, {
+                        style: "decimal",
+                      })}
                     </ColoredText>
                   )}
 
@@ -112,7 +114,10 @@ export default function TickerLayout(props: TickerLayoutProps) {
                       }}
                     >
                       {tickerQuote.changesPercentage > 0 && "+"}
-                      {Number(tickerQuote.changesPercentage.toFixed(2))}%
+                      {appUtils.formatNumber(tickerQuote.changesPercentage, {
+                        style: "decimal",
+                      })}
+                      %
                     </ColoredText>
                   )}
                 </span>
@@ -128,48 +133,6 @@ export default function TickerLayout(props: TickerLayoutProps) {
                 </div>
               )}
             </div>
-
-            {/* <Separator orientation="vertical" className=" mx-4 h-full " />
-
-            <div className=" space-y-1 md:space-y-3 ">
-              <div className=" flex flex-wrap items-center space-x-1.5 ">
-                <span className=" text-base font-bold md:text-3xl ">
-                  {appUtils.formatNumber(tickerQuote.dayLow || undefined)}
-                </span>
-
-                <span className=" text-xs font-bold md:text-lg ">
-                  {tickerQuote.change && (
-                    <>
-                      {tickerQuote.change > 0 && "+"}
-                      <ColoredNumber number={tickerQuote.change} />
-                    </>
-                  )}{" "}
-                  (
-                  {tickerQuote.changesPercentage && (
-                    <>
-                      {tickerQuote.changesPercentage > 0 && "+"}
-                      <ColoredNumber
-                        percent
-                        number={Number(
-                          tickerQuote.changesPercentage.toFixed(2)
-                        )}
-                      />
-                    </>
-                  )}
-                  )
-                </span>
-              </div>
-
-              {tickerQuote.timestamp && (
-                <div className=" text-xs text-main-gray-400 md:text-sm ">
-                  At close:{" "}
-                  {format(
-                    new Date(tickerQuote.timestamp),
-                    "MMMM dd hh:mm a"
-                  )}
-                </div>
-              )}
-            </div> */}
           </div>
 
           <div className=" col-start-3 row-start-2 lg:row-span-2 lg:row-start-1 lg:my-auto">
