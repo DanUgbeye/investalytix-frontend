@@ -40,10 +40,13 @@ export default function TickerLayout(props: TickerLayoutProps) {
     props;
   const watchlistRepo = new WatchlistRepository(clientAPI);
   const watchlist = useAppStore(({ watchlist }) => watchlist);
-  const { addToWatchList: addToWatchListStore } = useAppStore();
+  const {
+    addToWatchList: addToWatchListStore,
+    removeFromWatchlist: removeFromWatchListStore,
+  } = useAppStore();
   const tickerRepo = useTickerRepository();
   const { ref, inViewport } = useInViewport();
-  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const isSavedToWatchlist = useMemo(() => {
     return (
@@ -63,7 +66,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
   async function addToWatchList() {
     try {
       if (!outlook) return;
-      setIsSaving(true);
+      setIsLoading(true);
 
       const watchlistData: NewWatchlist = {
         stockExchange: outlook.profile.exchange,
@@ -78,7 +81,25 @@ export default function TickerLayout(props: TickerLayoutProps) {
     } catch (error: any) {
       toast.error(error.message);
     } finally {
-      setIsSaving(false);
+      setIsLoading(false);
+    }
+  }
+
+  async function removeFromWatchList() {
+    try {
+      const savedEntry = watchlist.find(
+        (wt) => wt.symbol.toLowerCase() === ticker.toLowerCase()
+      );
+      if (!savedEntry) return;
+      setIsLoading(true);
+
+      await watchlistRepo.removeFromWatchlist(savedEntry.id);
+      removeFromWatchListStore(savedEntry.id);
+      toast.success("removed from watchlist");
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -179,19 +200,26 @@ export default function TickerLayout(props: TickerLayoutProps) {
               <Button
                 variant={"outline"}
                 size={"lg"}
-                className=" pointer-events-none gap-x-1.5 px-3 text-base "
+                disabled={isLoading}
+                className=" gap-x-1.5 px-3 text-base "
+                onClick={removeFromWatchList}
               >
-                <FaStar className=" size-5 fill-yellow-500 " />
+                {!isLoading ? (
+                  <FaStar className=" size-5 fill-yellow-500 " />
+                ) : (
+                  <Spinner className=" size-5 " />
+                )}
                 <span className="  ">Saved</span>
               </Button>
             ) : (
               <Button
                 variant={"outline"}
                 size={"lg"}
+                disabled={isLoading}
                 className=" gap-x-2 px-3 text-base "
                 onClick={addToWatchList}
               >
-                {!isSaving ? (
+                {!isLoading ? (
                   <FaRegStar className=" size-5 " />
                 ) : (
                   <Spinner className=" size-5 " />
