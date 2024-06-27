@@ -1,12 +1,22 @@
 import { cn } from "@/lib/utils";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, useMemo } from "react";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  isPositive?: boolean;
+  isPositive?: boolean | (() => boolean | undefined);
 }
 
 export default function ColoredText(props: Props) {
   const { className, isPositive, ...rest } = props;
+
+  const positive = useMemo(() => {
+    if (isPositive === undefined) return undefined;
+
+    if (typeof isPositive === "function") {
+      return isPositive();
+    }
+
+    return isPositive;
+  }, [isPositive]);
 
   return (
     <div
@@ -14,8 +24,8 @@ export default function ColoredText(props: Props) {
       className={cn(
         {
           " text-main-green-light dark:text-main-green-dark ":
-            isPositive === true,
-          " text-main-red-light dark:text-main-red-dark ": isPositive === false,
+            positive === true,
+          " text-main-red-light dark:text-main-red-dark ": positive === false,
         },
         className
       )}

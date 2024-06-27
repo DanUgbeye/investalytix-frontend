@@ -145,13 +145,13 @@ export default function IndustrySectorComparisonScreen(
 
                       <TableCell className=" text-green-700 ">
                         <ColoredText
-                          isPositive={(() => {
+                          isPositive={() => {
                             if (similarStock.change) {
                               if (similarStock.change > 0) return true;
                               if (similarStock.change < 0) return false;
                             }
                             return undefined;
-                          })()}
+                          }}
                         >
                           {appUtils.formatNumber(similarStock.change, {
                             style: "decimal",
@@ -161,7 +161,7 @@ export default function IndustrySectorComparisonScreen(
 
                       <TableCell className=" text-[#125BD4] ">
                         <ColoredText
-                          isPositive={(() => {
+                          isPositive={() => {
                             if (similarStock.changesPercentage) {
                               if (similarStock.changesPercentage > 0)
                                 return true;
@@ -169,7 +169,7 @@ export default function IndustrySectorComparisonScreen(
                                 return false;
                             }
                             return undefined;
-                          })()}
+                          }}
                         >
                           {appUtils.formatNumber(
                             similarStock.changesPercentage,

@@ -1,10 +1,7 @@
-import { Swiper, SwiperSlide } from "swiper/react";
 import Quote from "@/components/ui/Quote";
 import quotes from "@/mock/quotes";
-import { Autoplay } from "swiper/modules";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 
 export default function QuotesBoard() {
   const settings = {

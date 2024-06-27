@@ -1,5 +1,6 @@
 "use client";
 
+import ColoredText from "@/components/colored-text";
 import { Container } from "@/components/container";
 import ColoredNumber from "@/components/ui/ColoredNumber";
 import QuotesBoard from "@/components/ui/QuotesBoard";
@@ -44,9 +45,9 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
   return (
     <section {...rest} className={cn(" ", className)}>
-      <Container className=" px-0 sm:px-0 sm:pb-8 xl:px-0 ">
-        <QuotesBoard />
+      <QuotesBoard />
 
+      <Container className=" px-0 sm:px-0 sm:pb-8 xl:px-0 ">
         <section
           id={"ticker-stats"}
           className=" flex flex-col gap-5 px-6 sm:grid sm:grid-cols-[auto,1fr] md:grid-cols-[auto,1fr,auto] md:grid-rows-[auto,auto] md:gap-x-8 "
@@ -88,24 +89,31 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
                 <span className=" flex items-center gap-2 text-base font-bold md:text-lg ">
                   {tickerQuote.change && (
-                    <div>
+                    <ColoredText
+                      isPositive={() => {
+                        if (!tickerQuote.change) return undefined;
+                        if (tickerQuote.change > 0) return true;
+                        if (tickerQuote.change < 0) return false;
+                        return undefined;
+                      }}
+                    >
                       {tickerQuote.change > 0 && "+"}
-                      <ColoredNumber
-                        number={Number(tickerQuote.change.toFixed(2))}
-                      />
-                    </div>
+                      {Number(tickerQuote.change.toFixed(2))}
+                    </ColoredText>
                   )}
 
                   {tickerQuote.changesPercentage && (
-                    <div>
+                    <ColoredText
+                      isPositive={() => {
+                        if (!tickerQuote.changesPercentage) return undefined;
+                        if (tickerQuote.changesPercentage > 0) return true;
+                        if (tickerQuote.changesPercentage < 0) return false;
+                        return undefined;
+                      }}
+                    >
                       {tickerQuote.changesPercentage > 0 && "+"}
-                      <ColoredNumber
-                        percent
-                        number={Number(
-                          tickerQuote.changesPercentage.toFixed(2)
-                        )}
-                      />
-                    </div>
+                      {Number(tickerQuote.changesPercentage.toFixed(2))}%
+                    </ColoredText>
                   )}
                 </span>
               </div>

@@ -12,6 +12,7 @@ import { MdOutlineInsertChart } from "react-icons/md";
 import { TickerNavProps } from ".";
 import TickerNavLink from "../ticker-nav-link";
 import { TICKER_NAV_TABS } from "./ticker-sidenav.types";
+import ColoredText from "@/components/colored-text";
 
 function getNavTabIcon(
   tab: (typeof TICKER_NAV_TABS)[keyof typeof TICKER_NAV_TABS]["label"]
@@ -283,25 +284,33 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
                       {appUtils.formatNumber(tickerQuote.price || undefined)}
                     </span>
 
-                    <span className=" text-sm font-bold ">
+                    <span className=" flex gap-1 text-sm font-bold ">
                       {tickerQuote.change && (
-                        <>
+                        <ColoredText
+                          isPositive={() => {
+                            if (!tickerQuote.change) return undefined;
+                            if (tickerQuote.change > 0) return true;
+                            if (tickerQuote.change < 0) return false;
+                            return undefined;
+                          }}
+                        >
                           {tickerQuote.change > 0 && "+"}
-                          <ColoredNumber
-                            number={Number(tickerQuote.change.toFixed(2))}
-                          />
-                        </>
+                          {Number(tickerQuote.change.toFixed(2))}
+                        </ColoredText>
                       )}{" "}
                       {tickerQuote.changesPercentage && (
-                        <>
+                        <ColoredText
+                          isPositive={() => {
+                            if (!tickerQuote.changesPercentage)
+                              return undefined;
+                            if (tickerQuote.changesPercentage > 0) return true;
+                            if (tickerQuote.changesPercentage < 0) return false;
+                            return undefined;
+                          }}
+                        >
                           {tickerQuote.changesPercentage > 0 && "+"}
-                          <ColoredNumber
-                            percent
-                            number={Number(
-                              tickerQuote.changesPercentage.toFixed(2)
-                            )}
-                          />
-                        </>
+                          {Number(tickerQuote.changesPercentage.toFixed(2))}%
+                        </ColoredText>
                       )}
                     </span>
                   </div>

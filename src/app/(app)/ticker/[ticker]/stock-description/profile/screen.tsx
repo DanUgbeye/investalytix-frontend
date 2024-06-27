@@ -1,6 +1,7 @@
 "use client";
 
 import HeaderWithUnderline from "@/components/heading";
+import ShortenText from "@/components/shorten-text";
 import {
   Table,
   TableBody,
@@ -107,9 +108,10 @@ export default function ProfileScreen(props: ProfileScreenProps) {
         </div>
       </div>
 
-      <p className=" max-w-3xl whitespace-pre-line ">
-        {outlook.profile.description}
-      </p>
+      <ShortenText
+        text={outlook.profile.description}
+        className=" max-w-3xl whitespace-pre-line "
+      />
 
       <div className=" space-y-4 ">
         <h3 className=" font-extrabold ">Key Executives</h3>
