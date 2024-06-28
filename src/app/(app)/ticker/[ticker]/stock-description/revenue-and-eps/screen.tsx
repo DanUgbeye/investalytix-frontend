@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 import { Earning } from "@/modules/ticker/types";
+import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
 import appUtils from "@/utils/app-util";
 import { Minus, Plus } from "lucide-react";
@@ -35,26 +36,31 @@ interface RevenueAndEPSScreenProps {
 
 export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
   const { ticker, earnings, currency } = props;
+  const { toggleLoginModal } = useAppStore();
+  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
   const { theme } = useTheme();
   const [showAll, setShowAll] = useState<"EPS" | "Revenue" | undefined>();
 
   function handleShoMore(show?: typeof showAll) {
-    // TODO handle unauthenticated users
-    setShowAll(showAll === show ? undefined : show);
+    if (isAuthenticated) {
+      setShowAll(showAll === show ? undefined : show);
+    } else {
+      toggleLoginModal();
+    }
   }
 
   return (
-    <section className=" space-y-12 pb-12 ">
+    <section className="space-y-12 pb-12">
       {/* EARNINGS SECTION */}
-      <section className=" space-y-5 ">
+      <section className="space-y-5">
         <HeaderWithUnderline>EPS</HeaderWithUnderline>
 
-        <div className="  ">
-          <div className=" py-10 ">
+        <div className=" ">
+          <div className="py-10">
             <ResponsiveContainer
               width={"100%"}
               height={180}
-              className={" text-xs md:text-sm "}
+              className={"text-xs md:text-sm"}
             >
               <BarChart
                 data={earnings
@@ -68,7 +74,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                 <CartesianGrid
                   vertical={false}
                   strokeDasharray="3 3"
-                  className=" stroke-main-gray-200 dark:stroke-main-gray-700"
+                  className="stroke-main-gray-200 dark:stroke-main-gray-700"
                 />
 
                 <XAxis
@@ -106,9 +112,9 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                     );
 
                     return (
-                      <div className=" space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300 ">
+                      <div className="space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300">
                         {label && (
-                          <div className="  ">
+                          <div className=" ">
                             {quarter} '{year}
                           </div>
                         )}
@@ -121,10 +127,10 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                               return (
                                 <div
                                   key={`${value}-${index}`}
-                                  className=" flex items-center gap-2 text-main-gray-300 "
+                                  className="flex items-center gap-2 text-main-gray-300"
                                 >
                                   <span
-                                    className=" size-3 "
+                                    className="size-3"
                                     style={{ backgroundColor: color }}
                                   />
                                   <span>
@@ -160,7 +166,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                     const { payload } = props;
 
                     return (
-                      <div className=" flex items-center gap-x-4 py-2 sm:justify-center ">
+                      <div className="flex items-center gap-x-4 py-2 sm:justify-center">
                         {payload &&
                           payload.map((pl, index) => {
                             const { value, color } = pl;
@@ -168,7 +174,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                             return (
                               <span
                                 key={`${value}`}
-                                className=" text-black dark:text-main-gray-300 "
+                                className="text-black dark:text-main-gray-300"
                               >
                                 <span
                                   style={{
@@ -192,40 +198,40 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             </ResponsiveContainer>
           </div>
 
-          <div className=" space-y-6 ">
-            <div className=" flex flex-wrap items-end gap-4 ">
-              <h3 className=" font-extrabold ">Earning History</h3>
+          <div className="space-y-6">
+            <div className="flex flex-wrap items-end gap-4">
+              <h3 className="font-extrabold">Earning History</h3>
 
-              <span className=" gap-x-1 text-xs ">Currency: {currency}</span>
+              <span className="gap-x-1 text-xs">Currency: {currency}</span>
             </div>
 
-            <div className=" space-y-6 ">
-              <div className=" space-y-1 ">
-                <div className=" overflow-y-auto ">
-                  <Table className=" w-full min-w-[50rem] ">
+            <div className="space-y-6">
+              <div className="space-y-1">
+                <div className="overflow-y-auto">
+                  <Table className="w-full min-w-[50rem]">
                     <TableHeader className="">
-                      <TableRow headerRow className="  ">
-                        <TableHead className=" py-4 text-left font-normal ">
+                      <TableRow headerRow className=" ">
+                        <TableHead className="py-4 text-left font-normal">
                           Report Date
                         </TableHead>
 
-                        <TableHead className=" py-4 text-center font-normal ">
+                        <TableHead className="py-4 text-center font-normal">
                           Fiscal Year
                         </TableHead>
 
-                        <TableHead className=" py-4 text-center font-normal ">
+                        <TableHead className="py-4 text-center font-normal">
                           Quarter
                         </TableHead>
 
-                        <TableHead className=" py-4 text-center font-normal ">
+                        <TableHead className="py-4 text-center font-normal">
                           Forecast
                         </TableHead>
 
-                        <TableHead className=" py-4 text-center font-normal ">
+                        <TableHead className="py-4 text-center font-normal">
                           EPS
                         </TableHead>
 
-                        <TableHead className=" py-4 text-center font-normal ">
+                        <TableHead className="py-4 text-center font-normal">
                           Last Year&apos;s EPS
                         </TableHead>
                       </TableRow>
@@ -247,21 +253,21 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                           return (
                             <TableRow
                               key={`earning-history-${index}`}
-                              className="  "
+                              className=" "
                             >
-                              <TableCell className=" text-left ">
+                              <TableCell className="text-left">
                                 {earning.date.toDateString()}
                               </TableCell>
 
-                              <TableCell className={` text-center `}>
+                              <TableCell className={`text-center`}>
                                 {year}
                               </TableCell>
 
-                              <TableCell className={` text-center `}>
+                              <TableCell className={`text-center`}>
                                 {quarter}
                               </TableCell>
 
-                              <TableCell className=" text-center ">
+                              <TableCell className="text-center">
                                 <span className=" ">
                                   {appUtils.formatNumber(
                                     earning.epsEstimated || undefined,
@@ -273,14 +279,14 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                 </span>
                               </TableCell>
 
-                              <TableCell className=" text-center ">
+                              <TableCell className="text-center">
                                 <span
                                   className={cn({
-                                    " text-green-600 ":
+                                    "text-green-600":
                                       earning.eps &&
                                       earning.epsEstimated &&
                                       earning.eps > earning.epsEstimated,
-                                    " text-red-600 ":
+                                    "text-red-600":
                                       earning.eps &&
                                       earning.epsEstimated &&
                                       earning.eps < earning.epsEstimated,
@@ -296,7 +302,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                 </span>
                               </TableCell>
 
-                              <TableCell className=" text-center ">
+                              <TableCell className="text-center">
                                 {appUtils.formatNumber(
                                   earnings[index + 1]?.eps || undefined,
                                   {
@@ -312,41 +318,41 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   </Table>
                 </div>
 
-                <div className=" flex justify-center ">
+                <div className="flex justify-center">
                   <Button
                     variant={"link"}
-                    className=" h-fit gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base "
+                    className="h-fit gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base"
                     onClick={() => handleShoMore("EPS")}
                   >
                     {showAll === "EPS" ? (
                       <>
-                        <Minus className=" size-4 " />
+                        <Minus className="size-4" />
                         Show Less
                       </>
                     ) : (
                       <>
-                        <Plus className=" size-4 " />
+                        <Plus className="size-4" />
                         Show More
                       </>
                     )}
                   </Button>
                 </div>
 
-                <div className=" flex flex-wrap items-center gap-x-10 gap-y-2 border-y bg-main-gray-100 px-4 py-6 text-xs dark:border-main-gray-900 dark:bg-main-gray-800  ">
-                  <div className="  ">
+                <div className="flex flex-wrap items-center gap-x-10 gap-y-2 border-y bg-main-gray-100 px-4 py-6 text-xs dark:border-main-gray-900 dark:bg-main-gray-800">
+                  <div className=" ">
                     The table shows recent earnings report dates and whether the
                     forecast was beat or missed. See the change in forecast and
                     EPS from the previous year.
                   </div>
 
-                  <div className=" flex items-center gap-x-5 ">
-                    <span className=" flex items-center gap-x-2 ">
-                      <span className=" size-3 rounded-sm bg-green-600 " />
+                  <div className="flex items-center gap-x-5">
+                    <span className="flex items-center gap-x-2">
+                      <span className="size-3 rounded-sm bg-green-600" />
                       Beat
                     </span>
 
-                    <span className=" flex items-center gap-x-2 ">
-                      <span className=" size-3 rounded-sm bg-red-600 " />
+                    <span className="flex items-center gap-x-2">
+                      <span className="size-3 rounded-sm bg-red-600" />
                       Missed
                     </span>
                   </div>
@@ -358,15 +364,15 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
       </section>
 
       {/* REVENUE SECTION */}
-      <section className=" space-y-5 ">
+      <section className="space-y-5">
         <HeaderWithUnderline>Revenue</HeaderWithUnderline>
 
-        <div className="  ">
-          <div className=" py-10 ">
+        <div className=" ">
+          <div className="py-10">
             <ResponsiveContainer
               width={"100%"}
               height={180}
-              className={" text-xs md:text-sm "}
+              className={"text-xs md:text-sm"}
             >
               <BarChart
                 data={earnings
@@ -380,7 +386,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                 <CartesianGrid
                   vertical={false}
                   strokeDasharray="3 3"
-                  className=" stroke-main-gray-200 dark:stroke-main-gray-700"
+                  className="stroke-main-gray-200 dark:stroke-main-gray-700"
                 />
 
                 <XAxis
@@ -419,9 +425,9 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                     );
 
                     return (
-                      <div className=" space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300 ">
+                      <div className="space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300">
                         {label && (
-                          <div className="  ">
+                          <div className=" ">
                             {quarter} '{year}
                           </div>
                         )}
@@ -434,10 +440,10 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                               return (
                                 <div
                                   key={`${value}-${index}`}
-                                  className=" flex items-center gap-2 text-main-gray-300 "
+                                  className="flex items-center gap-2 text-main-gray-300"
                                 >
                                   <span
-                                    className=" size-3 "
+                                    className="size-3"
                                     style={{ backgroundColor: color }}
                                   />
                                   <span>
@@ -446,7 +452,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                       style: "decimal",
                                       notation: "compact",
                                       maximumFractionDigits: 2,
-                                      minimumFractionDigits: 2
+                                      minimumFractionDigits: 2,
                                     })}
                                   </span>
                                 </div>
@@ -479,7 +485,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                     const { payload } = props;
 
                     return (
-                      <div className=" flex items-center gap-x-4 py-2 sm:justify-center ">
+                      <div className="flex items-center gap-x-4 py-2 sm:justify-center">
                         {payload &&
                           payload.map((pl, index) => {
                             const { value, color } = pl;
@@ -487,7 +493,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                             return (
                               <span
                                 key={`${value}`}
-                                className=" text-black dark:text-main-gray-300 "
+                                className="text-black dark:text-main-gray-300"
                               >
                                 <span
                                   style={{
@@ -511,40 +517,40 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
             </ResponsiveContainer>
           </div>
 
-          <div className=" space-y-6 ">
-            <div className=" flex flex-wrap items-end gap-4 ">
-              <h3 className=" font-extrabold ">Revenue History</h3>
+          <div className="space-y-6">
+            <div className="flex flex-wrap items-end gap-4">
+              <h3 className="font-extrabold">Revenue History</h3>
 
-              <span className=" gap-x-1 text-xs ">Currency: {currency}</span>
+              <span className="gap-x-1 text-xs">Currency: {currency}</span>
             </div>
 
-            <div className=" space-y-6 ">
+            <div className="space-y-6">
               <div className=" ">
-                <div className=" overflow-y-auto ">
+                <div className="overflow-y-auto">
                   <Table className="w-full min-w-[50rem]">
                     <TableHeader>
                       <TableRow headerRow className=" ">
-                        <TableHead className=" px-2 py-2 text-left ">
+                        <TableHead className="px-2 py-2 text-left">
                           Report Date
                         </TableHead>
 
-                        <TableHead className=" py-4 text-center font-normal ">
+                        <TableHead className="py-4 text-center font-normal">
                           Fiscal Year
                         </TableHead>
 
-                        <TableHead className=" py-4 text-center font-normal ">
+                        <TableHead className="py-4 text-center font-normal">
                           Quarter
                         </TableHead>
 
-                        <TableHead className=" px-2 py-2 text-center ">
+                        <TableHead className="px-2 py-2 text-center">
                           Estimated
                         </TableHead>
 
-                        <TableHead className=" px-2 py-2 text-center ">
+                        <TableHead className="px-2 py-2 text-center">
                           Revenue
                         </TableHead>
 
-                        <TableHead className=" px-2 py-2 text-center ">
+                        <TableHead className="px-2 py-2 text-center">
                           Last Year&apos;s Revenue
                         </TableHead>
                       </TableRow>
@@ -565,19 +571,19 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
 
                           return (
                             <TableRow key={`revenue-history-${index}`}>
-                              <TableCell className=" px-2 py-2 text-left ">
+                              <TableCell className="px-2 py-2 text-left">
                                 {earning.date.toDateString()}
                               </TableCell>
 
-                              <TableCell className={` text-center `}>
+                              <TableCell className={`text-center`}>
                                 {year}
                               </TableCell>
 
-                              <TableCell className={` text-center `}>
+                              <TableCell className={`text-center`}>
                                 {quarter}
                               </TableCell>
 
-                              <TableCell className=" px-2 py-2 text-center">
+                              <TableCell className="px-2 py-2 text-center">
                                 <span className=" ">
                                   {appUtils.formatNumber(
                                     earning.revenueEstimated || undefined,
@@ -590,15 +596,15 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                 </span>
                               </TableCell>
 
-                              <TableCell className=" px-2 py-2 text-center">
+                              <TableCell className="px-2 py-2 text-center">
                                 <span
                                   className={cn({
-                                    " text-green-600 ":
+                                    "text-green-600":
                                       earning.revenue &&
                                       earning.revenueEstimated &&
                                       earning.revenue >
                                         earning.revenueEstimated,
-                                    " text-red-600 ":
+                                    "text-red-600":
                                       earning.revenue &&
                                       earning.revenueEstimated &&
                                       earning.revenue <
@@ -616,7 +622,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                                 </span>
                               </TableCell>
 
-                              <TableCell className=" px-2 py-2 text-center">
+                              <TableCell className="px-2 py-2 text-center">
                                 {appUtils.formatNumber(
                                   earnings[index + 1]?.revenue || undefined,
                                   {
@@ -633,41 +639,41 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   </Table>
                 </div>
 
-                <div className=" flex justify-center ">
+                <div className="flex justify-center">
                   <Button
                     variant={"link"}
-                    className=" gap-x-2 text-primary-base hover:no-underline dark:text-primary-base "
+                    className="gap-x-2 text-primary-base hover:no-underline dark:text-primary-base"
                     onClick={() => handleShoMore("Revenue")}
                   >
                     {showAll === "Revenue" ? (
                       <>
-                        <Minus className=" size-4 " />
+                        <Minus className="size-4" />
                         Show Less
                       </>
                     ) : (
                       <>
-                        <Plus className=" size-4 " />
+                        <Plus className="size-4" />
                         Show More
                       </>
                     )}
                   </Button>
                 </div>
 
-                <div className=" flex flex-wrap items-center gap-x-10 gap-y-2 border-y bg-main-gray-100 px-4 py-6 text-xs dark:border-main-gray-900 dark:bg-main-gray-800  ">
-                  <div className="  ">
+                <div className="flex flex-wrap items-center gap-x-10 gap-y-2 border-y bg-main-gray-100 px-4 py-6 text-xs dark:border-main-gray-900 dark:bg-main-gray-800">
+                  <div className=" ">
                     The table shows recent earnings report dates and whether the
                     forecast was beat or missed. See the change in forecast and
                     Revenue from the previous year.
                   </div>
 
-                  <div className=" flex items-center gap-x-5 ">
-                    <span className=" flex items-center gap-x-2 ">
-                      <span className=" size-3 rounded-sm bg-green-600 " />
+                  <div className="flex items-center gap-x-5">
+                    <span className="flex items-center gap-x-2">
+                      <span className="size-3 rounded-sm bg-green-600" />
                       Beat
                     </span>
 
-                    <span className=" flex items-center gap-x-2 ">
-                      <span className=" size-3 rounded-sm bg-red-600 " />
+                    <span className="flex items-center gap-x-2">
+                      <span className="size-3 rounded-sm bg-red-600" />
                       Missed
                     </span>
                   </div>
