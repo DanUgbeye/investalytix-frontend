@@ -10,7 +10,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import useIsAuthenticated from "@/modules/auth/hooks/use-is-authenticated";
 import { CompanyOutlook, Dividend, Ratio } from "@/modules/ticker/types";
 import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
