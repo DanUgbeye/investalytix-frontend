@@ -18,7 +18,7 @@ import {
 import PAGES from "@/data/page-map";
 import useInput from "@/hooks/useInput";
 import { cn } from "@/lib/utils";
-import useLogout from "@/modules/auth/hooks/use-logout.hook";
+import useLogout from "@/modules/auth/hooks/use-logout";
 import { useTickerRepository } from "@/modules/ticker/hooks";
 import tickerUtils from "@/modules/ticker/utils";
 import { getTickerStockDescriptionRoute } from "@/route";

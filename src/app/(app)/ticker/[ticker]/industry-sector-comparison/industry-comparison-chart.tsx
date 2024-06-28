@@ -4,7 +4,7 @@ import Spinner from "@/components/spinner";
 import { clientAPI } from "@/config/client/api";
 import { cn } from "@/lib/utils";
 import { TickerRepository } from "@/modules/ticker/repository";
-import { Theme } from "@/store";
+import { Theme } from "@/types";
 import useTheme from "@/store/theme/useTheme";
 import { QuoteHistory } from "@/types";
 import appUtils from "@/utils/app-util";

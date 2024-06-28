@@ -2,7 +2,7 @@
 
 import { QUERY_KEYS } from "@/data/query-keys";
 import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
-import useLogout from "@/modules/auth/hooks/use-logout.hook";
+import useLogout from "@/modules/auth/hooks/use-logout";
 import { useAuthRepo } from "@/modules/auth/repository";
 import { AuthSchema } from "@/modules/auth/validation";
 import { useUserRepo } from "@/modules/user/repository";

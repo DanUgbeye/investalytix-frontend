@@ -10,7 +10,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useIsAuthenticated from "@/modules/auth/hooks/use-is-authenticated";
 import { CompanyOutlook, Dividend, Ratio } from "@/modules/ticker/types";
+import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
@@ -23,7 +25,7 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis
+  YAxis,
 } from "recharts";
 
 function formatDividendData(data: Dividend[]) {
@@ -63,7 +65,8 @@ interface DividendsScreenProps {
 export default function DividendsScreen(props: DividendsScreenProps) {
   const { currency, ticker, dividends, outlook, ratio } = props;
   const { theme } = useTheme();
-
+  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
+  const { toggleLoginModal } = useAppStore();
   const [showAllDividends, setShowAllDividends] = useState(false);
 
   const dividendsToDisplay = useMemo(() => {
@@ -75,7 +78,11 @@ export default function DividendsScreen(props: DividendsScreenProps) {
   }, [dividends, showAllDividends]);
 
   function handleShowMoreDividends() {
-    setShowAllDividends((prev) => !prev);
+    if (isAuthenticated) {
+      setShowAllDividends((prev) => !prev);
+    } else {
+      toggleLoginModal(true);
+    }
   }
 
   return (

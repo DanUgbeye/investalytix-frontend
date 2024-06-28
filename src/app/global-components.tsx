@@ -1,5 +1,6 @@
 "use client";
 
+import AuthModal from "@/modules/auth/components/auth-modal";
 import NewsDisplayModal from "@/modules/news/components/news-display-modal";
 import useTheme from "@/store/theme/useTheme";
 import { PropsWithChildren } from "react";
@@ -19,6 +20,7 @@ export default function GlobalComponents({ children }: PropsWithChildren) {
         hideProgressBar
       />
       <NewsDisplayModal />
+      <AuthModal />
 
       {children}
     </>
