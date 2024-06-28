@@ -21,6 +21,7 @@ import { useMemo } from "react";
 import { generateRatiosTableData } from "./generate-table-data";
 import { Button } from "@/components/ui/button";
 import { useAppStore } from "@/store";
+import CLIENT_CONFIG from "@/config/client/app";
 
 function getPeriodUrl(path: string, period: string) {
   return `${path}?period=${period}`;
@@ -42,7 +43,9 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   const dataToDisplay = useMemo(() => {
     let data = ratios;
     if (!isAuthenticated) {
-      let _12YrsAgo = startOfYear(subYears(new Date(), 10)).getTime();
+      let _12YrsAgo = startOfYear(
+        subYears(new Date(), CLIENT_CONFIG.FREE_YEARS_DATA)
+      ).getTime();
 
       data = ratios.filter((bs) => new Date(bs.date).getTime() > _12YrsAgo);
     }

@@ -21,6 +21,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { generateBalanceTableData } from "./generate-table-data";
+import CLIENT_CONFIG from "@/config/client/app";
 
 function getPeriodUrl(path: string, period: string) {
   return `${path}?period=${period}`;
@@ -42,7 +43,9 @@ export default function BalanceSheetScreen(props: BalanceSheetScreenProps) {
   const dataToDisplay = useMemo(() => {
     let data = balanceSheet;
     if (!isAuthenticated) {
-      let _12YrsAgo = startOfYear(subYears(new Date(), 10)).getTime();
+      let _12YrsAgo = startOfYear(
+        subYears(new Date(), CLIENT_CONFIG.FREE_YEARS_DATA)
+      ).getTime();
 
       data = balanceSheet.filter(
         (bs) => new Date(bs.date).getTime() > _12YrsAgo
