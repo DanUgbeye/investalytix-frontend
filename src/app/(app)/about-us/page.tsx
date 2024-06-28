@@ -11,25 +11,25 @@ export default function AboutUsPage() {
   const data = [
     {
       category: "Mission & Vision",
-      title: "Empowering Every Investor with Premium Research",
+      title: "High-Quality Research and Comprehensive Tools for All",
       desc: "Established in 2023, investalytix is dedicated to democratizing high-quality investment research and providing a comprehensive suite of tools for investors. Our mission is to make sophisticated investment analysis accessible to everyone, bridging the gap between institutional-grade research and individual investors.",
       img: "/images/mission-vision.jpg",
     },
     {
       category: "Our Platform",
-      title: "Your All-in-One Financial Insight Hub",
-      desc: "At the core of investalytix is a comprehensive platform offering services like a stock dashboard, advanced charting, real-time financial news, an economic calendar, equity research, options, recommended stock picks, a stock screener, and real-time stock valuation.",
+      title: "Comprehensive Platform Offering Advanced Investment Tools",
+      desc: "At the core of investalytix is a comprehensive platform offering services like a stock dashboard, advanced charting, real-time financial news, an economic calendar, equity research, options, recommended stock picks, a stock screener, and real-time stock valuation",
       img: "",
     },
     {
       category: "Our Approach",
-      title: "Precision Investing Through Data-Driven Insights",
+      title: "Analyzing Economic and Market Trends for Asset Allocation",
       desc: "We analyze macroeconomic trends using economic indicators, along with signals from equity, options, bond, currency, and credit markets. Our quantitative models create optimal asset allocations to maximize risk-adjusted returns. By integrating macro insights, quantitative methods, and our platform's advanced tools, we ensure each investment decision is backed by the highest probability of success.",
       img: "",
     },
     {
       category: "Our Philosophy",
-      title: "Investment for All Our Inclusive Philosophy",
+      title: "Leveling Investment Playing Field for Every Investor",
       desc: "Our philosophy centers on leveling the investment playing field. We believe top-tier research and sophisticated investment tools should be accessible to all, not just the elite. Our commitment is to bridge the divide and make evidence-based investment insights available to everyone.",
       img: "",
     },
@@ -38,11 +38,10 @@ export default function AboutUsPage() {
     <main>
       <header className="bg-black/5 px-10 py-24 text-center dark:bg-white/5">
         <h1 className=" text-center text-5xl font-bold md:text-8xl lg:text-9xl">
-          Where Finance <br /> Meets Tech.
+        About investalytix
         </h1>
-        <p className="mt-10 text-lg md:text-xl">
-          The hub of cutting-edge financial expertise and technological
-          innovation in investment analysis.
+        <p className="mt-10 text-lg md:text-xl max-w-xl mx-auto">
+        Welcome to investalytix, the hub of cutting-edge financial expertise and technological innovation in investment analysis.
         </p>
       </header>
 
@@ -68,15 +67,10 @@ export default function AboutUsPage() {
           <div className="mt-24">
             <h2 className="mb-8 text-5xl font-bold">Team and Commitment</h2>
             <p className="text-xl">
-              Our team reflects our values of thoroughness and dedication. We
-              strive to understand the underlying dynamics of market behaviors
-              and prove our ideas through tangible evidence and advanced tools.
+            Our team reflects our values of thoroughness and dedication. We strive to understand the underlying dynamics of market behaviors and prove our ideas through tangible evidence and advanced tools.
               <br />
               <br />
-              Join us at investalytix to explore our comprehensive platform,
-              connect with our expert team, and empower your financial journey
-              with data-driven decisions. Together, let’s navigate market
-              complexities and stay ahead of the curve.
+              Join us at investalytix to explore our comprehensive platform, connect with our expert team, and empower your financial journey with data-driven decisions. Together, let&apos;s navigate market complexities and stay ahead of the curve.
             </p>
           </div>
 
@@ -153,7 +147,7 @@ function AboutAlan() {
         <div className="fixed inset-0 flex h-screen w-screen items-start justify-center overflow-hidden">
           <div className="h-screen w-full overflow-auto bg-white dark:bg-black">
             <Dialog.Panel className="w-full h-full">
-              <div className="mx-auto flex max-w-4xl flex-col gap-12 rounded-xl md:flex-row relative px-5 md:px-14 py-20">
+              <div className="mx-auto flex max-w-4xl flex-col gap-12 rounded-xl relative px-5 md:px-14 py-20">
                 {/* close btn */}
                 <button onClick={toggleOpen} className="absolute top-5 right-5">
                   <FiX className="size-6" />
@@ -163,7 +157,7 @@ function AboutAlan() {
 
                 <div className="">
                   <h1 className="mb-3 text-5xl font-bold">Jimmy Alan</h1>
-                  <p className="text-xl">
+                  <p className="text-xl text-justify">
                     Jimmy Alan's journey began as a young 15-year-old Iraqi
                     immigrant who escaped the country after the Desert Storm war
                     and moved to America. Coming from a poor family, Jimmy faced

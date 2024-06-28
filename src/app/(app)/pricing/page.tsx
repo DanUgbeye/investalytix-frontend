@@ -5,36 +5,39 @@ import { FiCheck, FiChevronDown, FiStar } from "react-icons/fi";
 
 const plans = [
   {
-    name: "Basic plan",
-    desc: "Lorem ipsum dolor sit amet",
-    monthly: 19,
-    yearly: 199,
+    popular: false,
+    name: "Free Plan",
+    desc: "Free Forever, No Credit Card Required",
+    monthly: 0,
+    yearly: 0,
     features: [
-      "Feature text goes here",
-      "Feature text goes here",
-      "Feature text goes here",
+      "No Account or Login Needed",
+      "Limited Access to Comprehensive Stock Dashboard",
+      "Advanced Charting",
+      "5 Years Financial Data",
+      "Limited Access to Equity Research",
+      "Market and Companies News",
     ],
   },
   {
-    name: "Business plan",
-    desc: "Lorem ipsum dolor sit amet",
+    popular: true,
+    name: "Premium plan",
+    desc: "Billed Per Month or Annually",
     monthly: 29,
     yearly: 299,
     features: [
-      "Feature text goes here",
-      "Feature text goes here",
-      "Feature text goes here",
-    ],
-  },
-  {
-    name: "Basic plan",
-    desc: "Lorem ipsum dolor sit amet",
-    monthly: 49,
-    yearly: 499,
-    features: [
-      "Feature text goes here",
-      "Feature text goes here",
-      "Feature text goes here",
+      "All Free Features, Plus:",
+      "Full Access to Comprehensive Stock Dashboard",
+      "30 Years Financial Data",
+      "Data Export to Excel + Sheets + PDF + CSV",
+      "Economics Calendar",
+      "Full Access to All Equity Research",
+      "Unlimited Email Alerts",
+      "Stock Picks (Coming Soon)",
+      "Real-Time Stock Valuation (Coming Soon)",
+      "Stock Screener (Coming Soon)",
+      "Options (Coming Soon)",
+      "Academy (Coming Soon)",
     ],
   },
 ];
@@ -127,7 +130,7 @@ export default function PricingPage() {
             for 30 days.
           </p>
 
-          <div className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 max-w-5xl mx-auto">
             {plans.map((plan) => (
               <Plan key={plan.name} plan={plan} />
             ))}
