@@ -26,38 +26,38 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 const plans = [
   {
     popular: false,
-    name: "Basic plan",
-    desc: "Lorem ipsum dolor sit amet",
-    monthly: 19,
-    yearly: 199,
+    name: "Free Plan",
+    desc: "Free Forever, No Credit Card Required",
+    monthly: 0,
+    yearly: 0,
     features: [
-      "Feature text goes here",
-      "Feature text goes here",
-      "Feature text goes here",
+      "No Account or Login Needed",
+      "Limited Access to Comprehensive Stock Dashboard",
+      "Advanced Charting",
+      "5 Years Financial Data",
+      "Limited Access to Equity Research",
+      "Market and Companies News",
     ],
   },
   {
     popular: true,
-    name: "Business plan",
-    desc: "Lorem ipsum dolor sit amet",
+    name: "Premium plan",
+    desc: "Billed Per Month or Annually",
     monthly: 29,
     yearly: 299,
     features: [
-      "Feature text goes here",
-      "Feature text goes here",
-      "Feature text goes here",
-    ],
-  },
-  {
-    popular: false,
-    name: "Pro plan",
-    desc: "Lorem ipsum dolor sit amet",
-    monthly: 49,
-    yearly: 499,
-    features: [
-      "Feature text goes here",
-      "Feature text goes here",
-      "Feature text goes here",
+      "All Free Features, Plus:",
+      "Full Access to Comprehensive Stock Dashboard",
+      "30 Years Financial Data",
+      "Data Export to Excel + Sheets + PDF + CSV",
+      "Economics Calendar",
+      "Full Access to All Equity Research",
+      "Unlimited Email Alerts",
+      "Stock Picks (Coming Soon)",
+      "Real-Time Stock Valuation (Coming Soon)",
+      "Stock Screener (Coming Soon)",
+      "Options (Coming Soon)",
+      "Academy (Coming Soon)",
     ],
   },
 ];
@@ -173,6 +173,8 @@ export default function Home() {
       </section>
 
       {/* <Products /> */}
+
+      {/* Pricing */}
       <section className="py-20">
         <h1 className="mb-6 text-center text-6xl font-extrabold">
           Pricing Plans
@@ -229,7 +231,7 @@ export default function Home() {
           </svg>
         </div>
 
-        <Container className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 lg:grid-cols-3">
+        <Container className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 max-w-5xl mx-auto">
           {plans.map((plan) => (
             <Plan key={plan.name} plan={plan} frequency={pricingFrequency} />
           ))}
@@ -399,15 +401,12 @@ function Products() {
     //   <h1 className="mb-6 w-screen text-center text-6xl font-extrabold">
     //     Products
     //   </h1>
-      <div ref={mainRef}>
-        <section
-          ref={containerRef}
-          className="relative flex h-screen w-[200vw]"
-        >
-          <div className="horizontalSection h-screen w-screen bg-red-500"></div>
-          <div className="horizontalSection h-screen w-screen bg-blue-500"></div>
-        </section>
-      </div>
+    <div ref={mainRef}>
+      <section ref={containerRef} className="relative flex h-screen w-[200vw]">
+        <div className="horizontalSection h-screen w-screen bg-red-500"></div>
+        <div className="horizontalSection h-screen w-screen bg-blue-500"></div>
+      </section>
+    </div>
     // </div>
   );
 }
