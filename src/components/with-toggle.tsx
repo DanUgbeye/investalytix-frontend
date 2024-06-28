@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import useExecuteOnce from "@/hooks/use-execute-once";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 
 interface WithToggleProps {
   initial?: boolean;
@@ -12,9 +13,14 @@ export default function WithToggle(props: WithToggleProps) {
   const { initial = false, children: ChildElement } = props;
   const [state, set] = useState(initial);
 
-  function toggle(newState?: boolean) {
+  const toggle = useCallback((newState?: boolean) => {
     set((prev) => (newState ? newState : !prev));
-  }
+  }, []);
 
-  return <ChildElement state={state} toggle={toggle} />;
+  const children = useMemo(
+    () => <ChildElement state={state} toggle={toggle} />,
+    [state, toggle]
+  );
+
+  return children;
 }

@@ -11,72 +11,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { InstitutionalHolder, MutualFundHolder } from "@/modules/ticker/types";
+import { useAppStore } from "@/store";
 import appUtils from "@/utils/app-util";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
-
-const TOP_HOLDERS = [
-  {
-    name: "Schwab® S&P 500 Index",
-    totalSharesHeldPercentage: 2.99,
-    totalAssetsPercentage: 6.37,
-    prev8QrtsTrend: "Buy",
-    currentShares: 465_528_962,
-    changeAmount: 633_900,
-    changePercentage: 13_029_843,
-    date: new Date(),
-  },
-  {
-    name: "Vanguard Information Technology ET",
-    totalSharesHeldPercentage: 2.99,
-    totalAssetsPercentage: 6.37,
-    prev8QrtsTrend: "Buy",
-    currentShares: 465_528_962,
-    changeAmount: 633_900,
-    changePercentage: 13_029_843,
-    date: new Date(),
-  },
-  {
-    name: "Vanguard Total Stock Mkt Idx Inv",
-    totalSharesHeldPercentage: 2.99,
-    totalAssetsPercentage: 6.37,
-    prev8QrtsTrend: "Buy",
-    currentShares: 465_528_962,
-    changeAmount: 633_900,
-    changePercentage: 13_029_843,
-    date: new Date(),
-  },
-  {
-    name: "Technology Select Sector SPDR® ETF",
-    totalSharesHeldPercentage: 2.99,
-    totalAssetsPercentage: 6.37,
-    prev8QrtsTrend: "Buy",
-    currentShares: 465_528_962,
-    changeAmount: 633_900,
-    changePercentage: 13_029_843,
-    date: new Date(),
-  },
-  {
-    name: "iShares Core S&P 500 ETF",
-    totalSharesHeldPercentage: 2.99,
-    totalAssetsPercentage: 6.37,
-    prev8QrtsTrend: "Buy",
-    currentShares: 465_528_962,
-    changeAmount: 633_900,
-    changePercentage: 13_029_843,
-    date: new Date(),
-  },
-  {
-    name: "Vanguard Total Stock Mkt Idx Inv",
-    totalSharesHeldPercentage: 2.99,
-    totalAssetsPercentage: 6.37,
-    prev8QrtsTrend: "Buy",
-    currentShares: 465_528_962,
-    changeAmount: 633_900,
-    changePercentage: 13_029_843,
-    date: new Date(),
-  },
-];
 
 interface HoldersScreenProps {
   ticker: string;
@@ -86,26 +24,32 @@ interface HoldersScreenProps {
 
 export default function HoldersScreen(props: HoldersScreenProps) {
   const { ticker, institutionalHolders, mutualFundHolders } = props;
+  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
+  const { toggleLoginModal } = useAppStore();
   const [showAll, setShowAll] = useState({
     mutual: false,
     institutional: false,
   });
 
   function toggleShowAll(select: keyof typeof showAll) {
-    setShowAll((prev) => ({ ...prev, [select]: !prev[select] }));
+    if (isAuthenticated) {
+      setShowAll((prev) => ({ ...prev, [select]: !prev[select] }));
+    } else {
+      toggleLoginModal();
+    }
   }
 
   return (
-    <section className=" space-y-10 pb-10 ">
-      <div className=" space-y-10 ">
-        <HeaderWithUnderline className=" text-2xl font-extrabold ">
+    <section className="space-y-10 pb-10">
+      <div className="space-y-10">
+        <HeaderWithUnderline className="text-2xl font-extrabold">
           Top Institutional Holders
         </HeaderWithUnderline>
 
-        <div className="  ">
-          <div className=" overflow-x-auto ">
-            <Table className=" w-full min-w-[50rem] ">
-              <TableHeader className="  ">
+        <div className=" ">
+          <div className="overflow-x-auto">
+            <Table className="w-full min-w-[50rem]">
+              <TableHeader className=" ">
                 <TableRow className=" " headerRow>
                   <TableHead className=" ">Name</TableHead>
 
@@ -117,7 +61,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                 </TableRow>
               </TableHeader>
 
-              <TableBody className="  ">
+              <TableBody className=" ">
                 {institutionalHolders
                   .slice(0, showAll.institutional ? -1 : 10)
                   .map((holder, index) => {
@@ -127,7 +71,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                         className=" "
                         highlightPattern="odd"
                       >
-                        <TableCell className=" font-medium ">
+                        <TableCell className="font-medium">
                           {holder.holder}
                         </TableCell>
 
@@ -155,20 +99,20 @@ export default function HoldersScreen(props: HoldersScreenProps) {
             </Table>
           </div>
 
-          <div className=" flex justify-center ">
+          <div className="flex justify-center">
             <Button
               variant={"link"}
-              className=" h-fit w-full gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base "
+              className="h-fit w-full gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base"
               onClick={() => toggleShowAll("institutional")}
             >
               {showAll.institutional ? (
                 <>
-                  <Minus className=" size-4 " />
+                  <Minus className="size-4" />
                   Show Less
                 </>
               ) : (
                 <>
-                  <Plus className=" size-4 " />
+                  <Plus className="size-4" />
                   Show More
                 </>
               )}
@@ -177,16 +121,16 @@ export default function HoldersScreen(props: HoldersScreenProps) {
         </div>
       </div>
 
-      <div className=" space-y-10 ">
-        <HeaderWithUnderline className=" text-2xl font-extrabold ">
+      <div className="space-y-10">
+        <HeaderWithUnderline className="text-2xl font-extrabold">
           Top Mutual Fund Holders
         </HeaderWithUnderline>
 
         <div className=" ">
-          <div className=" overflow-x-auto ">
-            <Table className=" w-full min-w-[50rem] ">
-              <TableHeader className="  ">
-                <TableRow className="  " headerRow>
+          <div className="overflow-x-auto">
+            <Table className="w-full min-w-[50rem]">
+              <TableHeader className=" ">
+                <TableRow className=" " headerRow>
                   <TableHead className=" ">Name</TableHead>
 
                   <TableHead className=" ">% Total Shares Held</TableHead>
@@ -199,7 +143,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                 </TableRow>
               </TableHeader>
 
-              <TableBody className="  ">
+              <TableBody className=" ">
                 {mutualFundHolders
                   .slice(0, showAll.mutual ? -1 : 10)
                   .map((holder, index) => {
@@ -209,7 +153,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
                         className=" "
                         highlightPattern="odd"
                       >
-                        <TableCell className=" font-medium ">
+                        <TableCell className="font-medium">
                           {holder.holder}
                         </TableCell>
 
@@ -248,20 +192,20 @@ export default function HoldersScreen(props: HoldersScreenProps) {
             </Table>
           </div>
 
-          <div className=" flex justify-center ">
+          <div className="flex justify-center">
             <Button
               variant={"link"}
-              className=" h-fit w-full gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base "
+              className="h-fit w-full gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base"
               onClick={() => toggleShowAll("mutual")}
             >
               {showAll.mutual ? (
                 <>
-                  <Minus className=" size-4 " />
+                  <Minus className="size-4" />
                   Show Less
                 </>
               ) : (
                 <>
-                  <Plus className=" size-4 " />
+                  <Plus className="size-4" />
                   Show More
                 </>
               )}

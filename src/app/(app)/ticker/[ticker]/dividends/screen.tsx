@@ -27,32 +27,6 @@ import {
   YAxis,
 } from "recharts";
 
-function formatDividendData(data: Dividend[]) {
-  const dataMap = new Map<number, { year: number; from: number; to: number }>();
-
-  data.forEach((item) => {
-    const year = new Date(item.date).getFullYear();
-
-    let entry = dataMap.get(year);
-    if (!entry) {
-      dataMap.set(year, { year, from: item.dividend, to: item.dividend });
-      return;
-    }
-
-    if (item.dividend < entry.from) {
-      entry.from = item.dividend;
-    }
-
-    if (item.dividend > entry.to) {
-      entry.to = item.dividend;
-    }
-
-    dataMap.set(year, entry);
-  });
-
-  return Array.from(dataMap.values());
-}
-
 interface DividendsScreenProps {
   ticker: string;
   outlook: CompanyOutlook;

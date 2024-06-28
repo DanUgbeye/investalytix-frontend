@@ -16,6 +16,7 @@ import {
   TickerUpgradeDowngradeConsensus,
   TickerUpgradesDowngrades,
 } from "@/modules/ticker/types";
+import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
 import { format } from "date-fns";
 import { Minus, Plus } from "lucide-react";
@@ -69,6 +70,8 @@ export default function AnalystRecommendationScreen(
     upgradesDowngrades,
   } = props;
   const { theme } = useTheme();
+  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
+  const { toggleLoginModal } = useAppStore();
   const [showAllUpgrades, setShowAllUpgrades] = useState(false);
 
   const totalRatings = useMemo(() => {
@@ -129,12 +132,16 @@ export default function AnalystRecommendationScreen(
   }, [upgradesDowngrades, showAllUpgrades]);
 
   function handleShowMoreUpgrades() {
-    setShowAllUpgrades((prev) => !prev);
+    if (isAuthenticated) {
+      setShowAllUpgrades((prev) => !prev);
+    } else {
+      toggleLoginModal();
+    }
   }
 
   return (
-    <section className=" space-y-10 py-5 ">
-      <div className=" space-y-5 ">
+    <section className="space-y-10 py-5">
+      <div className="space-y-5">
         <HeaderWithUnderline>
           {profile.companyName} Forecast & Price Target
         </HeaderWithUnderline>
@@ -178,21 +185,21 @@ export default function AnalystRecommendationScreen(
       </div>
 
       <div
-        className={cn(" grid gap-x-10 gap-y-10 lg:grid-cols-[auto,1fr] ", {
-          " grid-cols-1": !consensus,
+        className={cn("grid gap-x-10 gap-y-10 lg:grid-cols-[auto,1fr]", {
+          "grid-cols-1": !consensus,
         })}
       >
         {consensus && (
-          <div className=" space-y-3 lg:max-w-96 ">
-            <h4 className=" w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700  ">
+          <div className="space-y-3 lg:max-w-96">
+            <h4 className="w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700">
               {profile.symbol} Analyst Ratings
             </h4>
 
-            <div className=" grid min-h-80 grid-rows-[1fr,auto] ">
-              <div className=" space-y-1 py-4 ">
+            <div className="grid min-h-80 grid-rows-[1fr,auto]">
+              <div className="space-y-1 py-4">
                 {consensus && (
                   <div
-                    className={" text-center text-2xl font-extrabold "}
+                    className={"text-center text-2xl font-extrabold"}
                     style={{
                       color:
                         ANALYST_RATING_COLORS[
@@ -204,7 +211,7 @@ export default function AnalystRecommendationScreen(
                   </div>
                 )}
 
-                <div className=" relative mx-auto grid w-fit place-items-center ">
+                <div className="relative mx-auto grid w-fit place-items-center">
                   <PieChart width={300} height={230}>
                     <Pie
                       data={analystRatings}
@@ -227,7 +234,7 @@ export default function AnalystRecommendationScreen(
                       iconType="square"
                       formatter={(value, entry, index) => {
                         return (
-                          <span className=" ml-1 mr-3 text-xs sm:text-sm ">
+                          <span className="ml-1 mr-3 text-xs sm:text-sm">
                             {analystRatings[index].value} {value}
                           </span>
                         );
@@ -235,9 +242,9 @@ export default function AnalystRecommendationScreen(
                     />
                   </PieChart>
 
-                  <div className=" absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-[calc(50%+0.8rem)] flex-col items-center text-2xl font-bold ">
+                  <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-[calc(50%+0.8rem)] flex-col items-center text-2xl font-bold">
                     <span>{totalRatings}</span>
-                    <span className=" text-xs font-light">Ratings</span>
+                    <span className="text-xs font-light">Ratings</span>
                   </div>
                 </div>
               </div>
@@ -250,24 +257,24 @@ export default function AnalystRecommendationScreen(
           </div>
         )}
 
-        <div className=" space-y-3 ">
-          <h4 className=" w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700 ">
+        <div className="space-y-3">
+          <h4 className="w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700">
             {profile.symbol} Stock 12 Months Forecast
           </h4>
 
-          <div className=" grid min-h-80 grid-rows-[1fr,auto] ">
-            <div className=" grid h-full grid-rows-[auto,1fr] gap-y-4 p-3 ">
-              <div className=" grid items-center gap-3 xl:grid-cols-[auto,auto,1fr] ">
-                <div className=" flex flex-col gap-y-1 text-[#008133] ">
-                  <span className=" text-2xl font-bold sm:text-4xl ">
+          <div className="grid min-h-80 grid-rows-[1fr,auto]">
+            <div className="grid h-full grid-rows-[auto,1fr] gap-y-4 p-3">
+              <div className="grid items-center gap-3 xl:grid-cols-[auto,auto,1fr]">
+                <div className="flex flex-col gap-y-1 text-[#008133]">
+                  <span className="text-2xl font-bold sm:text-4xl">
                     $201.99
                   </span>
-                  <span className=" text-sm ">(5.62% )</span>
+                  <span className="text-sm">(5.62% )</span>
                 </div>
 
-                <div className=" h-px w-full border xl:h-full xl:w-px dark:border-main-gray-600 " />
+                <div className="h-px w-full border xl:h-full xl:w-px dark:border-main-gray-600" />
 
-                <div className=" text-sm ">
+                <div className="text-sm">
                   Based on 33 Wall Street analysis offering 12 month price
                   targets for Apple in the last 3 months. The average price
                   target is $201.99 with a high forecast of $240.00 and a low
@@ -276,25 +283,25 @@ export default function AnalystRecommendationScreen(
                 </div>
               </div>
 
-              <div className=" min-h-40 bg-gray-600 "></div>
+              <div className="min-h-40 bg-gray-600"></div>
             </div>
 
-            <div className=" flex flex-col flex-wrap divide-inherit border-t py-2 max-xl:divide-y xl:flex-row xl:divide-x dark:border-main-gray-700 ">
-              <div className=" flex items-center gap-2 px-3 py-1 ">
-                <span className=" text-sm ">High Price Target</span>
-                <span className=" font-bold text-[#008133] xl:text-2xl ">
+            <div className="flex flex-col flex-wrap divide-inherit border-t py-2 max-xl:divide-y xl:flex-row xl:divide-x dark:border-main-gray-700">
+              <div className="flex items-center gap-2 px-3 py-1">
+                <span className="text-sm">High Price Target</span>
+                <span className="font-bold text-[#008133] xl:text-2xl">
                   $240.00
                 </span>
               </div>
 
-              <div className=" flex items-center gap-2 px-3 py-1 ">
-                <span className=" text-sm ">Average Price Target</span>
-                <span className=" font-bold xl:text-2xl ">$240.00</span>
+              <div className="flex items-center gap-2 px-3 py-1">
+                <span className="text-sm">Average Price Target</span>
+                <span className="font-bold xl:text-2xl">$240.00</span>
               </div>
 
-              <div className=" flex items-center gap-2 px-3 py-1 ">
-                <span className=" text-sm ">Lowest Price Target</span>
-                <span className=" font-bold text-[#9500C9] xl:text-2xl ">
+              <div className="flex items-center gap-2 px-3 py-1">
+                <span className="text-sm">Lowest Price Target</span>
+                <span className="font-bold text-[#9500C9] xl:text-2xl">
                   $150.00
                 </span>
               </div>
@@ -303,11 +310,11 @@ export default function AnalystRecommendationScreen(
         </div>
       </div>
 
-      <div className=" space-y-5 ">
-        <div className=" space-y-2 ">
-          <h5 className=" text-xl font-bold ">Recommendation Trends</h5>
+      <div className="space-y-5">
+        <div className="space-y-2">
+          <h5 className="text-xl font-bold">Recommendation Trends</h5>
 
-          <p className="  ">
+          <p className=" ">
             {consensus ? (
               <>
                 The latest consensus rating for Apple is &apos;
@@ -325,16 +332,12 @@ export default function AnalystRecommendationScreen(
         </div>
 
         <div className=" ">
-          <ResponsiveContainer
-            width="100%"
-            height={200}
-            className={" text-sm "}
-          >
+          <ResponsiveContainer width="100%" height={200} className={"text-sm"}>
             <BarChart data={analystRecommendationTrend} className=" ">
               <CartesianGrid
                 vertical={false}
                 strokeDasharray="3 3"
-                className=" stroke-main-gray-200 dark:stroke-main-gray-700 "
+                className="stroke-main-gray-200 dark:stroke-main-gray-700"
               />
 
               <XAxis
@@ -354,9 +357,9 @@ export default function AnalystRecommendationScreen(
                   const { payload, label } = props;
 
                   return (
-                    <div className=" space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300 ">
+                    <div className="space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300">
                       {label && (
-                        <div className="  ">
+                        <div className=" ">
                           {format(new Date(label), "MMM yy")}
                         </div>
                       )}
@@ -369,10 +372,10 @@ export default function AnalystRecommendationScreen(
                             return (
                               <div
                                 key={`${value}-${index}`}
-                                className=" flex items-center gap-2 text-main-gray-300 "
+                                className="flex items-center gap-2 text-main-gray-300"
                               >
                                 <span
-                                  className=" size-3 "
+                                  className="size-3"
                                   style={{ backgroundColor: color }}
                                 />
                                 <span>
@@ -392,7 +395,7 @@ export default function AnalystRecommendationScreen(
                   const { payload } = props;
 
                   return (
-                    <div className=" flex items-center gap-x-4 py-2 sm:justify-center ">
+                    <div className="flex items-center gap-x-4 py-2 sm:justify-center">
                       {payload &&
                         payload.map((pl, index) => {
                           const { value, color } = pl;
@@ -400,7 +403,7 @@ export default function AnalystRecommendationScreen(
                           return (
                             <span
                               key={`${value}`}
-                              className=" text-black dark:text-main-gray-300 "
+                              className="text-black dark:text-main-gray-300"
                             >
                               <span
                                 style={{
@@ -465,37 +468,33 @@ export default function AnalystRecommendationScreen(
         </div>
       </div>
 
-      <div className=" space-y-5 ">
-        <h5 className=" text-xl font-bold ">
+      <div className="space-y-5">
+        <h5 className="text-xl font-bold">
           Apple Stock Forecast - Upgrades & Downgrades
         </h5>
 
-        <div className="  ">
+        <div className=" ">
           {analystUpgradesDowngrades.length <= 0 ? (
-            <div className=" text-center border-t dark:border-main-gray-700 p-5 text-main-gray-400 w-full ">No Data Available</div>
+            <div className="w-full border-t p-5 text-center text-main-gray-400 dark:border-main-gray-700">
+              No Data Available
+            </div>
           ) : (
-            <div className="  ">
-              <div className=" overflow-x-auto ">
-                <Table className="w-full min-w-[50rem] ">
+            <div className=" ">
+              <div className="overflow-x-auto">
+                <Table className="w-full min-w-[50rem]">
                   <TableHeader>
                     <TableRow headerRow>
-                      <TableCell className=" py-4 text-left ">Date</TableCell>
+                      <TableCell className="py-4 text-left">Date</TableCell>
 
-                      <TableCell className=" py-4 text-left ">
-                        Company
-                      </TableCell>
+                      <TableCell className="py-4 text-left">Company</TableCell>
 
-                      <TableCell className=" py-4 text-left ">
-                        Analyst
-                      </TableCell>
+                      <TableCell className="py-4 text-left">Analyst</TableCell>
 
-                      <TableCell className=" py-4 text-right ">
-                        Action
-                      </TableCell>
+                      <TableCell className="py-4 text-right">Action</TableCell>
 
-                      <TableCell className=" py-4 text-right ">From</TableCell>
+                      <TableCell className="py-4 text-right">From</TableCell>
 
-                      <TableCell className=" py-4 text-right ">To</TableCell>
+                      <TableCell className="py-4 text-right">To</TableCell>
                     </TableRow>
                   </TableHeader>
 
@@ -503,27 +502,27 @@ export default function AnalystRecommendationScreen(
                     {analystUpgradesDowngrades.map((item, index) => {
                       return (
                         <TableRow key={`forecast-${index}`}>
-                          <TableCell className=" white-text text-left text-[#333333]">
+                          <TableCell className="white-text text-left text-[#333333]">
                             {item.publishedDate.toDateString()}
                           </TableCell>
 
-                          <TableCell className={` text-left`}>
+                          <TableCell className={`text-left`}>
                             {item.gradingCompany}
                           </TableCell>
 
-                          <TableCell className={` text-left`}>
+                          <TableCell className={`text-left`}>
                             {item.newsPublisher}
                           </TableCell>
 
-                          <TableCell className=" text-right capitalize text-primary-base ">
+                          <TableCell className="text-right capitalize text-primary-base">
                             {item.action}
                           </TableCell>
 
-                          <TableCell className=" text-right">
+                          <TableCell className="text-right">
                             {item.previousGrade}
                           </TableCell>
 
-                          <TableCell className=" text-right">
+                          <TableCell className="text-right">
                             {item.newGrade}
                           </TableCell>
                         </TableRow>
@@ -533,20 +532,20 @@ export default function AnalystRecommendationScreen(
                 </Table>
               </div>
 
-              <div className=" flex justify-center ">
+              <div className="flex justify-center">
                 <Button
                   variant={"link"}
-                  className=" gap-x-2 text-primary-base hover:no-underline dark:text-primary-base "
+                  className="gap-x-2 text-primary-base hover:no-underline dark:text-primary-base"
                   onClick={handleShowMoreUpgrades}
                 >
                   {showAllUpgrades ? (
                     <>
-                      <Minus className=" size-4 " />
+                      <Minus className="size-4" />
                       Show Less
                     </>
                   ) : (
                     <>
-                      <Plus className=" size-4 " />
+                      <Plus className="size-4" />
                       Show More
                     </>
                   )}

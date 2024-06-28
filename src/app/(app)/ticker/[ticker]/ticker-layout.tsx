@@ -40,9 +40,11 @@ export default function TickerLayout(props: TickerLayoutProps) {
     props;
   const watchlistRepo = new WatchlistRepository(clientAPI);
   const watchlist = useAppStore(({ watchlist }) => watchlist);
+  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
   const {
     addToWatchList: addToWatchListStore,
     removeFromWatchlist: removeFromWatchListStore,
+    toggleLoginModal,
   } = useAppStore();
   const tickerRepo = useTickerRepository();
   const { ref, inViewport } = useInViewport();
@@ -66,6 +68,11 @@ export default function TickerLayout(props: TickerLayoutProps) {
   async function addToWatchList() {
     try {
       if (!outlook) return;
+
+      if (!isAuthenticated) {
+        return toggleLoginModal();
+      }
+
       setIsLoading(true);
 
       const watchlistData: NewWatchlist = {
@@ -87,6 +94,10 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
   async function removeFromWatchList() {
     try {
+      if (!isAuthenticated) {
+        return toggleLoginModal();
+      }
+
       const savedEntry = watchlist.find(
         (wt) => wt.symbol.toLowerCase() === ticker.toLowerCase()
       );
@@ -107,47 +118,47 @@ export default function TickerLayout(props: TickerLayoutProps) {
     <section {...rest} className={cn(" ", className)}>
       <QuotesBoard />
 
-      <Container className=" px-0 sm:px-0 sm:pb-8 xl:px-0 ">
+      <Container className="px-0 sm:px-0 sm:pb-8 xl:px-0">
         <section
           id={"ticker-stats"}
-          className=" flex flex-col gap-5 px-6 sm:grid sm:grid-cols-[auto,1fr] md:grid-cols-[auto,1fr,auto] md:grid-rows-[auto,auto] md:gap-x-8 "
+          className="flex flex-col gap-5 px-6 sm:grid sm:grid-cols-[auto,1fr] md:grid-cols-[auto,1fr,auto] md:grid-rows-[auto,auto] md:gap-x-8"
         >
-          <Avatar className="hidden size-20 place-items-center bg-main-gray-200/40 p-2 sm:grid md:row-span-full md:size-40 md:p-6 dark:bg-main-gray-800 ">
+          <Avatar className="hidden size-20 place-items-center bg-main-gray-200/40 p-2 sm:grid md:row-span-full md:size-40 md:p-6 dark:bg-main-gray-800">
             <AvatarImage
               src={outlook.profile.image}
-              className=" h-full w-full p-2 "
+              className="h-full w-full p-2"
             />
 
-            <AvatarFallback className=" grid h-full w-full bg-transparent p-2 text-2xl font-bold dark:bg-transparent ">
-              <span className=" truncate ">{outlook.profile.symbol}</span>
+            <AvatarFallback className="grid h-full w-full bg-transparent p-2 text-2xl font-bold dark:bg-transparent">
+              <span className="truncate">{outlook.profile.symbol}</span>
             </AvatarFallback>
           </Avatar>
 
           <div
             ref={ref}
-            className=" col-span-2 col-start-1 space-y-2 sm:col-start-2 lg:col-span-1 "
+            className="col-span-2 col-start-1 space-y-2 sm:col-start-2 lg:col-span-1"
           >
-            <div className=" text-3xl font-bold md:text-4xl ">
+            <div className="text-3xl font-bold md:text-4xl">
               {tickerQuote.name}
             </div>
 
-            <div className=" flex w-fit flex-wrap items-center gap-2 rounded-lg bg-main-gray-200/40 px-4 py-2 text-sm font-medium dark:bg-main-gray-800 ">
-              <span className="  ">{outlook.profile.symbol}</span>
-              <span className=" size-1 rounded-full bg-primary-base " />
-              <span className="  ">{outlook.profile.exchange}</span>
+            <div className="flex w-fit flex-wrap items-center gap-2 rounded-lg bg-main-gray-200/40 px-4 py-2 text-sm font-medium dark:bg-main-gray-800">
+              <span className=" ">{outlook.profile.symbol}</span>
+              <span className="size-1 rounded-full bg-primary-base" />
+              <span className=" ">{outlook.profile.exchange}</span>
             </div>
           </div>
 
-          <div className="  col-span-2 col-start-1 row-start-2 grid w-full grid-cols-[auto,auto,auto] md:col-span-1 md:col-start-2 md:row-start-2 ">
-            <div className=" space-y-1 md:space-y-3 ">
-              <div className=" flex flex-wrap items-end space-x-1.5 ">
-                <span className=" text-3xl font-semibold lg:text-5xl ">
+          <div className="col-span-2 col-start-1 row-start-2 grid w-full grid-cols-[auto,auto,auto] md:col-span-1 md:col-start-2 md:row-start-2">
+            <div className="space-y-1 md:space-y-3">
+              <div className="flex flex-wrap items-end space-x-1.5">
+                <span className="text-3xl font-semibold lg:text-5xl">
                   {appUtils.formatNumber(tickerQuote.price || undefined, {
                     currency,
                   })}
                 </span>
 
-                <span className=" flex items-center gap-2 text-base font-bold lg:text-lg ">
+                <span className="flex items-center gap-2 text-base font-bold lg:text-lg">
                   {tickerQuote.change && (
                     <ColoredText
                       isPositive={() => {
@@ -184,7 +195,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
               </div>
 
               {tickerQuote.timestamp && (
-                <div className=" text-sm text-main-gray-400 ">
+                <div className="text-sm text-main-gray-400">
                   At close:{" "}
                   {format(
                     new Date(tickerQuote.timestamp * 1000),
@@ -195,60 +206,60 @@ export default function TickerLayout(props: TickerLayoutProps) {
             </div>
           </div>
 
-          <div className=" col-start-3 row-start-2 lg:row-span-2 lg:row-start-1 lg:my-auto">
+          <div className="col-start-3 row-start-2 lg:row-span-2 lg:row-start-1 lg:my-auto">
             {isSavedToWatchlist ? (
               <Button
                 variant={"outline"}
                 size={"lg"}
                 disabled={isLoading}
-                className=" gap-x-1.5 px-3 text-base "
+                className="gap-x-1.5 px-3 text-base"
                 onClick={removeFromWatchList}
               >
                 {!isLoading ? (
-                  <FaStar className=" size-5 fill-yellow-500 " />
+                  <FaStar className="size-5 fill-yellow-500" />
                 ) : (
-                  <Spinner className=" size-5 " />
+                  <Spinner className="size-5" />
                 )}
-                <span className="  ">Saved</span>
+                <span className=" ">Saved</span>
               </Button>
             ) : (
               <Button
                 variant={"outline"}
                 size={"lg"}
                 disabled={isLoading}
-                className=" gap-x-2 px-3 text-base "
+                className="gap-x-2 px-3 text-base"
                 onClick={addToWatchList}
               >
                 {!isLoading ? (
-                  <FaRegStar className=" size-5 " />
+                  <FaRegStar className="size-5" />
                 ) : (
-                  <Spinner className=" size-5 " />
+                  <Spinner className="size-5" />
                 )}
-                <span className="  ">Add to Watchlist</span>
+                <span className=" ">Add to Watchlist</span>
               </Button>
             )}
           </div>
         </section>
       </Container>
 
-      <Container className=" grid min-h-[calc(100dvh-5rem)] grid-cols-1 grid-rows-[auto,1fr] px-0 pt-8 sm:px-0 md:grid-rows-1 xl:px-0 ">
+      <Container className="grid min-h-[calc(100dvh-5rem)] grid-cols-1 grid-rows-[auto,1fr] px-0 pt-8 sm:px-0 md:grid-rows-1 xl:px-0">
         <DesktopTickerNav
           quote={tickerQuote}
           statsVisible={inViewport}
           ticker={ticker}
-          className=" sticky top-[88px] col-start-1 row-start-1 mb-8 hidden h-fit max-h-[calc(100dvh-5rem)] w-[18rem] overflow-y-auto lg:flex "
+          className="sticky top-[88px] col-start-1 row-start-1 mb-8 hidden h-fit max-h-[calc(100dvh-5rem)] w-[18rem] overflow-y-auto lg:flex"
         />
 
         <MobileTickerNav
           quote={tickerQuote}
           statsVisible={inViewport}
           ticker={ticker}
-          className=" sticky top-[84px] z-40 flex h-fit md:top-[88px] lg:hidden dark:border-y dark:border-main-gray-700 "
+          className="sticky top-[84px] z-40 flex h-fit md:top-[88px] lg:hidden dark:border-y dark:border-main-gray-700"
         />
 
-        <main className=" col-start-1 lg:row-start-1 lg:ml-[18rem] ">
-          <Container className=" lg:px-10 xl:px-10 ">
-            <section className="  ">{children}</section>
+        <main className="col-start-1 lg:row-start-1 lg:ml-[18rem]">
+          <Container className="lg:px-10 xl:px-10">
+            <section className=" ">{children}</section>
           </Container>
         </main>
       </Container>
