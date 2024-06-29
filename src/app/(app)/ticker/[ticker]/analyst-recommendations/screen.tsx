@@ -217,27 +217,25 @@ export default function AnalystRecommendationScreen(
             </h4>
 
             <div className="grid min-h-80 grid-rows-[1fr,auto]">
-              <div className="space-y-1 py-4">
-                {consensus && (
-                  <div
-                    className={"text-center text-2xl font-extrabold"}
-                    style={{
-                      color:
-                        ANALYST_RATING_COLORS[
-                          consensus.consensus.toLowerCase() as keyof typeof ANALYST_RATING_COLORS
-                        ],
-                    }}
-                  >
-                    {consensus.consensus}
-                  </div>
-                )}
+              <div className="space-y-5 py-4">
+                <div
+                  className={"text-center text-2xl font-extrabold xl:text-3xl"}
+                  style={{
+                    color:
+                      ANALYST_RATING_COLORS[
+                        consensus.consensus.toLowerCase() as keyof typeof ANALYST_RATING_COLORS
+                      ],
+                  }}
+                >
+                  {consensus.consensus}
+                </div>
 
                 <div className="relative mx-auto grid w-fit place-items-center">
-                  <PieChart width={300} height={230}>
+                  <PieChart width={300} height={290}>
                     <Pie
                       data={analystRatings}
-                      innerRadius={60}
-                      outerRadius={90}
+                      innerRadius={70}
+                      outerRadius={100}
                       fill="#8884d8"
                       dataKey="value"
                       stroke="none"
@@ -252,12 +250,35 @@ export default function AnalystRecommendationScreen(
                     </Pie>
 
                     <Legend
-                      iconType="square"
-                      formatter={(value, entry, index) => {
+                      content={(props) => {
+                        const { payload } = props;
+
                         return (
-                          <span className="ml-1 mr-3 text-xs sm:text-sm">
-                            {analystRatings[index].value} {value}
-                          </span>
+                          <div className="flex flex-wrap items-center justify-center gap-x-4 pt-5">
+                            {payload &&
+                              payload.map((pl, index) => {
+                                const { value, color } = pl;
+
+                                return (
+                                  <span
+                                    key={`${value}`}
+                                    className="text-black dark:text-main-gray-300"
+                                  >
+                                    <span
+                                      style={{
+                                        display: "inline-block",
+                                        width: 12,
+                                        height: 12,
+                                        backgroundColor: color,
+                                        marginRight: 8,
+                                      }}
+                                    ></span>
+
+                                    {value}
+                                  </span>
+                                );
+                              })}
+                          </div>
                         );
                       }}
                     />
@@ -270,7 +291,7 @@ export default function AnalystRecommendationScreen(
                 </div>
               </div>
 
-              <div className="border-t p-2 text-center text-xs dark:border-main-gray-700">
+              <div className="border-t p-2 text-sm max-2xl:text-center dark:border-main-gray-700">
                 Based on {totalRatings} analyst giving stock ratings to{" "}
                 {profile.companyName} in the past 3 months.
               </div>
@@ -338,7 +359,7 @@ export default function AnalystRecommendationScreen(
                 </div>
               </div>
 
-              <div className=" min-w-0 ">
+              <div className="h-64 w-full min-w-0">
                 <AnalystForcastChart
                   ticker={ticker}
                   priceTargetConsensus={priceTargetConsensus}

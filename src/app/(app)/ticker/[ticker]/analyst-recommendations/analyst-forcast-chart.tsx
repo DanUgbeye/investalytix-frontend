@@ -49,6 +49,11 @@ export default function AnalystForcastChart(props: Props) {
       ...defaultAreaSeriesOptions(theme),
     });
 
+    areaSeries.applyOptions({
+      lastValueVisible: false,
+      priceLineVisible: false,
+    });
+
     areaSeries.setData(
       sortedQuoteHistory.map((data) => ({
         ...data,
@@ -65,13 +70,11 @@ export default function AnalystForcastChart(props: Props) {
   }, []);
 
   return (
-    <div className="relative h-72 w-full">
-      <div
-        ref={chartRef}
-        className={cn(`relative h-full w-full overflow-hidden duration-150`, {
-          // "pointer-events-none opacity-50": loadingData,
-        })}
-      />
-    </div>
+    <div
+      ref={chartRef}
+      className={cn(`relative h-full w-full overflow-hidden duration-150`, {
+        // "pointer-events-none opacity-50": loadingData,
+      })}
+    />
   );
 }
