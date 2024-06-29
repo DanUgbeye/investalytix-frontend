@@ -198,13 +198,15 @@ export class TickerRepository {
       const path = `/tickers/${ticker}/dividend`;
       let res = await this.axios.get<{ data: Dividend[] }>(path, options);
 
-      let validation = z.array(DividendSchema).safeParse(res.data.data);
+      let validation = z
+        .object({ symbol: z.string(), historical: z.array(DividendSchema) })
+        .safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");
       }
 
-      return validation.data;
+      return validation.data.historical;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;

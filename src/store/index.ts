@@ -34,6 +34,7 @@ export const useAppStore = create<AppStore>((...a) => ({
       set({
         auth: undefined,
         user: undefined,
+        watchlist: [],
       });
     },
   },
