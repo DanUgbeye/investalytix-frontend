@@ -4,7 +4,7 @@ import { errorUtils } from "./error.utils";
 function createAPIInstance(baseUrl?: string) {
   return axios.create({
     baseURL: baseUrl,
-    timeout: 10000,
+    timeout: 15000,
     timeoutErrorMessage: "Request timeout",
   });
 }

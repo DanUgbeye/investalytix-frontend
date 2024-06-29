@@ -47,7 +47,8 @@ async function getData(
     if (errorUtils.is404Error(error)) {
       notFound();
     }
-    throw error;
+
+    throw new Error(error.message);
   }
 }
 

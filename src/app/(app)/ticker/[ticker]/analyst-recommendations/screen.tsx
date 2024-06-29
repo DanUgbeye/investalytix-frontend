@@ -454,7 +454,7 @@ export default function AnalystRecommendationScreen(
                   const { payload } = props;
 
                   return (
-                    <div className="flex items-center gap-x-4 py-2 sm:justify-center">
+                    <div className="flex flex-wrap items-center gap-x-4 py-2 sm:justify-center">
                       {payload &&
                         payload.map((pl, index) => {
                           const { value, color } = pl;
