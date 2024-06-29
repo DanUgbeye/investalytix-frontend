@@ -266,10 +266,10 @@ export default function AnalystRecommendationScreen(
                 </div>
               </div>
 
-              {/* <div className=" border-t p-2 text-center text-xs dark:border-main-gray-600 ">
-              Based on 33 analyst giving stock ratings to Apple in the past 3
-              months.
-            </div> */}
+              <div className="border-t p-2 text-center text-xs dark:border-main-gray-600">
+                Based on {totalRatings} analyst giving stock ratings to{" "}
+                {profile.companyName} in the past 3 months.
+              </div>
             </div>
           </div>
         )}
