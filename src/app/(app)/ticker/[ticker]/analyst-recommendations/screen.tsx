@@ -291,7 +291,7 @@ export default function AnalystRecommendationScreen(
                 </div>
               </div>
 
-              <div className="border-t p-2 text-sm max-2xl:text-center dark:border-main-gray-700">
+              <div className="border-t p-2 text-sm max-xl:text-center dark:border-main-gray-700">
                 Based on {totalRatings} analyst giving stock ratings to{" "}
                 {profile.companyName} in the past 3 months.
               </div>

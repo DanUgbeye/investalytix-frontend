@@ -47,7 +47,7 @@ async function getData(ticker: string) {
       tickerRepo.getTickerUpgradesDowngrades(ticker),
       tickerRepo.getTickerPriceTargetConsensus(ticker),
       tickerRepo.getTickerPriceTargetSummary(ticker),
-      tickerRepo.getQuoteHistory(ticker, "1month", {
+      tickerRepo.getQuoteHistory(ticker, "1week", {
         from: subYears(new Date(), 1),
         to: new Date(),
       }),
