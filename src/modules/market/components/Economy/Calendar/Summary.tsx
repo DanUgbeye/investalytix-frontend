@@ -27,13 +27,17 @@ import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
 import "react-calendar/dist/Calendar.css";
 import Spinner from "@/components/spinner";
 import Link from "next/link";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { GoBellFill } from "react-icons/go";
 
 enum FILTERS {
-  YESTERDAY = "YESTERDAY",
+  // YESTERDAY = "YESTERDAY",
   TODAY = "TODAY",
-  TOMORROW = "TOMORROW",
+  // TOMORROW = "TOMORROW",
   THIS_WEEK = "THIS_WEEK",
 }
 
@@ -105,30 +109,30 @@ export default function Summary() {
         setFrom(today.toString());
         setTo(today.toString());
         break;
-      case FILTERS["YESTERDAY"]:
-        const yesterdaysDate = new Date(date.getTime() - 24 * 60 * 60 * 1000);
-        const yesterday = new Date(
-          Date.UTC(
-            yesterdaysDate.getUTCFullYear(),
-            yesterdaysDate.getUTCMonth(),
-            yesterdaysDate.getUTCDate(),
-            0,
-            0,
-            0,
-            0
-          )
-        );
-        setFrom(yesterday.toString());
-        setTo(yesterday.toString());
-        break;
-      case FILTERS["TOMORROW"]:
-        const tomorrow = new Date(
-          date.setHours(0, 0, 0, 0) + 24 * 60 * 60 * 1000
-        );
+      // case FILTERS["YESTERDAY"]:
+      //   const yesterdaysDate = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+      //   const yesterday = new Date(
+      //     Date.UTC(
+      //       yesterdaysDate.getUTCFullYear(),
+      //       yesterdaysDate.getUTCMonth(),
+      //       yesterdaysDate.getUTCDate(),
+      //       0,
+      //       0,
+      //       0,
+      //       0
+      //     )
+      //   );
+      //   setFrom(yesterday.toString());
+      //   setTo(yesterday.toString());
+      //   break;
+      // case FILTERS["TOMORROW"]:
+      //   const tomorrow = new Date(
+      //     date.setHours(0, 0, 0, 0) + 24 * 60 * 60 * 1000
+      //   );
 
-        setFrom(tomorrow.toString());
-        setTo(tomorrow.toString());
-        break;
+      //   setFrom(tomorrow.toString());
+      //   setTo(tomorrow.toString());
+      //   break;
       case FILTERS["THIS_WEEK"]:
         const currentWeek = thisWeek();
         setFrom(currentWeek.from.toString());
@@ -183,32 +187,43 @@ export default function Summary() {
   }
 
   return (
-    <div className="mt-12">
-      <div className="mb-12 flex w-full flex-wrap items-center justify-between gap-5 md:gap-2">
+    <div className="">
+      <div className="mb-12 flex w-full flex-wrap items-center gap-4 md:gap-1">
         <Swiper
           spaceBetween={24}
           slidesPerView={"auto"}
           freeMode
-          className="!m-0"
+          className="!m-0 !hidden lg:!flex"
         >
           {Object.keys(FILTERS).map((entry) => {
             const isActive = entry === filter;
             return (
               <SwiperSlide
                 key={entry}
-                className={`z-[1] !w-fit !flex-shrink grow-0 border-b-2 py-2 ${
+                className={`group z-[1] !w-fit !flex-shrink grow-0 rounded-md border py-1 ${
                   isActive
-                    ? "border-primary-base "
+                    ? "border-primary-base dark:border-primary-light"
                     : // : "border-primary-base"
-                      "border-transparent"
+                      "border-black hover:border-primary-light focus:border-primary-light dark:border-white/40"
                 }`}
+                // className={`z-[1] !w-fit !flex-shrink grow-0 border-b-2 py-2 ${
+                //   isActive
+                //     ? "border-primary-base "
+                //     : // : "border-primary-base"
+                //       "border-transparent"
+                // }`}
               >
                 <button
                   key={entry}
                   onClick={() => updateFilter(entry as FILTERS)}
                   className={`whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
-                    isActive ? "text-primary-base" : "bg-hover-focus"
+                    isActive
+                      ? "text-primary-base dark:text-primary-light"
+                      : "group-hover:text-primary-light group-focus:text-primary-light"
                   }`}
+                  // className={`whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
+                  //   isActive ? "text-primary-base" : "bg-hover-focus"
+                  // }`}
                 >
                   {entry.toLowerCase().replace("_", " ")}
                 </button>
@@ -224,11 +239,19 @@ export default function Summary() {
           calendarIcon={FiCalendar}
           clearIcon={null}
         />
+
+        <div className="flex gap-3 pl-5">
+          {from && <p className="">{moment(from).format("DD/MM/YYYY")}</p>}
+          {to && to != from && <p className="">-</p>}
+          {to && to != from && (
+            <p className="">{moment(to).format("DD/MM/YYYY")}</p>
+          )}
+        </div>
       </div>
 
       {loading ? (
         <Spinner className="mx-auto" />
-      ) : calendar ? (
+      ) : calendar && Object.keys(calendar).length > 0 ? (
         <>
           {Object.keys(calendar).map((date) => (
             <div className="w-full overflow-auto">
@@ -394,6 +417,8 @@ export default function Summary() {
             </div>
           ))}
         </>
+      ) : calendar && Object.keys(calendar).length === 0 ? (
+        <p className="text-center">No economic activities present</p>
       ) : null}
     </div>
   );

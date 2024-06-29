@@ -22,45 +22,7 @@ import {
 import { FiCheck, FiSearch } from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-const plans = [
-  {
-    popular: false,
-    name: "Free Plan",
-    desc: "Free Forever, No Credit Card Required",
-    monthly: 0,
-    yearly: 0,
-    features: [
-      "No Account or Login Needed",
-      "Limited Access to Comprehensive Stock Dashboard",
-      "Advanced Charting",
-      "5 Years Financial Data",
-      "Limited Access to Equity Research",
-      "Market and Companies News",
-    ],
-  },
-  {
-    popular: true,
-    name: "Premium plan",
-    desc: "Billed Per Month or Annually",
-    monthly: 29,
-    yearly: 299,
-    features: [
-      "All Free Features, Plus:",
-      "Full Access to Comprehensive Stock Dashboard",
-      "30 Years Financial Data",
-      "Data Export to Excel + Sheets + PDF + CSV",
-      "Economics Calendar",
-      "Full Access to All Equity Research",
-      "Unlimited Email Alerts",
-      "Stock Picks (Coming Soon)",
-      "Real-Time Stock Valuation (Coming Soon)",
-      "Stock Screener (Coming Soon)",
-      "Options (Coming Soon)",
-      "Academy (Coming Soon)",
-    ],
-  },
-];
+import { plans } from "./pricing/page";
 
 export default function Home() {
   const [pricingFrequency, setPricingFrequency] = useState<
@@ -238,9 +200,9 @@ export default function Home() {
         </Container>
       </section>
 
-      <div className="bg-black/5 px-12 py-12 dark:bg-white/5">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
-          <div className="">
+      <div className="bg-black/5  dark:bg-white/5">
+        <div className="mx-auto grid items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
+          <div className="px-12 py-12 max-w-2xl mx-auto">
             <h1 className="text-6xl font-bold md:text-7xl lg:text-6xl">
               Connect With Us
             </h1>
@@ -258,7 +220,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="h-full rounded-xl bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:h-[400px]"></div>
+          <div className="h-full bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:min-h-[400px]"></div>
         </div>
       </div>
     </>

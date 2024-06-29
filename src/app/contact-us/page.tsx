@@ -25,42 +25,42 @@ export default function ContactUsPage() {
           possible.
         </p>
 
-        <form className="mt-7">
+        <form className="mt-20">
           <div className="flex flex-col gap-7 md:flex-row">
             <div className="w-full">
-              <FormLabel htmlFor="name">Name</FormLabel>
+              <FormLabel htmlFor="name" className="md:text-base xl:text-xl">Name</FormLabel>
               <Input
                 id="name"
                 placeholder="Enter your fullname"
-                className="mt-3"
+                className="mt-3 md:text-base h-fit py-3 px-4"
               />
             </div>
             <div className="w-full">
-              <FormLabel htmlFor="name">Phone (optional)</FormLabel>
+              <FormLabel htmlFor="phone-no" className="md:text-base xl:text-xl">Phone (optional)</FormLabel>
               <Input
                 id="name"
                 placeholder="Enter your phone number"
-                className="mt-3"
+                className="mt-3 md:text-base h-fit py-3 px-4"
               />
             </div>
           </div>
 
           <div className="mt-7">
-            <FormLabel htmlFor="name">Email</FormLabel>
+            <FormLabel htmlFor="email" className="md:text-base xl:text-xl">Email</FormLabel>
             <Input
               id="name"
               placeholder="Enter your Investalytix account email."
-              className="mt-3"
+              className="mt-3 md:text-base h-fit py-3 px-4"
             />
           </div>
 
           <div className="mt-7">
-            <FormLabel htmlFor="how">How can we help you?</FormLabel>
+            <FormLabel htmlFor="how" className="md:text-base xl:text-xl">How can we help you?</FormLabel>
 
             <select
               id="name"
               // placeholder="Enter your phone number"
-              className="mt-3 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:ring-offset-gray-950 dark:placeholder:text-gray-400 dark:focus-visible:ring-gray-300"
+              className="mt-3 flex md:text-base h-fit py-3 px-4 w-full rounded-md border border-gray-200 bg-white text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:ring-offset-gray-950 dark:placeholder:text-gray-400 dark:focus-visible:ring-gray-300"
             >
               <option value="">option 1</option>
               <option value="">option 2</option>
@@ -69,11 +69,11 @@ export default function ContactUsPage() {
           </div>
 
           <div className="mt-7">
-            <FormLabel htmlFor="message">Message</FormLabel>
+            <FormLabel htmlFor="message" className="md:text-base xl:text-xl">Message</FormLabel>
             <textarea
               name="message"
               id="message"
-              className="mt-3 flex h-10 min-h-[200px] w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:ring-offset-gray-950 dark:placeholder:text-gray-400 dark:focus-visible:ring-gray-300"
+              className="mt-3 flex md:text-base h-fit py-3 px-4 min-h-[200px] w-full rounded-md border border-gray-200 bg-white text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:ring-offset-gray-950 dark:placeholder:text-gray-400 dark:focus-visible:ring-gray-300"
             ></textarea>
           </div>
 
