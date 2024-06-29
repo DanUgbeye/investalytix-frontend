@@ -201,8 +201,8 @@ export default function Home() {
       </section>
 
       <div className="bg-black/5  dark:bg-white/5">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
-          <div className="px-12 py-12 ">
+        <div className="mx-auto grid items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
+          <div className="px-12 py-12 max-w-2xl mx-auto">
             <h1 className="text-6xl font-bold md:text-7xl lg:text-6xl">
               Connect With Us
             </h1>
