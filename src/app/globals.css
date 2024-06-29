@@ -50,20 +50,45 @@ input[type="number"] {
 /* start privacy policy */
 
 #privacy-policy > h2 {
-  @apply text-xl mt-10 mb-1;
+  @apply mb-1 mt-10 text-xl;
 }
 #privacy-policy > ul {
   @apply list-disc pl-8;
 }
 #privacy-policy a {
-  @apply duration-150 hover:text-primary-base focus:text-primary-base group-hover:text-primary-base group-focus:text-primary-base dark:hover:text-primary-light dark:focus:text-primary-light dark:group-hover:text-primary-light dark:group-focus:text-primary-light;;
+  @apply duration-150 hover:text-primary-base focus:text-primary-base group-hover:text-primary-base group-focus:text-primary-base dark:hover:text-primary-light dark:focus:text-primary-light dark:group-hover:text-primary-light dark:group-focus:text-primary-light;
 }
 
 /* end privacy policy */
 
 /* start calendar for date picker */
-.react-daterange-picker__wrapper{
-  @apply px-2 py-1 rounded-full;
+.react-daterange-picker__wrapper {
+  @apply rounded-md hover:border-primary-base hover:text-primary-base focus:border-primary-base focus:text-primary-base dark:border-white/40 dark:hover:border-primary-light dark:hover:text-primary-light dark:focus:border-primary-light dark:focus:text-primary-light;
+}
+
+.react-daterange-picker__wrapper > button {
+  @apply box-border !px-4 !py-[10px];
+}
+.react-daterange-picker__inputGroup {
+  @apply hidden;
+}
+.react-daterange-picker__range-divider {
+  @apply hidden;
+}
+.react-calendar {
+  @apply !border-black !bg-white dark:!border-white/20 dark:!bg-black;
+}
+.react-calendar__tile--active {
+  @apply !bg-primary-base dark:!bg-primary-light;
+}
+.react-calendar__tile--hasActive {
+  @apply !bg-primary-base text-white dark:!bg-primary-light;
+}
+.react-calendar__tile--now {
+  @apply !bg-transparent;
+}
+.react-calendar__month-view__days__day--weekend {
+  @apply !text-red-700 dark:!text-red-500;
 }
 /* end calendar for date picker */
 
