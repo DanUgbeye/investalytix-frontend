@@ -31,19 +31,29 @@ export async function generateMetadata(props: {
 async function getData(ticker: string) {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
-    let [profile, consensus, analystRecommendation, upgradesDowngrades] =
-      await Promise.all([
-        tickerRepo.getCompanyProfile(ticker),
-        tickerRepo.getTickerUpgradesDowngradesConsensus(ticker),
-        tickerRepo.getTickerAnalystRecommendations(ticker),
-        tickerRepo.getTickerUpgradesDowngrades(ticker),
-      ]);
+    let [
+      profile,
+      consensus,
+      analystRecommendation,
+      upgradesDowngrades,
+      priceTargetConsensus,
+      priceTargetSummary,
+    ] = await Promise.all([
+      tickerRepo.getCompanyProfile(ticker),
+      tickerRepo.getTickerUpgradesDowngradesConsensus(ticker),
+      tickerRepo.getTickerAnalystRecommendations(ticker),
+      tickerRepo.getTickerUpgradesDowngrades(ticker),
+      tickerRepo.getTickerPriceTargetConsensus(ticker),
+      tickerRepo.getTickerPriceTargetSummary(ticker),
+    ]);
 
     return {
       profile,
       consensus,
       analystRecommendation,
       upgradesDowngrades,
+      priceTargetConsensus,
+      priceTargetSummary
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
@@ -63,8 +73,14 @@ export default async function AnalystRecommendationPage(
     params: { ticker },
   } = props;
 
-  const { analystRecommendation, consensus, profile, upgradesDowngrades } =
-    await getData(ticker);
+  const {
+    analystRecommendation,
+    consensus,
+    profile,
+    upgradesDowngrades,
+    priceTargetConsensus,
+    priceTargetSummary
+  } = await getData(ticker);
 
   return (
     <AnalystRecommendationScreen
@@ -73,6 +89,8 @@ export default async function AnalystRecommendationPage(
       profile={profile}
       consensus={consensus}
       upgradesDowngrades={upgradesDowngrades}
+      priceTargetConsensus={priceTargetConsensus}
+      priceTargetSummary={priceTargetSummary}
     />
   );
 }
