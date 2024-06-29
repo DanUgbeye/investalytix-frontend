@@ -1,5 +1,6 @@
 "use client";
 
+import ColoredText from "@/components/colored-text";
 import HeaderWithUnderline from "@/components/heading";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,11 +14,14 @@ import { cn } from "@/lib/utils";
 import {
   CompanyProfile,
   TickerAnalystRecommendation,
+  TickerPriceTargetConsensus,
+  TickerPriceTargetSummary,
   TickerUpgradeDowngradeConsensus,
   TickerUpgradesDowngrades,
 } from "@/modules/ticker/types";
 import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
+import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import { Minus, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -57,6 +61,8 @@ interface AnalystRecommendationScreenProps {
   consensus?: TickerUpgradeDowngradeConsensus;
   analystRecommendation: TickerAnalystRecommendation[];
   upgradesDowngrades: TickerUpgradesDowngrades[];
+  priceTargetConsensus: TickerPriceTargetConsensus;
+  priceTargetSummary: TickerPriceTargetSummary;
 }
 
 export default function AnalystRecommendationScreen(
@@ -68,6 +74,8 @@ export default function AnalystRecommendationScreen(
     consensus,
     profile,
     upgradesDowngrades,
+    priceTargetConsensus,
+    priceTargetSummary,
   } = props;
   const { theme } = useTheme();
   const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
@@ -130,6 +138,15 @@ export default function AnalystRecommendationScreen(
       )
       .slice(0, showAllUpgrades ? -1 : 11);
   }, [upgradesDowngrades, showAllUpgrades]);
+
+  const priceTargetPercentage = useMemo(() => {
+    if (!priceTargetConsensus || !profile) return undefined;
+
+    return (
+      ((priceTargetConsensus.targetMedian - profile.price) / profile.price) *
+      100
+    );
+  }, [priceTargetConsensus, profile]);
 
   function handleShowMoreUpgrades() {
     if (isAuthenticated) {
@@ -265,44 +282,86 @@ export default function AnalystRecommendationScreen(
           <div className="grid min-h-80 grid-rows-[1fr,auto]">
             <div className="grid h-full grid-rows-[auto,1fr] gap-y-4 p-3">
               <div className="grid items-center gap-3 xl:grid-cols-[auto,auto,1fr]">
-                <div className="flex flex-col gap-y-1 text-[#008133]">
+                <ColoredText
+                  isPositive={() => {
+                    if (!priceTargetPercentage || priceTargetPercentage === 0)
+                      return undefined;
+                    if (priceTargetPercentage > 0) return true;
+                    return false;
+                  }}
+                  className="flex flex-col gap-y-1 text-[#008133]"
+                >
                   <span className="text-2xl font-bold sm:text-4xl">
-                    $201.99
+                    {appUtils.formatNumber(priceTargetConsensus.targetMedian, {
+                      currency: profile.currency,
+                    })}
                   </span>
-                  <span className="text-sm">(5.62% )</span>
-                </div>
+
+                  <span className="text-sm">
+                    (
+                    {priceTargetPercentage
+                      ? `${appUtils.formatNumber(priceTargetPercentage, { style: "decimal" })}%`
+                      : "-"}
+                    )
+                  </span>
+                </ColoredText>
 
                 <div className="h-px w-full border xl:h-full xl:w-px dark:border-main-gray-600" />
 
                 <div className="text-sm">
-                  Based on 33 Wall Street analysis offering 12 month price
-                  targets for Apple in the last 3 months. The average price
-                  target is $201.99 with a high forecast of $240.00 and a low
-                  forecast of $150.00 The average price target represents a
-                  5.62% change from the last price of $191.24.
+                  Based on {priceTargetSummary?.lastYear} Wall Street analysis
+                  offering 1 year price targets for {profile?.companyName} The
+                  average price target is{" "}
+                  {appUtils.formatNumber(priceTargetConsensus?.targetMedian, {
+                    currency: profile.currency,
+                  })}{" "}
+                  with a high forecast of{" "}
+                  {appUtils.formatNumber(priceTargetConsensus?.targetHigh, {
+                    currency: profile.currency,
+                  })}{" "}
+                  and a low forecast of{" "}
+                  {appUtils.formatNumber(priceTargetConsensus?.targetLow, {
+                    currency: profile.currency,
+                  })}{" "}
+                  The average price target represents a{" "}
+                  {priceTargetPercentage
+                    ? `${appUtils.formatNumber(priceTargetPercentage, { style: "decimal" })}%`
+                    : "-"}{" "}
+                  change from the last price of{" "}
+                  {appUtils.formatNumber(profile?.price, {
+                    currency: profile.currency,
+                  })}
                 </div>
               </div>
 
               <div className="min-h-40 bg-gray-600"></div>
             </div>
 
-            <div className="flex flex-col flex-wrap divide-inherit border-t py-2 max-xl:divide-y xl:flex-row xl:divide-x dark:border-main-gray-700">
-              <div className="flex items-center gap-2 px-3 py-1">
+            <div className="grid grid-rows-3 divide-inherit border-t py-2 max-sm:divide-y sm:grid-cols-3 sm:grid-rows-1 sm:divide-x dark:border-main-gray-700">
+              <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
                 <span className="text-sm">High Price Target</span>
-                <span className="font-bold text-[#008133] xl:text-2xl">
-                  $240.00
+                <span className="text-xl font-bold text-[#008133] xl:text-2xl">
+                  {appUtils.formatNumber(priceTargetConsensus?.targetHigh, {
+                    currency: profile.currency,
+                  })}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 px-3 py-1">
+              <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
                 <span className="text-sm">Average Price Target</span>
-                <span className="font-bold xl:text-2xl">$240.00</span>
+                <span className="text-xl font-bold xl:text-2xl">
+                  {appUtils.formatNumber(priceTargetConsensus?.targetMedian, {
+                    currency: profile.currency,
+                  })}
+                </span>
               </div>
 
-              <div className="flex items-center gap-2 px-3 py-1">
+              <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
                 <span className="text-sm">Lowest Price Target</span>
-                <span className="font-bold text-[#9500C9] xl:text-2xl">
-                  $150.00
+                <span className="text-xl font-bold text-[#9500C9] xl:text-2xl">
+                  {appUtils.formatNumber(priceTargetConsensus?.targetLow, {
+                    currency: profile.currency,
+                  })}
                 </span>
               </div>
             </div>

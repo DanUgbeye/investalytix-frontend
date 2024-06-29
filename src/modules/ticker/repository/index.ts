@@ -32,6 +32,8 @@ import {
   Ratio,
   SecFiling,
   TickerAnalystRecommendation,
+  TickerPriceTargetConsensus,
+  TickerPriceTargetSummary,
   TickerUpgradeDowngradeConsensus,
   TickerUpgradesDowngrades,
 } from "../types";
@@ -49,6 +51,8 @@ import {
   RatioSchema,
   SecFilingSchema,
   TickerAnalystRecommendationSchema,
+  TickerPriceTargetConsensusSchema,
+  TickerPriceTargetSummarySchema,
   TickerUpgradeDowngradeConsensusSchema,
   TickerUpgradesDowngradesSchema,
 } from "../validation";
@@ -612,6 +616,56 @@ export class TickerRepository {
       }>(path, options);
 
       let validation = z.array(QuoteSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        console.log(validation.error.issues);
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getTickerPriceTargetConsensus(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<TickerPriceTargetConsensus> {
+    try {
+      const path = `/tickers/${ticker}/price-target-consensus`;
+      let res = await this.axios.get<{
+        data: TickerPriceTargetConsensus;
+      }>(path, options);
+
+      let validation = TickerPriceTargetConsensusSchema.safeParse(
+        res.data.data
+      );
+
+      if (validation.error) {
+        console.log(validation.error.issues);
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getTickerPriceTargetSummary(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<TickerPriceTargetSummary> {
+    try {
+      const path = `/tickers/${ticker}/price-target-summary`;
+      let res = await this.axios.get<{
+        data: TickerPriceTargetSummary;
+      }>(path, options);
+
+      let validation = TickerPriceTargetSummarySchema.safeParse(res.data.data);
 
       if (validation.error) {
         console.log(validation.error.issues);

@@ -505,7 +505,7 @@ function Search() {
 
   function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (searchResults.length < 0) {
+    if (searchResults?.length < 0) {
       return;
     }
 

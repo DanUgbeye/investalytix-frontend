@@ -31,3 +31,24 @@ export type TickerUpgradeDowngradeConsensus = {
   strongSell: number;
   consensus: string;
 };
+
+export type TickerPriceTargetConsensus = {
+  symbol: string;
+  targetHigh: number;
+  targetLow: number;
+  targetConsensus: number;
+  targetMedian: number;
+};
+
+export type TickerPriceTargetSummary = {
+  symbol: string;
+  lastMonth: number;
+  lastMonthAvgPriceTarget: number;
+  lastQuarter: number;
+  lastQuarterAvgPriceTarget: number;
+  lastYear: number;
+  lastYearAvgPriceTarget: number;
+  allTime: number;
+  allTimeAvgPriceTarget: number;
+  publishers: string;
+};
