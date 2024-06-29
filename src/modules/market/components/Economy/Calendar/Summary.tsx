@@ -241,7 +241,9 @@ export default function Summary() {
         />
 
         <div className="flex gap-3 pl-5">
-          {from && <p className="">{moment(from).format("DD/MM/YYYY")}</p>}
+          {from && to != from && (
+            <p className="">{moment(from).format("DD/MM/YYYY")}</p>
+          )}
           {to && to != from && <p className="">-</p>}
           {to && to != from && (
             <p className="">{moment(to).format("DD/MM/YYYY")}</p>
