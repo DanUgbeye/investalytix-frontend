@@ -22,7 +22,7 @@ import {
 import { FiCheck, FiSearch } from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { plans } from "./pricing/page";
+import { plans } from "@/data/plans";
 
 export default function Home() {
   const [pricingFrequency, setPricingFrequency] = useState<
