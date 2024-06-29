@@ -3,7 +3,7 @@ import { Container } from "@/components/container";
 import { Disclosure } from "@headlessui/react";
 import { FiCheck, FiChevronDown, FiStar } from "react-icons/fi";
 
-const plans = [
+export const plans = [
   {
     popular: false,
     name: "Free Plan",

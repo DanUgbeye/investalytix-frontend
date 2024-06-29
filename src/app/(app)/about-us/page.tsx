@@ -38,10 +38,11 @@ export default function AboutUsPage() {
     <main>
       <header className="bg-black/5 px-10 py-24 text-center dark:bg-white/5">
         <h1 className=" text-center text-5xl font-bold md:text-8xl lg:text-9xl">
-        About investalytix
+          About investalytix
         </h1>
-        <p className="mt-10 text-lg md:text-xl max-w-xl mx-auto">
-        Welcome to investalytix, the hub of cutting-edge financial expertise and technological innovation in investment analysis.
+        <p className="mx-auto mt-10 max-w-xl text-lg md:text-xl">
+          Welcome to investalytix, the hub of cutting-edge financial expertise
+          and technological innovation in investment analysis.
         </p>
       </header>
 
@@ -67,10 +68,15 @@ export default function AboutUsPage() {
           <div className="mt-24">
             <h2 className="mb-8 text-5xl font-bold">Team and Commitment</h2>
             <p className="text-xl">
-            Our team reflects our values of thoroughness and dedication. We strive to understand the underlying dynamics of market behaviors and prove our ideas through tangible evidence and advanced tools.
+              Our team reflects our values of thoroughness and dedication. We
+              strive to understand the underlying dynamics of market behaviors
+              and prove our ideas through tangible evidence and advanced tools.
               <br />
               <br />
-              Join us at investalytix to explore our comprehensive platform, connect with our expert team, and empower your financial journey with data-driven decisions. Together, let&apos;s navigate market complexities and stay ahead of the curve.
+              Join us at investalytix to explore our comprehensive platform,
+              connect with our expert team, and empower your financial journey
+              with data-driven decisions. Together, let&apos;s navigate market
+              complexities and stay ahead of the curve.
             </p>
           </div>
 
@@ -98,7 +104,7 @@ export default function AboutUsPage() {
             </Link>
           </div>
 
-          <div className="rounded-xl bg-black bg-[url('/images/contact-us-2.jpg')] h-full bg-cover bg-center bg-no-repeat max-md:-order-1 md:h-[400px]"></div>
+          <div className="h-full rounded-xl bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:h-[400px]"></div>
         </div>
       </div>
     </main>
@@ -106,7 +112,7 @@ export default function AboutUsPage() {
 }
 
 function AboutAlan() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const toggleOpen = () => {
     setOpen((s) => !s);
@@ -144,51 +150,107 @@ function AboutAlan() {
           aria-hidden="true"
         />
 
-        <div className="fixed inset-0 flex h-screen w-screen items-start justify-center overflow-hidden">
-          <div className="h-screen w-full overflow-auto bg-white dark:bg-black">
-            <Dialog.Panel className="w-full h-full">
-              <div className="mx-auto flex max-w-4xl flex-col gap-12 rounded-xl relative px-5 md:px-14 py-20">
-                {/* close btn */}
-                <button onClick={toggleOpen} className="absolute top-5 right-5">
-                  <FiX className="size-6" />
-                </button>
+        <div className="fixed inset-0 flex w-screen items-end justify-end overflow-hidden md:h-screen md:items-start md:justify-center">
+          <div className="max-sm:max-h-[70vh] h-full w-full md:h-screen dark:bg-black md:bg-white">
+            
+            <Dialog.Panel className="h-full w-full overflow-auto">
+              <div className="h-full relative mx-auto max-w-4xl rounded-xl">
+                {/* content on mobile */}
+                <div className="max-w-xl h-full grid-rows-[max-content,1fr] grid md:hidden bg-white mx-auto rounded-t-[40px]">
+                  {/* profile header on mobile */}
+                  <div className="flex flex-row items-center gap-6 p-5">
+                    <div className="h-20 w-20 shrink-0 rounded-full bg-black dark:bg-white/5"></div>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-xl">Jimmy Alan</p>
+                      <p className="">Founder</p>
+                    </div>
+                  </div>
+                  <div className="overflow-auto h-full px-5 pb-5">
+                    <p className="text-justify text-xl">
+                      Jimmy Alan's journey began as a young 15-year-old Iraqi
+                      immigrant who escaped the country after the Desert Storm
+                      war and moved to America. Coming from a poor family, Jimmy
+                      faced numerous challenges but was determined to build a
+                      better future.
+                      <br />
+                      <br />
+                      He pursued a career in Engineering, working across three
+                      different industries before making a pivotal transition
+                      into Finance. To solidify his expertise, he earned an MBA
+                      with a focus in Finance and a specialization in
+                      Derivatives. Influenced by legendary investors like
+                      Benjamin Graham and Warren Buffett, Jimmy envisioned a
+                      platform that would provide precise, real-time stock
+                      valuation data and a comprehensive suite of financial
+                      analysis tools.
+                      <br />
+                      <br />
+                      Combining his technical expertise with his passion for
+                      investment, Jimmy created investalytix. His goal was to
+                      offer individual investors and traders the same level of
+                      sophisticated research tools and strategies that were
+                      traditionally reserved for financial institutions.
+                      <br />
+                      <br />
+                      When he&apos;s not immersed in the world of finance, Jimmy
+                      enjoys chilling at the beach and boating. Through
+                      investalytix, Jimmy is dedicated to making high-level
+                      investment analysis accessible and affordable for all,
+                      democratizing financial knowledge and helping investors
+                      navigate the complexities of the stock market with
+                      confidence.
+                    </p>
+                  </div>
+                </div>
 
-                <div className="h-52 w-52 shrink-0 rounded-full bg-black dark:bg-white/5"></div>
+                {/* content on desktop*/}
+                <div className="hidden flex-col gap-12 px-5 py-20 md:flex">
+                  {/* close btn */}
+                  <button
+                    onClick={toggleOpen}
+                    className="absolute right-5 top-5"
+                  >
+                    <FiX className="size-6" />
+                  </button>
+                  <div className="h-52 w-52 shrink-0 rounded-full bg-black md:block dark:bg-white/5"></div>
 
-                <div className="">
-                  <h1 className="mb-3 text-5xl font-bold">Jimmy Alan</h1>
-                  <p className="text-xl text-justify">
-                    Jimmy Alan's journey began as a young 15-year-old Iraqi
-                    immigrant who escaped the country after the Desert Storm war
-                    and moved to America. Coming from a poor family, Jimmy faced
-                    numerous challenges but was determined to build a better
-                    future.
-                    <br />
-                    <br />
-                    He pursued a career in Engineering, working across three
-                    different industries before making a pivotal transition into
-                    Finance. To solidify his expertise, he earned an MBA with a
-                    focus in Finance and a specialization in Derivatives.
-                    Influenced by legendary investors like Benjamin Graham and
-                    Warren Buffett, Jimmy envisioned a platform that would
-                    provide precise, real-time stock valuation data and a
-                    comprehensive suite of financial analysis tools.
-                    <br />
-                    <br />
-                    Combining his technical expertise with his passion for
-                    investment, Jimmy created investalytix. His goal was to
-                    offer individual investors and traders the same level of
-                    sophisticated research tools and strategies that were
-                    traditionally reserved for financial institutions.
-                    <br />
-                    <br />
-                    When he’s not immersed in the world of finance, Jimmy enjoys
-                    chilling at the beach and boating. Through investalytix,
-                    Jimmy is dedicated to making high-level investment analysis
-                    accessible and affordable for all, democratizing financial
-                    knowledge and helping investors navigate the complexities of
-                    the stock market with confidence.
-                  </p>
+                  <div className="">
+                    <h1 className="mb-3 text-5xl font-bold">Jimmy Alan</h1>
+                    <p className="text-justify text-xl">
+                      Jimmy Alan's journey began as a young 15-year-old Iraqi
+                      immigrant who escaped the country after the Desert Storm
+                      war and moved to America. Coming from a poor family, Jimmy
+                      faced numerous challenges but was determined to build a
+                      better future.
+                      <br />
+                      <br />
+                      He pursued a career in Engineering, working across three
+                      different industries before making a pivotal transition
+                      into Finance. To solidify his expertise, he earned an MBA
+                      with a focus in Finance and a specialization in
+                      Derivatives. Influenced by legendary investors like
+                      Benjamin Graham and Warren Buffett, Jimmy envisioned a
+                      platform that would provide precise, real-time stock
+                      valuation data and a comprehensive suite of financial
+                      analysis tools.
+                      <br />
+                      <br />
+                      Combining his technical expertise with his passion for
+                      investment, Jimmy created investalytix. His goal was to
+                      offer individual investors and traders the same level of
+                      sophisticated research tools and strategies that were
+                      traditionally reserved for financial institutions.
+                      <br />
+                      <br />
+                      When he’s not immersed in the world of finance, Jimmy
+                      enjoys chilling at the beach and boating. Through
+                      investalytix, Jimmy is dedicated to making high-level
+                      investment analysis accessible and affordable for all,
+                      democratizing financial knowledge and helping investors
+                      navigate the complexities of the stock market with
+                      confidence.
+                    </p>
+                  </div>
                 </div>
               </div>
             </Dialog.Panel>

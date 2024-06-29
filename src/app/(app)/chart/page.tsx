@@ -42,6 +42,8 @@ function ChartPage() {
           "allow_symbol_change": true,
           "calendar": false,
           "hide_side_toolbar": false,
+           "withdateranges": true,
+             "details": true,
           "support_host": "https://www.tradingview.com",
           "studies": []
         }`;
