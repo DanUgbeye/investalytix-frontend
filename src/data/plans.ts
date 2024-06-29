@@ -1,0 +1,38 @@
+export const plans = [
+  {
+    popular: false,
+    name: "Free Plan",
+    desc: "Free Forever, No Credit Card Required",
+    monthly: 0,
+    yearly: 0,
+    features: [
+      "No Account or Login Needed",
+      "Limited Access to Comprehensive Stock Dashboard",
+      "Advanced Charting",
+      "5 Years Financial Data",
+      "Limited Access to Equity Research",
+      "Market and Companies News",
+    ],
+  },
+  {
+    popular: true,
+    name: "Premium plan",
+    desc: "Billed Per Month or Annually",
+    monthly: 29,
+    yearly: 299,
+    features: [
+      "All Free Features, Plus:",
+      "Full Access to Comprehensive Stock Dashboard",
+      "30 Years Financial Data",
+      "Data Export to Excel + Sheets + PDF + CSV",
+      "Economics Calendar",
+      "Full Access to All Equity Research",
+      "Unlimited Email Alerts",
+      "Stock Picks (Coming Soon)",
+      "Real-Time Stock Valuation (Coming Soon)",
+      "Stock Screener (Coming Soon)",
+      "Options (Coming Soon)",
+      "Academy (Coming Soon)",
+    ],
+  },
+];
