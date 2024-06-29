@@ -42,7 +42,7 @@ async function getData(ticker: string) {
       notFound();
     }
 
-    throw error;
+    throw new Error(error.message);
   }
 }
 
