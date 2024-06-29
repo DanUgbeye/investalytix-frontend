@@ -6,6 +6,7 @@ import { TickerRepository } from "@/modules/ticker/repository";
 import { serverAPI } from "@/config/server/api";
 import { errorUtils } from "@/utils/error.utils";
 import { notFound } from "next/navigation";
+import { subYears } from "date-fns";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -38,6 +39,7 @@ async function getData(ticker: string) {
       upgradesDowngrades,
       priceTargetConsensus,
       priceTargetSummary,
+      quoteHistory,
     ] = await Promise.all([
       tickerRepo.getCompanyProfile(ticker),
       tickerRepo.getTickerUpgradesDowngradesConsensus(ticker),
@@ -45,6 +47,10 @@ async function getData(ticker: string) {
       tickerRepo.getTickerUpgradesDowngrades(ticker),
       tickerRepo.getTickerPriceTargetConsensus(ticker),
       tickerRepo.getTickerPriceTargetSummary(ticker),
+      tickerRepo.getQuoteHistory(ticker, "1month", {
+        from: subYears(new Date(), 1),
+        to: new Date(),
+      }),
     ]);
 
     return {
@@ -53,7 +59,8 @@ async function getData(ticker: string) {
       analystRecommendation,
       upgradesDowngrades,
       priceTargetConsensus,
-      priceTargetSummary
+      priceTargetSummary,
+      quoteHistory,
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
@@ -79,7 +86,8 @@ export default async function AnalystRecommendationPage(
     profile,
     upgradesDowngrades,
     priceTargetConsensus,
-    priceTargetSummary
+    priceTargetSummary,
+    quoteHistory,
   } = await getData(ticker);
 
   return (
@@ -91,6 +99,7 @@ export default async function AnalystRecommendationPage(
       upgradesDowngrades={upgradesDowngrades}
       priceTargetConsensus={priceTargetConsensus}
       priceTargetSummary={priceTargetSummary}
+      quoteHistory={quoteHistory}
     />
   );
 }
