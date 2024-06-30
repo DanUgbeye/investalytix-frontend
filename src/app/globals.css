@@ -44,7 +44,7 @@ input[type="number"] {
 }
 
 .bg-hover-focus {
-  @apply hover:bg-primary-base/10 hover:text-primary-base  focus:bg-primary-base/10 focus:text-primary-base;
+  @apply hover:bg-primary-base/10 hover:text-primary-base focus:bg-primary-base/10 focus:text-primary-base;
 }
 
 /* start privacy policy */
@@ -91,6 +91,18 @@ input[type="number"] {
   @apply !text-red-700 dark:!text-red-500;
 }
 /* end calendar for date picker */
+
+/* start products carousel */
+.products .swiper-slide-next,
+.products .swiper-slide-prev,
+.products .swiper-slide {
+  @apply lg:!scale-[0.8];
+}
+.products .swiper-slide-active {
+  @apply lg:!scale-[1.1] z-10 duration-500;
+}
+
+/* end products carousel */
 
 @media (min-width: 1024px) {
   .testimony:nth-child(3n + 2) {

@@ -27,11 +27,11 @@ export default async function PicksPage({
   const links = {
     losers: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`,
     gainers: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
-    "hot picks": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
+    "hot picks": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/actives`,
     currencies: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
     cryptocurrency: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
-    "sector performance": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
-    "insider trading": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
+    "sector performance": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/sector-performance`,
+    // "insider trading": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
   } as const;
   const keys = Object.keys(links);
 

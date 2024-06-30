@@ -14,11 +14,11 @@ async function getData(url: string) {
   return res.json() as Promise<{
     message: String;
     status: number;
-    data: Quote[];
+    data: { sector: string; changesPercentage: string }[];
   }>;
 }
 
-export default async function SidePanel({
+export default async function SectorPerformance({
   url,
   moreUrl,
   title,
@@ -47,29 +47,16 @@ export default async function SidePanel({
 
       <div className="flex flex-col">
         {data.data.slice(0, 5).map((quote) => {
-          if (!quote.changesPercentage) return null;
-          const isPositive = quote.changesPercentage >= 0;
+          // if (!quote.changesPercentage) return null;
+          // const isPositive = quote.changesPercentage >= 0;
 
           return (
             <div
-              key={quote.name}
-              className="grid grid-cols-3 border-b py-2 dark:dark:border-white/10"
+              key={quote.sector}
+              className="grid grid-cols-[1fr,auto] border-b py-2 dark:dark:border-white/10 h-12"
             >
-              <div className="flex w-[40%] items-center gap-2">
-                <div className="h-6 w-6 shrink-0 animate-pulse rounded-full bg-gray-200"></div>
-                <div className="">{quote.symbol}</div>
-              </div>
-              <div
-                className={`w-fit place-self-center self-center rounded px-4 py-1 text-center font-bold ${
-                  isPositive
-                    ? "bg-[#D6FFEF] text-[#00CA5F]"
-                    : "bg-[#FEDEDF] text-[#E74C3C]"
-                }`}
-              >
-                {isPositive && "+"}
-                {quote?.changesPercentage.toFixed(2)}%
-              </div>
-              <p className="white-text text-end">${quote.price}</p>
+              <div className="">{quote.sector}</div>
+              <p className="white-text text-end">{quote.changesPercentage}</p>
             </div>
           );
         })}

@@ -23,6 +23,8 @@ import { FiCheck, FiSearch } from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { plans } from "@/data/plans";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 export default function Home() {
   const [pricingFrequency, setPricingFrequency] = useState<
@@ -54,7 +56,7 @@ export default function Home() {
             Integrating Macro, Technical Strategy, and Fundamentals
           </h1>
 
-          <p className="mx-auto mt-5 w-3/4 text-lg font-medium max-xs:text-center lg:w-3/5  xl:mt-8 xl:text-xl ">
+          <p className="mx-auto mt-5 w-3/4 text-lg font-medium max-xs:text-center lg:w-3/5 xl:mt-8 xl:text-xl">
             Providing data-driven investment decisions with a comprehensive
             suite of financial analysis tools.
           </p>
@@ -63,7 +65,7 @@ export default function Home() {
         </Container>
       </main>
 
-      <p className=" z-50 bg-black px-5 py-20 text-center text-xl font-bold text-white lg:text-3xl dark:border-t dark:border-t-white/10">
+      <p className="z-50 bg-black px-5 py-20 text-center text-xl font-bold text-white lg:text-3xl dark:border-t dark:border-t-white/10">
         Trusted by more than 89,300 successful value investors
       </p>
 
@@ -115,7 +117,7 @@ export default function Home() {
             About <br /> Investalytix
           </h1>
 
-          <p className="mx-auto mt-10 text-lg font-medium max-xs:text-center  lg:w-4/5 xl:mt-10 xl:text-xl">
+          <p className="mx-auto mt-10 text-lg font-medium max-xs:text-center lg:w-4/5 xl:mt-10 xl:text-xl">
             Welcome to investalytix, your hub for advanced investment analysis.
             Founded in 2023, we aim to make high-quality research accessible to
             everyone. Our platform offers tools like stock dashboards, real-time
@@ -134,7 +136,10 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* <Products /> */}
+      <section className="pt-20 lg:pt-40">
+        <h1 className="mb-6 text-center text-6xl font-extrabold">Our Products</h1>
+        <Products />
+      </section>
 
       {/* Pricing */}
       <section className="py-20">
@@ -200,7 +205,7 @@ export default function Home() {
         </Container>
       </section>
 
-      <div className="bg-black/5  dark:bg-white/5">
+      <div className="bg-black/5 dark:bg-white/5">
         <div className="mx-auto grid items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
           <div className="mx-auto max-w-2xl px-12 py-12">
             <h1 className="text-6xl font-bold md:text-7xl lg:text-6xl">
@@ -277,7 +282,7 @@ function Plan({
       </p>
 
       <button
-        className={`mb-7 mt-10 w-full rounded-xl border px-6 py-3  ${plan.popular ? "bg-transparent hover:bg-white hover:text-black focus:bg-white focus:text-black dark:bg-black dark:text-white/80 " : "hover:bg-black hover:text-white focus:bg-black focus:text-white"}`}
+        className={`mb-7 mt-10 w-full rounded-xl border px-6 py-3 ${plan.popular ? "bg-transparent hover:bg-white hover:text-black focus:bg-white focus:text-black dark:bg-black dark:text-white/80" : "hover:bg-black hover:text-white focus:bg-black focus:text-white"}`}
       >
         Get started
       </button>
@@ -328,7 +333,7 @@ function Plan({
   );
 }
 
-function Products() {
+function Products2() {
   const containerRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
 
@@ -371,5 +376,78 @@ function Products() {
       </section>
     </div>
     // </div>
+  );
+}
+
+function Products() {
+  const images = [
+    {
+      img: "/images/calendar mockup.png",
+      header: "Economic Calendar",
+      desc: "Your go-to source for key economic events and market-moving data.",
+    },
+    {
+      img: "/images/stock dashboard mockup.png",
+      header: "Stock dashboard",
+      desc: "Comprehensive Stock Dashboard for Real-Time and Historical Analysis",
+    },
+    {
+      img: "/images/news mockup.png",
+      header: "News",
+      desc: "Stay informed with the latest market news and stock insights through investalytix original articles.",
+    },
+    {
+      img: "/images/calendar mockup.png",
+      header: "Economic Calendar",
+      desc: "Your go-to source for key economic events and market-moving data.",
+    },
+    {
+      img: "/images/stock dashboard mockup.png",
+      header: "Stock dashboard",
+      desc: "Comprehensive Stock Dashboard for Real-Time and Historical Analysis",
+    },
+    {
+      img: "/images/news mockup.png",
+      header: "News",
+      desc: "Stay informed with the latest market news and stock insights through investalytix original articles.",
+    },
+  ];
+  return (
+    <div className="products relative py-5 lg:py-20">
+      <div className="absolute bottom-0 left-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-white from-[50%] to-transparent lg:block"></div>
+      <div className="absolute bottom-0 right-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-transparent to-white to-[50%] lg:block"></div>
+      <Swiper
+        spaceBetween={0}
+        loop
+        centeredSlides
+        className="!py-20"
+        breakpoints={{
+          0: {
+            slidesPerView: "auto",
+            spaceBetween: "24px",
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 0,
+          },
+        }}
+      >
+        {images.map((img) => (
+          <SwiperSlide key={img.header} className="z-[1] max-lg:px-6">
+            <div className="relative aspect-video w-full">
+              <Image src={img.img} alt="" className="" fill />
+            </div>
+            <div className="mt-6 lg:mt-20">
+              <h1 className="text-center text-2xl font-semibold lg:text-4xl">
+                {img.header}
+              </h1>
+              <p className="mt-2 text-center text-base max-lg:px-3 lg:mt-7 lg:text-xl">
+                {img.desc}
+              </p>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 }
