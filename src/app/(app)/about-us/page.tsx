@@ -112,14 +112,14 @@ export default function AboutUsPage() {
 }
 
 function AboutAlan() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const toggleOpen = () => {
     setOpen((s) => !s);
   };
   return (
     <>
-      <div className="mt-16 flex flex-col gap-12 rounded-xl bg-black/5 px-14 py-20 max-md:items-center md:flex-row dark:bg-white/5">
+      <div className="mt-16 flex flex-col gap-12 rounded-xl bg-black/5 px-6 py-10 md:px-14 md:py-20 max-md:items-center md:flex-row dark:bg-white/5">
         <div className="h-52 w-52 shrink-0 rounded-full bg-black"></div>
 
         <div className="">
@@ -151,12 +151,11 @@ function AboutAlan() {
         />
 
         <div className="fixed inset-0 flex w-screen items-end justify-end overflow-hidden md:h-screen md:items-start md:justify-center">
-          <div className="max-sm:max-h-[70vh] h-full w-full md:h-screen dark:bg-black md:bg-white">
-            
+          <div className="h-full w-full max-sm:max-h-[70vh] md:h-screen md:bg-white dark:bg-black">
             <Dialog.Panel className="h-full w-full overflow-auto">
-              <div className="h-full relative mx-auto max-w-4xl rounded-xl">
+              <div className="relative mx-auto h-full max-w-4xl rounded-xl">
                 {/* content on mobile */}
-                <div className="max-w-xl h-full grid-rows-[max-content,1fr] grid md:hidden bg-white mx-auto rounded-t-[40px]">
+                <div className="mx-auto grid h-full max-w-xl grid-rows-[max-content,1fr] rounded-t-[40px] bg-white md:hidden dark:bg-black">
                   {/* profile header on mobile */}
                   <div className="flex flex-row items-center gap-6 p-5">
                     <div className="h-20 w-20 shrink-0 rounded-full bg-black dark:bg-white/5"></div>
@@ -165,8 +164,8 @@ function AboutAlan() {
                       <p className="">Founder</p>
                     </div>
                   </div>
-                  <div className="overflow-auto h-full px-5 pb-5">
-                    <p className="text-justify text-xl">
+                  <div className="h-full overflow-auto px-5 pb-5">
+                    <p className="text-justify  text-base">
                       Jimmy Alan's journey began as a young 15-year-old Iraqi
                       immigrant who escaped the country after the Desert Storm
                       war and moved to America. Coming from a poor family, Jimmy

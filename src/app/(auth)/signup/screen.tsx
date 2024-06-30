@@ -75,7 +75,7 @@ export default function SignupScreen() {
   return (
     <>
       <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] max-md:pb-20 md:grid">
-        <div className="flex w-full flex-col justify-between gap-10 px-14 py-24 max-md:h-screen">
+        <div className="flex w-full flex-col justify-between gap-10 px-5 py-24 max-md:h-screen md:px-14">
           <Link href="/">
             <svg
               width={850}
@@ -83,10 +83,13 @@ export default function SignupScreen() {
               viewBox="0 0 850 260"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="h-14 w-auto self-start md:h-24"
+              className="h-24 w-auto self-start md:h-24"
             >
               <g clipPath="url(#clip0_725_16)">
-                <path d="M850 0H0V260H850V0Z" className="fill-white dark:fill-black" />
+                <path
+                  d="M850 0H0V260H850V0Z"
+                  className="fill-white dark:fill-black"
+                />
                 <path
                   d="M159.23 97.0122C166.46 97.0122 172.44 99.4422 177.17 104.292C181.89 109.142 184.25 115.852 184.25 124.412V165.052H167.18V126.532C167.18 122.122 165.99 118.742 163.61 116.402C161.23 114.072 158.05 112.892 154.08 112.892C149.67 112.892 146.14 114.262 143.49 116.992C140.84 119.722 139.52 123.832 139.52 129.302V165.042H122.44V98.8522H139.52V106.262C143.67 100.092 150.24 96.9922 159.24 96.9922L159.23 97.0122Z"
                   className="fill-black dark:fill-white"
@@ -164,7 +167,7 @@ export default function SignupScreen() {
                       <FormLabel
                         htmlFor="firstname"
                         error={!!fieldState.error}
-                        className=" mb-3 "
+                        className="mb-3"
                       >
                         Firstname
                       </FormLabel>
@@ -172,7 +175,7 @@ export default function SignupScreen() {
                       <Input
                         {...field}
                         id="firstname"
-                        className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white/10 "
+                        className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white/10"
                         type="text"
                         placeholder="John"
                       />
@@ -191,7 +194,7 @@ export default function SignupScreen() {
                       <FormLabel
                         htmlFor="lastname"
                         error={!!fieldState.error}
-                        className=" mb-3"
+                        className="mb-3"
                       >
                         Lastname
                       </FormLabel>
@@ -199,7 +202,7 @@ export default function SignupScreen() {
                       <Input
                         {...field}
                         id="lastname"
-                        className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white/10 "
+                        className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white/10"
                         type="text"
                         placeholder="Doe"
                       />
@@ -219,7 +222,7 @@ export default function SignupScreen() {
                     <FormLabel
                       htmlFor="email"
                       error={!!fieldState.error}
-                      className=" mb-3"
+                      className="mb-3"
                     >
                       Email
                     </FormLabel>
@@ -227,7 +230,7 @@ export default function SignupScreen() {
                     <Input
                       {...field}
                       id="email"
-                      className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white/10 "
+                      className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white/10"
                       type="email"
                       placeholder="example@example.com"
                     />
@@ -246,7 +249,7 @@ export default function SignupScreen() {
                     <FormLabel
                       htmlFor="password"
                       error={!!fieldState.error}
-                      className=" mb-3 "
+                      className="mb-3"
                     >
                       Password
                     </FormLabel>
@@ -254,7 +257,7 @@ export default function SignupScreen() {
                     <PasswordInput
                       {...field}
                       id="password"
-                      className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:!bg-white/10 "
+                      className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:!bg-white/10"
                       classNames={{
                         showButton:
                           "dark:bg-transparent dark:text-white/80 dark:hover:bg-gray-100 dark:hover:text-black ",
@@ -275,14 +278,14 @@ export default function SignupScreen() {
                     type="checkbox"
                     name="terms-accepted"
                     id="terms-accepted"
-                    className="size-5 appearance-none rounded bg-gray-200 dark:bg-white/10 checked:bg-primary-base"
+                    className="size-5 appearance-none rounded bg-gray-200 checked:bg-primary-base dark:bg-white/10"
                     checked={termsAccepted}
                     onChange={handleTermsAccepted}
                   />
                 </div>
 
                 <label htmlFor="terms-accepted" className="">
-                  <span className=" text-sm ">
+                  <span className="text-sm">
                     I Agree to Investalytix{" "}
                     <Link href={PAGES.LOGIN} className="text-[#635CFF]">
                       Terms of Use
@@ -300,7 +303,7 @@ export default function SignupScreen() {
                 className="h-fit w-full cursor-pointer rounded-md py-4"
               >
                 {isSubmitting ? (
-                  <PiSpinnerGap className=" size-5 animate-spin " />
+                  <PiSpinnerGap className="size-5 animate-spin" />
                 ) : (
                   "Continue"
                 )}
@@ -308,7 +311,7 @@ export default function SignupScreen() {
             </form>
 
             <div className="relative">
-              <p className="mx-auto w-fit bg-white dark:bg-black p-4">or</p>
+              <p className="mx-auto w-fit bg-white p-4 dark:bg-black">or</p>
               <div className="absolute left-0 right-0 top-1/2 -z-[1] h-[0.5px] translate-y-1/2 bg-black/20 dark:bg-white/20"></div>
             </div>
 
@@ -353,7 +356,7 @@ export default function SignupScreen() {
             </p>
           </div>
 
-          <p className="mx-auto w-fit">
+          <p className="mx-auto w-fit text-sm md:text-base">
             &copy; Investalytix ·{" "}
             <Link href="/contact-us" className="text-hover-focus">
               Contact
@@ -366,7 +369,8 @@ export default function SignupScreen() {
         </div>
 
         <div className="md:relative">
-          <div className="top-0 bg-[url('/images/signup.jpg')] bg-cover bg-left bg-no-repeat md:sticky md:h-screen">
+          <div className="relative top-0 bg-cover bg-left bg-no-repeat md:sticky md:h-screen">
+            <Image src="/images/auth.jpg" fill alt="" />
             <button
               onClick={goBack}
               className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"

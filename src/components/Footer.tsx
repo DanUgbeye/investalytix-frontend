@@ -80,15 +80,20 @@ export default function Footer() {
             </p>
 
             {/* legal */}
-            <div className="flex flex-wrap justify-center gap-4 capitalize max-sm:flex-grow xs:gap-20 md:justify-between">
-              <Link className="text-hover-focus" href={PAGES.CHART}>
-                Terms and conditions
-              </Link>
-              <Link className="text-hover-focus" href={PAGES.PRIVACY_POLICY}>
-                privacy policy
-              </Link>
+            <div className="flex max-md:flex-col flex-row justify-center gap-4 capitalize max-sm:flex-grow xs:gap-20 md:justify-between">
+              <div className="flex flex-wrap items-center justify-center gap-4 xs:gap-20">
+                <Link className="text-hover-focus" href={PAGES.CHART}>
+                  Terms and conditions
+                </Link>
+                <Link className="text-hover-focus" href={PAGES.PRIVACY_POLICY}>
+                  privacy policy
+                </Link>
+                <Link className="text-hover-focus" href={PAGES.CONTACT}>
+                  contact
+                </Link>
+              </div>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center justify-center gap-4">
                 <Link
                   href="https://www.facebook.com/investalytix01"
                   target="_blank"

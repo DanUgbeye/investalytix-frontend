@@ -6,14 +6,14 @@ import France from "./France";
 import Germany from "./Germany";
 import Italy from "./Italy";
 import Japan from "./Japan";
-import Treasury from "./Treasury";
+import US from "./US";
 import UK from "./UK";
 
 export default function Bonds() {
   return (
     <>
-      <Treasury />
-      <br />
+      <US />
+      {/* <br />
       <br />
       <br />
       <UK />
@@ -46,7 +46,7 @@ export default function Bonds() {
       <br />
       <br />
 
-      <Brazil />
+      <Brazil /> */}
     </>
   );
 }

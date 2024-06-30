@@ -11,7 +11,7 @@ export default function BondsPage() {
     <>
       <MarketHeader name="BONDS" active="BONDS" />
 
-      <MarketSubLinks markets={data.markets} />
+      {/* <MarketSubLinks markets={data.markets} /> */}
       <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
         <main>
           <Bonds />

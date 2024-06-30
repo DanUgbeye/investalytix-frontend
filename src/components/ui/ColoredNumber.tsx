@@ -11,7 +11,7 @@ export default function ColoredNumber({
   percent?: boolean;
   className?: HTMLElement["className"];
 }) {
-  if (Number.isNaN(number)) {
+  if (Number.isNaN(Number(number)) || number === null) {
     return <span>-</span>;
   }
 
