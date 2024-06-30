@@ -1,7 +1,9 @@
 "use client";
 import { Container } from "@/components/container";
+import PAGES from "@/data/page-map";
 import { plans } from "@/data/plans";
 import { Disclosure } from "@headlessui/react";
+import Link from "next/link";
 import { FiCheck, FiChevronDown, FiStar } from "react-icons/fi";
 
 const testimonials = [
@@ -141,9 +143,9 @@ export default function PricingPage() {
             <p className="mt-4 text-center text-lg">
               Support details to capture customers that might be on the fence.
             </p>
-            <button className="mx-auto mt-6 block w-fit border border-black px-6 py-3 dark:border-white">
+            <Link href={PAGES["CONTACT"]} className="mx-auto mt-6 block w-fit border border-black px-6 py-3 dark:border-white">
               Contact us
-            </button>
+            </Link>
           </div>
         </section>
       </main>
