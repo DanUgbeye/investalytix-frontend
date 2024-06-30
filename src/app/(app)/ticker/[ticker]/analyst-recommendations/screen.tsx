@@ -124,14 +124,17 @@ export default function AnalystRecommendationScreen(
   }, [consensus]);
 
   const analystRecommendationTrend = useMemo(() => {
-    return analystRecommendation.slice(0, 13).map((rec) => ({
-      date: rec.date,
-      strongBuy: rec.analystRatingsStrongBuy,
-      buy: rec.analystRatingsbuy,
-      hold: rec.analystRatingsHold,
-      sell: rec.analystRatingsSell,
-      strongSell: rec.analystRatingsStrongSell,
-    }));
+    return analystRecommendation
+      .slice(0, 13)
+      .toReversed()
+      .map((rec) => ({
+        date: rec.date,
+        strongBuy: rec.analystRatingsStrongBuy,
+        buy: rec.analystRatingsbuy,
+        hold: rec.analystRatingsHold,
+        sell: rec.analystRatingsSell,
+        strongSell: rec.analystRatingsStrongSell,
+      }));
   }, [analystRecommendation]);
 
   const analystUpgradesDowngrades = useMemo(() => {
@@ -144,7 +147,7 @@ export default function AnalystRecommendationScreen(
   }, [upgradesDowngrades, showAllUpgrades]);
 
   const priceTargetPercentage = useMemo(() => {
-    if (!priceTargetConsensus || !profile) return undefined;
+    if (!priceTargetConsensus || !profile || !profile.price) return undefined;
 
     return (
       ((priceTargetConsensus.targetMedian - profile.price) / profile.price) *
@@ -217,7 +220,7 @@ export default function AnalystRecommendationScreen(
             </h4>
 
             <div className="grid min-h-80 grid-rows-[1fr,auto]">
-              <div className="space-y-5 py-4">
+              <div className="space-y-2 py-4">
                 <div
                   className={"text-center text-2xl font-extrabold xl:text-3xl"}
                   style={{
@@ -231,7 +234,7 @@ export default function AnalystRecommendationScreen(
                 </div>
 
                 <div className="relative mx-auto grid w-fit place-items-center">
-                  <PieChart width={300} height={290}>
+                  <PieChart width={300} height={280}>
                     <Pie
                       data={analystRatings}
                       innerRadius={70}
@@ -331,7 +334,7 @@ export default function AnalystRecommendationScreen(
                   </span>
                 </ColoredText>
 
-                <div className="h-px w-full border xl:h-full xl:w-px dark:border-main-gray-600" />
+                <div className="h-px w-full border xl:h-full xl:w-px dark:border-main-gray-700" />
 
                 <div className="text-sm">
                   Based on {priceTargetSummary?.lastYear} Wall Street analysis
@@ -371,7 +374,7 @@ export default function AnalystRecommendationScreen(
             <div className="grid grid-rows-3 divide-inherit border-t py-2 max-sm:divide-y sm:grid-cols-3 sm:grid-rows-1 sm:divide-x dark:border-main-gray-700">
               <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
                 <span className="text-sm">High Price Target</span>
-                <span className="text-xl font-bold text-[#008133] xl:text-2xl">
+                <span className="text-xl font-bold text-main-green-light xl:text-2xl dark:text-main-green-dark">
                   {appUtils.formatNumber(priceTargetConsensus?.targetHigh, {
                     currency: profile.currency,
                   })}
@@ -389,7 +392,7 @@ export default function AnalystRecommendationScreen(
 
               <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
                 <span className="text-sm">Lowest Price Target</span>
-                <span className="text-xl font-bold text-[#9500C9] xl:text-2xl">
+                <span className="text-xl font-bold text-main-red-light xl:text-2xl dark:text-main-red-dark">
                   {appUtils.formatNumber(priceTargetConsensus?.targetLow, {
                     currency: profile.currency,
                   })}

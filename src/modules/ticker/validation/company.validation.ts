@@ -14,13 +14,13 @@ import { FinancialsSchema, RatioTTMSchema } from "./financials.validation";
 
 export const CompanyProfileSchema = z.object({
   symbol: z.string(),
-  price: z.number(),
-  beta: z.number(),
-  volAvg: z.number(),
-  mktCap: z.number(),
-  lastDiv: z.number(),
+  price: z.number().nullable(),
+  beta: z.number().nullable(),
+  volAvg: z.number().nullable(),
+  mktCap: z.number().nullable(),
+  lastDiv: z.number().nullable(),
   range: z.string(),
-  changes: z.number(),
+  changes: z.number().nullable(),
   companyName: z.string(),
   currency: z.string(),
   cik: z.string().nullable(),
@@ -40,8 +40,8 @@ export const CompanyProfileSchema = z.object({
   city: z.string(),
   state: z.string().nullable(),
   zip: z.string(),
-  dcfDiff: z.number(),
-  dcf: z.number(),
+  dcfDiff: z.number().nullable(),
+  dcf: z.number().nullable(),
   image: z.string(),
   ipoDate: z.coerce.date(),
   defaultImage: z.boolean(),
@@ -54,11 +54,11 @@ export const CompanyProfileSchema = z.object({
 export const CompanyKeyExecutiveSchema = z.object({
   title: z.string(),
   name: z.string(),
-  pay: z.union([z.number(), z.null()]),
+  pay: z.number().nullable(),
   currencyPay: z.string(),
   gender: z.string(),
-  yearBorn: z.union([z.number(), z.null()]),
-  titleSince: z.union([z.null(), z.coerce.date()]),
+  yearBorn: z.number().nullable(),
+  titleSince: z.coerce.date().nullable(),
 }) satisfies ZodType<CompanyKeyExecutive>;
 
 export const CompanyMetricsSchema = z.object({

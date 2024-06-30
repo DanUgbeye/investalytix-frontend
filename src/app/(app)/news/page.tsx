@@ -46,7 +46,9 @@ export default async function NewsPage() {
           {/* 1 */}
           <div className="relative h-[500px] lg:h-full">
             {/* <div className={`relative h-full w-full  overflow-hidden`}> */}
-            <Image src={major.image} alt="" fill className="object-cover" />
+            {major.image && (
+              <Image src={major.image} alt="" fill className="object-cover" />
+            )}
             {/* </div> */}
 
             {/*  */}
@@ -75,12 +77,14 @@ export default async function NewsPage() {
                   <div
                     className={`relative aspect-square w-full overflow-hidden`}
                   >
-                    <Image
-                      src={news.image}
-                      alt=""
-                      fill
-                      className="object-cover"
-                    />
+                    {news.image && (
+                      <Image
+                        src={news.image}
+                        alt=""
+                        fill
+                        className="object-cover"
+                      />
+                    )}
                   </div>
                   <p className="mt-4 font-semibold leading-tight">
                     {news.title}
@@ -93,7 +97,7 @@ export default async function NewsPage() {
 
         {/* 3 */}
         <div className="grid-rows-[max-content,1fr] gap-4 lg:grid lg:overflow-hidden">
-          <p className="text-3xl font-bold max-xl:mb-4 ">Latest News</p>
+          <p className="text-3xl font-bold max-xl:mb-4">Latest News</p>
           <div className="relative lg:overflow-hidden">
             <div className="gap-x-10 gap-y-4 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 lg:absolute lg:inset-0 lg:overflow-auto">
               {latest.slice(0, 14).map((news) => (

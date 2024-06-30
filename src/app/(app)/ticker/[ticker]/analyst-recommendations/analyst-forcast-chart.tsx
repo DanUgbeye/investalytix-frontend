@@ -8,13 +8,54 @@ import {
   defaultAreaSeriesOptions,
   defaultChartOptions,
 } from "@/utils/chart.utils";
+import { addYears } from "date-fns";
 import {
+  AreaData,
   createChart,
   CreatePriceLineOptions,
   LineStyle,
+  LineType,
   Time,
 } from "lightweight-charts";
 import { useEffect, useMemo, useRef } from "react";
+
+function generateWeeklyPriceData(range: {
+  startDate: string | Date;
+  endDate: string | Date;
+  currentPrice: number;
+  endPrice: number;
+}) {
+  const { startDate, endDate, currentPrice, endPrice } = range;
+  const data: {
+    date: Date;
+    value: number;
+  }[] = [];
+
+  // Convert dates to Date objects if they are strings
+  const start = typeof startDate === "string" ? new Date(startDate) : startDate;
+  const end = typeof endDate === "string" ? new Date(endDate) : endDate;
+
+  // Calculate the number of weeks between the start and end dates
+  const millisecondsPerWeek = 7 * 24 * 60 * 60 * 1000;
+  const totalWeeks = Math.ceil(
+    (end.getTime() - start.getTime()) / millisecondsPerWeek
+  );
+
+  // Calculate the price increment per week
+  const priceIncrement = (endPrice - currentPrice) / totalWeeks;
+
+  for (let i = 0; i <= totalWeeks; i++) {
+    const currentDate = new Date(start.getTime() + i * millisecondsPerWeek);
+    const currentValue = currentPrice + i * priceIncrement;
+
+    data.push({
+      date: currentDate,
+      value: currentValue,
+    });
+  }
+
+  return data;
+}
 
 interface Props {
   ticker: string;
@@ -53,23 +94,23 @@ export default function AnalystForcastChart(props: Props) {
       },
     });
 
-    newChartAPI.priceScale("left").applyOptions({
-      autoScale: true,
-    });
+    let timeScale = newChartAPI.timeScale();
 
-    // newChartAPI.priceScale("left").applyOptions({ minValue: 90, maxValue: 130 });
+    timeScale.applyOptions({
+      fixLeftEdge: true,
+      uniformDistribution: true,
+    });
 
     const areaSeries = newChartAPI.addAreaSeries({
       ...defaultAreaSeriesOptions(theme),
-      bottomColor: "transparent",
+      // bottomColor: "transparent",
       autoscaleInfoProvider: priceTargetConsensus
         ? () => ({
             priceRange: {
               minValue:
                 priceTargetConsensus.targetLow +
-                priceTargetConsensus.targetLow * 0.1,
-              maxValue: priceTargetConsensus.targetHigh +
-              priceTargetConsensus.targetHigh * 0.1,
+                priceTargetConsensus.targetLow * 0.2,
+              maxValue: priceTargetConsensus.targetHigh,
             },
           })
         : undefined,
@@ -80,15 +121,13 @@ export default function AnalystForcastChart(props: Props) {
       priceLineVisible: false,
     });
 
-    areaSeries.setData(
-      sortedQuoteHistory.map((data) => ({
-        ...data,
-        value: (data.high + data.low) / 2,
-        time: (new Date(data.date).getTime() / 1000) as Time,
-      }))
-    );
+    let seriesData = sortedQuoteHistory.map((data) => ({
+      value: (data.high + data.low) / 2,
+      time: (new Date(data.date).getTime() / 1000) as Time,
+    }));
 
-    const lineWidth = 2;
+    areaSeries.setData(seriesData);
+    
     const redColor =
       theme === "light"
         ? tailwindCSS().theme.colors.main.red.light
@@ -102,16 +141,14 @@ export default function AnalystForcastChart(props: Props) {
     const currPriceLine: CreatePriceLineOptions = {
       price: currPrice,
       color: tailwindCSS().theme.colors.primary.base,
-      lineWidth: lineWidth,
-      lineStyle: LineStyle.Solid,
+      lineVisible: false,
       axisLabelVisible: true,
       title: "Current",
     };
     const minPriceLine: CreatePriceLineOptions = {
       price: priceTargetConsensus.targetLow,
       color: redColor,
-      lineWidth: lineWidth,
-      lineStyle: LineStyle.Solid,
+      lineVisible: false,
       axisLabelVisible: true,
       title: "Min",
     };
@@ -123,16 +160,14 @@ export default function AnalystForcastChart(props: Props) {
           : priceTargetConsensus.targetMedian < currPrice
             ? redColor
             : tailwindCSS().theme.colors.main.gray[500],
-      lineWidth: lineWidth,
-      lineStyle: LineStyle.Solid,
+      lineVisible: false,
       axisLabelVisible: true,
       title: "Avg",
     };
     const maxPriceLine: CreatePriceLineOptions = {
       price: priceTargetConsensus.targetHigh,
       color: greenColor,
-      lineWidth: lineWidth,
-      lineStyle: LineStyle.Solid,
+      lineVisible: false,
       axisLabelVisible: true,
       title: "Max",
     };
@@ -141,10 +176,6 @@ export default function AnalystForcastChart(props: Props) {
     areaSeries.createPriceLine(minPriceLine);
     areaSeries.createPriceLine(avgPriceLine);
     areaSeries.createPriceLine(maxPriceLine);
-
-    newChartAPI.timeScale().applyOptions({
-      fixLeftEdge: true,
-    });
   }
 
   useEffect(() => {

@@ -37,7 +37,6 @@ async function getTickerData(ticker: string) {
     ]);
 
     return {
-      timeStamp: new Date(),
       quote,
       outlook,
     };
@@ -45,6 +44,7 @@ async function getTickerData(ticker: string) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
+    console.log(error)
 
     throw new Error(error.message);
   }

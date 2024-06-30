@@ -1,12 +1,12 @@
 export type CompanyProfile = {
   symbol: string;
-  price: number;
-  beta: number;
-  volAvg: number;
-  mktCap: number;
-  lastDiv: number;
+  price: number | null;
+  beta: number | null;
+  volAvg: number | null;
+  mktCap: number | null;
+  lastDiv: number | null;
   range: string;
-  changes: number;
+  changes: number | null;
   companyName: string;
   currency: string;
   cik: string | null;
@@ -26,8 +26,8 @@ export type CompanyProfile = {
   city: string;
   state: string | null;
   zip: string;
-  dcfDiff: number;
-  dcf: number;
+  dcfDiff: number | null;
+  dcf: number | null;
   image: string;
   ipoDate: Date;
   defaultImage: boolean;
