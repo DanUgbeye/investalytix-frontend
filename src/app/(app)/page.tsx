@@ -19,13 +19,14 @@ import {
   useRef,
   useState,
 } from "react";
-import { FiCheck, FiSearch } from "react-icons/fi";
+import { FiCheck, FiChevronLeft, FiChevronRight, FiSearch } from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { plans } from "@/data/plans";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
-
+import "swiper/css/navigation";
 export default function Home() {
   const [pricingFrequency, setPricingFrequency] = useState<
     "monthly" | "annualy"
@@ -137,7 +138,9 @@ export default function Home() {
       </section>
 
       <section className="pt-20 lg:pt-40">
-        <h1 className="mb-6 text-center text-6xl font-extrabold">Our Products</h1>
+        <h1 className="mb-6 text-center text-6xl font-extrabold">
+          Our Products
+        </h1>
         <Products />
       </section>
 
@@ -414,9 +417,22 @@ function Products() {
   ];
   return (
     <div className="products relative py-5 lg:py-20">
-      <div className="absolute bottom-0 left-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-white dark:from-black from-[50%] to-transparent lg:block"></div>
-      <div className="absolute bottom-0 right-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-transparent to-white dark:to-black to-[50%] lg:block"></div>
+      <div className="absolute bottom-0 left-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-white from-[50%] to-transparent lg:block dark:from-black"></div>
+      <div className="absolute bottom-0 right-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-transparent to-white to-[50%] lg:block dark:to-black"></div>
+    
+      <button id="products-prev" className="z-20 hidden lg:block absolute left-20 top-1/2 -transtate-y-1/2">
+        <FiChevronLeft className="size-20"/>
+      </button>
+      <button id="products-next" className="z-20 hidden lg:block absolute right-20 top-1/2 -transtate-y-1/2">
+        <FiChevronRight className="size-20"/>
+      </button>
+
       <Swiper
+        modules={[Navigation]}
+        navigation={{
+          prevEl: "#products-prev",
+          nextEl: "#products-next",
+        }}
         spaceBetween={0}
         loop
         centeredSlides
