@@ -32,11 +32,15 @@ type PageProps = {
 };
 
 export default function ProfilePage(props: PageProps) {
-  const { q = "personal info" } = props.searchParams;
   const router = useRouter();
 
-  if (!props.searchParams.q) router.replace("/profile?q=personal info");
-  
+  if (!props.searchParams.q) {
+    router.replace("/profile?q=personal info");
+
+    return null;
+  }
+  const { q } = props.searchParams;
+
   return (
     <>
       <div className="mb-10 border-b-[0.5px] dark:border-b-main-gray-700">
@@ -175,12 +179,12 @@ export default function ProfilePage(props: PageProps) {
           </div>
         ) : q === "privacy and security" ? (
           <div className="flex w-full max-w-7xl flex-col gap-2">
-            <h3 className="text-2xl font-semibold capitalize mb-4">
+            <h3 className="mb-4 text-2xl font-semibold capitalize">
               2-factor authentication
             </h3>
 
             <div className="w-fit rounded-lg border dark:border-main-gray-700">
-              <div className="flex items-center gap-20 px-10 md:px-20 py-8 md:py-10">
+              <div className="flex items-center gap-20 px-10 py-8 md:px-20 md:py-10">
                 <div className="flex w-full max-w-lg items-center gap-5">
                   <svg
                     width={24}
@@ -227,7 +231,7 @@ export default function ProfilePage(props: PageProps) {
                 <Radio />
               </div>
 
-              <div className="flex items-center gap-20 border-t px-10 md:px-20 py-8 md:py-10 dark:border-t-main-gray-700">
+              <div className="flex items-center gap-20 border-t px-10 py-8 md:px-20 md:py-10 dark:border-t-main-gray-700">
                 <div className="flex w-full max-w-lg items-center gap-5">
                   <svg
                     width={26}
