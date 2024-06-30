@@ -1,4 +1,4 @@
-import { RequestOptions } from "@/types";
+import { Quote, RequestOptions } from "@/types";
 import { handleAPIError } from "@/utils/api-utils";
 import { AxiosInstance } from "axios";
 import { z } from "zod";
@@ -7,6 +7,9 @@ import {
   SectorPerformanceHistorySchema,
   SectorPerformanceSchema,
 } from "../validation";
+import { QuoteSchema } from "@/validation";
+import { TickerChange } from "@/modules/ticker/types";
+import { TickerChangeSchema } from "@/modules/ticker/validation";
 
 export class MarketRepository {
   constructor(private axios: AxiosInstance) {}
@@ -61,6 +64,27 @@ export class MarketRepository {
       let validation = z
         .array(SectorPerformanceHistorySchema)
         .safeParse(res.data.data);
+
+      if (validation.error) {
+        console.log(validation.error.issues);
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getTrendingStocks(options?: RequestOptions): Promise<TickerChange[]> {
+    try {
+      const path = `/market/actives`;
+      let res = await this.axios.get<{
+        data: TickerChange[];
+      }>(path, options);
+
+      let validation = z.array(TickerChangeSchema).safeParse(res.data.data);
 
       if (validation.error) {
         console.log(validation.error.issues);

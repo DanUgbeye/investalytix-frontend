@@ -80,3 +80,11 @@ export type SplitsHistory = {
   numerator: number;
   denominator: number;
 };
+
+export type TickerChange = {
+  symbol: string;
+  name: string | null;
+  change: number;
+  price: number;
+  changesPercentage: number;
+};
