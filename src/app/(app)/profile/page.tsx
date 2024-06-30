@@ -357,6 +357,7 @@ function Radio() {
 
   return (
     <Switch checked={enabled} onChange={setEnabled} as={Fragment}>
+      {/* @ts-ignore */}
       {({ checked, disabled }) => (
         <button
           className={clsx(
