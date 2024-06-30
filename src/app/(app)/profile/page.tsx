@@ -17,7 +17,7 @@ import clsx from "clsx";
 import moment from "moment";
 import { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
 
 // export const metadata: Metadata = {
@@ -33,8 +33,9 @@ type PageProps = {
 
 export default function ProfilePage(props: PageProps) {
   const { q = "personal info" } = props.searchParams;
+  const router = useRouter();
 
-  if (!props.searchParams.q) redirect("?q=personal info");
+  if (!props.searchParams.q) router.replace("?q=personal info");
   return (
     <>
       <div className="mb-10 border-b-[0.5px] dark:border-b-main-gray-700">

@@ -60,7 +60,7 @@ export default function LoginScreen() {
   return (
     <>
       <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] md:grid">
-        <div className="flex w-full flex-col justify-between gap-10 px-5 md:px-14 py-24 max-md:h-screen">
+        <div className="flex w-full flex-col justify-between gap-10 px-5 py-24 max-md:h-screen md:px-14">
           <Link href="/">
             <svg
               width={850}
@@ -155,7 +155,7 @@ export default function LoginScreen() {
                     <Input
                       {...field}
                       id="email"
-                      className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white/10 "
+                      className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white/10"
                       type="email"
                       placeholder="example@example.com"
                     />
@@ -191,7 +191,7 @@ export default function LoginScreen() {
                     <PasswordInput
                       {...field}
                       id="password"
-                      className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:!bg-white/10 "
+                      className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:!bg-white/10"
                       classNames={{
                         showButton:
                           "dark:bg-transparent dark:text-white/80 dark:hover:bg-gray-100 dark:hover:text-black ",
@@ -226,7 +226,7 @@ export default function LoginScreen() {
                 className="h-fit w-full cursor-pointer rounded-md py-4"
               >
                 {isSubmitting ? (
-                  <PiSpinnerGap className=" size-5 animate-spin " />
+                  <PiSpinnerGap className="size-5 animate-spin" />
                 ) : (
                   "Continue"
                 )}
@@ -292,7 +292,8 @@ export default function LoginScreen() {
         </div>
 
         <div className="md:relative">
-          <div className="top-0 bg-[url('/images/auth.jpg')] bg-cover bg-left bg-no-repeat md:sticky md:h-screen">
+          <div className="top-0 relative bg-cover bg-left bg-no-repeat md:sticky md:h-screen">
+            <Image src="/images/auth.jpg" fill alt="" />
             <button
               onClick={goBack}
               className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
