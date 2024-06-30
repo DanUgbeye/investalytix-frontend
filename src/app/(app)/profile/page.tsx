@@ -17,7 +17,7 @@ import clsx from "clsx";
 import moment from "moment";
 import { Metadata } from "next";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { Fragment, useState } from "react";
 
 // export const metadata: Metadata = {
@@ -33,13 +33,14 @@ type PageProps = {
 
 export default function ProfilePage(props: PageProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  if (!props.searchParams.q) {
+  if (!searchParams.has("q")) {
     router.replace("/profile?q=personal info");
 
     return null;
   }
-  const { q } = props.searchParams;
+  const q = searchParams.get("q");
 
   return (
     <>
