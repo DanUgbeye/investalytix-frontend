@@ -309,13 +309,13 @@ export default function Summary() {
                       <TableCell>
                         <div className="flex items-center gap-2">
                             <FiCheck
-                              className={`size-5  ${["Low", "Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                              className={`size-3  ${["Low", "Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
                             />
                             <FiCheck
-                              className={`size-5  ${["Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                              className={`size-3  ${["Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
                             />
                             <FiCheck
-                              className={`size-5  ${news.impact === "High" ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                              className={`size-3  ${news.impact === "High" ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
                             />
                           {/* {["Low", "Medium", "High"].includes(news.impact) && (
                             <FiCheck
