@@ -11,7 +11,7 @@ import {
   generateIssueData,
   generatePerShareData,
   generateProfitabilityData,
-  generateStructureData
+  generateStructureData,
 } from "./generate-ratio-data";
 import RatioTable from "./ratio-table";
 
@@ -33,8 +33,6 @@ export default function RatiosScreen(props: RatiosScreenProps) {
         ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
-        cash: outlook.financialsAnnual.cash[0],
-        balance: outlook.financialsAnnual.balance[0],
       }),
     []
   );
@@ -47,8 +45,6 @@ export default function RatiosScreen(props: RatiosScreenProps) {
         ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
-        cash: outlook.financialsAnnual.cash[0],
-        balance: outlook.financialsAnnual.balance[0],
       }),
     []
   );
@@ -56,13 +52,10 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   const cashFlowAnalysis = useMemo(
     () =>
       generateCashFlowAnalysisData({
-        quote,
         currency: outlook.profile.currency,
-        ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
         cash: outlook.financialsAnnual.cash[0],
-        balance: outlook.financialsAnnual.balance[0],
       }),
     []
   );
@@ -84,13 +77,9 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   const profitability = useMemo(
     () =>
       generateProfitabilityData({
-        quote,
         currency: outlook.profile.currency,
-        ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
-        cash: outlook.financialsAnnual.cash[0],
-        balance: outlook.financialsAnnual.balance[0],
       }),
     []
   );

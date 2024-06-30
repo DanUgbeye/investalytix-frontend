@@ -14,8 +14,6 @@ export function generateIssueData(data: {
   ratioTTM?: RatioTTM;
   currency: string;
   income: IncomeStatement;
-  cash: CashFlowStatement;
-  balance: BalanceSheetStatement;
 }) {
   const { currency, ratio, ratioTTM, quote, income } = data;
 
@@ -27,7 +25,7 @@ export function generateIssueData(data: {
         value: appUtils.formatNumber(quote.price, { currency }),
       },
       {
-        label: "P/E",
+        label: "Price / Earning",
         value: appUtils.formatNumber(quote.pe, { style: "decimal" }),
       },
       {
@@ -40,13 +38,13 @@ export function generateIssueData(data: {
           : "-",
       },
       {
-        label: "P/B",
+        label: "Price / Book",
         value: appUtils.formatNumber(ratio?.priceToBookRatio, {
           style: "decimal",
         }),
       },
       {
-        label: "P/S",
+        label: "Price / Sales",
         value: appUtils.formatNumber(ratio?.priceToSalesRatio, {
           style: "decimal",
         }),
@@ -85,8 +83,6 @@ export function generatePerShareData(data: {
   ratioTTM?: RatioTTM;
   currency: string;
   income: IncomeStatement;
-  cash: CashFlowStatement;
-  balance: BalanceSheetStatement;
 }) {
   const { currency, ratio, ratioTTM, quote, income } = data;
 
@@ -94,82 +90,117 @@ export function generatePerShareData(data: {
     name: "Per Share Data",
     fields: [
       {
+        label: "Shares Outstanding",
+        value: appUtils.formatNumber(quote?.sharesOutstanding, {
+          style: "decimal",
+          notation: "compact",
+        }),
+      },
+      {
         label: "EPS",
         value: appUtils.formatNumber(income?.eps, { currency }),
       },
       {
-        label: "Dividends Per Share (DPS)",
-        value: "0.94",
+        label: "Dividend Per Share TTM",
+        value: appUtils.formatNumber(ratioTTM?.dividendPerShareTTM, {
+          style: "decimal",
+        }),
       },
       {
         label: "Book Value Per Share",
-        value: appUtils.formatNumber(income.epsdiluted, { currency }),
+        value: appUtils.formatNumber(
+          (quote.price || 0) / (ratio?.priceBookValueRatio || 1),
+          { style: "decimal" }
+        ),
       },
       {
-        label: "Revenue/Basic Share",
-        value: "24.34",
+        label: "Cash Per Share",
+        value: appUtils.formatNumber(ratio?.cashPerShare, {
+          style: "decimal",
+        }),
       },
       {
-        label: "CPS",
-        value: "7.02",
+        label: "Operating Cash Flow / Basic Share",
+        value: appUtils.formatNumber(ratio?.operatingCashFlowPerShare, {
+          style: "decimal",
+        }),
       },
       {
-        label: "Curr Shares Out.",
-        value: "15.6B",
-      },
-      {
-        label: "FCF/Basic Sh",
-        value: "6.33",
+        label: "Free Cash Flow / Basic Share",
+        value: appUtils.formatNumber(ratio?.freeCashFlowPerShare, {
+          style: "decimal",
+        }),
       },
     ],
   };
 }
 
 export function generateCashFlowAnalysisData(data: {
-  quote: Quote;
   ratio?: Ratio;
-  ratioTTM?: RatioTTM;
   currency: string;
   income: IncomeStatement;
   cash: CashFlowStatement;
-  balance: BalanceSheetStatement;
 }) {
-  const { currency, ratio, ratioTTM, quote, income } = data;
+  const { currency, ratio, income, cash } = data;
 
   return {
     name: "Cash Flow Analysis",
     fields: [
       {
-        label: "P/CF",
-        value: "26.1",
+        label: "Price / Cash Flow (P/CF)",
+        value: appUtils.formatNumber(ratio?.priceCashFlowRatio, {
+          style: "decimal",
+        }),
       },
       {
-        label: "Curr P/FCF",
-        value: "28.9",
+        label: "Price / Free Cash Flow (P/FCF)",
+        value: appUtils.formatNumber(ratio?.priceToFreeCashFlowsRatio, {
+          style: "decimal",
+        }),
       },
       {
-        label: "CF/NI",
-        value: "1.1",
+        label: "Cash Flow / Net Income (CF/NI)",
+        value: appUtils.formatNumber(
+          (cash.operatingCashFlow || 0) / (income.netIncome || 1),
+          { style: "decimal" }
+        ),
       },
       {
-        label: "Dividend P/O",
-        value: "15.3%",
+        label: "Dividend Payout Ratio",
+        value:
+          appUtils.formatNumber((ratio?.dividendPayoutRatio || 0) * 100, {
+            style: "decimal",
+          }) + "%",
       },
       {
-        label: "Cash Gen/Cash Reqd",
-        value: "4.3",
+        label: "Free / Operating Cash Flow",
+        value: appUtils.formatNumber(
+          ratio?.freeCashFlowOperatingCashFlowRatio,
+          {
+            style: "decimal",
+          }
+        ),
       },
       {
-        label: "Csh Dvd Cov",
-        value: "6.6",
+        label: "Dividend Coverage Ratio",
+        value: appUtils.formatNumber(ratio?.dividendPaidAndCapexCoverageRatio, {
+          style: "decimal",
+        }),
       },
       {
-        label: "CFO/Sales",
-        value: "28.8%",
+        label: "Operating Cash Flow / Sales",
+        value:
+          appUtils.formatNumber(
+            (ratio?.operatingCashFlowSalesRatio || 0) * 100,
+            { style: "decimal" }
+          ) + "%",
       },
       {
-        label: "Effective Interest Rate",
-        value: "3.1%",
+        label: "Effective Tax Rate",
+        value:
+          appUtils.formatNumber((ratio?.effectiveTaxRate || 0) * 100, {
+            style: "decimal",
+          }) + "%",
       },
     ],
   };
@@ -226,50 +257,67 @@ export function generateGrowthPotentialData(data: {
 }
 
 export function generateProfitabilityData(data: {
-  quote: Quote;
   ratio?: Ratio;
-  ratioTTM?: RatioTTM;
   currency: string;
   income: IncomeStatement;
-  cash: CashFlowStatement;
-  balance: BalanceSheetStatement;
 }) {
-  const { currency, ratio, ratioTTM, quote, income } = data;
+  const { ratio, income, currency } = data;
 
   return {
     name: "Profitability",
     fields: [
       {
         label: "EBITDA",
-        value: "127.8B",
+        value: appUtils.formatNumber(income.ebitda, {
+          currency,
+          notation: "compact",
+        }),
       },
       {
         label: "EBIT",
-        value: "114.3B",
+        value: appUtils.formatNumber(
+          (income.ebitda || 0) - (income.depreciationAndAmortization || 0),
+          { currency, notation: "compact" }
+        ),
       },
       {
-        label: "OPM",
-        value: "29.8%",
+        label: "Operating Profit Margin (OPM)",
+        value:
+          appUtils.formatNumber(ratio?.operatingProfitMargin, {
+            style: "decimal",
+          }) + "%",
       },
       {
         label: "Pretax Margin",
-        value: "29.7%",
+        value:
+          appUtils.formatNumber(ratio?.pretaxProfitMargin, {
+            style: "decimal",
+          }) + "%",
       },
       {
         label: "Return on Assets (ROA)",
-        value: "27.5%",
+        value:
+          appUtils.formatNumber(ratio?.returnOnAssets, { style: "decimal" }) +
+          "%",
       },
       {
         label: "Return on Equity (ROE)",
-        value: "171.9%",
+        value:
+          appUtils.formatNumber(ratio?.returnOnEquity, { style: "decimal" }) +
+          "%",
       },
       {
         label: "Return on Capital (ROC)",
-        value: "54.4%",
+        value:
+          appUtils.formatNumber(ratio?.returnOnCapitalEmployed, {
+            style: "decimal",
+          }) + "%",
       },
       {
         label: "Asset Turnover",
-        value: "1.1",
+        value: appUtils.formatNumber(ratio?.assetTurnover, {
+          style: "decimal",
+        }),
       },
     ],
   };
@@ -284,42 +332,61 @@ export function generateStructureData(data: {
   cash: CashFlowStatement;
   balance: BalanceSheetStatement;
 }) {
-  const { currency, ratio, ratioTTM, quote, income } = data;
+  const { ratio, income, balance } = data;
 
   return {
     name: "Structure",
     fields: [
       {
         label: "Current Ratio",
-        value: "1.0",
+        value: appUtils.formatNumber(ratio?.currentRatio, { style: "decimal" }),
       },
       {
         label: "Quick Ratio",
-        value: "0.6",
+        value: appUtils.formatNumber(ratio?.quickRatio, { style: "decimal" }),
       },
       {
-        label: "Debt/Assets",
-        value: "35.1%",
+        label: "Debt / Assets",
+        value:
+          appUtils.formatNumber(
+            ((balance.totalDebt || 0) / (balance.totalAssets || 1)) * 100,
+            { style: "decimal" }
+          ) + "%",
       },
       {
-        label: "Debt/Common Equity",
-        value: "199.4%",
+        label: "Debt / Common Equity",
+        value:
+          appUtils.formatNumber(
+            ((balance.totalDebt || 0) / (balance.totalEquity || 1)) * 100,
+            { style: "decimal" }
+          ) + "%",
       },
       {
         label: "Accounts Receivable Turnover",
-        value: "13.3",
+        value: appUtils.formatNumber(ratio?.receivablesTurnover, {
+          style: "decimal",
+        }),
       },
       {
         label: "Inventory Turnover",
-        value: "38.0",
+        value: appUtils.formatNumber(ratio?.inventoryTurnover, {
+          style: "decimal",
+        }),
       },
       {
         label: "Gross Margin (GM)",
-        value: "44.1%",
+        value:
+          appUtils.formatNumber(ratio?.grossProfitMargin, {
+            style: "decimal",
+          }) + "%",
       },
       {
-        label: "EBIT/Tot Int Exp",
-        value: "29.1",
+        label: "EBIT / Total Interest Expense",
+        value: appUtils.formatNumber(
+          ((income.ebitda || 0) - (income.depreciationAndAmortization || 0) ||
+            0) / (income.interestExpense || 1),
+          { style: "decimal" }
+        ),
       },
     ],
   };
