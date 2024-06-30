@@ -1,4 +1,5 @@
 import { Container } from "@/components/container";
+import LatestNews from "@/modules/homepage/components/LatestNews";
 import MarketHeader from "@/modules/market/components/MarketHeader";
 import Image from "next/image";
 
@@ -15,6 +16,8 @@ export default function CalendarLayout({
       {/* <MarketHeader name="Economic calendar" active="ECONOMY"/> */}
 
       {children}
+
+      <LatestNews />
     </Container>
   );
 }
