@@ -35,7 +35,8 @@ export default function ProfilePage(props: PageProps) {
   const { q = "personal info" } = props.searchParams;
   const router = useRouter();
 
-  if (!props.searchParams.q) router.replace("?q=personal info");
+  if (!props.searchParams.q) router.replace("/profile?q=personal info");
+  
   return (
     <>
       <div className="mb-10 border-b-[0.5px] dark:border-b-main-gray-700">

@@ -448,8 +448,8 @@ function Products() {
           },
         }}
       >
-        {images.map((img) => (
-          <SwiperSlide key={img.header} className="z-[1] max-lg:px-6">
+        {images.map((img,index) => (
+          <SwiperSlide key={img.header+index} className="z-[1] max-lg:px-6">
             <div className="relative aspect-video w-full">
               <Image src={img.img} alt="" className="" fill />
             </div>
