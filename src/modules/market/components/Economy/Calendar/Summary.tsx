@@ -5,7 +5,7 @@ import useTheme from "@/store/theme/useTheme";
 import { Popover } from "@headlessui/react";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { FiCalendar, FiFlag } from "react-icons/fi";
+import { FiCalendar, FiCheck, FiFlag } from "react-icons/fi";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -33,11 +33,12 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { GoBellFill } from "react-icons/go";
+import Flag from "react-world-flags";
 
 enum FILTERS {
-  // YESTERDAY = "YESTERDAY",
+  YESTERDAY = "YESTERDAY",
   TODAY = "TODAY",
-  // TOMORROW = "TOMORROW",
+  TOMORROW = "TOMORROW",
   THIS_WEEK = "THIS_WEEK",
 }
 
@@ -109,30 +110,30 @@ export default function Summary() {
         setFrom(today.toString());
         setTo(today.toString());
         break;
-      // case FILTERS["YESTERDAY"]:
-      //   const yesterdaysDate = new Date(date.getTime() - 24 * 60 * 60 * 1000);
-      //   const yesterday = new Date(
-      //     Date.UTC(
-      //       yesterdaysDate.getUTCFullYear(),
-      //       yesterdaysDate.getUTCMonth(),
-      //       yesterdaysDate.getUTCDate(),
-      //       0,
-      //       0,
-      //       0,
-      //       0
-      //     )
-      //   );
-      //   setFrom(yesterday.toString());
-      //   setTo(yesterday.toString());
-      //   break;
-      // case FILTERS["TOMORROW"]:
-      //   const tomorrow = new Date(
-      //     date.setHours(0, 0, 0, 0) + 24 * 60 * 60 * 1000
-      //   );
+      case FILTERS["YESTERDAY"]:
+        const yesterdaysDate = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+        const yesterday = new Date(
+          Date.UTC(
+            yesterdaysDate.getUTCFullYear(),
+            yesterdaysDate.getUTCMonth(),
+            yesterdaysDate.getUTCDate(),
+            0,
+            0,
+            0,
+            0
+          )
+        );
+        setFrom(yesterday.toString());
+        setTo(yesterday.toString());
+        break;
+      case FILTERS["TOMORROW"]:
+        const tomorrow = new Date(
+          date.setHours(0, 0, 0, 0) + 24 * 60 * 60 * 1000
+        );
 
-      //   setFrom(tomorrow.toString());
-      //   setTo(tomorrow.toString());
-      //   break;
+        setFrom(tomorrow.toString());
+        setTo(tomorrow.toString());
+        break;
       case FILTERS["THIS_WEEK"]:
         const currentWeek = thisWeek();
         setFrom(currentWeek.from.toString());
@@ -188,7 +189,7 @@ export default function Summary() {
 
   return (
     <div className="">
-      <div className="mb-12 flex w-full flex-wrap items-center gap-4 md:gap-1">
+      <div className="mb-12 flex w-full flex-wrap items-center justify-center gap-4 md:gap-1">
         <Swiper
           spaceBetween={24}
           slidesPerView={"auto"}
@@ -259,7 +260,7 @@ export default function Summary() {
             <div className="w-full overflow-auto">
               <Table key={date}>
                 <TableHeader>
-                  <TableRow headerRow>
+                  <TableRow className="dark:!bg-white/10">
                     <TableHead className="whitespace-nowrap">
                       {moment(date).format("dddd, MMMM Do")}
                       {/* {new Date(to).getTime() > new Date(from).getTime()
@@ -270,32 +271,34 @@ export default function Summary() {
                     <TableHead>Forecast</TableHead>
                     <TableHead>Actual</TableHead>
                     {/* <TableHead>Consensus</TableHead> */}
-                    <TableHead></TableHead>
+                    <TableHead>Impact</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {calendar[date].map((news, index) => (
                     <TableRow
                       key={index}
-                      className="white-text w-full text-[#212529]"
+                      className="white-text w-full border-b border-b-black/10 !bg-transparent text-[#212529]"
                     >
-                      <TableCell className="w-fit whitespace-nowrap">
-                        <div className="max-mdgap-10 grid grid-cols-[max-content,100px,auto] place-content-start md:gap-5 ">
+                      <TableCell className="w-fit lg:max-w-[400px] lg:overflow-hidden whitespace-nowrap">
+                        <div className="max-mdgap-10 grid grid-cols-[max-content,100px,auto] place-content-start md:gap-5">
                           <p>{moment(news.date).format("HH:mm")}</p>
 
-                          <p className="flex items-center gap-1 place-self-center">
-                            <FiFlag />
-                            {news.country}
+                          <p className="flex items-center justify-between gap-1 place-self-center">
+                            <Flag
+                              code={news.country}
+                              className="h-auto w-6 shrink-0"
+                            />
+
+                            <span>{news.country}</span>
                           </p>
 
-                          <p> {news.event}</p>
+                          <p className="lg:truncate"> {news.event}</p>
                         </div>
                       </TableCell>
 
                       <TableCell>
-                        {news.previous && (
-                          <ColoredNumber number={news.previous} />
-                        )}
+                        <ColoredNumber number={news?.previous ?? null} />
                       </TableCell>
                       <TableCell>
                         <ColoredNumber number={news.estimate} />
@@ -303,7 +306,35 @@ export default function Summary() {
                       <TableCell>
                         <ColoredNumber number={news.actual} />
                       </TableCell>
-                      <TableCell className="p-2 text-right text-sm font-bold">
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                            <FiCheck
+                              className={`size-5  ${["Low", "Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                            />
+                            <FiCheck
+                              className={`size-5  ${["Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                            />
+                            <FiCheck
+                              className={`size-5  ${news.impact === "High" ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                            />
+                          {/* {["Low", "Medium", "High"].includes(news.impact) && (
+                            <FiCheck
+                              className={` ${["Low", "Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                            />
+                          )}
+                          {["Medium", "High"].includes(news.impact) && (
+                            <FiCheck
+                              className={` ${["Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                            />
+                          )}
+                          {["High"].includes(news.impact) && (
+                            <FiCheck
+                              className={` ${news.impact === "High" ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                            />
+                          )} */}
+                        </div>
+                      </TableCell>
+                      {/* <TableCell className="p-2 text-right text-sm font-bold">
                         <HoverCard>
                           <div className="grid place-content-center">
                             <HoverCardTrigger className="cursor-pointer">
@@ -320,7 +351,7 @@ export default function Summary() {
                             <Notification />
                           </HoverCardContent>
                         </HoverCard>
-                      </TableCell>
+                      </TableCell> */}
                       {/* <TableCell>
    <ColoredNumber number={news.impact} colored={false} />
  </TableCell> */}
