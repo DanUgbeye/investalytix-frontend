@@ -92,7 +92,7 @@ export default function PricingPage() {
             for 30 days.
           </p>
 
-          <div className="mx-auto mt-10 grid max-w-5xl gap-8 md:mt-20 md:grid-cols-2">
+          <div className="mx-auto mt-10 grid max-w-6xl gap-8 md:mt-20 md:grid-cols-2">
             {plans.map((plan) => (
               <Plan key={plan.name} plan={plan} />
             ))}

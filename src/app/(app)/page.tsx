@@ -193,7 +193,7 @@ export default function Home() {
           </svg>
         </div>
 
-        <Container className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 max-w-5xl mx-auto">
+        <Container className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 max-w-6xl mx-auto">
           {plans.map((plan) => (
             <Plan key={plan.name} plan={plan} frequency={pricingFrequency} />
           ))}
