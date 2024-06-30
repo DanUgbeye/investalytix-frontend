@@ -75,7 +75,7 @@ export default function SignupScreen() {
   return (
     <>
       <main className="mx-auto min-h-screen grid-cols-[1fr,1fr] max-md:pb-20 md:grid">
-        <div className="flex w-full flex-col justify-between gap-10 px-14 py-24 max-md:h-screen">
+        <div className="flex w-full flex-col justify-between gap-10 px-5 md:px-14 py-24 max-md:h-screen">
           <Link href="/">
             <svg
               width={850}
@@ -83,7 +83,7 @@ export default function SignupScreen() {
               viewBox="0 0 850 260"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="h-14 w-auto self-start md:h-24"
+              className="h-24 w-auto self-start md:h-24"
             >
               <g clipPath="url(#clip0_725_16)">
                 <path d="M850 0H0V260H850V0Z" className="fill-white dark:fill-black" />
@@ -353,7 +353,7 @@ export default function SignupScreen() {
             </p>
           </div>
 
-          <p className="mx-auto w-fit">
+          <p className="mx-auto w-fit text-sm md:text-base">
             &copy; Investalytix ·{" "}
             <Link href="/contact-us" className="text-hover-focus">
               Contact
@@ -366,7 +366,7 @@ export default function SignupScreen() {
         </div>
 
         <div className="md:relative">
-          <div className="top-0 bg-[url('/images/signup.jpg')] bg-cover bg-left bg-no-repeat md:sticky md:h-screen">
+          <div className="top-0 bg-[url('/images/auth.jpg')] bg-cover bg-left bg-no-repeat md:sticky md:h-screen">
             <button
               onClick={goBack}
               className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"

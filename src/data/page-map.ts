@@ -11,6 +11,7 @@ const PAGES = {
   CHART: "/chart",
   ECONOMIC_CALENDAR: "/economic-calendar",
   PRIVACY_POLICY: "/privacy-policy",
+  CONTACT: "/contact-us",
 
   PROFILE: "/profile",
   SETTINGS: "/settings",

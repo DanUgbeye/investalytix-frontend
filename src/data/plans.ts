@@ -6,7 +6,6 @@ export const plans = [
     monthly: 0,
     yearly: 0,
     features: [
-      "No Account or Login Needed",
       "Limited Access to Comprehensive Stock Dashboard",
       "Advanced Charting",
       "5 Years Financial Data",

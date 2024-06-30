@@ -92,7 +92,7 @@ export default function PricingPage() {
             for 30 days.
           </p>
 
-          <div className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 max-w-5xl mx-auto">
+          <div className="mx-auto mt-10 grid max-w-5xl gap-8 md:mt-20 md:grid-cols-2">
             {plans.map((plan) => (
               <Plan key={plan.name} plan={plan} />
             ))}
@@ -206,7 +206,9 @@ function Plan({ plan }: { plan: (typeof plans)[number] }) {
             className="flex items-center gap-4"
             key={feature.replaceAll(" ", "-") + index}
           >
-            <FiCheck />
+            <div className="shrink-0">
+              <FiCheck />
+            </div>
             {feature}
           </div>
         ))}
