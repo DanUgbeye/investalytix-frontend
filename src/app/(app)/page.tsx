@@ -414,8 +414,8 @@ function Products() {
   ];
   return (
     <div className="products relative py-5 lg:py-20">
-      <div className="absolute bottom-0 left-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-white from-[50%] to-transparent lg:block"></div>
-      <div className="absolute bottom-0 right-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-transparent to-white to-[50%] lg:block"></div>
+      <div className="absolute bottom-0 left-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-white dark:from-black from-[50%] to-transparent lg:block"></div>
+      <div className="absolute bottom-0 right-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-transparent to-white dark:to-black to-[50%] lg:block"></div>
       <Swiper
         spaceBetween={0}
         loop
