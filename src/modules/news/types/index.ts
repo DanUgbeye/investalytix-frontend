@@ -1,7 +1,7 @@
 export type GeneralNews = {
   publishedDate: Date;
   title: string;
-  image: string;
+  image: string | null;
   site: string;
   text: string;
   url: string;

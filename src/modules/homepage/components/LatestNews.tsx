@@ -1,7 +1,6 @@
 import NewsCard from "@/modules/news/components/news-card";
 import NewsLink from "@/modules/news/components/news-link";
-import { GeneralNews } from "@/modules/news/types";
-import { News } from "@/modules/ticker/types";
+import { GeneralNews, News } from "@/modules/news/types";
 import moment from "moment";
 
 async function getData(params?: { limit?: number; page?: number }) {

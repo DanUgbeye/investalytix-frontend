@@ -2,6 +2,7 @@ import { Quote } from "@/modules/market/types";
 import { CompanyKeyExecutive, CompanyProfile } from "./company.types";
 import { Dividend } from "./dividend.types";
 import { Financials, RatioTTM } from "./financials.types";
+import { News } from "@/modules/news/types";
 
 export * from "./analysis.types";
 export * from "./company.types";
@@ -78,14 +79,4 @@ export type SplitsHistory = {
   label: string;
   numerator: number;
   denominator: number;
-};
-
-export type News = {
-  symbol: string;
-  publishedDate: Date;
-  title: string;
-  image: string;
-  site: string;
-  text: string;
-  url: string;
 };

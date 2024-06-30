@@ -19,7 +19,7 @@ interface CapitalStructureScreenProps {
   ticker: string;
   capitalStructure: {
     label: string;
-    value: number;
+    value?: number;
     fill: string;
     currency: string;
   }[];
@@ -34,13 +34,13 @@ export default function CapitalStructureScreen(
 
   const parsedData = useMemo(() => {
     let total = capitalStructure.reduce((prev, entry) => {
-      return prev + entry.value;
+      return entry?.value ? prev + entry.value : prev;
     }, 0);
 
     return {
       data: capitalStructure.map((entry) => ({
         ...entry,
-        percentage: (entry.value / total) * 100,
+        percentage: entry?.value ? (entry.value / total) * 100 : 0,
       })),
       total,
     };
@@ -53,16 +53,16 @@ export default function CapitalStructureScreen(
   }, [parsedData]);
 
   return (
-    <section className=" pb-12 ">
+    <section className="pb-12">
       <HeaderWithUnderline>Capital Structure ({currency})</HeaderWithUnderline>
 
-      <div className=" grid gap-5 pt-10 md:grid-cols-[auto,1fr] ">
-        <div className=" w-full md:min-w-80 ">
-          <div className=" grid grid-cols-1 grid-rows-1 place-items-center ">
+      <div className="grid gap-5 pt-10 md:grid-cols-[auto,1fr]">
+        <div className="w-full md:min-w-80">
+          <div className="grid grid-cols-1 grid-rows-1 place-items-center">
             <PieChart
               width={300}
               height={300}
-              className=" col-start-1 row-start-1 w-full  "
+              className="col-start-1 row-start-1 w-full"
             >
               <Pie
                 data={capitalStructure}
@@ -81,7 +81,7 @@ export default function CapitalStructureScreen(
                   const { payload, label } = props;
 
                   return (
-                    <div className=" rounded bg-main-gray-700 p-2 text-main-gray-300 ">
+                    <div className="rounded bg-main-gray-700 p-2 text-main-gray-300">
                       {payload &&
                         payload.map((pl, index) => {
                           const { name, value } = pl;
@@ -89,7 +89,7 @@ export default function CapitalStructureScreen(
                           return (
                             <div
                               key={`${value}-${index}`}
-                              className=" text-main-gray-300 "
+                              className="text-main-gray-300"
                             >
                               {name}:{" "}
                               {appUtils.formatNumber(value as number, {
@@ -106,7 +106,7 @@ export default function CapitalStructureScreen(
               />
             </PieChart>
 
-            <div className=" absolute -z-10 col-start-1 row-start-1 text-lg ">
+            <div className="absolute -z-10 col-start-1 row-start-1 text-lg">
               {appUtils.formatNumber(largestPercentage, {
                 style: "decimal",
                 maximumFractionDigits: 3,
@@ -116,31 +116,31 @@ export default function CapitalStructureScreen(
           </div>
         </div>
 
-        <div className=" h-fit w-full max-w-xl overflow-x-auto ">
-          <Table className=" w-full text-sm ">
+        <div className="h-fit w-full max-w-xl overflow-x-auto">
+          <Table className="w-full text-sm">
             <TableHeader>
               <TableRow headerRow className=" ">
-                <TableHead className=" px-2 py-3 "></TableHead>
+                <TableHead className="px-2 py-3"></TableHead>
 
-                <TableHead className=" px-2 py-3 ">Value</TableHead>
+                <TableHead className="px-2 py-3">Value</TableHead>
 
-                <TableHead className=" w-fit max-w-40 px-2 py-3 text-right ">
+                <TableHead className="w-fit max-w-40 px-2 py-3 text-right">
                   Percentage
                 </TableHead>
               </TableRow>
             </TableHeader>
 
-            <TableBody className="  ">
+            <TableBody className=" ">
               {parsedData.data.map((item, index) => {
                 return (
                   <TableRow
                     key={`${item.label}-${index}`}
-                    className=" odd:bg-main-gray-100 dark:odd:bg-main-gray-900/60 "
+                    className="odd:bg-main-gray-100 dark:odd:bg-main-gray-900/60"
                   >
                     <TableCell className="">
-                      <div className=" flex items-center gap-x-3 px-2 ">
+                      <div className="flex items-center gap-x-3 px-2">
                         <span
-                          className=" size-7 "
+                          className="size-7"
                           style={{ backgroundColor: item.fill }}
                         />
                         <span className=" ">{item.label}</span>
@@ -148,15 +148,15 @@ export default function CapitalStructureScreen(
                     </TableCell>
 
                     <TableCell className=" ">
-                      {item.value.toLocaleString(undefined, {
-                        style: "currency",
-                        currency: item.currency,
+                      {appUtils.formatNumber(item.value, {
                         maximumFractionDigits: 0,
+                        currency: item.currency,
                       })}
                     </TableCell>
 
-                    <TableCell className=" w-fit max-w-40 text-right ">
-                      {item.percentage.toLocaleString(undefined, {
+                    <TableCell className="w-fit max-w-40 text-right">
+                      {appUtils.formatNumber(item.percentage, {
+                        style: "decimal",
                         maximumFractionDigits: 3,
                       })}
                       %
@@ -165,9 +165,9 @@ export default function CapitalStructureScreen(
                 );
               })}
 
-              <TableRow className=" font-semibold odd:bg-main-gray-100 dark:odd:bg-main-gray-900/60  ">
-                <TableCell className=" pl-16 ">Total</TableCell>
-                
+              <TableRow className="font-semibold odd:bg-main-gray-100 dark:odd:bg-main-gray-900/60">
+                <TableCell className="pl-16">Total</TableCell>
+
                 <TableCell className=" ">
                   {parsedData.total.toLocaleString(undefined, {
                     maximumFractionDigits: 0,
@@ -176,7 +176,7 @@ export default function CapitalStructureScreen(
                   })}
                 </TableCell>
 
-                <TableCell className=" w-fit max-w-40 text-right ">
+                <TableCell className="w-fit max-w-40 text-right">
                   100%
                 </TableCell>
               </TableRow>

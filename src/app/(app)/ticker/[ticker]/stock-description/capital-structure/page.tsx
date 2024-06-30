@@ -60,7 +60,7 @@ export default async function CapitalStructurePage(
   const data = [
     {
       label: "Market Cap",
-      value: outlook.profile.mktCap,
+      value: outlook.profile.mktCap || undefined,
       fill: "#4489FF",
       currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
     },

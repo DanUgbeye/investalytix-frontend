@@ -1,7 +1,6 @@
 import { StateCreator } from "zustand";
 import { AppStore } from "..";
-import { News } from "@/modules/ticker/types";
-import { GeneralNews } from "@/modules/news/types";
+import { GeneralNews, News } from "@/modules/news/types";
 
 export type NewsState = {
   currentNews?: News | GeneralNews;
