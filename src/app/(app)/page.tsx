@@ -116,13 +116,13 @@ export default function Home() {
           </h1>
 
           <p className="mx-auto mt-10 text-lg font-medium max-xs:text-center  lg:w-4/5 xl:mt-10 xl:text-xl">
-            Welcome to Investalytix, the forefront of financial expertise and
-            technological innovation in investment analysis.
-            <br />
-            <br />
-            Founded in 2023, our mission is to democratize high-quality
-            investment research, offering a comprehensive suite of tools that
-            make sophisticated analysis accessible to all investors.
+            Welcome to investalytix, your hub for advanced investment analysis.
+            Founded in 2023, we aim to make high-quality research accessible to
+            everyone. Our platform offers tools like stock dashboards, real-time
+            news, economic calendars, and more. By analyzing market trends and
+            using quantitative models, we help investors maximize returns. Our
+            goal is to level the investment playing field, providing top-tier
+            insights and tools to all.
           </p>
 
           <Link
@@ -193,7 +193,7 @@ export default function Home() {
           </svg>
         </div>
 
-        <Container className="mt-10 grid gap-8 md:mt-20 md:grid-cols-2 max-w-6xl mx-auto">
+        <Container className="mx-auto mt-10 grid max-w-6xl gap-8 md:mt-20 md:grid-cols-2">
           {plans.map((plan) => (
             <Plan key={plan.name} plan={plan} frequency={pricingFrequency} />
           ))}
@@ -202,7 +202,7 @@ export default function Home() {
 
       <div className="bg-black/5  dark:bg-white/5">
         <div className="mx-auto grid items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
-          <div className="px-12 py-12 max-w-2xl mx-auto">
+          <div className="mx-auto max-w-2xl px-12 py-12">
             <h1 className="text-6xl font-bold md:text-7xl lg:text-6xl">
               Connect With Us
             </h1>
