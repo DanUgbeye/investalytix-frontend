@@ -1,3 +1,4 @@
+import ColoredNumber from "@/components/ui/ColoredNumber";
 import {
   HoverCard,
   HoverCardContent,
@@ -86,7 +87,14 @@ export default function Quotes({
 
               {fields.slice(1).map((field) => (
                 <TableCell className="py-2 text-right text-sm">
-                  {quote[field.key]}
+                  {["change", "changesPercentage"].includes(field.key) ? (
+                    <ColoredNumber
+                      number={quote[field.key] as number}
+                      percent={field.key === "changesPercentage"}
+                    />
+                  ) : (
+                    quote[field.key]
+                  )}
                 </TableCell>
               ))}
 
@@ -97,7 +105,7 @@ export default function Quotes({
                       <HoverCardTrigger className="cursor-pointer">
                         <div className="relative w-fit place-content-center">
                           <GoBellFill className="size-5 text-primary-base dark:text-primary-light" />
-                          <span className="absolute right-0 top-0 flex h-1 w-1  items-center justify-center rounded-full  bg-primary-base dark:bg-primary-light"></span>
+                          <span className="absolute right-0 top-0 flex h-1 w-1 items-center justify-center rounded-full bg-primary-base dark:bg-primary-light"></span>
                         </div>
                       </HoverCardTrigger>
                     </div>

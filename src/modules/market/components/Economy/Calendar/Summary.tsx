@@ -277,10 +277,10 @@ export default function Summary() {
                 <TableBody>
                   {calendar[date].map((news, index) => (
                     <TableRow
-                      key={index}
+                      key={date + index}
                       className="white-text w-full border-b border-b-black/10 !bg-transparent text-[#212529]"
                     >
-                      <TableCell className="w-fit lg:max-w-[400px] lg:overflow-hidden whitespace-nowrap">
+                      <TableCell className="w-fit whitespace-nowrap lg:max-w-[400px] lg:overflow-hidden">
                         <div className="max-mdgap-10 grid grid-cols-[max-content,100px,auto] place-content-start md:gap-5">
                           <p>{moment(news.date).format("HH:mm")}</p>
 
@@ -308,15 +308,15 @@ export default function Summary() {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                            <FiCheck
-                              className={`size-3  ${["Low", "Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
-                            />
-                            <FiCheck
-                              className={`size-3  ${["Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
-                            />
-                            <FiCheck
-                              className={`size-3  ${news.impact === "High" ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
-                            />
+                          <FiCheck
+                            className={`size-3 ${["Low", "Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                          />
+                          <FiCheck
+                            className={`size-3 ${["Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                          />
+                          <FiCheck
+                            className={`size-3 ${news.impact === "High" ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}
+                          />
                           {/* {["Low", "Medium", "High"].includes(news.impact) && (
                             <FiCheck
                               className={` ${["Low", "Medium", "High"].includes(news.impact) ? "text-primary-base dark:text-primary-light" : "text-gray-500"}`}

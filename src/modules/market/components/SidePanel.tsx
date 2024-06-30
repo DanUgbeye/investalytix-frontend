@@ -20,10 +20,12 @@ async function getData(url: string) {
 
 export default async function SidePanel({
   url,
+  moreUrl,
   title,
 }: {
   url: string;
   title: string;
+  moreUrl?: string;
 }) {
   const data = await getData(url);
   return (
@@ -33,9 +35,14 @@ export default async function SidePanel({
           {title}
         </p>
 
-        <Link href="" className="text-hover-focus rounded-full py-1 text-sm">
-          view all
-        </Link>
+        {moreUrl && (
+          <Link
+            href={moreUrl}
+            className="text-hover-focus rounded-full py-1 text-sm"
+          >
+            view all
+          </Link>
+        )}
       </header>
 
       <div className="flex flex-col">
