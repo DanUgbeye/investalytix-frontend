@@ -1,12 +1,12 @@
 import MarketHeading from "../../MarketHeading";
 import Quotes from "../../Quotes";
 
-export default function Treasury() {
+export default function US() {
   return (
     /*U.S TREASURYS */
     <>
       <section className="">
-        <MarketHeading label=" U.S TREASURYS" id="treasury" />
+        <MarketHeading label=" U.S" id="us" />
 
         <Quotes
           fields={[

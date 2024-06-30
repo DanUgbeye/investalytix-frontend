@@ -1,3 +1,4 @@
+// "use client"
 import { Container } from "@/components/container";
 import Quotes from "@/modules/market/components/Quotes";
 import { Quote } from "@/types";
@@ -18,22 +19,20 @@ async function getData(url: string) {
     data: Quote[];
   }>;
 }
-
-const links = {
-  losers: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`,
-  gainers: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
-  "hot picks": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
-  currencies: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
-  cryptocurrency: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
-  "sector performance": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
-  "insider trading": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
-} as const;
-
 export default async function PicksPage({
   searchParams,
 }: {
   searchParams: Record<string, string>;
 }) {
+  const links = {
+    losers: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`,
+    gainers: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
+    "hot picks": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
+    currencies: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
+    cryptocurrency: `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
+    "sector performance": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
+    "insider trading": `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`,
+  } as const;
   const keys = Object.keys(links);
 
   if (keys.includes(searchParams.q)) {
