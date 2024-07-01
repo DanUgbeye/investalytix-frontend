@@ -5,6 +5,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
 import SummaryScreen from "./screen";
+import { Quote, Result } from "@/types";
+import { CompanyOutlook } from "@/modules/ticker/types";
+import ErrorScreen from "../error-screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -27,7 +30,15 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getTickerData(ticker: string) {
+export type SummaryPageData = {
+  quote: Quote;
+  outlook: CompanyOutlook;
+  currency: string;
+};
+
+async function getTickerData(
+  ticker: string
+): Promise<Result<SummaryPageData, Error>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
 
@@ -37,16 +48,14 @@ async function getTickerData(ticker: string) {
     ]);
 
     return {
-      quote,
-      outlook,
+      data: { quote, outlook, currency: outlook.profile.currency },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
-    console.log(error)
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -57,16 +66,13 @@ async function SummaryPage(props: SummaryPageProps) {
     params: { ticker },
   } = props;
 
-  const { quote, outlook } = await getTickerData(ticker);
+  const { data, error } = await getTickerData(ticker);
 
-  return (
-    <SummaryScreen
-      ticker={ticker}
-      quote={quote}
-      outlook={outlook}
-      currency={outlook.profile.currency}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <SummaryScreen ticker={ticker} {...data} />;
 }
 
 export default SummaryPage;

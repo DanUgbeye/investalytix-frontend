@@ -1,6 +1,7 @@
 import { ZodType, z } from "zod";
 import {
   TickerAnalystRecommendation,
+  TickerPriceTarget,
   TickerPriceTargetConsensus,
   TickerPriceTargetSummary,
   TickerUpgradeDowngradeConsensus,
@@ -61,3 +62,17 @@ export const TickerPriceTargetSummarySchema = z.object({
   allTimeAvgPriceTarget: z.number(),
   publishers: z.string(),
 }) satisfies ZodType<TickerPriceTargetSummary>;
+
+export const TickerPriceTargetSchema = z.object({
+  symbol: z.string(),
+  publishedDate: z.coerce.date(),
+  newsURL: z.string(),
+  newsTitle: z.string().nullable(),
+  analystName: z.string().nullable(),
+  priceTarget: z.number().nullable(),
+  adjPriceTarget: z.number().nullable(),
+  priceWhenPosted: z.number().nullable(),
+  newsPublisher: z.string(),
+  newsBaseURL: z.string(),
+  analystCompany: z.string(),
+}) satisfies ZodType<TickerPriceTarget>;

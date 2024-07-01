@@ -1,12 +1,22 @@
-import { Metadata } from "next";
-import React from "react";
-import AnalystRecommendationScreen from "./screen";
-import { SearchTickerPageProps } from "../page";
-import { TickerRepository } from "@/modules/ticker/repository";
+import ErrorScreen from "@/app/(app)/ticker/[ticker]/error-screen";
 import { serverAPI } from "@/config/server/api";
+import { TickerRepository } from "@/modules/ticker/repository";
+import {
+  CompanyProfile,
+  TickerAnalystRecommendation,
+  TickerPriceTarget,
+  TickerPriceTargetConsensus,
+  TickerPriceTargetSummary,
+  TickerUpgradeDowngradeConsensus,
+  TickerUpgradesDowngrades,
+} from "@/modules/ticker/types";
+import { QuoteHistory, Result } from "@/types";
 import { errorUtils } from "@/utils/error.utils";
-import { notFound } from "next/navigation";
 import { subYears } from "date-fns";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { SearchTickerPageProps } from "../page";
+import AnalystRecommendationScreen from "./screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -29,7 +39,20 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string) {
+export type AnalystRecommendationPageData = {
+  profile: CompanyProfile;
+  consensus?: TickerUpgradeDowngradeConsensus;
+  analystRecommendation: TickerAnalystRecommendation[];
+  upgradesDowngrades: TickerUpgradesDowngrades[];
+  priceTargetConsensus: TickerPriceTargetConsensus;
+  priceTargetSummary: TickerPriceTargetSummary;
+  priceTarget: TickerPriceTarget[];
+  quoteHistory: QuoteHistory[];
+};
+
+async function getData(
+  ticker: string
+): Promise<Result<AnalystRecommendationPageData, Error>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     let [
@@ -39,6 +62,7 @@ async function getData(ticker: string) {
       upgradesDowngrades,
       priceTargetConsensus,
       priceTargetSummary,
+      priceTarget,
       quoteHistory,
     ] = await Promise.all([
       tickerRepo.getCompanyProfile(ticker),
@@ -47,6 +71,7 @@ async function getData(ticker: string) {
       tickerRepo.getTickerUpgradesDowngrades(ticker),
       tickerRepo.getTickerPriceTargetConsensus(ticker),
       tickerRepo.getTickerPriceTargetSummary(ticker),
+      tickerRepo.getTickerPriceTarget(ticker),
       tickerRepo.getQuoteHistory(ticker, "1week", {
         from: subYears(new Date(), 2),
         to: new Date(),
@@ -54,20 +79,23 @@ async function getData(ticker: string) {
     ]);
 
     return {
-      profile,
-      consensus,
-      analystRecommendation,
-      upgradesDowngrades,
-      priceTargetConsensus,
-      priceTargetSummary,
-      quoteHistory,
+      data: {
+        profile,
+        consensus,
+        analystRecommendation,
+        upgradesDowngrades,
+        priceTargetConsensus,
+        priceTargetSummary,
+        priceTarget,
+        quoteHistory,
+      },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -80,26 +108,11 @@ export default async function AnalystRecommendationPage(
     params: { ticker },
   } = props;
 
-  const {
-    analystRecommendation,
-    consensus,
-    profile,
-    upgradesDowngrades,
-    priceTargetConsensus,
-    priceTargetSummary,
-    quoteHistory,
-  } = await getData(ticker);
+  const { data, error } = await getData(ticker);
 
-  return (
-    <AnalystRecommendationScreen
-      ticker={ticker}
-      analystRecommendation={analystRecommendation}
-      profile={profile}
-      consensus={consensus}
-      upgradesDowngrades={upgradesDowngrades}
-      priceTargetConsensus={priceTargetConsensus}
-      priceTargetSummary={priceTargetSummary}
-      quoteHistory={quoteHistory}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <AnalystRecommendationScreen ticker={ticker} {...data} />;
 }

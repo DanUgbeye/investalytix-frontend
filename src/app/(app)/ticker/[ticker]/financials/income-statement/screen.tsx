@@ -11,9 +11,9 @@ import {
   TableRow,
   tableHeaderCellVariants,
 } from "@/components/ui/table";
+import CLIENT_CONFIG from "@/config/client/app";
 import useScroll from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
-import { FinancialPeriod, IncomeStatement } from "@/modules/ticker/types";
 import { useAppStore } from "@/store";
 import { format, startOfYear, subYears } from "date-fns";
 import { ChevronRight, Plus } from "lucide-react";
@@ -21,17 +21,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { generateIncomeTableData } from "./generate-table-data";
-import CLIENT_CONFIG from "@/config/client/app";
+import { IncomeStatementPageData } from "./page";
 
 function getPeriodUrl(path: string, period: string) {
   return `${path}?period=${period}`;
 }
 
-interface IncomeStatementScreenProps {
+interface IncomeStatementScreenProps extends IncomeStatementPageData {
   ticker: string;
-  incomeStatement: IncomeStatement[];
-  period?: FinancialPeriod;
-  currency: string;
 }
 
 export default function IncomeStatementScreen(

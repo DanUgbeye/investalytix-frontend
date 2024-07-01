@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { QuoteHistory, QuoteTimeframe } from "@/types";
+import { QuoteTimeframe } from "@/types";
 import { QuoteTimeframeSchema } from "@/validation";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
@@ -13,6 +13,7 @@ import "react-calendar/dist/Calendar.css";
 import { Controller, useForm } from "react-hook-form";
 import { FiCalendar } from "react-icons/fi";
 import { z } from "zod";
+import { HistoricalPageData } from "./page";
 import QuoteHistoryTable from "./quote-history-table";
 
 function validatePeriod(period: unknown): QuoteTimeframe {
@@ -31,10 +32,8 @@ function validateShow(show: unknown) {
   return valid.data;
 }
 
-interface HistoricalDataScreenProps {
+interface HistoricalDataScreenProps extends HistoricalPageData {
   ticker: string;
-  quoteHistory?: QuoteHistory[];
-  currency: string;
 }
 
 export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
@@ -97,14 +96,14 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
   }
 
   return (
-    <section className=" space-y-6 pb-12 ">
+    <section className="space-y-6 pb-12">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className=" flex flex-col justify-between gap-3 rounded md:flex-row md:flex-wrap "
+        className="flex flex-col justify-between gap-3 rounded md:flex-row md:flex-wrap"
       >
-        <div className=" flex flex-wrap gap-2 md:flex-row md:items-center ">
+        <div className="flex flex-wrap gap-2 md:flex-row md:items-center">
           <DateRangePicker
-            className={" text-sm "}
+            className={"text-sm"}
             calendarProps={{
               className: cva(" text-black dark:bg-main-gray-700 z-50 ")(),
             }}
@@ -114,7 +113,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
             clearIcon={null}
           />
 
-          <div className=" flex flex-wrap items-center gap-x-3 ">
+          <div className="flex flex-wrap items-center gap-x-3">
             <Controller
               name="show"
               control={control}
@@ -123,7 +122,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   <select
                     {...field}
                     id="show"
-                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1.5 text-sm outline-0 dark:border-main-gray-500 "
+                    className="rounded-full border border-main-gray-400 bg-transparent px-4 py-1.5 text-sm outline-0 dark:border-main-gray-500"
                   >
                     <option className="text-black" value={"price"}>
                       Historical Prices
@@ -135,7 +134,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
             />
           </div>
 
-          <div className=" flex flex-wrap items-center gap-x-3 ">
+          <div className="flex flex-wrap items-center gap-x-3">
             <Controller
               name="period"
               control={control}
@@ -144,7 +143,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
                   <select
                     {...field}
                     id="period"
-                    className=" rounded-full border border-main-gray-400 bg-transparent px-4 py-1.5 text-sm outline-0 dark:border-main-gray-500 "
+                    className="rounded-full border border-main-gray-400 bg-transparent px-4 py-1.5 text-sm outline-0 dark:border-main-gray-500"
                   >
                     <option className="text-black" value={"1day"}>
                       Daily
@@ -162,12 +161,12 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
           </div>
         </div>
 
-        <Button className=" ml-auto h-9 px-6 md:px-8 ">Apply</Button>
+        <Button className="ml-auto h-9 px-6 md:px-8">Apply</Button>
       </form>
 
-      <div className=" mx-auto grid space-y-3 ">
-        <div className=" flex items-center justify-between ">
-          <span className=" text-sm font-semibold ">Currency: {currency}</span>
+      <div className="mx-auto grid space-y-3">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-semibold">Currency: {currency}</span>
 
           {/* <Button variant={"outline-orange"} className=" border-none ">
             Download

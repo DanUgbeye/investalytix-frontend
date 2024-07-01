@@ -1,6 +1,6 @@
 import { serverAPI } from "@/config/server/api";
 import { TickerRepository } from "@/modules/ticker/repository";
-import { QuoteTimeframe } from "@/types";
+import { QuoteHistory, QuoteTimeframe, Result } from "@/types";
 import { errorUtils } from "@/utils/error.utils";
 import { QuoteTimeframeSchema } from "@/validation";
 import { isValid, subYears } from "date-fns";
@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../../page";
 import HistoricalDataScreen from "./screen";
+import ErrorScreen from "../../error-screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -30,11 +31,16 @@ export async function generateMetadata(props: {
   }
 }
 
+export type HistoricalPageData = {
+  quoteHistory?: QuoteHistory[];
+  currency: string;
+};
+
 async function getData(
   ticker: string,
   timeframe: QuoteTimeframe,
   filter?: { from?: Date; to?: Date }
-) {
+): Promise<Result<HistoricalPageData, Error>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     let [profile, quoteHistory] = await Promise.all([
@@ -42,13 +48,13 @@ async function getData(
       tickerRepo.getQuoteHistory(ticker, timeframe, filter),
     ]);
 
-    return { profile, quoteHistory };
+    return { data: { currency: profile.currency, quoteHistory } };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    throw { error };
   }
 }
 
@@ -90,13 +96,11 @@ export default async function HistoricalDataPage(
     filter.to = new Date();
   }
 
-  const { quoteHistory, profile } = await getData(ticker, timeframe, filter);
+  const { data, error } = await getData(ticker, timeframe, filter);
 
-  return (
-    <HistoricalDataScreen
-      ticker={ticker}
-      quoteHistory={quoteHistory}
-      currency={profile.currency}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <HistoricalDataScreen ticker={ticker} {...data} />;
 }

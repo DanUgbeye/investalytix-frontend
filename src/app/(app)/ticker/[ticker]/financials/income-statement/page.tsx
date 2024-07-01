@@ -1,13 +1,14 @@
-import { Metadata } from "next";
-import React from "react";
-import IncomeStatementScreen from "./screen";
-import { SearchTickerPageProps } from "../../page";
-import { TickerRepository } from "@/modules/ticker/repository";
 import { serverAPI } from "@/config/server/api";
-import { notFound } from "next/navigation";
-import { errorUtils } from "@/utils/error.utils";
-import { FinancialPeriod } from "@/modules/ticker/types";
+import { TickerRepository } from "@/modules/ticker/repository";
+import { FinancialPeriod, IncomeStatement } from "@/modules/ticker/types";
 import { FinancialPeriodSchema } from "@/modules/ticker/validation";
+import { Result } from "@/types";
+import { errorUtils } from "@/utils/error.utils";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import ErrorScreen from "../../error-screen";
+import { SearchTickerPageProps } from "../../page";
+import IncomeStatementScreen from "./screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -30,7 +31,16 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string, period: FinancialPeriod = "quarter") {
+export type IncomeStatementPageData = {
+  incomeStatement: IncomeStatement[];
+  period?: FinancialPeriod;
+  currency: string;
+};
+
+async function getData(
+  ticker: string,
+  period: FinancialPeriod = "quarter"
+): Promise<Result<IncomeStatementPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     const [outlook, incomeStatement] = await Promise.all([
@@ -39,8 +49,7 @@ async function getData(ticker: string, period: FinancialPeriod = "quarter") {
     ]);
 
     return {
-      outlook,
-      incomeStatement,
+      data: { currency: outlook.profile.currency, period, incomeStatement },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
@@ -65,18 +74,13 @@ export default async function IncomeStatementPage(
     searchParams: { period },
   } = props;
 
-  const { success, data } = FinancialPeriodSchema.safeParse(period);
-  const { incomeStatement, outlook } = await getData(
-    ticker,
-    success ? data : undefined
-  );
+  const { data: verifiedPeriod } =
+    FinancialPeriodSchema.safeParse(period);
+  const { data, error } = await getData(ticker, verifiedPeriod);
 
-  return (
-    <IncomeStatementScreen
-      ticker={ticker}
-      incomeStatement={incomeStatement}
-      period={data}
-      currency={outlook.profile.currency}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <IncomeStatementScreen ticker={ticker} {...data} />;
 }

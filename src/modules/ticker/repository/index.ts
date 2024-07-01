@@ -19,32 +19,41 @@ import { AxiosInstance } from "axios";
 import { z } from "zod";
 import {
   BalanceSheetStatement,
+  BalanceSheetStatementGrowth,
   CashFlowStatement,
+  CashFlowStatementGrowth,
   CompanyOutlook,
   CompanyProfile,
   Dividend,
   Earning,
+  FinancialGrowth,
   FinancialPeriod,
   Financials,
   IncomeStatement,
+  IncomeStatementGrowth,
   InstitutionalHolder,
   MutualFundHolder,
   Ratio,
   SecFiling,
   TickerAnalystRecommendation,
+  TickerPriceTarget,
   TickerPriceTargetConsensus,
   TickerPriceTargetSummary,
   TickerUpgradeDowngradeConsensus,
   TickerUpgradesDowngrades,
 } from "../types";
 import {
+  BalanceSheetStatementGrowthSchema,
   BalanceSheetStatementSchema,
+  CashFlowStatementGrowthSchema,
   CashFlowStatementSchema,
   CompanyOutlookSchema,
   CompanyProfileSchema,
   DividendSchema,
   EarningSchema,
+  FinancialGrowthSchema,
   FinancialsSchema,
+  IncomeStatementGrowthSchema,
   IncomeStatementSchema,
   InstitutionalHolderSchema,
   MutualFundHolderSchema,
@@ -52,6 +61,7 @@ import {
   SecFilingSchema,
   TickerAnalystRecommendationSchema,
   TickerPriceTargetConsensusSchema,
+  TickerPriceTargetSchema,
   TickerPriceTargetSummarySchema,
   TickerUpgradeDowngradeConsensusSchema,
   TickerUpgradesDowngradesSchema,
@@ -94,7 +104,7 @@ export class TickerRepository {
       let validation = CompanyOutlookSchema.safeParse(res.data.data);
 
       if (validation.error) {
-        console.log(JSON.stringify(validation.error))
+        console.log(JSON.stringify(validation.error));
         throw new Error("Something went wrong on our end");
       }
 
@@ -516,7 +526,149 @@ export class TickerRepository {
       let validation = z.array(SecFilingSchema).safeParse(res.data.data);
 
       if (validation.error) {
-        console.log(JSON.stringify(validation.error, null, 2));
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  // GROWTH
+  async getFinancialGrowth(
+    ticker: string,
+    filter?: { period?: FinancialPeriod; limit?: number },
+    options?: RequestOptions | undefined
+  ): Promise<FinancialGrowth[]> {
+    try {
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", String(filter.period));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/tickers/${ticker}/financial-growth?${searchParams.toString()}`;
+      let res = await this.axios.get<{ data: FinancialGrowth[] }>(
+        path,
+        options
+      );
+
+      let validation = z.array(FinancialGrowthSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getIncomeStatementGrowth(
+    ticker: string,
+    filter?: { period?: FinancialPeriod; limit?: number },
+    options?: RequestOptions | undefined
+  ): Promise<IncomeStatementGrowth[]> {
+    try {
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", String(filter.period));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/tickers/${ticker}/income-statement-growth?${searchParams.toString()}`;
+      let res = await this.axios.get<{ data: IncomeStatementGrowth[] }>(
+        path,
+        options
+      );
+
+      let validation = z
+        .array(IncomeStatementGrowthSchema)
+        .safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getBalanceSheetStatementGrowth(
+    ticker: string,
+    filter?: { period?: FinancialPeriod; limit?: number },
+    options?: RequestOptions | undefined
+  ): Promise<BalanceSheetStatementGrowth[]> {
+    try {
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", String(filter.period));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/tickers/${ticker}/balance-sheet-statement-growth?${searchParams.toString()}`;
+      let res = await this.axios.get<{ data: BalanceSheetStatementGrowth[] }>(
+        path,
+        options
+      );
+
+      let validation = z
+        .array(BalanceSheetStatementGrowthSchema)
+        .safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getCashFlowStatementGrowth(
+    ticker: string,
+    filter?: { period?: FinancialPeriod; limit?: number },
+    options?: RequestOptions | undefined
+  ): Promise<CashFlowStatementGrowth[]> {
+    try {
+      let searchParams = new URLSearchParams();
+
+      if (filter?.period) {
+        searchParams.append("period", String(filter.period));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+
+      const path = `/tickers/${ticker}/cash-flow-statement-growth?${searchParams.toString()}`;
+      let res = await this.axios.get<{ data: CashFlowStatementGrowth[] }>(
+        path,
+        options
+      );
+
+      let validation = z
+        .array(CashFlowStatementGrowthSchema)
+        .safeParse(res.data.data);
+
+      if (validation.error) {
         throw new Error("Something went wrong on our end");
       }
 
@@ -643,6 +795,30 @@ export class TickerRepository {
       let validation = TickerPriceTargetConsensusSchema.safeParse(
         res.data.data
       );
+
+      if (validation.error) {
+        console.log(validation.error.issues);
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getTickerPriceTarget(
+    ticker: string,
+    options?: RequestOptions | undefined
+  ): Promise<TickerPriceTarget[]> {
+    try {
+      const path = `/tickers/${ticker}/price-target`;
+      let res = await this.axios.get<{
+        data: TickerPriceTarget;
+      }>(path, options);
+
+      let validation = z.array(TickerPriceTargetSchema).safeParse(res.data.data);
 
       if (validation.error) {
         console.log(validation.error.issues);

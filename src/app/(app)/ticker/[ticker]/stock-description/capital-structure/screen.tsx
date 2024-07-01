@@ -9,28 +9,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { tailwindCSS } from "@/lib/utils";
-import useTheme from "@/store/theme/useTheme";
 import appUtils from "@/utils/app-util";
 import { useMemo } from "react";
 import { Pie, PieChart, Tooltip } from "recharts";
+import { CapitalStructurePageData } from "./page";
 
-interface CapitalStructureScreenProps {
+interface CapitalStructureScreenProps extends CapitalStructurePageData {
   ticker: string;
-  capitalStructure: {
-    label: string;
-    value?: number;
-    fill: string;
-    currency: string;
-  }[];
-  currency: string;
 }
 
 export default function CapitalStructureScreen(
   props: CapitalStructureScreenProps
 ) {
   const { ticker, capitalStructure, currency } = props;
-  const { theme } = useTheme();
 
   const parsedData = useMemo(() => {
     let total = capitalStructure.reduce((prev, entry) => {
@@ -46,11 +37,11 @@ export default function CapitalStructureScreen(
     };
   }, [capitalStructure]);
 
-  const largestPercentage = useMemo(() => {
-    return parsedData.data.reduce((max, currentEntry) => {
-      return currentEntry.percentage > max ? currentEntry.percentage : max;
-    }, 0);
-  }, [parsedData]);
+  // const largestPercentage = useMemo(() => {
+  //   return parsedData.data.reduce((max, currentEntry) => {
+  //     return currentEntry.percentage > max ? currentEntry.percentage : max;
+  //   }, 0);
+  // }, [parsedData]);
 
   return (
     <section className="pb-12">
@@ -113,14 +104,6 @@ export default function CapitalStructureScreen(
                 }}
               />
             </PieChart>
-
-            {/* <div className="absolute -z-10 col-start-1 row-start-1 text-lg">
-              {appUtils.formatNumber(largestPercentage, {
-                style: "decimal",
-                maximumFractionDigits: 3,
-              })}
-              %
-            </div> */}
           </div>
         </div>
 

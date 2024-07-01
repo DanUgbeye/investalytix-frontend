@@ -52,3 +52,20 @@ export type TickerPriceTargetSummary = {
   allTimeAvgPriceTarget: number;
   publishers: string;
 };
+
+export type TickerPriceTarget = {
+  symbol: string;
+  publishedDate: Date;
+  newsURL: string;
+  newsTitle: string | null;
+  analystName: string | null;
+  priceTarget: number | null;
+  adjPriceTarget: number | null;
+  priceWhenPosted: number | null;
+  newsPublisher: string;
+  newsBaseURL: string;
+  analystCompany: string;
+};
+
+export type TickerUpgradesDowngradesWithPriceTarget = TickerUpgradesDowngrades &
+  TickerPriceTarget;

@@ -5,6 +5,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../../page";
 import HoldersScreen from "./screen";
+import { InstitutionalHolder, MutualFundHolder } from "@/modules/ticker/types";
+import { Result } from "@/types";
+import ErrorScreen from "../../error-screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -27,27 +30,28 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string) {
+export type HoldersPageData = {
+  institutionalHolders: InstitutionalHolder[];
+  mutualFundHolders: MutualFundHolder[];
+};
+
+async function getData(ticker: string): Promise<Result<HoldersPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
-    const [outlook, institutionalHolders, mutualFundHolders] =
-      await Promise.all([
-        tickerRepo.getCompanyOutLook(ticker),
-        tickerRepo.getInstitutionalHolders(ticker),
-        tickerRepo.getMutualFundHolders(ticker),
-      ]);
+    const [institutionalHolders, mutualFundHolders] = await Promise.all([
+      tickerRepo.getInstitutionalHolders(ticker),
+      tickerRepo.getMutualFundHolders(ticker),
+    ]);
 
     return {
-      outlook,
-      institutionalHolders,
-      mutualFundHolders,
+      data: { institutionalHolders, mutualFundHolders },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -58,14 +62,11 @@ export default async function HoldersPage(props: HoldersPageProps) {
     params: { ticker },
   } = props;
 
-  const { outlook, institutionalHolders, mutualFundHolders } =
-    await getData(ticker);
+  const { data, error } = await getData(ticker);
 
-  return (
-    <HoldersScreen
-      ticker={ticker}
-      institutionalHolders={institutionalHolders}
-      mutualFundHolders={mutualFundHolders}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <HoldersScreen ticker={ticker} {...data} />;
 }

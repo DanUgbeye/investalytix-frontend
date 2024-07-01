@@ -1,8 +1,11 @@
 import { serverAPI } from "@/config/server/api";
 import { TickerRepository } from "@/modules/ticker/repository";
+import { CompanyOutlook, Dividend, Ratio } from "@/modules/ticker/types";
+import { Result } from "@/types";
 import { errorUtils } from "@/utils/error.utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import ErrorScreen from "../error-screen";
 import { SearchTickerPageProps } from "../page";
 import DividendsScreen from "./screen";
 
@@ -27,7 +30,14 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string) {
+export type DividendsPageData = {
+  outlook: CompanyOutlook;
+  dividends: Dividend[];
+  currency: string;
+  ratio: Ratio;
+};
+
+async function getData(ticker: string): Promise<Result<DividendsPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
 
@@ -38,16 +48,19 @@ async function getData(ticker: string) {
     ]);
 
     return {
-      dividends,
-      outlook,
-      ratio: ratios[0],
+      data: {
+        dividends,
+        outlook,
+        currency: outlook.profile.currency,
+        ratio: ratios[0],
+      },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -58,15 +71,11 @@ export default async function DividendsPage(props: DividendsPageProps) {
     params: { ticker },
   } = props;
 
-  const { dividends, outlook, ratio } = await getData(ticker);
+  const { data, error } = await getData(ticker);
 
-  return (
-    <DividendsScreen
-      ticker={ticker}
-      currency={outlook.profile.currency}
-      dividends={dividends}
-      outlook={outlook}
-      ratio={ratio}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <DividendsScreen ticker={ticker} {...data} />;
 }

@@ -1,11 +1,13 @@
-import { Metadata } from "next";
-import React from "react";
-import ProfileScreen from "./screen";
-import { SearchTickerPageProps } from "../../page";
-import { TickerRepository } from "@/modules/ticker/repository";
 import { serverAPI } from "@/config/server/api";
+import { TickerRepository } from "@/modules/ticker/repository";
+import { CompanyOutlook } from "@/modules/ticker/types";
+import { Quote, Result } from "@/types";
 import { errorUtils } from "@/utils/error.utils";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import ErrorScreen from "../../error-screen";
+import { SearchTickerPageProps } from "../../page";
+import ProfileScreen from "./screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -28,7 +30,12 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getTickerData(ticker: string) {
+export type ProfilePageData = {
+  outlook: CompanyOutlook;
+  quote: Quote;
+};
+
+async function getTickerData(ticker: string): Promise<Result<ProfilePageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     const [quote, outlook] = await Promise.all([
@@ -37,15 +44,14 @@ async function getTickerData(ticker: string) {
     ]);
 
     return {
-      outlook,
-      quote,
+      data: { outlook, quote },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -56,7 +62,11 @@ export default async function ProfilePage(props: ProfilePageProps) {
     params: { ticker },
   } = props;
 
-  const { outlook, quote } = await getTickerData(ticker);
+  const { data, error } = await getTickerData(ticker);
 
-  return <ProfileScreen ticker={ticker} outlook={outlook} quote={quote} />;
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <ProfileScreen ticker={ticker} {...data} />;
 }

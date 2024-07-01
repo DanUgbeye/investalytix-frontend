@@ -1,11 +1,19 @@
+import { Container } from "@/components/container";
 import { serverAPI } from "@/config/server/api";
 import { TickerRepository } from "@/modules/ticker/repository";
+import { CompanyOutlook } from "@/modules/ticker/types";
+import { Quote, Result } from "@/types";
 import { errorUtils } from "@/utils/error.utils";
 import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
+import ErrorScreen from "./error-screen";
 import TickerLayout from "./ticker-layout";
 
-async function getTickerData(ticker: string) {
+async function getTickerData(
+  ticker: string
+): Promise<
+  Result<{ quote: Quote; outlook: CompanyOutlook; currency: string }>
+> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
 
@@ -15,15 +23,14 @@ async function getTickerData(ticker: string) {
     ]);
 
     return {
-      quote,
-      outlook,
+      data: { quote, outlook, currency: outlook.profile.currency },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -39,15 +46,18 @@ export default async function Layout(props: TickerLayoutProps) {
     children,
   } = props;
 
-  const { quote, outlook } = await getTickerData(ticker);
+  const { data, error } = await getTickerData(ticker);
+
+  if (error) {
+    return (
+      <Container className="py-10">
+        <ErrorScreen error={{ message: error.message }} />
+      </Container>
+    );
+  }
 
   return (
-    <TickerLayout
-      ticker={ticker}
-      quote={quote}
-      outlook={outlook}
-      currency={outlook.profile.currency}
-    >
+    <TickerLayout ticker={ticker} {...data}>
       {children}
     </TickerLayout>
   );

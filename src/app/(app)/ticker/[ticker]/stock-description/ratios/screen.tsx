@@ -1,7 +1,5 @@
 "use client";
 
-import { CompanyOutlook, Ratio } from "@/modules/ticker/types";
-import { Quote } from "@/types";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import { useMemo } from "react";
@@ -13,13 +11,11 @@ import {
   generateProfitabilityData,
   generateStructureData,
 } from "./generate-ratio-data";
+import { RatiosPageData } from "./page";
 import RatioTable from "./ratio-table";
 
-interface RatiosScreenProps {
+interface RatiosScreenProps extends RatiosPageData {
   ticker: string;
-  quote: Quote;
-  ratio?: Ratio;
-  outlook: CompanyOutlook;
 }
 
 export default function RatiosScreen(props: RatiosScreenProps) {

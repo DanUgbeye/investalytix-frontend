@@ -5,8 +5,10 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../../page";
 import RatioScreen from "./screen";
-import { FinancialPeriod } from "@/modules/ticker/types";
+import { FinancialPeriod, Ratio } from "@/modules/ticker/types";
 import { FinancialPeriodSchema } from "@/modules/ticker/validation";
+import { Result } from "@/types";
+import ErrorScreen from "../../error-screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -29,7 +31,16 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string, period: FinancialPeriod = "quarter") {
+export type FinancialRatiosPageData = {
+  ratios: Ratio[];
+  period?: FinancialPeriod;
+  currency: string;
+};
+
+async function getData(
+  ticker: string,
+  period: FinancialPeriod = "quarter"
+): Promise<Result<FinancialRatiosPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     const [outlook, ratios] = await Promise.all([
@@ -38,15 +49,14 @@ async function getData(ticker: string, period: FinancialPeriod = "quarter") {
     ]);
 
     return {
-      outlook,
-      ratios,
+      data: { period, currency: outlook.profile.currency, ratios },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -62,15 +72,12 @@ export default async function RatioPage(props: RatioPageProps) {
     searchParams: { period },
   } = props;
 
-  const { data } = FinancialPeriodSchema.safeParse(period);
-  const { outlook, ratios } = await getData(ticker, data);
+  const { data: verifiedPeriod } = FinancialPeriodSchema.safeParse(period);
+  const { data, error } = await getData(ticker, verifiedPeriod);
 
-  return (
-    <RatioScreen
-      ticker={ticker}
-      ratios={ratios}
-      currency={outlook.profile.currency}
-      period={data}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <RatioScreen ticker={ticker} {...data} />;
 }

@@ -1,8 +1,10 @@
 import { serverAPI } from "@/config/server/api";
 import { TickerRepository } from "@/modules/ticker/repository";
+import { Result } from "@/types";
 import { errorUtils } from "@/utils/error.utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import ErrorScreen from "../../error-screen";
 import { SearchTickerPageProps } from "../../page";
 import CapitalStructureScreen from "./screen";
 
@@ -27,22 +29,64 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string) {
+export type CapitalStructurePageData = {
+  capitalStructure: {
+    label: string;
+    value?: number;
+    fill: string;
+    currency: string;
+  }[];
+  currency: string;
+};
+
+async function getData(
+  ticker: string
+): Promise<Result<CapitalStructurePageData, Error>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
-
     const outlook = await tickerRepo.getCompanyOutLook(ticker);
 
     return {
-      timeStamp: new Date(),
-      outlook,
+      data: {
+        capitalStructure: [
+          {
+            label: "Market Cap",
+            value: outlook.profile.mktCap || undefined,
+            fill: "#4489FF",
+            currency:
+              outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
+          },
+          {
+            label: "ST Debt",
+            value: outlook.financialsAnnual.balance[0]?.shortTermDebt ?? 0,
+            fill: "#EB4335",
+            currency:
+              outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
+          },
+          {
+            label: "LT Debt",
+            value: outlook.financialsAnnual.balance[0]?.longTermDebt ?? 0,
+            fill: "#F57F17",
+            currency:
+              outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
+          },
+          {
+            label: "Pref. Equity",
+            value: outlook.financialsAnnual.balance[0]?.preferredStock ?? 0,
+            fill: "#34A853",
+            currency:
+              outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
+          },
+        ],
+        currency: outlook.profile.currency,
+      },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -55,40 +99,11 @@ export default async function CapitalStructurePage(
     params: { ticker },
   } = props;
 
-  const { outlook } = await getData(ticker);
+  const { data, error } = await getData(ticker);
 
-  const data = [
-    {
-      label: "Market Cap",
-      value: outlook.profile.mktCap || undefined,
-      fill: "#4489FF",
-      currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
-    },
-    {
-      label: "ST Debt",
-      value: outlook.financialsAnnual.balance[0]?.shortTermDebt ?? 0,
-      fill: "#EB4335",
-      currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
-    },
-    {
-      label: "LT Debt",
-      value: outlook.financialsAnnual.balance[0]?.longTermDebt ?? 0,
-      fill: "#F57F17",
-      currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
-    },
-    {
-      label: "Pref. Equity",
-      value: outlook.financialsAnnual.balance[0]?.preferredStock ?? 0,
-      fill: "#34A853",
-      currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
-    },
-  ];
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
 
-  return (
-    <CapitalStructureScreen
-      ticker={ticker}
-      capitalStructure={data}
-      currency={outlook.profile.currency}
-    />
-  );
+  return <CapitalStructureScreen ticker={ticker} {...data} />;
 }
