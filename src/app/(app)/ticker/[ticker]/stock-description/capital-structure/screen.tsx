@@ -71,7 +71,7 @@ export default function CapitalStructureScreen(
                 cx="50%"
                 cy="50%"
                 outerRadius={100}
-                innerRadius={60}
+                innerRadius={0}
                 paddingAngle={2}
                 stroke="0"
               />
@@ -84,19 +84,27 @@ export default function CapitalStructureScreen(
                     <div className="rounded bg-main-gray-700 p-2 text-main-gray-300">
                       {payload &&
                         payload.map((pl, index) => {
-                          const { name, value } = pl;
+                          const { name, value, payload } = pl;
 
                           return (
                             <div
                               key={`${value}-${index}`}
-                              className="text-main-gray-300"
+                              className="flex items-center gap-2 text-main-gray-300"
                             >
-                              {name}:{" "}
-                              {appUtils.formatNumber(value as number, {
-                                style: "decimal",
-                                notation: "compact",
-                                maximumFractionDigits: 2,
-                              })}
+                              <span
+                                className="size-3"
+                                style={{
+                                  backgroundColor: payload.fill as string,
+                                }}
+                              />
+                              <span>
+                                {name}:{" "}
+                                {appUtils.formatNumber(value as number, {
+                                  notation: "compact",
+                                  currency,
+                                  maximumFractionDigits: 2,
+                                })}
+                              </span>
                             </div>
                           );
                         })}
@@ -106,13 +114,13 @@ export default function CapitalStructureScreen(
               />
             </PieChart>
 
-            <div className="absolute -z-10 col-start-1 row-start-1 text-lg">
+            {/* <div className="absolute -z-10 col-start-1 row-start-1 text-lg">
               {appUtils.formatNumber(largestPercentage, {
                 style: "decimal",
                 maximumFractionDigits: 3,
               })}
               %
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -148,17 +156,22 @@ export default function CapitalStructureScreen(
                     </TableCell>
 
                     <TableCell className=" ">
-                      {appUtils.formatNumber(item.value, {
-                        maximumFractionDigits: 0,
-                        currency: item.currency,
-                      })}
+                      {item.value
+                        ? appUtils.formatNumber(item.value, {
+                            maximumFractionDigits: 0,
+                            currency: item.currency,
+                          })
+                        : 0}
                     </TableCell>
 
                     <TableCell className="w-fit max-w-40 text-right">
-                      {appUtils.formatNumber(item.percentage, {
-                        style: "decimal",
-                        maximumFractionDigits: 3,
-                      })}
+                      {item.percentage
+                        ? appUtils.formatNumber(item.percentage, {
+                            style: "decimal",
+                            minimumFractionDigits: 4,
+                            maximumFractionDigits: 4,
+                          })
+                        : 0}
                       %
                     </TableCell>
                   </TableRow>

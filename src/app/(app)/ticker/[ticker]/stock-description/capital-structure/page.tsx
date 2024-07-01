@@ -67,19 +67,19 @@ export default async function CapitalStructurePage(
     {
       label: "ST Debt",
       value: outlook.financialsAnnual.balance[0]?.shortTermDebt ?? 0,
-      fill: "#F57F17",
+      fill: "#EB4335",
       currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
     },
     {
       label: "LT Debt",
       value: outlook.financialsAnnual.balance[0]?.longTermDebt ?? 0,
-      fill: "#4DD0E1",
+      fill: "#F57F17",
       currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
     },
     {
       label: "Pref. Equity",
       value: outlook.financialsAnnual.balance[0]?.preferredStock ?? 0,
-      fill: "#EB4335",
+      fill: "#34A853",
       currency: outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
     },
   ];
