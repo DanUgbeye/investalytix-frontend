@@ -104,7 +104,7 @@ export default function ProfileScreen(props: ProfileScreenProps) {
       </div>
 
       <ShortenText
-        text={outlook.profile.description}
+        text={outlook.profile.description || undefined}
         className="max-w-3xl whitespace-pre-line"
       />
 
@@ -150,7 +150,9 @@ export default function ProfileScreen(props: ProfileScreenProps) {
                     <TableCell className={`py-3 text-left`}>
                       {appUtils.formatNumber(executive.pay || undefined, {
                         currency:
-                          executive.currencyPay || outlook.profile.currency,
+                          executive.currencyPay ||
+                          outlook.profile.currency ||
+                          undefined,
                         notation: "compact",
                         minimumFractionDigits: 2,
                       })}

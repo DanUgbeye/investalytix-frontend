@@ -37,7 +37,7 @@ export default function ShortenText(props: Props) {
 
       <button
         onClick={toggleExpanded}
-        className={cn(" w-fit font-bold text-blue-600 hover:text-blue-700 ", {
+        className={cn(" text-sm w-fit font-bold text-blue-600 hover:text-blue-700 ", {
           " absolute bottom-0 right-0 z-[2] bg-gradient-to-r from-transparent via-white via-[15%] to-white pl-10 pr-2 dark:via-black dark:to-black ":
             !expanded,
         })}

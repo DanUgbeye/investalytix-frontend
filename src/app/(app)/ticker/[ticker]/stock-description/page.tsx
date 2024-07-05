@@ -33,7 +33,7 @@ export async function generateMetadata(props: {
 export type SummaryPageData = {
   quote: Quote;
   outlook: CompanyOutlook;
-  currency: string;
+  currency?: string;
 };
 
 async function getTickerData(
@@ -48,7 +48,7 @@ async function getTickerData(
     ]);
 
     return {
-      data: { quote, outlook, currency: outlook.profile.currency },
+      data: { quote, outlook, currency: outlook.profile.currency || undefined },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {

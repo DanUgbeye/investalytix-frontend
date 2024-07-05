@@ -34,7 +34,7 @@ export async function generateMetadata(props: {
 export type FinancialRatiosPageData = {
   ratios: Ratio[];
   period?: FinancialPeriod;
-  currency: string;
+  currency?: string;
 };
 
 async function getData(
@@ -49,7 +49,7 @@ async function getData(
     ]);
 
     return {
-      data: { period, currency: outlook.profile.currency, ratios },
+      data: { period, currency: outlook.profile.currency || undefined, ratios },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {

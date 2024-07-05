@@ -12,18 +12,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import {
-  CompanyProfile,
-  TickerAnalystRecommendation,
-  TickerPriceTarget,
-  TickerPriceTargetConsensus,
-  TickerPriceTargetSummary,
-  TickerUpgradeDowngradeConsensus,
-  TickerUpgradesDowngrades,
-} from "@/modules/ticker/types";
+import tickerUtils from "@/modules/ticker/utils";
 import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
-import { QuoteHistory } from "@/types";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import { Minus, Plus } from "lucide-react";
@@ -43,7 +34,6 @@ import {
 } from "recharts";
 import AnalystForcastChart from "./analyst-forcast-chart";
 import { AnalystRecommendationPageData } from "./page";
-import tickerUtils from "@/modules/ticker/utils";
 
 const RECOMMENDATION_COLORS = {
   strongSell: "#A43E35",
@@ -389,7 +379,7 @@ export default function AnalystRecommendationScreen(
                 >
                   <span className="text-2xl font-bold sm:text-4xl">
                     {appUtils.formatNumber(priceTargetConsensus.targetMedian, {
-                      currency: profile.currency,
+                      currency: profile.currency || undefined,
                     })}
                   </span>
 
@@ -409,15 +399,15 @@ export default function AnalystRecommendationScreen(
                   offering 1 year price targets for {profile?.companyName} The
                   average price target is{" "}
                   {appUtils.formatNumber(priceTargetConsensus?.targetMedian, {
-                    currency: profile.currency,
+                    currency: profile.currency || undefined,
                   })}{" "}
                   with a high forecast of{" "}
                   {appUtils.formatNumber(priceTargetConsensus?.targetHigh, {
-                    currency: profile.currency,
+                    currency: profile.currency || undefined,
                   })}{" "}
                   and a low forecast of{" "}
                   {appUtils.formatNumber(priceTargetConsensus?.targetLow, {
-                    currency: profile.currency,
+                    currency: profile.currency || undefined,
                   })}{" "}
                   The average price target represents a{" "}
                   {priceTargetPercentage
@@ -425,7 +415,7 @@ export default function AnalystRecommendationScreen(
                     : "-"}{" "}
                   change from the last price of{" "}
                   {appUtils.formatNumber(profile?.price, {
-                    currency: profile.currency,
+                    currency: profile.currency || undefined,
                   })}
                 </div>
               </div>
@@ -444,7 +434,7 @@ export default function AnalystRecommendationScreen(
                 <span className="text-sm">High Price Target</span>
                 <span className="text-xl font-bold text-main-green-light xl:text-2xl dark:text-main-green-dark">
                   {appUtils.formatNumber(priceTargetConsensus?.targetHigh, {
-                    currency: profile.currency,
+                    currency: profile.currency || undefined,
                   })}
                 </span>
               </div>
@@ -453,7 +443,7 @@ export default function AnalystRecommendationScreen(
                 <span className="text-sm">Average Price Target</span>
                 <span className="text-xl font-bold xl:text-2xl">
                   {appUtils.formatNumber(priceTargetConsensus?.targetMedian, {
-                    currency: profile.currency,
+                    currency: profile.currency || undefined,
                   })}
                 </span>
               </div>
@@ -462,7 +452,7 @@ export default function AnalystRecommendationScreen(
                 <span className="text-sm">Lowest Price Target</span>
                 <span className="text-xl font-bold text-main-red-light xl:text-2xl dark:text-main-red-dark">
                   {appUtils.formatNumber(priceTargetConsensus?.targetLow, {
-                    currency: profile.currency,
+                    currency: profile.currency || undefined,
                   })}
                 </span>
               </div>

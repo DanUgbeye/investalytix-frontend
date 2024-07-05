@@ -34,7 +34,7 @@ export async function generateMetadata(props: {
 export type BalanceSheetPageData = {
   balanceSheet: BalanceSheetStatement[];
   period?: FinancialPeriod;
-  currency: string;
+  currency?: string;
 };
 
 async function getData(
@@ -49,7 +49,11 @@ async function getData(
     ]);
 
     return {
-      data: { period, currency: outlook.profile.currency, balanceSheet },
+      data: {
+        period,
+        currency: outlook.profile.currency || undefined,
+        balanceSheet,
+      },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {

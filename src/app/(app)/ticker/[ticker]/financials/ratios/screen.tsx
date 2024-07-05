@@ -22,16 +22,14 @@ import { generateRatiosTableData } from "./generate-table-data";
 import { Button } from "@/components/ui/button";
 import { useAppStore } from "@/store";
 import CLIENT_CONFIG from "@/config/client/app";
+import { FinancialRatiosPageData } from "./page";
 
 function getPeriodUrl(path: string, period: string) {
   return `${path}?period=${period}`;
 }
 
-interface RatiosScreenProps {
+interface RatiosScreenProps extends FinancialRatiosPageData {
   ticker: string;
-  ratios: Ratio[];
-  period?: FinancialPeriod;
-  currency: string;
 }
 
 export default function RatiosScreen(props: RatiosScreenProps) {

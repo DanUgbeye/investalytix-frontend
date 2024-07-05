@@ -25,7 +25,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
     () =>
       generateIssueData({
         quote,
-        currency: outlook.profile.currency,
+        currency: outlook.profile.currency || "",
         ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
@@ -37,7 +37,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
     () =>
       generatePerShareData({
         quote,
-        currency: outlook.profile.currency,
+        currency: outlook.profile.currency || "",
         ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
@@ -48,7 +48,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   const cashFlowAnalysis = useMemo(
     () =>
       generateCashFlowAnalysisData({
-        currency: outlook.profile.currency,
+        currency: outlook.profile.currency || "",
         ratio,
         income: outlook.financialsAnnual.income[0],
         cash: outlook.financialsAnnual.cash[0],
@@ -60,7 +60,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
     () =>
       generateGrowthPotentialData({
         quote,
-        currency: outlook.profile.currency,
+        currency: outlook.profile.currency || "",
         ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
@@ -73,7 +73,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   const profitability = useMemo(
     () =>
       generateProfitabilityData({
-        currency: outlook.profile.currency,
+        currency: outlook.profile.currency || "",
         ratio,
         income: outlook.financialsAnnual.income[0],
       }),
@@ -84,7 +84,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
     () =>
       generateStructureData({
         quote,
-        currency: outlook.profile.currency,
+        currency: outlook.profile.currency || "",
         ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],

@@ -101,10 +101,11 @@ export class TickerRepository {
     try {
       const path = `/tickers/${ticker}`;
       let res = await this.axios.get<{ data: CompanyOutlook }>(path, options);
+      console.log(res.data.data)
       let validation = CompanyOutlookSchema.safeParse(res.data.data);
 
       if (validation.error) {
-        console.log(JSON.stringify(validation.error));
+        console.log(JSON.stringify(validation.error, null, 2));
         throw new Error("Something went wrong on our end");
       }
 

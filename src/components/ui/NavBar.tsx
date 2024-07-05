@@ -334,7 +334,7 @@ function MobileMenu() {
           <div className="flex min-w-[300px] flex-col bg-white dark:bg-[#191919]">
             {history.length === 0 ? (
               <div className="flex flex-col bg-white dark:bg-[#191919]">
-                <div className="flex items-center justify-end gap-10 border-b dark:border-main-gray-600 sm:hidden">
+                <div className="flex items-center justify-end gap-10 border-b sm:hidden dark:border-main-gray-600">
                   <Menu.Button
                     onClick={resetHistory}
                     className={
@@ -449,7 +449,8 @@ function MobileMenu() {
 }
 
 function Search() {
-  const [isOpen, setIsOpen] = useState(false);
+  const searchModalOpen = useAppStore(({ searchModalOpen }) => searchModalOpen);
+  const { toggleSearchModal } = useAppStore();
   const [query, { onChange, ...queryOpts }, setQuery] = useInput("");
   const router = useRouter();
   const tickerRepo = useTickerRepository();
@@ -502,8 +503,6 @@ function Search() {
     }
   }
 
-  const toggleIsOpen = () => setIsOpen((s) => !s);
-
   function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (searchResults?.length < 0) {
@@ -513,17 +512,26 @@ function Search() {
     router.push(`${PAGES.TICKER}/${searchResults[0].symbol}`);
   }
 
+  function onTickerClick(ticker: string) {
+    toggleSearchModal();
+    router.push(getTickerStockDescriptionRoute(ticker));
+  }
+
   return (
     <>
       <button
         title="Search"
         className="grid place-content-center overflow-hidden rounded-full p-2"
-        onClick={toggleIsOpen}
+        onClick={() => toggleSearchModal()}
       >
         <FiSearch className="size-5 text-white xl:size-4 dark:text-main-gray-300" />
       </button>
 
-      <Dialog open={isOpen} onClose={toggleIsOpen} className="relative z-50">
+      <Dialog
+        open={searchModalOpen}
+        onClose={toggleSearchModal}
+        className="relative z-50"
+      >
         {/* The backdrop, rendered as a fixed sibling to the panel container */}
         <div
           aria-hidden="true"
@@ -531,7 +539,7 @@ function Search() {
         />
 
         {/* Full-screen scrollable container */}
-        <div className="fixed inset-0 mt-[84px] flex w-screen items-start justify-center overflow-hidden md:mt-[20vh]">
+        <div className="fixed inset-0 mt-[84px] flex w-screen items-start justify-center overflow-hidden md:mt-[max(88px,15vh)]">
           {/* The actual dialog panel  */}
           {/* Container to center the panel */}
           <div className="max-h-[80vh] w-[100dvw] max-w-screen-md overflow-auto bg-white md:w-[70dvw] md:rounded-xl dark:border dark:border-white/20 dark:bg-black">
@@ -586,11 +594,7 @@ function Search() {
                                       key={`${searchResult.name}-${index}`}
                                       className="cursor-pointer rounded-lg text-sm duration-300 hover:bg-main-gray-200 dark:hover:bg-main-gray-900"
                                       onClick={() => {
-                                        router.push(
-                                          getTickerStockDescriptionRoute(
-                                            searchResult.symbol
-                                          )
-                                        );
+                                        onTickerClick(searchResult.symbol);
                                       }}
                                     >
                                       <TableCell className="max-w-[10rem] py-2 pl-2 pr-4">

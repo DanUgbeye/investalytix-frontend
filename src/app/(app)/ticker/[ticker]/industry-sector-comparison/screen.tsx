@@ -55,7 +55,7 @@ export default function IndustrySectorComparisonScreen(
 
         <div className="space-y-8">
           <IndustryComparisonChart
-            currency={currency}
+            currency={currency || ""}
             tickers={similarStocks.map((quote) => quote.symbol)}
           />
 
@@ -190,7 +190,7 @@ export default function IndustrySectorComparisonScreen(
 
         <div className="space-y-8">
           <SectorComparisonChart
-            currency={currency}
+            currency={currency || ""}
             sectorPerformanceHistory={sectorPerformanceHistory.slice(0, 30)}
           />
 

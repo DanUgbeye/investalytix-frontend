@@ -32,7 +32,7 @@ export async function generateMetadata(props: {
 
 export type RevenueEPSPageData = {
   earnings: Earning[];
-  currency: string;
+  currency?: string;
 };
 
 async function getData(ticker: string): Promise<Result<RevenueEPSPageData>> {
@@ -44,7 +44,7 @@ async function getData(ticker: string): Promise<Result<RevenueEPSPageData>> {
       tickerRepo.getEarningsHistory(ticker),
     ]);
 
-    return { data: { earnings, currency: profile.currency } };
+    return { data: { earnings, currency: profile.currency || undefined } };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();

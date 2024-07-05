@@ -34,7 +34,7 @@ export async function generateMetadata(props: {
 export type IncomeStatementPageData = {
   incomeStatement: IncomeStatement[];
   period?: FinancialPeriod;
-  currency: string;
+  currency?: string;
 };
 
 async function getData(
@@ -49,7 +49,11 @@ async function getData(
     ]);
 
     return {
-      data: { currency: outlook.profile.currency, period, incomeStatement },
+      data: {
+        currency: outlook.profile.currency || undefined,
+        period,
+        incomeStatement,
+      },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
@@ -74,8 +78,7 @@ export default async function IncomeStatementPage(
     searchParams: { period },
   } = props;
 
-  const { data: verifiedPeriod } =
-    FinancialPeriodSchema.safeParse(period);
+  const { data: verifiedPeriod } = FinancialPeriodSchema.safeParse(period);
   const { data, error } = await getData(ticker, verifiedPeriod);
 
   if (error) {

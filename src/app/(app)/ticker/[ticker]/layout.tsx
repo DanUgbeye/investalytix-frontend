@@ -12,7 +12,7 @@ import TickerLayout from "./ticker-layout";
 async function getTickerData(
   ticker: string
 ): Promise<
-  Result<{ quote: Quote; outlook: CompanyOutlook; currency: string }>
+  Result<{ quote: Quote; outlook: CompanyOutlook; currency?: string }>
 > {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
@@ -23,7 +23,7 @@ async function getTickerData(
     ]);
 
     return {
-      data: { quote, outlook, currency: outlook.profile.currency },
+      data: { quote, outlook, currency: outlook.profile.currency || undefined },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
