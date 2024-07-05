@@ -2,7 +2,13 @@
 import useTheme from "@/store/theme/useTheme";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { FiCalendar, FiCheck, FiFlag } from "react-icons/fi";
+import {
+  FiCalendar,
+  FiCheck,
+  FiChevronLeft,
+  FiChevronRight,
+  FiFlag,
+} from "react-icons/fi";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import useFetcher from "@/hooks/useFetcher";
@@ -61,14 +67,85 @@ const groupByDate = (events: EconomicCalendar[]) => {
   );
 };
 
+function getPreviousWeekDates(fromDate: string, toDate: string) {
+  let startOfPreviousWeek = new Date(fromDate);
+  let endOfPreviousWeek = new Date(toDate);
+
+  // Set the dates to the previous week
+  startOfPreviousWeek.setDate(startOfPreviousWeek.getDate() - 7);
+  endOfPreviousWeek.setDate(endOfPreviousWeek.getDate() - 7);
+
+  // Adjust to the start of the week (Sunday)
+  startOfPreviousWeek.setDate(
+    startOfPreviousWeek.getDate() - startOfPreviousWeek.getDay()
+  );
+
+  // Adjust to the end of the week (Saturday)
+  endOfPreviousWeek.setDate(
+    endOfPreviousWeek.getDate() + (6 - endOfPreviousWeek.getDay())
+  );
+
+  // Set the time to the start of the day for the start of the week
+  startOfPreviousWeek.setHours(0, 0, 0, 0);
+
+  // Set the time to the end of the day for the end of the week
+  endOfPreviousWeek.setHours(23, 59, 59, 999);
+
+  return {
+    from: startOfPreviousWeek,
+    to: endOfPreviousWeek,
+  };
+}
+function getNextWeekDates(fromDate: string, toDate: string) {
+  let startOfNextWeek = new Date(fromDate);
+  let endOfNextWeek = new Date(toDate);
+
+  // Set the dates to the next week
+  startOfNextWeek.setDate(startOfNextWeek.getDate() + 7);
+  endOfNextWeek.setDate(endOfNextWeek.getDate() + 7);
+
+  // Adjust to the start of the week (Sunday)
+  startOfNextWeek.setDate(startOfNextWeek.getDate() - startOfNextWeek.getDay());
+
+  // Adjust to the end of the week (Saturday)
+  endOfNextWeek.setDate(endOfNextWeek.getDate() + (6 - endOfNextWeek.getDay()));
+
+  // Set the time to the start of the day for the start of the week
+  startOfNextWeek.setHours(0, 0, 0, 0);
+
+  // Set the time to the end of the day for the end of the week
+  endOfNextWeek.setHours(23, 59, 59, 999);
+
+  return {
+    from: startOfNextWeek,
+    to: endOfNextWeek,
+  };
+}
+
 export default function Summary() {
-  const [filter, setFilter] = useState<FILTERS>(FILTERS["TODAY"]);
+  const [filter, setFilter] = useState<FILTERS | null>(null);
   const { theme } = useTheme();
   const [calendar, setCalendar] = useState<
     Record<string, EconomicCalendar[]> | undefined
   >();
-  const [from, setFrom] = useState(new Date().toString());
-  const [to, setTo] = useState(new Date().toString());
+  const [from, setFrom] = useState(() => {
+    let now = new Date();
+    let startOfWeek = new Date(now);
+
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    return startOfWeek.toString();
+  });
+  const [to, setTo] = useState(() => {
+    let now = new Date();
+    let endOfWeek = new Date(now);
+
+    endOfWeek.setDate(now.getDate() + (6 - now.getDay()));
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    return endOfWeek.toString();
+  });
 
   const { wrapper, loading, data, error } =
     useFetcher<EconomicCalendar[]>(null);
@@ -128,6 +205,7 @@ export default function Summary() {
   useEffect(() => {
     if (!from && !to) return;
     const repo = new EconomyMarketRepository(clientAPI);
+    setCalendar(undefined);
     wrapper(() =>
       repo.getEconomicCalendar({
         from,
@@ -169,61 +247,62 @@ export default function Summary() {
     }
   }
 
+  function prevWeek() {
+    const week = getPreviousWeekDates(from, to);
+    setFilter(null);
+    setFrom(week.from.toString());
+    setTo(week.to.toString());
+  }
+  function nextWeek() {
+    const week = getNextWeekDates(from, to);
+    setFilter(null);
+    setFrom(week.from.toString());
+    setTo(week.to.toString());
+  }
+
   return (
     <div className="">
-      <div className="mb-12 flex w-full flex-wrap items-center justify-center gap-4 md:gap-1">
-        <Swiper
-          spaceBetween={24}
-          slidesPerView={"auto"}
-          freeMode
-          className="!m-0 !hidden lg:!flex"
-        >
-          {Object.keys(FILTERS).map((entry) => {
-            const isActive = entry === filter;
-            return (
-              <SwiperSlide
-                key={entry}
-                className={`group z-[1] !w-fit !flex-shrink grow-0 rounded-md border py-1 ${
-                  isActive
-                    ? "border-primary-base dark:border-primary-light"
-                    : // : "border-primary-base"
-                      "border-black hover:border-primary-light focus:border-primary-light dark:border-white/40"
-                }`}
-                // className={`z-[1] !w-fit !flex-shrink grow-0 border-b-2 py-2 ${
-                //   isActive
-                //     ? "border-primary-base "
-                //     : // : "border-primary-base"
-                //       "border-transparent"
-                // }`}
-              >
-                <button
-                  key={entry}
-                  onClick={() => updateFilter(entry as FILTERS)}
-                  className={`whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
-                    isActive
-                      ? "text-primary-base dark:text-primary-light"
-                      : "group-hover:text-primary-light group-focus:text-primary-light"
-                  }`}
-                  // className={`whitespace-nowrap rounded-full px-4 py-1 text-center text-sm capitalize ${
-                  //   isActive ? "text-primary-base" : "bg-hover-focus"
-                  // }`}
-                >
-                  {entry.toLowerCase().replace("_", " ")}
-                </button>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
+      <div className="mb-12 flex w-full flex-wrap items-center justify-start gap-4">
+        {Object.keys(FILTERS).map((entry) => {
+          const isActive = entry === filter;
+          return (
+            <button
+              key={entry}
+              onClick={() => updateFilter(entry as FILTERS)}
+              className={`whitespace-nowrap rounded-md border px-4 py-2 text-center text-sm capitalize ${
+                isActive
+                  ? "border-primary-base text-primary-base dark:border-primary-light dark:text-primary-light"
+                  : "border-black hover:border-primary-light hover:text-primary-light focus:border-primary-light focus:text-primary-light dark:border-white/40"
+              }`}
+            >
+              {entry.toLowerCase().replace("_", " ")}
+            </button>
+          );
+        })}
 
         <DateRangePicker
-          className={""}
+          className={"z-50"}
           onChange={calendarOnChangeHandler}
           value={[new Date(from), new Date(to)]}
           calendarIcon={FiCalendar}
           clearIcon={null}
         />
 
-        <div className="flex gap-3 pl-5">
+        <button
+          className={`group whitespace-nowrap rounded-md border border-black px-3 py-2 text-center text-sm capitalize hover:border-primary-light focus:border-primary-light dark:border-white/40`}
+          onClick={prevWeek}
+        >
+          <FiChevronLeft className="size-5 group-hover:text-primary-light group-focus:text-primary-light" />
+        </button>
+
+        <button
+          className={`group whitespace-nowrap rounded-md border border-black px-3 py-2 text-center text-sm capitalize hover:border-primary-light focus:border-primary-light dark:border-white/40`}
+          onClick={nextWeek}
+        >
+          <FiChevronRight className="size-5 group-hover:text-primary-light group-focus:text-primary-light" />
+        </button>
+
+        <div className="flex gap-3">
           {from && to != from && (
             <p className="">{moment(from).format("DD/MM/YYYY")}</p>
           )}

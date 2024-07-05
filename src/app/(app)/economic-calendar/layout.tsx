@@ -9,7 +9,7 @@ export default function CalendarLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container className="pt-24">
+    <Container className="pt-24 pb-14">
       <p className="white-text mb-10 text-center text-6xl font-extrabold capitalize">
         Economic calendar
       </p>
