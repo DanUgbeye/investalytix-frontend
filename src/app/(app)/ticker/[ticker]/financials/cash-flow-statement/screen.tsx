@@ -11,9 +11,9 @@ import {
   TableRow,
   tableHeaderCellVariants,
 } from "@/components/ui/table";
+import CLIENT_CONFIG from "@/config/client/app";
 import useScroll from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
-import { CashFlowStatement, FinancialPeriod } from "@/modules/ticker/types";
 import { useAppStore } from "@/store";
 import { format, startOfYear, subYears } from "date-fns";
 import { ChevronRight, Plus } from "lucide-react";
@@ -21,17 +21,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { generateCashFlowTableData } from "./generate-table-data";
-import CLIENT_CONFIG from "@/config/client/app";
+import { CashFlowStatementPageData } from "./page";
 
 function getPeriodUrl(path: string, period: string) {
   return `${path}?period=${period}`;
 }
 
-interface CashFlowStatementScreenProps {
+interface CashFlowStatementScreenProps extends CashFlowStatementPageData {
   ticker: string;
-  cashFlowStatement: CashFlowStatement[];
-  period?: FinancialPeriod;
-  currency: string;
 }
 
 export default function CashFlowStatementScreen(
@@ -45,7 +42,9 @@ export default function CashFlowStatementScreen(
   const dataToDisplay = useMemo(() => {
     let data = cashFlowStatement;
     if (!isAuthenticated) {
-      let _12YrsAgo = startOfYear(subYears(new Date(), CLIENT_CONFIG.FREE_YEARS_DATA)).getTime();
+      let _12YrsAgo = startOfYear(
+        subYears(new Date(), CLIENT_CONFIG.FREE_YEARS_DATA)
+      ).getTime();
 
       data = cashFlowStatement.filter(
         (bs) => new Date(bs.date).getTime() > _12YrsAgo

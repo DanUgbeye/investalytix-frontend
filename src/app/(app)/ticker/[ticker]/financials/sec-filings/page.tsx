@@ -5,6 +5,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../../page";
 import SECFilingsScreen from "./screen";
+import { SecFiling } from "@/modules/ticker/types";
+import { Result } from "@/types";
+import ErrorScreen from "../../error-screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -27,43 +30,43 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string) {
+export type SECFilingPageData = {
+  SECFilings: SecFiling[];
+};
+
+async function getData(ticker: string): Promise<Result<SECFilingPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
-    const [outlook, SECFilings] = await Promise.all([
-      tickerRepo.getCompanyOutLook(ticker),
+    const [SECFilings] = await Promise.all([
       tickerRepo.getSECFilings(ticker, {
         limit: 100,
       }),
     ]);
 
     return {
-      outlook,
-      SECFilings,
+      data: { SECFilings },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
-interface SECFilingsPageProps extends SearchTickerPageProps {
-  searchParams: {
-    type?: string;
-    page?: number;
-    limit?: number;
-  };
-}
+interface SECFilingsPageProps extends SearchTickerPageProps {}
 
 export default async function SECFilingsPage(props: SECFilingsPageProps) {
   const {
     params: { ticker },
   } = props;
 
-  const { SECFilings } = await getData(ticker);
+  const { data, error } = await getData(ticker);
 
-  return <SECFilingsScreen ticker={ticker} SECFilings={SECFilings} />;
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <SECFilingsScreen ticker={ticker} {...data} />;
 }

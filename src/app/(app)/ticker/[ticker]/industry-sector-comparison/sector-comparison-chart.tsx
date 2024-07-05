@@ -16,17 +16,17 @@ import {
 
 interface Props {
   currency: string;
-  sectorPerformaceHistory: SectorPerformanceHistory[];
+  sectorPerformanceHistory: SectorPerformanceHistory[];
 }
 
 export default function SectorComparisonChart(props: Props) {
-  const { currency, sectorPerformaceHistory } = props;
+  const { currency, sectorPerformanceHistory } = props;
 
   return (
     <div className="  ">
       <div className=" overflow-x-auto text-xs ">
         <ResponsiveContainer width={"100%"} height={350}>
-          <LineChart data={sectorPerformaceHistory.toReversed()}>
+          <LineChart data={sectorPerformanceHistory.toReversed()}>
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}

@@ -1,9 +1,13 @@
 import { serverAPI } from "@/config/server/api";
 import { MarketRepository } from "@/modules/market/repository";
+import { SectorPerformanceHistory } from "@/modules/market/types";
 import { TickerRepository } from "@/modules/ticker/repository";
+import { CompanyProfile } from "@/modules/ticker/types";
+import { Quote, Result } from "@/types";
 import { errorUtils } from "@/utils/error.utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import ErrorScreen from "../error-screen";
 import { SearchTickerPageProps } from "../page";
 import IndustrySectorComparisonScreen from "./screen";
 
@@ -28,7 +32,16 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string) {
+export type IndustrySectorComparisonPageData = {
+  currency: string;
+  profile: CompanyProfile;
+  similarStocks: Quote[];
+  sectorPerformanceHistory: SectorPerformanceHistory[];
+};
+
+async function getData(
+  ticker: string
+): Promise<Result<IndustrySectorComparisonPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     const marketRepo = new MarketRepository(serverAPI);
@@ -40,9 +53,12 @@ async function getData(ticker: string) {
     ]);
 
     return {
-      profile,
-      similarStocks,
-      sectorPerformanceHistory,
+      data: {
+        profile,
+        currency: profile.currency,
+        similarStocks,
+        sectorPerformanceHistory,
+      },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
@@ -61,16 +77,11 @@ export default async function IndustrySectorComparisonPage(
     params: { ticker },
   } = props;
 
-  const { profile, sectorPerformanceHistory, similarStocks } =
-    await getData(ticker);
+  const { data, error } = await getData(ticker);
 
-  return (
-    <IndustrySectorComparisonScreen
-      ticker={ticker}
-      currency={profile.currency}
-      profile={profile}
-      sectorPerformaceHistory={sectorPerformanceHistory}
-      similarStocks={similarStocks}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <IndustrySectorComparisonScreen ticker={ticker} {...data} />;
 }

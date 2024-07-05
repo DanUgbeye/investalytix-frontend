@@ -5,6 +5,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SearchTickerPageProps } from "../page";
 import KeyStatsScreen from "./screen";
+import { Financials } from "@/modules/ticker/types";
+import { Result } from "@/types";
+import ErrorScreen from "../error-screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -27,20 +30,34 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string) {
+export type FinancialsPageData = {
+  financials: {
+    annual: Financials;
+    quarter: Financials;
+  };
+  currency: string;
+};
+
+async function getData(ticker: string): Promise<Result<FinancialsPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     const [outlook] = await Promise.all([tickerRepo.getCompanyOutLook(ticker)]);
 
     return {
-      outlook,
+      data: {
+        currency: outlook.profile.currency,
+        financials: {
+          annual: outlook.financialsAnnual,
+          quarter: outlook.financialsQuarter,
+        },
+      },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -51,16 +68,11 @@ export default async function KeyStatsPage(props: KeyStatsPageProps) {
     params: { ticker },
   } = props;
 
-  const { outlook } = await getData(ticker);
+  const { data, error } = await getData(ticker);
 
-  return (
-    <KeyStatsScreen
-      ticker={ticker}
-      currency={outlook.profile.currency}
-      financials={{
-        annual: outlook.financialsAnnual,
-        quarter: outlook.financialsQuarter,
-      }}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <KeyStatsScreen ticker={ticker} {...data} />;
 }

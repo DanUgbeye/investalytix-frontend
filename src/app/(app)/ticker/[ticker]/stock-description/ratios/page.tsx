@@ -6,6 +6,9 @@ import { TickerRepository } from "@/modules/ticker/repository";
 import { serverAPI } from "@/config/server/api";
 import { errorUtils } from "@/utils/error.utils";
 import { notFound } from "next/navigation";
+import { Quote, Result } from "@/types";
+import { CompanyOutlook, Ratio } from "@/modules/ticker/types";
+import ErrorScreen from "../../error-screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -28,7 +31,13 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string) {
+export type RatiosPageData = {
+  quote: Quote;
+  ratio?: Ratio;
+  outlook: CompanyOutlook;
+};
+
+async function getData(ticker: string): Promise<Result<RatiosPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
 
@@ -39,16 +48,14 @@ async function getData(ticker: string) {
     ]);
 
     return {
-      quote,
-      outlook,
-      ratio: ratio.length > 0 ? ratio[0] : undefined,
-    }; 
+      data: { quote, outlook, ratio: ratio.length > 0 ? ratio[0] : undefined },
+    };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -59,14 +66,11 @@ export default async function RatiosPage(props: RatiosPageProps) {
     params: { ticker },
   } = props;
 
-  const { outlook, quote, ratio } = await getData(ticker);
+  const { data, error } = await getData(ticker);
 
-  return (
-    <RatiosScreen
-      ticker={ticker}
-      outlook={outlook}
-      quote={quote}
-      ratio={ratio}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <RatiosScreen ticker={ticker} {...data} />;
 }

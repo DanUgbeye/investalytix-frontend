@@ -1,13 +1,14 @@
-import { Metadata } from "next";
-import React from "react";
-import BalanceSheetScreen from "./screen";
-import { SearchTickerPageProps } from "../../page";
-import { FinancialPeriod } from "@/modules/ticker/types";
-import { TickerRepository } from "@/modules/ticker/repository";
 import { serverAPI } from "@/config/server/api";
-import { errorUtils } from "@/utils/error.utils";
-import { notFound } from "next/navigation";
+import { TickerRepository } from "@/modules/ticker/repository";
+import { BalanceSheetStatement, FinancialPeriod } from "@/modules/ticker/types";
 import { FinancialPeriodSchema } from "@/modules/ticker/validation";
+import { Result } from "@/types";
+import { errorUtils } from "@/utils/error.utils";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import ErrorScreen from "../../error-screen";
+import { SearchTickerPageProps } from "../../page";
+import BalanceSheetScreen from "./screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -30,7 +31,16 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string, period: FinancialPeriod = "quarter") {
+export type BalanceSheetPageData = {
+  balanceSheet: BalanceSheetStatement[];
+  period?: FinancialPeriod;
+  currency: string;
+};
+
+async function getData(
+  ticker: string,
+  period: FinancialPeriod = "quarter"
+): Promise<Result<BalanceSheetPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     const [outlook, balanceSheet] = await Promise.all([
@@ -39,15 +49,14 @@ async function getData(ticker: string, period: FinancialPeriod = "quarter") {
     ]);
 
     return {
-      outlook,
-      balanceSheet,
+      data: { period, currency: outlook.profile.currency, balanceSheet },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
@@ -63,15 +72,13 @@ export default async function BalanceSheetPage(props: BalanceSheetPageProps) {
     searchParams: { period },
   } = props;
 
-  const { success, data } = FinancialPeriodSchema.safeParse(period);
-  const { balanceSheet, outlook } = await getData(ticker, data);
+  const { success, data: verifiedPeriod } =
+    FinancialPeriodSchema.safeParse(period);
+  const { data, error } = await getData(ticker, verifiedPeriod);
 
-  return (
-    <BalanceSheetScreen
-      ticker={ticker}
-      period={data}
-      balanceSheet={balanceSheet}
-      currency={outlook.profile.currency}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <BalanceSheetScreen ticker={ticker} {...data} />;
 }

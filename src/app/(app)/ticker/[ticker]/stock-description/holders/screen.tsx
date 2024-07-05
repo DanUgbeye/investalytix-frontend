@@ -10,16 +10,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { InstitutionalHolder, MutualFundHolder } from "@/modules/ticker/types";
 import { useAppStore } from "@/store";
 import appUtils from "@/utils/app-util";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
+import { HoldersPageData } from "./page";
 
-interface HoldersScreenProps {
+interface HoldersScreenProps extends HoldersPageData {
   ticker: string;
-  institutionalHolders: InstitutionalHolder[];
-  mutualFundHolders: MutualFundHolder[];
 }
 
 export default function HoldersScreen(props: HoldersScreenProps) {

@@ -146,7 +146,7 @@ export function MobileTickerNav(props: Props) {
         )}
       </div>
 
-      <div className=" flex overflow-x-auto bg-gray-100 dark:bg-black ">
+      <div className=" flex divide-x dark:divide-main-gray-700 overflow-x-auto bg-gray-100 dark:bg-black ">
         {navTabs.map(({ label, path }, index) => {
           return (
             <TickerNavLink

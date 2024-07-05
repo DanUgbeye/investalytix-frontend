@@ -11,7 +11,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { Earning } from "@/modules/ticker/types";
 import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
 import appUtils from "@/utils/app-util";
@@ -27,11 +26,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { RevenueEPSPageData } from "./page";
 
-interface RevenueAndEPSScreenProps {
+interface RevenueAndEPSScreenProps extends RevenueEPSPageData {
   ticker: string;
-  earnings: Earning[];
-  currency: string;
 }
 
 export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {

@@ -242,7 +242,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
         </section>
       </Container>
 
-      <Container className="grid min-h-[calc(100dvh-5rem)] grid-cols-1 grid-rows-[auto,1fr] px-0 pt-8 sm:px-0 md:grid-rows-1 xl:px-0">
+      <Container className=" flex flex-col lg:grid min-h-[calc(100dvh-5rem)] grid-cols-1 px-0 pt-8 sm:px-0 lg:grid-rows-1 xl:px-0">
         <DesktopTickerNav
           quote={tickerQuote}
           statsVisible={inViewport}
@@ -257,11 +257,11 @@ export default function TickerLayout(props: TickerLayoutProps) {
           className="sticky top-[84px] z-40 flex h-fit md:top-[88px] lg:hidden dark:border-y dark:border-main-gray-700"
         />
 
-        <main className="col-start-1 lg:row-start-1 lg:ml-[18rem]">
+        <section className="col-start-1 lg:row-start-1 lg:ml-[18rem]">
           <Container className="lg:px-10 xl:px-10">
-            <section className=" ">{children}</section>
+            <div className=" ">{children}</div>
           </Container>
-        </main>
+        </section>
       </Container>
     </section>
   );

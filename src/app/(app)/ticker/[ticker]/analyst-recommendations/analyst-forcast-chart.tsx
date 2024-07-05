@@ -98,7 +98,6 @@ export default function AnalystForcastChart(props: Props) {
 
     timeScale.applyOptions({
       fixLeftEdge: true,
-      uniformDistribution: true,
     });
 
     const areaSeries = newChartAPI.addAreaSeries({

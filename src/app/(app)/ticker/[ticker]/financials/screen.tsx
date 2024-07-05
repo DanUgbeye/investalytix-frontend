@@ -16,14 +16,10 @@ import { FinancialPeriod, Financials } from "@/modules/ticker/types";
 import { format } from "date-fns";
 import { useMemo, useState } from "react";
 import { generateKeyStatsTableData } from "./generate-table-data";
+import { FinancialsPageData } from "./page";
 
-interface KeyStatsScreenProps {
+interface KeyStatsScreenProps extends FinancialsPageData {
   ticker: string;
-  financials: {
-    annual: Financials;
-    quarter: Financials;
-  };
-  currency: string;
 }
 
 export default function KeyStatsScreen(props: KeyStatsScreenProps) {
@@ -83,20 +79,20 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
   }
 
   return (
-    <main className=" space-y-12 pb-12 ">
+    <main className="space-y-12 pb-12">
       {/* INCOME SHEET */}
-      <section className=" space-y-5 ">
-        <div className=" flex items-center justify-between gap-10 ">
-          <h2 className=" font-bold ">Income Statement</h2>
+      <section className="space-y-5">
+        <div className="flex items-center justify-between gap-10">
+          <h2 className="font-bold">Income Statement</h2>
 
           {/* PERIOD FILTERS */}
-          <div className=" ml-auto flex items-center gap-2 ">
+          <div className="ml-auto flex items-center gap-2">
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+                "h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700",
                 {
-                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  "bg-[#F0F3FA] font-bold dark:bg-main-gray-700":
                     viewPeriods.income === "quarter",
                 }
               )}
@@ -108,9 +104,9 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+                "h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700",
                 {
-                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  "bg-[#F0F3FA] font-bold dark:bg-main-gray-700":
                     viewPeriods.income === "annual",
                 }
               )}
@@ -121,33 +117,33 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
           </div>
         </div>
 
-        <div ref={incomeTableRef} className=" overflow-x-auto ">
+        <div ref={incomeTableRef} className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow headerRow>
                 <TableHead
                   className={cn(
                     tableHeaderCellVariants({ scrolled: incomeTableScrolled }),
-                    " min-w-[10rem] "
+                    "min-w-[10rem]"
                   )}
                 >
-                  <span className="  ">Currency: {currency}</span>
+                  <span className=" ">Currency: {currency}</span>
                 </TableHead>
 
                 {financials.income.map((incomeSheet, index) => {
                   return (
                     <TableHead
                       key={`income-${incomeSheet.period}-${index}`}
-                      className=" text-right "
+                      className="text-right"
                     >
-                      <div className=" flex w-20 flex-col gap-1 sm:w-full ">
+                      <div className="flex w-20 flex-col gap-1 sm:w-full">
                         <span className=" ">
                           {viewPeriods.income === "quarter" &&
                             `${incomeSheet.period} '`}
                           {incomeSheet.calendarYear}
                         </span>
 
-                        <span className=" text-xs ">
+                        <span className="text-xs">
                           {format(new Date(incomeSheet.date), "MMM yyyy")}
                         </span>
                       </div>
@@ -165,7 +161,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                     highlightPattern={
                       (index + 1) % 2 === 1 ? "current" : "none"
                     }
-                    className=" group "
+                    className="group"
                   >
                     <TableCell
                       className={cn(
@@ -182,7 +178,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       return (
                         <TableCell
                           key={`income-${rowData.label}-${index}`}
-                          className=" text-right"
+                          className="text-right"
                         >
                           {data}
                         </TableCell>
@@ -197,18 +193,18 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
       </section>
 
       {/* BALANCE SHEET */}
-      <section className=" space-y-5 ">
-        <div className=" flex items-center justify-between gap-10 ">
-          <h2 className=" font-bold ">Balance Statement</h2>
+      <section className="space-y-5">
+        <div className="flex items-center justify-between gap-10">
+          <h2 className="font-bold">Balance Statement</h2>
 
           {/* PERIOD FILTERS */}
-          <div className=" ml-auto flex items-center gap-2 ">
+          <div className="ml-auto flex items-center gap-2">
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+                "h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700",
                 {
-                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  "bg-[#F0F3FA] font-bold dark:bg-main-gray-700":
                     viewPeriods.balance === "quarter",
                 }
               )}
@@ -220,9 +216,9 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+                "h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700",
                 {
-                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  "bg-[#F0F3FA] font-bold dark:bg-main-gray-700":
                     viewPeriods.balance === "annual",
                 }
               )}
@@ -233,14 +229,14 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
           </div>
         </div>
 
-        <div ref={balanceTableRef} className=" overflow-x-auto ">
+        <div ref={balanceTableRef} className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow headerRow>
                 <TableHead
                   className={cn(
                     tableHeaderCellVariants({ scrolled: balanceTableScrolled }),
-                    " min-w-[10rem] "
+                    "min-w-[10rem]"
                   )}
                 >
                   <span>Currency: {currency}</span>
@@ -250,16 +246,16 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                   return (
                     <TableHead
                       key={`balance-${balanceSheet.period}-${index}`}
-                      className=" text-right "
+                      className="text-right"
                     >
-                      <div className=" flex w-20 flex-col gap-1 sm:w-full ">
-                        <span className="  ">
+                      <div className="flex w-20 flex-col gap-1 sm:w-full">
+                        <span className=" ">
                           {viewPeriods.balance === "quarter" &&
                             `${balanceSheet.period} '`}
                           {balanceSheet.calendarYear}
                         </span>
 
-                        <span className=" text-xs ">
+                        <span className="text-xs">
                           {format(new Date(balanceSheet.date), "MMM yyyy")}
                         </span>
                       </div>
@@ -277,7 +273,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                     highlightPattern={
                       (index + 1) % 2 === 1 ? "current" : "none"
                     }
-                    className=" group "
+                    className="group"
                   >
                     <TableCell
                       className={cn(
@@ -294,7 +290,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       return (
                         <TableCell
                           key={`balance-${rowData.label}-${index}`}
-                          className=" text-right"
+                          className="text-right"
                         >
                           {data}
                         </TableCell>
@@ -309,18 +305,18 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
       </section>
 
       {/* CASH SHEET */}
-      <section className=" space-y-5 ">
-        <div className=" flex items-center justify-between gap-10 ">
-          <h2 className=" font-bold ">Cash Flow Statement</h2>
+      <section className="space-y-5">
+        <div className="flex items-center justify-between gap-10">
+          <h2 className="font-bold">Cash Flow Statement</h2>
 
           {/* PERIOD FILTERS */}
-          <div className=" ml-auto flex items-center gap-2 ">
+          <div className="ml-auto flex items-center gap-2">
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+                "h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700",
                 {
-                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  "bg-[#F0F3FA] font-bold dark:bg-main-gray-700":
                     viewPeriods.cash === "quarter",
                 }
               )}
@@ -332,9 +328,9 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
             <Button
               variant={"link"}
               className={cn(
-                " h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700 ",
+                "h-fit p-2 text-xs hover:bg-[#F0F3FA] hover:no-underline dark:hover:bg-main-gray-700",
                 {
-                  " bg-[#F0F3FA] font-bold dark:bg-main-gray-700 ":
+                  "bg-[#F0F3FA] font-bold dark:bg-main-gray-700":
                     viewPeriods.cash === "annual",
                 }
               )}
@@ -345,14 +341,14 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
           </div>
         </div>
 
-        <div ref={cashTableRef} className=" overflow-x-auto ">
+        <div ref={cashTableRef} className="overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow headerRow>
                 <TableHead
                   className={cn(
                     tableHeaderCellVariants({ scrolled: cashTableScrolled }),
-                    " min-w-[10rem] "
+                    "min-w-[10rem]"
                   )}
                 >
                   <span>Currency: {currency}</span>
@@ -362,16 +358,16 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                   return (
                     <TableHead
                       key={`cash-${cashFlow.period}-${index}`}
-                      className=" text-right "
+                      className="text-right"
                     >
-                      <div className=" flex w-20 flex-col gap-1 sm:w-full ">
+                      <div className="flex w-20 flex-col gap-1 sm:w-full">
                         <span className=" ">
                           {viewPeriods.cash === "quarter" &&
                             `${cashFlow.period} '`}
                           {cashFlow.calendarYear}
                         </span>
 
-                        <span className=" text-xs ">
+                        <span className="text-xs">
                           {format(new Date(cashFlow.date), "MMM yyyy")}
                         </span>
                       </div>
@@ -389,7 +385,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                     highlightPattern={
                       (index + 1) % 2 === 1 ? "current" : "none"
                     }
-                    className=" group "
+                    className="group"
                   >
                     <TableCell
                       className={cn(
@@ -406,7 +402,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       return (
                         <TableCell
                           key={`cash-${rowData.label}-${index}`}
-                          className=" text-right"
+                          className="text-right"
                         >
                           {data}
                         </TableCell>

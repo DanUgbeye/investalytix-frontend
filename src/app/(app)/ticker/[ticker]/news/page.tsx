@@ -1,10 +1,14 @@
 import { serverAPI } from "@/config/server/api";
+import { News } from "@/modules/news/types";
 import { TickerRepository } from "@/modules/ticker/repository";
+import { CompanyProfile } from "@/modules/ticker/types";
+import { Result } from "@/types";
 import { errorUtils } from "@/utils/error.utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import ErrorScreen from "../error-screen";
 import { SearchTickerPageProps } from "../page";
-import NewsScreen from "./screen";
+import TickerNewsScreen from "./screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -27,7 +31,12 @@ export async function generateMetadata(props: {
   }
 }
 
-async function getData(ticker: string) {
+export type TickerNewsPageData = {
+  profile: CompanyProfile;
+  news: News[];
+};
+
+async function getData(ticker: string): Promise<Result<TickerNewsPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
     const [profile, news] = await Promise.all([
@@ -36,36 +45,36 @@ async function getData(ticker: string) {
     ]);
 
     return {
-      profile,
-      news,
+      data: {
+        profile,
+        news: news.filter(
+          (news) =>
+            !news.title.toLowerCase().includes("aljazeera") ||
+            !news.title.toLowerCase().includes("al jazeera")
+        ),
+      },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 
-interface NewsPageProps extends SearchTickerPageProps {}
+interface TickerNewsPageProps extends SearchTickerPageProps {}
 
-export default async function NewsPage(props: NewsPageProps) {
+export default async function TickerNewsPage(props: TickerNewsPageProps) {
   const {
     params: { ticker },
   } = props;
 
-  const { news, profile } = await getData(ticker);
+  const { data, error } = await getData(ticker);
 
-  return (
-    <NewsScreen
-      ticker={ticker}
-      news={news.filter(
-        (news) =>
-          !news.title.toLowerCase().includes("aljazeera") ||
-          !news.title.toLowerCase().includes("al jazeera")
-      )}
-      profile={profile}
-    />
-  );
+  if (error) {
+    return <ErrorScreen error={{ message: error.message }} />;
+  }
+
+  return <TickerNewsScreen ticker={ticker} {...data} />;
 }

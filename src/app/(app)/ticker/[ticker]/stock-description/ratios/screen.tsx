@@ -1,7 +1,5 @@
 "use client";
 
-import { CompanyOutlook, Ratio } from "@/modules/ticker/types";
-import { Quote } from "@/types";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
 import { useMemo } from "react";
@@ -11,15 +9,13 @@ import {
   generateIssueData,
   generatePerShareData,
   generateProfitabilityData,
-  generateStructureData
+  generateStructureData,
 } from "./generate-ratio-data";
+import { RatiosPageData } from "./page";
 import RatioTable from "./ratio-table";
 
-interface RatiosScreenProps {
+interface RatiosScreenProps extends RatiosPageData {
   ticker: string;
-  quote: Quote;
-  ratio?: Ratio;
-  outlook: CompanyOutlook;
 }
 
 export default function RatiosScreen(props: RatiosScreenProps) {
@@ -33,8 +29,6 @@ export default function RatiosScreen(props: RatiosScreenProps) {
         ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
-        cash: outlook.financialsAnnual.cash[0],
-        balance: outlook.financialsAnnual.balance[0],
       }),
     []
   );
@@ -47,8 +41,6 @@ export default function RatiosScreen(props: RatiosScreenProps) {
         ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
-        cash: outlook.financialsAnnual.cash[0],
-        balance: outlook.financialsAnnual.balance[0],
       }),
     []
   );
@@ -56,13 +48,10 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   const cashFlowAnalysis = useMemo(
     () =>
       generateCashFlowAnalysisData({
-        quote,
         currency: outlook.profile.currency,
-        ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
         cash: outlook.financialsAnnual.cash[0],
-        balance: outlook.financialsAnnual.balance[0],
       }),
     []
   );
@@ -84,13 +73,9 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   const profitability = useMemo(
     () =>
       generateProfitabilityData({
-        quote,
         currency: outlook.profile.currency,
-        ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
-        cash: outlook.financialsAnnual.cash[0],
-        balance: outlook.financialsAnnual.balance[0],
       }),
     []
   );

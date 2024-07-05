@@ -10,7 +10,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CompanyOutlook, Dividend, Ratio } from "@/modules/ticker/types";
 import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
 import appUtils from "@/utils/app-util";
@@ -26,13 +25,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { DividendsPageData } from "./page";
 
-interface DividendsScreenProps {
+interface DividendsScreenProps extends DividendsPageData {
   ticker: string;
-  outlook: CompanyOutlook;
-  dividends: Dividend[];
-  currency: string;
-  ratio: Ratio;
 }
 
 export default function DividendsScreen(props: DividendsScreenProps) {

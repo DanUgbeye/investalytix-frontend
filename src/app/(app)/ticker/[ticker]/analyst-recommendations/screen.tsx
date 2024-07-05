@@ -7,6 +7,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
@@ -14,6 +15,7 @@ import { cn } from "@/lib/utils";
 import {
   CompanyProfile,
   TickerAnalystRecommendation,
+  TickerPriceTarget,
   TickerPriceTargetConsensus,
   TickerPriceTargetSummary,
   TickerUpgradeDowngradeConsensus,
@@ -40,6 +42,8 @@ import {
   YAxis,
 } from "recharts";
 import AnalystForcastChart from "./analyst-forcast-chart";
+import { AnalystRecommendationPageData } from "./page";
+import tickerUtils from "@/modules/ticker/utils";
 
 const RECOMMENDATION_COLORS = {
   strongSell: "#A43E35",
@@ -57,15 +61,9 @@ const ANALYST_RATING_COLORS = {
   strongBuy: "#008133",
 };
 
-interface AnalystRecommendationScreenProps {
+interface AnalystRecommendationScreenProps
+  extends AnalystRecommendationPageData {
   ticker: string;
-  profile: CompanyProfile;
-  consensus?: TickerUpgradeDowngradeConsensus;
-  analystRecommendation: TickerAnalystRecommendation[];
-  upgradesDowngrades: TickerUpgradesDowngrades[];
-  priceTargetConsensus: TickerPriceTargetConsensus;
-  priceTargetSummary: TickerPriceTargetSummary;
-  quoteHistory: QuoteHistory[];
 }
 
 export default function AnalystRecommendationScreen(
@@ -79,6 +77,7 @@ export default function AnalystRecommendationScreen(
     upgradesDowngrades,
     priceTargetConsensus,
     priceTargetSummary,
+    priceTarget,
     quoteHistory,
   } = props;
   const { theme } = useTheme();
@@ -98,12 +97,14 @@ export default function AnalystRecommendationScreen(
         {
           name: "Buy",
           value: 0,
+          percentage: 0,
           color: "#008133",
         },
-        { name: "Hold", value: 0, color: "#F57F17" },
+        { name: "Hold", value: 0, percentage: 0, color: "#F57F17" },
         {
           name: "Sell",
           value: 0,
+          percentage: 0,
           color: "#EB4335",
         },
       ];
@@ -112,16 +113,27 @@ export default function AnalystRecommendationScreen(
       {
         name: "Buy",
         value: consensus.buy + consensus.strongBuy,
+        percentage: totalRatings
+          ? ((consensus.buy + consensus.strongBuy) / totalRatings) * 100
+          : 0,
         color: "#008133",
       },
-      { name: "Hold", value: consensus.hold, color: "#F57F17" },
+      {
+        name: "Hold",
+        value: consensus.hold,
+        percentage: totalRatings ? (consensus.hold / totalRatings) * 100 : 0,
+        color: "#F57F17",
+      },
       {
         name: "Sell",
         value: consensus.sell + consensus.strongSell,
+        percentage: totalRatings
+          ? ((consensus.sell + consensus.strongSell) / totalRatings) * 100
+          : 0,
         color: "#EB4335",
       },
     ];
-  }, [consensus]);
+  }, [consensus, totalRatings]);
 
   const analystRecommendationTrend = useMemo(() => {
     return analystRecommendation
@@ -137,14 +149,19 @@ export default function AnalystRecommendationScreen(
       }));
   }, [analystRecommendation]);
 
-  const analystUpgradesDowngrades = useMemo(() => {
-    return upgradesDowngrades
-      .filter(
-        (ud) =>
-          new Date(ud.publishedDate).getFullYear() === new Date().getFullYear()
-      )
-      .slice(0, showAllUpgrades ? -1 : 11);
-  }, [upgradesDowngrades, showAllUpgrades]);
+  const upgradesDowngradesWithPriceTarget = useMemo(() => {
+    return tickerUtils.combineTickerUpgradesDowngradesAndPriceTargets(
+      upgradesDowngrades,
+      priceTarget
+    );
+  }, [priceTarget, upgradesDowngrades]);
+
+  const analystUpgradesDowngradesToDisplay = useMemo(() => {
+    return upgradesDowngradesWithPriceTarget.slice(
+      0,
+      showAllUpgrades ? -1 : 11
+    );
+  }, [upgradesDowngradesWithPriceTarget, showAllUpgrades]);
 
   const priceTargetPercentage = useMemo(() => {
     if (!priceTargetConsensus || !profile || !profile.price) return undefined;
@@ -237,12 +254,12 @@ export default function AnalystRecommendationScreen(
                   <PieChart width={300} height={280}>
                     <Pie
                       data={analystRatings}
-                      innerRadius={70}
+                      innerRadius={60}
                       outerRadius={100}
                       fill="#8884d8"
                       dataKey="value"
                       stroke="none"
-                      paddingAngle={4}
+                      paddingAngle={2}
                     >
                       {analystRatings.map((entry, index) => (
                         <Cell
@@ -285,12 +302,63 @@ export default function AnalystRecommendationScreen(
                         );
                       }}
                     />
-                  </PieChart>
 
-                  <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-[calc(50%+0.8rem)] flex-col items-center text-2xl font-bold">
-                    <span>{totalRatings}</span>
-                    <span className="text-xs font-light">Ratings</span>
-                  </div>
+                    <Tooltip
+                      cursor={{
+                        className: "  ",
+                      }}
+                      content={(props) => {
+                        const { payload, label } = props;
+
+                        return (
+                          <div className="w-[10rem] rounded bg-main-gray-700 p-2 text-main-gray-300">
+                            {payload &&
+                              payload.map((pl, index) => {
+                                const {
+                                  name,
+                                  value,
+                                  payload: itemPayload,
+                                } = pl;
+
+                                return (
+                                  <div
+                                    key={`${value}-${index}`}
+                                    className="flex w-full flex-col text-sm text-main-gray-300"
+                                  >
+                                    <div className="flex w-full items-center gap-2">
+                                      <span
+                                        className="size-3"
+                                        style={{
+                                          backgroundColor: itemPayload.color,
+                                        }}
+                                      />
+
+                                      <span>{name}</span>
+                                    </div>
+
+                                    <div className="flex w-full justify-between gap-2">
+                                      <div className=" ">Ratings:</div>
+                                      <div>{value}</div>
+                                    </div>
+
+                                    <div className="flex w-full justify-between gap-2">
+                                      <div className=" ">Percentage:</div>
+                                      <div>
+                                        {appUtils.formatNumber(
+                                          itemPayload.percentage as number,
+                                          { style: "decimal" }
+                                        )}
+                                        %
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        );
+                      }}
+                    />
+                  </PieChart>
                 </div>
               </div>
 
@@ -457,7 +525,7 @@ export default function AnalystRecommendationScreen(
                         </div>
                       )}
 
-                      <div className="">
+                      <div>
                         {payload &&
                           payload.map((pl, index) => {
                             const { name, value, color } = pl;
@@ -567,7 +635,7 @@ export default function AnalystRecommendationScreen(
         </h5>
 
         <div className=" ">
-          {analystUpgradesDowngrades.length <= 0 ? (
+          {analystUpgradesDowngradesToDisplay.length <= 0 ? (
             <div className="w-full border-t p-5 text-center text-main-gray-400 dark:border-main-gray-700">
               No Data Available
             </div>
@@ -577,22 +645,24 @@ export default function AnalystRecommendationScreen(
                 <Table className="w-full min-w-[50rem]">
                   <TableHeader>
                     <TableRow headerRow>
-                      <TableCell className="py-4 text-left">Date</TableCell>
+                      <TableHead className="text-left">Date</TableHead>
 
-                      <TableCell className="py-4 text-left">Company</TableCell>
+                      <TableHead className="text-left">Company</TableHead>
 
-                      <TableCell className="py-4 text-left">Analyst</TableCell>
+                      <TableHead className="text-left">Analyst</TableHead>
 
-                      <TableCell className="py-4 text-right">Action</TableCell>
+                      <TableHead className="text-right">Action</TableHead>
 
-                      <TableCell className="py-4 text-right">From</TableCell>
+                      <TableHead className="text-right">
+                        Target Price
+                      </TableHead>
 
-                      <TableCell className="py-4 text-right">To</TableCell>
+                      {/* <TableHead className="text-right">To</TableHead> */}
                     </TableRow>
                   </TableHeader>
 
                   <TableBody className=" ">
-                    {analystUpgradesDowngrades.map((item, index) => {
+                    {analystUpgradesDowngradesToDisplay.map((item, index) => {
                       return (
                         <TableRow key={`forecast-${index}`}>
                           <TableCell className="white-text text-left text-[#333333]">
@@ -604,7 +674,7 @@ export default function AnalystRecommendationScreen(
                           </TableCell>
 
                           <TableCell className={`text-left`}>
-                            {item.newsPublisher}
+                            {item.analystName || "-"}
                           </TableCell>
 
                           <TableCell className="text-right capitalize text-primary-base">
@@ -612,12 +682,15 @@ export default function AnalystRecommendationScreen(
                           </TableCell>
 
                           <TableCell className="text-right">
-                            {item.previousGrade}
+                            {appUtils.formatNumber(item.priceTarget, {
+                              style: "decimal",
+                              minimumFractionDigits: 2,
+                            })}
                           </TableCell>
 
-                          <TableCell className="text-right">
+                          {/* <TableCell className="text-right">
                             {item.newGrade}
-                          </TableCell>
+                          </TableCell> */}
                         </TableRow>
                       );
                     })}

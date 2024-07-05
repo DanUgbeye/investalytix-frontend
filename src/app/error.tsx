@@ -5,12 +5,12 @@ import NavBar from "@/components/ui/NavBar";
 import Image from "next/image";
 import { useEffect } from "react";
 
-export default function Error({
+export default function ErrorPage({
   error,
   reset,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
+  reset?: () => void;
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
@@ -24,14 +24,14 @@ export default function Error({
       <Container>
         <main className="flex flex-col-reverse items-center justify-center overflow-hidden max-md:min-h-[calc(100vh_-_88px)] max-md:pb-10 md:grid md:h-[calc(100vh_-_88px)] md:grid-cols-[auto,1fr]">
           <div className="flex flex-col items-start justify-center px-8 sm:px-[5%] md:h-full md:px-24 md:pl-0">
-            <h1 className="white-text mb-8 text-center text-3xl font-bold leading-[1.2] text-[#0B0B0B] sm:max-w-[15ch] md:text-left md:text-5xl ">
+            <h1 className="white-text mb-8 text-center text-3xl font-bold leading-[1.2] text-[#0B0B0B] sm:max-w-[15ch] md:text-left md:text-5xl">
               {error.message === "fetch failed"
                 ? "You don't have an internet connection"
                 : error.message}
             </h1>
 
             <button
-              onClick={() => reset()}
+              onClick={() => reset && reset()}
               className="mx-auto flex w-fit items-center gap-1 border-b-2 border-[#252525] text-lg font-semibold md:mx-0"
             >
               Refresh
