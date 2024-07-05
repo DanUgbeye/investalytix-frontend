@@ -334,7 +334,7 @@ function MobileMenu() {
           <div className="flex min-w-[300px] flex-col bg-white dark:bg-[#191919]">
             {history.length === 0 ? (
               <div className="flex flex-col bg-white dark:bg-[#191919]">
-                <div className="flex items-center justify-end gap-10 border-b sm:hidden">
+                <div className="flex items-center justify-end gap-10 border-b dark:border-main-gray-600 sm:hidden">
                   <Menu.Button
                     onClick={resetHistory}
                     className={
