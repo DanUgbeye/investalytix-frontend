@@ -65,7 +65,7 @@ async function getData(
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 interface IndustrySectorComparisonPageProps extends SearchTickerPageProps {}

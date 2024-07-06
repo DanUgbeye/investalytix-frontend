@@ -260,7 +260,7 @@ export default function NavBar(props: { className?: string }) {
               <>
                 <Link
                   href={PAGES.LOGIN}
-                  className="hidden cursor-pointer rounded bg-transparent px-4 py-2 text-sm font-medium hover:text-primary-base sm:text-base md:block dark:hover:text-primary-light"
+                  className="hidden cursor-pointer rounded bg-transparent px-4 py-2 text-sm font-medium text-white hover:text-primary-base sm:text-base md:block dark:text-main-gray-300 dark:hover:text-primary-light"
                 >
                   Login
                 </Link>
