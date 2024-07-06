@@ -26,7 +26,11 @@ export const TickerUpgradesDowngradesSchema = z.object({
   newsBaseURL: z.string(),
   newsPublisher: z.string(),
   newGrade: z.string(),
-  previousGrade: z.string().nullable(),
+  previousGrade: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
   gradingCompany: z.string(),
   action: z.string(),
   priceWhenPosted: z.number(),
@@ -67,8 +71,16 @@ export const TickerPriceTargetSchema = z.object({
   symbol: z.string(),
   publishedDate: z.coerce.date(),
   newsURL: z.string(),
-  newsTitle: z.string().nullable(),
-  analystName: z.string().nullable(),
+  newsTitle: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  analystName: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
   priceTarget: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<

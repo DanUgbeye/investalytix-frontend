@@ -3,7 +3,11 @@ import { ZodType, z } from "zod";
 
 export const QuoteSchema = z.object({
   symbol: z.string(),
-  name: z.string().nullable(),
+  name: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
   price: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
@@ -54,7 +58,11 @@ export const QuoteSchema = z.object({
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
     number | null
   >,
-  exchange: z.string().nullable(),
+  exchange: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
   volume: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
@@ -85,7 +93,11 @@ export const QuoteSchema = z.object({
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
     number | null
   >,
-  earningsAnnouncement: z.string().nullable(),
+  earningsAnnouncement: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
   sharesOutstanding: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
@@ -129,7 +141,19 @@ export const ShortQuoteSchema = z.object({
 export const SearchResultSchema = z.object({
   symbol: z.string(),
   name: z.string(),
-  currency: z.string().nullable(),
-  stockExchange: z.string().nullable(),
-  exchangeShortName: z.string().nullable(),
+  currency: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  stockExchange: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  exchangeShortName: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
 }) satisfies ZodType<SearchResult>;

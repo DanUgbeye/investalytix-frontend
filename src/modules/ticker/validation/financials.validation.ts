@@ -733,8 +733,16 @@ export const IncomeStatementSchema = z.object({
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
     number | null
   >,
-  link: z.string().nullable(),
-  finalLink: z.string().nullable(),
+  link: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  finalLink: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
 }) satisfies ZodType<IncomeStatement>;
 
 export const BalanceSheetStatementSchema = z.object({
@@ -966,8 +974,16 @@ export const BalanceSheetStatementSchema = z.object({
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
     number | null
   >,
-  link: z.string().nullable(),
-  finalLink: z.string().nullable(),
+  link: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  finalLink: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
 }) satisfies ZodType<BalanceSheetStatement>;
 
 export const CashFlowStatementSchema = z.object({
@@ -1129,8 +1145,16 @@ export const CashFlowStatementSchema = z.object({
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
     number | null
   >,
-  link: z.string().nullable(),
-  finalLink: z.string().nullable(),
+  link: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  finalLink: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
 }) satisfies ZodType<CashFlowStatement>;
 
 export const FinancialsSchema = z.object({
