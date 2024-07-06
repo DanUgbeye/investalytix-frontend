@@ -43,7 +43,6 @@ function ChartPage() {
           "calendar": false,
           "hide_side_toolbar": false,
            "withdateranges": true,
-             "details": true,
           "support_host": "https://www.tradingview.com",
           "studies": []
         }`;
@@ -61,7 +60,7 @@ function ChartPage() {
       className={`grid ${open ? "lg:grid-cols-[1fr,450px]" : "lg:grid-cols-[1fr,max-content]"}`}
     >
       <div
-        className="relative h-[calc(100vh_-_144px)] w-full overflow-hidden md:h-[calc(100vh_-_148px)]"
+        className="relative h-[calc(100vh_-_144px)] w-full overflow-hidden md:h-[calc(100vh_-_88px)]"
         ref={container}
       ></div>
 

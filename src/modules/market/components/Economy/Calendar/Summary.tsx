@@ -281,11 +281,12 @@ export default function Summary() {
         })}
 
         <DateRangePicker
-          className={"z-50"}
+          className={"economy__calendar"}
           onChange={calendarOnChangeHandler}
           value={[new Date(from), new Date(to)]}
           calendarIcon={FiCalendar}
           clearIcon={null}
+          
         />
 
         <button
@@ -304,11 +305,11 @@ export default function Summary() {
 
         <div className="flex gap-3">
           {from && to != from && (
-            <p className="">{moment(from).format("DD/MM/YYYY")}</p>
+            <p className="">{moment(from).format("Do MMMM")}</p>
           )}
           {to && to != from && <p className="">-</p>}
           {to && to != from && (
-            <p className="">{moment(to).format("DD/MM/YYYY")}</p>
+            <p className="">{moment(to).format("Do MMMM")}</p>
           )}
         </div>
       </div>
