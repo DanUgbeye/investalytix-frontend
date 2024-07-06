@@ -68,6 +68,7 @@ async function getData(
     return { error };
   }
 }
+
 interface IndustrySectorComparisonPageProps extends SearchTickerPageProps {}
 
 export default async function IndustrySectorComparisonPage(

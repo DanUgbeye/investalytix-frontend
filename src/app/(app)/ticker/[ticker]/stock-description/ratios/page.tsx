@@ -1,14 +1,20 @@
-import { Metadata } from "next";
-import React from "react";
-import RatiosScreen from "./screen";
-import { SearchTickerPageProps } from "../../page";
-import { TickerRepository } from "@/modules/ticker/repository";
 import { serverAPI } from "@/config/server/api";
-import { errorUtils } from "@/utils/error.utils";
-import { notFound } from "next/navigation";
+import { TickerRepository } from "@/modules/ticker/repository";
+import {
+  BalanceSheetStatementGrowth,
+  CashFlowStatementGrowth,
+  CompanyOutlook,
+  FinancialGrowth,
+  IncomeStatementGrowth,
+  Ratio,
+} from "@/modules/ticker/types";
 import { Quote, Result } from "@/types";
-import { CompanyOutlook, Ratio } from "@/modules/ticker/types";
+import { errorUtils } from "@/utils/error.utils";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import ErrorScreen from "../../error-screen";
+import { SearchTickerPageProps } from "../../page";
+import RatiosScreen from "./screen";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -35,20 +41,53 @@ export type RatiosPageData = {
   quote: Quote;
   ratio?: Ratio;
   outlook: CompanyOutlook;
+  financialGrowth?: FinancialGrowth;
+  incomeGrowth?: IncomeStatementGrowth;
+  cashFlowGrowth?: CashFlowStatementGrowth;
+  balanceSheetGrowth?: BalanceSheetStatementGrowth;
 };
 
 async function getData(ticker: string): Promise<Result<RatiosPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
 
-    const [quote, outlook, ratio] = await Promise.all([
+    const [
+      quote,
+      outlook,
+      ratio,
+      financialGrowth,
+      incomeGrowth,
+      cashFlowGrowth,
+      balanceSheetGrowth,
+    ] = await Promise.all([
       tickerRepo.getQuote(ticker),
       tickerRepo.getCompanyOutLook(ticker),
       tickerRepo.getRatios(ticker, { period: "annual", limit: 1 }),
+      tickerRepo.getFinancialGrowth(ticker, { period: "annual", limit: 1 }),
+      tickerRepo.getIncomeStatementGrowth(ticker, {
+        period: "annual",
+        limit: 1,
+      }),
+      tickerRepo.getCashFlowStatementGrowth(ticker, {
+        period: "annual",
+        limit: 1,
+      }),
+      tickerRepo.getBalanceSheetStatementGrowth(ticker, {
+        period: "annual",
+        limit: 1,
+      }),
     ]);
 
     return {
-      data: { quote, outlook, ratio: ratio.length > 0 ? ratio[0] : undefined },
+      data: {
+        quote,
+        outlook,
+        ratio: ratio.length > 0 ? ratio[0] : undefined,
+        financialGrowth: financialGrowth[0],
+        incomeGrowth: incomeGrowth[0],
+        cashFlowGrowth: cashFlowGrowth[0],
+        balanceSheetGrowth: balanceSheetGrowth[0],
+      },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {

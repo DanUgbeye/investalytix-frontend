@@ -19,7 +19,16 @@ interface RatiosScreenProps extends RatiosPageData {
 }
 
 export default function RatiosScreen(props: RatiosScreenProps) {
-  const { ticker, outlook, quote, ratio } = props;
+  const {
+    ticker,
+    outlook,
+    quote,
+    ratio,
+    financialGrowth,
+    incomeGrowth,
+    cashFlowGrowth,
+    balanceSheetGrowth,
+  } = props;
 
   const issueData = useMemo(
     () =>
@@ -59,13 +68,11 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   const growthPotential = useMemo(
     () =>
       generateGrowthPotentialData({
-        quote,
         currency: outlook.profile.currency || "",
-        ratioTTM: outlook.ratios[0],
-        ratio,
-        income: outlook.financialsAnnual.income[0],
-        cash: outlook.financialsAnnual.cash[0],
-        balance: outlook.financialsAnnual.balance[0],
+        financialGrowth,
+        incomeGrowth,
+        cashFlowGrowth,
+        balanceSheetGrowth,
       }),
     []
   );

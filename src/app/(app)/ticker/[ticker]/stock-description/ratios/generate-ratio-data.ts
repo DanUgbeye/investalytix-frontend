@@ -1,7 +1,11 @@
 import {
   BalanceSheetStatement,
+  BalanceSheetStatementGrowth,
   CashFlowStatement,
+  CashFlowStatementGrowth,
+  FinancialGrowth,
   IncomeStatement,
+  IncomeStatementGrowth,
   Ratio,
   RatioTTM,
 } from "@/modules/ticker/types";
@@ -207,50 +211,106 @@ export function generateCashFlowAnalysisData(data: {
 }
 
 export function generateGrowthPotentialData(data: {
-  quote: Quote;
-  ratio?: Ratio;
-  ratioTTM?: RatioTTM;
   currency: string;
-  income: IncomeStatement;
-  cash: CashFlowStatement;
-  balance: BalanceSheetStatement;
+  financialGrowth?: FinancialGrowth;
+  incomeGrowth?: IncomeStatementGrowth;
+  cashFlowGrowth?: CashFlowStatementGrowth;
+  balanceSheetGrowth?: BalanceSheetStatementGrowth;
 }) {
-  const { currency, ratio, ratioTTM, quote, income } = data;
+  const {
+    currency,
+    financialGrowth,
+    incomeGrowth,
+    cashFlowGrowth,
+    balanceSheetGrowth,
+  } = data;
 
   return {
     name: "Growth Potential",
     fields: [
       {
-        label: "Dil EPS Frm Cont Op 1Y Growth",
-        value: "0.3%",
+        label: "Diluted EPS 1Y Growth",
+        value:
+          incomeGrowth && incomeGrowth?.growthEPSDiluted
+            ? appUtils.formatNumber(incomeGrowth.growthEPSDiluted * 100, {
+                style: "decimal",
+              }) + "%"
+            : "-",
       },
       {
-        label: "Cap 1Y Growth",
-        value: "1.6%",
+        label: "Capital 1Y Growth",
+        value:
+          cashFlowGrowth && cashFlowGrowth?.growthChangeInWorkingCapital
+            ? appUtils.formatNumber(
+                cashFlowGrowth.growthChangeInWorkingCapital * 100,
+                {
+                  style: "decimal",
+                }
+              ) + "%"
+            : "-",
       },
       {
-        label: "BPS 1Y Growth",
-        value: "25.7%",
+        label: "Book Value / Share 1Y Growth",
+        value:
+          financialGrowth && financialGrowth?.bookValueperShareGrowth
+            ? appUtils.formatNumber(
+                financialGrowth.bookValueperShareGrowth * 100,
+                {
+                  style: "decimal",
+                }
+              ) + "%"
+            : "-",
       },
       {
-        label: "R&D To Sl",
-        value: "7.8%",
+        label: "Research & Development Growth",
+        value:
+          incomeGrowth && incomeGrowth?.growthResearchAndDevelopmentExpenses
+            ? appUtils.formatNumber(
+                incomeGrowth.growthResearchAndDevelopmentExpenses * 100,
+                {
+                  style: "decimal",
+                }
+              ) + "%"
+            : "-",
       },
       {
-        label: "Retention Rate",
-        value: "84.7%",
+        label: "Earnings Retention Rate",
+        value:
+          balanceSheetGrowth && balanceSheetGrowth?.growthRetainedEarnings
+            ? appUtils.formatNumber(
+                balanceSheetGrowth.growthRetainedEarnings * 100,
+                {
+                  style: "decimal",
+                }
+              ) + "%"
+            : "-",
       },
       {
         label: "Revenue 1Y Growth",
-        value: "-2.8%",
+        value:
+          incomeGrowth && incomeGrowth?.growthRevenue
+            ? appUtils.formatNumber(incomeGrowth.growthRevenue * 100, {
+                style: "decimal",
+              }) + "%"
+            : "-",
       },
       {
-        label: "Empl 1Y Growth",
-        value: "-1.8%",
+        label: "EBITDA 1Y Growth",
+        value:
+          incomeGrowth && incomeGrowth?.growthEBITDA
+            ? appUtils.formatNumber(incomeGrowth.growthEBITDA * 100, {
+                style: "decimal",
+              }) + "%"
+            : "-",
       },
       {
         label: "Assets 1Y Growth",
-        value: "0.0%",
+        value:
+          financialGrowth && financialGrowth?.assetGrowth
+            ? appUtils.formatNumber(financialGrowth.assetGrowth * 100, {
+                style: "decimal",
+              }) + "%"
+            : "-",
       },
     ],
   };
