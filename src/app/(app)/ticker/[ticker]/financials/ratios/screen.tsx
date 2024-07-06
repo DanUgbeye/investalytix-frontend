@@ -1,6 +1,7 @@
 "use client";
 
 import { RowWithChildren } from "@/components/row-with-children";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -10,18 +11,16 @@ import {
   TableRow,
   tableHeaderCellVariants,
 } from "@/components/ui/table";
+import CLIENT_CONFIG from "@/config/client/app";
 import useScroll from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
-import { FinancialPeriod, Ratio } from "@/modules/ticker/types";
+import { useAppStore } from "@/store";
 import { format, startOfYear, subYears } from "date-fns";
 import { ChevronRight, Plus } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { generateRatiosTableData } from "./generate-table-data";
-import { Button } from "@/components/ui/button";
-import { useAppStore } from "@/store";
-import CLIENT_CONFIG from "@/config/client/app";
 import { FinancialRatiosPageData } from "./page";
 
 function getPeriodUrl(path: string, period: string) {
@@ -112,7 +111,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
                       key={`income-${incomeSheet.period}-${index}`}
                       className="text-right"
                     >
-                      <div className="flex w-20 flex-col gap-1">
+                      <div className="flex w-20 flex-col gap-1 ml-auto">
                         <span className=" ">
                           {(!period || period === "quarter") &&
                             `${incomeSheet.period} '`}
@@ -133,6 +132,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
               {tableData.map((rowData, index) => {
                 return (
                   <RowWithChildren
+                    key={`ratios-${rowData.data.label}-${period}`}
                     row={rowData}
                     renderRow={({
                       data,
@@ -145,7 +145,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
 
                       return (
                         <TableRow
-                          key={`row-${data.label}`}
+                          key={`row-${data.label}-${period}`}
                           highlightPattern={hightlight ? "current" : "none"}
                           className={cn("group border-y", {
                             "cursor-pointer": hasChildren,
@@ -179,10 +179,10 @@ export default function RatiosScreen(props: RatiosScreenProps) {
                             </div>
                           </TableCell>
 
-                          {data.cols.map((colData, index) => {
+                          {data.cols.map((colData, colIndex) => {
                             return (
                               <TableCell
-                                key={`income-${data.label}-${index}`}
+                                key={`ratio-${data.label}-${colIndex}`}
                                 className="text-right"
                               >
                                 {colData}

@@ -360,7 +360,7 @@ export default function KeyStatsScreen(props: KeyStatsScreenProps) {
                       key={`cash-${cashFlow.period}-${index}`}
                       className="text-right"
                     >
-                      <div className="flex w-20 flex-col gap-1 sm:w-full">
+                      <div className="flex flex-col gap-1 ml-auto">
                         <span className=" ">
                           {viewPeriods.cash === "quarter" &&
                             `${cashFlow.period} '`}

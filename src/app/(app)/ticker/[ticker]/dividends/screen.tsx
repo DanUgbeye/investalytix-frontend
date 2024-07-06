@@ -54,6 +54,8 @@ export default function DividendsScreen(props: DividendsScreenProps) {
     }
   }
 
+  console.log(ratio)
+
   return (
     <main className="max-w-7xl space-y-10 pb-12">
       <HeaderWithUnderline>
@@ -99,14 +101,14 @@ export default function DividendsScreen(props: DividendsScreenProps) {
 
           <span className="text-xl">
             {appUtils.formatNumber(
-              ratio.dividendPayoutRatio
+              ratio?.dividendPayoutRatio
                 ? ratio.dividendPayoutRatio * 100
-                : undefined,
+                : null,
               {
                 style: "decimal",
               }
             )}
-            {ratio.dividendPayoutRatio && "%"}
+            {ratio?.dividendPayoutRatio && "%"}
           </span>
         </div>
 

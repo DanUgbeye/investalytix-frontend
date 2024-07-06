@@ -34,7 +34,7 @@ export type DividendsPageData = {
   outlook: CompanyOutlook;
   dividends: Dividend[];
   currency?: string;
-  ratio: Ratio;
+  ratio?: Ratio;
 };
 
 async function getData(ticker: string): Promise<Result<DividendsPageData>> {
