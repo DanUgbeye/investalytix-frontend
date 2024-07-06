@@ -34,10 +34,11 @@ export default function AboutUsPage() {
       img: "",
     },
   ];
+
   return (
-    <main>
+    <main className="pb-12">
       <header className="bg-black/5 px-10 py-24 text-center dark:bg-white/5">
-        <h1 className=" text-center text-5xl font-bold md:text-8xl lg:text-9xl">
+        <h1 className="text-center text-5xl font-bold md:text-8xl lg:text-9xl">
           About investalytix
         </h1>
         <p className="mx-auto mt-10 max-w-xl text-lg md:text-xl">
@@ -50,7 +51,7 @@ export default function AboutUsPage() {
         {data.map((about, index) => (
           <div
             key={about.category.replaceAll(" ", "-")}
-            className={`mt-24 grid grid-rows-[300px,1fr] items-center gap-10 md:grid-rows-1 md:gap-14 ${index % 2 === 0 ? "md:grid-cols-[3fr,2fr]" : "grid-cols-reverse md:grid-cols-[2fr,3fr] "}`}
+            className={`mt-24 grid grid-rows-[300px,1fr] items-center gap-10 md:grid-rows-1 md:gap-14 ${index % 2 === 0 ? "md:grid-cols-[3fr,2fr]" : "grid-cols-reverse md:grid-cols-[2fr,3fr]"}`}
           >
             <div
               className={`h-full rounded-xl bg-gray-200 bg-cover bg-center bg-no-repeat xl:min-h-[400px]`}
@@ -84,29 +85,31 @@ export default function AboutUsPage() {
         </div>
       </Container>
 
-      <div className="mt-24 bg-black/5 px-12 py-12 dark:bg-white/5">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
-          <div className="">
-            <h1 className="text-6xl font-bold md:text-7xl lg:text-6xl">
-              Connect With Us
-            </h1>
-            <p className="mb-8 mt-3 text-xl">
-              We're always here to help and answer any questions you might have.
-              Please fill out the form below, and we'll get back to you as soon
-              as possible.
-            </p>
+      {false && (
+        <div className="mt-24 bg-black/5 px-12 pt-12 dark:bg-white/5">
+          <div className="mx-auto grid max-w-7xl items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
+            <div className="">
+              <h1 className="text-6xl font-bold md:text-7xl lg:text-6xl">
+                Connect With Us
+              </h1>
+              <p className="mb-8 mt-3 text-xl">
+                We're always here to help and answer any questions you might
+                have. Please fill out the form below, and we'll get back to you
+                as soon as possible.
+              </p>
 
-            <Link
-              href="/contact-us"
-              className="inline-flex h-12 items-center justify-center whitespace-nowrap rounded-md bg-primary-base px-8 py-2 text-lg font-medium text-white ring-offset-white transition-colors duration-300 hover:bg-primary-base/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 md:text-xl dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300"
-            >
-              Contact us
-            </Link>
+              <Link
+                href="/contact-us"
+                className="inline-flex h-12 items-center justify-center whitespace-nowrap rounded-md bg-primary-base px-8 py-2 text-lg font-medium text-white ring-offset-white transition-colors duration-300 hover:bg-primary-base/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 md:text-xl dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300"
+              >
+                Contact us
+              </Link>
+            </div>
+
+            <div className="h-full rounded-xl bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:h-[400px]"></div>
           </div>
-
-          <div className="h-full rounded-xl bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:h-[400px]"></div>
         </div>
-      </div>
+      )}
     </main>
   );
 }
@@ -119,7 +122,7 @@ function AboutAlan() {
   };
   return (
     <>
-      <div className="mt-16 flex flex-col gap-12 rounded-xl bg-black/5 px-6 py-10 md:px-14 md:py-20 max-md:items-center md:flex-row dark:bg-white/5">
+      <div className="mt-16 flex flex-col gap-12 rounded-xl bg-black/5 px-6 py-10 max-md:items-center md:flex-row md:px-14 md:py-20 dark:bg-white/5">
         <div className="h-52 w-52 shrink-0 rounded-full bg-black"></div>
 
         <div className="">
@@ -165,7 +168,7 @@ function AboutAlan() {
                     </div>
                   </div>
                   <div className="h-full overflow-auto px-5 pb-5">
-                    <p className="text-justify  text-base">
+                    <p className="text-justify text-base">
                       Jimmy Alan's journey began as a young 15-year-old Iraqi
                       immigrant who escaped the country after the Desert Storm
                       war and moved to America. Coming from a poor family, Jimmy

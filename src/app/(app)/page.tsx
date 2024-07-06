@@ -208,7 +208,8 @@ export default function Home() {
         </Container>
       </section>
 
-      <div className="bg-black/5 dark:bg-white/5">
+{/* contact us */}
+     {false && <div className="bg-black/5 dark:bg-white/5">
         <div className="mx-auto grid items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
           <div className="mx-auto max-w-2xl px-12 py-12">
             <h1 className="text-6xl font-bold md:text-7xl lg:text-6xl">
@@ -230,7 +231,7 @@ export default function Home() {
 
           <div className="h-full bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:min-h-[400px]"></div>
         </div>
-      </div>
+      </div>}
     </>
   );
 }
@@ -333,52 +334,6 @@ function Plan({
         ))}
       </div>
     </div>
-  );
-}
-
-function Products2() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mainRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const horizontalContext = gsap.context(() => {
-      const horizontalScrollData = gsap.utils.toArray(".horizontalSection");
-      gsap.to(horizontalScrollData, {
-        xPercent: -100 * (horizontalScrollData.length - 1),
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          scrub: 1,
-          pin: true,
-          // snap: 1 / (horizontalScrollData.length - 1),
-          snap: {
-            snapTo: 1 / (horizontalScrollData.length - 1),
-            duration: { min: 0.25, max: 0.75 },
-            delay: 0.125,
-            ease: "power1.inOut",
-          },
-          end: () => `+=${containerRef?.current?.offsetWidth}`,
-        },
-      });
-    }, mainRef);
-
-    return () => {
-      horizontalContext.revert();
-    };
-  }, []);
-
-  return (
-    // <div className="mt-24">
-    //   <h1 className="mb-6 w-screen text-center text-6xl font-extrabold">
-    //     Products
-    //   </h1>
-    <div ref={mainRef}>
-      <section ref={containerRef} className="relative flex h-screen w-[200vw]">
-        <div className="horizontalSection h-screen w-screen bg-red-500"></div>
-        <div className="horizontalSection h-screen w-screen bg-blue-500"></div>
-      </section>
-    </div>
-    // </div>
   );
 }
 
