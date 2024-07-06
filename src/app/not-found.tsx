@@ -16,7 +16,7 @@ export default function Custom404() {
       <Container>
         <main className="flex flex-col-reverse items-center justify-center overflow-hidden max-md:min-h-[calc(100vh_-_88px)] max-md:pb-10 md:grid md:h-[calc(100vh_-_88px)] md:grid-cols-[max-content,1fr]">
           <div className="flex flex-col items-start justify-center px-8 sm:px-[5%] md:h-full md:px-24 md:pl-0">
-            <h1 className="white-text mb-8 max-w-[10ch] text-center text-3xl font-bold leading-[1.2] text-[#0B0B0B] md:text-left md:text-5xl ">
+            <h1 className="white-text mb-8 max-w-[10ch] text-center text-3xl font-bold leading-[1.2] text-[#0B0B0B] md:text-left md:text-5xl">
               Oops! Something went wrong
             </h1>
 

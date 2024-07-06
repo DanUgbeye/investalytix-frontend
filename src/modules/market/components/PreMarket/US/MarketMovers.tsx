@@ -74,7 +74,7 @@ export default function MarketMovers() {
 function Panel() {
   return (
     <Tab.Panel>
-      <div className="grid md:grid-cols-2 gap-20">
+      <div className="grid gap-20 md:grid-cols-2">
         <div className="">
           <p className="mb-7 font-bold capitalize">top gainers</p>
 

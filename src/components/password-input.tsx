@@ -32,10 +32,13 @@ export const PasswordInput = React.forwardRef<
     }, [showPassword]);
 
     return (
-      <div className=" relative h-fit ">
+      <div className="relative h-fit">
         <Input
           type={showPwd ? "text" : "password"}
-          className={cn(" mt-3 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-main-gray-700 dark:bg-main-gray-900 dark:ring-offset-white dark:placeholder:text-gray-500 dark:focus-visible:ring-gray-950 pr-8 ", className)}
+          className={cn(
+            "mt-3 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 pr-8 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-main-gray-700 dark:bg-main-gray-900 dark:ring-offset-white dark:placeholder:text-gray-500 dark:focus-visible:ring-gray-950",
+            className
+          )}
           ref={ref}
           {...props}
         />
@@ -44,7 +47,7 @@ export const PasswordInput = React.forwardRef<
           type="button"
           variant={"ghost"}
           className={cn(
-            " absolute right-1 top-[50%] aspect-square h-fit max-h-8 translate-y-[-50%] px-2 py-0 ",
+            "absolute right-1 top-[50%] aspect-square h-fit max-h-8 translate-y-[-50%] px-2 py-0",
             classNames?.showButton
           )}
           onClick={(e) => handleShowPassword()}

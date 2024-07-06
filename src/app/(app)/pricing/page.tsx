@@ -119,7 +119,7 @@ export default function PricingPage() {
 
         {/* faq and support */}
         <section className="py-10 md:py-12 lg:py-16">
-          <h1 className="text-center text-3xl font-bold md:text-4xl lg:text-5xl ">
+          <h1 className="text-center text-3xl font-bold md:text-4xl lg:text-5xl">
             Frequently asked questions
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-center md:text-lg">
@@ -143,7 +143,10 @@ export default function PricingPage() {
             <p className="mt-4 text-center text-lg">
               Support details to capture customers that might be on the fence.
             </p>
-            <Link href={PAGES["CONTACT"]} className="mx-auto mt-6 block w-fit border border-black px-6 py-3 dark:border-white">
+            <Link
+              href={PAGES["CONTACT"]}
+              className="mx-auto mt-6 block w-fit border border-black px-6 py-3 dark:border-white"
+            >
               Contact us
             </Link>
           </div>

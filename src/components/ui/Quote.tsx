@@ -43,7 +43,7 @@ export default function Quote({
       </div>
     </div>
   );
-  
+
   //   return (
   //     <div
   //       className={twMerge(

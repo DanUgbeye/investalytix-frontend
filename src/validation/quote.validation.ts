@@ -7,77 +7,95 @@ export const QuoteSchema = z.object({
   price: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   changesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   change: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   dayLow: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   dayHigh: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   yearHigh: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   yearLow: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   marketCap: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   priceAvg50: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   priceAvg200: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   exchange: z.string().nullable(),
   volume: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   avgVolume: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   open: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   previousClose: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   eps: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   pe: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   earningsAnnouncement: z.string().nullable(),
   sharesOutstanding: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   timestamp: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
 }) satisfies ZodType<Quote>;
 
 export const QuoteHistorySchema = z.object({

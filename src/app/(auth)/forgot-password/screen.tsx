@@ -109,7 +109,7 @@ function ForgotPassword({
               <FormLabel
                 htmlFor="email"
                 error={!!fieldState.error}
-                className=" text-[#3C4257] "
+                className="text-[#3C4257]"
               >
                 Email
               </FormLabel>
@@ -117,7 +117,7 @@ function ForgotPassword({
               <Input
                 {...field}
                 id="email"
-                className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white"
                 type="email"
                 placeholder="jane.doe@gmail.com"
               />
@@ -129,10 +129,10 @@ function ForgotPassword({
 
         <Button
           disabled={isSubmitting || !isDirty}
-          className=" mt-7 h-fit w-full cursor-pointer rounded bg-primary-base py-4 text-white"
+          className="mt-7 h-fit w-full cursor-pointer rounded bg-primary-base py-4 text-white"
         >
           {isSubmitting ? (
-            <PiSpinnerGap className=" size-5 animate-spin " />
+            <PiSpinnerGap className="size-5 animate-spin" />
           ) : (
             "Continue"
           )}
@@ -773,11 +773,11 @@ function MailSent({ email }: { email: string }) {
 
       <div className="my-4 h-[0.5px] w-full bg-[#9D9D9D]"></div>
 
-      <p className="white-text flex flex-wrap items-center gap-1 px-7 text-[#485567] ">
+      <p className="white-text flex flex-wrap items-center gap-1 px-7 text-[#485567]">
         If you did not receive any mail,{" "}
         <>
           {sending ? (
-            <PiSpinnerGap className=" mx-1 size-5 animate-spin text-[#125BD4] dark:text-[#a4c7ff] " />
+            <PiSpinnerGap className="mx-1 size-5 animate-spin text-[#125BD4] dark:text-[#a4c7ff]" />
           ) : (
             <button
               className="text-[#125BD4] dark:text-[#a4c7ff]"

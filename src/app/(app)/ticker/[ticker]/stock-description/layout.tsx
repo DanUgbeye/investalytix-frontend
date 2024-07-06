@@ -16,7 +16,7 @@ function StockDescriptionLayout(props: StockDescriptionLayoutProps) {
   return (
     <div>
       {/* MENU NAVIGATION */}
-      <div className=" py-8 lg:pt-0 ">
+      <div className="py-8 lg:pt-0">
         <StockDescriptionSubMenuBar ticker={ticker} />
       </div>
 

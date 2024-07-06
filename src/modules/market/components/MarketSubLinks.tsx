@@ -33,7 +33,7 @@ export default function MarketSubLinks({
                 key={market.href}
                 className={`z-[1] !w-fit !flex-shrink grow-0 border-b-2 py-2 ${
                   isActive
-                    ? "border-primary-base "
+                    ? "border-primary-base"
                     : // : "border-primary-base"
                       "border-transparent"
                 }`}

@@ -77,12 +77,12 @@ const TableRow = React.forwardRef<
     className={cn(
       "border-0 hover:bg-main-gray-200 data-[state=selected]:bg-gray-100 dark:border-t dark:border-solid dark:border-main-gray-900 dark:hover:bg-main-gray-800 dark:data-[state=selected]:bg-main-gray-800",
       {
-        " odd:bg-[#F0F3FA] dark:odd:bg-transparent ":
+        "odd:bg-[#F0F3FA] dark:odd:bg-transparent":
           highlightPattern === "odd" && !headerRow,
-        "  even:bg-[#F0F3FA] dark:even:bg-transparent ":
+        "even:bg-[#F0F3FA] dark:even:bg-transparent":
           highlightPattern === "even" && !headerRow,
-        "  bg-[#F0F3FA] dark:bg-transparent ": highlightPattern === "current",
-        " border-t border-solid bg-transparent hover:bg-transparent dark:hover:bg-transparent ":
+        "bg-[#F0F3FA] dark:bg-transparent": highlightPattern === "current",
+        "border-t border-solid bg-transparent hover:bg-transparent dark:hover:bg-transparent":
           headerRow,
       },
       className

@@ -60,7 +60,7 @@ export default function LoginScreen() {
         width="0"
         height="0"
         sizes="100vw"
-        className=" fixed -top-[15%] left-0 right-0 h-auto w-full max-md:-top-0 lg:top-0"
+        className="fixed -top-[15%] left-0 right-0 h-auto w-full max-md:-top-0 lg:top-0"
       />
 
       <main className="flex items-center justify-center px-5 py-20 sm:px-10">
@@ -91,7 +91,7 @@ export default function LoginScreen() {
                   <FormLabel
                     htmlFor="email"
                     error={!!fieldState.error}
-                    className=" text-[#3C4257] "
+                    className="text-[#3C4257]"
                   >
                     Email
                   </FormLabel>
@@ -99,7 +99,7 @@ export default function LoginScreen() {
                   <Input
                     {...field}
                     id="email"
-                    className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                    className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white"
                     type="email"
                     placeholder="example@example.com"
                   />
@@ -119,7 +119,7 @@ export default function LoginScreen() {
                     <FormLabel
                       htmlFor="password"
                       error={!!fieldState.error}
-                      className=" text-[#3C4257] "
+                      className="text-[#3C4257]"
                     >
                       Password
                     </FormLabel>
@@ -135,7 +135,7 @@ export default function LoginScreen() {
                   <PasswordInput
                     {...field}
                     id="password"
-                    className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                    className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white"
                     classNames={{
                       showButton:
                         " dark:text-black dark:hover:bg-gray-100 dark:hover:text-black ",
@@ -173,7 +173,7 @@ export default function LoginScreen() {
               className="h-fit w-full cursor-pointer rounded bg-primary-base py-4 text-white"
             >
               {isSubmitting ? (
-                <PiSpinnerGap className=" size-5 animate-spin " />
+                <PiSpinnerGap className="size-5 animate-spin" />
               ) : (
                 "Continue"
               )}

@@ -68,7 +68,7 @@ export default function ChartSummary(props: { ticker: string }) {
 
   async function getHistoricalData(timeframe: (typeof TIMEFRAMES)[number]) {
     let historyData: QuoteHistory[] = [];
-    console.log(getHours(new Date()))
+    console.log(getHours(new Date()));
 
     if (timeframe.label === "1 Day") {
       historyData = await tickerRepo.getQuoteHistory(
@@ -211,29 +211,28 @@ export default function ChartSummary(props: { ticker: string }) {
   }, [theme, quoteData]);
 
   return (
-    <div className=" space-y-4 ">
-      <div className=" relative h-72 w-full ">
+    <div className="space-y-4">
+      <div className="relative h-72 w-full">
         <div
           ref={chartRef}
-          className={cn(
-            `relative h-full w-full overflow-hidden duration-150 `,
-            { " opacity-50 pointer-events-none ": loadingData }
-          )}
+          className={cn(`relative h-full w-full overflow-hidden duration-150`, {
+            "pointer-events-none opacity-50": loadingData,
+          })}
         />
       </div>
 
-      <div className=" hide-scrollbar flex w-full items-center gap-2 overflow-x-auto ">
+      <div className="hide-scrollbar flex w-full items-center gap-2 overflow-x-auto">
         {TIMEFRAMES.map((tf, index) => {
           return (
             <button
               key={tf.label}
               type="button"
               className={cn(
-                " w-full min-w-fit rounded-lg p-4 text-sm duration-300 ",
+                "w-full min-w-fit rounded-lg p-4 text-sm duration-300",
                 {
-                  " hover:bg-main-gray-100 dark:hover:bg-main-gray-700/50 ":
+                  "hover:bg-main-gray-100 dark:hover:bg-main-gray-700/50":
                     tf.label !== activeTab.label,
-                  " bg-main-gray-200/50 dark:bg-main-gray-700 ":
+                  "bg-main-gray-200/50 dark:bg-main-gray-700":
                     tf.label === activeTab.label,
                 }
               )}

@@ -53,7 +53,7 @@ export default async function SectorPerformance({
           return (
             <div
               key={quote.sector}
-              className="grid grid-cols-[1fr,auto] border-b py-2 dark:dark:border-white/10 h-12"
+              className="grid h-12 grid-cols-[1fr,auto] border-b py-2 dark:dark:border-white/10"
             >
               <div className="">{quote.sector}</div>
               <p className="white-text text-end">{quote.changesPercentage}</p>

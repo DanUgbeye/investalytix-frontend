@@ -69,7 +69,9 @@ function Panel() {
     <Tab.Panel>
       <div className="grid gap-10 pb-14 md:grid-cols-2">
         <div className="">
-          <p className="white-text mb-11 text-2xl font-bold capitalize">Top gainers</p>
+          <p className="white-text mb-11 text-2xl font-bold capitalize">
+            Top gainers
+          </p>
 
           <div className="flex flex-col gap-5">
             {topMovers.map((mover) => (
@@ -100,7 +102,9 @@ function Panel() {
           </div>
         </div>
         <div className="">
-          <p className="white-text mb-11 text-2xl font-bold capitalize">Top decliners</p>
+          <p className="white-text mb-11 text-2xl font-bold capitalize">
+            Top decliners
+          </p>
 
           <div className="flex flex-col gap-5">
             {topMovers.map((mover) => (

@@ -7,20 +7,24 @@ export const EarningSchema = z.object({
   eps: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   epsEstimated: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   time: z.string(),
   revenue: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   revenueEstimated: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   updatedFromDate: z.coerce.date(),
   fiscalDateEnding: z.coerce.date(),
 }) satisfies ZodType<Earning>;

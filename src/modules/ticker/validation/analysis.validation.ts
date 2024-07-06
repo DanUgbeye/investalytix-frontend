@@ -72,15 +72,18 @@ export const TickerPriceTargetSchema = z.object({
   priceTarget: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   adjPriceTarget: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   priceWhenPosted: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   newsPublisher: z.string(),
   newsBaseURL: z.string(),
   analystCompany: z.string(),

@@ -30,21 +30,21 @@ export default function TickerNavLink(props: TickerNavLinkProps) {
       {...rest}
       href={href}
       className={cn(
-        " grid items-center duration-300 hover:text-primary-base ",
+        "grid items-center duration-300 hover:text-primary-base",
         {
-          " h-12 grid-cols-[auto,1fr] gap-x-3 px-4  ": isDesktop,
-          " items-center whitespace-nowrap p-2.5 ": isMobile,
-          " border-r-2 border-r-primary-base ": active && isDesktop,
-          " bg-primary-light/10 text-primary-base ": active,
+          "h-12 grid-cols-[auto,1fr] gap-x-3 px-4": isDesktop,
+          "items-center whitespace-nowrap p-2.5": isMobile,
+          "border-r-2 border-r-primary-base": active && isDesktop,
+          "bg-primary-light/10 text-primary-base": active,
         },
         className
       )}
     >
-      {isDesktop && Icon && <Icon className=" size-6" />}
+      {isDesktop && Icon && <Icon className="size-6" />}
 
       <span
-        className={cn(" text-sm font-bold ", {
-          " text-left ": isDesktop,
+        className={cn("text-sm font-bold", {
+          "text-left": isDesktop,
           "text-center": isMobile,
         })}
       >

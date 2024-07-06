@@ -19,7 +19,12 @@ import {
   useRef,
   useState,
 } from "react";
-import { FiCheck, FiChevronLeft, FiChevronRight, FiSearch } from "react-icons/fi";
+import {
+  FiCheck,
+  FiChevronLeft,
+  FiChevronRight,
+  FiSearch,
+} from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { plans } from "@/data/plans";
@@ -419,12 +424,18 @@ function Products() {
     <div className="products relative py-5 lg:py-20">
       <div className="absolute bottom-0 left-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-white from-[50%] to-transparent lg:block dark:from-black"></div>
       <div className="absolute bottom-0 right-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-transparent to-white to-[50%] lg:block dark:to-black"></div>
-    
-      <button id="products-prev" className="z-20 hidden lg:block absolute left-20 top-1/2 -transtate-y-1/2">
-        <FiChevronLeft className="size-20"/>
+
+      <button
+        id="products-prev"
+        className="-transtate-y-1/2 absolute left-20 top-1/2 z-20 hidden lg:block"
+      >
+        <FiChevronLeft className="size-20" />
       </button>
-      <button id="products-next" className="z-20 hidden lg:block absolute right-20 top-1/2 -transtate-y-1/2">
-        <FiChevronRight className="size-20"/>
+      <button
+        id="products-next"
+        className="-transtate-y-1/2 absolute right-20 top-1/2 z-20 hidden lg:block"
+      >
+        <FiChevronRight className="size-20" />
       </button>
 
       <Swiper
@@ -448,8 +459,8 @@ function Products() {
           },
         }}
       >
-        {images.map((img,index) => (
-          <SwiperSlide key={img.header+index} className="z-[1] max-lg:px-6">
+        {images.map((img, index) => (
+          <SwiperSlide key={img.header + index} className="z-[1] max-lg:px-6">
             <div className="relative aspect-video w-full">
               <Image src={img.img} alt="" className="" fill />
             </div>

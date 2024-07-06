@@ -101,7 +101,7 @@ export class TickerRepository {
     try {
       const path = `/tickers/${ticker}`;
       let res = await this.axios.get<{ data: CompanyOutlook }>(path, options);
-      console.log(res.data.data)
+      console.log(res.data.data);
       let validation = CompanyOutlookSchema.safeParse(res.data.data);
 
       if (validation.error) {
@@ -819,7 +819,9 @@ export class TickerRepository {
         data: TickerPriceTarget;
       }>(path, options);
 
-      let validation = z.array(TickerPriceTargetSchema).safeParse(res.data.data);
+      let validation = z
+        .array(TickerPriceTargetSchema)
+        .safeParse(res.data.data);
 
       if (validation.error) {
         console.log(validation.error.issues);

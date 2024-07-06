@@ -52,9 +52,9 @@ export default function MarketHeader({
       </h1>
 
       <div className="relative isolate" onMouseLeave={hoverLeaveHandler}>
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-black/10 -z-[1]"></div>
+        <div className="absolute bottom-0 left-0 right-0 -z-[1] h-[2px] bg-black/10"></div>
 
-        <div className="relative md:mx-auto md:w-fit z-10">
+        <div className="relative z-10 md:mx-auto md:w-fit">
           <div
             className="absolute bottom-0 left-0 z-[2] h-[2px] w-[0px] bg-primary-base duration-150"
             ref={ref}
@@ -68,7 +68,7 @@ export default function MarketHeader({
                   key={mkt.href}
                   className={`z-[1] w-fit !flex-shrink grow-0 border-b-2 py-2 ${
                     isActive
-                      ? "border-primary-base "
+                      ? "border-primary-base"
                       : // : "border-primary-base"
                         "border-transparent"
                   }`}

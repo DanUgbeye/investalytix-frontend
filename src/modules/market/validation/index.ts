@@ -11,45 +11,56 @@ export const SectorPerformanceHistorySchema = z.object({
   basicMaterialsChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   communicationServicesChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   consumerCyclicalChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   consumerDefensiveChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   energyChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   financialServicesChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   healthcareChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   industrialsChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   realEstateChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   technologyChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
   utilitiesChangesPercentage: z
     .union([z.number().nullable(), z.undefined()])
     .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null>,
+    number | null
+  >,
 }) satisfies ZodType<SectorPerformanceHistory>;

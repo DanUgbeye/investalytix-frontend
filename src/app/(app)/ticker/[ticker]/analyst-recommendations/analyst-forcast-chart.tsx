@@ -126,7 +126,7 @@ export default function AnalystForcastChart(props: Props) {
     }));
 
     areaSeries.setData(seriesData);
-    
+
     const redColor =
       theme === "light"
         ? tailwindCSS().theme.colors.main.red.light

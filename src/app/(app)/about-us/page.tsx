@@ -37,7 +37,7 @@ export default function AboutUsPage() {
   return (
     <main>
       <header className="bg-black/5 px-10 py-24 text-center dark:bg-white/5">
-        <h1 className=" text-center text-5xl font-bold md:text-8xl lg:text-9xl">
+        <h1 className="text-center text-5xl font-bold md:text-8xl lg:text-9xl">
           About investalytix
         </h1>
         <p className="mx-auto mt-10 max-w-xl text-lg md:text-xl">
@@ -50,7 +50,7 @@ export default function AboutUsPage() {
         {data.map((about, index) => (
           <div
             key={about.category.replaceAll(" ", "-")}
-            className={`mt-24 grid grid-rows-[300px,1fr] items-center gap-10 md:grid-rows-1 md:gap-14 ${index % 2 === 0 ? "md:grid-cols-[3fr,2fr]" : "grid-cols-reverse md:grid-cols-[2fr,3fr] "}`}
+            className={`mt-24 grid grid-rows-[300px,1fr] items-center gap-10 md:grid-rows-1 md:gap-14 ${index % 2 === 0 ? "md:grid-cols-[3fr,2fr]" : "grid-cols-reverse md:grid-cols-[2fr,3fr]"}`}
           >
             <div
               className={`h-full rounded-xl bg-gray-200 bg-cover bg-center bg-no-repeat xl:min-h-[400px]`}
@@ -119,7 +119,7 @@ function AboutAlan() {
   };
   return (
     <>
-      <div className="mt-16 flex flex-col gap-12 rounded-xl bg-black/5 px-6 py-10 md:px-14 md:py-20 max-md:items-center md:flex-row dark:bg-white/5">
+      <div className="mt-16 flex flex-col gap-12 rounded-xl bg-black/5 px-6 py-10 max-md:items-center md:flex-row md:px-14 md:py-20 dark:bg-white/5">
         <div className="h-52 w-52 shrink-0 rounded-full bg-black"></div>
 
         <div className="">
@@ -165,7 +165,7 @@ function AboutAlan() {
                     </div>
                   </div>
                   <div className="h-full overflow-auto px-5 pb-5">
-                    <p className="text-justify  text-base">
+                    <p className="text-justify text-base">
                       Jimmy Alan's journey began as a young 15-year-old Iraqi
                       immigrant who escaped the country after the Desert Storm
                       war and moved to America. Coming from a poor family, Jimmy

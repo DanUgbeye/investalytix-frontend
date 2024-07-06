@@ -643,9 +643,7 @@ export default function AnalystRecommendationScreen(
 
                       <TableHead className="text-right">Action</TableHead>
 
-                      <TableHead className="text-right">
-                        Target Price
-                      </TableHead>
+                      <TableHead className="text-right">Target Price</TableHead>
 
                       {/* <TableHead className="text-right">To</TableHead> */}
                     </TableRow>

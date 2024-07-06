@@ -55,35 +55,35 @@ export default function DividendsScreen(props: DividendsScreenProps) {
   }
 
   return (
-    <main className=" max-w-7xl space-y-10 pb-12 ">
+    <main className="max-w-7xl space-y-10 pb-12">
       <HeaderWithUnderline>
         {outlook.profile.companyName} Dividends Overview
       </HeaderWithUnderline>
 
-      <div className=" grid grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] gap-6 p-4 xl:grid-cols-4 xl:justify-between ">
-        <div className=" flex flex-col gap-1 ">
-          <span className=" text-sm font-bold ">Last Ex-Dividend Date</span>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] gap-6 p-4 xl:grid-cols-4 xl:justify-between">
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-bold">Last Ex-Dividend Date</span>
 
-          <span className=" text-xl ">
+          <span className="text-xl">
             {dividends[0] &&
               format(new Date(dividends[0].date), "MMMM dd, yyyy")}
           </span>
         </div>
 
-        <div className=" flex flex-col gap-1 ">
-          <span className=" text-sm font-bold ">Dividend Amount Per Share</span>
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-bold">Dividend Amount Per Share</span>
 
-          <span className=" text-xl ">
+          <span className="text-xl">
             {appUtils.formatNumber(dividends[0]?.dividend || undefined, {
               currency,
             })}
           </span>
         </div>
 
-        <div className=" flex flex-col gap-1 ">
-          <span className=" text-sm font-bold ">Dividend Yield</span>
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-bold">Dividend Yield</span>
 
-          <span className=" text-xl ">
+          <span className="text-xl">
             {appUtils.formatNumber(
               outlook.ratios[0]?.dividendYielPercentageTTM || undefined,
               {
@@ -94,10 +94,10 @@ export default function DividendsScreen(props: DividendsScreenProps) {
           </span>
         </div>
 
-        <div className=" flex flex-col gap-1 ">
-          <span className=" text-sm font-bold ">Payout Ratio</span>
+        <div className="flex flex-col gap-1">
+          <span className="text-sm font-bold">Payout Ratio</span>
 
-          <span className=" text-xl ">
+          <span className="text-xl">
             {appUtils.formatNumber(
               ratio.dividendPayoutRatio
                 ? ratio.dividendPayoutRatio * 100
@@ -121,27 +121,27 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         </div> */}
       </div>
 
-      <div className=" space-y-5 ">
-        <h4 className=" text-xl font-bold ">Dividend Amount Per Share</h4>
+      <div className="space-y-5">
+        <h4 className="text-xl font-bold">Dividend Amount Per Share</h4>
 
-        <div className="  ">
+        <div className=" ">
           <ResponsiveContainer
             width={"100%"}
             height={200}
-            className={" text-xs md:text-sm "}
+            className={"text-xs md:text-sm"}
           >
             <BarChart data={dividends.slice(0, 10).toReversed()}>
               <CartesianGrid
                 vertical={false}
                 strokeDasharray="3 3"
-                className=" stroke-main-gray-200 dark:stroke-main-gray-700"
+                className="stroke-main-gray-200 dark:stroke-main-gray-700"
               />
 
               <XAxis
                 axisLine={false}
                 tickLine={false}
                 dataKey={"date"}
-                className=" text-xs"
+                className="text-xs"
                 tickFormatter={(value) => {
                   const { quarter, year } = appUtils.getYearAndQuarter(
                     value || new Date()
@@ -154,7 +154,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                 axisLine={false}
                 tickLine={false}
                 orientation="right"
-                className=" text-xs"
+                className="text-xs"
                 tickFormatter={(value) =>
                   appUtils.formatNumber(value, {
                     style: "decimal",
@@ -171,9 +171,9 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                   const { payload, label } = props;
 
                   return (
-                    <div className=" space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300 ">
+                    <div className="space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300">
                       {label && (
-                        <div className="  ">
+                        <div className=" ">
                           {format(new Date(label), "MMM dd, yyyy")}
                         </div>
                       )}
@@ -186,10 +186,10 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                             return (
                               <div
                                 key={`${value}-${index}`}
-                                className=" flex items-center gap-2 text-main-gray-300 "
+                                className="flex items-center gap-2 text-main-gray-300"
                               >
                                 <span
-                                  className=" size-3 "
+                                  className="size-3"
                                   style={{ backgroundColor: color }}
                                 />
                                 <span>
@@ -220,14 +220,14 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         </div>
       </div>
 
-      <div className="  ">
-        <h4 className=" py-5 text-xl font-bold ">
+      <div className=" ">
+        <h4 className="py-5 text-xl font-bold">
           {outlook.profile.companyName} Dividend History
         </h4>
 
-        <div className="  ">
-          <div className=" overflow-x-auto ">
-            <Table className="w-full min-w-[50rem] ">
+        <div className=" ">
+          <div className="overflow-x-auto">
+            <Table className="w-full min-w-[50rem]">
               <TableHeader>
                 <TableRow headerRow>
                   <TableHead className=" ">Ex-Date</TableHead>
@@ -245,8 +245,8 @@ export default function DividendsScreen(props: DividendsScreenProps) {
               <TableBody>
                 {dividendsToDisplay.map((dividend, index) => {
                   return (
-                    <TableRow key={`dividends-${index}`} className=" text-sm ">
-                      <TableCell className="  ">
+                    <TableRow key={`dividends-${index}`} className="text-sm">
+                      <TableCell className=" ">
                         {format(dividend.date, "MMM dd, yyyy")}
                       </TableCell>
 
@@ -257,13 +257,13 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                         })}
                       </TableCell>
 
-                      <TableCell className="  ">
+                      <TableCell className=" ">
                         {dividend.declarationDate
                           ? format(dividend.declarationDate, "MMM dd, yyyy")
                           : "-"}
                       </TableCell>
 
-                      <TableCell className="  ">
+                      <TableCell className=" ">
                         {dividend.recordDate
                           ? format(dividend.recordDate, "MMM dd, yyyy")
                           : "-"}
@@ -281,20 +281,20 @@ export default function DividendsScreen(props: DividendsScreenProps) {
             </Table>
           </div>
 
-          <div className=" flex justify-center ">
+          <div className="flex justify-center">
             <Button
               variant={"link"}
-              className=" gap-x-2 text-primary-base hover:no-underline dark:text-primary-base "
+              className="gap-x-2 text-primary-base hover:no-underline dark:text-primary-base"
               onClick={handleShowMoreDividends}
             >
               {showAllDividends ? (
                 <>
-                  <Minus className=" size-4 " />
+                  <Minus className="size-4" />
                   Show Less
                 </>
               ) : (
                 <>
-                  <Plus className=" size-4 " />
+                  <Plus className="size-4" />
                   Show More
                 </>
               )}

@@ -15,7 +15,7 @@ function FinancialsLayout(props: FinancialsLayoutProps) {
 
   return (
     <div>
-      <div className=" py-8 lg:pt-0 ">
+      <div className="py-8 lg:pt-0">
         {/* MENU NAVIGATION */}
         <FinancialsMenuBar ticker={ticker} />
       </div>

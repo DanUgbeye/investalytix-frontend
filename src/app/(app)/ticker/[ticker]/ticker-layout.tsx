@@ -242,7 +242,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
         </section>
       </Container>
 
-      <Container className=" flex flex-col lg:grid min-h-[calc(100dvh-5rem)] grid-cols-1 px-0 pt-8 sm:px-0 lg:grid-rows-1 xl:px-0">
+      <Container className="flex min-h-[calc(100dvh-5rem)] grid-cols-1 flex-col px-0 pt-8 sm:px-0 lg:grid lg:grid-rows-1 xl:px-0">
         <DesktopTickerNav
           quote={tickerQuote}
           statsVisible={inViewport}

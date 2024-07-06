@@ -9,7 +9,7 @@ export default function ThemeProvider({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const store = useAppStore()
+  const store = useAppStore();
   const { theme } = useTheme();
 
   function onThemeChange() {
@@ -27,6 +27,6 @@ export default function ThemeProvider({
     onThemeChange();
   }, [theme]);
 
-  console.log(store)
+  console.log(store);
   return <>{children}</>;
 }

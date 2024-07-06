@@ -7,8 +7,8 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <footer className=" bg-black text-white/80 ">
-      <Container className=" sm:px-6 xl:px-6">
+    <footer className="bg-black text-white/80">
+      <Container className="sm:px-6 xl:px-6">
         <div className=" ">
           <div className="flex flex-wrap justify-between gap-10 py-6 md:gap-20 lg:gap-40">
             <div className="">
@@ -22,7 +22,7 @@ export default function Footer() {
               </Link>
             </div>
 
-            <div className="flex flex-grow flex-wrap gap-10  sm:justify-between">
+            <div className="flex flex-grow flex-wrap gap-10 sm:justify-between">
               {/* visit */}
               <div className="flex flex-col gap-4 capitalize">
                 <p className="text-lg font-bold capitalize">Visit</p>
@@ -63,7 +63,7 @@ export default function Footer() {
                     name="email"
                     id="email"
                     placeholder="Your email address"
-                    className="rounded-l border border-r-0  border-white/40 bg-white/20 px-4 py-3 outline-none max-xs:mx-auto max-xs:block max-xs:w-[90%] max-xs:rounded-r max-xs:border-r"
+                    className="rounded-l border border-r-0 border-white/40 bg-white/20 px-4 py-3 outline-none max-xs:mx-auto max-xs:block max-xs:w-[90%] max-xs:rounded-r max-xs:border-r"
                   />
                   <input
                     type="submit"
@@ -80,7 +80,7 @@ export default function Footer() {
             </p>
 
             {/* legal */}
-            <div className="flex max-md:flex-col flex-row justify-center gap-4 capitalize max-sm:flex-grow xs:gap-20 md:justify-between">
+            <div className="flex flex-row justify-center gap-4 capitalize max-md:flex-col max-sm:flex-grow xs:gap-20 md:justify-between">
               <div className="flex flex-wrap items-center justify-center gap-4 xs:gap-20">
                 <Link className="text-hover-focus" href={PAGES.CHART}>
                   Terms and conditions

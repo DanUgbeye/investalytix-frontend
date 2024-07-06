@@ -259,32 +259,32 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
 
   return (
     <aside {...rest} className={cn(" ", className)}>
-      <div className=" h-fit ">
+      <div className="h-fit">
         <div
-          className={cn(" hidden w-full duration-300 ", {
-            " flex ": !statsVisible,
+          className={cn("hidden w-full duration-300", {
+            flex: !statsVisible,
           })}
         >
           {tickerQuote && (
-            <div className=" flex w-full flex-col ">
-              <div className=" space-y-1 py-3 ">
-                <div className=" space-y-1 px-4 ">
-                  <div className=" text-2xl font-bold ">{tickerQuote.name}</div>
+            <div className="flex w-full flex-col">
+              <div className="space-y-1 py-3">
+                <div className="space-y-1 px-4">
+                  <div className="text-2xl font-bold">{tickerQuote.name}</div>
 
-                  <div className=" flex w-fit flex-wrap items-center gap-1 text-xs font-medium text-main-gray-400 ">
-                    <span className="  ">{tickerQuote.symbol}</span>
-                    <span className=" size-1 rounded-full bg-primary-base " />
-                    <span className="  ">{tickerQuote.exchange}</span>
+                  <div className="flex w-fit flex-wrap items-center gap-1 text-xs font-medium text-main-gray-400">
+                    <span className=" ">{tickerQuote.symbol}</span>
+                    <span className="size-1 rounded-full bg-primary-base" />
+                    <span className=" ">{tickerQuote.exchange}</span>
                   </div>
                 </div>
 
-                <div className=" space-y-1 px-4 ">
-                  <div className=" flex flex-wrap items-end gap-1.5 ">
-                    <span className=" text-2xl font-bold ">
+                <div className="space-y-1 px-4">
+                  <div className="flex flex-wrap items-end gap-1.5">
+                    <span className="text-2xl font-bold">
                       {appUtils.formatNumber(tickerQuote.price || undefined)}
                     </span>
 
-                    <span className=" flex gap-1 text-sm font-bold ">
+                    <span className="flex gap-1 text-sm font-bold">
                       {tickerQuote.change && (
                         <ColoredText
                           isPositive={() => {
@@ -324,7 +324,7 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
                   </div>
 
                   {tickerQuote.timestamp && (
-                    <div className=" text-xs text-main-gray-400 ">
+                    <div className="text-xs text-main-gray-400">
                       At close:{" "}
                       {format(
                         new Date(tickerQuote.timestamp * 1000),
@@ -352,7 +352,7 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
         </div>
 
         {/* TICKER NAV LINKS */}
-        <div className="  dark:border-main-gray-600 ">
+        <div className="dark:border-main-gray-600">
           {navTabs.map(({ label, path, icon }, index) => {
             return (
               <TickerNavLink
