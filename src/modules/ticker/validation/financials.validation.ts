@@ -593,34 +593,146 @@ export const IncomeStatementSchema = z.object({
   acceptedDate: z.coerce.date(),
   calendarYear: z.string(),
   period: z.string(),
-  revenue: z.number(),
-  costOfRevenue: z.number(),
-  grossProfit: z.number(),
-  grossProfitRatio: z.number(),
-  researchAndDevelopmentExpenses: z.number(),
-  generalAndAdministrativeExpenses: z.number(),
-  sellingAndMarketingExpenses: z.number(),
-  sellingGeneralAndAdministrativeExpenses: z.number(),
-  otherExpenses: z.number(),
-  operatingExpenses: z.number(),
-  costAndExpenses: z.number(),
-  interestIncome: z.number(),
-  interestExpense: z.number(),
-  depreciationAndAmortization: z.number(),
-  ebitda: z.number(),
-  ebitdaratio: z.number(),
-  operatingIncome: z.number(),
-  operatingIncomeRatio: z.number(),
-  totalOtherIncomeExpensesNet: z.number(),
-  incomeBeforeTax: z.number(),
-  incomeBeforeTaxRatio: z.number(),
-  incomeTaxExpense: z.number(),
-  netIncome: z.number(),
-  netIncomeRatio: z.number(),
-  eps: z.number(),
-  epsdiluted: z.number(),
-  weightedAverageShsOut: z.number(),
-  weightedAverageShsOutDil: z.number(),
+  revenue: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  costOfRevenue: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  grossProfit: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  grossProfitRatio: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  researchAndDevelopmentExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  generalAndAdministrativeExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  sellingAndMarketingExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  sellingGeneralAndAdministrativeExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  operatingExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  costAndExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  interestIncome: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  interestExpense: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  depreciationAndAmortization: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  ebitda: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  ebitdaratio: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  operatingIncome: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  operatingIncomeRatio: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalOtherIncomeExpensesNet: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  incomeBeforeTax: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  incomeBeforeTaxRatio: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  incomeTaxExpense: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  netIncome: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  netIncomeRatio: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  eps: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  epsdiluted: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  weightedAverageShsOut: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  weightedAverageShsOutDil: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
   link: z.string().nullable(),
   finalLink: z.string().nullable(),
 }) satisfies ZodType<IncomeStatement>;
@@ -634,50 +746,226 @@ export const BalanceSheetStatementSchema = z.object({
   acceptedDate: z.coerce.date(),
   calendarYear: z.string(),
   period: z.string(),
-  cashAndCashEquivalents: z.number(),
-  shortTermInvestments: z.number(),
-  cashAndShortTermInvestments: z.number(),
-  netReceivables: z.number(),
-  inventory: z.number(),
-  otherCurrentAssets: z.number(),
-  totalCurrentAssets: z.number(),
-  propertyPlantEquipmentNet: z.number(),
-  goodwill: z.number(),
-  intangibleAssets: z.number(),
-  goodwillAndIntangibleAssets: z.number(),
-  longTermInvestments: z.number(),
-  taxAssets: z.number(),
-  otherNonCurrentAssets: z.number(),
-  totalNonCurrentAssets: z.number(),
-  otherAssets: z.number(),
-  totalAssets: z.number(),
-  accountPayables: z.number(),
-  shortTermDebt: z.number(),
-  taxPayables: z.number(),
-  deferredRevenue: z.number(),
-  otherCurrentLiabilities: z.number(),
-  totalCurrentLiabilities: z.number(),
-  longTermDebt: z.number(),
-  deferredRevenueNonCurrent: z.number(),
-  deferredTaxLiabilitiesNonCurrent: z.number(),
-  otherNonCurrentLiabilities: z.number(),
-  totalNonCurrentLiabilities: z.number(),
-  otherLiabilities: z.number(),
-  capitalLeaseObligations: z.number(),
-  totalLiabilities: z.number(),
-  preferredStock: z.number(),
-  commonStock: z.number(),
-  retainedEarnings: z.number(),
-  accumulatedOtherComprehensiveIncomeLoss: z.number(),
-  othertotalStockholdersEquity: z.number(),
-  totalStockholdersEquity: z.number(),
-  totalEquity: z.number(),
-  totalLiabilitiesAndStockholdersEquity: z.number(),
-  minorityInterest: z.number(),
-  totalLiabilitiesAndTotalEquity: z.number(),
-  totalInvestments: z.number(),
-  totalDebt: z.number(),
-  netDebt: z.number(),
+  cashAndCashEquivalents: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  shortTermInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  cashAndShortTermInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  netReceivables: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  inventory: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherCurrentAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalCurrentAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  propertyPlantEquipmentNet: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  goodwill: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  intangibleAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  goodwillAndIntangibleAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  longTermInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  taxAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherNonCurrentAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalNonCurrentAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  accountPayables: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  shortTermDebt: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  taxPayables: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  deferredRevenue: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherCurrentLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalCurrentLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  longTermDebt: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  deferredRevenueNonCurrent: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  deferredTaxLiabilitiesNonCurrent: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherNonCurrentLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalNonCurrentLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  capitalLeaseObligations: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  preferredStock: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  commonStock: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  retainedEarnings: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  accumulatedOtherComprehensiveIncomeLoss: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  othertotalStockholdersEquity: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalStockholdersEquity: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalEquity: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalLiabilitiesAndStockholdersEquity: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  minorityInterest: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalLiabilitiesAndTotalEquity: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  totalDebt: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  netDebt: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
   link: z.string().nullable(),
   finalLink: z.string().nullable(),
 }) satisfies ZodType<BalanceSheetStatement>;
@@ -691,36 +979,156 @@ export const CashFlowStatementSchema = z.object({
   acceptedDate: z.coerce.date(),
   calendarYear: z.string(),
   period: z.string(),
-  netIncome: z.number(),
-  depreciationAndAmortization: z.number(),
-  deferredIncomeTax: z.number(),
-  stockBasedCompensation: z.number(),
-  changeInWorkingCapital: z.number(),
-  accountsReceivables: z.number(),
-  inventory: z.number(),
-  accountsPayables: z.number(),
-  otherWorkingCapital: z.number(),
-  otherNonCashItems: z.number(),
-  netCashProvidedByOperatingActivities: z.number(),
-  investmentsInPropertyPlantAndEquipment: z.number(),
-  acquisitionsNet: z.number(),
-  purchasesOfInvestments: z.number(),
-  salesMaturitiesOfInvestments: z.number(),
-  otherInvestingActivites: z.number(),
-  netCashUsedForInvestingActivites: z.number(),
-  debtRepayment: z.number(),
-  commonStockIssued: z.number(),
-  commonStockRepurchased: z.number(),
-  dividendsPaid: z.number(),
-  otherFinancingActivites: z.number(),
-  netCashUsedProvidedByFinancingActivities: z.number(),
-  effectOfForexChangesOnCash: z.number(),
-  netChangeInCash: z.number(),
-  cashAtEndOfPeriod: z.number(),
-  cashAtBeginningOfPeriod: z.number(),
-  operatingCashFlow: z.number(),
-  capitalExpenditure: z.number(),
-  freeCashFlow: z.number(),
+  netIncome: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  depreciationAndAmortization: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  deferredIncomeTax: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  stockBasedCompensation: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  changeInWorkingCapital: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  accountsReceivables: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  inventory: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  accountsPayables: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherWorkingCapital: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherNonCashItems: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  netCashProvidedByOperatingActivities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  investmentsInPropertyPlantAndEquipment: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  acquisitionsNet: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  purchasesOfInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  salesMaturitiesOfInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherInvestingActivites: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  netCashUsedForInvestingActivites: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  debtRepayment: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  commonStockIssued: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  commonStockRepurchased: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  dividendsPaid: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  otherFinancingActivites: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  netCashUsedProvidedByFinancingActivities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  effectOfForexChangesOnCash: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  netChangeInCash: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  cashAtEndOfPeriod: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  cashAtBeginningOfPeriod: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  operatingCashFlow: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  capitalExpenditure: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  freeCashFlow: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
   link: z.string().nullable(),
   finalLink: z.string().nullable(),
 }) satisfies ZodType<CashFlowStatement>;
@@ -746,40 +1154,176 @@ export const FinancialGrowthSchema = z.object({
   date: z.coerce.date(),
   calendarYear: z.string(),
   period: z.string(),
-  revenueGrowth: z.number().nullable(),
-  grossProfitGrowth: z.number().nullable(),
-  ebitgrowth: z.number().nullable(),
-  operatingIncomeGrowth: z.number().nullable(),
-  netIncomeGrowth: z.number().nullable(),
-  epsgrowth: z.number().nullable(),
-  epsdilutedGrowth: z.number().nullable(),
-  weightedAverageSharesGrowth: z.number().nullable(),
-  weightedAverageSharesDilutedGrowth: z.number().nullable(),
-  dividendsperShareGrowth: z.number().nullable(),
-  operatingCashFlowGrowth: z.number().nullable(),
-  freeCashFlowGrowth: z.number().nullable(),
-  tenYRevenueGrowthPerShare: z.number().nullable(),
-  fiveYRevenueGrowthPerShare: z.number().nullable(),
-  threeYRevenueGrowthPerShare: z.number().nullable(),
-  tenYOperatingCFGrowthPerShare: z.number().nullable(),
-  fiveYOperatingCFGrowthPerShare: z.number().nullable(),
-  threeYOperatingCFGrowthPerShare: z.number().nullable(),
-  tenYNetIncomeGrowthPerShare: z.number().nullable(),
-  fiveYNetIncomeGrowthPerShare: z.number().nullable(),
-  threeYNetIncomeGrowthPerShare: z.number().nullable(),
-  tenYShareholdersEquityGrowthPerShare: z.number().nullable(),
-  fiveYShareholdersEquityGrowthPerShare: z.number().nullable(),
-  threeYShareholdersEquityGrowthPerShare: z.number().nullable(),
-  tenYDividendperShareGrowthPerShare: z.number().nullable(),
-  fiveYDividendperShareGrowthPerShare: z.number().nullable(),
-  threeYDividendperShareGrowthPerShare: z.number().nullable(),
-  receivablesGrowth: z.number().nullable(),
-  inventoryGrowth: z.number().nullable(),
-  assetGrowth: z.number().nullable(),
-  bookValueperShareGrowth: z.number().nullable(),
-  debtGrowth: z.number().nullable(),
-  rdexpenseGrowth: z.number().nullable(),
-  sgaexpensesGrowth: z.number().nullable(),
+  revenueGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  grossProfitGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  ebitgrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  operatingIncomeGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  netIncomeGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  epsgrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  epsdilutedGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  weightedAverageSharesGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  weightedAverageSharesDilutedGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  dividendsperShareGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  operatingCashFlowGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  freeCashFlowGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  tenYRevenueGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  fiveYRevenueGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  threeYRevenueGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  tenYOperatingCFGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  fiveYOperatingCFGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  threeYOperatingCFGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  tenYNetIncomeGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  fiveYNetIncomeGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  threeYNetIncomeGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  tenYShareholdersEquityGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  fiveYShareholdersEquityGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  threeYShareholdersEquityGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  tenYDividendperShareGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  fiveYDividendperShareGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  threeYDividendperShareGrowthPerShare: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  receivablesGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  inventoryGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  assetGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  bookValueperShareGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  debtGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  rdexpenseGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  sgaexpensesGrowth: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
 }) satisfies ZodType<FinancialGrowth>;
 
 export const BalanceSheetStatementGrowthSchema = z.object({
@@ -787,45 +1331,201 @@ export const BalanceSheetStatementGrowthSchema = z.object({
   symbol: z.string(),
   calendarYear: z.string(),
   period: z.string(),
-  growthCashAndCashEquivalents: z.number().nullable(),
-  growthShortTermInvestments: z.number().nullable(),
-  growthCashAndShortTermInvestments: z.number().nullable(),
-  growthNetReceivables: z.number().nullable(),
-  growthInventory: z.number().nullable(),
-  growthOtherCurrentAssets: z.number().nullable(),
-  growthTotalCurrentAssets: z.number().nullable(),
-  growthPropertyPlantEquipmentNet: z.number().nullable(),
-  growthGoodwill: z.number().nullable(),
-  growthIntangibleAssets: z.number().nullable(),
-  growthGoodwillAndIntangibleAssets: z.number().nullable(),
-  growthLongTermInvestments: z.number().nullable(),
-  growthTaxAssets: z.number().nullable(),
-  growthOtherNonCurrentAssets: z.number().nullable(),
-  growthTotalNonCurrentAssets: z.number().nullable(),
-  growthOtherAssets: z.number().nullable(),
-  growthTotalAssets: z.number().nullable(),
-  growthAccountPayables: z.number().nullable(),
-  growthShortTermDebt: z.number().nullable(),
-  growthTaxPayables: z.number().nullable(),
-  growthDeferredRevenue: z.number().nullable(),
-  growthOtherCurrentLiabilities: z.number().nullable(),
-  growthTotalCurrentLiabilities: z.number().nullable(),
-  growthLongTermDebt: z.number().nullable(),
-  growthDeferredRevenueNonCurrent: z.number().nullable(),
-  growthDeferrredTaxLiabilitiesNonCurrent: z.number().nullable(),
-  growthOtherNonCurrentLiabilities: z.number().nullable(),
-  growthTotalNonCurrentLiabilities: z.number().nullable(),
-  growthOtherLiabilities: z.number().nullable(),
-  growthTotalLiabilities: z.number().nullable(),
-  growthCommonStock: z.number().nullable(),
-  growthRetainedEarnings: z.number().nullable(),
-  growthAccumulatedOtherComprehensiveIncomeLoss: z.number().nullable(),
-  growthOthertotalStockholdersEquity: z.number().nullable(),
-  growthTotalStockholdersEquity: z.number().nullable(),
-  growthTotalLiabilitiesAndStockholdersEquity: z.number().nullable(),
-  growthTotalInvestments: z.number().nullable(),
-  growthTotalDebt: z.number().nullable(),
-  growthNetDebt: z.number().nullable(),
+  growthCashAndCashEquivalents: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthShortTermInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthCashAndShortTermInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthNetReceivables: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthInventory: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherCurrentAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalCurrentAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthPropertyPlantEquipmentNet: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthGoodwill: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthIntangibleAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthGoodwillAndIntangibleAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthLongTermInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTaxAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherNonCurrentAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalNonCurrentAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalAssets: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthAccountPayables: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthShortTermDebt: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTaxPayables: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthDeferredRevenue: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherCurrentLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalCurrentLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthLongTermDebt: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthDeferredRevenueNonCurrent: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthDeferrredTaxLiabilitiesNonCurrent: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherNonCurrentLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalNonCurrentLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalLiabilities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthCommonStock: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthRetainedEarnings: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthAccumulatedOtherComprehensiveIncomeLoss: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOthertotalStockholdersEquity: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalStockholdersEquity: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalLiabilitiesAndStockholdersEquity: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalDebt: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthNetDebt: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
 }) satisfies ZodType<BalanceSheetStatementGrowth>;
 
 export const IncomeStatementGrowthSchema = z.object({
@@ -833,32 +1533,136 @@ export const IncomeStatementGrowthSchema = z.object({
   symbol: z.string(),
   calendarYear: z.string(),
   period: z.string(),
-  growthRevenue: z.number().nullable(),
-  growthCostOfRevenue: z.number().nullable(),
-  growthGrossProfit: z.number().nullable(),
-  growthGrossProfitRatio: z.number().nullable(),
-  growthResearchAndDevelopmentExpenses: z.number().nullable(),
-  growthGeneralAndAdministrativeExpenses: z.number().nullable(),
-  growthSellingAndMarketingExpenses: z.number().nullable(),
-  growthOtherExpenses: z.number().nullable(),
-  growthOperatingExpenses: z.number().nullable(),
-  growthCostAndExpenses: z.number().nullable(),
-  growthInterestExpense: z.number().nullable(),
-  growthDepreciationAndAmortization: z.number().nullable(),
-  growthEBITDA: z.number().nullable(),
-  growthEBITDARatio: z.number().nullable(),
-  growthOperatingIncome: z.number().nullable(),
-  growthOperatingIncomeRatio: z.number().nullable(),
-  growthTotalOtherIncomeExpensesNet: z.number().nullable(),
-  growthIncomeBeforeTax: z.number().nullable(),
-  growthIncomeBeforeTaxRatio: z.number().nullable(),
-  growthIncomeTaxExpense: z.number().nullable(),
-  growthNetIncome: z.number().nullable(),
-  growthNetIncomeRatio: z.number().nullable(),
-  growthEPS: z.number().nullable(),
-  growthEPSDiluted: z.number().nullable(),
-  growthWeightedAverageShsOut: z.number().nullable(),
-  growthWeightedAverageShsOutDil: z.number().nullable(),
+  growthRevenue: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthCostOfRevenue: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthGrossProfit: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthGrossProfitRatio: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthResearchAndDevelopmentExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthGeneralAndAdministrativeExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthSellingAndMarketingExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOperatingExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthCostAndExpenses: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthInterestExpense: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthDepreciationAndAmortization: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthEBITDA: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthEBITDARatio: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOperatingIncome: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOperatingIncomeRatio: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthTotalOtherIncomeExpensesNet: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthIncomeBeforeTax: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthIncomeBeforeTaxRatio: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthIncomeTaxExpense: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthNetIncome: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthNetIncomeRatio: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthEPS: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthEPSDiluted: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthWeightedAverageShsOut: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthWeightedAverageShsOutDil: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
 }) satisfies ZodType<IncomeStatementGrowth>;
 
 export const CashFlowStatementGrowthSchema = z.object({
@@ -866,34 +1670,154 @@ export const CashFlowStatementGrowthSchema = z.object({
   symbol: z.string(),
   calendarYear: z.string(),
   period: z.string(),
-  growthNetIncome: z.number().nullable(),
-  growthDepreciationAndAmortization: z.number().nullable(),
-  growthDeferredIncomeTax: z.number().nullable(),
-  growthStockBasedCompensation: z.number().nullable(),
-  growthChangeInWorkingCapital: z.number().nullable(),
-  growthAccountsReceivables: z.number().nullable(),
-  growthInventory: z.number().nullable(),
-  growthAccountsPayables: z.number().nullable(),
-  growthOtherWorkingCapital: z.number().nullable(),
-  growthOtherNonCashItems: z.number().nullable(),
-  growthNetCashProvidedByOperatingActivites: z.number().nullable(),
-  growthInvestmentsInPropertyPlantAndEquipment: z.number().nullable(),
-  growthAcquisitionsNet: z.number().nullable(),
-  growthPurchasesOfInvestments: z.number().nullable(),
-  growthSalesMaturitiesOfInvestments: z.number().nullable(),
-  growthOtherInvestingActivites: z.number().nullable(),
-  growthNetCashUsedForInvestingActivites: z.number().nullable(),
-  growthDebtRepayment: z.number().nullable(),
-  growthCommonStockIssued: z.number().nullable(),
-  growthCommonStockRepurchased: z.number().nullable(),
-  growthDividendsPaid: z.number().nullable(),
-  growthOtherFinancingActivites: z.number().nullable(),
-  growthNetCashUsedProvidedByFinancingActivities: z.number().nullable(),
-  growthEffectOfForexChangesOnCash: z.number().nullable(),
-  growthNetChangeInCash: z.number().nullable(),
-  growthCashAtEndOfPeriod: z.number().nullable(),
-  growthCashAtBeginningOfPeriod: z.number().nullable(),
-  growthOperatingCashFlow: z.number().nullable(),
-  growthCapitalExpenditure: z.number().nullable(),
-  growthFreeCashFlow: z.number().nullable(),
+  growthNetIncome: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthDepreciationAndAmortization: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthDeferredIncomeTax: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthStockBasedCompensation: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthChangeInWorkingCapital: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthAccountsReceivables: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthInventory: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthAccountsPayables: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherWorkingCapital: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherNonCashItems: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthNetCashProvidedByOperatingActivites: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthInvestmentsInPropertyPlantAndEquipment: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthAcquisitionsNet: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthPurchasesOfInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthSalesMaturitiesOfInvestments: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherInvestingActivites: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthNetCashUsedForInvestingActivites: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthDebtRepayment: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthCommonStockIssued: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthCommonStockRepurchased: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthDividendsPaid: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOtherFinancingActivites: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthNetCashUsedProvidedByFinancingActivities: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthEffectOfForexChangesOnCash: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthNetChangeInCash: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthCashAtEndOfPeriod: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthCashAtBeginningOfPeriod: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthOperatingCashFlow: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthCapitalExpenditure: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  growthFreeCashFlow: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
 }) satisfies ZodType<CashFlowStatementGrowth>;
