@@ -115,7 +115,7 @@ export default function IncomeStatementScreen(
                       key={`income-${incomeSheet.period}-${index}-${period}`}
                       className="text-right"
                     >
-                      <div className="flex w-20 flex-col gap-1">
+                      <div className="flex w-20 flex-col gap-1 ml-auto">
                         <span className=" ">
                           {(!period || period === "quarter") &&
                             `${incomeSheet.period} '`}

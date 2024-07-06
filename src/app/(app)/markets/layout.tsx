@@ -10,7 +10,7 @@ export default function RootLayout({
 }>) {
   return (
     <main>
-      <Container className=" relative py-10">
+      <Container className="relative py-10">
         <>
           {children}
 

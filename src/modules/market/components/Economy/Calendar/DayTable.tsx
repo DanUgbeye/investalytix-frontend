@@ -50,7 +50,9 @@ export default function DayTable({ calendar, date }: DayTableProps) {
             Actual
           </TableHead>
           {/* <TableHead className={open?"opacity-1":"opacity-0"}>Consensus</TableHead> */}
-          <TableHead className={open ? "opacity-1" : "opacity-0"}>Impact</TableHead>
+          <TableHead className={open ? "opacity-1" : "opacity-0"}>
+            Impact
+          </TableHead>
         </TableRow>
       </TableHeader>
 

@@ -32,7 +32,7 @@ export interface TickerLayoutProps extends HTMLAttributes<HTMLElement> {
   ticker: string;
   quote: Quote;
   outlook: CompanyOutlook;
-  currency: string;
+  currency?: string;
 }
 
 export default function TickerLayout(props: TickerLayoutProps) {
@@ -77,9 +77,9 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
       const watchlistData: NewWatchlist = {
         stockExchange: outlook.profile.exchange,
-        name: outlook.profile.companyName,
+        name: outlook.profile.companyName!,
         symbol: outlook.profile.symbol,
-        exchangeShortName: outlook.profile.exchangeShortName,
+        exchangeShortName: outlook.profile.exchangeShortName!,
       };
 
       const watchlist = await watchlistRepo.addToWatchlist(watchlistData);
@@ -125,7 +125,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
         >
           <Avatar className="hidden size-20 place-items-center bg-main-gray-200/40 p-2 sm:grid md:row-span-full md:size-40 md:p-6 dark:bg-main-gray-800">
             <AvatarImage
-              src={outlook.profile.image}
+              src={outlook.profile.image || undefined}
               className="h-full w-full p-2"
             />
 
@@ -242,7 +242,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
         </section>
       </Container>
 
-      <Container className=" flex flex-col lg:grid min-h-[calc(100dvh-5rem)] grid-cols-1 px-0 pt-8 sm:px-0 lg:grid-rows-1 xl:px-0">
+      <Container className="flex min-h-[calc(100dvh-5rem)] grid-cols-1 flex-col px-0 pt-8 sm:px-0 lg:grid lg:grid-rows-1 xl:px-0">
         <DesktopTickerNav
           quote={tickerQuote}
           statsVisible={inViewport}

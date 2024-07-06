@@ -14,20 +14,17 @@ function TickerSubMenuBar(props: TickerSubMenuBarProps) {
   const { active, subMenu, className, ...rest } = props;
 
   return (
-    <div
-      {...rest}
-      className={cn(" flex gap-x-12 overflow-x-auto  ", className)}
-    >
+    <div {...rest} className={cn("flex gap-x-12 overflow-x-auto", className)}>
       {subMenu.map(({ label, path }, index) => {
         return (
           <Link
             key={`sub-menu-${label}-${index}`}
             href={path}
             className={cn(
-              " min-w-fit rounded-none border-b-2 px-0 py-2 text-sm font-bold hover:no-underline ",
+              "min-w-fit rounded-none border-b-2 px-0 py-2 text-sm font-bold hover:no-underline",
               {
-                " border-b-primary-base ": active === path,
-                " border-transparent hover:text-primary-base ": active !== path,
+                "border-b-primary-base": active === path,
+                "border-transparent hover:text-primary-base": active !== path,
               }
             )}
           >

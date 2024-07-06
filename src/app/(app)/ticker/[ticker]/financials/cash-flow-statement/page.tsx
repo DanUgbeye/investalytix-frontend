@@ -34,7 +34,7 @@ export async function generateMetadata(props: {
 export type CashFlowStatementPageData = {
   cashFlowStatement: CashFlowStatement[];
   period?: FinancialPeriod;
-  currency: string;
+  currency?: string;
 };
 
 async function getData(
@@ -49,7 +49,11 @@ async function getData(
     ]);
 
     return {
-      data: { currency: outlook.profile.currency, period, cashFlowStatement },
+      data: {
+        currency: outlook.profile.currency || undefined,
+        period,
+        cashFlowStatement,
+      },
     };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {

@@ -17,12 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${interFont.variable} ${manropeFont.variable} ${mulishFont.variable} ${ralewayFont.variable} font-manrope dark:bg-black dark:text-main-gray-300 `}
+        className={`${interFont.variable} ${manropeFont.variable} ${mulishFont.variable} ${ralewayFont.variable} font-manrope dark:bg-black dark:text-main-gray-300`}
       >
         <Providers>
           <GlobalComponents>{children}</GlobalComponents>
         </Providers>
-
       </body>
     </html>
   );

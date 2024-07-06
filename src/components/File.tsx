@@ -73,7 +73,7 @@ export default function File({
   useEffect(() => {
     if (!file) setPreview(null);
   }, [file]);
-  
+
   return (
     <>
       <div>
@@ -84,14 +84,14 @@ export default function File({
 
         <label
           htmlFor={id}
-          className={`relative cursor-pointer overflow-hidden rounded-lg flex gap-3 text-gray-400 items-center justify-center border-gray-700 ${
+          className={`relative flex cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-lg border-gray-700 text-gray-400 ${
             file
-              ? "w-full max-w-[320px] h-80"
-              : "w-full h-40 border border-dashed"
+              ? "h-80 w-full max-w-[320px]"
+              : "h-40 w-full border border-dashed"
           }`}
         >
           {file && (
-            <p className="z-10 absolute top-5 right-5 text-white text-xs bg-black/20 rounded-full py-1 px-2 backdrop-blur-md">
+            <p className="absolute right-5 top-5 z-10 rounded-full bg-black/20 px-2 py-1 text-xs text-white backdrop-blur-md">
               {(file.size / (1024 * 1024)).toPrecision(2)} mb
             </p>
           )}
@@ -107,7 +107,7 @@ export default function File({
           {preview && (
             <img
               src={preview}
-              className="w-full h-full object-cover absolute inset-0 hover:scale-125"
+              className="absolute inset-0 h-full w-full object-cover hover:scale-125"
             />
           )}
           {compressing ? (

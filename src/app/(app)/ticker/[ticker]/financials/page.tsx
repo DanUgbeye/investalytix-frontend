@@ -35,7 +35,7 @@ export type FinancialsPageData = {
     annual: Financials;
     quarter: Financials;
   };
-  currency: string;
+  currency?: string;
 };
 
 async function getData(ticker: string): Promise<Result<FinancialsPageData>> {
@@ -45,7 +45,7 @@ async function getData(ticker: string): Promise<Result<FinancialsPageData>> {
 
     return {
       data: {
-        currency: outlook.profile.currency,
+        currency: outlook.profile.currency || undefined,
         financials: {
           annual: outlook.financialsAnnual,
           quarter: outlook.financialsQuarter,

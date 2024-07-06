@@ -7,8 +7,8 @@ export const metadata: Metadata = {
 
 export default function WatchlistPage() {
   return (
-    <main className=" min-h-[min(calc(100dvh-90px),40rem)] ">
-      <Container className=" py-10 ">Watchlist Page</Container>
+    <main className="min-h-[min(calc(100dvh-90px),40rem)]">
+      <Container className="py-10">Watchlist Page</Container>
     </main>
   );
 }

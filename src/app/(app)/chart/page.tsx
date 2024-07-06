@@ -147,32 +147,30 @@ function MarketInfo() {
   return (
     <div className="border-t py-5 dark:border-t-white/10">
       <div className="">
-        <p className=" font-bold text-primary-base ">AAPL</p>
-        <p className=" text-2xl font-bold ">Apple INC</p>
+        <p className="font-bold text-primary-base">AAPL</p>
+        <p className="text-2xl font-bold">Apple INC</p>
       </div>
 
-      <div className=" space-y-1 py-2 ">
-        <div className=" flex items-center space-x-1.5 ">
-          <span className=" font-bold ">$19.88</span>
-          <span className=" text-xs font-bold text-[#079516] ">
+      <div className="space-y-1 py-2">
+        <div className="flex items-center space-x-1.5">
+          <span className="font-bold">$19.88</span>
+          <span className="text-xs font-bold text-[#079516]">
             +1.59 (+8.69%)
           </span>
         </div>
 
-        <div className=" text-xs text-gray-400 ">
+        <div className="text-xs text-gray-400">
           At close: December 18 04:00 PM EST
         </div>
       </div>
 
-      <div className=" space-y-1 bg-gray-100 p-2 dark:bg-transparent ">
-        <div className=" flex items-center space-x-1.5 ">
-          <span className=" font-bold ">$20.56</span>
-          <span className=" text-xs font-bold text-red-500 ">
-            -0.68 (-0.42%)
-          </span>
+      <div className="space-y-1 bg-gray-100 p-2 dark:bg-transparent">
+        <div className="flex items-center space-x-1.5">
+          <span className="font-bold">$20.56</span>
+          <span className="text-xs font-bold text-red-500">-0.68 (-0.42%)</span>
         </div>
 
-        <div className=" text-xs text-gray-400 ">
+        <div className="text-xs text-gray-400">
           After hours: January 12 07:59 PM EST
         </div>
       </div>

@@ -33,7 +33,7 @@ export async function generateMetadata(props: {
 
 export type HistoricalPageData = {
   quoteHistory?: QuoteHistory[];
-  currency: string;
+  currency?: string;
 };
 
 async function getData(
@@ -48,7 +48,7 @@ async function getData(
       tickerRepo.getQuoteHistory(ticker, timeframe, filter),
     ]);
 
-    return { data: { currency: profile.currency, quoteHistory } };
+    return { data: { currency: profile.currency || undefined, quoteHistory } };
   } catch (error: any) {
     if (errorUtils.is404Error(error)) {
       notFound();

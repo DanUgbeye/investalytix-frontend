@@ -42,42 +42,40 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
     <main className="flex items-center justify-center px-10 py-20">
       <div className="auth__card__shadow max-w-xl rounded bg-white px-8 py-8 md:px-16 md:py-12 dark:bg-white/10">
         {verifying && (
-          <center className=" space-y-10 ">
-            <h1 className=" my-4 text-center text-2xl font-bold ">
+          <center className="space-y-10">
+            <h1 className="my-4 text-center text-2xl font-bold">
               Verifying email
             </h1>
 
-            <PiSpinnerGap className=" size-10 animate-spin text-primary-base " />
+            <PiSpinnerGap className="size-10 animate-spin text-primary-base" />
           </center>
         )}
 
         {!verifying && verified && (
-          <center className=" space-y-10 ">
-            <div className=" relative w-fit ">
+          <center className="space-y-10">
+            <div className="relative w-fit">
               <VerifyEmailImage />
 
-              <span className="  absolute right-2 top-3 grid size-12 place-items-center rounded-full bg-green-500 ">
-                <Check className=" size-7 stroke-[4px] text-white " />
+              <span className="absolute right-2 top-3 grid size-12 place-items-center rounded-full bg-green-500">
+                <Check className="size-7 stroke-[4px] text-white" />
               </span>
             </div>
 
-            <div className="  ">
-              <h1 className=" text-center text-lg font-bold ">
-                Email Verified
-              </h1>
+            <div className=" ">
+              <h1 className="text-center text-lg font-bold">Email Verified</h1>
 
-              <span className=" font-semibold text-green-600 ">
+              <span className="font-semibold text-green-600">
                 Your email has been verified successfully
               </span>
 
-              <div className=" flex justify-center gap-1 pt-8 text-sm ">
+              <div className="flex justify-center gap-1 pt-8 text-sm">
                 <span>Proceed to</span>
 
                 <Link
                   href={PAGES.LOGIN}
                   className={
                     (buttonVariants({ variant: "link" }),
-                    " text-primary-base underline-offset-4 hover:underline ")
+                    "text-primary-base underline-offset-4 hover:underline")
                   }
                 >
                   Login
@@ -88,21 +86,21 @@ export default function VerifyEmailTokenScreen(props: { token: string }) {
         )}
 
         {!verifying && !verified && errorMessage && (
-          <center className=" space-y-10 ">
-            <div className=" relative w-fit ">
+          <center className="space-y-10">
+            <div className="relative w-fit">
               <VerifyEmailImage />
 
-              <span className=" absolute right-2 top-3 grid size-12 place-items-center rounded-full bg-red-600 ">
-                <X className=" size-7 stroke-[4px] text-white" />
+              <span className="absolute right-2 top-3 grid size-12 place-items-center rounded-full bg-red-600">
+                <X className="size-7 stroke-[4px] text-white" />
               </span>
             </div>
 
-            <div className="  ">
-              <h1 className=" text-center text-2xl font-bold ">
+            <div className=" ">
+              <h1 className="text-center text-2xl font-bold">
                 Verification failed
               </h1>
 
-              <span className=" line-clamp-2 grid w-full max-w-[15rem] pt-1 font-semibold text-red-600 ">
+              <span className="line-clamp-2 grid w-full max-w-[15rem] pt-1 font-semibold text-red-600">
                 {errorMessage}
               </span>
             </div>

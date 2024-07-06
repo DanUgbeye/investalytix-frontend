@@ -14,7 +14,7 @@ export default function HeaderWithUnderline(props: Props) {
     <header {...rest} className={cn("relative w-full", className)}>
       <h3
         className={cn(
-          " py-4 text-2xl font-bold text-black dark:text-main-gray-300 ",
+          "py-4 text-2xl font-bold text-black dark:text-main-gray-300",
           classNames?.heading
         )}
       >

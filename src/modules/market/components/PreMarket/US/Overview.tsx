@@ -4,7 +4,7 @@ import MarketHeading from "../../MarketHeading";
 
 export default function Overview() {
   return (
-    <section className="grid lg:grid-cols-2 gap-x-20">
+    <section className="grid gap-x-20 lg:grid-cols-2">
       {/* <section>
 
       <MarketSectionHeader label="OVERVIEW" id="overview" />

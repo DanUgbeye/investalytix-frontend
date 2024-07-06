@@ -34,9 +34,9 @@ export type CapitalStructurePageData = {
     label: string;
     value?: number;
     fill: string;
-    currency: string;
+    currency?: string;
   }[];
-  currency: string;
+  currency?: string;
 };
 
 async function getData(
@@ -78,7 +78,7 @@ async function getData(
               outlook.financialsAnnual.balance[0]?.reportedCurrency ?? "USD",
           },
         ],
-        currency: outlook.profile.currency,
+        currency: outlook.profile.currency || undefined,
       },
     };
   } catch (error: any) {

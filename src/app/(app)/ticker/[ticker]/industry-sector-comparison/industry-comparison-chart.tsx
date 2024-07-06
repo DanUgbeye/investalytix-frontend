@@ -167,11 +167,11 @@ export default function IndustryComparisonChart(props: Props) {
   }, []);
 
   return (
-    <div className="  ">
-      <div className={cn(" relative ")}>
+    <div className=" ">
+      <div className={cn("relative")}>
         <div
-          className={cn(" pointer-events-none hidden pt-12 ", {
-            " inset-0 grid h-full w-full place-items-center ": isLoading,
+          className={cn("pointer-events-none hidden pt-12", {
+            "inset-0 grid h-full w-full place-items-center": isLoading,
           })}
         >
           <Spinner />
@@ -180,15 +180,15 @@ export default function IndustryComparisonChart(props: Props) {
         <ResponsiveContainer
           width={"100%"}
           height={350}
-          className={cn("  text-xs  ", {
-            " pointer-events-none opacity-50 ": isLoading,
+          className={cn("text-xs", {
+            "pointer-events-none opacity-50": isLoading,
           })}
         >
           <LineChart data={chartData}>
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              className=" stroke-main-gray-200 dark:stroke-main-gray-900"
+              className="stroke-main-gray-200 dark:stroke-main-gray-900"
             />
 
             <XAxis
@@ -217,7 +217,7 @@ export default function IndustryComparisonChart(props: Props) {
                 const { payload } = props;
 
                 return (
-                  <div className=" flex flex-wrap items-center gap-x-4 gap-y-1 py-4  ">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 py-4">
                     {payload &&
                       payload.map((pl, index) => {
                         const { value, color } = pl;
@@ -225,7 +225,7 @@ export default function IndustryComparisonChart(props: Props) {
                         return (
                           <span
                             key={`${value}`}
-                            className=" text-black dark:text-main-gray-300 "
+                            className="text-black dark:text-main-gray-300"
                           >
                             <span
                               style={{
@@ -276,9 +276,9 @@ export default function IndustryComparisonChart(props: Props) {
                 const { payload, label } = props;
 
                 return (
-                  <div className=" space-y-2 rounded bg-main-gray-700 p-2 text-sm text-main-gray-300 ">
+                  <div className="space-y-2 rounded bg-main-gray-700 p-2 text-sm text-main-gray-300">
                     {label && (
-                      <div className="  ">
+                      <div className=" ">
                         {format(new Date(label), "MMM dd, yyyy")}
                       </div>
                     )}
@@ -291,14 +291,14 @@ export default function IndustryComparisonChart(props: Props) {
                           return (
                             <div
                               key={`${value}-${index}`}
-                              className=" flex items-center gap-2 text-main-gray-300 "
+                              className="flex items-center gap-2 text-main-gray-300"
                             >
                               <span
-                                className=" size-3 "
+                                className="size-3"
                                 style={{ backgroundColor: color }}
                               />
 
-                              <div className=" flex w-full justify-between gap-4 ">
+                              <div className="flex w-full justify-between gap-4">
                                 <span>{name}</span>
                                 <span>
                                   {value
@@ -323,7 +323,7 @@ export default function IndustryComparisonChart(props: Props) {
         </ResponsiveContainer>
       </div>
 
-      <p className=" border-t bg-gray-100 p-3 text-xs dark:border-main-gray-700 dark:bg-white/10 ">
+      <p className="border-t bg-gray-100 p-3 text-xs dark:border-main-gray-700 dark:bg-white/10">
         Compare key indicators and discover each stock&apos;s average analyst
         price target, as well as the latest recommendations by top Wall Street
         experts

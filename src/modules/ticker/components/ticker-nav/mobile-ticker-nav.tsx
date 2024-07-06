@@ -54,36 +54,36 @@ export function MobileTickerNav(props: Props) {
   return (
     <aside
       {...rest}
-      className={cn(" flex flex-col bg-white dark:bg-black ", className)}
+      className={cn("flex flex-col bg-white dark:bg-black", className)}
     >
       <div
         className={cn(
-          " hidden w-full border-y duration-300 dark:border-main-gray-700",
+          "hidden w-full border-y duration-300 dark:border-main-gray-700",
           {
-            " flex ": !statsVisible,
+            flex: !statsVisible,
           }
         )}
       >
         {tickerQuote && (
-          <div className=" flex w-full  gap-x-5 ">
-            <div className=" flex w-full flex-wrap justify-between py-3 ">
-              <div className=" space-y-1 px-4 ">
-                <div className=" text-2xl font-bold ">{tickerQuote.name}</div>
+          <div className="flex w-full gap-x-5">
+            <div className="flex w-full flex-wrap justify-between py-3">
+              <div className="space-y-1 px-4">
+                <div className="text-2xl font-bold">{tickerQuote.name}</div>
 
-                <div className=" flex w-fit flex-wrap items-center gap-1 text-xs font-medium text-main-gray-400 ">
-                  <span className="  ">{tickerQuote.symbol}</span>
-                  <span className=" size-1 rounded-full bg-primary-base " />
-                  <span className="  ">{tickerQuote.exchange}</span>
+                <div className="flex w-fit flex-wrap items-center gap-1 text-xs font-medium text-main-gray-400">
+                  <span className=" ">{tickerQuote.symbol}</span>
+                  <span className="size-1 rounded-full bg-primary-base" />
+                  <span className=" ">{tickerQuote.exchange}</span>
                 </div>
               </div>
 
-              <div className=" space-y-1 px-4 ">
-                <div className=" flex flex-wrap items-end gap-1.5 ">
-                  <span className=" text-2xl font-bold ">
+              <div className="space-y-1 px-4">
+                <div className="flex flex-wrap items-end gap-1.5">
+                  <span className="text-2xl font-bold">
                     {appUtils.formatNumber(tickerQuote.price || undefined)}
                   </span>
 
-                  <span className=" flex gap-1 text-sm font-bold ">
+                  <span className="flex gap-1 text-sm font-bold">
                     {tickerQuote.change && (
                       <ColoredText
                         isPositive={() => {
@@ -119,7 +119,7 @@ export function MobileTickerNav(props: Props) {
                 </div>
 
                 {tickerQuote.timestamp && (
-                  <div className=" text-xs text-main-gray-400 ">
+                  <div className="text-xs text-main-gray-400">
                     At close:{" "}
                     {format(
                       new Date(tickerQuote.timestamp * 1000),
@@ -146,7 +146,7 @@ export function MobileTickerNav(props: Props) {
         )}
       </div>
 
-      <div className=" flex divide-x dark:divide-main-gray-700 overflow-x-auto bg-gray-100 dark:bg-black ">
+      <div className="flex divide-x overflow-x-auto bg-gray-100 dark:divide-main-gray-700 dark:bg-black">
         {navTabs.map(({ label, path }, index) => {
           return (
             <TickerNavLink

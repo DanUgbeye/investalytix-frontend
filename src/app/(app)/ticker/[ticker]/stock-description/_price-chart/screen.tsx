@@ -18,8 +18,8 @@ export default function PriceChartScreen(props: PriceChartScreenProps) {
   const { ticker } = props;
 
   return (
-    <section className="  ">
-      <div className=" grid h-full min-h-[25rem] w-full py-10 lg:min-h-[30rem] ">
+    <section className=" ">
+      <div className="grid h-full min-h-[25rem] w-full py-10 lg:min-h-[30rem]">
         <ResponsiveContainer
           width="100%"
           height="100%"

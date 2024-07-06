@@ -17,14 +17,14 @@ export default function NotFound() {
       <Container>
         <main className="flex flex-col-reverse items-center justify-center overflow-hidden max-md:min-h-[calc(100vh_-_88px)] max-md:pb-10 md:grid md:h-[calc(100vh_-_88px)] md:grid-cols-[max-content,1fr]">
           <div className="flex flex-col items-start justify-center px-8 sm:px-[5%] md:h-full md:px-24 md:pl-0">
-            <h1 className="white-text mb-8 max-w-[10ch] text-center text-3xl font-bold leading-[1.2] text-[#0B0B0B] md:text-left md:text-5xl ">
+            <h1 className="white-text mb-8 max-w-[10ch] text-center text-3xl font-bold leading-[1.2] text-[#0B0B0B] md:text-left md:text-5xl">
               Ticker not found
             </h1>
 
             <Button
               variant={"link"}
               onClick={handleGoBack}
-              className=" mx-auto flex w-fit items-center gap-1 rounded-none border-b-2 border-[#252525] text-lg font-semibold hover:no-underline md:mx-0"
+              className="mx-auto flex w-fit items-center gap-1 rounded-none border-b-2 border-[#252525] text-lg font-semibold hover:no-underline md:mx-0"
             >
               <svg
                 width="35"

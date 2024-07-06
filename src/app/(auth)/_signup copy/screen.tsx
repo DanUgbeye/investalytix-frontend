@@ -76,7 +76,7 @@ export default function SignupScreen() {
         className="fixed -top-[15%] left-0 right-0 h-auto w-full max-md:-top-0 lg:top-0"
       />
 
-      <main className=" flex w-full items-center justify-center px-5 py-20 sm:px-10">
+      <main className="flex w-full items-center justify-center px-5 py-20 sm:px-10">
         <div className="z-10 flex w-full flex-col items-center">
           <Link href="/">
             <Image
@@ -104,7 +104,7 @@ export default function SignupScreen() {
                   <FormLabel
                     htmlFor="firstname"
                     error={!!fieldState.error}
-                    className=" text-[#3C4257] "
+                    className="text-[#3C4257]"
                   >
                     Firstname
                   </FormLabel>
@@ -112,7 +112,7 @@ export default function SignupScreen() {
                   <Input
                     {...field}
                     id="firstname"
-                    className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                    className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white"
                     type="text"
                     placeholder="John"
                   />
@@ -131,7 +131,7 @@ export default function SignupScreen() {
                   <FormLabel
                     htmlFor="lastname"
                     error={!!fieldState.error}
-                    className=" text-[#3C4257] "
+                    className="text-[#3C4257]"
                   >
                     Lastname
                   </FormLabel>
@@ -139,7 +139,7 @@ export default function SignupScreen() {
                   <Input
                     {...field}
                     id="lastname"
-                    className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                    className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white"
                     type="text"
                     placeholder="Doe"
                   />
@@ -158,7 +158,7 @@ export default function SignupScreen() {
                   <FormLabel
                     htmlFor="email"
                     error={!!fieldState.error}
-                    className=" text-[#3C4257] "
+                    className="text-[#3C4257]"
                   >
                     Email
                   </FormLabel>
@@ -166,7 +166,7 @@ export default function SignupScreen() {
                   <Input
                     {...field}
                     id="email"
-                    className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                    className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white"
                     type="email"
                     placeholder="example@example.com"
                   />
@@ -185,7 +185,7 @@ export default function SignupScreen() {
                   <FormLabel
                     htmlFor="password"
                     error={!!fieldState.error}
-                    className=" text-[#3C4257] "
+                    className="text-[#3C4257]"
                   >
                     Password
                   </FormLabel>
@@ -193,7 +193,7 @@ export default function SignupScreen() {
                   <PasswordInput
                     {...field}
                     id="password"
-                    className=" h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white "
+                    className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white"
                     classNames={{
                       showButton:
                         " dark:text-black dark:hover:bg-gray-100 dark:hover:text-black ",
@@ -221,7 +221,7 @@ export default function SignupScreen() {
               </div>
 
               <label htmlFor="terms-accepted" className="">
-                <span className=" text-sm text-[#3C4257] ">
+                <span className="text-sm text-[#3C4257]">
                   I Agree to Investalytix{" "}
                   <Link href={PAGES.LOGIN} className="text-[#635CFF]">
                     Terms of Use
@@ -239,7 +239,7 @@ export default function SignupScreen() {
               className="h-fit w-full cursor-pointer rounded bg-primary-base py-4 text-white"
             >
               {isSubmitting ? (
-                <PiSpinnerGap className=" size-5 animate-spin " />
+                <PiSpinnerGap className="size-5 animate-spin" />
               ) : (
                 "Continue"
               )}

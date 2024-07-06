@@ -33,7 +33,7 @@ export async function generateMetadata(props: {
 }
 
 export type IndustrySectorComparisonPageData = {
-  currency: string;
+  currency?: string;
   profile: CompanyProfile;
   similarStocks: Quote[];
   sectorPerformanceHistory: SectorPerformanceHistory[];
@@ -55,7 +55,7 @@ async function getData(
     return {
       data: {
         profile,
-        currency: profile.currency,
+        currency: profile.currency || undefined,
         similarStocks,
         sectorPerformanceHistory,
       },
@@ -65,7 +65,7 @@ async function getData(
       notFound();
     }
 
-    throw new Error(error.message);
+    return { error };
   }
 }
 interface IndustrySectorComparisonPageProps extends SearchTickerPageProps {}

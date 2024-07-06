@@ -21,7 +21,7 @@ export default function PreMarket() {
         <Futures />
         <Futures isFairValue />
 
-        <p className="white-text mt-4 text-sm font-bold  text-[#2F3A48]">
+        <p className="white-text mt-4 text-sm font-bold text-[#2F3A48]">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         </p>
       </section>

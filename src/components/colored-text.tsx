@@ -23,9 +23,8 @@ export default function ColoredText(props: Props) {
       {...rest}
       className={cn(
         {
-          " text-main-green-light dark:text-main-green-dark ":
-            positive === true,
-          " text-main-red-light dark:text-main-red-dark ": positive === false,
+          "text-main-green-light dark:text-main-green-dark": positive === true,
+          "text-main-red-light dark:text-main-red-dark": positive === false,
         },
         className
       )}

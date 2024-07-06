@@ -13,8 +13,8 @@ export default function ContactUsPage() {
     window.history.back();
   }
   return (
-    <main className="relative mx-auto grid-cols-2 2xl:grid-cols-[2fr,3fr] md:grid">
-      <div className="mx-auto max-w-5xl px-6 md:px-14 py-24">
+    <main className="relative mx-auto grid-cols-2 md:grid 2xl:grid-cols-[2fr,3fr]">
+      <div className="mx-auto max-w-5xl px-6 py-24 md:px-14">
         <h1 className="text-5xl font-bold sm:text-7xl lg:text-8xl">
           Connect with{" "}
           <span className="text-primary-base dark:text-primary-light">us</span>
@@ -96,7 +96,12 @@ export default function ContactUsPage() {
       </div>
       <div className="md:relative">
         <div className="top-0 w-full bg-cover bg-center bg-no-repeat md:sticky md:h-screen">
-          <Image src="/images/contact-us-3.jpg" fill alt="" className="hidden md:block object-cover object-center"/>
+          <Image
+            src="/images/contact-us-3.jpg"
+            fill
+            alt=""
+            className="hidden object-cover object-center md:block"
+          />
           <button
             onClick={goBack}
             className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"

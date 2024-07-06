@@ -2,47 +2,159 @@ import { NewsSchema } from "@/modules/news/validation";
 import { ZodType, z } from "zod";
 import {
   CompanyKeyExecutive,
+  CompanyMetrics,
   CompanyOutlook,
   CompanyProfile,
-  CompanyMetrics,
-  SplitsHistory,
-  MutualFundHolder,
   InstitutionalHolder,
+  MutualFundHolder,
+  SplitsHistory,
 } from "../types";
 import { DividendSchema } from "./dividend.validation";
 import { FinancialsSchema, RatioTTMSchema } from "./financials.validation";
 
 export const CompanyProfileSchema = z.object({
   symbol: z.string(),
-  price: z.number().nullable(),
-  beta: z.number().nullable(),
-  volAvg: z.number().nullable(),
-  mktCap: z.number().nullable(),
-  lastDiv: z.number().nullable(),
-  range: z.string(),
-  changes: z.number().nullable(),
-  companyName: z.string(),
-  currency: z.string(),
-  cik: z.string().nullable(),
-  isin: z.string(),
-  cusip: z.string(),
+  price: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  beta: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  volAvg: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  mktCap: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  lastDiv: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  range: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  changes: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  companyName: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  currency: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  cik: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  isin: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  cusip: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
   exchange: z.string(),
-  exchangeShortName: z.string(),
-  industry: z.string(),
-  website: z.string(),
-  description: z.string(),
-  ceo: z.string(),
-  sector: z.string(),
-  country: z.string(),
-  fullTimeEmployees: z.string(),
-  phone: z.string(),
-  address: z.string(),
-  city: z.string(),
-  state: z.string().nullable(),
-  zip: z.string(),
-  dcfDiff: z.number().nullable(),
-  dcf: z.number().nullable(),
-  image: z.string(),
+  exchangeShortName: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  industry: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  website: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  description: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  ceo: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  sector: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  country: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  fullTimeEmployees: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  phone: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  address: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  city: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  state: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  zip: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
+  dcfDiff: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  dcf: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  image: z
+    .union([z.string().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
+    string | null
+  >,
   ipoDate: z.coerce.date(),
   defaultImage: z.boolean(),
   isEtf: z.boolean(),
@@ -54,18 +166,42 @@ export const CompanyProfileSchema = z.object({
 export const CompanyKeyExecutiveSchema = z.object({
   title: z.string(),
   name: z.string(),
-  pay: z.number().nullable(),
+  pay: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
   currencyPay: z.string(),
   gender: z.string(),
-  yearBorn: z.number().nullable(),
+  yearBorn: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
   titleSince: z.coerce.date().nullable(),
 }) satisfies ZodType<CompanyKeyExecutive>;
 
 export const CompanyMetricsSchema = z.object({
-  dividendYielTTM: z.number().nullable(),
-  volume: z.number().nullable(),
-  yearHigh: z.number().nullable(),
-  yearLow: z.number().nullable(),
+  dividendYielTTM: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  volume: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  yearHigh: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  yearLow: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
 }) satisfies ZodType<CompanyMetrics>;
 
 export const SplitsHistorySchema = z.object({
@@ -92,7 +228,11 @@ export const MutualFundHolderSchema = z.object({
   shares: z.number(),
   dateReported: z.coerce.date(),
   change: z.number(),
-  weightPercent: z.number().nullable(),
+  weightPercent: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
 }) satisfies ZodType<MutualFundHolder>;
 
 export const InstitutionalHolderSchema = z.object({

@@ -104,7 +104,7 @@ export class TickerRepository {
       let validation = CompanyOutlookSchema.safeParse(res.data.data);
 
       if (validation.error) {
-        console.log(JSON.stringify(validation.error));
+        // console.log(JSON.stringify(validation.error, null, 2));
         throw new Error("Something went wrong on our end");
       }
 
@@ -818,7 +818,9 @@ export class TickerRepository {
         data: TickerPriceTarget;
       }>(path, options);
 
-      let validation = z.array(TickerPriceTargetSchema).safeParse(res.data.data);
+      let validation = z
+        .array(TickerPriceTargetSchema)
+        .safeParse(res.data.data);
 
       if (validation.error) {
         console.log(validation.error.issues);

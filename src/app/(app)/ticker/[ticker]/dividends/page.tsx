@@ -33,8 +33,8 @@ export async function generateMetadata(props: {
 export type DividendsPageData = {
   outlook: CompanyOutlook;
   dividends: Dividend[];
-  currency: string;
-  ratio: Ratio;
+  currency?: string;
+  ratio?: Ratio;
 };
 
 async function getData(ticker: string): Promise<Result<DividendsPageData>> {
@@ -51,7 +51,7 @@ async function getData(ticker: string): Promise<Result<DividendsPageData>> {
       data: {
         dividends,
         outlook,
-        currency: outlook.profile.currency,
+        currency: outlook.profile.currency || undefined,
         ratio: ratios[0],
       },
     };

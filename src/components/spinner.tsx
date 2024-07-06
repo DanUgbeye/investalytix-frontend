@@ -8,6 +8,9 @@ export default function Spinner(props: SpinnerProps) {
   const { className, strokeWidth, ...rest } = props;
 
   return (
-    <ImSpinner8 {...rest} className={cn(" h-6 w-6 animate-spin text-primary-base ", className)} />
+    <ImSpinner8
+      {...rest}
+      className={cn("h-6 w-6 animate-spin text-primary-base", className)}
+    />
   );
 }

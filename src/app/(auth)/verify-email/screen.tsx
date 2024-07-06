@@ -57,10 +57,10 @@ export default function VerifyEmailScreen() {
           {email ? (
             <>
               {sending ? (
-                <PiSpinnerGap className=" mx-1 size-5 animate-spin text-[#125BD4] dark:text-[#a4c7ff] " />
+                <PiSpinnerGap className="mx-1 size-5 animate-spin text-[#125BD4] dark:text-[#a4c7ff]" />
               ) : (
                 <button
-                  className="mx-1 text-[#125BD4] dark:text-[#a4c7ff] "
+                  className="mx-1 text-[#125BD4] dark:text-[#a4c7ff]"
                   onClick={resendVerificationEmailHandler}
                 >
                   Resend Confirmation
@@ -71,7 +71,7 @@ export default function VerifyEmailScreen() {
             <>
               <Link
                 href={PAGES.LOGIN}
-                className=" text-[#125BD4] hover:underline dark:text-[#a4c7ff]"
+                className="text-[#125BD4] hover:underline dark:text-[#a4c7ff]"
               >
                 Login
               </Link>{" "}
