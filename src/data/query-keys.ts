@@ -6,4 +6,5 @@ export const QUERY_KEYS = {
 
   // TICKER QUERIES
   GET_TICKER_QUOTE: "GET_TICKER_QUOTE",
+  IS_MARKET_OPEN: "IS_MARKET_OPEN",
 } as const;

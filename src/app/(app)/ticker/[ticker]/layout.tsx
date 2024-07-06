@@ -50,7 +50,7 @@ export default async function Layout(props: TickerLayoutProps) {
 
   if (error) {
     return (
-      <Container className="py-10">
+      <Container className="min-h-[max(calc(70dvh-90px),30rem)] py-10">
         <ErrorScreen error={{ message: error.message }} />
       </Container>
     );

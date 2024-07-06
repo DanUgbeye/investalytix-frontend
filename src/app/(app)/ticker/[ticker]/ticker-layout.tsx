@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { clientAPI } from "@/config/client/api";
 import { QUERY_KEYS } from "@/data/query-keys";
 import { cn } from "@/lib/utils";
+import { MarketRepository } from "@/modules/market/repository";
 import {
   DesktopTickerNav,
   MobileTickerNav,
@@ -39,6 +40,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
   const { className, children, ticker, quote, outlook, currency, ...rest } =
     props;
   const watchlistRepo = new WatchlistRepository(clientAPI);
+  const marketRepo = new MarketRepository(clientAPI);
   const watchlist = useAppStore(({ watchlist }) => watchlist);
   const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
   const {
@@ -58,12 +60,38 @@ export default function TickerLayout(props: TickerLayoutProps) {
     );
   }, [watchlist]);
 
+  const { data: isMarketOpen } = useQuery({
+    enabled: quote !== undefined,
+    queryKey: [QUERY_KEYS.IS_MARKET_OPEN, ticker],
+    queryFn: ({ signal }) =>
+      marketRepo.isStockMarketOpen(quote.exchange || "", { signal }),
+    refetchInterval: 10_000,
+  });
+
+  const { data: afterMarketQuoteData } = useQuery({
+    enabled: isMarketOpen !== undefined && isMarketOpen.isTheStockMarketOpen,
+    queryKey: [QUERY_KEYS.IS_MARKET_OPEN, ticker],
+    queryFn: ({ signal }) => tickerRepo.getAfterMarketQuote(ticker, { signal }),
+    refetchInterval: 10_000,
+  });
+
   const { data: tickerQuote } = useQuery({
     queryKey: [QUERY_KEYS.GET_TICKER_QUOTE, ticker],
     queryFn: ({ signal }) => tickerRepo.getQuote(ticker, { signal }),
     initialData: quote,
     refetchInterval: 10_000,
   });
+
+  const afterMarketQuote = useMemo(() => {
+    if (!afterMarketQuoteData) return undefined;
+
+    return {
+      price: (afterMarketQuoteData.ask + afterMarketQuoteData.bid) / 2,
+      change: tickerQuote.change,
+      changesPercentage: tickerQuote.changesPercentage,
+      timestamp: afterMarketQuoteData.timestamp,
+    };
+  }, [afterMarketQuoteData, tickerQuote]);
 
   async function addToWatchList() {
     try {
@@ -77,9 +105,9 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
       const watchlistData: NewWatchlist = {
         stockExchange: outlook.profile.exchange,
-        name: outlook.profile.companyName!,
+        name: outlook.profile.companyName || "",
         symbol: outlook.profile.symbol,
-        exchangeShortName: outlook.profile.exchangeShortName!,
+        exchangeShortName: outlook.profile.exchangeShortName || "",
       };
 
       const watchlist = await watchlistRepo.addToWatchlist(watchlistData);
@@ -204,6 +232,74 @@ export default function TickerLayout(props: TickerLayoutProps) {
                 </div>
               )}
             </div>
+
+            {isMarketOpen &&
+              !isMarketOpen.isTheStockMarketOpen &&
+              afterMarketQuote && (
+                <div className="space-y-1 md:space-y-3">
+                  <div className="flex flex-wrap items-end space-x-1.5">
+                    <span className="text-2xl font-semibold lg:text-3xl">
+                      {appUtils.formatNumber(
+                        afterMarketQuote.price || undefined,
+                        {
+                          currency,
+                        }
+                      )}
+                    </span>
+
+                    <span className="flex items-center gap-2 font-bold text-sm lg:text-base">
+                      {afterMarketQuote.change && (
+                        <ColoredText
+                          isPositive={() => {
+                            if (!afterMarketQuote.change) return undefined;
+                            if (afterMarketQuote.change > 0) return true;
+                            if (afterMarketQuote.change < 0) return false;
+                            return undefined;
+                          }}
+                        >
+                          {afterMarketQuote.change > 0 && "+"}
+                          {appUtils.formatNumber(afterMarketQuote.change, {
+                            style: "decimal",
+                          })}
+                        </ColoredText>
+                      )}
+
+                      {afterMarketQuote.changesPercentage && (
+                        <ColoredText
+                          isPositive={() => {
+                            if (!afterMarketQuote.changesPercentage)
+                              return undefined;
+                            if (afterMarketQuote.changesPercentage > 0)
+                              return true;
+                            if (afterMarketQuote.changesPercentage < 0)
+                              return false;
+                            return undefined;
+                          }}
+                        >
+                          {afterMarketQuote.changesPercentage > 0 && "+"}
+                          {appUtils.formatNumber(
+                            afterMarketQuote.changesPercentage,
+                            {
+                              style: "decimal",
+                            }
+                          )}
+                          %
+                        </ColoredText>
+                      )}
+                    </span>
+                  </div>
+
+                  {afterMarketQuote.timestamp && (
+                    <div className="text-sm text-main-gray-400">
+                      At close:{" "}
+                      {format(
+                        new Date(afterMarketQuote.timestamp * 1000),
+                        "MMMM dd hh:mm a"
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
           </div>
 
           <div className="col-start-3 row-start-2 lg:row-span-2 lg:row-start-1 lg:my-auto">

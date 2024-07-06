@@ -1,6 +1,7 @@
 import { News } from "@/modules/news/types";
 import { NewsSchema } from "@/modules/news/validation";
 import {
+  AfterMarketQuote,
   Quote,
   QuoteHistory,
   QuoteTimeframe,
@@ -10,6 +11,7 @@ import {
 import { RequestOptions } from "@/types/api.types";
 import { handleAPIError } from "@/utils/api-utils";
 import {
+  AfterMarketQuoteSchema,
   QuoteHistorySchema,
   QuoteSchema,
   SearchResultSchema,
@@ -141,6 +143,27 @@ export class TickerRepository {
       let res = await this.axios.get<{ data: Quote }>(path, options);
 
       let validation = QuoteSchema.safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getAfterMarketQuote(
+    ticker: string,
+    options?: RequestOptions
+  ): Promise<AfterMarketQuote> {
+    try {
+      const path = `/tickers/${ticker}/after-market-quote`;
+      let res = await this.axios.get<{ data: AfterMarketQuote }>(path, options);
+
+      let validation = AfterMarketQuoteSchema.safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");

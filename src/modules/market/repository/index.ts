@@ -1,18 +1,46 @@
-import { Quote, RequestOptions } from "@/types";
+import { TickerChange } from "@/modules/ticker/types";
+import { TickerChangeSchema } from "@/modules/ticker/validation";
+import { RequestOptions } from "@/types";
 import { handleAPIError } from "@/utils/api-utils";
 import { AxiosInstance } from "axios";
 import { z } from "zod";
-import { SectorPerformance, SectorPerformanceHistory } from "../types";
 import {
+  MarketOpen,
+  SectorPerformance,
+  SectorPerformanceHistory,
+} from "../types";
+import {
+  MarketOpenSchema,
   SectorPerformanceHistorySchema,
   SectorPerformanceSchema,
 } from "../validation";
-import { QuoteSchema } from "@/validation";
-import { TickerChange } from "@/modules/ticker/types";
-import { TickerChangeSchema } from "@/modules/ticker/validation";
 
 export class MarketRepository {
   constructor(private axios: AxiosInstance) {}
+
+  async isStockMarketOpen(
+    exchange: string,
+    options?: RequestOptions | undefined
+  ): Promise<MarketOpen> {
+    try {
+      const searchParams = new URLSearchParams();
+      searchParams.append("exchange", exchange);
+
+      const path = `/market/is-market-open?${searchParams.toString()}`;
+      let res = await this.axios.get<{ data: MarketOpen }>(path, options);
+
+      let validation = MarketOpenSchema.safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
 
   async getSectorPerformance(
     options?: RequestOptions

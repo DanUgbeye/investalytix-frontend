@@ -26,6 +26,15 @@ export type Quote = {
   timestamp: number | null;
 };
 
+export type AfterMarketQuote = {
+  symbol: string;
+  ask: number;
+  bid: number;
+  asize: number;
+  bsize: number;
+  timestamp: number;
+};
+
 export type QuoteHistory = {
   date: Date;
   open: number;

@@ -132,6 +132,15 @@ export const QuoteTimeframeSchema = z.enum([
   "1year",
 ]);
 
+export const AfterMarketQuoteSchema = z.object({
+  symbol: z.string(),
+  ask: z.number(),
+  bid: z.number(),
+  asize: z.number(),
+  bsize: z.number(),
+  timestamp: z.number(),
+});
+
 export const ShortQuoteSchema = z.object({
   symbol: z.string(),
   price: z.number(),
