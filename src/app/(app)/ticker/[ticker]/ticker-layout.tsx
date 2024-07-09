@@ -95,7 +95,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
     let changePercentage = (change / originalPrice) * 100;
 
     return {
-      price: (afterMarketQuoteData.ask + afterMarketQuoteData.bid) / 2,
+      price: currentPrice,
       change: change,
       changesPercentage: changePercentage,
       timestamp: afterMarketQuoteData.timestamp,
