@@ -73,13 +73,13 @@ const routes: RouteLink[] = [
   },
   {
     label: "News",
-    href: "",
-    children: [
-      {
-        label: "Overview",
-        href: "/news",
-      },
-    ],
+    href: "/news",
+    // children: [
+    //   {
+    //     label: "Overview",
+    //     href: "/news",
+    //   },
+    // ],
   },
   {
     label: "Pricing",
