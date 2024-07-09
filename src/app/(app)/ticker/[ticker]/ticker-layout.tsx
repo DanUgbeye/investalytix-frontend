@@ -88,11 +88,16 @@ export default function TickerLayout(props: TickerLayoutProps) {
     if (isMarketOpen?.isTheStockMarketOpen || !afterMarketQuoteData) {
       return undefined;
     }
+    let originalPrice = (tickerQuote.price || 0) + (tickerQuote.change || 0);
+    let currentPrice =
+      (afterMarketQuoteData.ask + afterMarketQuoteData.bid) / 2;
+    let change = currentPrice - originalPrice;
+    let changePercentage = (change / originalPrice) * 100;
 
     return {
       price: (afterMarketQuoteData.ask + afterMarketQuoteData.bid) / 2,
-      change: tickerQuote.change,
-      changesPercentage: tickerQuote.changesPercentage,
+      change: change,
+      changesPercentage: changePercentage,
       timestamp: afterMarketQuoteData.timestamp,
     };
   }, [afterMarketQuoteData, tickerQuote, isMarketOpen]);
@@ -237,6 +242,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
               )}
             </div>
 
+            {/* if stock market is closed */}
             {afterMarketQuote && (
               <div className="space-y-1 md:space-y-1">
                 <div className="flex flex-wrap items-end space-x-1.5">
