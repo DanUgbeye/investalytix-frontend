@@ -65,25 +65,29 @@ export default function TickerLayout(props: TickerLayoutProps) {
     queryKey: [QUERY_KEYS.IS_MARKET_OPEN, ticker],
     queryFn: ({ signal }) =>
       marketRepo.isStockMarketOpen(quote.exchange || "", { signal }),
-    refetchInterval: 10_000,
+    refetchInterval: 5_000 + Math.floor(Math.random() * 5_000),
   });
 
   const { data: afterMarketQuoteData } = useQuery({
     enabled: isMarketOpen !== undefined && isMarketOpen.isTheStockMarketOpen,
-    queryKey: [QUERY_KEYS.IS_MARKET_OPEN, ticker],
+    queryKey: [QUERY_KEYS.AFTER_MARKET_QUOTE, ticker],
     queryFn: ({ signal }) => tickerRepo.getAfterMarketQuote(ticker, { signal }),
-    refetchInterval: 10_000,
+    refetchInterval: 5_000 + Math.floor(Math.random() * 5_000),
   });
 
   const { data: tickerQuote } = useQuery({
+    enabled:
+      isMarketOpen !== undefined ? isMarketOpen.isTheStockMarketOpen : true,
     queryKey: [QUERY_KEYS.GET_TICKER_QUOTE, ticker],
     queryFn: ({ signal }) => tickerRepo.getQuote(ticker, { signal }),
     initialData: quote,
-    refetchInterval: 10_000,
+    refetchInterval: 5_000 + Math.floor(Math.random() * 5_000),
   });
 
   const afterMarketQuote = useMemo(() => {
-    if (!afterMarketQuoteData) return undefined;
+    if (isMarketOpen?.isTheStockMarketOpen || !afterMarketQuoteData) {
+      return undefined;
+    }
 
     return {
       price: (afterMarketQuoteData.ask + afterMarketQuoteData.bid) / 2,
@@ -91,7 +95,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
       changesPercentage: tickerQuote.changesPercentage,
       timestamp: afterMarketQuoteData.timestamp,
     };
-  }, [afterMarketQuoteData, tickerQuote]);
+  }, [afterMarketQuoteData, tickerQuote, isMarketOpen]);
 
   async function addToWatchList() {
     try {
@@ -177,7 +181,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
             </div>
           </div>
 
-          <div className="col-span-2 col-start-1 row-start-2 grid w-full grid-cols-[auto,auto,auto] md:col-span-1 md:col-start-2 md:row-start-2">
+          <div className="col-span-2 col-start-1 row-start-2 flex w-full flex-wrap items-end gap-5 md:col-span-1 md:col-start-2 md:row-start-2">
             <div className="space-y-1 md:space-y-3">
               <div className="flex flex-wrap items-end space-x-1.5">
                 <span className="text-3xl font-semibold lg:text-5xl">
@@ -227,79 +231,75 @@ export default function TickerLayout(props: TickerLayoutProps) {
                   At close:{" "}
                   {format(
                     new Date(tickerQuote.timestamp * 1000),
-                    "MMMM dd hh:mm a"
+                    "MMM dd hh:mm a"
                   )}
                 </div>
               )}
             </div>
 
-            {isMarketOpen &&
-              !isMarketOpen.isTheStockMarketOpen &&
-              afterMarketQuote && (
-                <div className="space-y-1 md:space-y-3">
-                  <div className="flex flex-wrap items-end space-x-1.5">
-                    <span className="text-2xl font-semibold lg:text-3xl">
-                      {appUtils.formatNumber(
-                        afterMarketQuote.price || undefined,
-                        {
-                          currency,
-                        }
-                      )}
-                    </span>
+            {afterMarketQuote && (
+              <div className="space-y-1 md:space-y-1">
+                <div className="flex flex-wrap items-end space-x-1.5">
+                  <span className="text-2xl font-semibold lg:text-3xl">
+                    {appUtils.formatNumber(
+                      afterMarketQuote.price || undefined,
+                      { currency }
+                    )}
+                  </span>
 
-                    <span className="flex items-center gap-2 font-bold text-sm lg:text-base">
-                      {afterMarketQuote.change && (
-                        <ColoredText
-                          isPositive={() => {
-                            if (!afterMarketQuote.change) return undefined;
-                            if (afterMarketQuote.change > 0) return true;
-                            if (afterMarketQuote.change < 0) return false;
+                  <span className="flex items-center gap-2 text-sm font-bold lg:text-base">
+                    {afterMarketQuote.change && (
+                      <ColoredText
+                        isPositive={() => {
+                          if (!afterMarketQuote.change) return undefined;
+                          if (afterMarketQuote.change > 0) return true;
+                          if (afterMarketQuote.change < 0) return false;
+                          return undefined;
+                        }}
+                      >
+                        {afterMarketQuote.change > 0 && "+"}
+                        {appUtils.formatNumber(afterMarketQuote.change, {
+                          style: "decimal",
+                        })}
+                      </ColoredText>
+                    )}
+
+                    {afterMarketQuote.changesPercentage && (
+                      <ColoredText
+                        isPositive={() => {
+                          if (!afterMarketQuote.changesPercentage)
                             return undefined;
-                          }}
-                        >
-                          {afterMarketQuote.change > 0 && "+"}
-                          {appUtils.formatNumber(afterMarketQuote.change, {
+                          if (afterMarketQuote.changesPercentage > 0)
+                            return true;
+                          if (afterMarketQuote.changesPercentage < 0)
+                            return false;
+                          return undefined;
+                        }}
+                      >
+                        {afterMarketQuote.changesPercentage > 0 && "+"}
+                        {appUtils.formatNumber(
+                          afterMarketQuote.changesPercentage,
+                          {
                             style: "decimal",
-                          })}
-                        </ColoredText>
-                      )}
-
-                      {afterMarketQuote.changesPercentage && (
-                        <ColoredText
-                          isPositive={() => {
-                            if (!afterMarketQuote.changesPercentage)
-                              return undefined;
-                            if (afterMarketQuote.changesPercentage > 0)
-                              return true;
-                            if (afterMarketQuote.changesPercentage < 0)
-                              return false;
-                            return undefined;
-                          }}
-                        >
-                          {afterMarketQuote.changesPercentage > 0 && "+"}
-                          {appUtils.formatNumber(
-                            afterMarketQuote.changesPercentage,
-                            {
-                              style: "decimal",
-                            }
-                          )}
-                          %
-                        </ColoredText>
-                      )}
-                    </span>
-                  </div>
-
-                  {afterMarketQuote.timestamp && (
-                    <div className="text-sm text-main-gray-400">
-                      At close:{" "}
-                      {format(
-                        new Date(afterMarketQuote.timestamp * 1000),
-                        "MMMM dd hh:mm a"
-                      )}
-                    </div>
-                  )}
+                          }
+                        )}
+                        %
+                      </ColoredText>
+                    )}
+                  </span>
                 </div>
-              )}
+
+                {afterMarketQuote.timestamp && (
+                  <div className="text-sm text-main-gray-400">
+                    After Market:{" "}
+                    {format(
+                      new Date(afterMarketQuote.timestamp * 1000),
+                      "MMM dd hh:mm a"
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="col-start-3 row-start-2 lg:row-span-2 lg:row-start-1 lg:my-auto">

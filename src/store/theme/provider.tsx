@@ -27,6 +27,6 @@ export default function ThemeProvider({
     onThemeChange();
   }, [theme]);
 
-  console.log(store);
+  // console.log(store);
   return <>{children}</>;
 }
