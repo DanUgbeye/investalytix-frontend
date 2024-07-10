@@ -1,4 +1,5 @@
 import { Quote, QuoteHistory, SearchResult, ShortQuote } from "@/types";
+import { StockSocketData } from "@/types/quote";
 import { ZodType, z } from "zod";
 
 export const QuoteSchema = z.object({
@@ -166,3 +167,39 @@ export const SearchResultSchema = z.object({
     string | null
   >,
 }) satisfies ZodType<SearchResult>;
+
+export const StockSocketDataSchema = z.object({
+  s: z.string(),
+  t: z.number(),
+  type: z.string(),
+  ap: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  as: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  bp: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  bs: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  lp: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  ls: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+}) satisfies ZodType<StockSocketData>;

@@ -65,15 +65,27 @@ export default function TickerLayout(props: TickerLayoutProps) {
     queryKey: [QUERY_KEYS.IS_MARKET_OPEN, ticker],
     queryFn: ({ signal }) =>
       marketRepo.isStockMarketOpen(quote.exchange || "", { signal }),
-    refetchInterval: 5_000 + Math.floor(Math.random() * 5_000),
+    refetchInterval: 60_000 + Math.floor(Math.random() * 5_000),
   });
-  console.log(isMarketOpen);
 
   const { data: afterMarketQuoteData } = useQuery({
     enabled: isMarketOpen !== undefined && !isMarketOpen.isTheStockMarketOpen,
     queryKey: [QUERY_KEYS.AFTER_MARKET_QUOTE, ticker],
     queryFn: ({ signal }) => tickerRepo.getAfterMarketQuote(ticker, { signal }),
-    refetchInterval: 5_000 + Math.floor(Math.random() * 5_000),
+    refetchInterval: (query) => {
+      const {
+        state: { fetchFailureCount, fetchFailureReason },
+      } = query;
+
+      if (
+        fetchFailureCount >= 0 &&
+        fetchFailureReason?.message.toLowerCase().includes("not found")
+      ) {
+        // stop fetching after 2 tries and response is not found
+        return false;
+      }
+      return 5_000 + Math.floor(Math.random() * 5_000);
+    },
   });
 
   const { data: tickerQuote } = useQuery({
