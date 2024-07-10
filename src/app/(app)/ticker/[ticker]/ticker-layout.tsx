@@ -67,9 +67,10 @@ export default function TickerLayout(props: TickerLayoutProps) {
       marketRepo.isStockMarketOpen(quote.exchange || "", { signal }),
     refetchInterval: 5_000 + Math.floor(Math.random() * 5_000),
   });
+  console.log(isMarketOpen);
 
   const { data: afterMarketQuoteData } = useQuery({
-    enabled: isMarketOpen !== undefined && isMarketOpen.isTheStockMarketOpen,
+    enabled: isMarketOpen !== undefined && !isMarketOpen.isTheStockMarketOpen,
     queryKey: [QUERY_KEYS.AFTER_MARKET_QUOTE, ticker],
     queryFn: ({ signal }) => tickerRepo.getAfterMarketQuote(ticker, { signal }),
     refetchInterval: 5_000 + Math.floor(Math.random() * 5_000),
@@ -88,7 +89,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
     if (isMarketOpen?.isTheStockMarketOpen || !afterMarketQuoteData) {
       return undefined;
     }
-    let originalPrice = (tickerQuote.price || 0) + (tickerQuote.change || 0);
+    let originalPrice = (quote.price || 0) - (quote.change || 0);
     let currentPrice =
       (afterMarketQuoteData.ask + afterMarketQuoteData.bid) / 2;
     let change = currentPrice - originalPrice;
@@ -100,7 +101,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
       changesPercentage: changePercentage,
       timestamp: afterMarketQuoteData.timestamp,
     };
-  }, [afterMarketQuoteData, tickerQuote, isMarketOpen]);
+  }, [afterMarketQuoteData, quote, isMarketOpen]);
 
   async function addToWatchList() {
     try {
@@ -187,15 +188,15 @@ export default function TickerLayout(props: TickerLayoutProps) {
           </div>
 
           <div className="col-span-2 col-start-1 row-start-2 flex w-full flex-wrap items-end gap-5 md:col-span-1 md:col-start-2 md:row-start-2">
-            <div className="space-y-1 md:space-y-3">
+            <div className="space-y-1 md:space-y-1">
               <div className="flex flex-wrap items-end space-x-1.5">
-                <span className="text-3xl font-semibold lg:text-5xl">
+                <span className="text-3xl font-semibold sm:text-4xl lg:text-5xl">
                   {appUtils.formatNumber(tickerQuote.price || undefined, {
                     currency,
                   })}
                 </span>
 
-                <span className="flex items-center gap-2 text-base font-bold lg:text-lg">
+                <span className="flex items-center gap-2 text-sm font-bold sm:text-base lg:text-lg">
                   {tickerQuote.change && (
                     <ColoredText
                       isPositive={() => {
@@ -246,7 +247,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
             {afterMarketQuote && (
               <div className="space-y-1 md:space-y-1">
                 <div className="flex flex-wrap items-end space-x-1.5">
-                  <span className="text-2xl font-semibold lg:text-3xl">
+                  <span className="text-xl font-semibold sm:text-3xl lg:text-4xl">
                     {appUtils.formatNumber(
                       afterMarketQuote.price || undefined,
                       { currency }
@@ -296,7 +297,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
                 </div>
 
                 {afterMarketQuote.timestamp && (
-                  <div className="text-sm text-main-gray-400">
+                  <div className="text-xs text-main-gray-400">
                     After Market:{" "}
                     {format(
                       new Date(afterMarketQuote.timestamp * 1000),
@@ -308,7 +309,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
             )}
           </div>
 
-          <div className="col-start-3 row-start-2 lg:row-span-2 lg:row-start-1 lg:my-auto">
+          <div className="col-start-2 row-start-3 lg:col-start-3 lg:row-span-2 lg:row-start-1 lg:my-auto">
             {isSavedToWatchlist ? (
               <Button
                 variant={"outline"}
@@ -347,6 +348,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
       <Container className="flex min-h-[calc(100dvh-5rem)] grid-cols-1 flex-col px-0 pt-8 sm:px-0 lg:grid lg:grid-rows-1 xl:px-0">
         <DesktopTickerNav
           quote={tickerQuote}
+          afterMarketQuote={afterMarketQuote}
           statsVisible={inViewport}
           ticker={ticker}
           className="sticky top-[88px] col-start-1 row-start-1 mb-8 hidden h-fit max-h-[calc(100dvh-5rem)] w-[18rem] overflow-y-auto lg:flex"
@@ -354,6 +356,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
         <MobileTickerNav
           quote={tickerQuote}
+          afterMarketQuote={afterMarketQuote}
           statsVisible={inViewport}
           ticker={ticker}
           className="sticky top-[84px] z-40 flex h-fit md:top-[88px] lg:hidden dark:border-y dark:border-main-gray-700"

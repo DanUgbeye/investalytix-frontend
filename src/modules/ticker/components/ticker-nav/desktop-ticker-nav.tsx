@@ -1,6 +1,6 @@
 "use client";
 
-import ColoredNumber from "@/components/ui/ColoredNumber";
+import ColoredText from "@/components/colored-text";
 import PAGES from "@/data/page-map";
 import { cn } from "@/lib/utils";
 import { Quote } from "@/types";
@@ -12,7 +12,6 @@ import { MdOutlineInsertChart } from "react-icons/md";
 import { TickerNavProps } from ".";
 import TickerNavLink from "../ticker-nav-link";
 import { TICKER_NAV_TABS } from "./ticker-sidenav.types";
-import ColoredText from "@/components/colored-text";
 
 function getNavTabIcon(
   tab: (typeof TICKER_NAV_TABS)[keyof typeof TICKER_NAV_TABS]["label"]
@@ -217,9 +216,17 @@ function getNavTabIcon(
   }
 }
 
+type QuoteSummary = {
+  price: number;
+  change: number;
+  changesPercentage: number;
+  timestamp: number;
+};
+
 export interface DesktopTickerNavProps extends TickerNavProps {
   quote: Quote;
   statsVisible: boolean;
+  afterMarketQuote?: QuoteSummary;
 }
 
 export function DesktopTickerNav(props: DesktopTickerNavProps) {
@@ -228,6 +235,7 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
     className,
     quote: tickerQuote,
     statsVisible,
+    afterMarketQuote,
     ...rest
   } = props;
   const pathname = usePathname();
@@ -278,8 +286,8 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
                   </div>
                 </div>
 
-                <div className="space-y-1 px-4">
-                  <div className="flex flex-wrap items-end gap-1.5">
+                <div className=" px-4">
+                  <div className="flex flex-wrap items-baseline gap-1.5">
                     <span className="text-2xl font-bold">
                       {appUtils.formatNumber(tickerQuote.price || undefined)}
                     </span>
@@ -333,20 +341,68 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
                     </div>
                   )}
                 </div>
+
+                {afterMarketQuote && (
+                  <div className=" px-4">
+                    <div className="flex flex-wrap items-baseline gap-1.5">
+                      <span className="text-lg font-bold">
+                        {appUtils.formatNumber(
+                          afterMarketQuote.price || undefined
+                        )}
+                      </span>
+
+                      <span className="flex gap-1 text-xs font-bold">
+                        {afterMarketQuote.change && (
+                          <ColoredText
+                            isPositive={() => {
+                              if (!afterMarketQuote.change) return undefined;
+                              if (afterMarketQuote.change > 0) return true;
+                              if (afterMarketQuote.change < 0) return false;
+                              return undefined;
+                            }}
+                          >
+                            {afterMarketQuote.change > 0 && "+"}
+                            {appUtils.formatNumber(afterMarketQuote.change, {
+                              style: "decimal",
+                            })}
+                          </ColoredText>
+                        )}
+
+                        {afterMarketQuote.changesPercentage && (
+                          <ColoredText
+                            isPositive={() => {
+                              if (!afterMarketQuote.changesPercentage)
+                                return undefined;
+                              if (afterMarketQuote.changesPercentage > 0)
+                                return true;
+                              if (afterMarketQuote.changesPercentage < 0)
+                                return false;
+                              return undefined;
+                            }}
+                          >
+                            {afterMarketQuote.changesPercentage > 0 && "+"}
+                            {appUtils.formatNumber(
+                              afterMarketQuote.changesPercentage,
+                              { style: "decimal" }
+                            )}
+                            %
+                          </ColoredText>
+                        )}
+                      </span>
+                    </div>
+
+                    {afterMarketQuote.timestamp && (
+                      <div className="text-xs text-main-gray-400">
+                        After Market:{" "}
+                        {format(
+                          new Date(afterMarketQuote.timestamp),
+                          "MMMM dd hh:mm a"
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
-
-              {/* <div className=" w-full space-y-1 bg-main-gray-100 px-4 py-3 dark:bg-main-gray-900 ">
-                <div className=" flex items-center space-x-1.5 ">
-                  <span className=" font-bold ">$20.56</span>
-                  <span className=" text-xs font-bold text-red-500 ">
-                    -0.68 (-0.42%)
-                  </span>
-                </div>
-
-                <div className=" text-xs text-main-gray-400 ">
-                  After hours: January 12 07:59 PM EST
-                </div>
-              </div> */}
             </div>
           )}
         </div>
