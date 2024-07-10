@@ -26,6 +26,18 @@ export type Quote = {
   timestamp: number | null;
 };
 
+export type StockSocketData = {
+  s: string;
+  t: number;
+  type: string;
+  ap: number | null;
+  as: number | null;
+  bp: number | null;
+  bs: number | null;
+  lp: number | null;
+  ls: number | null;
+};
+
 export type AfterMarketQuote = {
   symbol: string;
   ask: number;

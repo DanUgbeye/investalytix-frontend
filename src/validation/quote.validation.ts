@@ -1,5 +1,4 @@
-import { Quote, QuoteHistory, SearchResult, ShortQuote } from "@/types";
-import { StockSocketData } from "@/types/quote";
+import { Quote, QuoteHistory, SearchResult, ShortQuote, StockSocketData } from "@/types";
 import { ZodType, z } from "zod";
 
 export const QuoteSchema = z.object({

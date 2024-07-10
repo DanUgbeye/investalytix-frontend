@@ -1,4 +1,4 @@
-import { StockSocketData } from "@/types/quote";
+import { StockSocketData } from "@/types";
 
 export const SOCKET_EMIT_EVENTS = {
   LOG_IN: "login",

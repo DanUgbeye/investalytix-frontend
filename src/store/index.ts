@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { AuthState, AuthStore, createAuthStore } from "./auth";
 import { GeneralStore, createGeneralStore } from "./general";
 import { NewsStore, createNewsStore } from "./news";
+import { SocketServiceStore, createSocketServiceStore } from "./socket";
 import { WatchlistStore, createWatchlistStore } from "./watchlist";
 
 export type StoreInitialState = AuthState;
@@ -16,7 +17,8 @@ export type AppStore = BaseStore &
   AuthStore &
   GeneralStore &
   NewsStore &
-  WatchlistStore;
+  WatchlistStore &
+  SocketServiceStore;
 
 export const useAppStore = create<AppStore>((...a) => ({
   ...{
@@ -42,4 +44,5 @@ export const useAppStore = create<AppStore>((...a) => ({
   ...createAuthStore(...a),
   ...createNewsStore(...a),
   ...createWatchlistStore(...a),
+  ...createSocketServiceStore(...a),
 }));
