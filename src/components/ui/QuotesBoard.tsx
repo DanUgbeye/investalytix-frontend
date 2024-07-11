@@ -14,7 +14,8 @@ export default function QuotesBoard() {
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.GET_TRENDING_STOCKS],
     queryFn: ({ signal }) => marketRepo.getTrendingStocks({ signal }),
-    refetchInterval: 3_000,
+    refetchInterval: false,
+    refetchOnReconnect: true,
   });
 
   const settings = {
