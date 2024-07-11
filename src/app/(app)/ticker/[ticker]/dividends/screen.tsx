@@ -54,7 +54,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
     }
   }
 
-  console.log(ratio)
+  console.log(ratio);
 
   return (
     <main className="max-w-7xl space-y-10 pb-12">

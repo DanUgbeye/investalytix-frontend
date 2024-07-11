@@ -286,7 +286,7 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
                   </div>
                 </div>
 
-                <div className=" px-4">
+                <div className="px-4">
                   <div className="flex flex-wrap items-baseline gap-1.5">
                     <span className="text-2xl font-bold">
                       {appUtils.formatNumber(tickerQuote.price || undefined)}
@@ -343,7 +343,7 @@ export function DesktopTickerNav(props: DesktopTickerNavProps) {
                 </div>
 
                 {afterMarketQuote && (
-                  <div className=" px-4">
+                  <div className="px-4">
                     <div className="flex flex-wrap items-baseline gap-1.5">
                       <span className="text-lg font-bold">
                         {appUtils.formatNumber(

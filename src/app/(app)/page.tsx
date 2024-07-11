@@ -213,30 +213,32 @@ export default function Home() {
         </Container>
       </section>
 
-{/* contact us */}
-     {false && <div className="bg-black/5 dark:bg-white/5">
-        <div className="mx-auto grid items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
-          <div className="mx-auto max-w-2xl px-12 py-12">
-            <h1 className="text-6xl font-bold md:text-7xl lg:text-6xl">
-              Connect With Us
-            </h1>
-            <p className="mb-8 mt-3 text-xl">
-              We're always here to help and answer any questions you might have.
-              Please fill out the form below, and we'll get back to you as soon
-              as possible.
-            </p>
+      {/* contact us */}
+      {false && (
+        <div className="bg-black/5 dark:bg-white/5">
+          <div className="mx-auto grid items-center gap-10 max-md:grid-rows-[300px,1fr] md:grid-cols-2 md:gap-14">
+            <div className="mx-auto max-w-2xl px-12 py-12">
+              <h1 className="text-6xl font-bold md:text-7xl lg:text-6xl">
+                Connect With Us
+              </h1>
+              <p className="mb-8 mt-3 text-xl">
+                We're always here to help and answer any questions you might
+                have. Please fill out the form below, and we'll get back to you
+                as soon as possible.
+              </p>
 
-            <Link
-              href="/contact-us"
-              className="inline-flex h-12 items-center justify-center whitespace-nowrap rounded-md bg-primary-base px-8 py-2 text-lg font-medium text-white ring-offset-white transition-colors duration-300 hover:bg-primary-base/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 md:text-xl dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300"
-            >
-              Contact us
-            </Link>
+              <Link
+                href="/contact-us"
+                className="inline-flex h-12 items-center justify-center whitespace-nowrap rounded-md bg-primary-base px-8 py-2 text-lg font-medium text-white ring-offset-white transition-colors duration-300 hover:bg-primary-base/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 md:text-xl dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300"
+              >
+                Contact us
+              </Link>
+            </div>
+
+            <div className="h-full bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:min-h-[400px]"></div>
           </div>
-
-          <div className="h-full bg-black bg-[url('/images/contact-us-2.jpg')] bg-cover bg-center bg-no-repeat max-md:-order-1 md:min-h-[400px]"></div>
         </div>
-      </div>}
+      )}
     </>
   );
 }

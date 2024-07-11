@@ -286,7 +286,6 @@ export default function Summary() {
           value={[new Date(from), new Date(to)]}
           calendarIcon={FiCalendar}
           clearIcon={null}
-          
         />
 
         <button
