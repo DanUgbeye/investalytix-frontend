@@ -28,9 +28,11 @@ export default function SocketServiceProvider(props: Props) {
   }, []);
 
   useEffect(() => {
-    socket.on("connect", handleConnection);
-    socket.on("disconnect", handleDisconnection);
-    socket.connect();
+    if (!socket.connected) {
+      socket.on("connect", handleConnection);
+      socket.on("disconnect", handleDisconnection);
+      socket.connect();
+    }
 
     return () => {
       socket.disconnect();

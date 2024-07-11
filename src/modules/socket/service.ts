@@ -43,27 +43,28 @@ export class SocketService {
     this.socket.off(SOCKET_LISTEN_EVENTS.CRYPTO, this.handleCryptoData);
   }
 
-  private handleStockData(data: StockSocketData) {
+  private handleStockData = (data: StockSocketData) => {
     // TODO validate data
     this.notify(SUBSCRIPTION_TYPE.STOCK, data.s, data);
-  }
+  };
 
-  private handleFxData(data: StockSocketData) {
+  private handleFxData = (data: StockSocketData) => {
     // TODO validate data
     this.notify(SUBSCRIPTION_TYPE.FX, data.s, data);
-  }
+  };
 
-  private handleCryptoData(data: StockSocketData) {
+  private handleCryptoData = (data: StockSocketData) => {
     // TODO validate data
     this.notify(SUBSCRIPTION_TYPE.CRYPTO, data.s, data);
-  }
+  };
 
   private notify(
     type: SubscriptionType,
     ticker: string,
     data: StockSocketData
   ) {
-    let subscribers = this.subscriptionList[type].get(ticker);
+    let uppercaseTicker = ticker.toUpperCase();
+    let subscribers = this.subscriptionList[type].get(uppercaseTicker);
     if (!subscribers || subscribers.length <= 0) {
       return;
     }
@@ -75,27 +76,39 @@ export class SocketService {
     ticker: string,
     subscriber: TickerSubscriber
   ) {
-    let subscriptions = this.subscriptionList[type].get(ticker);
+    let uppercaseTicker = ticker.toUpperCase();
+    let subscriptions = this.subscriptionList[type].get(uppercaseTicker);
 
     if (!subscriptions) {
       subscriptions = [subscriber];
 
       // Emit subscription event to the server
       switch (type) {
-        case SUBSCRIPTION_TYPE.STOCK:
-          this.socket.emit(SOCKET_EMIT_EVENTS.SUBSCRIBE_STOCK, ticker);
+        case SUBSCRIPTION_TYPE.STOCK: {
+          this.socket.emit(SOCKET_EMIT_EVENTS.SUBSCRIBE_STOCK, uppercaseTicker);
           break;
-        case SUBSCRIPTION_TYPE.FX:
-          this.socket.emit(SOCKET_EMIT_EVENTS.SUBSCRIBE_FX, ticker);
+        }
+        case SUBSCRIPTION_TYPE.FX: {
+          this.socket.emit(SOCKET_EMIT_EVENTS.SUBSCRIBE_FX, uppercaseTicker);
           break;
-        case SUBSCRIPTION_TYPE.CRYPTO:
-          this.socket.emit(SOCKET_EMIT_EVENTS.SUBSCRIBE_CRYPTO, ticker);
+        }
+        case SUBSCRIPTION_TYPE.CRYPTO: {
+          this.socket.emit(
+            SOCKET_EMIT_EVENTS.SUBSCRIBE_CRYPTO,
+            uppercaseTicker
+          );
           break;
+        }
+      }
+    } else {
+      // ensure that subscribers are added only once
+      const index = subscriptions.indexOf(subscriber);
+      if (index === -1) {
+        subscriptions.push(subscriber);
       }
     }
 
-    subscriptions.push(subscriber);
-    this.subscriptionList[type].set(ticker, subscriptions);
+    this.subscriptionList[type].set(uppercaseTicker, subscriptions);
   }
 
   unsubscribe(
@@ -103,7 +116,8 @@ export class SocketService {
     ticker: string,
     subscriber: TickerSubscriber
   ) {
-    let subscriptions = this.subscriptionList[type].get(ticker);
+    let uppercaseTicker = ticker.toUpperCase();
+    let subscriptions = this.subscriptionList[type].get(uppercaseTicker);
 
     if (subscriptions) {
       const index = subscriptions.indexOf(subscriber);
@@ -113,19 +127,31 @@ export class SocketService {
 
       // If no more subscribers for this ticker, clean up and notify the server
       if (subscriptions.length === 0) {
-        this.subscriptionList[type].delete(ticker);
+        this.subscriptionList[type].delete(uppercaseTicker);
 
         // Emit unsubscription event to the server
         switch (type) {
-          case SUBSCRIPTION_TYPE.STOCK:
-            this.socket.emit(SOCKET_EMIT_EVENTS.UNSUBSCRIBE_STOCK, ticker);
+          case SUBSCRIPTION_TYPE.STOCK: {
+            this.socket.emit(
+              SOCKET_EMIT_EVENTS.UNSUBSCRIBE_STOCK,
+              uppercaseTicker
+            );
             break;
-          case SUBSCRIPTION_TYPE.FX:
-            this.socket.emit(SOCKET_EMIT_EVENTS.UNSUBSCRIBE_FX, ticker);
+          }
+          case SUBSCRIPTION_TYPE.FX: {
+            this.socket.emit(
+              SOCKET_EMIT_EVENTS.UNSUBSCRIBE_FX,
+              uppercaseTicker
+            );
             break;
-          case SUBSCRIPTION_TYPE.CRYPTO:
-            this.socket.emit(SOCKET_EMIT_EVENTS.UNSUBSCRIBE_CRYPTO, ticker);
+          }
+          case SUBSCRIPTION_TYPE.CRYPTO: {
+            this.socket.emit(
+              SOCKET_EMIT_EVENTS.UNSUBSCRIBE_CRYPTO,
+              uppercaseTicker
+            );
             break;
+          }
         }
       }
     }

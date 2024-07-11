@@ -10,6 +10,7 @@ import { clientAPI } from "@/config/client/api";
 import { QUERY_KEYS } from "@/data/query-keys";
 import { cn } from "@/lib/utils";
 import { MarketRepository } from "@/modules/market/repository";
+import { SUBSCRIPTION_TYPE } from "@/modules/socket/types";
 import {
   DesktopTickerNav,
   MobileTickerNav,
@@ -19,12 +20,12 @@ import { CompanyOutlook } from "@/modules/ticker/types";
 import WatchlistRepository from "@/modules/watchlist/repository";
 import { NewWatchlist } from "@/modules/watchlist/types";
 import { useAppStore } from "@/store";
-import { Quote } from "@/types";
+import { Quote, StockSocketData } from "@/types";
 import appUtils from "@/utils/app-util";
-import { useInViewport } from "@mantine/hooks";
+import { useDebouncedCallback, useInViewport } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { HTMLAttributes, useMemo, useState } from "react";
+import { HTMLAttributes, useEffect, useMemo, useState } from "react";
 import { FaRegStar, FaStar } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import "swiper/css";
@@ -41,6 +42,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
     props;
   const watchlistRepo = new WatchlistRepository(clientAPI);
   const marketRepo = new MarketRepository(clientAPI);
+  const socketService = useAppStore(({ socketService }) => socketService);
   const watchlist = useAppStore(({ watchlist }) => watchlist);
   const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
   const {
@@ -78,7 +80,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
       } = query;
 
       if (
-        fetchFailureCount >= 0 &&
+        fetchFailureCount >= 2 &&
         fetchFailureReason?.message.toLowerCase().includes("not found")
       ) {
         // stop fetching after 2 tries and response is not found
@@ -88,14 +90,16 @@ export default function TickerLayout(props: TickerLayoutProps) {
     },
   });
 
-  const { data: tickerQuote } = useQuery({
-    enabled:
-      isMarketOpen !== undefined ? isMarketOpen.isTheStockMarketOpen : true,
-    queryKey: [QUERY_KEYS.GET_TICKER_QUOTE, ticker],
-    queryFn: ({ signal }) => tickerRepo.getQuote(ticker, { signal }),
-    initialData: quote,
-    refetchInterval: 5_000 + Math.floor(Math.random() * 5_000),
-  });
+  // const { data: tickerQuote } = useQuery({
+  //   enabled:
+  //     isMarketOpen !== undefined ? isMarketOpen.isTheStockMarketOpen : true,
+  //   queryKey: [QUERY_KEYS.GET_TICKER_QUOTE, ticker],
+  //   queryFn: ({ signal }) => tickerRepo.getQuote(ticker, { signal }),
+  //   initialData: quote,
+  //   refetchInterval: 5_000 + Math.floor(Math.random() * 5_000),
+  // });
+
+  const [tickerQuote, setTickerQuote] = useState(quote);
 
   const afterMarketQuote = useMemo(() => {
     if (isMarketOpen?.isTheStockMarketOpen || !afterMarketQuoteData) {
@@ -163,6 +167,55 @@ export default function TickerLayout(props: TickerLayoutProps) {
       setIsLoading(false);
     }
   }
+
+  const handleSocketUpdate = useDebouncedCallback((data: StockSocketData) => {
+    setTickerQuote((prev) => {
+      let update = { ...prev };
+
+      if (data.lp) {
+        update.price = data.lp;
+      } else if (!data.lp) {
+        if (data.ap && data.bp) {
+          update.price = (data.ap + data.bp) / 2;
+        }
+      }
+
+      if (prev.price !== update.price) {
+        let originalPrice = (prev.price || 0) - (prev.change || 0);
+        let currentPrice = update.price;
+        update.change = (currentPrice || 0) - originalPrice;
+        update.changesPercentage = (update.change / originalPrice) * 100;
+      }
+
+      if (data.t) {
+        update.timestamp = Math.floor(data.t / 1_000_000);
+      }
+
+      return update;
+    });
+  }, 1_500);
+
+  useEffect(() => {
+    if (
+      isMarketOpen === undefined ||
+      (isMarketOpen && isMarketOpen.isTheStockMarketOpen)
+    ) {
+      console.log("subscribing to ticker", ticker);
+      socketService.subscribe(
+        SUBSCRIPTION_TYPE.STOCK,
+        ticker,
+        handleSocketUpdate
+      );
+    }
+
+    return () => {
+      socketService.unsubscribe(
+        SUBSCRIPTION_TYPE.STOCK,
+        ticker,
+        handleSocketUpdate
+      );
+    };
+  }, [isMarketOpen, ticker]);
 
   return (
     <section {...rest} className={cn(" ", className)}>
@@ -298,9 +351,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
                         {afterMarketQuote.changesPercentage > 0 && "+"}
                         {appUtils.formatNumber(
                           afterMarketQuote.changesPercentage,
-                          {
-                            style: "decimal",
-                          }
+                          { style: "decimal" }
                         )}
                         %
                       </ColoredText>
@@ -312,7 +363,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
                   <div className="text-xs text-main-gray-400">
                     After Market:{" "}
                     {format(
-                      new Date(afterMarketQuote.timestamp * 1000),
+                      new Date(afterMarketQuote.timestamp),
                       "MMM dd hh:mm a"
                     )}
                   </div>
