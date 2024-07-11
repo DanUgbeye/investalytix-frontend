@@ -57,7 +57,7 @@ export function generateIssueData(data: {
         label: "Enterprise Value / EBITDA",
         value: ratio
           ? appUtils.formatNumber(
-              (ratio.enterpriseValueMultiple || 0) / (income.ebitda || 0),
+              (ratio.enterpriseValueMultiple || 0) / (income?.ebitda || 0),
               {
                 style: "decimal",
               }
@@ -165,7 +165,7 @@ export function generateCashFlowAnalysisData(data: {
       {
         label: "Cash Flow / Net Income (CF/NI)",
         value: appUtils.formatNumber(
-          (cash.operatingCashFlow || 0) / (income.netIncome || 1),
+          (cash?.operatingCashFlow || 0) / (income?.netIncome || 1),
           { style: "decimal" }
         ),
       },
@@ -180,9 +180,7 @@ export function generateCashFlowAnalysisData(data: {
         label: "Free / Operating Cash Flow",
         value: appUtils.formatNumber(
           ratio?.freeCashFlowOperatingCashFlowRatio,
-          {
-            style: "decimal",
-          }
+          { style: "decimal" }
         ),
       },
       {
@@ -328,7 +326,7 @@ export function generateProfitabilityData(data: {
     fields: [
       {
         label: "EBITDA",
-        value: appUtils.formatNumber(income.ebitda, {
+        value: appUtils.formatNumber(income?.ebitda, {
           currency,
           notation: "compact",
         }),
@@ -336,7 +334,7 @@ export function generateProfitabilityData(data: {
       {
         label: "EBIT",
         value: appUtils.formatNumber(
-          (income.ebitda || 0) - (income.depreciationAndAmortization || 0),
+          (income?.ebitda || 0) - (income?.depreciationAndAmortization || 0),
           { currency, notation: "compact" }
         ),
       },
@@ -409,7 +407,7 @@ export function generateStructureData(data: {
         label: "Debt / Assets",
         value:
           appUtils.formatNumber(
-            ((balance.totalDebt || 0) / (balance.totalAssets || 1)) * 100,
+            ((balance?.totalDebt || 0) / (balance?.totalAssets || 1)) * 100,
             { style: "decimal" }
           ) + "%",
       },
@@ -417,7 +415,7 @@ export function generateStructureData(data: {
         label: "Debt / Common Equity",
         value:
           appUtils.formatNumber(
-            ((balance.totalDebt || 0) / (balance.totalEquity || 1)) * 100,
+            ((balance?.totalDebt || 0) / (balance?.totalEquity || 1)) * 100,
             { style: "decimal" }
           ) + "%",
       },
@@ -443,8 +441,7 @@ export function generateStructureData(data: {
       {
         label: "EBIT / Total Interest Expense",
         value: appUtils.formatNumber(
-          ((income.ebitda || 0) - (income.depreciationAndAmortization || 0) ||
-            0) / (income.interestExpense || 1),
+          ((income?.ebitda || 0) - (income?.depreciationAndAmortization || 0)) / (income?.interestExpense || 1),
           { style: "decimal" }
         ),
       },
