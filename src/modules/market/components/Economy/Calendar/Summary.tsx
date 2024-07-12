@@ -280,13 +280,15 @@ export default function Summary() {
           );
         })}
 
-        <DateRangePicker
-          className={"economy__calendar"}
-          onChange={calendarOnChangeHandler}
-          value={[new Date(from), new Date(to)]}
-          calendarIcon={FiCalendar}
-          clearIcon={null}
-        />
+        <div className=" economic-calendar-container ">
+          <DateRangePicker
+            className={"economy__calendar"}
+            onChange={calendarOnChangeHandler}
+            value={[new Date(from), new Date(to)]}
+            calendarIcon={FiCalendar}
+            clearIcon={null}
+          />
+        </div>
 
         <button
           className={`group whitespace-nowrap rounded-md border border-black px-3 py-2 text-center text-sm capitalize hover:border-primary-light focus:border-primary-light dark:border-white/40`}

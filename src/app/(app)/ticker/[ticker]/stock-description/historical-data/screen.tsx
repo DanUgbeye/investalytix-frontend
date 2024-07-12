@@ -101,12 +101,9 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-between gap-3 rounded md:flex-row md:flex-wrap"
       >
-        <div className="flex flex-wrap gap-2 md:flex-row md:items-center">
+        <div className="historical-data-container flex flex-wrap gap-2 md:flex-row md:items-center">
           <DateRangePicker
-            className={"text-sm"}
-            calendarProps={{
-              className: cva(" text-black dark:bg-main-gray-700 z-50 ")(),
-            }}
+            className={"economy__calendar text-sm"}
             onChange={handleDateIput}
             value={[from!, to!]}
             calendarIcon={FiCalendar}

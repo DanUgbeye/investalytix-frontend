@@ -38,6 +38,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
         ratioTTM: outlook.ratios[0],
         ratio,
         income: outlook.financialsAnnual.income[0],
+        balance: outlook.financialsAnnual.balance[0],
       }),
     []
   );

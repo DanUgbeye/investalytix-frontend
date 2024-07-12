@@ -63,18 +63,33 @@ input[type="number"] {
 
 /* start calendar for date picker */
 .react-daterange-picker__wrapper {
-  @apply rounded-md hover:border-primary-base hover:text-primary-base focus:border-primary-base focus:text-primary-base dark:border-white/40 dark:hover:border-primary-light dark:hover:text-primary-light dark:focus:border-primary-light dark:focus:text-primary-light;
+  @apply hover:border-primary-base hover:text-primary-base focus:border-primary-base focus:text-primary-base dark:border-white/40 dark:hover:border-primary-light dark:hover:text-primary-light dark:focus:border-primary-light dark:focus:text-primary-light;
+}
+
+div.economic-calendar-container .react-daterange-picker__wrapper {
+  @apply rounded-md;
+}
+
+div.historical-data-container .react-daterange-picker__wrapper {
+  @apply rounded-full pl-3;
 }
 
 .react-daterange-picker__wrapper > button {
   @apply box-border !px-4 !py-[10px];
 }
-.react-daterange-picker__inputGroup {
+div.historical-data-container .react-daterange-picker__inputGroup {
+  @apply pointer-events-none;
+}
+div.economic-calendar-container .react-daterange-picker__inputGroup {
   @apply hidden;
 }
-.react-daterange-picker__range-divider {
+div.historical-data-container .react-daterange-picker__range-divider {
+  @apply mr-1 pointer-events-none;
+}
+div.economic-calendar-container .react-daterange-picker__range-divider {
   @apply hidden;
 }
+
 .react-calendar {
   @apply !border-black !bg-white dark:!border-white/20 dark:!bg-black;
 }
@@ -85,7 +100,7 @@ input[type="number"] {
   @apply !bg-primary-base text-white dark:!bg-primary-light;
 }
 .react-calendar__tile--now {
-  @apply !bg-transparent;
+  @apply !bg-transparent !text-black dark:!text-main-gray-300;
 }
 .react-calendar__month-view__days__day--weekend {
   @apply !text-red-700 dark:!text-red-500;
@@ -99,7 +114,7 @@ input[type="number"] {
   @apply lg:!scale-[0.8];
 }
 .products .swiper-slide-active {
-  @apply lg:!scale-[1.1] z-10 duration-500;
+  @apply z-10 duration-500 lg:!scale-[1.1];
 }
 
 /* end products carousel */
@@ -109,7 +124,7 @@ input[type="number"] {
     transform: translateY(32px);
   }
 
-  .economy__calendar .react-daterange-picker__calendar--open{
+  .economy__calendar .react-daterange-picker__calendar--open {
     inset: calc(100% + 10px) auto auto 0px !important;
   }
 }

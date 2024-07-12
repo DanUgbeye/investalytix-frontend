@@ -18,8 +18,9 @@ export function generateIssueData(data: {
   ratioTTM?: RatioTTM;
   currency: string;
   income: IncomeStatement;
+  balance: BalanceSheetStatement;
 }) {
-  const { currency, ratio, ratioTTM, quote, income } = data;
+  const { currency, ratio, ratioTTM, quote, income, balance } = data;
 
   return {
     name: "Issue Data",
@@ -55,14 +56,16 @@ export function generateIssueData(data: {
       },
       {
         label: "Enterprise Value / EBITDA",
-        value: ratio
-          ? appUtils.formatNumber(
-              (ratio.enterpriseValueMultiple || 0) / (income?.ebitda || 0),
-              {
-                style: "decimal",
-              }
-            )
-          : "-",
+        value:
+          balance && income
+            ? appUtils.formatNumber(
+                ((quote.marketCap || 0) +
+                  (balance?.totalDebt || 0) -
+                  (balance?.cashAndCashEquivalents || 0)) /
+                  (income?.ebitda || 1),
+                { style: "decimal" }
+              )
+            : "-",
       },
       {
         label: "Market Cap",
@@ -441,7 +444,8 @@ export function generateStructureData(data: {
       {
         label: "EBIT / Total Interest Expense",
         value: appUtils.formatNumber(
-          ((income?.ebitda || 0) - (income?.depreciationAndAmortization || 0)) / (income?.interestExpense || 1),
+          ((income?.ebitda || 0) - (income?.depreciationAndAmortization || 0)) /
+            (income?.interestExpense || 1),
           { style: "decimal" }
         ),
       },

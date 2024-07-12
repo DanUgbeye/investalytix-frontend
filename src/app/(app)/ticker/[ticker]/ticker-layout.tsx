@@ -188,7 +188,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
       }
 
       if (data.t) {
-        update.timestamp = Math.floor(data.t / 1_000_000);
+        update.timestamp = Math.floor(data.t / 1_000_000_000);
       }
 
       return update;
@@ -200,7 +200,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
       isMarketOpen === undefined ||
       (isMarketOpen && isMarketOpen.isTheStockMarketOpen)
     ) {
-      console.log("subscribing to ticker", ticker);
+      console.log("subscribed to ticker", ticker);
       socketService.subscribe(
         SUBSCRIPTION_TYPE.STOCK,
         ticker,
@@ -209,6 +209,7 @@ export default function TickerLayout(props: TickerLayoutProps) {
     }
 
     return () => {
+      console.log("unsubscribed to ticker", ticker);
       socketService.unsubscribe(
         SUBSCRIPTION_TYPE.STOCK,
         ticker,
