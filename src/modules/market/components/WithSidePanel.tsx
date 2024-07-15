@@ -2,6 +2,7 @@ import EconomicEvent from "@/modules/market/components/EconomicEvent";
 import SidePanel from "./SidePanel";
 import Watchlist from "./Watchlist";
 import SectorPerformance from "./SectorPerformance";
+import { Suspense } from "react";
 
 export enum SIDE_SECTIONS {
   ALL = "ALL",
@@ -25,7 +26,7 @@ export default function WithSidePanel({
   sections?: SIDE_SECTIONS[] | SIDE_SECTIONS;
 }>) {
   return (
-    <>
+    <Suspense fallback={null}>
       <div>{children}</div>
 
       <div className="mt-20 grid gap-14 border-[#DCDCDC] pb-10 md:grid-cols-2 dark:border-white/10">
@@ -99,6 +100,6 @@ export default function WithSidePanel({
           )}
         </div>
       </div>
-    </>
+    </Suspense>
   );
 }

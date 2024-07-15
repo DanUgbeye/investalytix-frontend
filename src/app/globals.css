@@ -84,7 +84,7 @@ div.economic-calendar-container .react-daterange-picker__inputGroup {
   @apply hidden;
 }
 div.historical-data-container .react-daterange-picker__range-divider {
-  @apply mr-1 pointer-events-none;
+  @apply pointer-events-none mr-1;
 }
 div.economic-calendar-container .react-daterange-picker__range-divider {
   @apply hidden;
@@ -106,6 +106,18 @@ div.economic-calendar-container .react-daterange-picker__range-divider {
   @apply !text-red-700 dark:!text-red-500;
 }
 /* end calendar for date picker */
+
+.pagination__container {
+  @apply mt-6 flex items-center justify-center gap-5;
+}
+
+.pagination__page > a {
+  @apply block rounded border px-4 py-2 hover:border-primary-base hover:text-primary-base focus:border-primary-base focus:text-primary-base;
+}
+
+.pagination__page-active > a {
+  @apply border-primary-base text-primary-base;
+}
 
 /* start products carousel */
 .products .swiper-slide-next,
