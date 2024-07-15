@@ -83,7 +83,7 @@ export default function Home() {
 
       <Container className="py-20">
         {/* <MarketMovers /> */}
-        <Suspense
+        {/* <Suspense
           fallback={
             <div className="grid gap-x-20 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
               <Loader />
@@ -94,7 +94,7 @@ export default function Home() {
               <Loader />
             </div>
           }
-        >
+        > */}
           <WithSidePanel
             sections={[
               SIDE_SECTIONS["CRYPTOCURRENCY"],
@@ -109,7 +109,7 @@ export default function Home() {
           >
             <></>
           </WithSidePanel>
-        </Suspense>
+        {/* </Suspense> */}
       </Container>
 
       <section className="relative isolate flex min-h-[700px] w-full items-center justify-center bg-[url('/images/about-us.jpg')] bg-cover bg-center lg:h-screen">
@@ -177,13 +177,13 @@ export default function Home() {
 
           <svg
             className="absolute -right-full top-0 hidden md:block"
-            width="215"
-            height="85"
+            width={215}
+            height={85}
             viewBox="0 0 215 85"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_218_9)">
+            <g clipPath="url(#clip0_218_9)">
               <path
                 d="M13.7712 48.9904C13.9489 48.9955 14.126 48.9957 14.3026 49.0054C17.5833 49.1838 20.8643 49.3566 24.1452 49.5472C24.8608 49.5882 25.4256 49.3554 25.7953 48.7491C26.3493 47.8402 25.8062 46.6321 24.7578 46.409C24.5483 46.3646 24.3291 46.3592 24.1149 46.3475C19.5251 46.0956 14.9352 45.8456 10.3453 45.5956C8.95148 45.5194 8.34538 46.0571 8.26864 47.4349C8.01159 52.0903 7.75729 56.7469 7.49549 61.4031C7.45626 62.099 7.70315 62.6457 8.29596 63.0002C8.84138 63.3258 9.41305 63.294 9.9469 62.9567C10.4699 62.6274 10.6526 62.1155 10.6856 61.5163C10.8577 58.2852 11.041 55.0547 11.216 51.8228C11.2259 51.6425 11.1899 51.4587 11.1745 51.276C11.2254 51.259 11.2772 51.2412 11.3281 51.2242C11.4364 51.3271 11.5476 51.4293 11.6519 51.5358C21.2301 61.3542 32.7588 64.8962 46.1816 62.1249C50.983 61.1335 55.3373 59.0392 59.282 56.1208C60.1746 55.4603 61.0332 54.7517 61.8818 54.0341C62.6811 53.3591 62.7726 52.3627 62.1441 51.6652C61.527 50.9805 60.5611 50.9692 59.7914 51.6392C53.5876 57.0426 46.3722 59.8415 38.1486 59.8704C30.4658 59.8969 23.5809 57.4943 17.5773 52.6821C16.2123 51.5873 14.9676 50.3417 13.6673 49.1656C13.7016 49.1082 13.7359 49.0488 13.7702 48.9913L13.7712 48.9904Z"
                 fill="#E03737"
@@ -243,36 +243,6 @@ export default function Home() {
   );
 }
 
-function Loader() {
-  const Row = (
-    <div className="flex items-center justify-between border-b py-2 dark:dark:border-gray-100/10">
-      <div className="flex w-[40%] items-center gap-2">
-        <div className="h-6 w-6 shrink-0 animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
-        <div className="h-4 w-full animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
-      </div>
-      <div className="h-4 w-16 animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
-      <div className="h-4 w-16 animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
-    </div>
-  );
-  return (
-    <div className="">
-      <div className="mb-5 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="h-6 w-36 rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
-          <div className="h-6 w-6 rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
-        </div>
-        <div className="h-2 w-16 rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
-      </div>
-      {Row}
-      {Row}
-      {Row}
-      {Row}
-      {Row}
-      {Row}
-    </div>
-  );
-}
-
 function Plan({
   plan,
   frequency,
@@ -319,7 +289,7 @@ function Plan({
               xmlns="http://www.w3.org/2000/svg"
               className="shrink-0"
             >
-              <g clip-path="url(#clip0_225_25)">
+              <g clipPath="url(#clip0_225_25)">
                 <path
                   d="M7.96723 17C7.65661 16.9559 7.34389 16.9223 7.03537 16.8678C5.09821 16.5258 3.47377 15.6109 2.16204 14.1526C1.00562 12.8664 0.296239 11.3599 0.0779672 9.64562C-0.238946 7.1508 0.409572 4.91826 2.03612 2.99417C3.32056 1.47714 4.9555 0.520338 6.91155 0.157341C9.17821 -0.264407 11.2854 0.165734 13.2162 1.43098C13.5625 1.65759 13.6528 2.08773 13.4366 2.41925C13.2204 2.74868 12.7902 2.841 12.4418 2.61229C11.5309 2.01219 10.5424 1.62402 9.45945 1.48763C7.54328 1.24423 5.795 1.68277 4.25241 2.8431C2.73081 3.98664 1.77377 5.51207 1.50933 7.39839C1.11686 10.1912 2.0655 12.4866 4.31118 14.1988C5.79291 15.3277 7.5013 15.7431 9.34821 15.5312C12.2886 15.1955 14.7483 12.9734 15.4011 10.0883C15.6655 8.91752 15.6403 7.7509 15.3192 6.59267C15.187 6.11426 15.4136 5.71979 15.8649 5.63586C16.2175 5.56872 16.5785 5.78064 16.6603 6.14994C16.782 6.69968 16.866 7.25571 16.9667 7.80965C16.9772 7.8642 16.9877 7.91666 16.9982 7.97121V9.03293C16.9898 9.0707 16.9751 9.10637 16.9709 9.14413C16.8954 10.1744 16.6519 11.1647 16.1965 12.0901C14.9099 14.7024 12.8385 16.3034 9.97784 16.8678C9.66513 16.9286 9.34612 16.958 9.0292 17H7.96723Z"
                   className={`${plan.popular ? "fill-white dark:fill-black" : "fill-black dark:fill-white"}`}

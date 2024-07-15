@@ -1,7 +1,10 @@
+"use client";
+import Spinner from "@/components/spinner";
+import useFetcher from "@/hooks/useFetcher";
 import NewsCard from "@/modules/news/components/news-card";
 import NewsLink from "@/modules/news/components/news-link";
-import { GeneralNews, News } from "@/modules/news/types";
-import moment from "moment";
+import { News } from "@/modules/news/types";
+import { useEffect } from "react";
 
 async function getData(params?: { limit?: number; page?: number }) {
   const { limit = 12, page = 1 } = params ?? {};
@@ -24,19 +27,34 @@ async function getData(params?: { limit?: number; page?: number }) {
   }>;
 }
 
-export default async function LatestNews() {
-  const data = await getData({ limit: 12 });
+export default function LatestNews() {
+  const { data, wrapper, loading } = useFetcher<{
+    message: String;
+    status: number;
+    data: News[];
+  }>(null);
+
+  useEffect(() => {
+    wrapper(() => getData({ limit: 12 }));
+  }, []);
+
   return (
     <>
       <h2 className="mb-12 text-2xl font-extrabold">Latest news</h2>
 
-      <div className="grid gap-x-14 gap-y-1 md:grid-cols-2 lg:grid-cols-3">
-        {data.data.map((news) => (
-          <NewsLink news={news}>
-            <NewsCard news={news} />
-          </NewsLink>
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex items-center justify-center p-10">
+          <Spinner />
+        </div>
+      ) : data ? (
+        <div className="grid gap-x-14 gap-y-1 md:grid-cols-2 lg:grid-cols-3">
+          {data.data.map((news, index) => (
+            <NewsLink news={news} key={news.title + index}>
+              <NewsCard news={news} />
+            </NewsLink>
+          ))}
+        </div>
+      ) : null}
     </>
   );
 }

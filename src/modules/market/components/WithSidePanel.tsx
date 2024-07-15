@@ -1,8 +1,10 @@
+"use client";
 import EconomicEvent from "@/modules/market/components/EconomicEvent";
 import SidePanel from "./SidePanel";
 import Watchlist from "./Watchlist";
 import SectorPerformance from "./SectorPerformance";
 import { Suspense } from "react";
+import TopPicks from "./TopPicks";
 
 export enum SIDE_SECTIONS {
   ALL = "ALL",
@@ -26,80 +28,116 @@ export default function WithSidePanel({
   sections?: SIDE_SECTIONS[] | SIDE_SECTIONS;
 }>) {
   return (
-    <Suspense fallback={null}>
+    <>
       <div>{children}</div>
 
       <div className="mt-20 grid gap-14 border-[#DCDCDC] pb-10 md:grid-cols-2 dark:border-white/10">
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["HOT_PICKS"])) && (
-          <SidePanel
-            moreUrl="/picks?q=hot picks"
-            title="hot picks"
-            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/actives`}
-          />
+          <Suspense fallback={<Loader />}>
+            <SidePanel
+              moreUrl="/picks?q=hot picks"
+              title="hot picks"
+              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/actives`}
+            />
+          </Suspense>
         )}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["GAINERS"])) && (
-          <SidePanel
-            moreUrl="/picks?q=gainers"
-            title="gainers"
-            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`}
-          />
+          <Suspense fallback={<Loader />}>
+            <SidePanel
+              moreUrl="/picks?q=gainers"
+              title="gainers"
+              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/gainers`}
+            />
+          </Suspense>
         )}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["LOSERS"])) && (
-          <SidePanel
-            title="losers"
-            moreUrl="/picks?q=losers"
-            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
-          />
+          <Suspense fallback={<Loader />}>
+            <SidePanel
+              title="losers"
+              moreUrl="/picks?q=losers"
+              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+            />
+          </Suspense>
         )}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["CURRENCIES"])) && (
-          <SidePanel
-            title="currencies"
-            moreUrl="/picks?q=currencies"
-            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
-          />
+          <Suspense fallback={<Loader />}>
+            <SidePanel
+              title="currencies"
+              moreUrl="/picks?q=currencies"
+              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+            />
+          </Suspense>
         )}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["CRYPTOCURRENCY"])) && (
-          <SidePanel
-            moreUrl="/picks?q=cryptocurrency"
-            title="cryptocurrency"
-            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
-          />
+          <Suspense fallback={<Loader />}>
+            <SidePanel
+              moreUrl="/picks?q=cryptocurrency"
+              title="cryptocurrency"
+              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+            />
+          </Suspense>
         )}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["SECTOR_PERFORMANCE"])) && (
-          <SectorPerformance
-            moreUrl="/picks?q=sector performance"
-            title="sector performance"
-            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/sector-performance`}
-          />
+          <Suspense fallback={<Loader />}>
+            <SectorPerformance
+              moreUrl="/picks?q=sector performance"
+              title="sector performance"
+              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/sector-performance`}
+            />
+          </Suspense>
         )}
+
         {/* {(sections == SIDE_SECTIONS["ALL"] ||
-          sections.includes(SIDE_SECTIONS["INSIDER_TRADING"])) && (
-          <SidePanel
-            moreUrl="/picks?q=insider trading"
-            title="insinder trading"
-            url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
-          />
-        )} */}
-        {(sections == SIDE_SECTIONS["ALL"] ||
-          sections.includes(SIDE_SECTIONS["WATCHLIST"])) && <Watchlist />}
+            sections.includes(SIDE_SECTIONS["WATCHLIST"])) && <Watchlist />} */}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["TOP_ECONOMIC_EVENT"])) && (
           <div className="md:col-span-2">
             <EconomicEvent />
           </div>
         )}
+
         <div className="md:col-span-2">
           {sections.includes(SIDE_SECTIONS["TRENDING_NOW"]) && (
             <EconomicEvent />
           )}
         </div>
       </div>
-    </Suspense>
+    </>
+  );
+}
+
+export function Loader() {
+  const Row = (
+    <div className="flex items-center justify-between border-b py-2 dark:dark:border-gray-100/10">
+      <div className="flex w-[40%] items-center gap-2">
+        <div className="h-6 w-6 shrink-0 animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
+        <div className="h-4 w-full animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
+      </div>
+      <div className="h-4 w-16 animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
+      <div className="h-4 w-16 animate-pulse rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
+    </div>
+  );
+  return (
+    <div className="">
+      <div className="mb-5 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="h-6 w-36 rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
+          <div className="h-6 w-6 rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
+        </div>
+        <div className="h-2 w-16 rounded-full bg-gray-200 dark:bg-gray-100/10"></div>
+      </div>
+      {Row}
+      {Row}
+      {Row}
+      {Row}
+      {Row}
+      {Row}
+    </div>
   );
 }

@@ -122,7 +122,10 @@ export default function NavBar(props: { className?: string }) {
                 src="/assets/logo/logo-with-text.svg"
                 alt="Logo"
                 height={25}
+                className="w-auto"
                 width={170}
+                priority
+                sizes="lg"
               />
             </Link>
           </div>

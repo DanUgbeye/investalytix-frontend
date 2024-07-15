@@ -1,5 +1,9 @@
+"use client";
+import useFetcher from "@/hooks/useFetcher";
 import { Quote } from "@/types";
 import Link from "next/link";
+import { useEffect } from "react";
+import { Loader } from "./WithSidePanel";
 
 async function getData(url: string) {
   const res = await fetch(url + "?limit=5");
@@ -18,7 +22,7 @@ async function getData(url: string) {
   }>;
 }
 
-export default async function SectorPerformance({
+export default function SectorPerformance({
   url,
   moreUrl,
   title,
@@ -27,7 +31,18 @@ export default async function SectorPerformance({
   title: string;
   moreUrl?: string;
 }) {
-  const data = await getData(url);
+  const { wrapper, loading, data } = useFetcher<{
+    message: String;
+    status: number;
+    data: { sector: string; changesPercentage: string }[];
+  }>();
+
+  useEffect(() => {
+    wrapper(() => getData(url));
+  }, []);
+
+  if (loading) return <Loader />;
+  if (!data) return null;
   return (
     <div>
       <header className="relative mb-5 flex items-center justify-between">

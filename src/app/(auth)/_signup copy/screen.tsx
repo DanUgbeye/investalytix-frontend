@@ -81,9 +81,12 @@ export default function SignupScreen() {
           <Link href="/">
             <Image
               src="/assets/logo/logo-with-text.svg"
+         className="w-auto"
               alt="Logo"
               height={40}
               width={200}
+                priority
+                sizes="lg"
             />
           </Link>
 
