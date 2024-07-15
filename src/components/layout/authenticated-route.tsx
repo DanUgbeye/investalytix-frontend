@@ -18,6 +18,7 @@ export default function AuthenticatedRoute(props: Props) {
 
   try {
     auth = AuthSchema.parse(JSON.parse(userCookie.value));
+    // console.log(auth);
   } catch (error: any) {
     return <RedirectToLogin />;
   }

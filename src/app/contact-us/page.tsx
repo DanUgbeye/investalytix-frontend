@@ -1,5 +1,5 @@
 "use client";
-import { FormLabel } from "@/components/fom";
+import { FormLabel } from "@/components/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";

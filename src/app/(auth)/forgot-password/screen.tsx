@@ -1,6 +1,6 @@
 "use client";
 
-import { FormItem, FormLabel, FormMessage } from "@/components/fom";
+import { FormItem, FormLabel, FormMessage } from "@/components/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PAGES from "@/data/page-map";
