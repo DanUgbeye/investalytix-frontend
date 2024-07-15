@@ -60,8 +60,8 @@ export default function Footer() {
                 <form className="mt-6 overflow-hidden rounded max-sm:mx-auto max-sm:w-fit max-xs:w-full sm:mx-auto sm:w-fit">
                   <input
                     type="email"
-                    name="email"
-                    id="email"
+                    name="subscriber-email"
+                    id="subscriber-email"
                     placeholder="Your email address"
                     className="rounded-l border border-r-0 border-white/40 bg-white/20 px-4 py-3 outline-none max-xs:mx-auto max-xs:block max-xs:w-[90%] max-xs:rounded-r max-xs:border-r"
                   />

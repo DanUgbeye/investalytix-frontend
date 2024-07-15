@@ -1,6 +1,6 @@
 "use client";
 
-import { FormItem, FormLabel, FormMessage } from "@/components/fom";
+import { FormItem, FormLabel, FormMessage } from "@/components/form";
 import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
