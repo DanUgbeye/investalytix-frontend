@@ -9,14 +9,17 @@ import { AuthData, LoginData, SignupData } from "../types";
 import { AuthSchema } from "../validation";
 
 export class AuthRepository {
-  constructor(private api: AxiosInstance) {}
+  private clientAPI: AxiosInstance;
+
+  constructor(private api: AxiosInstance) {
+    this.clientAPI = createAPIInstance("/api");
+  }
 
   async signup(data: SignupData, options?: RequestOptions) {
     const path = `/auth/signup`;
-    const api = createAPIInstance("/api");
 
     try {
-      await api.post(path, data, options);
+      await this.clientAPI.post(path, data, options);
 
       return true;
     } catch (error: any) {
@@ -27,10 +30,9 @@ export class AuthRepository {
 
   async login(data: LoginData, options?: RequestOptions) {
     const path = `/auth/login`;
-    const api = createAPIInstance("/api");
 
     try {
-      const { data: res } = await api.post<{
+      const { data: res } = await this.clientAPI.post<{
         data: {
           auth: AuthData;
           user: ServerUserData;
@@ -55,11 +57,11 @@ export class AuthRepository {
   }
 
   async logout(options?: RequestOptions) {
-    const path = `/auth/logout`;
-    const api = createAPIInstance("/api");
+    const searchParams = new URLSearchParams();
+    const path = `/auth/logout?${searchParams.toString()}`;
 
     try {
-      await api.post(path, undefined, options);
+      await this.clientAPI.post(path, undefined, options);
       return true;
     } catch (error: any) {
       let err = handleAPIError(error);
@@ -69,10 +71,9 @@ export class AuthRepository {
 
   async refreshToken(options?: RequestOptions) {
     const path = `/auth/refresh-token`;
-    const api = createAPIInstance("/api");
 
     try {
-      const { data } = await api.post<{ data: { auth: AuthData } }>(
+      const { data } = await this.clientAPI.post<{ data: { auth: AuthData } }>(
         path,
         undefined,
         options
@@ -93,13 +94,11 @@ export class AuthRepository {
 
   async checkAuthStatus(options?: RequestOptions) {
     const path = `/auth/status`;
-    const api = createAPIInstance("/api");
 
     try {
-      const res = await api.get<{ data: { authenticated: boolean } }>(
-        path,
-        options
-      );
+      const res = await this.clientAPI.get<{
+        data: { authenticated: boolean };
+      }>(path, options);
 
       let parsedRes = z
         .object({ authenticated: z.boolean() })

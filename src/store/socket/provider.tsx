@@ -14,7 +14,6 @@ export default function SocketServiceProvider(props: Props) {
   // on connection to chat socket
   const handleConnection = useCallback(() => {
     console.log("connected to socket server");
-    // socketService?.setSocket(socket)
     if (auth) {
       socketService.authenticate(auth.token);
     }

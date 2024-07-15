@@ -14,10 +14,8 @@ import { PropsWithChildren, useEffect } from "react";
 import { z } from "zod";
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-  const initialiseStore = useAppStore(({ initialiseStore }) => initialiseStore);
+  const { initialiseStore, reset, setAuth } = useAppStore();
   const initialised = useAppStore(({ initialised }) => initialised);
-  const set = useAppStore(({ setAuth }) => setAuth);
-  const reset = useAppStore(({ reset }) => reset);
   const auth = useAppStore(({ auth }) => auth);
   const user = useAppStore(({ user }) => user);
   const userRepo = useUserRepo();
@@ -33,7 +31,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     enabled: user !== undefined,
     queryKey: [QUERY_KEYS.GET_USER_PROFILE, user?.id],
     queryFn: ({ signal }) => userRepo.getUserProfile(user!.id, { signal }),
-    refetchInterval: 300_000, // 5 mins
+    refetchInterval: 180_000 + Math.floor(Math.random() * 120_000), // 3 - 5 mins
   });
 
   // check auth status
@@ -114,7 +112,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (data) {
-      set({ user: data });
+      setAuth({ user: data });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);

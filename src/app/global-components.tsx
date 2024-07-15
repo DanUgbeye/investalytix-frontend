@@ -15,7 +15,7 @@ export default function GlobalComponents({ children }: PropsWithChildren) {
         position="top-center"
         closeOnClick
         pauseOnHover
-        theme={theme}
+        theme={theme === "light" ? theme : "colored"}
         stacked
         hideProgressBar
       />

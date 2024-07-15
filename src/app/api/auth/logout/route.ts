@@ -1,4 +1,5 @@
 import { COOKIE_KEYS } from "@/data/cookie-keys";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,6 +11,7 @@ async function Logout(req: NextRequest) {
   try {
     let serverCookies = cookies();
     if (serverCookies.has(COOKIE_KEYS.AUTH)) {
+      revalidatePath("/", "layout");
       serverCookies.delete(COOKIE_KEYS.AUTH);
     }
 
