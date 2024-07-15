@@ -1,7 +1,9 @@
+"use client";
+
 import { clientAPI } from "@/config/client/api";
-import { AuthRepository } from "../repository";
 import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
 import { useAppStore } from "@/store";
+import { AuthRepository } from "../repository";
 
 async function logout() {
   const resetAuth = useAppStore.getState().reset;

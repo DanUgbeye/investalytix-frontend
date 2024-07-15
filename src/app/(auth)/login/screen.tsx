@@ -11,7 +11,7 @@ import { LoginData } from "@/modules/auth/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { ImCheckmark } from "react-icons/im";
 import { PiSpinnerGap } from "react-icons/pi";
@@ -23,6 +23,8 @@ export default function LoginScreen() {
   const router = useRouter();
   const authRepo = useAuthRepo();
   const setAuth = useAppStore(({ setAuth }) => setAuth);
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
   const {
     control,
     formState: { isSubmitting, isDirty },
@@ -47,7 +49,7 @@ export default function LoginScreen() {
       setAuth(res);
       reset();
       toast.success("Login Successful");
-      router.replace(PAGES.HOME);
+      router.replace(redirect ? redirect : PAGES.HOME);
     } catch (error: any) {
       toast.error(error.message);
     }

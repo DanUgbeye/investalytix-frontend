@@ -1,9 +1,9 @@
 import { serverAPI } from "@/config/server/api";
-import SERVER_CONFIG from "@/config/server/app";
 import { COOKIE_KEYS } from "@/data/cookie-keys";
 import { AuthData } from "@/modules/auth/types";
-import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
+import { handleAPIError } from "@/utils/api-utils";
 import { AxiosError } from "axios";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -24,6 +24,7 @@ async function Login(req: NextRequest) {
       httpOnly: true,
       expires: res.data.auth.expiresIn,
     });
+    revalidatePath("/", "layout");
 
     return NextResponse.json(res, { status: 200 });
   } catch (err: any) {
@@ -39,3 +40,4 @@ async function Login(req: NextRequest) {
 }
 
 export { Login as POST };
+
