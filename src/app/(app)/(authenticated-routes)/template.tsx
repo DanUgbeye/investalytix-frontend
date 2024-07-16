@@ -12,6 +12,7 @@ export default function AuthenticatedRoutesTemplate(props: PropsWithChildren) {
   const isAuthenticated = useAppStore(
     ({ auth, user }) => auth !== undefined && user !== undefined
   );
+  console.log("isAuthenticated", isAuthenticated);
 
   if (!initialised) {
     return (

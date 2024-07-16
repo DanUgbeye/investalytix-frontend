@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Input, InputProps } from "./ui/input";
-import { Button } from "./ui/button";
-import { Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Eye, EyeOff } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Button } from "./ui/button";
+import { Input, InputProps } from "./ui/input";
 
 export interface PasswordInputProps extends Omit<InputProps, "type"> {
   classNames?: { showButton?: string };
@@ -34,13 +34,13 @@ export const PasswordInput = React.forwardRef<
     return (
       <div className="relative h-fit">
         <Input
+          {...props}
+          ref={ref}
           type={showPwd ? "text" : "password"}
           className={cn(
-            "mt-3 flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 pr-8 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-main-gray-700 dark:bg-main-gray-900 dark:ring-offset-white dark:placeholder:text-gray-500 dark:focus-visible:ring-gray-950",
+            " flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 pr-8 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-main-gray-700 dark:bg-main-gray-900 dark:ring-offset-gray-950 dark:placeholder:text-gray-500 dark:focus-visible:ring-gray-300 ",
             className
           )}
-          ref={ref}
-          {...props}
         />
 
         <Button

@@ -84,7 +84,7 @@ export type SplitsHistory = {
 export type TickerChange = {
   symbol: string;
   name: string | null;
-  change: number;
-  price: number;
-  changesPercentage: number;
+  change: number | null;
+  price: number | null;
+  changesPercentage: number | null;
 };

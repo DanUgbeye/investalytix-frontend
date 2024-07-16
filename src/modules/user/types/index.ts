@@ -13,3 +13,5 @@ export type UserData = {
   lastname: string;
   googleId?: string;
 };
+
+export type UserUpdate = Pick<UserData, "email" | "firstname" | "lastname">;

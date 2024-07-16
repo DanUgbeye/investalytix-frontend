@@ -1,16 +1,17 @@
 "use client";
 
+import { clientAPI } from "@/config/client/api";
 import { QUERY_KEYS } from "@/data/query-keys";
 import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
 import useLogout from "@/modules/auth/hooks/use-logout";
 import { useAuthRepo } from "@/modules/auth/repository";
 import { AuthSchema } from "@/modules/auth/validation";
-import { useUserRepo } from "@/modules/user/repository";
+import { UserRepository } from "@/modules/user/repository";
 import { UserSchema } from "@/modules/user/validation";
 import { useAppStore } from "@/store";
 import { AuthState } from "@/store/auth";
 import { useQuery } from "@tanstack/react-query";
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useEffect, useMemo } from "react";
 import { z } from "zod";
 
 export default function AuthProvider({ children }: PropsWithChildren) {
@@ -18,7 +19,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   const initialised = useAppStore(({ initialised }) => initialised);
   const auth = useAppStore(({ auth }) => auth);
   const user = useAppStore(({ user }) => user);
-  const userRepo = useUserRepo();
+  const userRepo = useMemo(() => new UserRepository(clientAPI), []);
   const authRepo = useAuthRepo();
   const logout = useLogout();
 

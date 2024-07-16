@@ -24,7 +24,6 @@ export default function LoginScreen() {
   const authRepo = useAuthRepo();
   const setAuth = useAppStore(({ setAuth }) => setAuth);
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
   const {
     control,
     formState: { isSubmitting, isDirty },
@@ -49,6 +48,7 @@ export default function LoginScreen() {
       setAuth(res);
       reset();
       toast.success("Login Successful");
+      const redirect = searchParams.get("redirect");
       router.replace(redirect ? redirect : PAGES.HOME);
     } catch (error: any) {
       toast.error(error.message);

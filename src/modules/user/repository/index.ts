@@ -1,9 +1,9 @@
-import { clientAPI } from "@/config/client/api";
 import { RequestOptions } from "@/types/api.types";
 import { handleAPIError } from "@/utils/api-utils";
 import { AxiosInstance } from "axios";
-import { UserData } from "../types";
-import { UserSchema } from "../validation";
+import { transformUserToClient } from "../adapter";
+import { ServerUserData, UserUpdate } from "../types";
+import { ServerUserSchema } from "../validation";
 
 export class UserRepository {
   constructor(private api: AxiosInstance) {}
@@ -12,27 +12,86 @@ export class UserRepository {
     const path = `/users/${userId}`;
 
     try {
-      const { data } = await this.api.get<{ data: { User: UserData } }>(
+      const { data } = await this.api.get<{ data: ServerUserData }>(
         path,
         options
       );
-      let parsedRes = UserSchema.safeParse(data.data.User);
+      let validation = ServerUserSchema.transform((data) =>
+        transformUserToClient(data)
+      ).safeParse(data.data);
 
-      if (!parsedRes.success) {
+      if (!validation.success) {
         throw new Error("Something went wrong on our end");
       }
 
-      return parsedRes.data;
+      return validation.data;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
     }
   }
 
-  updateUser() {}
-  updateProfileImage() {}
-}
+  async updateUser(
+    userId: string,
+    userData: UserUpdate,
+    options?: RequestOptions
+  ) {
+    const path = `/users/${userId}`;
 
-export function useUserRepo() {
-  return new UserRepository(clientAPI);
+    try {
+      const { data } = await this.api.patch<{ data: ServerUserData }>(
+        path,
+        userData,
+        options
+      );
+      let validation = ServerUserSchema.transform((data) =>
+        transformUserToClient(data)
+      ).safeParse(data.data);
+
+      if (!validation.success) {
+        console.log(validation.error.issues);
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async updatePassword(
+    userId: string,
+    userData: {
+      currentPassword: string;
+      newPassword: string;
+      confirmPassword: string;
+    },
+    options?: RequestOptions
+  ) {
+    const path = `/users/${userId}/change-password`;
+
+    try {
+      const { data } = await this.api.patch<{ data: ServerUserData }>(
+        path,
+        userData,
+        options
+      );
+      let validation = ServerUserSchema.transform((data) =>
+        transformUserToClient(data)
+      ).safeParse(data.data);
+
+      if (!validation.success) {
+        console.log(validation.error.issues);
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  updateProfileImage() {}
 }

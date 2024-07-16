@@ -14,7 +14,19 @@ export const TickerChangeSchema = z.object({
     .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
     string | null
   >,
-  change: z.number(),
-  price: z.number(),
-  changesPercentage: z.number(),
+  change: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  price: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
+  changesPercentage: z
+    .union([z.number().nullable(), z.undefined()])
+    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
+    number | null
+  >,
 }) satisfies ZodType<TickerChange>;
