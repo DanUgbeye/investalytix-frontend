@@ -1,3 +1,4 @@
+"use client";
 import NewsCard from "@/modules/news/components/news-card";
 import NewsLink from "@/modules/news/components/news-link";
 import { GeneralNews, News } from "@/modules/news/types";
@@ -5,6 +6,8 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import MarketHeading from "./MarketHeading";
+import useFetcher from "@/hooks/useFetcher";
+import { Fragment, useEffect } from "react";
 
 async function getGeneralNewsData(params?: { limit?: number; page?: number }) {
   const { limit, page } = params ?? {};
@@ -87,34 +90,64 @@ async function getStockNewsData(params?: { limit?: number; page?: number }) {
   }>;
 }
 
-export default async function EconomicEvent() {
-  // await getGeneralNewsData();
-  const [general, forex, crypto, stock] = await Promise.all([
-    getGeneralNewsData(),
-    getForexNewsData(),
-    getCryptoNewsData(),
-    getStockNewsData(),
-  ]);
+export default function EconomicEvent() {
+  const { wrapper, data, loading } = useFetcher<{
+    general: {
+      message: String;
+      status: number;
+      data: News[];
+    };
+    forex: {
+      message: String;
+      status: number;
+      data: News[];
+    };
+    crypto: {
+      message: String;
+      status: number;
+      data: News[];
+    };
+    stock: {
+      message: String;
+      status: number;
+      data: News[];
+    };
+  }>(null);
+
+  useEffect(() => {
+    wrapper(async () => {
+      const [general, forex, crypto, stock] = await Promise.all([
+        getGeneralNewsData(),
+        getForexNewsData(),
+        getCryptoNewsData(),
+        getStockNewsData(),
+      ]);
+
+      return { general, forex, crypto, stock };
+    });
+  }, []);
+
+  if (!data) return null;
   return (
     <div>
       <MarketHeading label="Top Economic Event" />
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {[0, 1].map((index) => (
-          <>
-            <NewsLink news={general.data[index]}>
-              <NewsCard news={general.data[index]}></NewsCard>
+          <Fragment key={index}>
+            <NewsLink news={data.general.data[index]}>
+              <NewsCard news={data.general.data[index]}></NewsCard>
             </NewsLink>
-            <NewsLink news={crypto.data[index]}>
-              <NewsCard news={crypto.data[index]}></NewsCard>
+            <NewsLink news={data.crypto.data[index]}>
+              <NewsCard news={data.crypto.data[index]}></NewsCard>
             </NewsLink>
-            <NewsLink news={forex.data[index]}>
-              <NewsCard news={forex.data[index]}></NewsCard>
+            <NewsLink news={data.forex.data[index]}>
+              <NewsCard news={data.forex.data[index]}></NewsCard>
             </NewsLink>
-            <NewsLink news={stock.data[index]}>
-              <NewsCard news={stock.data[index]}></NewsCard>
+            <NewsLink news={data.stock.data[index]}>
+              <NewsCard news={data.stock.data[index]}></NewsCard>
             </NewsLink>
-          </>
+          </Fragment>
         ))}
       </div>
     </div>

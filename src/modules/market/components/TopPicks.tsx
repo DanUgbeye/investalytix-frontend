@@ -1,12 +1,10 @@
-"use client";
-import useFetcher from "@/hooks/useFetcher";
 import { Quote } from "@/types";
 import Link from "next/link";
-import { useEffect } from "react";
-import { Loader } from "./WithSidePanel";
 
-async function getData(url: string) {
-  const res = await fetch(url + "?limit=5");
+async function getData() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/actives` + "?limit=5"
+  );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
@@ -22,42 +20,21 @@ async function getData(url: string) {
   }>;
 }
 
-export default function SidePanel({
-  url,
-  moreUrl,
-  title,
-}: {
-  url: string;
-  title: string;
-  moreUrl?: string;
-}) {
-  const { wrapper, loading, data } = useFetcher<{
-    message: String;
-    status: number;
-    data: Quote[];
-  }>();
-
-  useEffect(() => {
-    wrapper(() => getData(url));
-  }, []);
-
-  if (loading) return <Loader />;
-  if (!data) return null;
+export default async function TopPicks() {
+  const data = await getData();
   return (
     <div>
       <header className="relative mb-5 flex items-center justify-between">
         <p className="white-text text-2xl font-bold capitalize text-[#2A3037]">
-          {title}
+          hot picks
         </p>
 
-        {moreUrl && (
-          <Link
-            href={moreUrl}
-            className="text-hover-focus rounded-full py-1 text-sm"
-          >
-            view all
-          </Link>
-        )}
+        <Link
+          href={`/picks?q=hot picks`}
+          className="text-hover-focus rounded-full py-1 text-sm"
+        >
+          view all
+        </Link>
       </header>
 
       <div className="flex flex-col">

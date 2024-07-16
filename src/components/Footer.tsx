@@ -16,8 +16,11 @@ export default function Footer() {
                 <Image
                   src="/assets/logo/logo-with-text.svg"
                   alt="Logo"
+                  className="w-auto"
                   height={25}
                   width={170}
+                    priority
+                sizes="lg"
                 />
               </Link>
             </div>
