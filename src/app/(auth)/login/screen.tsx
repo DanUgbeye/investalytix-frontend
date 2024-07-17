@@ -51,7 +51,7 @@ export default function LoginScreen() {
       reset();
       toast.success("Login Successful");
       const redirect = searchParams.get("redirect");
-      router.replace(redirect ? redirect : PAGES.HOME);
+      window.location.href = redirect ? redirect : PAGES.HOME;
     } catch (error: any) {
       toast.error(error.message);
     }
