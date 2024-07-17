@@ -6,6 +6,7 @@ import { Dialog } from "@headlessui/react";
 import Link from "next/link";
 import { useState } from "react";
 import { FiX } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 export default function AboutUsPage() {
   const data = [
@@ -25,44 +26,93 @@ export default function AboutUsPage() {
       category: "Our Approach",
       title: "Analyzing Economic and Market Trends for Asset Allocation",
       desc: "We analyze macroeconomic trends using economic indicators, along with signals from equity, options, bond, currency, and credit markets. Our quantitative models create optimal asset allocations to maximize risk-adjusted returns. By integrating macro insights, quantitative methods, and our platform's advanced tools, we ensure each investment decision is backed by the highest probability of success.",
-      img: "/images-approach.jpg",
+      img: "/images/about-approach.jpg",
     },
     {
       category: "Our Philosophy",
       title: "Leveling Investment Playing Field for Every Investor",
       desc: "Our philosophy centers on leveling the investment playing field. We believe top-tier research and sophisticated investment tools should be accessible to all, not just the elite. Our commitment is to bridge the divide and make evidence-based investment insights available to everyone.",
-      img: "/images/philosophy.jpg",
+      img: "/images/about-philosophy.jpg",
     },
   ];
 
   return (
     <main className="pb-12">
       <header className="bg-black/5 px-10 py-24 text-center dark:bg-white/5">
-        <h1 className="text-center text-5xl font-bold md:text-8xl lg:text-9xl">
+        <motion.h1
+          initial="hidden"
+          whileInView="onscreen"
+          variants={{
+            hidden: { opacity: 0, scale: 0.8 },
+            onscreen: {
+              opacity: 1,
+              scale: 1,
+
+              transition: {
+                type: "spring",
+                duration: 1,
+                delay: 0.5,
+              },
+            },
+          }}
+          viewport={{ once: true }}
+          className="text-center text-5xl font-bold md:text-8xl lg:text-9xl"
+        >
           About investalytix
-        </h1>
-        <p className="mx-auto mt-10 max-w-xl text-lg md:text-xl">
+        </motion.h1>
+        <motion.p
+          initial="hidden"
+          whileInView="onscreen"
+          variants={{
+            hidden: { opacity: 0, y: 50 },
+            onscreen: {
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 1,
+              },
+            },
+          }}
+          viewport={{ once: true }}
+          className="mx-auto mt-10 max-w-xl text-lg md:text-xl"
+        >
           Welcome to investalytix, the hub of cutting-edge financial expertise
           and technological innovation in investment analysis.
-        </p>
+        </motion.p>
       </header>
 
       <Container className="max-w-[1440px]">
         {data.map((about, index) => (
-          <div
+          <motion.div
             key={about.category.replaceAll(" ", "-")}
             className={`mt-24 grid grid-rows-[300px,1fr] items-center gap-10 md:grid-rows-1 md:gap-14 ${index % 2 === 0 ? "md:grid-cols-[3fr,2fr]" : "grid-cols-reverse md:grid-cols-[2fr,3fr]"}`}
           >
-            <div
+            <motion.div
+              initial="offscreen"
+              whileInView="onscreen"
+              variants={{
+                offscreen: {
+                  opacity: 0,
+                  x: index % 2 === 0 ? -20 : 20,
+                },
+                onscreen: {
+                  opacity: 1,
+                  x: 0,
+                  transition: {
+                    delay: 1,
+                  },
+                },
+              }}
+              viewport={{ once: true }}
               className={`h-full rounded-xl bg-gray-200 bg-cover bg-center bg-no-repeat xl:min-h-[400px]`}
               style={{ backgroundImage: `url('${about.img}')` }}
-            ></div>
+            ></motion.div>
             <div className={`${index % 2 === 0 ? "" : "md:-order-1"}`}>
               <h2 className="text-xl font-medium">{about.category}</h2>
               <h3 className="mb-9 mt-4 text-3xl font-bold">{about.title}</h3>
               <p className="lg:text-xl">{about.desc}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
 
         <div className="lg:px-24">

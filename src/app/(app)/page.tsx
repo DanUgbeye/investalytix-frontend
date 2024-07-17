@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   FormEvent,
+  forwardRef,
   Suspense,
   useEffect,
   useLayoutEffect,
@@ -32,6 +33,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { motion, CustomDomComponent } from "framer-motion";
+
 export default function Home() {
   const [pricingFrequency, setPricingFrequency] = useState<
     "monthly" | "annualy"
@@ -55,17 +58,48 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-black/70"></div>
 
         <Container className="z-20 mx-auto flex flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-6xl">
-          <h1
+          <motion.h1
+            initial="hidden"
+            whileInView="onscreen"
+            variants={{
+              hidden: { opacity: 0, scale: 0.8 },
+              onscreen: {
+                opacity: 1,
+                scale: 1,
+
+                transition: {
+                  type: "spring",
+                  duration: 1,
+                  delay: 0.5,
+                },
+              },
+            }}
+            viewport={{ once: true }}
             style={{ lineHeight: "1.2" }}
             className="text-4xl font-bold !leading-[1.3em] max-xs:text-center md:text-5xl lg:text-6xl xl:text-7xl"
           >
             Integrating Macro, Technical Strategy, and Fundamentals
-          </h1>
+          </motion.h1>
 
-          <p className="mx-auto mt-5 w-3/4 text-lg font-medium max-xs:text-center lg:w-3/5 xl:mt-8 xl:text-xl">
+          <motion.p
+            initial="hidden"
+            whileInView="onscreen"
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              onscreen: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  delay: 1,
+                },
+              },
+            }}
+            viewport={{ once: true }}
+            className="mx-auto mt-5 w-3/4 text-lg font-medium max-xs:text-center lg:w-3/5 xl:mt-8 xl:text-xl"
+          >
             Providing data-driven investment decisions with a comprehensive
             suite of financial analysis tools.
-          </p>
+          </motion.p>
 
           {/* <FiSearch className="mt-16 size-16" /> */}
         </Container>
@@ -110,14 +144,44 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-black/70"></div>
 
         <Container className="z-20 mx-auto flex max-w-6xl flex-col items-center justify-center py-10 text-center text-white md:max-w-3xl lg:max-w-6xl">
-          <h1
+          <motion.h1
+            initial="hidden"
+            whileInView="onscreen"
+            variants={{
+              hidden: { opacity: 0, scale: 0.8 },
+              onscreen: {
+                opacity: 1,
+                scale: 1,
+
+                transition: {
+                  type: "spring",
+                  delay: 0.5,
+                },
+              },
+            }}
+            viewport={{ once: true }}
             style={{ lineHeight: "1.2" }}
             className="text-center text-4xl font-bold !leading-[1.3em] max-xs:text-center md:text-5xl lg:text-6xl xl:text-8xl"
           >
             About <br /> Investalytix
-          </h1>
+          </motion.h1>
 
-          <p className="mx-auto mt-10 text-lg font-medium max-xs:text-center lg:w-4/5 xl:mt-10 xl:text-xl">
+          <motion.p
+            initial="hidden"
+            whileInView="onscreen"
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              onscreen: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  delay: 1,
+                },
+              },
+            }}
+            viewport={{ once: true }}
+            className="mx-auto mt-10 text-lg font-medium max-xs:text-center lg:w-4/5 xl:mt-10 xl:text-xl"
+          >
             Welcome to investalytix, your hub for advanced investment analysis.
             Founded in 2023, we aim to make high-quality research accessible to
             everyone. Our platform offers tools like stock dashboards, real-time
@@ -125,7 +189,7 @@ export default function Home() {
             using quantitative models, we help investors maximize returns. Our
             goal is to level the investment playing field, providing top-tier
             insights and tools to all.
-          </p>
+          </motion.p>
 
           <Link
             href="/about-us"
@@ -137,21 +201,68 @@ export default function Home() {
       </section>
 
       <section className="pt-20 lg:pt-40">
-        <h1 className="mb-6 text-center text-6xl font-extrabold">
+        <motion.h1
+          initial="hidden"
+          whileInView="onscreen"
+          variants={{
+            hidden: { opacity: 0, scale: 0.8 },
+            onscreen: {
+              opacity: 1,
+              scale: 1,
+
+              transition: {
+                type: "spring",
+                delay: 0.5,
+              },
+            },
+          }}
+          viewport={{ once: true }}
+          className="mb-6 text-center text-6xl font-extrabold"
+        >
           Our Products
-        </h1>
+        </motion.h1>
         <Products />
       </section>
 
       {/* Pricing */}
       <section className="py-20">
-        <h1 className="mb-6 text-center text-6xl font-extrabold">
+        <motion.h1
+          initial="hidden"
+          whileInView="onscreen"
+          variants={{
+            hidden: { opacity: 0, scale: 0.8 },
+            onscreen: {
+              opacity: 1,
+              scale: 1,
+              transition: {
+                delay: 0.5,
+              },
+            },
+          }}
+          viewport={{ once: true }}
+          className="mb-6 text-center text-6xl font-extrabold"
+        >
           Pricing Plans
-        </h1>
-        <p className="mx-auto max-w-[36ch] text-center">
+        </motion.h1>
+        <motion.p
+          initial="hidden"
+          whileInView="onscreen"
+          variants={{
+            hidden: { opacity: 0, y: 50 },
+            onscreen: {
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: 0.5,
+              },
+            },
+          }}
+          viewport={{ once: true }}
+          className="mx-auto max-w-[36ch] text-center"
+        >
           Simple, transparent pricing that grows with you. Try any plan free for
           30 days.
-        </p>
+        </motion.p>
 
         <div className="relative mx-auto mt-8 w-fit rounded-full bg-gray-200 dark:bg-gray-100/10">
           <button
@@ -201,8 +312,25 @@ export default function Home() {
         </div>
 
         <Container className="mx-auto mt-10 grid max-w-6xl gap-8 md:mt-20 md:grid-cols-2">
-          {plans.map((plan) => (
-            <Plan key={plan.name} plan={plan} frequency={pricingFrequency} />
+          {plans.map((plan, index) => (
+            <MotionPlan
+              key={plan.name}
+              plan={plan}
+              frequency={pricingFrequency}
+              initial="hidden"
+              whileInView="onscreen"
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                onscreen: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    delay: index + 1 * 0.3,
+                  },
+                },
+              }}
+              viewport={{ once: true }}
+            />
           ))}
         </Container>
       </section>
@@ -237,15 +365,20 @@ export default function Home() {
   );
 }
 
-function Plan({
-  plan,
-  frequency,
-}: {
-  plan: (typeof plans)[number];
-  frequency: "monthly" | "annualy";
-}) {
-  return (
+const Plan = forwardRef(
+  (
+    {
+      plan,
+      frequency,
+    }: {
+      plan: (typeof plans)[number];
+      frequency: "monthly" | "annualy";
+    },
+    ref
+  ) => (
     <div
+      // @ts-ignore
+      ref={ref}
       className={`rounded-2xl border border-black p-8 ${plan.popular ? "bg-black text-white dark:bg-white/90 dark:text-black/90" : "border-black/30 dark:border-white/30"}`}
     >
       <p className="text-xl font-bold">{plan.name}</p>
@@ -305,8 +438,9 @@ function Plan({
         ))}
       </div>
     </div>
-  );
-}
+  )
+);
+const MotionPlan = motion(Plan);
 
 function Products() {
   const images = [
@@ -342,7 +476,21 @@ function Products() {
     },
   ];
   return (
-    <div className="products relative py-5 lg:py-20">
+    <motion.div
+      initial="hidden"
+      whileInView="onscreen"
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        onscreen: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            delay: 1,
+          },
+        },
+      }}
+      className="products relative py-5 lg:py-20"
+    >
       <div className="absolute bottom-0 left-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-white from-[50%] to-transparent lg:block dark:from-black"></div>
       <div className="absolute bottom-0 right-0 top-0 z-10 hidden w-[20%] bg-gradient-to-r from-transparent to-white to-[50%] lg:block dark:to-black"></div>
 
@@ -396,6 +544,6 @@ function Products() {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </motion.div>
   );
 }
