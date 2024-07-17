@@ -12,9 +12,8 @@ export default function CommoditiesPage() {
         markets={[...data.selectors, ...data.markets]}
         className="mb-10"
       />
-      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
-        <Commodities />
-      </WithSidePanel>
+      <Commodities />
+      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
     </>
   );
 }

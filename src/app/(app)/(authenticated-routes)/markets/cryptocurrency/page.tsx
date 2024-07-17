@@ -67,7 +67,7 @@ export default function CryptocurrencyPage() {
           <Spinner />
         </div>
       ) : data ? (
-        <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
+        <>
           <Cryptocurrency quotes={data.data} />
 
           <ReactPaginate
@@ -85,7 +85,8 @@ export default function CryptocurrencyPage() {
             previousClassName="pagination__page"
             activeClassName="pagination__page-active"
           />
-        </WithSidePanel>
+          <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
+        </>
       ) : null}
     </>
   );

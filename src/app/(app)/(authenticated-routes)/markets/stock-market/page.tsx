@@ -8,9 +8,8 @@ export default function StockMarketPage() {
   return (
     <main>
       <MarketHeader active="STOCK MARKET" name="STOCK MARKET" />
-      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
-        <StockMarket />
-      </WithSidePanel>
+      <StockMarket />
+      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
     </main>
   );
 }

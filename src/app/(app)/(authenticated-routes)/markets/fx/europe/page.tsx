@@ -6,9 +6,8 @@ import WithSidePanel, {
 export default function EuropePage() {
   return (
     <main>
-      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
-        <EuropeFX />
-      </WithSidePanel>
+      <EuropeFX />
+      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
     </main>
   );
 }
