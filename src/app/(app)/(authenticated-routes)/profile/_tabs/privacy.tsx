@@ -111,7 +111,7 @@ export default function PrivacyTab() {
                 onSubmit={handleSubmit(handleDeleteAccount)}
                 className="space-y-5"
               >
-                {user.googleId !== undefined && (
+                {user.googleId === undefined && (
                   <>
                     {/* currentPassword */}
                     <Controller
@@ -142,7 +142,7 @@ export default function PrivacyTab() {
                 <div className="flex justify-end gap-2">
                   <Button
                     disabled={
-                      (!isDirty && user.googleId !== undefined) || isSubmitting
+                      (!isDirty && user.googleId === undefined) || isSubmitting
                     }
                     variant={"destructive"}
                     className="w-full max-w-28"
