@@ -4,6 +4,8 @@ import { Quote } from "@/types";
 import Link from "next/link";
 import { useEffect } from "react";
 import { Loader } from "./WithSidePanel";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import tickerUtils from "@/modules/ticker/utils";
 
 async function getData(url: string) {
   const res = await fetch(url + "?limit=5");
@@ -71,6 +73,15 @@ export default function SidePanel({
               className="grid grid-cols-3 border-b py-2 dark:dark:border-white/10"
             >
               <div className="flex w-[40%] items-center gap-2">
+                <Avatar className="">
+                  <AvatarImage
+                    src={tickerUtils.getTickerLogoUrl(quote.symbol)}
+                    alt={quote.symbol}
+                  />
+                  <AvatarFallback className="text-xs">
+                    {quote.symbol}
+                  </AvatarFallback>
+                </Avatar>
                 <div className="h-6 w-6 shrink-0 animate-pulse rounded-full bg-gray-200"></div>
                 <div className="">{quote.symbol}</div>
               </div>
