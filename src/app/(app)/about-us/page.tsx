@@ -19,19 +19,19 @@ export default function AboutUsPage() {
       category: "Our Platform",
       title: "Comprehensive Platform Offering Advanced Investment Tools",
       desc: "At the core of investalytix is a comprehensive platform offering services like a stock dashboard, advanced charting, real-time financial news, an economic calendar, equity research, options, recommended stock picks, a stock screener, and real-time stock valuation",
-      img: "",
+      img: "/images/about-platform.jpg",
     },
     {
       category: "Our Approach",
       title: "Analyzing Economic and Market Trends for Asset Allocation",
       desc: "We analyze macroeconomic trends using economic indicators, along with signals from equity, options, bond, currency, and credit markets. Our quantitative models create optimal asset allocations to maximize risk-adjusted returns. By integrating macro insights, quantitative methods, and our platform's advanced tools, we ensure each investment decision is backed by the highest probability of success.",
-      img: "",
+      img: "/images-approach.jpg",
     },
     {
       category: "Our Philosophy",
       title: "Leveling Investment Playing Field for Every Investor",
       desc: "Our philosophy centers on leveling the investment playing field. We believe top-tier research and sophisticated investment tools should be accessible to all, not just the elite. Our commitment is to bridge the divide and make evidence-based investment insights available to everyone.",
-      img: "",
+      img: "/images/philosophy.jpg",
     },
   ];
 

@@ -1,10 +1,12 @@
 import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import Quotes from "@/modules/market/components/Quotes";
 import MarketHeading from "../../MarketHeading";
+import Commodities from "../../Commodities";
+import Currencies from "../../Currencies";
 
 export default function Overview() {
   return (
-    <section className="grid gap-x-20 lg:grid-cols-2">
+    <section className="grid gap-x-20 gap-y-11 lg:grid-cols-2">
       {/* <section>
 
       <MarketSectionHeader label="OVERVIEW" id="overview" />
@@ -19,25 +21,17 @@ export default function Overview() {
       </section>
 
       {/* COMMODITIES */}
-      <section className="">
-        <MarketHeading label="COMMODITIES" />
-
-        <Quotes />
-      </section>
+      <Commodities />
 
       {/* TREASURYS */}
-      <section className="mt-11">
+      <section>
         <MarketHeading label="TREASURYS" />
 
         <Quotes />
       </section>
 
       {/* CURRENCIES */}
-      <section className="mt-11" id="currencies">
-        <MarketHeading label="CURRENCIES" />
-
-        <Quotes />
-      </section>
+      <Currencies id="currencies" />
     </section>
   );
 }

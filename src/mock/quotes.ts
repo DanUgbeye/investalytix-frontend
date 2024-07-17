@@ -1,4 +1,6 @@
-const quotes = [
+import { Quote } from "@/types";
+
+const quotes: Quote[] = [
   {
     symbol: "MSFT",
     name: "Microsoft Corporation",

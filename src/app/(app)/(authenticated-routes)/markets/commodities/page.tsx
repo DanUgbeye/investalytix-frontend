@@ -1,9 +1,9 @@
-import Commodities from "@/modules/market/components/Commodities";
 import MarketSubLinks from "@/modules/market/components/MarketSubLinks";
 import WithSidePanel, {
   SIDE_SECTIONS,
 } from "@/modules/market/components/WithSidePanel";
 import data from "./data";
+import Screen from "./screen";
 
 export default function CommoditiesPage() {
   return (
@@ -12,7 +12,7 @@ export default function CommoditiesPage() {
         markets={[...data.selectors, ...data.markets]}
         className="mb-10"
       />
-      <Commodities />
+      <Screen />
       <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
     </>
   );

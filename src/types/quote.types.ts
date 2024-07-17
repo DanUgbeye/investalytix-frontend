@@ -15,6 +15,7 @@ export type Quote = {
   priceAvg50: number | null;
   priceAvg200: number | null;
   exchange: string | null;
+  exchangeShortName?: string | null;
   volume: number | null;
   avgVolume: number | null;
   open: number | null;

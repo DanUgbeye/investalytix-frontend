@@ -24,8 +24,8 @@ export default function MarketMovers() {
           >
             {/* <Swiper spaceBetween={24} slidesPerView={"auto"} freeMode> */}
             {marketMovers.map((market) => (
-              <SwiperSlide className={"z-[1] !w-fit !flex-shrink grow-0"}>
-                <Tab as={Fragment} key={market}>
+              <SwiperSlide key={market} className={"z-[1] !w-fit !flex-shrink grow-0"}>
+                <Tab as={Fragment}>
                   {({ selected }) => (
                     <button
                       className={`rounded-md px-4 py-1 text-sm font-extrabold outline-none ${
