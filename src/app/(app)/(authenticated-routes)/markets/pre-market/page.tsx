@@ -18,9 +18,8 @@ export default function PreMarketPage() {
 
       <MarketSelector selectors={marketSelectors} className="mb-6" />
 
-      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
-        <PreMarket />
-      </WithSidePanel>
+      <PreMarket />
+      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
     </main>
   );
 }

@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import EconomicEvent from "@/modules/market/components/EconomicEvent";
 import SidePanel from "./SidePanel";
 import Watchlist from "./Watchlist";
@@ -21,15 +21,15 @@ export enum SIDE_SECTIONS {
 }
 
 export default function WithSidePanel({
-  children,
+  // children,
   sections = SIDE_SECTIONS["ALL"],
 }: Readonly<{
-  children: React.ReactNode;
+  // children: React.ReactNode;
   sections?: SIDE_SECTIONS[] | SIDE_SECTIONS;
 }>) {
   return (
     <>
-      <div>{children}</div>
+      {/* <div>{children}</div> */}
 
       <div className="mt-20 grid gap-14 border-[#DCDCDC] pb-10 md:grid-cols-2 dark:border-white/10">
         {(sections == SIDE_SECTIONS["ALL"] ||

@@ -20,9 +20,8 @@ export default function AmericasPage() {
         className="mb-6"
       />
 
-      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
-        <Americas />
-      </WithSidePanel>
+      <Americas />
+      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
     </main>
   );
 }

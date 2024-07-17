@@ -6,9 +6,8 @@ import WithSidePanel, {
 export default function USPage() {
   return (
     <main>
-      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
-        <USMarkets />
-      </WithSidePanel>
+      <USMarkets />
+      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
     </main>
   );
 }

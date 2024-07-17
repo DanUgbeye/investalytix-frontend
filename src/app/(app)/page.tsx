@@ -95,20 +95,18 @@ export default function Home() {
             </div>
           }
         > */}
-          <WithSidePanel
-            sections={[
-              SIDE_SECTIONS["CRYPTOCURRENCY"],
-              SIDE_SECTIONS["CURRENCIES"],
-              SIDE_SECTIONS["GAINERS"],
-              SIDE_SECTIONS["HOT_PICKS"],
-              SIDE_SECTIONS["INSIDER_TRADING"],
-              SIDE_SECTIONS["LOSERS"],
-              SIDE_SECTIONS["SECTOR_PERFORMANCE"],
-              SIDE_SECTIONS["WATCHLIST"],
-            ]}
-          >
-            <></>
-          </WithSidePanel>
+        <WithSidePanel
+          sections={[
+            SIDE_SECTIONS["CRYPTOCURRENCY"],
+            SIDE_SECTIONS["CURRENCIES"],
+            SIDE_SECTIONS["GAINERS"],
+            SIDE_SECTIONS["HOT_PICKS"],
+            SIDE_SECTIONS["INSIDER_TRADING"],
+            SIDE_SECTIONS["LOSERS"],
+            SIDE_SECTIONS["SECTOR_PERFORMANCE"],
+            SIDE_SECTIONS["WATCHLIST"],
+          ]}
+        />
         {/* </Suspense> */}
       </Container>
 

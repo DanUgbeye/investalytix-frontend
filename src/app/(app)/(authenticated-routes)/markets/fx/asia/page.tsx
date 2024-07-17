@@ -6,9 +6,8 @@ import WithSidePanel, {
 export default function AsiaPage() {
   return (
     <main>
-      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
-        <AsiaFX />
-      </WithSidePanel>
+      <AsiaFX />
+      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
     </main>
   );
 }

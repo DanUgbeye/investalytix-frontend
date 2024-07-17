@@ -12,11 +12,10 @@ export default function BondsPage() {
       <MarketHeader name="BONDS" active="BONDS" />
 
       {/* <MarketSubLinks markets={data.markets} /> */}
-      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]}>
-        <main>
-          <Bonds />
-        </main>
-      </WithSidePanel>
+      <main>
+        <Bonds />
+      </main>
+      <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
     </>
   );
 }
