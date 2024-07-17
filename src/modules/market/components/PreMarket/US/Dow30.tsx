@@ -1,7 +1,26 @@
 import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import Quotes from "../../Quotes";
+import { Quote } from "@/types";
 
-export default function Dow30() {
+async function getData() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/movers/NYSE`
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json() as Promise<{
+    message: String;
+    status: number;
+    data: Quote[];
+  }>;
+}
+
+export default async function Dow30() {
+  const data = await getData();
+
   return (
     <section>
       <MarketSectionHeader label="DOW 30" id="dow-30" />

@@ -101,6 +101,8 @@ export default function ContactUsPage() {
             fill
             alt=""
             className="hidden object-cover object-center md:block"
+            priority
+            sizes="100%"
           />
           <button
             onClick={goBack}

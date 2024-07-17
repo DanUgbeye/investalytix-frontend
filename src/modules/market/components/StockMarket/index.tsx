@@ -1,8 +1,10 @@
-"use client";
 import Quotes from "@/modules/market/components/Quotes";
 import FearAndGreed from "./FearAndGreed";
 import InvestorSentiment from "./InvestorSentiment";
 import MarketHeading from "../MarketHeading";
+import Commodities from "../Commodities";
+import Currencies from "../Currencies";
+import Treasurys from "../Treasurys";
 
 export default function StockMarket() {
   return (
@@ -27,14 +29,11 @@ export default function StockMarket() {
       </section>
 
       {/* COMMODITIES */}
-      <section className="mt-8">
-        <MarketHeading label="COMMODITIES" />
-
-        <Quotes />
-      </section>
+      <Commodities className="mt-8" />
 
       {/* TREASURYS */}
-      <section className="mt-8">
+      <Treasurys className="mt-8" />
+      {/* <section className="mt-8">
         <MarketHeading label="TREASURYS" />
 
         <Quotes
@@ -44,14 +43,10 @@ export default function StockMarket() {
             { label: "chg", key: "changesPercentage" },
           ]}
         />
-      </section>
+      </section> */}
 
       {/* CURRENCIES */}
-      <section className="mt-8">
-        <MarketHeading label="CURRENCIES" />
-
-        <Quotes />
-      </section>
+      <Currencies className="mt-8" />
     </div>
   );
 }

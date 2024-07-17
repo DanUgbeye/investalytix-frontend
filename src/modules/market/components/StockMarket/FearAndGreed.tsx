@@ -1,20 +1,58 @@
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import useFetcher from "@/hooks/useFetcher";
+import moment from "moment";
+
+type FearResponse = {
+  name: string;
+  data: {
+    value: string;
+    value_classification: string;
+    timestamp: string;
+    time_until_update: string;
+  }[];
+  metadata: {
+    error: null;
+  };
+};
+
+async function getData() {
+  const res = await fetch(`https://api.alternative.me/fng/`);
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json() as Promise<FearResponse>;
+}
 
 export default function FearAndGreed() {
+  const { loading, data, wrapper } = useFetcher<FearResponse>();
   const markets = ["U.S", "AMERICAS"];
   const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  useEffect(() => {
+    wrapper(getData);
+  }, []);
 
   const updateSelectedIndex = (num: number) =>
     setSelectedIndex((state) => (state === num ? -1 : num));
 
-  const data = [
-    { name: "Extreme Fear", value: 100 / 6 },
+  if (!data) return null;
+
+  const pieData = data.data.map((index) => ({
+    name: index.value_classification,
+    value: Number(index.value),
+  }));
+
+  const otherPieData = [
     { name: "Extreme Fear", value: 100 / 6 },
     { name: "Fear", value: 100 / 6 },
-    { name: "Fear", value: 100 / 6 },
-    { name: "Greed", value: 100 / 6 },
     { name: "Extreme Greed", value: 100 / 6 },
   ];
 
@@ -32,12 +70,12 @@ export default function FearAndGreed() {
   const cy = 200;
   const iR = 60;
   const oR = 80;
-  const value = 75;
+  const value = pieData[0].value;
   //   @ts-ignore
   const needle = (value, data, cx, cy, iR, oR, color) => {
     let total = 0;
     //   @ts-ignore
-    data.forEach((v) => {
+    pieData.forEach((v) => {
       total += v.value;
     });
     const ang = 180.0 * (1 - value / total);
@@ -85,6 +123,8 @@ export default function FearAndGreed() {
     ];
   };
 
+  console.log(data);
+
   return (
     <>
       <header className="mb-6 flex items-center justify-between">
@@ -113,7 +153,12 @@ export default function FearAndGreed() {
         <p className="text-xl font-medium">
           What Emotion is driving the Marker Right now?
         </p>
-        <p className="text-sm">Last updated Jan 8 at 8:21:16 AM ET</p>
+        <p className="text-sm">
+          Last updated{" "}
+          {moment(new Date(1000 * Number(data.data[0].timestamp))).format(
+            "MMM D [at] h:mm:ss A"
+          )}
+        </p>
       </div>
       <Link href="" className="text-main-blue-base dark:text-main-blue-light">
         Learn more about the index.
@@ -124,7 +169,7 @@ export default function FearAndGreed() {
           <ResponsiveContainer width="100%" height="100%" className="!m-0 !p-0">
             <PieChart className="">
               <Pie
-                data={data}
+                data={[...pieData, ...otherPieData]}
                 cx={cx}
                 cy={cy}
                 innerRadius={iR}
@@ -133,7 +178,7 @@ export default function FearAndGreed() {
                 paddingAngle={5}
                 dataKey="value"
               >
-                {data.map((entry, index) => (
+                {[...pieData, ...otherPieData].map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
@@ -146,10 +191,13 @@ export default function FearAndGreed() {
         </div>
 
         <div className="flex flex-col gap-8">
-          <Stat reading={73} index="Greed" timeframe="Previous Close" />
-          <Stat reading={75} index="Extreme Greed" timeframe="1 week ago" />
-          <Stat reading={65} index="Greed" timeframe="1 month ago" />
-          <Stat reading={45} index="Greed" timeframe="1 year ago" />
+          <Stat
+            reading={Number(data.data[0].value)}
+            index="Greed"
+            timeframe={moment(
+              new Date(1000 * Number(data.data[0].timestamp))
+            ).fromNow()}
+          />
         </div>
       </div>
     </>

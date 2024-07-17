@@ -1,5 +1,7 @@
 import Quotes from "@/modules/market/components/Quotes";
 import MarketHeading from "../../MarketHeading";
+import Bonds from "../../Bonds";
+import Currencies from "../../Currencies";
 
 export default function Americas() {
   return (
@@ -12,18 +14,10 @@ export default function Americas() {
       </section>
 
       {/* CURRENCIES */}
-      <section className="mt-11">
-        <MarketHeading label="CURRENCIES" />
-
-        <Quotes />
-      </section>
+      <Currencies className="mt-11" />
 
       {/* BONDS & RATES */}
-      <section className="mt-11">
-        <MarketHeading label="BONDS & RATES" />
-
-        <Quotes />
-      </section>
+      <Bonds className="mt-11" />
     </section>
   );
 }

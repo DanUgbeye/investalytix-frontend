@@ -31,14 +31,15 @@ export default async function FX() {
   return (
     <div>
       {/* MAJOR CURRENCIES PAIRS */}
-      <section className="">
+      {/* <section className="">
         <MarketHeading label="MAJOR CURRENCIES PAIRS" />
 
         <Quotes />
-      </section>
+      </section> */}
 
       {/* AMERICAS */}
-      <section className="mt-11">
+      <section>
+      {/* <section className="mt-11"> */}
         <MarketHeading label="AMERICAS" />
 
         <Quotes quotes={data.data.american} />

@@ -75,7 +75,7 @@ export default function Quotes({
 
         <TableBody>
           {(customQuotes ? customQuotes : quotes).map((quote) => (
-            <TableRow className="">
+            <TableRow className="" key={quote.symbol}>
               <TableCell className="py-2 text-sm">
                 <Link
                   className="text-hover-focus"
@@ -89,11 +89,11 @@ export default function Quotes({
                 <TableCell className="py-2 text-right text-sm">
                   {["change", "changesPercentage"].includes(field.key) ? (
                     <ColoredNumber
-                      number={quote[field.key] as number}
+                      number={quote[field?.key] as number}
                       percent={field.key === "changesPercentage"}
                     />
                   ) : (
-                    quote[field.key]
+                    quote[field?.key]
                   )}
                 </TableCell>
               ))}

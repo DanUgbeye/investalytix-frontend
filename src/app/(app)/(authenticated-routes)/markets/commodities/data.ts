@@ -1,7 +1,7 @@
 export default {
   selectors: [
-    { label: "ENERGY", href: "/markets/commodities/energy" },
-    { label: "METALS", href: "/markets/commodities/metals" },
+    // { label: "ENERGY", href: "/markets/commodities/energy" },
+    // { label: "METALS", href: "/markets/commodities/metals" },
   ],
 
   markets: [

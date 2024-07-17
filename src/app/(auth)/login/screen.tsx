@@ -207,7 +207,7 @@ export default function LoginScreen() {
 
         <div className="md:relative">
           <div className="relative top-0 bg-cover bg-left bg-no-repeat md:sticky md:h-screen">
-            <Image src="/images/auth.jpg" fill alt="" />
+            <Image src="/images/auth.jpg" fill alt="" priority sizes="100%" />
             <button
               onClick={goBack}
               className="absolute right-5 top-5 inline-block rounded-full bg-primary-base p-2"
