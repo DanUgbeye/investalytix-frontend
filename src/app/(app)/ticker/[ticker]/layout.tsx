@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
 import ErrorScreen from "./error-screen";
 import TickerLayout from "./ticker-layout";
+import QuotesBoard from "@/components/ui/QuotesBoard";
 
 async function getTickerData(
   ticker: string
@@ -57,8 +58,12 @@ export default async function Layout(props: TickerLayoutProps) {
   }
 
   return (
-    <TickerLayout ticker={ticker} {...data}>
-      {children}
-    </TickerLayout>
+    <div className=" ">
+      <QuotesBoard />
+
+      <TickerLayout ticker={ticker} {...data}>
+        {children}
+      </TickerLayout>
+    </div>
   );
 }
