@@ -117,4 +117,16 @@ export class UserRepository {
   }
 
   updateProfileImage() {}
+
+  async deleteAccount(data: { password: string }, options?: RequestOptions) {
+    const path = `/users/delete-account`;
+
+    try {
+      await this.api.delete(path, options);
+      return true;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
 }

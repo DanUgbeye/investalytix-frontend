@@ -1,4 +1,5 @@
 import { clientAPI } from "@/config/client/api";
+import { transformUserToClient } from "@/modules/user/adapter";
 import { ServerUserData } from "@/modules/user/types";
 import { ServerUserSchema } from "@/modules/user/validation";
 import { RequestOptions } from "@/types/api.types";
@@ -31,24 +32,27 @@ export class AuthRepository {
     const path = `/auth/login`;
 
     try {
-      const { data: res } = await this.clientAPI.post<{
+      const res = await this.clientAPI.post<{
         data: {
           auth: AuthData;
           user: ServerUserData;
         };
       }>(path, data, options);
 
-      const parsedAuth = AuthSchema.safeParse(res.data.auth);
-      const parsedUser = ServerUserSchema.transform((user) => {
-        const { _id, ...rest } = user;
-        return { id: _id, ...rest };
-      }).safeParse(res.data.user);
+      const validation = z
+        .object({
+          auth: AuthSchema,
+          user: ServerUserSchema.transform((user) =>
+            transformUserToClient(user)
+          ),
+        })
+        .safeParse(res.data.data);
 
-      if (!parsedAuth.success || !parsedUser.success) {
+      if (!validation.success) {
         throw new Error("Something went wrong on our end");
       }
 
-      return { auth: parsedAuth.data, user: parsedUser.data };
+      return validation.data;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
@@ -78,13 +82,13 @@ export class AuthRepository {
         options
       );
 
-      const parsedAuth = AuthSchema.safeParse(data.data.auth);
+      const validation = AuthSchema.safeParse(data.data.auth);
 
-      if (!parsedAuth.success) {
+      if (!validation.success) {
         throw new Error("Something went wrong on our end");
       }
 
-      return parsedAuth.data;
+      return validation.data;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
@@ -99,15 +103,15 @@ export class AuthRepository {
         data: { authenticated: boolean };
       }>(path, options);
 
-      let parsedRes = z
+      let validation = z
         .object({ authenticated: z.boolean() })
         .safeParse(res.data.data);
 
-      if (!parsedRes.success) {
+      if (!validation.success) {
         throw new Error("Something went wrong on our end");
       }
 
-      return parsedRes.data;
+      return validation.data;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
@@ -147,6 +151,29 @@ export class AuthRepository {
       await this.api.post(path, { email }, options);
 
       return true;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async toggle2FA(state: boolean, options?: RequestOptions) {
+    const path = `/auth/toggle-2fa`;
+
+    try {
+      let res = await this.api.post<{
+        data: ServerUserData;
+      }>(path, { enabled: state }, options);
+
+      let validation = ServerUserSchema.transform((user) =>
+        transformUserToClient(user)
+      ).safeParse(res.data.data);
+
+      if (!validation.success) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
     } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
