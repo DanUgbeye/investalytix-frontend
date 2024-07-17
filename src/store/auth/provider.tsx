@@ -3,6 +3,7 @@
 import { clientAPI } from "@/config/client/api";
 import CLIENT_CONFIG from "@/config/client/app";
 import { QUERY_KEYS } from "@/data/query-keys";
+import { cn } from "@/lib/utils";
 import useLogout from "@/modules/auth/hooks/use-logout";
 import { AuthRepository } from "@/modules/auth/repository";
 import { UserRepository } from "@/modules/user/repository";
@@ -38,9 +39,12 @@ export default function ClientAuthProvider(
       auth: undefined,
     };
 
+    if (initialState.auth && initialState.user) {
+      return initialiseStore(initialState);
+    }
+
     if (!initialState.auth) {
-      initialiseStore(defaultAuthState);
-      return;
+      return initialiseStore(defaultAuthState);
     }
 
     try {
@@ -60,7 +64,6 @@ export default function ClientAuthProvider(
     }
   }
 
-  // TODO set timer for refresh token
   useEffect(() => {
     if (!auth) return;
 
@@ -107,4 +110,6 @@ export default function ClientAuthProvider(
   if (initialised) {
     return <>{children}</>;
   }
+
+  return <main className={cn("h-dvh bg-black pb-40 pt-20")} />;
 }

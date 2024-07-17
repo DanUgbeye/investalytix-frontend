@@ -133,6 +133,9 @@ export default function TickerLayout(props: TickerLayoutProps) {
         name: outlook.profile.companyName || "",
         symbol: outlook.profile.symbol,
         exchangeShortName: outlook.profile.exchangeShortName || "",
+        currency: outlook.profile.currency || "",
+        industry: outlook.profile.industry || "",
+        sector: outlook.profile.sector || "",
       };
 
       const watchlist = await watchlistRepo.addToWatchlist(watchlistData);

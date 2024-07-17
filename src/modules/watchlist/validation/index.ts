@@ -7,6 +7,9 @@ export const ServerWatchlistSchema = z.object({
   name: z.string(),
   stockExchange: z.string(),
   exchangeShortName: z.string(),
+  currency: z.string(),
+  sector: z.string(),
+  industry: z.string(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 }) satisfies ZodType<ServerWatchlist>;
@@ -17,6 +20,9 @@ export const WatchlistSchema = z.object({
   name: z.string(),
   stockExchange: z.string(),
   exchangeShortName: z.string(),
+  currency: z.string(),
+  sector: z.string(),
+  industry: z.string(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 }) satisfies ZodType<Watchlist>;

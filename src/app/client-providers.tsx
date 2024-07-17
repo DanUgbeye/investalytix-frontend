@@ -16,14 +16,14 @@ export default function ClientProviders({ children, initialState }: Props) {
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ClientAuthProvider initialState={initialState}>
-        <SocketServiceProvider>
-          <WatchlistProvider>
-            <ThemeProvider>{children}</ThemeProvider>
-          </WatchlistProvider>
-        </SocketServiceProvider>
-      </ClientAuthProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ClientAuthProvider initialState={initialState}>
+          <SocketServiceProvider>
+            <WatchlistProvider>{children}</WatchlistProvider>
+          </SocketServiceProvider>
+        </ClientAuthProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
