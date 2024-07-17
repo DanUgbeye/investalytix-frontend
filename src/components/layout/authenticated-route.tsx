@@ -9,7 +9,7 @@ interface Props extends PropsWithChildren {}
 export default async function AuthenticatedRoute(props: Props) {
   const { children } = props;
   const userCookie = cookies().get(COOKIE_KEYS.AUTH);
-  console.log("userCookie", userCookie);
+  // console.log("userCookie", userCookie);
 
   if (!userCookie) {
     return <RedirectToLogin />;

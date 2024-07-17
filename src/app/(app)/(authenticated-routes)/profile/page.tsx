@@ -60,7 +60,7 @@ export default function ProfilePage(props: PageProps) {
   return (
     <>
       <div className="mb-10 border-b-[0.5px] dark:border-b-main-gray-700">
-        <h1 className="mb-8 text-4xl font-extrabold capitalize md:text-6xl">
+        <h1 className="mb-8 text-3xl sm:text-4xl font-extrabold capitalize md:text-6xl">
           {currentTabItem.label}
         </h1>
 

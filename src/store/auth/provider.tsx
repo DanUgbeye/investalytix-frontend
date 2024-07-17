@@ -1,115 +1,104 @@
 "use client";
 
 import { clientAPI } from "@/config/client/api";
+import CLIENT_CONFIG from "@/config/client/app";
 import { QUERY_KEYS } from "@/data/query-keys";
-import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
+import { cn } from "@/lib/utils";
 import useLogout from "@/modules/auth/hooks/use-logout";
-import { useAuthRepo } from "@/modules/auth/repository";
-import { AuthSchema } from "@/modules/auth/validation";
+import { AuthRepository } from "@/modules/auth/repository";
 import { UserRepository } from "@/modules/user/repository";
-import { UserSchema } from "@/modules/user/validation";
-import { useAppStore } from "@/store";
-import { AuthState } from "@/store/auth";
+import { StoreInitialState, useAppStore } from "@/store";
+import { createAPIInstance } from "@/utils/api-utils";
 import { useQuery } from "@tanstack/react-query";
 import { PropsWithChildren, useEffect, useMemo } from "react";
-import { z } from "zod";
 
-export default function AuthProvider({ children }: PropsWithChildren) {
+export default function ClientAuthProvider(
+  props: PropsWithChildren & { initialState: StoreInitialState }
+) {
+  const { children, initialState } = props;
   const { initialiseStore, reset, setAuth } = useAppStore();
   const initialised = useAppStore(({ initialised }) => initialised);
   const auth = useAppStore(({ auth }) => auth);
   const user = useAppStore(({ user }) => user);
   const userRepo = useMemo(() => new UserRepository(clientAPI), []);
-  const authRepo = useAuthRepo();
+  const authRepo = useMemo(() => new AuthRepository(clientAPI), []);
   const logout = useLogout();
-
-  const defaultAuth = {
-    user: undefined,
-    auth: undefined,
-  };
+  // const appStore = useAppStore();
+  // console.log("appStore", appStore);
 
   const { data } = useQuery({
-    enabled: user !== undefined,
+    enabled: user !== undefined && auth !== undefined,
     queryKey: [QUERY_KEYS.GET_USER_PROFILE, user?.id],
-    queryFn: ({ signal }) => userRepo.getUserProfile(user!.id, { signal }),
-    refetchInterval: 180_000 + Math.floor(Math.random() * 120_000), // 3 - 5 mins
+    queryFn: ({ signal }) => userRepo.getMyProfile({ signal }),
+    refetchInterval: () => 180_000 + Math.floor(Math.random() * 120_000), // 3 - 5 mins
   });
 
-  // check auth status
-  const {
-    data: authStatus,
-    isLoading: authStatusLoading,
-    refetch: refetchAuthStatus,
-  } = useQuery({
-    enabled: user !== undefined,
-    queryKey: [QUERY_KEYS.GET_AUTH_STATUS, user?.id],
-    queryFn: ({ signal }) => authRepo.checkAuthStatus({ signal }),
-    refetchInterval: 180_000, // 5 mins
-    retry: 1,
-  });
+  async function handleInit() {
+    let defaultAuthState: StoreInitialState = {
+      user: undefined,
+      auth: undefined,
+    };
 
-  function handleInit() {
+    if (initialState.auth && initialState.user) {
+      return initialiseStore(initialState);
+    }
+
+    if (!initialState.auth) {
+      return initialiseStore(defaultAuthState);
+    }
+
     try {
-      // fetch auth data locally
-      const saved = localStorage.getItem(LOCALSTORAGE_KEYS.AUTH);
-      if (saved === null) {
-        return initialiseStore(defaultAuth);
-      }
+      const axios = createAPIInstance(CLIENT_CONFIG.API_BASE_URL);
+      const userRepo = new UserRepository(axios);
 
-      const data = JSON.parse(saved); // can throw error
-      // validate data
-      const validation = z
-        .object({ auth: AuthSchema, user: UserSchema })
-        .safeParse(data);
+      let res = await userRepo.getMyProfile({
+        headers: {
+          authorization: `Bearer ${initialState.auth.token}`,
+        },
+      });
 
-      if (!validation.success) {
-        localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH);
-        return initialiseStore(defaultAuth);
-      }
-
-      return initialiseStore(validation.data);
+      return initialiseStore({ auth: initialState.auth, user: res });
     } catch (error: any) {
-      localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH);
-      return initialiseStore(defaultAuth);
+      console.log("error initialising auth", error);
+      return initialiseStore(defaultAuthState);
     }
   }
 
-  function backupData() {
-    if (auth && user) {
-      localStorage.setItem(
-        LOCALSTORAGE_KEYS.AUTH,
-        JSON.stringify({ auth, user } satisfies AuthState)
-      );
-    }
-  }
+  useEffect(() => {
+    if (!auth) return;
 
-  function syncAuth() {
-    // ensure both user and auth are always available
-    if ((auth && !user) || (!auth && user)) {
-      reset();
+    const abortController = new AbortController();
+    const now = Date.now();
+    const timeout = auth.expiresIn - now - 5 * 60 * 1000; // Refresh 5 minutes before expiry
+
+    // do not refresh timeout is less than 5 seconds
+    if (timeout <= 5_000) {
+      return;
     }
 
-    if (auth && user) {
-      localStorage.setItem(
-        LOCALSTORAGE_KEYS.AUTH,
-        JSON.stringify({ auth, user })
-      );
-    }
-  }
+    console.log("setting timer for", timeout / (1000 * 60), "m");
+    const timer = setTimeout(async () => {
+      try {
+        const res = await authRepo.refreshToken({
+          signal: abortController.signal,
+        });
 
-  // TODO set timer for refresh token
+        setAuth({ auth: res });
+      } catch (error) {
+        console.log("error refreshing auth", error);
+      }
+    }, timeout);
+
+    return () => {
+      abortController.abort();
+      clearTimeout(timer);
+    };
+  }, [auth]);
 
   useEffect(() => {
     handleInit();
-
-    return backupData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    syncAuth();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth, user]);
 
   useEffect(() => {
     if (data) {
@@ -118,29 +107,9 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  useEffect(() => {
-    refetchAuthStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth, user]);
-
-  useEffect(() => {
-    if (authStatusLoading) return;
-
-    if (authStatus && !authStatus.authenticated && auth && user) {
-      try {
-        logout();
-      } catch (error: any) {}
-    }
-
-    if (authStatus && authStatus.authenticated && !auth && !user) {
-      try {
-        logout();
-      } catch (error: any) {}
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authStatusLoading, authStatus, auth, user]);
-
   if (initialised) {
     return <>{children}</>;
   }
+
+  return <main className={cn("h-dvh bg-black pb-40 pt-20")} />;
 }

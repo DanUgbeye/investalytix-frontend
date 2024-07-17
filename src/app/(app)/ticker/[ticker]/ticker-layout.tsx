@@ -3,7 +3,6 @@
 import ColoredText from "@/components/colored-text";
 import { Container } from "@/components/container";
 import Spinner from "@/components/spinner";
-import QuotesBoard from "@/components/ui/QuotesBoard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { clientAPI } from "@/config/client/api";
@@ -134,6 +133,9 @@ export default function TickerLayout(props: TickerLayoutProps) {
         name: outlook.profile.companyName || "",
         symbol: outlook.profile.symbol,
         exchangeShortName: outlook.profile.exchangeShortName || "",
+        currency: outlook.profile.currency || "",
+        industry: outlook.profile.industry || "",
+        sector: outlook.profile.sector || "",
       };
 
       const watchlist = await watchlistRepo.addToWatchlist(watchlistData);
@@ -220,8 +222,6 @@ export default function TickerLayout(props: TickerLayoutProps) {
 
   return (
     <section {...rest} className={cn(" ", className)}>
-      <QuotesBoard />
-
       <Container className="px-0 sm:px-0 sm:pb-8 xl:px-0">
         <section
           id={"ticker-stats"}

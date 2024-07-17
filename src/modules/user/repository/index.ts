@@ -8,6 +8,29 @@ import { ServerUserSchema } from "../validation";
 export class UserRepository {
   constructor(private api: AxiosInstance) {}
 
+  async getMyProfile(options?: RequestOptions) {
+    const path = `/users/profile`;
+
+    try {
+      const { data } = await this.api.get<{ data: ServerUserData }>(
+        path,
+        options
+      );
+      let validation = ServerUserSchema.transform((data) =>
+        transformUserToClient(data)
+      ).safeParse(data.data);
+
+      if (!validation.success) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
   async getUserProfile(userId: string, options?: RequestOptions) {
     const path = `/users/${userId}`;
 
@@ -94,4 +117,16 @@ export class UserRepository {
   }
 
   updateProfileImage() {}
+
+  async deleteAccount(data: { password: string }, options?: RequestOptions) {
+    const path = `/users/delete-account`;
+
+    try {
+      await this.api.delete(path, options);
+      return true;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
 }

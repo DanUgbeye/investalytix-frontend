@@ -10,6 +10,9 @@ import { NextRequest, NextResponse } from "next/server";
 async function Logout(req: NextRequest) {
   try {
     let serverCookies = cookies();
+    if (serverCookies.has(COOKIE_KEYS.REFRESH_TOKEN)) {
+      serverCookies.delete(COOKIE_KEYS.REFRESH_TOKEN);
+    }
     if (serverCookies.has(COOKIE_KEYS.AUTH)) {
       revalidatePath("/", "layout");
       serverCookies.delete(COOKIE_KEYS.AUTH);

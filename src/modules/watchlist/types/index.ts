@@ -4,6 +4,9 @@ export type ServerWatchlist = {
   name: string;
   stockExchange: string;
   exchangeShortName: string;
+  currency: string;
+  industry: string;
+  sector: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -14,6 +17,9 @@ export type Watchlist = {
   name: string;
   stockExchange: string;
   exchangeShortName: string;
+  currency: string;
+  industry: string;
+  sector: string;
   createdAt: Date;
   updatedAt: Date;
 };

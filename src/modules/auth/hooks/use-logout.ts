@@ -5,12 +5,12 @@ import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
 import { useAppStore } from "@/store";
 import { AuthRepository } from "../repository";
 
-async function logout() {
-  const resetAuth = useAppStore.getState().reset;
+export async function logout() {
+  const { reset } = useAppStore.getState();
   const authRepo = new AuthRepository(clientAPI);
 
   await authRepo.logout();
-  resetAuth();
+  reset();
   localStorage.removeItem(LOCALSTORAGE_KEYS.AUTH);
 }
 

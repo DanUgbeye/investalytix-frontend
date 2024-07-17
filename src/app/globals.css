@@ -6,6 +6,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 95px;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
