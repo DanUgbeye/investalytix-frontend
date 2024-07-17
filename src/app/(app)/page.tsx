@@ -71,10 +71,6 @@ export default function Home() {
         </Container>
       </main>
 
-      <p className="z-50 bg-black px-5 py-20 text-center text-xl font-bold text-white lg:text-3xl dark:border-t dark:border-t-white/10">
-        Trusted by more than 89,300 successful value investors
-      </p>
-
       <Container className="pt-20">
         <Suspense fallback={<LoadingNews />}>
           <LatestNews />
