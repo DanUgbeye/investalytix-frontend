@@ -73,7 +73,7 @@ export default function SidePanel({
               className="grid grid-cols-3 border-b py-2 dark:dark:border-white/10"
             >
               <div className="flex w-[40%] items-center gap-2">
-                <Avatar className="">
+                <Avatar className="h-6 w-6 shrink-0">
                   <AvatarImage
                     src={tickerUtils.getTickerLogoUrl(quote.symbol)}
                     alt={quote.symbol}
@@ -82,7 +82,7 @@ export default function SidePanel({
                     {quote.symbol}
                   </AvatarFallback>
                 </Avatar>
-                <div className="h-6 w-6 shrink-0 animate-pulse rounded-full bg-gray-200"></div>
+                {/* <div className=" animate-pulse rounded-full bg-gray-200"></div> */}
                 <div className="">{quote.symbol}</div>
               </div>
               <div
