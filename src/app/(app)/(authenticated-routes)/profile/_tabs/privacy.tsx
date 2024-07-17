@@ -93,13 +93,13 @@ export default function PrivacyTab() {
         }}
       >
         <DialogTrigger></DialogTrigger>
-        <DialogContent className="space-y-5 py-10">
+        <DialogContent className="space-y-5 py-10 max-sm:w-[95%]">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-red-500">
+            <DialogTitle className="text-left text-2xl font-bold text-red-500">
               Are you absolutely sure?
             </DialogTitle>
 
-            <DialogDescription className="">
+            <DialogDescription className="text-left">
               This action cannot be undone. This will permanently delete your
               account and remove your data from our servers.
             </DialogDescription>
@@ -152,14 +152,14 @@ export default function PrivacyTab() {
 
       <section className="space-y-10">
         <div className="flex w-full max-w-3xl flex-col gap-2">
-          <h3 className="mb-4 text-2xl font-semibold capitalize">
+          <h3 className="mb-3 text-xl font-semibold capitalize sm:text-2xl">
             2-factor authentication
           </h3>
 
           <div className="w-full rounded-lg border dark:border-main-gray-700">
             <div
               className={cn(
-                "flex items-center justify-between gap-10 px-10 py-8 md:py-10",
+                "flex items-center justify-between gap-5 px-4 py-8  sm:px-10 md:py-10",
                 {
                   "pointer-events-none opacity-50": loading["2fa"],
                 }
@@ -170,7 +170,7 @@ export default function PrivacyTab() {
                   width={26}
                   height={26}
                   viewBox="0 0 26 26"
-                  className="shrink-0"
+                  className="shrink-0 max-sm:hidden"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -197,8 +197,10 @@ export default function PrivacyTab() {
                 </svg>
 
                 <div className="flex flex-col gap-1">
-                  <p className="text-xl font-bold">Email Verification</p>
-                  <p className="">
+                  <p className="text-lg font-bold sm:text-xl">
+                    Email Verification
+                  </p>
+                  <p className="text-sm">
                     Receive login codes via email before accessing your account.
                   </p>
                 </div>
@@ -213,14 +215,14 @@ export default function PrivacyTab() {
         </div>
 
         <div className="flex w-full max-w-3xl flex-col gap-2">
-          <h3 className="mb-4 text-2xl font-semibold capitalize text-red-600">
+          <h3 className="mb-3 text-xl font-semibold capitalize text-red-600 sm:text-2xl">
             Delete account
           </h3>
 
           <div className="w-full rounded-lg border dark:border-main-gray-700">
             <div
               className={cn(
-                "flex items-center justify-between gap-10 px-10 py-8 md:py-10",
+                "flex items-center justify-between gap-5 px-4 py-8  sm:px-10 md:py-10",
                 {
                   "pointer-events-none opacity-50": loading["delete"],
                 }
