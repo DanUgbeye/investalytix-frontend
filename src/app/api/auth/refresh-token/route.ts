@@ -2,7 +2,7 @@ import { serverAPI } from "@/config/server/api";
 import SERVER_CONFIG from "@/config/server/app";
 import { COOKIE_KEYS } from "@/data/cookie-keys";
 import { AuthData } from "@/modules/auth/types";
-import { createAPIInstance, handleAPIError } from "@/utils/api-utils";
+import { handleAPIError } from "@/utils/api-utils";
 import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -13,19 +13,34 @@ import { NextRequest, NextResponse } from "next/server";
  */
 async function RefreshToken(req: NextRequest) {
   try {
-    if (!cookies().has(COOKIE_KEYS.AUTH)) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
+    // PROXY REQUEST TO BACKEND SERVER
+    let res = await serverAPI.post<{
+      data: { auth: AuthData };
+    }>("/auth/refresh-token", undefined, {
+      headers: {
+        ...Array.from(req.headers.entries()).reduce(
+          (acc, entry) => {
+            const [key, value] = entry;
+            acc[key] = value;
+            return acc;
+          },
+          {} as Record<string, any>
+        ),
+        host: new URL(SERVER_CONFIG.API_BASE_URL).host,
+      },
+      withCredentials: true,
+      validateStatus: (status) => true, // Resolve all status codes
+    });
 
-    let { data: res } = await serverAPI.post<{ data: { auth: AuthData } }>(
-      "/auth/refresh-token"
-    );
+    const responseHeaders = new Headers();
+    Object.keys(res.headers).forEach((key) => {
+      responseHeaders.set(key, res.headers[key]);
+    });
 
-    cookies().delete(COOKIE_KEYS.AUTH);
-    cookies().set(COOKIE_KEYS.AUTH, JSON.stringify(res.data.auth), {
+    cookies().set(COOKIE_KEYS.AUTH, JSON.stringify(res.data.data.auth), {
       secure: true,
       httpOnly: true,
-      expires: res.data.auth.expiresIn,
+      expires: res.data.data.auth.expiresIn,
     });
 
     return NextResponse.json(res.data, { status: 200 });
@@ -42,3 +57,4 @@ async function RefreshToken(req: NextRequest) {
 }
 
 export { RefreshToken as POST };
+

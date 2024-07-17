@@ -9,11 +9,10 @@ import { AuthData, LoginData, SignupData } from "../types";
 import { AuthSchema } from "../validation";
 
 export class AuthRepository {
-  private clientAPI: AxiosInstance;
-
-  constructor(private api: AxiosInstance) {
-    this.clientAPI = createAPIInstance("/api");
-  }
+  constructor(
+    private api: AxiosInstance,
+    private clientAPI: AxiosInstance = createAPIInstance("/api")
+  ) {}
 
   async signup(data: SignupData, options?: RequestOptions) {
     const path = `/auth/signup`;

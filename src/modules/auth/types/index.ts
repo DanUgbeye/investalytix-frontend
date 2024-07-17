@@ -12,5 +12,6 @@ export type LoginData = {
 
 export type AuthData = {
   token: string;
+  /** auth expiry time in milliseconds  */
   expiresIn: number;
 };

@@ -21,7 +21,11 @@ import { cn } from "@/lib/utils";
 import useLogout from "@/modules/auth/hooks/use-logout";
 import { useTickerRepository } from "@/modules/ticker/hooks";
 import tickerUtils from "@/modules/ticker/utils";
-import { getTickerStockDescriptionRoute } from "@/route";
+import {
+  getSettingsRoute,
+  getTickerStockDescriptionRoute,
+  getWatchlistRoute,
+} from "@/route";
 import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
 import { SearchResult } from "@/types";
@@ -215,15 +219,6 @@ export default function NavBar(props: { className?: string }) {
                   <PopoverContent className="mr-4 mt-2 flex max-w-[12rem] flex-col p-2 dark:bg-main-gray-800">
                     <div className="w-full">
                       <Link
-                        title="Watchlist"
-                        href={PAGES.WATCHLIST}
-                        className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
-                      >
-                        <BellRing className="size-5 stroke-[1.5]" />
-                        <span className=" "> Watchlist</span>
-                      </Link>
-
-                      <Link
                         title="Profile"
                         href={PAGES.PROFILE}
                         className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
@@ -233,8 +228,17 @@ export default function NavBar(props: { className?: string }) {
                       </Link>
 
                       <Link
+                        title="Watchlist"
+                        href={getWatchlistRoute()}
+                        className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
+                      >
+                        <BellRing className="size-5 stroke-[1.5]" />
+                        <span className=" "> Watchlist</span>
+                      </Link>
+
+                      <Link
                         title="Settings"
-                        href={PAGES.SETTINGS}
+                        href={getSettingsRoute()}
                         className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
                       >
                         <Settings className="size-5 stroke-[1.5]" />

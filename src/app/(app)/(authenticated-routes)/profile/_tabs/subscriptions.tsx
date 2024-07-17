@@ -12,9 +12,9 @@ import {
 import moment from "moment";
 
 export default function SubscriptionsTab() {
+
   return (
     <div className="flex w-full max-w-7xl flex-col gap-2">
-      {/* <h3 className="font-semibold">MY PLAN</h3> */}
       <div className="mb-10 flex flex-wrap items-center justify-between gap-10 rounded-lg border p-6 dark:border-main-gray-700">
         <div className="">
           <p className="text-xs uppercase">current plan</p>

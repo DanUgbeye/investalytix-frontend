@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { Container } from "@/components/container";
 import RedirectToLogin from "@/components/redirect-to-login";
@@ -8,27 +8,27 @@ import { PropsWithChildren } from "react";
 
 export default function AuthenticatedRoutesTemplate(props: PropsWithChildren) {
   const { children } = props;
-  const initialised = useAppStore(({ initialised }) => initialised);
-  const isAuthenticated = useAppStore(
-    ({ auth, user }) => auth !== undefined && user !== undefined
-  );
-  console.log("isAuthenticated", isAuthenticated);
+  // const initialised = useAppStore(({ initialised }) => initialised);
+  // const isAuthenticated = useAppStore(
+  //   ({ auth, user }) => auth !== undefined && user !== undefined
+  // );
+  // console.log("isAuthenticated", isAuthenticated);
 
-  if (!initialised) {
-    return (
-      <main className="py-20">
-        <Container>
-          <center>
-            <Spinner />
-          </center>
-        </Container>
-      </main>
-    );
-  }
+  // if (!initialised) {
+  //   return (
+  //     <main className="py-20">
+  //       <Container>
+  //         <center>
+  //           <Spinner />
+  //         </center>
+  //       </Container>
+  //     </main>
+  //   );
+  // }
 
-  if (!isAuthenticated) {
-    return <RedirectToLogin />;
-  }
+  // if (!isAuthenticated) {
+  //   return <RedirectToLogin />;
+  // }
 
   return children;
 }

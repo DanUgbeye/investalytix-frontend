@@ -17,6 +17,7 @@ export default function GlobalComponents({ children }: PropsWithChildren) {
         pauseOnHover
         theme={theme === "light" ? theme : "colored"}
         stacked
+        autoClose={4000}
         hideProgressBar
       />
       <NewsDisplayModal />

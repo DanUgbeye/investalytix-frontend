@@ -1,24 +1,21 @@
-"use client";
-
-import AuthProvider from "@/store/auth/provider";
-import SocketServiceProvider from "@/store/socket/provider";
-import ThemeProvider from "@/store/theme/provider";
-import WatchlistProvider from "@/store/watchlist/provider";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { COOKIE_KEYS } from "@/data/cookie-keys";
+import { AuthData } from "@/modules/auth/types";
+import { AuthSchema } from "@/modules/auth/validation";
+import { cookies } from "next/headers";
 import { PropsWithChildren } from "react";
+import ClientProviders from "./client-providers";
 
 export default function Providers({ children }: PropsWithChildren) {
-  const queryClient = new QueryClient();
+  let auth: AuthData | undefined = undefined;
+  const authCookie = cookies().get(COOKIE_KEYS.AUTH);
+  if (authCookie) {
+    const { data } = AuthSchema.safeParse(JSON.parse(authCookie.value));
+    auth = data;
+  }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <SocketServiceProvider>
-          <WatchlistProvider>
-            <ThemeProvider>{children}</ThemeProvider>
-          </WatchlistProvider>
-        </SocketServiceProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <ClientProviders initialState={{ auth, user: undefined }}>
+      {children}
+    </ClientProviders>
   );
 }

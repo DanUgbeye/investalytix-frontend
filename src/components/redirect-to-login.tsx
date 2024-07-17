@@ -20,7 +20,7 @@ export default function RedirectToLogin(props: { notify?: boolean }) {
   }, []);
 
   return (
-    <main className="py-20">
+    <main className="pt-20 pb-40">
       <Container>
         <center>
           <Spinner />
