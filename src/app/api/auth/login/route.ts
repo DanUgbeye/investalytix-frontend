@@ -23,17 +23,16 @@ async function Login(req: NextRequest) {
     }>("/auth/login", body, {
       headers: {
         ...Array.from(req.headers.entries()).reduce(
-          (acc, entry) => {
+          (headers, entry) => {
             const [key, value] = entry;
-            acc[key] = value;
-            return acc;
+            headers[key] = value;
+            return headers;
           },
           {} as Record<string, any>
         ),
         host: new URL(SERVER_CONFIG.API_BASE_URL).host,
       },
       withCredentials: true,
-      validateStatus: (status) => true, // Resolve all status codes
     });
 
     const {
@@ -47,9 +46,14 @@ async function Login(req: NextRequest) {
     };
 
     const responseHeaders = new Headers();
-    Object.keys(res.headers).forEach((key) => {
-      responseHeaders.set(key, res.headers[key]);
-    });
+    let headerValue = res.headers["set-cookie"];
+    if (Array.isArray(headerValue)) {
+      headerValue.forEach((value) => {
+        responseHeaders.append("set-cookie", value);
+      });
+    } else if (headerValue !== undefined) {
+      responseHeaders.append("set-cookie", headerValue);
+    }
 
     // set auth token cookie
     cookies().set(COOKIE_KEYS.AUTH, JSON.stringify(auth), {
@@ -57,7 +61,7 @@ async function Login(req: NextRequest) {
       httpOnly: true,
       expires: auth.expiresIn,
     });
-    // console.log("response headers", Array.from(responseHeaders.entries()));
+
     revalidatePath("/", "layout");
 
     return NextResponse.json(res.data, {
@@ -77,4 +81,3 @@ async function Login(req: NextRequest) {
 }
 
 export { Login as POST };
-

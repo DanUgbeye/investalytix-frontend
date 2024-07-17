@@ -34,6 +34,10 @@ export default function PrivacyTab() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const logout = useLogout();
 
+  const [enabled2FA, setEnabled2FA] = useState(
+    user?.enabled2FA ? user.enabled2FA : false
+  );
+
   function toggleLoading(select: keyof typeof loading, state: boolean) {
     setLoading((prev) => ({ ...prev, [select]: state }));
   }
@@ -71,12 +75,15 @@ export default function PrivacyTab() {
 
   async function handle2FASelect(state: boolean) {
     if (!user) return;
+    let previousState = user.enabled2FA;
 
     try {
       toggleLoading("2fa", true);
+      setEnabled2FA(state);
       let user = await authRepo.toggle2FA(state);
       setAuth({ user });
     } catch (error: any) {
+      setEnabled2FA(previousState);
       toast.error(error.message);
     } finally {
       toggleLoading("2fa", false);
@@ -169,9 +176,9 @@ export default function PrivacyTab() {
           <div className="w-full rounded-lg border dark:border-main-gray-700">
             <div
               className={cn(
-                "flex items-center justify-between gap-5 px-4 py-8 sm:px-10 md:py-10",
+                "flex items-center justify-between gap-5 px-4 py-8 duration-300 sm:px-10 md:py-10",
                 {
-                  "pointer-events-none opacity-50": loading["2fa"],
+                  "pointer-events-none opacity-40": loading["2fa"],
                 }
               )}
             >
@@ -217,7 +224,7 @@ export default function PrivacyTab() {
               </div>
 
               <RadioInput
-                // checked={}
+                checked={enabled2FA}
                 onCheckedChange={handle2FASelect}
               />
             </div>
@@ -232,10 +239,7 @@ export default function PrivacyTab() {
           <div className="w-full rounded-lg border dark:border-main-gray-700">
             <div
               className={cn(
-                "flex items-center justify-between gap-5 px-4 py-8 sm:px-10 md:py-10",
-                {
-                  "pointer-events-none opacity-50": loading["delete"],
-                }
+                "flex items-center justify-between gap-5 px-4 py-8 duration-300 sm:px-10 md:py-10"
               )}
             >
               <div className="flex w-full max-w-lg items-center gap-5">

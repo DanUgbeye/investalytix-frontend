@@ -7,7 +7,7 @@ export const ServerUserSchema = z.object({
   email: z.string(),
   firstname: z.string(),
   lastname: z.string(),
-  emailVerified: z.boolean(),
+  emailVerified: z.coerce.boolean(),
   enabled2FA: z.boolean().optional().default(false) as ZodType<boolean>,
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
