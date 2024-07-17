@@ -38,7 +38,7 @@ export default function PrivacyTab() {
     setLoading((prev) => ({ ...prev, [select]: state }));
   }
 
-  async function handleDeleteAccount(data: { password: string }) {
+  async function handleDeleteAccount(data: { password?: string }) {
     if (!user) return;
 
     try {
@@ -54,16 +54,17 @@ export default function PrivacyTab() {
     handleSubmit,
     formState: { isDirty, isSubmitting },
     reset,
-  } = useForm<{ password: string }>({
+  } = useForm<{ password?: string }>({
     defaultValues: {
-      password: "",
+      password: undefined,
     },
     resolver: zodResolver(
       z.object({
         password: z
           .string()
           .min(8, "Password must be at least 8 characters")
-          .max(64, "Password must be at most 64 characters"),
+          .max(64, "Password must be at most 64 characters")
+          .optional(),
       })
     ),
   });
@@ -72,7 +73,6 @@ export default function PrivacyTab() {
     if (!user) return;
 
     try {
-      console.log("calling 2FA");
       toggleLoading("2fa", true);
       let user = await authRepo.toggle2FA(state);
       setAuth({ user });
@@ -92,62 +92,72 @@ export default function PrivacyTab() {
           reset();
         }}
       >
-        <DialogTrigger></DialogTrigger>
-        <DialogContent className="space-y-5 py-10 max-sm:w-[95%]">
-          <DialogHeader>
-            <DialogTitle className="text-left text-2xl font-bold text-red-500">
-              Are you absolutely sure?
-            </DialogTitle>
+        {user !== undefined && (
+          <>
+            <DialogTrigger></DialogTrigger>
+            <DialogContent className="space-y-5 py-10 max-sm:w-[95%]">
+              <DialogHeader>
+                <DialogTitle className="text-left text-2xl font-bold text-red-500">
+                  Are you absolutely sure?
+                </DialogTitle>
 
-            <DialogDescription className="text-left">
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </DialogDescription>
-          </DialogHeader>
+                <DialogDescription className="text-left">
+                  This action cannot be undone. This will permanently delete
+                  your account and remove your data from our servers.
+                </DialogDescription>
+              </DialogHeader>
 
-          <form
-            onSubmit={handleSubmit(handleDeleteAccount)}
-            className="space-y-5"
-          >
-            {/* currentPassword */}
-            <Controller
-              control={control}
-              name="password"
-              defaultValue={""}
-              render={({ field, fieldState }) => {
-                return (
-                  <FormItem className="space-y-3">
-                    <FormLabel htmlFor="password">
-                      Type in your password to confirm
-                    </FormLabel>
-
-                    <PasswordInput
-                      {...field}
-                      id="password"
-                      placeholder="********"
-                      className="h-12 outline-none ring-0 focus-visible:border-primary-light focus-visible:ring-0"
-                    />
-                    <FormMessage message={fieldState.error?.message} />
-                  </FormItem>
-                );
-              }}
-            />
-
-            <div className="flex justify-end gap-2">
-              <Button
-                disabled={!isDirty || isSubmitting}
-                variant={"destructive"}
-                className="w-full max-w-28"
+              <form
+                onSubmit={handleSubmit(handleDeleteAccount)}
+                className="space-y-5"
               >
-                {isSubmitting ? (
-                  <Spinner className="size-4 text-white" />
-                ) : (
-                  "Delete"
+                {user.googleId === undefined && (
+                  <>
+                    {/* currentPassword */}
+                    <Controller
+                      control={control}
+                      name="password"
+                      defaultValue={""}
+                      render={({ field, fieldState }) => {
+                        return (
+                          <FormItem className="space-y-3">
+                            <FormLabel htmlFor="password">
+                              Type in your password to confirm
+                            </FormLabel>
+
+                            <PasswordInput
+                              {...field}
+                              id="password"
+                              placeholder="********"
+                              className="h-12 outline-none ring-0 focus-visible:border-primary-light focus-visible:ring-0"
+                            />
+                            <FormMessage message={fieldState.error?.message} />
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  </>
                 )}
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
+
+                <div className="flex justify-end gap-2">
+                  <Button
+                    disabled={
+                      (!isDirty && user.googleId === undefined) || isSubmitting
+                    }
+                    variant={"destructive"}
+                    className="w-full max-w-28"
+                  >
+                    {isSubmitting ? (
+                      <Spinner className="size-4 text-white" />
+                    ) : (
+                      "Delete"
+                    )}
+                  </Button>
+                </div>
+              </form>
+            </DialogContent>
+          </>
+        )}
       </Dialog>
 
       <section className="space-y-10">
@@ -159,7 +169,7 @@ export default function PrivacyTab() {
           <div className="w-full rounded-lg border dark:border-main-gray-700">
             <div
               className={cn(
-                "flex items-center justify-between gap-5 px-4 py-8  sm:px-10 md:py-10",
+                "flex items-center justify-between gap-5 px-4 py-8 sm:px-10 md:py-10",
                 {
                   "pointer-events-none opacity-50": loading["2fa"],
                 }
@@ -222,7 +232,7 @@ export default function PrivacyTab() {
           <div className="w-full rounded-lg border dark:border-main-gray-700">
             <div
               className={cn(
-                "flex items-center justify-between gap-5 px-4 py-8  sm:px-10 md:py-10",
+                "flex items-center justify-between gap-5 px-4 py-8 sm:px-10 md:py-10",
                 {
                   "pointer-events-none opacity-50": loading["delete"],
                 }

@@ -16,6 +16,7 @@ export class UserRepository {
         path,
         options
       );
+
       let validation = ServerUserSchema.transform((data) =>
         transformUserToClient(data)
       ).safeParse(data.data);
@@ -118,11 +119,11 @@ export class UserRepository {
 
   updateProfileImage() {}
 
-  async deleteAccount(data: { password: string }, options?: RequestOptions) {
+  async deleteAccount(data: { password?: string }, options?: RequestOptions) {
     const path = `/users/delete-account`;
 
     try {
-      await this.api.delete(path, options);
+      await this.api.patch(path, data, options);
       return true;
     } catch (error: any) {
       let err = handleAPIError(error);
