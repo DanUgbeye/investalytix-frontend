@@ -35,9 +35,11 @@ export const createWatchlistStore: StateCreator<
   },
   removeFromWatchlist(watchlistId) {
     const { watchlist } = get();
-    const found = watchlist.find((watchlist) => (watchlist.id = watchlistId));
+    const found = watchlist.find((watchlist) => watchlist.id == watchlistId);
     set({
-      watchlist: watchlist.filter((watchlist) => watchlist.id !== watchlistId),
+      watchlist: [
+        ...watchlist.filter((watchlist) => watchlist.id !== watchlistId),
+      ],
     });
 
     return found !== undefined;

@@ -10,10 +10,12 @@ import {
   SectorPerformanceHistory,
 } from "../types";
 import {
+  AddToWatchlistSchema,
   MarketOpenSchema,
   SectorPerformanceHistorySchema,
   SectorPerformanceSchema,
 } from "../validation";
+import { Watchlist } from "@/modules/watchlist/types";
 
 export class MarketRepository {
   constructor(private axios: AxiosInstance) {}
