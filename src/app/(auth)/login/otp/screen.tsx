@@ -135,15 +135,15 @@ export default function OTPScreen() {
                       <InputOTPGroup>
                         <InputOTPSlot
                           index={0}
-                          className="mx-1 size-9 rounded-none border border-main-gray-600 sm:mx-2 sm:size-14"
+                          className="mx-1 size-9 rounded-none border border-main-gray-600 font-bold sm:mx-2 sm:size-14 dark:border-main-gray-300"
                         />
                         <InputOTPSlot
                           index={1}
-                          className="mx-1 size-9 rounded-none border border-main-gray-600 sm:mx-2 sm:size-14"
+                          className="mx-1 size-9 rounded-none border border-main-gray-600 font-bold sm:mx-2 sm:size-14 dark:border-main-gray-300"
                         />
                         <InputOTPSlot
                           index={2}
-                          className="mx-1 size-9 rounded-none border border-main-gray-600 sm:mx-2 sm:size-14"
+                          className="mx-1 size-9 rounded-none border border-main-gray-600 font-bold sm:mx-2 sm:size-14 dark:border-main-gray-300"
                         />
                       </InputOTPGroup>
 
@@ -152,15 +152,15 @@ export default function OTPScreen() {
                       <InputOTPGroup>
                         <InputOTPSlot
                           index={3}
-                          className="mx-1 size-9 rounded-none border border-main-gray-600 sm:mx-2 sm:size-14"
+                          className="mx-1 size-9 rounded-none border border-main-gray-600 font-bold sm:mx-2 sm:size-14 dark:border-main-gray-300"
                         />
                         <InputOTPSlot
                           index={4}
-                          className="mx-1 size-9 rounded-none border border-main-gray-600 sm:mx-2 sm:size-14"
+                          className="mx-1 size-9 rounded-none border border-main-gray-600 font-bold sm:mx-2 sm:size-14 dark:border-main-gray-300"
                         />
                         <InputOTPSlot
                           index={5}
-                          className="mx-1 size-9 rounded-none border border-main-gray-600 sm:mx-2 sm:size-14"
+                          className="mx-1 size-9 rounded-none border border-main-gray-600 font-bold sm:mx-2 sm:size-14 dark:border-main-gray-300"
                         />
                       </InputOTPGroup>
                     </InputOTP>
