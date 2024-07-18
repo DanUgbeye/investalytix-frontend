@@ -7,6 +7,7 @@ import Spinner from "@/components/spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PAGES from "@/data/page-map";
+import { LOCALSTORAGE_KEYS } from "@/data/storage-keys";
 import { useAuthRepo } from "@/modules/auth/repository";
 import { LoginData } from "@/modules/auth/types";
 import { useAppStore } from "@/store";
@@ -26,6 +27,7 @@ export default function LoginScreen() {
   const authRepo = useAuthRepo();
   const setAuth = useAppStore(({ setAuth }) => setAuth);
   const searchParams = useSearchParams();
+
   const {
     control,
     formState: { isSubmitting, isDirty },
@@ -47,11 +49,16 @@ export default function LoginScreen() {
   async function onSubmit(data: LoginData) {
     try {
       let res = await authRepo.login(data);
-      setAuth(res);
-      reset();
-      toast.success("Login Successful");
-      const redirect = searchParams.get("redirect");
-      window.location.href = redirect ? redirect : PAGES.HOME;
+      if ("enabled2FA" in res) {
+        localStorage.setItem(LOCALSTORAGE_KEYS.OTP_EMAIL, data.email);
+        window.location.href = `${PAGES.OTP_LOGIN}?${searchParams.toString()}`;
+      } else {
+        setAuth(res);
+        reset();
+        toast.success("Login Successful");
+        const redirect = searchParams.get("redirect");
+        window.location.href = redirect ? redirect : PAGES.HOME;
+      }
     } catch (error: any) {
       toast.error(error.message);
     }

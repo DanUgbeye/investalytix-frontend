@@ -5,6 +5,7 @@ const PAGES = {
   NEWS: "/news",
   MARKETS: "/markets",
   LOGIN: "/login",
+  OTP_LOGIN: "/login/otp",
   SIGNUP: "/signup",
   VERIFY_EMAIL: "/verify-email",
   FORGOT_PASSWORD: "/forgot-password",

@@ -13,14 +13,14 @@ import { NextRequest, NextResponse } from "next/server";
  * user login route
  * @route POST - .../auth/login
  */
-async function Login(req: NextRequest) {
+async function VerifyOTP(req: NextRequest) {
   try {
     let body = await req.json();
 
     // PROXY REQUEST TO BACKEND SERVER
     let res = await serverAPI.post<{
-      data: { user: ServerUserData; auth: AuthData } | { enabled2FA: boolean };
-    }>("/auth/login", body, {
+      data: { user: ServerUserData; auth: AuthData };
+    }>("/auth/verify-otp", body, {
       headers: {
         ...Array.from(req.headers.entries()).reduce(
           (headers, entry) => {
@@ -35,26 +35,22 @@ async function Login(req: NextRequest) {
       withCredentials: true,
     });
 
-    if ("user" in res.data.data) {
-      const {
-        user,
-        auth: { expiresIn, token },
-      } = res.data.data;
+    const {
+      user,
+      auth: { expiresIn, token },
+    } = res.data.data;
 
-      const auth: AuthData = {
-        token: token,
-        expiresIn: expiresIn,
-      };
+    const auth: AuthData = {
+      token: token,
+      expiresIn: expiresIn,
+    };
 
-      // set auth token cookie
-      cookies().set(COOKIE_KEYS.AUTH, JSON.stringify(auth), {
-        secure: true,
-        httpOnly: true,
-        expires: auth.expiresIn,
-      });
-
-      revalidatePath("/", "layout");
-    }
+    // set auth token cookie
+    cookies().set(COOKIE_KEYS.AUTH, JSON.stringify(auth), {
+      secure: true,
+      httpOnly: true,
+      expires: auth.expiresIn,
+    });
 
     const responseHeaders = new Headers();
     let headerValue = res.headers["set-cookie"];
@@ -65,6 +61,8 @@ async function Login(req: NextRequest) {
     } else if (headerValue !== undefined) {
       responseHeaders.append("set-cookie", headerValue);
     }
+
+    revalidatePath("/", "layout");
 
     return NextResponse.json(res.data, {
       status: res.status,
@@ -82,5 +80,4 @@ async function Login(req: NextRequest) {
   }
 }
 
-export { Login as POST };
-
+export { VerifyOTP as POST };

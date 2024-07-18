@@ -33,6 +33,48 @@ export class AuthRepository {
 
     try {
       const res = await this.clientAPI.post<{
+        data:
+          | {
+              auth: AuthData;
+              user: ServerUserData;
+            }
+          | { enabled2FA: boolean };
+      }>(path, data, options);
+
+      const validation = z
+        .union([
+          z.object({
+            auth: AuthSchema,
+            user: ServerUserSchema.transform((user) =>
+              transformUserToClient(user)
+            ),
+          }),
+
+          z.object({
+            enabled2FA: z.boolean(),
+          }),
+        ])
+        .safeParse(res.data.data);
+
+      if (!validation.success) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async verifyOTP(
+    data: { email: string; emailOTP: string },
+    options?: RequestOptions
+  ) {
+    const path = `/auth/verify-otp`;
+
+    try {
+      const res = await this.clientAPI.post<{
         data: {
           auth: AuthData;
           user: ServerUserData;
