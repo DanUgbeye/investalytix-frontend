@@ -10,7 +10,6 @@ import {
   SectorPerformanceHistory,
 } from "../types";
 import {
-  AddToWatchlistSchema,
   MarketOpenSchema,
   SectorPerformanceHistorySchema,
   SectorPerformanceSchema,
