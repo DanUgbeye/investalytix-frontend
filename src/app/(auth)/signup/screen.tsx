@@ -191,7 +191,7 @@ export default function SignupScreen() {
                       className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:!bg-white/10"
                       classNames={{
                         showButton:
-                          "dark:bg-transparent dark:text-white/80 dark:hover:bg-gray-100 dark:hover:text-black ",
+                          "dark:text-main-gray-300 dark:hover:bg-main-gray-700 dark:hover:text-main-gray-300 ",
                       }}
                       placeholder="******"
                     />
