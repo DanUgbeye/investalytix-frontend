@@ -6,6 +6,7 @@ import {
   StockMarketHoliday,
   StockMarketHours,
 } from "../types";
+import { Watchlist } from "@/modules/watchlist/types";
 
 export const SectorPerformanceSchema = z.object({
   sector: z.string(),

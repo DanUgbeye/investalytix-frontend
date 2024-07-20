@@ -14,6 +14,7 @@ import {
   SectorPerformanceHistorySchema,
   SectorPerformanceSchema,
 } from "../validation";
+import { Watchlist } from "@/modules/watchlist/types";
 
 export class MarketRepository {
   constructor(private axios: AxiosInstance) {}

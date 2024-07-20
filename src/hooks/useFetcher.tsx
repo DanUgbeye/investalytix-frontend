@@ -11,10 +11,12 @@ export default function useFetcher<T extends any>(defaultData?: any) {
   async function wrapper(f: F) {
     setLoading(true);
     setError(null);
+    let response;
 
     await f()
       .then((res) => {
         setData(res as T);
+        response = res;
       })
       .catch((err) => {
         setError(err);
@@ -22,6 +24,8 @@ export default function useFetcher<T extends any>(defaultData?: any) {
       .finally(() => {
         setLoading(false);
       });
+
+    return response as T;
   }
 
   return {
