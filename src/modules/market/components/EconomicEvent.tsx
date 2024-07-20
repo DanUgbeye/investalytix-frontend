@@ -130,7 +130,7 @@ export default function EconomicEvent() {
   if (!data) return null;
   return (
     <div>
-      <MarketHeading label="Top Economic Event" />
+      <MarketHeading label="Latest news" />
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {[0, 1].map((index) => (

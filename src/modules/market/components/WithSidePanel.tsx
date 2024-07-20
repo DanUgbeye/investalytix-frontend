@@ -38,7 +38,7 @@ export default function WithSidePanel({
             <SidePanel
               moreUrl="/picks?q=hot picks"
               title="hot picks"
-              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/actives`}
+              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/stocks?quotes=aig,crwd,wrb,appl,tsla,aapl`}
             />
           </Suspense>
         )}
@@ -67,8 +67,8 @@ export default function WithSidePanel({
           <Suspense fallback={<Loader />}>
             <SidePanel
               title="currencies"
-              moreUrl="/picks?q=currencies"
-              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+              moreUrl="/markets/fx"
+              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/forex/america`}
             />
           </Suspense>
         )}
@@ -76,9 +76,9 @@ export default function WithSidePanel({
           sections.includes(SIDE_SECTIONS["CRYPTOCURRENCY"])) && (
           <Suspense fallback={<Loader />}>
             <SidePanel
-              moreUrl="/picks?q=cryptocurrency"
+              moreUrl="/markets/cryptocurrency"
               title="cryptocurrency"
-              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/losers`}
+              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/market/crypto?page=10`}
             />
           </Suspense>
         )}
