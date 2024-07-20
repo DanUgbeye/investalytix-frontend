@@ -3,10 +3,8 @@ import { Container } from "@/components/container";
 import PAGES from "@/data/page-map";
 import { plans } from "@/data/plans";
 import { Disclosure } from "@headlessui/react";
-import Link, { LinkProps } from "next/link";
+import Link from "next/link";
 import { FiCheck, FiChevronDown, FiStar } from "react-icons/fi";
-import { motion } from "framer-motion";
-import { ForwardedRef, forwardRef, HTMLAttributes } from "react";
 
 const testimonials = [
   {
@@ -81,282 +79,77 @@ const faqs = [
   },
 ];
 
-const MotionLink = forwardRef(
-  (
-    { children, ...props }: LinkProps & Record<string, any>,
-    ref: ForwardedRef<HTMLAnchorElement>
-  ) => (
-    <Link ref={ref} {...props}>
-      {children}
-    </Link>
-  )
-);
-
 export default function PricingPage() {
   return (
     <Container>
       <main>
         {/* plans */}
         <section className="py-10 md:py-12 lg:py-16">
-          <motion.h1
-            initial="hidden"
-            whileInView="onscreen"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              onscreen: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.3,
-                },
-              },
-            }}
-            viewport={{ once: true }}
-            className="text-center font-bold"
-          >
-            Pricing plans
-          </motion.h1>
-          <motion.p
-            initial="hidden"
-            whileInView="onscreen"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              onscreen: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.6,
-                },
-              },
-            }}
-            viewport={{ once: true }}
-            className="mt-4 text-center text-3xl font-bold md:text-4xl lg:text-6xl"
-          >
+          <h1 className="text-center font-bold">Pricing plans</h1>
+          <p className="mt-4 text-center text-3xl font-bold md:text-4xl lg:text-6xl">
             Introduce Pricing Plans
-          </motion.p>
-          <motion.p
-            initial="hidden"
-            whileInView="onscreen"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              onscreen: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.9,
-                },
-              },
-            }}
-            viewport={{ once: true }}
-            className="mt-6 text-center font-medium lg:text-lg"
-          >
+          </p>
+          <p className="mt-6 text-center font-medium lg:text-lg">
             Simple, transparent pricing that grows with you. Try any plan free
             for 30 days.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial="hidden"
-            whileInView="onscreen"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              onscreen: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 1.5,
-                },
-              },
-            }}
-            viewport={{ once: true }}
-            className="mx-auto mt-10 grid max-w-6xl gap-8 md:mt-20 md:grid-cols-2"
-          >
+          <div className="mx-auto mt-10 grid max-w-6xl gap-8 md:mt-20 md:grid-cols-2">
             {plans.map((plan) => (
               <Plan key={plan.name} plan={plan} />
             ))}
-          </motion.div>
+          </div>
         </section>
 
         {/* testimony */}
         <section className="py-10 md:py-12 lg:py-16">
-          <motion.h1
-            initial="hidden"
-            whileInView="onscreen"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              onscreen: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.3,
-                },
-              },
-            }}
-            viewport={{ once: true }}
-            className="text-center text-3xl font-bold md:text-4xl lg:text-5xl"
-          >
+          <h1 className="text-center text-3xl font-bold md:text-4xl lg:text-5xl">
             Customer testimonials
-          </motion.h1>
-          <motion.p
-            initial="hidden"
-            whileInView="onscreen"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              onscreen: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.6,
-                },
-              },
-            }}
-            viewport={{ once: true }}
-            className="mt-6 text-center md:text-lg"
-          >
+          </h1>
+          <p className="mt-6 text-center md:text-lg">
             100,000+ happy customers
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial="hidden"
-            whileInView="onscreen"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              onscreen: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.9,
-                },
-              },
-            }}
-            viewport={{ once: true }}
-            className="mt-10 grid gap-8 md:grid-cols-2 lg:mt-20 lg:grid-cols-3"
-          >
+          <div className="mt-10 grid gap-8 md:grid-cols-2 lg:mt-20 lg:grid-cols-3">
             {testimonials.map((testimony, index) => (
               <Testimonial key={index} testimony={testimony} />
             ))}
-          </motion.div>
+          </div>
         </section>
 
         {/* faq and support */}
         <section className="py-10 md:py-12 lg:py-16">
-          <motion.h1
-            initial="hidden"
-            whileInView="onscreen"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              onscreen: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.3,
-                },
-              },
-            }}
-            viewport={{ once: true }}
-            className="text-center text-3xl font-bold md:text-4xl lg:text-5xl"
-          >
+          <h1 className="text-center text-3xl font-bold md:text-4xl lg:text-5xl">
             Frequently asked questions
-          </motion.h1>
-          <motion.p
-            initial="hidden"
-            whileInView="onscreen"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              onscreen: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.6,
-                },
-              },
-            }}
-            viewport={{ once: true }}
-            className="mx-auto mt-6 max-w-3xl text-center md:text-lg"
-          >
+          </h1>
+          <p className="mx-auto mt-6 max-w-3xl text-center md:text-lg">
             Frequently asked questions ordered by popularity. Remember that if
             the visitor has not committed to the call to action, they may still
             have questions (doubts) that can be answered.
-          </motion.p>
+          </p>
 
           {/* faq */}
-          <motion.div
-            initial="hidden"
-            whileInView="onscreen"
-            variants={{
-              hidden: { opacity: 0, y: 50 },
-              onscreen: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.9,
-                },
-              },
-            }}
-            viewport={{ once: true }}
-            className="mx-auto mb-20 mt-10 grid max-w-xl gap-y-1 lg:my-20"
-          >
+          <div className="mx-auto mb-20 mt-10 grid max-w-xl gap-y-1 lg:my-20">
             {faqs.map((faq, index) => (
               <FAQ key={index} faq={faq} />
             ))}
-          </motion.div>
+          </div>
 
           {/* support */}
           <div className="">
-            <motion.h3
-              initial="hidden"
-              whileInView="onscreen"
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                onscreen: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    delay: 0.3,
-                  },
-                },
-              }}
-              viewport={{ once: true }}
-              className="text-center text-3xl font-bold"
-            >
+            <h3 className="text-center text-3xl font-bold">
               Still have questions?
-            </motion.h3>
-            <motion.p
-              initial="hidden"
-              whileInView="onscreen"
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                onscreen: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    delay: 0.6,
-                  },
-                },
-              }}
-              viewport={{ once: true }}
-              className="mt-4 text-center text-lg"
-            >
+            </h3>
+            <p className="mt-4 text-center text-lg">
               Support details to capture customers that might be on the fence.
-            </motion.p>
-            <MotionLink
-              initial="hidden"
-              whileInView="onscreen"
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                onscreen: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    delay: 0.9,
-                  },
-                },
-              }}
-              viewport={{ once: true }}
+            </p>
+
+            <Link
               href={PAGES["CONTACT"]}
               className="mx-auto mt-6 block w-fit border border-black px-6 py-3 dark:border-white"
             >
               Contact us
-            </MotionLink>
+            </Link>
           </div>
         </section>
       </main>

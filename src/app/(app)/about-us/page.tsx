@@ -1,7 +1,6 @@
 "use client";
 
 import { Container } from "@/components/container";
-import { Button } from "@/components/ui/button";
 import { Dialog } from "@headlessui/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -83,36 +82,20 @@ export default function AboutUsPage() {
 
       <Container className="max-w-[1440px]">
         {data.map((about, index) => (
-          <motion.div
+          <div
             key={about.category.replaceAll(" ", "-")}
             className={`mt-24 grid grid-rows-[300px,1fr] items-center gap-10 md:grid-rows-1 md:gap-14 ${index % 2 === 0 ? "md:grid-cols-[3fr,2fr]" : "grid-cols-reverse md:grid-cols-[2fr,3fr]"}`}
           >
-            <motion.div
-              initial="offscreen"
-              whileInView="onscreen"
-              variants={{
-                offscreen: {
-                  opacity: 0,
-                  x: index % 2 === 0 ? -20 : 20,
-                },
-                onscreen: {
-                  opacity: 1,
-                  x: 0,
-                  transition: {
-                    delay: 1,
-                  },
-                },
-              }}
-              viewport={{ once: true }}
+            <div
               className={`h-full rounded-xl bg-gray-200 bg-cover bg-center bg-no-repeat xl:min-h-[400px]`}
               style={{ backgroundImage: `url('${about.img}')` }}
-            ></motion.div>
+            ></div>
             <div className={`${index % 2 === 0 ? "" : "md:-order-1"}`}>
               <h2 className="text-xl font-medium">{about.category}</h2>
               <h3 className="mb-9 mt-4 text-3xl font-bold">{about.title}</h3>
               <p className="lg:text-xl">{about.desc}</p>
             </div>
-          </motion.div>
+          </div>
         ))}
 
         <div className="lg:px-24">
