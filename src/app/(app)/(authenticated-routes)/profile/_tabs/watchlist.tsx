@@ -74,7 +74,7 @@ export default function WatchlistTab() {
       setDeletingWatclistIds((prev) => Array.from([...prev, watchlistId]));
       await watchlistRepo.removeFromWatchlist(watchlistId);
       setWatchlistQuotes((prev) =>
-        prev.filter((wlQuote) => wlQuote.id !== watchlistId)
+        prev.filter((wlQuote) => wlQuote?.id !== watchlistId)
       );
     } catch (error: any) {
       toast.error(error.message);
@@ -126,11 +126,13 @@ export default function WatchlistTab() {
 
                 <TableBody>
                   {watchlistQuotes.map((wlQuote) => {
-                    const isDeleting = deletingWatclistIds.includes(wlQuote.id);
+                    const isDeleting = deletingWatclistIds.includes(
+                      wlQuote?.id || ""
+                    );
 
                     return (
                       <TableRow
-                        key={wlQuote.symbol}
+                        key={wlQuote?.symbol}
                         className={cn({
                           "pointer-events-none opacity-50": isDeleting,
                         })}
@@ -142,55 +144,55 @@ export default function WatchlistTab() {
                                 crossOrigin="anonymous"
                                 className="rounded-full"
                                 src={tickerUtils.getTickerLogoUrl(
-                                  wlQuote.symbol
+                                  wlQuote?.symbol
                                 )}
                               />
 
                               <AvatarFallback className="truncate bg-transparent p-2">
-                                {wlQuote.symbol.slice(0, 4)}
+                                {wlQuote?.symbol.slice(0, 4)}
                               </AvatarFallback>
                             </Avatar>
 
                             <div className="flex flex-col space-y-1">
                               <Link
                                 href={getTickerStockDescriptionRoute(
-                                  wlQuote.symbol
+                                  wlQuote?.symbol
                                 )}
                                 className="w-fit text-base font-semibold text-[#125BD4] underline-offset-2 hover:underline"
                               >
-                                {wlQuote.symbol}
+                                {wlQuote?.symbol}
                               </Link>
 
                               <span className="text-sm font-semibold">
-                                {wlQuote.name}
+                                {wlQuote?.name}
                               </span>
                             </div>
                           </div>
                         </TableCell>
 
                         <TableCell className="">
-                          {wlQuote.quote?.exchange}
+                          {wlQuote?.quote?.exchange}
                         </TableCell>
 
                         <TableCell className="text-left">
-                          {wlQuote.sector}
+                          {wlQuote?.sector}
                         </TableCell>
 
                         <TableCell className="">
-                          {wlQuote.quote.price}
+                          {wlQuote?.quote?.price}
                         </TableCell>
 
                         <TableCell className="">
                           <ColoredText
                             isPositive={() => {
-                              if (!wlQuote.quote.change) return undefined;
-                              if (wlQuote.quote.change > 0) return true;
-                              if (wlQuote.quote.change < 0) return false;
+                              if (!wlQuote?.quote.change) return undefined;
+                              if (wlQuote?.quote.change > 0) return true;
+                              if (wlQuote?.quote.change < 0) return false;
                               return undefined;
                             }}
                           >
-                            {wlQuote.quote.change
-                              ? `${wlQuote.quote.change}`
+                            {wlQuote?.quote.change
+                              ? `${wlQuote?.quote.change}`
                               : "-"}
                           </ColoredText>
                         </TableCell>
@@ -198,23 +200,23 @@ export default function WatchlistTab() {
                         <TableCell className="">
                           <ColoredText
                             isPositive={() => {
-                              if (!wlQuote.quote.changesPercentage)
+                              if (!wlQuote?.quote.changesPercentage)
                                 return undefined;
-                              if (wlQuote.quote.changesPercentage > 0)
+                              if (wlQuote?.quote.changesPercentage > 0)
                                 return true;
-                              if (wlQuote.quote.changesPercentage < 0)
+                              if (wlQuote?.quote.changesPercentage < 0)
                                 return false;
                               return undefined;
                             }}
                           >
-                            {wlQuote.quote.changesPercentage
-                              ? `${wlQuote.quote.changesPercentage}%`
+                            {wlQuote?.quote.changesPercentage
+                              ? `${wlQuote?.quote.changesPercentage}%`
                               : "-"}
                           </ColoredText>
                         </TableCell>
 
                         <TableCell className="text-right">
-                          {appUtils.formatNumber(wlQuote.quote.marketCap, {
+                          {appUtils.formatNumber(wlQuote?.quote.marketCap, {
                             style: "decimal",
                             notation: "compact",
                           })}
@@ -224,7 +226,7 @@ export default function WatchlistTab() {
                           <Button
                             variant={"ghost"}
                             className="hover:bg-red-600 hover:text-white dark:hover:bg-red-600"
-                            onClick={() => handleDeleteWatchlist(wlQuote.id)}
+                            onClick={() => handleDeleteWatchlist(wlQuote?.id)}
                           >
                             {isDeleting ? (
                               <Spinner className="size-4 text-inherit" />
