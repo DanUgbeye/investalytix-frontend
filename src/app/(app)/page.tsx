@@ -4,7 +4,6 @@ import { Container } from "@/components/container";
 import useInput from "@/hooks/useInput";
 import LatestNews from "@/modules/homepage/components/LatestNews";
 import LoadingNews from "@/modules/homepage/components/LoadingNews";
-import MarketMovers from "@/modules/market/components/PreMarket/US/MarketMovers";
 import WithSidePanel, {
   SIDE_SECTIONS,
 } from "@/modules/market/components/WithSidePanel";

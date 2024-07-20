@@ -2,16 +2,13 @@ import Quotes from "@/modules/market/components/Quotes";
 import MarketHeading from "../../MarketHeading";
 import Bonds from "../../Bonds";
 import Currencies from "../../Currencies";
+import StockIndexes from "../../StockIndexes";
 
 export default function Americas() {
   return (
     <section>
       {/* STOCK INDEXES */}
-      <section className="">
-        <MarketHeading label="STOCK INDEXES" />
-
-        <Quotes />
-      </section>
+      <StockIndexes />
 
       {/* CURRENCIES */}
       <Currencies className="mt-11" />

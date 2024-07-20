@@ -1,5 +1,5 @@
+import MarketMovers from "../../MarketMovers";
 import Dow30 from "./Dow30";
-import MarketMovers from "./MarketMovers";
 import NASDAQ100 from "./NASDAQ100";
 import Overview from "./Overview";
 import Sectors from "./Sectors";

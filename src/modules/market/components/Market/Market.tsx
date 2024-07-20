@@ -7,7 +7,7 @@ import Quotes from "../Quotes";
 import { EuropeanMarket } from "./EuropeanMarket";
 import { AsianMarket } from "./AsianMarket";
 import { AmericansMarket } from "./AmericansMarket";
-import MarketMovers from "./MarketMovers";
+import MarketMovers from "../MarketMovers";
 import {
   Table,
   TableBody,

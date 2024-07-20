@@ -17,8 +17,8 @@ export const plans = [
     popular: true,
     name: "Premium plan",
     desc: "Billed Per Month or Annually",
-    monthly: 29,
-    yearly: 299,
+    monthly: 59.95,
+    yearly: (59.95 * 12).toPrecision(3),
     features: [
       "All Free Features, Plus:",
       "Full Access to Comprehensive Stock Dashboard",

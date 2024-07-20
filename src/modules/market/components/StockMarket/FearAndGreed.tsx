@@ -160,9 +160,9 @@ export default function FearAndGreed() {
           )}
         </p>
       </div>
-      <Link href="" className="text-main-blue-base dark:text-main-blue-light">
+      {/* <Link href="" className="text-main-blue-base dark:text-main-blue-light">
         Learn more about the index.
-      </Link>
+      </Link> */}
 
       <div className="mt-2 grid grid-cols-2">
         <div className="h-80 overflow-auto">

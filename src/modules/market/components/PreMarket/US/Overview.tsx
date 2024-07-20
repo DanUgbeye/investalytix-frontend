@@ -3,6 +3,7 @@ import Quotes from "@/modules/market/components/Quotes";
 import MarketHeading from "../../MarketHeading";
 import Commodities from "../../Commodities";
 import Currencies from "../../Currencies";
+import StockIndexes from "../../StockIndexes";
 
 export default function Overview() {
   return (
@@ -14,11 +15,12 @@ export default function Overview() {
       </section> */}
 
       {/* STOCK INDEXES */}
-      <section className="">
+      {/* <section className="">
         <MarketHeading label="STOCK INDEXES" />
 
         <Quotes />
-      </section>
+      </section> */}
+      <StockIndexes />
 
       {/* COMMODITIES */}
       <Commodities />

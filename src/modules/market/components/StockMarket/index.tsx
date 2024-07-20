@@ -5,18 +5,13 @@ import MarketHeading from "../MarketHeading";
 import Commodities from "../Commodities";
 import Currencies from "../Currencies";
 import Treasurys from "../Treasurys";
+import StockIndexes from "../StockIndexes";
 
 export default function StockMarket() {
   return (
     <div className="">
-      <Quotes />
-
       {/*  STOCK INDEXES */}
-      <section className="mt-8">
-        <MarketHeading label="STOCK INDEXES" />
-
-        <Quotes />
-      </section>
+      <StockIndexes className="mt-8" />
 
       {/* TODO: FEAR & GREED INDEX */}
       <section className="mt-8">

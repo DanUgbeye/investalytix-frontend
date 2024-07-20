@@ -5,7 +5,6 @@ import { Dialog } from "@headlessui/react";
 import Link from "next/link";
 import { useState } from "react";
 import { FiX } from "react-icons/fi";
-import { motion } from "framer-motion";
 
 export default function AboutUsPage() {
   const data = [
@@ -38,46 +37,13 @@ export default function AboutUsPage() {
   return (
     <main className="pb-12">
       <header className="bg-black/5 px-10 py-24 text-center dark:bg-white/5">
-        <motion.h1
-          initial="hidden"
-          whileInView="onscreen"
-          variants={{
-            hidden: { opacity: 0, scale: 0.8 },
-            onscreen: {
-              opacity: 1,
-              scale: 1,
-
-              transition: {
-                type: "spring",
-                duration: 1,
-                delay: 0.5,
-              },
-            },
-          }}
-          viewport={{ once: true }}
-          className="text-center text-5xl font-bold md:text-8xl lg:text-9xl"
-        >
+        <h1 className="text-center text-5xl font-bold md:text-8xl lg:text-9xl">
           About investalytix
-        </motion.h1>
-        <motion.p
-          initial="hidden"
-          whileInView="onscreen"
-          variants={{
-            hidden: { opacity: 0, y: 50 },
-            onscreen: {
-              opacity: 1,
-              y: 0,
-              transition: {
-                delay: 1,
-              },
-            },
-          }}
-          viewport={{ once: true }}
-          className="mx-auto mt-10 max-w-xl text-lg md:text-xl"
-        >
+        </h1>
+        <p className="mx-auto mt-10 max-w-xl text-lg md:text-xl">
           Welcome to investalytix, the hub of cutting-edge financial expertise
           and technological innovation in investment analysis.
-        </motion.p>
+        </p>
       </header>
 
       <Container className="max-w-[1440px]">
