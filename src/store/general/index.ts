@@ -10,7 +10,9 @@ export type GeneralStore = {
 
   // LOGIN MODAL
   loginModalOpen: boolean;
+  loginModalLocked: boolean;
   toggleLoginModal(state?: boolean): void;
+  toggleLoginModalLock(state?: boolean): void;
 
   // THEME
   theme: Theme;
@@ -50,9 +52,18 @@ export const createGeneralStore: StateCreator<
 
   // LOGIN MODAL
   loginModalOpen: false,
+  loginModalLocked: false,
   toggleLoginModal(state) {
+    const { loginModalLocked } = get();
+
+    if (loginModalLocked) return;
+
     const newState = state !== undefined ? state : !get().loginModalOpen;
     set({ loginModalOpen: newState });
+  },
+  toggleLoginModalLock(state) {
+    const newState = state !== undefined ? state : !get().loginModalLocked;
+    set({ loginModalLocked: newState });
   },
 
   // THEME

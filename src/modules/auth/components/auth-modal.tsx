@@ -15,17 +15,15 @@ import { FcGoogle } from "react-icons/fc";
 
 export default function AuthModal() {
   const loginModalOpen = useAppStore(({ loginModalOpen }) => loginModalOpen);
-  const { toggleLoginModal } = useAppStore();
+  const { toggleLoginModal, toggleLoginModalLock } = useAppStore();
 
   function handleClose() {
-    // TODO check if max page visits reached
-
-    // if not
+    toggleLoginModalLock(false);
     toggleLoginModal();
   }
 
   return (
-    <Dialog open={loginModalOpen} onOpenChange={handleClose}>
+    <Dialog open={loginModalOpen} onOpenChange={toggleLoginModal}>
       <Container>
         <DialogContent
           hideCloseBtn
@@ -77,7 +75,7 @@ export default function AuthModal() {
                 Already have an account?{" "}
                 <Link
                   href={PAGES.LOGIN}
-                  className="font-bold underline-offset-4 hover:underline"
+                  className="font-bold text-primary-base underline-offset-4 hover:underline"
                   onClick={handleClose}
                 >
                   Sign in

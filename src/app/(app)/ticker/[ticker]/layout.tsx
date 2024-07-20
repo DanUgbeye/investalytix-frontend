@@ -9,6 +9,7 @@ import { PropsWithChildren } from "react";
 import ErrorScreen from "./error-screen";
 import TickerLayout from "./ticker-layout";
 import QuotesBoard from "@/components/ui/QuotesBoard";
+import PersistentLogin from "@/components/layout/persistent-login";
 
 async function getTickerData(
   ticker: string
@@ -62,7 +63,7 @@ export default async function Layout(props: TickerLayoutProps) {
       <QuotesBoard />
 
       <TickerLayout ticker={ticker} {...data}>
-        {children}
+        <PersistentLogin>{children}</PersistentLogin>
       </TickerLayout>
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { StoreInitialState } from "@/store";
-import ClientAuthProvider from "@/store/auth/provider";
+import AuthProvider from "@/store/auth/provider";
 import SocketServiceProvider from "@/store/socket/provider";
 import ThemeProvider from "@/store/theme/provider";
 import WatchlistProvider from "@/store/watchlist/provider";
@@ -18,11 +18,11 @@ export default function ClientProviders({ children, initialState }: Props) {
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
-        <ClientAuthProvider initialState={initialState}>
+        <AuthProvider initialState={initialState}>
           <SocketServiceProvider>
             <WatchlistProvider>{children}</WatchlistProvider>
           </SocketServiceProvider>
-        </ClientAuthProvider>
+        </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

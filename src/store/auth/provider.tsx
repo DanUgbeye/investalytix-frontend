@@ -12,7 +12,7 @@ import { createAPIInstance } from "@/utils/api-utils";
 import { useQuery } from "@tanstack/react-query";
 import { PropsWithChildren, useEffect, useMemo } from "react";
 
-export default function ClientAuthProvider(
+export default function AuthProvider(
   props: PropsWithChildren & { initialState: StoreInitialState }
 ) {
   const { children, initialState } = props;
