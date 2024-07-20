@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
 import appUtils from "@/utils/app-util";
+import { dateUtils } from "@/utils/date.utils";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import {
@@ -80,7 +81,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   tickLine={false}
                   dataKey={"date"}
                   tickFormatter={(value) => {
-                    const { quarter, year } = appUtils.getYearAndQuarter(
+                    const { quarter, year } = dateUtils.getYearAndQuarter(
                       value || new Date()
                     );
                     return `${quarter} '${year}`;
@@ -105,7 +106,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   }}
                   content={(props) => {
                     const { payload, label } = props;
-                    const { quarter, year } = appUtils.getYearAndQuarter(
+                    const { quarter, year } = dateUtils.getYearAndQuarter(
                       label || new Date()
                     );
 
@@ -244,7 +245,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                         )
                         .slice(0, showAll === "EPS" ? -1 : 10)
                         .map((earning, index) => {
-                          const { quarter, year } = appUtils.getYearAndQuarter(
+                          const { quarter, year } = dateUtils.getYearAndQuarter(
                             earning.date
                           );
 
@@ -392,7 +393,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   tickLine={false}
                   dataKey={"date"}
                   tickFormatter={(value) => {
-                    const { quarter, year } = appUtils.getYearAndQuarter(
+                    const { quarter, year } = dateUtils.getYearAndQuarter(
                       value || new Date()
                     );
                     return `${quarter} '${year}`;
@@ -418,7 +419,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   }}
                   content={(props) => {
                     const { payload, label } = props;
-                    const { quarter, year } = appUtils.getYearAndQuarter(
+                    const { quarter, year } = dateUtils.getYearAndQuarter(
                       label || new Date()
                     );
 
@@ -563,7 +564,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                         )
                         .slice(0, showAll === "Revenue" ? -1 : 10)
                         .map((earning, index) => {
-                          const { quarter, year } = appUtils.getYearAndQuarter(
+                          const { quarter, year } = dateUtils.getYearAndQuarter(
                             earning.date
                           );
 

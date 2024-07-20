@@ -1,6 +1,6 @@
 "use client";
 
-import appUtils from "@/utils/app-util";
+import { dateUtils } from "@/utils/date.utils";
 import { format } from "date-fns";
 import { useMemo } from "react";
 import {
@@ -111,7 +111,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
     let lastQuarterEnd = "-";
     if (outlook.financialsQuarter.income.length > 0) {
       const quarterDate = new Date(outlook.financialsQuarter.income[0].date);
-      const { quarter, year } = appUtils.getYearAndQuarter(quarterDate);
+      const { quarter, year } = dateUtils.getYearAndQuarter(quarterDate);
 
       lastQuarterEnd = `${format(quarterDate, "MM/yyyy")} ${quarter}`;
     }
