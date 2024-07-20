@@ -9,9 +9,51 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { clientAPI } from "@/config/client/api";
+import { QUERY_KEYS } from "@/data/query-keys";
+import useExecuteOnce from "@/hooks/use-execute-once";
+import { SubscriptionRepository } from "@/modules/subscription/repository";
+import { useAppStore } from "@/store";
+import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
+import { useMemo } from "react";
 
 export default function SubscriptionsTab() {
+  const user = useAppStore(({ user }) => user);
+  const { executeOnce, reset } = useExecuteOnce();
+  const subscriptionRepo = useMemo(
+    () => new SubscriptionRepository(clientAPI),
+    []
+  );
+
+  // const {
+  //   data: userSubscription,
+  //   isLoading: userSubscriptionLoading,
+  //   error: userSubscriptionError,
+  // } = useQuery({
+  //   enabled: user !== undefined,
+  //   queryKey: [QUERY_KEYS.GET_USER_SUBSCRIPTION, user?.id],
+  //   queryFn: ({ signal }) =>
+  //     subscriptionRepo.getUserSubscription({
+  //       signal,
+  //     }),
+
+  //   // refetchInterval: false,
+  // });
+
+  // const {
+  //   data: transactionsHistory,
+  //   isLoading: transactionsHistoryLoading,
+  //   error: transactionsHistoryError,
+  // } = useQuery({
+  //   enabled: user !== undefined,
+  //   queryKey: [QUERY_KEYS.GET_USER_TRANSACTIONS, user?.id],
+  //   queryFn: ({ signal }) =>
+  //     subscriptionRepo.getUserTransactiontionHistory({
+  //       signal,
+  //     }),
+  //   // refetchInterval: false,
+  // });
 
   return (
     <div className="flex w-full max-w-7xl flex-col gap-2">
