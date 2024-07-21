@@ -16,6 +16,7 @@ import {
   Suspense,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -33,11 +34,17 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { motion } from "framer-motion";
+import { SubscriptionRepository } from "@/modules/subscription/repository";
+import { clientAPI } from "@/config/client/api";
 
 export default function Home() {
   const [pricingFrequency, setPricingFrequency] = useState<
-    "monthly" | "annualy"
+    "monthly" | "annually"
   >("monthly");
+  const subscriptionRepo = useMemo(
+    () => new SubscriptionRepository(clientAPI),
+    []
+  );
   const [query, queryOpts] = useInput("");
   const router = useRouter();
   gsap.registerPlugin(ScrollTrigger);
@@ -46,9 +53,9 @@ export default function Home() {
     setPricingFrequency(value);
   }
 
-  function submitHandler(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    router.push(`/ticker/${query}`);
+  async function handlePricingClick() {
+    try {
+    } catch (error: any) {}
   }
 
   return (
@@ -181,8 +188,8 @@ export default function Home() {
           </button>
           <button
             type="button"
-            onClick={() => updatePricingFrequency("annualy")}
-            className={`rounded-full px-7 py-3 font-medium ${pricingFrequency === "annualy" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white"}`}
+            onClick={() => updatePricingFrequency("annually")}
+            className={`rounded-full px-7 py-3 font-medium ${pricingFrequency === "annually" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white"}`}
           >
             Annualy
           </button>
@@ -260,7 +267,7 @@ function Plan({
   frequency,
 }: {
   plan: (typeof plans)[number];
-  frequency: "monthly" | "annualy";
+  frequency: "monthly" | "annually";
 }) {
   return (
     <div
@@ -341,7 +348,7 @@ function Products() {
     {
       img: "/images/news mockup.png",
       header: "News",
-      desc: "Stay informed with the latest market news and stock insights",
+      desc: "Stay informed with the latest market news and stock insights through investalytix original articles.",
     },
     {
       img: "/images/calendar mockup.png",
@@ -356,7 +363,7 @@ function Products() {
     {
       img: "/images/news mockup.png",
       header: "News",
-      desc: "Stay informed with the latest market news and stock insights",
+      desc: "Stay informed with the latest market news and stock insights through investalytix original articles.",
     },
   ];
   return (

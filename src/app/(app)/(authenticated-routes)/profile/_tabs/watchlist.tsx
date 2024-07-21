@@ -44,14 +44,13 @@ export default function WatchlistTab() {
 
   const { data, isLoading, error } = useQuery({
     enabled: user !== undefined,
-    queryKey: [QUERY_KEYS.GET_WATCHLIST, user?.id],
-    queryFn: ({ signal }) => {
-      return watchlistRepo
+    queryKey: [QUERY_KEYS.GET_SAVED_WATCHLIST_QUOTES, user?.id],
+    queryFn: ({ signal }) =>
+      watchlistRepo
         .getUserWatchlist({
           signal,
         })
         .then(async (savedWatchlists) => {
-          setWatchlist(savedWatchlists);
           const quotes = await Promise.all(
             savedWatchlists.map((wl) =>
               tickerRepo
@@ -59,9 +58,9 @@ export default function WatchlistTab() {
                 .then((quote) => ({ ...wl, quote }))
             )
           );
+
           return quotes;
-        });
-    },
+        }),
     // refetchInterval: false,
   });
 
