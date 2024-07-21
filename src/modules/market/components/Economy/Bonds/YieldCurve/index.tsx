@@ -26,7 +26,7 @@ type GDP = { date: string; value: number };
 
 async function getData() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/economy/inflation`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/economy/YieldsCertificates`
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -43,7 +43,7 @@ async function getData() {
   }>;
 }
 
-export default function InflationRate() {
+export default function YieldCurve() {
   const { wrapper, loading, data } = useFetcher<{
     message: String;
     status: number;
@@ -56,7 +56,7 @@ export default function InflationRate() {
 
   return (
     <div className="grid gap-5 lg:grid-cols-[300px,1fr]">
-      <Panels active={{ parent: "main indicators", child: "Inflation Rate" }} />
+      <Panels active={{ parent: "bonds", child: "Yield Curve" }} />
       <div className="">
         <motion.div
           initial="rest"
@@ -142,16 +142,6 @@ export default function InflationRate() {
                 </TableBody>
               </Table>
             </div>
-
-            <p className="mt-14 border border-[#DDDDDD] px-5 py-6">
-              This page displays a table with actual values, consensus figures,
-              forecasts, statistics and historical data charts for - Inflation
-              Rate. This page provides values for Inflation Rate reported in
-              several countries. The table has current values for Inflation
-              Rate, previous releases, historical highs and record lows, release
-              frequency, reported unit and currency plus links to historical
-              data charts.
-            </p>
           </>
         )}
       </div>

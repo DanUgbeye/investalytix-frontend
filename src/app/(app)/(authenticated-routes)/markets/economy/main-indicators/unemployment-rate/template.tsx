@@ -9,34 +9,34 @@ export default function GDPGrowthRateByCountryTemplate({
   children: React.ReactNode;
 }>) {
   const markets = [
-    {
-      label: "WORLD",
-      href: "/markets/economy/main-indicators/unemployment-rate",
-    },
-    {
-      label: "EUROPE",
-      href: "/markets/economy/main-indicators/unemployment-rate/europe",
-    },
+    // {
+    //   label: "WORLD",
+    //   href: "/markets/economy/main-indicators/unemployment-rate",
+    // },
+    // {
+    //   label: "EUROPE",
+    //   href: "/markets/economy/main-indicators/unemployment-rate/europe",
+    // },
     {
       label: "AMERICA",
       href: "/markets/economy/main-indicators/unemployment-rate/america",
     },
-    {
-      label: "ASIA",
-      href: "/markets/economy/main-indicators/unemployment-rate/asia",
-    },
-    {
-      label: "AFRICA",
-      href: "/markets/economy/main-indicators/unemployment-rate/africa",
-    },
-    {
-      label: "AUSTRALIA",
-      href: "/markets/economy/main-indicators/unemployment-rate/australia",
-    },
-    {
-      label: "G20",
-      href: "/markets/economy/main-indicators/unemployment-rate/g20",
-    },
+    // {
+    //   label: "ASIA",
+    //   href: "/markets/economy/main-indicators/unemployment-rate/asia",
+    // },
+    // {
+    //   label: "AFRICA",
+    //   href: "/markets/economy/main-indicators/unemployment-rate/africa",
+    // },
+    // {
+    //   label: "AUSTRALIA",
+    //   href: "/markets/economy/main-indicators/unemployment-rate/australia",
+    // },
+    // {
+    //   label: "G20",
+    //   href: "/markets/economy/main-indicators/unemployment-rate/g20",
+    // },
   ];
   const pathname = usePathname();
   return (

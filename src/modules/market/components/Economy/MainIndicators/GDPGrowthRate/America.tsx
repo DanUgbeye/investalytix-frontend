@@ -1,5 +1,4 @@
-import Image from "next/image";
-import PerformanceTable from "../../PerformanceTable";
+"use client";
 import Panels from "../../Panels";
 import {
   Table,
@@ -10,6 +9,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import moment from "moment";
+import {
+  Area,
+  AreaChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import useFetcher from "@/hooks/useFetcher";
+import { useEffect } from "react";
+import Spinner from "@/components/spinner";
+import { motion } from "framer-motion";
 
 type GDP = { date: string; value: number };
 
@@ -32,50 +43,118 @@ async function getData() {
   }>;
 }
 
-export default async function America() {
-  const data = await getData();
+export default function America() {
+  const { wrapper, loading, data } = useFetcher<{
+    message: String;
+    status: number;
+    data: GDP[];
+  }>();
+
+  useEffect(() => {
+    wrapper(getData);
+  }, []);
+
   return (
     <div className="grid gap-5 lg:grid-cols-[300px,1fr]">
-      <Panels open="main indicators" />
+      <Panels
+        active={{ parent: "main indicators", child: "GDP Growth Rate" }}
+      />
       <div className="">
-        <div className="relative mb-12 h-36 overflow-hidden lg:h-96">
-          <Image src="/images/map1.png" fill alt="" className="object-cover" />
-        </div>
+        <motion.div
+          initial="rest"
+          animate={loading ? "show" : "hide"}
+          variants={{
+            rest: {
+              top: -50,
+              opacity: 0,
+            },
+            show: {
+              opacity: 1,
+              y: 0,
+            },
+            hide: {
+              opacity: 0,
+              y: -50,
+            },
+          }}
+          className="flex items-center justify-center"
+        >
+          <Spinner />
+        </motion.div>
 
-        <div className="w-full overflow-auto">
-          <Table>
-            <TableHeader>
-              <TableRow headerRow>
-                <TableHead className="!py-2 !text-sm capitalize">
-                  Reference
-                </TableHead>
-                <TableHead className="!py-2 !text-sm capitalize">
-                  Value
-                </TableHead>
-              </TableRow>
-            </TableHeader>
+        {data?.data && (
+          <>
+            <div className="mb-12 w-full">
+              <ResponsiveContainer
+                className={"h-36 w-full lg:h-96"}
+                height={400}
+              >
+                <AreaChart
+                  data={data.data}
+                  margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                >
+                  <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#FFAF5F" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#FFAF5F" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="date" />
+                  <YAxis dataKey={"value"} />
+                  <Tooltip />
 
-            <TableBody>
-              {data.data.map((entry) => (
-                <TableRow className="" key={entry.date}>
-                  <TableCell className="py-2 text-sm">
-                    {moment(entry.date).format("MMM/YYYY")}
-                  </TableCell>
-                  <TableCell className="py-2 text-sm">{entry.value}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+                  <Area
+                    type="monotone"
+                    dataKey="value"
+                    stroke="#FFAF5F"
+                    fillOpacity={1}
+                    fill="url(#colorUv)"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
 
-        <p className="mt-14 border border-[#DDDDDD] px-5 py-6">
-          This page displays a table with GDP Growth Rate for a list of
-          countries . This page provides values for GDP Growth Rate reported in
-          several countries. The table has current values for GDP Growth Rate,
-          previous releases, historical highs and record lows, release
-          frequency, reported unit and currency plus links to historical data
-          charts.
-        </p>
+            <div className="w-full overflow-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow headerRow>
+                    <TableHead className="!py-2 !text-sm capitalize">
+                      Reference
+                    </TableHead>
+                    <TableHead className="!py-2 !text-sm capitalize">
+                      Value
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+
+                <TableBody>
+                  {data.data.map((entry, index) => (
+                    <TableRow
+                      className=""
+                      key={entry.date + entry.value + index}
+                    >
+                      <TableCell className="py-2 text-sm">
+                        {moment(entry.date).format("MMM/YYYY")}
+                      </TableCell>
+                      <TableCell className="py-2 text-sm">
+                        {entry.value}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            <p className="mt-14 border border-[#DDDDDD] px-5 py-6">
+              This page displays a table with GDP Growth Rate for a list of
+              countries . This page provides values for GDP Growth Rate reported
+              in several countries. The table has current values for GDP Growth
+              Rate, previous releases, historical highs and record lows, release
+              frequency, reported unit and currency plus links to historical
+              data charts.
+            </p>
+          </>
+        )}
       </div>
     </div>
   );
