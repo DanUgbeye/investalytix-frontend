@@ -13,6 +13,7 @@ import {
 import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
 import appUtils from "@/utils/app-util";
+import { dateUtils } from "@/utils/date.utils";
 import { format } from "date-fns";
 import { Minus, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -145,7 +146,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                 dataKey={"date"}
                 className="text-xs"
                 tickFormatter={(value) => {
-                  const { quarter, year } = appUtils.getYearAndQuarter(
+                  const { quarter, year } = dateUtils.getYearAndQuarter(
                     value || new Date()
                   );
                   return `${quarter} '${year}`;

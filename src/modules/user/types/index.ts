@@ -1,3 +1,5 @@
+import { SubscriptionPlanName } from "@/modules/subscription/types";
+
 export type ServerUserData = {
   _id: string;
   googleId?: string;
@@ -6,6 +8,7 @@ export type ServerUserData = {
   lastname: string;
   emailVerified: boolean;
   enabled2FA: boolean;
+  plan: SubscriptionPlanName;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -18,6 +21,7 @@ export type UserData = {
   lastname: string;
   emailVerified: boolean;
   enabled2FA: boolean;
+  plan: SubscriptionPlanName;
   createdAt: Date;
   updatedAt: Date;
 };
