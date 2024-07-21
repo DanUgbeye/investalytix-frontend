@@ -14,7 +14,7 @@ export default function Americas() {
       <Currencies className="mt-11" />
 
       {/* BONDS & RATES */}
-      <Bonds className="mt-11" />
+      <Bonds className="mt-11" overview />
     </section>
   );
 }

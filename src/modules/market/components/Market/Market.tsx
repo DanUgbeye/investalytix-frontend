@@ -16,6 +16,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import ChartSummary from "@/app/(app)/ticker/[ticker]/stock-description/chart-summary";
+import Bonds from "../Bonds";
+import Currencies from "../Currencies";
 
 const quotes = [
   {
@@ -175,7 +178,8 @@ export default function Market() {
       </h2>
 
       <div className="mb-20 grid gap-5">
-        <div className="">
+        <ChartSummary ticker="AAPL" />
+        {/* <div className="">
           <div className="flex w-fit items-center justify-between md:gap-4">
             {timeframes.map((tf) => (
               <button
@@ -193,7 +197,7 @@ export default function Market() {
           <div className="h-80 overflow-auto">
             <Chart />
           </div>
-        </div>
+        </div> */}
 
         <div className="div w-full">
           <Quotes />
@@ -211,28 +215,30 @@ export default function Market() {
 
         <div className="grid gap-x-20 gap-y-5 md:grid-cols-2">
           {/* bonds */}
-          <section>
+          <Bonds/>
+          {/* <section>
             <h2 className="white-text mb-6 text-2xl font-bold capitalize">
               bonds
             </h2>
             <YieldTable />
-          </section>
+          </section> */}
 
           {/* FUTURES & COMMODITIES */}
-          <section>
+          {/* <section>
             <h2 className="white-text mb-6 text-2xl font-bold capitalize">
               futures & commodities
             </h2>
             <Quotes />
-          </section>
+          </section> */}
+          <Currencies/>
 
           {/* CURRENCIES */}
-          <section className="md:col-span-2">
+          {/* <section className="md:col-span-2">
             <h2 className="white-text mb-6 text-2xl font-bold capitalize">
               currencies
             </h2>
             <Quotes />
-          </section>
+          </section> */}
         </div>
       </section>
 

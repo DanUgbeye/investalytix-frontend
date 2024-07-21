@@ -4,7 +4,7 @@ import { Quote } from "@/types";
 
 async function getData() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/movers/NYSE`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/index/dow-jones/constituents`
   );
 
   if (!res.ok) {
@@ -24,14 +24,8 @@ export default async function Dow30() {
   return (
     <section>
       <MarketSectionHeader label="DOW 30" id="dow-30" />
-      <div className="mt-11"></div>
-
-      {/* <header className="mb-5">
-        <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-          DOW 30 CHART
-        </h2>
-      </header> */}
       <Quotes
+        quotes={data.data}
         fields={[
           {
             label: "Symbol",

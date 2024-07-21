@@ -1,17 +1,71 @@
 import Image from "next/image";
 import PerformanceTable from "../../PerformanceTable";
-import Panels from "../../Panel";
+import Panels from "../../Panels";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import moment from "moment";
 
-export default function America() {
+type GDP = { date: string; value: number };
+
+async function getData() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/economy/gdp`
+  );
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json() as Promise<{
+    message: String;
+    status: number;
+    data: GDP[];
+  }>;
+}
+
+export default async function America() {
+  const data = await getData();
   return (
-    <div className="grid gap-5 lg:grid-cols-[1fr,300px]">
+    <div className="grid gap-5 lg:grid-cols-[300px,1fr]">
+      <Panels open="main indicators" />
       <div className="">
         <div className="relative mb-12 h-36 overflow-hidden lg:h-96">
           <Image src="/images/map1.png" fill alt="" className="object-cover" />
         </div>
 
-        <div className="">
-          <PerformanceTable />
+        <div className="w-full overflow-auto">
+          <Table>
+            <TableHeader>
+              <TableRow headerRow>
+                <TableHead className="!py-2 !text-sm capitalize">
+                  Reference
+                </TableHead>
+                <TableHead className="!py-2 !text-sm capitalize">
+                  Value
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {data.data.map((entry) => (
+                <TableRow className="" key={entry.date}>
+                  <TableCell className="py-2 text-sm">
+                    {moment(entry.date).format("MMM/YYYY")}
+                  </TableCell>
+                  <TableCell className="py-2 text-sm">{entry.value}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
 
         <p className="mt-14 border border-[#DDDDDD] px-5 py-6">
@@ -22,21 +76,6 @@ export default function America() {
           frequency, reported unit and currency plus links to historical data
           charts.
         </p>
-      </div>
-      <div className="flex flex-col gap-1">
-        <Panels heading={"Prices"} defaultOpen />
-        <Panels heading={"Markets"} />
-        <Panels heading={"Labour"} />
-        <Panels heading={"GDP"} />
-        <Panels heading={"Health"} />
-        <Panels heading={"Money"} />
-        <Panels heading={"Trade"} />
-        <Panels heading={"Government"} />
-        <Panels heading={"Business"} />
-        <Panels heading={"Consumer"} />
-        <Panels heading={"Housing"} />
-        <Panels heading={"Taxes"} />
-        <Panels heading={"Climate"} />
       </div>
     </div>
   );

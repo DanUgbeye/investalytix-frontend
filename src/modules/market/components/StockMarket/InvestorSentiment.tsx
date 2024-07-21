@@ -25,6 +25,8 @@ import {
 
 export default function InvestorSentiment() {
   const timeframes = ["1m", "5m", "15m", "1h"];
+
+  return null;
   return (
     <>
       <MarketHeading label="INVESTOR SENTIMENT" />

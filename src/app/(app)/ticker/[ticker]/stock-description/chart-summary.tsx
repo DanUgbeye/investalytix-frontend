@@ -58,6 +58,7 @@ const TIMEFRAMES: { label: string; timeframe: QuoteTimeframe }[] = [
 ];
 
 export default function ChartSummary(props: { ticker: string }) {
+  // const [ticker, setTicker] = useState()
   const { ticker } = props;
   const chartRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
@@ -152,6 +153,21 @@ export default function ChartSummary(props: { ticker: string }) {
     );
   }
 
+  async function getChartData(timeframe: (typeof TIMEFRAMES)[number]) {
+    setLoadingData(true);
+    getHistoricalData(timeframe)
+      .then((quoteHistory) => {
+        setQuoteData(quoteHistory);
+        setActiveTab(timeframe);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoadingData(false);
+      });
+  }
+
   function displayChart() {
     if (!chartRef.current) return;
 
@@ -187,19 +203,7 @@ export default function ChartSummary(props: { ticker: string }) {
 
   function handleTimeframeChange(timeframe: (typeof TIMEFRAMES)[number]) {
     if (!chartRef.current) return;
-
-    setLoadingData(true);
-    getHistoricalData(timeframe)
-      .then((quoteHistory) => {
-        setQuoteData(quoteHistory);
-        setActiveTab(timeframe);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setLoadingData(false);
-      });
+    getChartData(timeframe);
   }
 
   useEffect(() => {
@@ -209,6 +213,11 @@ export default function ChartSummary(props: { ticker: string }) {
   useEffect(() => {
     displayChart();
   }, [theme, quoteData]);
+
+  useEffect(() => {
+    if (!ticker) return;
+    getChartData(activeTab);
+  }, [ticker]);
 
   return (
     <div className="space-y-4">

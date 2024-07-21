@@ -1,3 +1,4 @@
+"use client"
 import ColoredNumber from "@/components/ui/ColoredNumber";
 import {
   HoverCard,
@@ -45,11 +46,16 @@ export default function Quotes({
   fields = defaultFields,
   notifications = false,
   quotes: customQuotes,
+  onRowClick,
 }: {
   quotes?: Quote[];
   fields?: QuoteField[];
   notifications?: boolean;
+  onRowClick?: (quote: Quote) => void;
 }) {
+  function onRowClickHandler(quote: Quote) {
+    onRowClick && onRowClick(quote);
+  }
   return (
     <div className="w-full overflow-auto">
       <Table>
@@ -75,7 +81,11 @@ export default function Quotes({
 
         <TableBody>
           {(customQuotes ? customQuotes : quotes).map((quote) => (
-            <TableRow className="" key={quote.symbol}>
+            <TableRow
+              onClick={() => onRowClickHandler(quote)}
+              className=""
+              key={quote.symbol}
+            >
               <TableCell className="py-2 text-sm">
                 <Link
                   className="text-hover-focus"

@@ -11,7 +11,7 @@ const markets = [
   { label: "CRYPTOCURRENCY", href: "/markets/cryptocurrency" },
   { label: "COMMODITIES", href: "/markets/commodities" },
   { label: "BONDS", href: "/markets/bonds" },
-  { label: "ECONOMY", href: "/markets/economy" },
+  { label: "ECONOMY", href: "/markets/economy/main-indicators/gdp-growth-rate/america" },
 ] as const;
 
 export default function MarketHeader({

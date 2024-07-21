@@ -3,6 +3,8 @@ import Futures from "./Futures";
 import Quotes from "@/modules/market/components/Quotes";
 import Chart from "@/components/Chart";
 import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
+import ChartSummary from "@/app/(app)/ticker/[ticker]/stock-description/chart-summary";
+import GroupOverview from "./GroupOverview";
 
 export default function PreMarket() {
   return (
@@ -14,9 +16,11 @@ export default function PreMarket() {
           label="DOW (Mini)"
         />
 
-        <div className="h-80 w-full">
+        <ChartSummary ticker="^DJI" />
+
+        {/* <div className="h-80 w-full">
           <Chart />
-        </div>
+        </div> */}
 
         <Futures />
         <Futures isFairValue />
@@ -33,9 +37,11 @@ export default function PreMarket() {
           label="S&P 500 (Mini)"
         />
 
-        <div className="h-80 w-full">
+        <ChartSummary ticker="^GSPC" />
+
+        {/* <div className="h-80 w-full">
           <Chart />
-        </div>
+        </div> */}
 
         <Futures />
         <Futures isFairValue />
@@ -52,9 +58,11 @@ export default function PreMarket() {
           label="NASDAQ (Mini)"
         />
 
-        <div className="h-80 w-full">
+        <ChartSummary ticker="^IXIC" />
+
+        {/* <div className="h-80 w-full">
           <Chart />
-        </div>
+        </div> */}
 
         <Futures />
         <Futures isFairValue />
@@ -71,9 +79,11 @@ export default function PreMarket() {
           label="RUSELL (Mini)"
         />
 
-        <div className="h-80 w-full">
+        {/* <div className="h-80 w-full">
           <Chart />
-        </div>
+        </div> */}
+
+        <ChartSummary ticker="^RUT" />
 
         <Futures />
         <Futures isFairValue />
@@ -93,9 +103,10 @@ export default function PreMarket() {
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           Hang Seng Index
         </p>
-        <div className="h-80 w-full">
+        {/* <div className="h-80 w-full">
           <Chart />
-        </div>
+        </div> */}
+        <ChartSummary ticker="^HSI" />
         <p className="white-text mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
           Previous Close: 16.2k
         </p>
@@ -113,9 +124,10 @@ export default function PreMarket() {
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           FTSE 100
         </p>
-        <div className="h-80 w-full">
+        <ChartSummary ticker="^FTSE" />
+        {/* <div className="h-80 w-full">
           <Chart />
-        </div>
+        </div> */}
         <p className="white-text mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
           Previous Close: 16.2k
         </p>
@@ -124,47 +136,12 @@ export default function PreMarket() {
       </section>
 
       {/* Commodities */}
-      <section className="mt-11">
-        <MarketSectionHeader
-          className="pb-4 text-2xl font-bold"
-          label="Commodities"
-        />
-
-        <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
-          Hang Seng Index
-        </p>
-        <div className="h-80 w-full">
-          <Chart />
-        </div>
-        <p className="white-text mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
-          Previous Close: 16.2k
-        </p>
-
-        <Quotes />
-      </section>
-
+      <GroupOverview label="Commodities" route="/market/commodities" className="mt-11"/>
       {/* Currencies */}
-      <section className="mt-11">
-        <MarketSectionHeader
-          className="pb-4 text-2xl font-bold"
-          label="Currencies"
-        />
-
-        <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
-          FTSE 100
-        </p>
-        <div className="h-80 w-full">
-          <Chart />
-        </div>
-        <p className="white-text mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
-          Previous Close: 16.2k
-        </p>
-
-        <Quotes />
-      </section>
+      <GroupOverview label="Currencies" route="/market/forex/america" className="mt-11"/>
 
       {/* Volatility & Global Indexes */}
-      <section className="mt-11">
+      {/* <section className="mt-11">
         <MarketSectionHeader
           className="pb-4 text-2xl font-bold"
           label="Volatility & Global Indexes"
@@ -181,10 +158,10 @@ export default function PreMarket() {
         </p>
 
         <Quotes />
-      </section>
+      </section> */}
 
       {/* U.S. Treasurys */}
-      <section className="mt-11">
+      {/* <section className="mt-11">
         <MarketSectionHeader
           className="pb-4 text-2xl font-bold"
           label="U.S. Treasurys"
@@ -201,10 +178,10 @@ export default function PreMarket() {
         </p>
 
         <Quotes />
-      </section>
+      </section> */}
 
       {/* U.S. Indexes */}
-      <section className="mt-11">
+      {/* <section className="mt-11">
         <MarketSectionHeader
           className="pb-4 text-2xl font-bold"
           label="Indexes"
@@ -221,10 +198,10 @@ export default function PreMarket() {
         </p>
 
         <Quotes />
-      </section>
+      </section> */}
 
       {/* Sectors */}
-      <section className="mt-11">
+      {/* <section className="mt-11">
         <MarketSectionHeader
           className="pb-4 text-2xl font-bold"
           label="Sectors"
@@ -241,7 +218,7 @@ export default function PreMarket() {
         </p>
 
         <Quotes />
-      </section>
+      </section> */}
     </div>
   );
 }

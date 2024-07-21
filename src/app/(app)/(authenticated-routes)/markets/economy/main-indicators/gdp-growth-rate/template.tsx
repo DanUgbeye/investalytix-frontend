@@ -9,34 +9,34 @@ export default function GDPGrowthRateByCountryTemplate({
   children: React.ReactNode;
 }>) {
   const markets = [
-    {
-      label: "WORLD",
-      href: "/markets/economy/main-indicators/gdp-growth-rate",
-    },
-    {
-      label: "EUROPE",
-      href: "/markets/economy/main-indicators/gdp-growth-rate/europe",
-    },
+    // {
+    //   label: "WORLD",
+    //   href: "/markets/economy/main-indicators/gdp-growth-rate",
+    // },
+    // {
+    //   label: "EUROPE",
+    //   href: "/markets/economy/main-indicators/gdp-growth-rate/europe",
+    // },
     {
       label: "AMERICA",
       href: "/markets/economy/main-indicators/gdp-growth-rate/america",
     },
-    {
-      label: "ASIA",
-      href: "/markets/economy/main-indicators/gdp-growth-rate/asia",
-    },
-    {
-      label: "AFRICA",
-      href: "/markets/economy/main-indicators/gdp-growth-rate/africa",
-    },
-    {
-      label: "AUSTRALIA",
-      href: "/markets/economy/main-indicators/gdp-growth-rate/australia",
-    },
-    {
-      label: "G20",
-      href: "/markets/economy/main-indicators/gdp-growth-rate/g20",
-    },
+    // {
+    //   label: "ASIA",
+    //   href: "/markets/economy/main-indicators/gdp-growth-rate/asia",
+    // },
+    // {
+    //   label: "AFRICA",
+    //   href: "/markets/economy/main-indicators/gdp-growth-rate/africa",
+    // },
+    // {
+    //   label: "AUSTRALIA",
+    //   href: "/markets/economy/main-indicators/gdp-growth-rate/australia",
+    // },
+    // {
+    //   label: "G20",
+    //   href: "/markets/economy/main-indicators/gdp-growth-rate/g20",
+    // },
   ];
   const pathname = usePathname();
   return (

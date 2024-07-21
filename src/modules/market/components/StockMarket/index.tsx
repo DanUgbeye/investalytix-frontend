@@ -24,7 +24,7 @@ export default function StockMarket() {
       </section>
 
       {/* COMMODITIES */}
-      <Commodities className="mt-8" />
+      <Commodities className="mt-8" overview={false} />
 
       {/* TREASURYS */}
       <Treasurys className="mt-8" />

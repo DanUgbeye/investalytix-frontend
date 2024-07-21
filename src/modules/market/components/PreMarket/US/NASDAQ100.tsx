@@ -1,19 +1,30 @@
 import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import Quotes from "../../Quotes";
+import { Quote } from "@/types";
 
-export default function NASDAQ100() {
+async function getData() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/index/nasdaq/constituents`
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json() as Promise<{
+    message: String;
+    status: number;
+    data: Quote[];
+  }>;
+}
+
+export default async function NASDAQ100() {
+  const data = await getData();
   return (
     <section>
       <MarketSectionHeader label="NASDAQ 100" id="nasdaq-100" />
-
-      <div className="mt-11"></div>
-
-      {/* <header className="mb-5">
-        <h2 className="border-l-[6px] border-l-primary-base pl-5 text-2xl font-extrabold">
-          NASDAQ 100
-        </h2>
-      </header> */}
       <Quotes
+        quotes={data.data}
         fields={[
           {
             label: "Symbol",

@@ -24,7 +24,7 @@ async function getData() {
 
 export default async function Currencies({
   ...props
-}: HTMLAttributes<HTMLDivElement>) {
+}:  HTMLAttributes<HTMLDivElement>) {
   const data = await getData();
   return (
     <section {...props}>

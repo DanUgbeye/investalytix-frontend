@@ -23,14 +23,15 @@ async function getData() {
 }
 
 export default async function Commodities({
+  overview = true,
   ...props
-}: HTMLAttributes<HTMLDivElement>) {
+}: { overview?: boolean } & HTMLAttributes<HTMLDivElement>) {
   const data = await getData();
   return (
     <section {...props}>
       <MarketHeading label="COMMODITIES" />
 
-      <Quotes quotes={data.data.slice(0, 5)} />
+      <Quotes quotes={overview ? data.data.slice(0, 5) : data.data} />
     </section>
   );
 }

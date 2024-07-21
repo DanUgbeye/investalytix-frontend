@@ -12,9 +12,6 @@ export default function USMarkets() {
       <br />
       <br />
       <MarketMovers />
-      <br />
-      <br />
-      <br />
       <Dow30 />
       <br />
       <br />

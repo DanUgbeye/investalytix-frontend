@@ -16,14 +16,37 @@ import { toast } from "react-toastify";
 import { clientAPI } from "@/config/client/api";
 import { TickerRepository } from "@/modules/ticker/repository";
 import { CompanyOutlook } from "@/modules/ticker/types";
-const marketMovers = ["NYSE", "EURONEXT"];
+
+// const marketMovers = ["NYSE", "EURONEXT", "NASDAQ"];
+const marketMovers = [
+  {
+    label: "DOW",
+    route: "/market/movers/dow-jones",
+  },
+  {
+    label: "EURONEXT",
+    route: "/market/movers/euronext",
+  },
+  {
+    label: "NASDAQ",
+    route: "/market/movers/nasdaq",
+  },
+  {
+    label: "NYSE",
+    route: "/market/movers/nyse",
+  },
+  {
+    label: "S&P 500",
+    route: "/market/movers/sp500",
+  },
+];
 // const marketMovers = ["S&P", "NASDAQ", "DOW", "EUR", "ASIA", "COVID19"];
 
 type Movers = { gainers: Quote[]; losers: Quote[] };
 
-async function getData(exchange: string) {
+async function getData(route: string) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/movers/${exchange}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}${route}`
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -49,12 +72,12 @@ export default function MarketMovers() {
     data: Movers;
   }>();
 
-  function updateExchange(exchange: string) {
+  function updateExchange(exchange: (typeof marketMovers)[number]) {
     setExchange(exchange);
   }
 
   useEffect(() => {
-    wrapper(() => getData(exchange));
+    wrapper(() => getData(exchange.route));
   }, [exchange]);
 
   useEffect(() => {
@@ -77,7 +100,7 @@ export default function MarketMovers() {
           {/* <Swiper spaceBetween={24} slidesPerView={"auto"} freeMode> */}
           {marketMovers.map((market) => (
             <SwiperSlide
-              key={market}
+              key={market.label}
               className={"z-[1] !w-fit !flex-shrink grow-0"}
             >
               <button
@@ -88,7 +111,7 @@ export default function MarketMovers() {
                 }`}
                 onClick={() => updateExchange(market)}
               >
-                {market}
+                {market.label}
               </button>
             </SwiperSlide>
           ))}

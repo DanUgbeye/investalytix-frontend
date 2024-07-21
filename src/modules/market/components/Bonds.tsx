@@ -23,8 +23,9 @@ async function getData() {
 }
 
 export default async function Bonds({
+  overview = true,
   ...props
-}: HTMLAttributes<HTMLDivElement>) {
+}: { overview?: boolean } & HTMLAttributes<HTMLDivElement>) {
   const data = await getData();
   return (
     <section {...props}>
@@ -35,9 +36,9 @@ export default async function Bonds({
           { label: "Name", key: "name" },
           { label: "Symbol", key: "symbol" },
           { label: "Price", key: "price" },
-          { label: "Exchange", key:"exchangeShortName" },
+          { label: "Exchange", key: "exchangeShortName" },
         ]}
-        quotes={data.data.slice(0, 5)}
+        quotes={overview ? data.data.slice(0, 5) : data.data}
       />
     </section>
   );
