@@ -1,10 +1,13 @@
+import { SUBSCRIPTION_PLAN_NAMES } from "@/modules/subscription/types";
+
 export const plans = [
   {
     popular: false,
-    name: "Free Plan",
+    name: SUBSCRIPTION_PLAN_NAMES.FREE,
     desc: "Free Forever, No Credit Card Required",
     monthly: 0,
     yearly: 0,
+    discount: 0,
     features: [
       "Limited Access to Comprehensive Stock Dashboard",
       "Advanced Charting",
@@ -15,9 +18,10 @@ export const plans = [
   },
   {
     popular: true,
-    name: "Premium plan",
+    name: SUBSCRIPTION_PLAN_NAMES.PREMIUM,
     desc: "Billed Per Month or Annually",
     monthly: 59.95,
+    discount: 16,
     yearly: (59.95 * 12).toPrecision(3),
     features: [
       "All Free Features, Plus:",

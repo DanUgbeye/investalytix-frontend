@@ -1,10 +1,10 @@
 "use client";
 import { Container } from "@/components/container";
 import PAGES from "@/data/page-map";
-import { plans } from "@/data/plans";
 import { Disclosure } from "@headlessui/react";
 import Link from "next/link";
-import { FiCheck, FiChevronDown, FiStar } from "react-icons/fi";
+import { FiChevronDown, FiStar } from "react-icons/fi";
+import Pricing from "./_pricing";
 
 const testimonials = [
   {
@@ -94,11 +94,7 @@ export default function PricingPage() {
             for 30 days.
           </p>
 
-          <div className="mx-auto mt-10 grid max-w-6xl gap-8 md:mt-20 md:grid-cols-2">
-            {plans.map((plan) => (
-              <Plan key={plan.name} plan={plan} />
-            ))}
-          </div>
+          <Pricing className="mt-14" />
         </section>
 
         {/* testimony */}
@@ -181,43 +177,6 @@ function Testimonial({
             {testimony.position} {testimony.company}
           </p>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function Plan({ plan }: { plan: (typeof plans)[number] }) {
-  return (
-    <div className="rounded-t-2xl border border-black p-8 dark:border-white/10">
-      <p className="text-xl font-bold">{plan.name}</p>
-      <p className="mb-8 mt-1">{plan.desc}</p>
-
-      <hr className="border-black dark:border-white/10" />
-
-      <p className="mt-8 text-6xl font-bold">
-        ${plan.monthly}
-        <span className="text-3xl">/mo</span>
-      </p>
-      <p className="mt-2">or ${plan.yearly} yearly</p>
-
-      <button className="my-8 w-full bg-[#125BD4] px-6 py-3 text-white">
-        Get started
-      </button>
-
-      <hr className="border-black dark:border-white/10" />
-
-      <div className="mt-8 flex flex-col gap-4">
-        {plan.features.map((feature, index) => (
-          <div
-            className="flex items-center gap-4"
-            key={feature.replaceAll(" ", "-") + index}
-          >
-            <div className="shrink-0">
-              <FiCheck />
-            </div>
-            {feature}
-          </div>
-        ))}
       </div>
     </div>
   );
