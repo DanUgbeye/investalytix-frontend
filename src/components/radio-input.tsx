@@ -6,9 +6,11 @@ interface Props {
   checked?: boolean;
   onCheckedChange?: (state: boolean) => void;
   className?: string;
+  // chould be grayed out when false. [default = true]
+  visualMode?: boolean;
 }
 
-export default function RadioInput(props: Props) {
+export default function RadioInput({ visualMode = true, ...props }: Props) {
   const { checked, onCheckedChange, className } = props;
 
   return (
@@ -18,9 +20,11 @@ export default function RadioInput(props: Props) {
         <button
           className={cn(
             "group inline-flex h-6 w-11 shrink-0 items-center rounded-full",
-            checked
+            !visualMode
               ? "bg-primary-base dark:bg-primary-light"
-              : "bg-gray-200 dark:bg-main-gray-700",
+              : checked
+                ? "bg-primary-base dark:bg-primary-light"
+                : "bg-gray-200 dark:bg-main-gray-700",
             disabled && "cursor-not-allowed opacity-50",
             className
           )}

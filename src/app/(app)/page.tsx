@@ -1,86 +1,33 @@
 "use client";
 
 import { Container } from "@/components/container";
-import { clientAPI } from "@/config/client/api";
-import PAGES from "@/data/page-map";
-import { plans, PricingPlan } from "@/data/plans";
-import useInput from "@/hooks/useInput";
+import { plans } from "@/data/plans";
 import LatestNews from "@/modules/homepage/components/LatestNews";
 import LoadingNews from "@/modules/homepage/components/LoadingNews";
 import WithSidePanel, {
   SIDE_SECTIONS,
 } from "@/modules/market/components/WithSidePanel";
-import { SubscriptionRepository } from "@/modules/subscription/repository";
-import {
-  SUBSCRIPTION_FREQUENCY,
-  SUBSCRIPTION_PLAN_NAMES,
-  SubscriptionFrequency,
-} from "@/modules/subscription/types";
+import { SUBSCRIPTION_PLAN_NAMES } from "@/modules/subscription/types";
 import { useAppStore } from "@/store";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Suspense, useMemo, useState } from "react";
+import { Suspense } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { toast } from "react-toastify";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Pricing from "./pricing/_pricing";
 
 export default function Home() {
-  const [pricingFrequency, setPricingFrequency] =
-    useState<SubscriptionFrequency>(SUBSCRIPTION_FREQUENCY.MONTHLY);
-  const user = useAppStore(({ user }) => user);
   const isPremiumUser = useAppStore(
     ({ user }) =>
       user !== undefined && user.plan === SUBSCRIPTION_PLAN_NAMES.PREMIUM
   );
-  const subscriptionRepo = useMemo(
-    () => new SubscriptionRepository(clientAPI),
-    []
-  );
-  const [query, queryOpts] = useInput("");
-  const router = useRouter();
   gsap.registerPlugin(ScrollTrigger);
-
-  function updatePricingFrequency(value: typeof pricingFrequency) {
-    setPricingFrequency(value);
-  }
-
-  async function handlePricingClick(plan: PricingPlan) {
-    try {
-      switch (plan.planName) {
-        case SUBSCRIPTION_PLAN_NAMES.FREE: {
-          if (!user) {
-            router.replace(PAGES.SIGNUP);
-          }
-
-          break;
-        }
-
-        case SUBSCRIPTION_PLAN_NAMES.PREMIUM: {
-          if (!user) {
-            router.replace(PAGES.SIGNUP);
-          } else if (!isPremiumUser) {
-            const { link } = await subscriptionRepo.getSubscriptionLink({
-              plan: SUBSCRIPTION_PLAN_NAMES.PREMIUM,
-              frequency: pricingFrequency,
-            });
-
-            router.push(link);
-          }
-
-          break;
-        }
-      }
-    } catch (error: any) {
-      toast.error(error);
-    }
-  }
 
   return (
     <>
@@ -195,16 +142,17 @@ export default function Home() {
 
       {/* Pricing */}
       {!isPremiumUser && (
-        <section className="py-20">
-          <h1 className="mb-6 text-center text-6xl font-extrabold">
-            Pricing Plans
-          </h1>
-          <p className="mx-auto max-w-[36ch] text-center">
-            Simple, transparent pricing that grows with you. Try any plan free
-            for 30 days.
-          </p>
+        <section className="space-y-5 py-20">
+          <div className=" ">
+            <h1 className="mb-6 text-center text-6xl font-extrabold">
+              Pricing Plans
+            </h1>
+            <p className="mx-auto max-w-[36ch] text-center">
+              Simple, transparent pricing that grows with you.
+            </p>
+          </div>
 
-          <div className="relative mx-auto mt-8 w-fit rounded-full bg-gray-200 dark:bg-gray-100/10">
+          {/* <div className="relative mx-auto mt-8 w-fit rounded-full bg-gray-200 dark:bg-gray-100/10">
             <button
               type="button"
               onClick={() => updatePricingFrequency("monthly")}
@@ -249,9 +197,9 @@ export default function Home() {
                 </clipPath>
               </defs>
             </svg>
-          </div>
+          </div> */}
 
-          <Container className="mx-auto mt-10 grid max-w-6xl gap-8 md:mt-20 md:grid-cols-2">
+          {/* <Container className="mx-auto mt-10 grid max-w-6xl gap-8 md:mt-20 md:grid-cols-2">
             {plans.map((plan, index) => (
               <Plan
                 key={plan.name}
@@ -260,7 +208,9 @@ export default function Home() {
                 onClick={() => handlePricingClick(plan)}
               />
             ))}
-          </Container>
+          </Container> */}
+
+          <Pricing />
         </section>
       )}
 
