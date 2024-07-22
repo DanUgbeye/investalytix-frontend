@@ -1,6 +1,12 @@
-export const plans = [
+import {
+  SUBSCRIPTION_PLAN_NAMES,
+  SubscriptionPlanName,
+} from "@/modules/subscription/types";
+
+export const plans: PricingPlan[] = [
   {
     popular: false,
+    planName: SUBSCRIPTION_PLAN_NAMES.FREE,
     name: "Free Plan",
     desc: "Free Forever, No Credit Card Required",
     monthly: 0,
@@ -15,10 +21,11 @@ export const plans = [
   },
   {
     popular: true,
+    planName: SUBSCRIPTION_PLAN_NAMES.PREMIUM,
     name: "Premium plan",
     desc: "Billed Per Month or Annually",
     monthly: 59.95,
-    yearly: (59.95 * 12).toPrecision(3),
+    yearly: Number((59.95 * 12).toPrecision(3)),
     features: [
       "All Free Features, Plus:",
       "Full Access to Comprehensive Stock Dashboard",
@@ -35,3 +42,13 @@ export const plans = [
     ],
   },
 ];
+
+export type PricingPlan = {
+  popular: boolean;
+  planName: SubscriptionPlanName;
+  name: string;
+  desc: string;
+  monthly: number;
+  yearly: number;
+  features: string[];
+};

@@ -6,6 +6,14 @@ export const SUBSCRIPTION_PLAN_NAMES = {
 export type SubscriptionPlanName =
   (typeof SUBSCRIPTION_PLAN_NAMES)[keyof typeof SUBSCRIPTION_PLAN_NAMES];
 
+export const SUBSCRIPTION_FREQUENCY = {
+  MONTHLY: "monthly",
+  ANNUALLY: "annually",
+} as const;
+
+export type SubscriptionFrequency =
+  (typeof SUBSCRIPTION_FREQUENCY)[keyof typeof SUBSCRIPTION_FREQUENCY];
+
 export type ServerSubscriptionData = {
   _id: string;
   status: string;
