@@ -90,8 +90,7 @@ export default function PricingPage() {
             Introduce Pricing Plans
           </p>
           <p className="mt-6 text-center font-medium lg:text-lg">
-            Simple, transparent pricing that grows with you. Try any plan free
-            for 30 days.
+            Simple, transparent pricing that grows with you.
           </p>
 
           <Pricing className="mt-14" />

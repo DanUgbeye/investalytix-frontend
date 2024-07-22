@@ -72,51 +72,54 @@ export default function SubscriptionsTab() {
 
       <div className="overflow-auto">
         {transactionsHistoryLoading ? (
-          <center className="py-20">
+          <center className="py-5">
             <Spinner className=" " />
           </center>
         ) : (
           <>
             {transactionsHistoryError ? (
-              <div className="text-red-500">
+              <div className="py-2 text-red-500">
                 {transactionsHistoryError.message}
               </div>
             ) : transactionsHistory && transactionsHistory.length > 0 ? (
               <Table>
                 <TableHeader>
                   <TableRow headerRow>
+                    <TableHead>transaction reference</TableHead>
+
+                    <TableHead>Amount</TableHead>
+
+                    <TableHead>status</TableHead>
+
                     <TableHead>date</TableHead>
-                    <TableHead>action</TableHead>
-                    <TableHead>transaction id</TableHead>
-                    <TableHead>total</TableHead>
                   </TableRow>
                 </TableHeader>
 
                 <TableBody>
-                  <TableRow>
-                    <TableCell className="whitespace-nowrap">
-                      {moment(new Date("2024/4/25")).format("MMM Do, YYYY")}
-                    </TableCell>
-                    <TableCell className="">subscription</TableCell>
-                    <TableCell className="">729374691937</TableCell>
-                    <TableCell className="">$10,000</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="whitespace-nowrap">
-                      {moment(new Date("2024/4/25")).format("MMM Do, YYYY")}
-                    </TableCell>
-                    <TableCell className="">subscription</TableCell>
-                    <TableCell className="">729374691937</TableCell>
-                    <TableCell className="">$10,000</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="whitespace-nowrap">
-                      {moment(new Date("2024/4/25")).format("MMM Do, YYYY")}
-                    </TableCell>
-                    <TableCell className="">subscription</TableCell>
-                    <TableCell className="">729374691937</TableCell>
-                    <TableCell className="">$10,000</TableCell>
-                  </TableRow>
+                  {transactionsHistory.map((history) => {
+                    return (
+                      <TableRow key={history.id}>
+                        <TableCell className="whitespace-nowrap">
+                          {history.paymentReference}
+                        </TableCell>
+
+                        <TableCell className="">
+                          {Number(history.price).toLocaleString(undefined, {
+                            style: "currency",
+                            currency: history.currency,
+                          })}
+                        </TableCell>
+
+                        <TableCell className="">{history.status}</TableCell>
+
+                        <TableCell className="">
+                          {moment(new Date(history.createdAt)).format(
+                            "MMM Do, YYYY"
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             ) : (

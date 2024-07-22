@@ -32,16 +32,22 @@ export type ServerTransactionData = {
   _id: string;
   userId: string;
   paymentReference: string;
+  currency: string;
   price: number;
   type: string;
   status: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type TransactionData = {
   id: string;
   userId: string;
   paymentReference: string;
+  currency: string;
   price: number;
   type: string;
   status: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
