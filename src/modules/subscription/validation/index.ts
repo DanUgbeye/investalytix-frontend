@@ -25,8 +25,11 @@ export const ServerTransactionSchema = z.object({
   status: z.string(),
   userId: z.string(),
   price: z.number(),
+  currency: z.string(),
   paymentReference: z.string(),
   type: z.string(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 }) satisfies ZodType<ServerTransactionData>;
 
 export const TransactionSchema = z.object({
@@ -34,6 +37,9 @@ export const TransactionSchema = z.object({
   status: z.string(),
   userId: z.string(),
   price: z.number(),
+  currency: z.string(),
   paymentReference: z.string(),
   type: z.string(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 }) satisfies ZodType<TransactionData>;

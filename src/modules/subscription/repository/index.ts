@@ -6,7 +6,12 @@ import {
   transformSubscriptionToClient,
   transformTransactionToClient,
 } from "../adapter";
-import { SubscriptionData, TransactionData } from "../types";
+import {
+  SubscriptionData,
+  SubscriptionFrequency,
+  SubscriptionPlanName,
+  TransactionData,
+} from "../types";
 import {
   ServerSubscriptionSchema,
   ServerTransactionSchema,
@@ -16,16 +21,14 @@ export class SubscriptionRepository {
   constructor(private readonly axios: AxiosInstance) {}
 
   async getSubscriptionLink(
-    plan: string,
+    data: { plan: SubscriptionPlanName; frequency: SubscriptionFrequency },
     options?: RequestOptions
-  ): Promise<SubscriptionData> {
+  ) {
     try {
-      const path = `/subscriptions`;
-      let res = await this.axios.get<{ data: SubscriptionData }>(path, options);
+      const path = `/subscriptions/subscribe?plan=${data.plan}&frequency=${data.frequency}`;
+      let res = await this.axios.get<{ data: { link: string } }>(path, options);
 
-      let validation = ServerSubscriptionSchema.transform((data) =>
-        transformSubscriptionToClient(data)
-      ).safeParse(res.data.data);
+      let validation = z.object({ link: z.string() }).safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");

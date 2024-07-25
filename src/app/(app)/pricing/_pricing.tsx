@@ -1,33 +1,91 @@
 "use client";
+import RadioInput from "@/components/radio-input";
+import Spinner from "@/components/spinner";
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { HTMLAttributes, useState } from "react";
-import { FiCheck, FiInfo } from "react-icons/fi";
-import RadioInput from "@/components/radio-input";
-import { plans } from "@/data/plans";
+import { clientAPI } from "@/config/client/api";
+import PAGES from "@/data/page-map";
+import { plans, SubscriptionPlan } from "@/data/plans";
+import { SubscriptionRepository } from "@/modules/subscription/repository";
 import {
+  SUBSCRIPTION_FREQUENCY,
   SUBSCRIPTION_PLAN_NAMES,
+  SubscriptionFrequency,
   SubscriptionPlanName,
 } from "@/modules/subscription/types";
+import { useAppStore } from "@/store";
+import { useRouter } from "next/navigation";
+import { HTMLAttributes, useMemo, useState } from "react";
+import { FiCheck, FiInfo } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 export default function Pricing(props: HTMLAttributes<HTMLDivElement>) {
-  const [anually, setAnually] = useState(false);
+  const subscriptionRepo = useMemo(
+    () => new SubscriptionRepository(clientAPI),
+    []
+  );
+  const router = useRouter();
+  const user = useAppStore(({ user }) => user);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const updateAnually = (s: boolean) => setAnually(s);
+  const [activePlan, setActivePlan] = useState<
+    SubscriptionPlanName | undefined
+  >(user?.plan);
+  const [pricingFrequency, setPricingFrequency] =
+    useState<SubscriptionFrequency>(SUBSCRIPTION_FREQUENCY.MONTHLY);
 
-  const activePlan = SUBSCRIPTION_PLAN_NAMES.FREE;
+  const toggleFrequency = () =>
+    setPricingFrequency((prev) => {
+      if (prev === SUBSCRIPTION_FREQUENCY.MONTHLY) {
+        return SUBSCRIPTION_FREQUENCY.ANNUALLY;
+      }
+      return SUBSCRIPTION_FREQUENCY.MONTHLY;
+    });
+
+  async function handlePricingClick(plan: SubscriptionPlan) {
+    let redirectLink: string | undefined = undefined;
+
+    try {
+      setIsLoading(true);
+      if (
+        user !== undefined &&
+        user.plan !== SUBSCRIPTION_PLAN_NAMES.PREMIUM &&
+        plan.name === SUBSCRIPTION_PLAN_NAMES.PREMIUM
+      ) {
+        const { link } = await subscriptionRepo.getSubscriptionLink({
+          plan: SUBSCRIPTION_PLAN_NAMES.PREMIUM,
+          frequency: pricingFrequency,
+        });
+
+        redirectLink = link;
+      }
+
+      if (!user) {
+        redirectLink = PAGES.SIGNUP;
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      toast.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+
+    if (redirectLink) {
+      return router.push(redirectLink);
+    }
+  }
 
   return (
     <section {...props}>
       <div className="flex flex-wrap items-center justify-center gap-2">
         <span className="">Monthly</span>
         <RadioInput
-          checked={anually}
-          onCheckedChange={updateAnually}
+          checked={pricingFrequency === SUBSCRIPTION_FREQUENCY.ANNUALLY}
+          onCheckedChange={toggleFrequency}
           visualMode={false}
         />
         <span className="">Anually</span>
@@ -36,14 +94,16 @@ export default function Pricing(props: HTMLAttributes<HTMLDivElement>) {
         </span>
       </div>
 
-      <div className="overflow-auto hide-scrollbar max-md:px-6 max-md:pb-1">
+      <div className="hide-scrollbar overflow-auto max-md:px-6 max-md:pb-1">
         <div className="mx-auto mt-5 grid max-w-6xl grid-cols-[repeat(2,340px)] md:mt-10 md:grid-cols-2">
           {plans.map((plan) => (
             <Plan
               key={plan.name}
               plan={plan}
-              anually={anually}
-              active={activePlan}
+              anually={pricingFrequency === SUBSCRIPTION_FREQUENCY.ANNUALLY}
+              isActive={activePlan === plan.name}
+              isLoading={isLoading}
+              onClick={() => handlePricingClick(plan)}
             />
           ))}
         </div>
@@ -52,18 +112,18 @@ export default function Pricing(props: HTMLAttributes<HTMLDivElement>) {
   );
 }
 
-function Plan({
-  plan,
-  anually,
-  active,
-}: {
-  plan: (typeof plans)[number];
+function Plan(props: {
+  plan: SubscriptionPlan;
   anually: boolean;
-  active: SubscriptionPlanName;
+  isActive: boolean;
+  isLoading: boolean;
+  onClick?(): void;
 }) {
+  const { plan, anually, isActive, isLoading, onClick } = props;
+
   const monthlyDiscount = (plan.discount * plan.monthly) / 100;
   const yearlyDiscount = monthlyDiscount * 12;
-  const isActive = plan.name === active;
+
   return (
     <div
       className={`border border-black p-8 dark:border-white/30 [&:nth-child(1)]:rounded-l-3xl [&:nth-child(2)]:rounded-r-3xl ${isActive ? "ring-[2px] ring-black ring-offset-0 dark:ring-[1px] dark:ring-white/60" : "[&:nth-child(1)]:border-r-0"}`}
@@ -107,8 +167,18 @@ function Plan({
         </>
       )}
 
-      <Button className="mt-8 w-full rounded-lg" disabled={isActive}>
-        {isActive ? "Current plan" : "Get started"}
+      <Button
+        className="mt-8 w-full rounded-lg"
+        onClick={onClick}
+        disabled={isLoading || isActive}
+      >
+        {isActive ? (
+          "Current plan"
+        ) : isLoading ? (
+          <Spinner className="text-white" />
+        ) : (
+          "Get started"
+        )}
       </Button>
 
       <div className="mt-8 flex flex-col gap-4">
