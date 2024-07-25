@@ -79,19 +79,25 @@ export default function Pricing(props: HTMLAttributes<HTMLDivElement>) {
     }
   }
 
+  const isAnnually = useMemo(() => {
+    return pricingFrequency === SUBSCRIPTION_FREQUENCY.ANNUALLY;
+  }, [pricingFrequency]);
+
   return (
     <section {...props}>
       <div className="flex flex-wrap items-center justify-center gap-2">
         <span className="">Monthly</span>
         <RadioInput
-          checked={pricingFrequency === SUBSCRIPTION_FREQUENCY.ANNUALLY}
+          checked={isAnnually}
           onCheckedChange={toggleFrequency}
           visualMode={false}
         />
         <span className="">Anually</span>
-        <span className="inline-block rounded-md bg-primary-base/20 px-2 py-1">
-          16% off. It's like 60 days free 😍
-        </span>
+        {isAnnually && (
+          <span className="inline-block rounded-md bg-primary-base/20 px-2 py-1">
+            16% off. It's like 60 days free 😍
+          </span>
+        )}
       </div>
 
       <div className="hide-scrollbar overflow-auto max-md:px-6 max-md:pb-1">
@@ -123,6 +129,7 @@ function Plan(props: {
 
   const monthlyDiscount = (plan.discount * plan.monthly) / 100;
   const yearlyDiscount = monthlyDiscount * 12;
+  const yearly = (plan.monthly * 12 - yearlyDiscount).toFixed(2);
 
   return (
     <div
@@ -133,12 +140,12 @@ function Plan(props: {
       </p>
 
       <p className="mt-8 text-center text-3xl font-bold">
-        ${plan.monthly}
+        ${anually ? (plan.monthly - monthlyDiscount).toFixed(2) : plan.monthly}
         <span className="text-xl font-normal text-gray-400"> / month</span>
       </p>
 
       {anually && (
-        <p className="mt-2 text-center text-gray-400">${plan.yearly} / year</p>
+        <p className="mt-2 text-center text-gray-400">${yearly} / year</p>
       )}
 
       {anually && (
