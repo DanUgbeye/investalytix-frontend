@@ -8,6 +8,22 @@ import { useState } from "react";
 import { FiArrowLeft, FiChevronLeft } from "react-icons/fi";
 
 export default function ContactUsPage() {
+  const issues = [
+    "General inquiry",
+    "Membership",
+    "Notifications",
+    "Payment",
+    "Technical issues",
+    "Partnership",
+    "Subscriptions and plans",
+    "Bug report",
+    "Billing",
+    "Data error",
+    "Feature request",
+    "Cancellation",
+    "Feedback",
+    "Other",
+  ];
   const [file, setFile] = useState();
   function goBack() {
     window.history.back();
@@ -70,9 +86,11 @@ export default function ContactUsPage() {
               // placeholder="Enter your phone number"
               className="mt-3 flex h-fit w-full rounded-md border border-gray-200 bg-white px-4 py-3 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-base dark:border-gray-800 dark:bg-gray-950 dark:ring-offset-gray-950 dark:placeholder:text-gray-400 dark:focus-visible:ring-gray-300"
             >
-              <option value="">option 1</option>
-              <option value="">option 2</option>
-              <option value="">option 3</option>
+              {issues.map((opt) => (
+                <option value={opt} key={opt}>
+                  {opt}
+                </option>
+              ))}
             </select>
           </div>
 

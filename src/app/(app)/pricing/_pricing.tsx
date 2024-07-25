@@ -23,7 +23,7 @@ export default function Pricing(props: HTMLAttributes<HTMLDivElement>) {
 
   return (
     <section {...props}>
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2">
         <span className="">Monthly</span>
         <RadioInput
           checked={anually}
@@ -36,15 +36,17 @@ export default function Pricing(props: HTMLAttributes<HTMLDivElement>) {
         </span>
       </div>
 
-      <div className="mx-auto mt-5 grid max-w-6xl grid-cols-[200px,200px] md:mt-10 md:grid-cols-2">
-        {plans.map((plan) => (
-          <Plan
-            key={plan.name}
-            plan={plan}
-            anually={anually}
-            active={activePlan}
-          />
-        ))}
+      <div className="overflow-auto hide-scrollbar max-md:px-6 max-md:pb-1">
+        <div className="mx-auto mt-5 grid max-w-6xl grid-cols-[repeat(2,340px)] md:mt-10 md:grid-cols-2">
+          {plans.map((plan) => (
+            <Plan
+              key={plan.name}
+              plan={plan}
+              anually={anually}
+              active={activePlan}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -105,7 +107,9 @@ function Plan({
         </>
       )}
 
-      <Button className="mt-8 w-full rounded-lg">Get started</Button>
+      <Button className="mt-8 w-full rounded-lg" disabled={isActive}>
+        {isActive ? "Current plan" : "Get started"}
+      </Button>
 
       <div className="mt-8 flex flex-col gap-4">
         {plan.features.map((feature, index) => (
