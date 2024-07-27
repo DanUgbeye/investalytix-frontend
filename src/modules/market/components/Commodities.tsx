@@ -29,7 +29,7 @@ export default async function Commodities({
   const data = await getData();
   return (
     <section {...props}>
-      <MarketHeading label="COMMODITIES" />
+      <MarketHeading label="FUTURES & COMMODITIES" />
 
       <Quotes
         fields={[

@@ -27,12 +27,12 @@ export default async function NASDAQ100() {
         quotes={data.data}
         fields={[
           {
-            label: "Symbol",
-            key: "symbol",
-          },
-          {
             label: "name",
             key: "name",
+          },
+          {
+            label: "Symbol",
+            key: "symbol",
           },
           {
             label: "price",

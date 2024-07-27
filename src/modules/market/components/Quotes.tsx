@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import ColoredNumber from "@/components/ui/ColoredNumber";
 import {
   HoverCard,
@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { formatCurrency } from "@/lib/utils";
 import quotes from "@/mock/quotes";
 import { Quote } from "@/types";
 import Link from "next/link";
@@ -102,6 +103,8 @@ export default function Quotes({
                       number={quote[field?.key] as number}
                       percent={field.key === "changesPercentage"}
                     />
+                  ) : ["price"].includes(field.key) ? (
+                    formatCurrency(quote[field?.key] as number)
                   ) : (
                     quote[field?.key]
                   )}

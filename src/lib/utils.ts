@@ -24,3 +24,7 @@ export function formatTimestamp(timestamp: string | number) {
 export function tailwindCSS() {
   return resolveConfig(tailwindConfig);
 }
+
+export function formatCurrency(price: number) {
+  return new Intl.NumberFormat("en-US").format(price);
+}

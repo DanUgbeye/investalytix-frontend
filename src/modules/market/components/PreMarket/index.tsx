@@ -5,6 +5,7 @@ import Chart from "@/components/Chart";
 import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import ChartSummary from "@/app/(app)/ticker/[ticker]/stock-description/chart-summary";
 import GroupOverview from "./GroupOverview";
+import Sectors from "./US/Sectors";
 
 export default function PreMarket() {
   return (
@@ -94,51 +95,91 @@ export default function PreMarket() {
       </section>
 
       {/* Asia-Pacific */}
-      <section className="mt-11">
-        <MarketSectionHeader
-          className="pb-4 text-2xl font-bold"
-          label="Asia-Pacific"
-        />
-
-        <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
-          Hang Seng Index
-        </p>
-        {/* <div className="h-80 w-full">
-          <Chart />
-        </div> */}
-        <ChartSummary ticker="^HSI" />
-        <p className="white-text mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
-          Previous Close: 16.2k
-        </p>
-
-        <Quotes />
-      </section>
+      <GroupOverview
+        label="asia pacific"
+        route="/tickers/quotes/hsi,n225,sti,xjo,shcomp"
+        className="mt-11"
+        fields={[
+          {
+            label: "Name",
+            key: "name",
+          },
+          {
+            label: "Last",
+            key: "price",
+          },
+          {
+            label: "Chg",
+            key: "change",
+          },
+          {
+            label: "Chg%",
+            key: "changesPercentage",
+          },
+        ]}
+      />
 
       {/* Europe */}
-      <section className="mt-11">
-        <MarketSectionHeader
-          className="pb-4 text-2xl font-bold"
-          label="Europe"
-        />
-
-        <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
-          FTSE 100
-        </p>
-        <ChartSummary ticker="^FTSE" />
-        {/* <div className="h-80 w-full">
-          <Chart />
-        </div> */}
-        <p className="white-text mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
-          Previous Close: 16.2k
-        </p>
-
-        <Quotes />
-      </section>
+      <GroupOverview
+        label="europe"
+        route="/tickers/quotes/^ftse,^GDAXI,^FCHI,^AEX,^STOXX50E"
+        className="mt-11"
+        fields={[
+          {
+            label: "Name",
+            key: "name",
+          },
+          {
+            label: "Last",
+            key: "price",
+          },
+          {
+            label: "Chg",
+            key: "change",
+          },
+          {
+            label: "Chg%",
+            key: "changesPercentage",
+          },
+        ]}
+      />
 
       {/* Commodities */}
-      <GroupOverview label="Commodities" route="/market/commodities" className="mt-11"/>
+      <GroupOverview
+        label="futures & commodities"
+        route="/market/commodities"
+        className="mt-11"
+      />
       {/* Currencies */}
-      <GroupOverview label="Currencies" route="/market/forex/america" className="mt-11"/>
+      <GroupOverview
+        label="Currencies"
+        route="/tickers/quotes/eurusd,gbpusd,audusd,usdcad,usdjpy"
+        className="mt-11"
+      />
+      {/* U.S. Indexes */}
+      <GroupOverview
+        label="U.S. Indexes"
+        route="/tickers/quotes/^RUT,^DJT,^DJU,^NDX,^nya"
+        className="mt-11"
+        fields={[
+          {
+            label: "Name",
+            key: "name",
+          },
+          {
+            label: "Last",
+            key: "price",
+          },
+          {
+            label: "Chg",
+            key: "change",
+          },
+          {
+            label: "Chg%",
+            key: "changesPercentage",
+          },
+        ]}
+      />
 
       {/* Volatility & Global Indexes */}
       {/* <section className="mt-11">
@@ -169,26 +210,6 @@ export default function PreMarket() {
 
         <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
           FTSE 100
-        </p>
-        <div className="h-80 w-full">
-          <Chart />
-        </div>
-        <p className="white-text mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
-          Previous Close: 16.2k
-        </p>
-
-        <Quotes />
-      </section> */}
-
-      {/* U.S. Indexes */}
-      {/* <section className="mt-11">
-        <MarketSectionHeader
-          className="pb-4 text-2xl font-bold"
-          label="Indexes"
-        />
-
-        <p className="white-text mb-4 text-sm font-medium text-[#2F3A48]">
-          Hang Seng Index
         </p>
         <div className="h-80 w-full">
           <Chart />

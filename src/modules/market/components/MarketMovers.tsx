@@ -45,9 +45,7 @@ const marketMovers = [
 type Movers = { gainers: Quote[]; losers: Quote[] };
 
 async function getData(route: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}${route}`
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${route}`);
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
@@ -319,12 +317,13 @@ function Mover({ quote, gainer = false }: { quote: Quote; gainer?: boolean }) {
           percent
           colored
           className="text-right"
+          decimals={3}
         />
         <div className="w-full">
           <div
             className={`h-full ${gainer ? "bg-main-green-light dark:bg-main-green-dark" : "bg-main-red-light dark:bg-main-red-dark"}`}
             style={{
-              width: `${quote.changesPercentage ?? 0}%`,
+              width: `${(quote.changesPercentage ?? 0) < 0 ? (quote.changesPercentage ?? 0) * -1 : (quote.changesPercentage ?? 0)}%`,
             }}
           ></div>
         </div>

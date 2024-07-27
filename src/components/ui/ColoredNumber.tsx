@@ -5,11 +5,13 @@ export default function ColoredNumber({
   colored = true,
   percent = false,
   className = "",
+  decimals,
 }: {
   number?: number | null;
   colored?: boolean;
   percent?: boolean;
   className?: HTMLElement["className"];
+  decimals?: number;
 }) {
   if (Number.isNaN(Number(number)) || number === null) {
     return <span>-</span>;
@@ -24,7 +26,7 @@ export default function ColoredNumber({
         className
       )}
     >
-      {number}
+      {Number.isNaN(decimals) ? number : number?.toFixed(decimals)}
       {percent && "%"}
     </span>
   );
