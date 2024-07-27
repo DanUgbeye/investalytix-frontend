@@ -11,9 +11,11 @@ import PAGES from "@/data/page-map";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 
 export default function AuthModal() {
+  const path = usePathname()
   const loginModalOpen = useAppStore(({ loginModalOpen }) => loginModalOpen);
   const { toggleLoginModal, toggleLoginModalLock } = useAppStore();
 
@@ -64,7 +66,7 @@ export default function AuthModal() {
 
             <div className="flex flex-col items-center gap-5">
               <Link
-                href={PAGES.SIGNUP}
+                href={`${PAGES.SIGNUP}?redirect=${path}`}
                 className={cn(buttonVariants({}), "w-full max-w-xs")}
                 onClick={handleClose}
               >
@@ -74,7 +76,7 @@ export default function AuthModal() {
               <p className="text-sm text-white dark:text-main-gray-300">
                 Already have an account?{" "}
                 <Link
-                  href={PAGES.LOGIN}
+                  href={`${PAGES.LOGIN}?redirect=${path}`}
                   className="font-bold text-primary-base underline-offset-4 hover:underline"
                   onClick={handleClose}
                 >
