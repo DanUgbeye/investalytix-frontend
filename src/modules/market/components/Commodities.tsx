@@ -31,7 +31,27 @@ export default async function Commodities({
     <section {...props}>
       <MarketHeading label="COMMODITIES" />
 
-      <Quotes quotes={overview ? data.data.slice(0, 5) : data.data} />
+      <Quotes
+        fields={[
+          {
+            label: "Name",
+            key: "name",
+          },
+          {
+            label: "Last",
+            key: "price",
+          },
+          {
+            label: "Chg",
+            key: "change",
+          },
+          {
+            label: "Chg%",
+            key: "changesPercentage",
+          },
+        ]}
+        quotes={overview ? data.data.slice(0, 5) : data.data}
+      />
     </section>
   );
 }
