@@ -5,7 +5,7 @@ import { HTMLAttributes } from "react";
 
 async function getData() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/market/forex/america`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/tickers/quotes/eurusd,gbpusd,audusd,usdcad,usdjpy`
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.

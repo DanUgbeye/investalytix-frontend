@@ -5,7 +5,7 @@ import { HTMLAttributes } from "react";
 
 async function getData() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/stocks?quotes=aig,crwd,wrb,appl,tsla,aapl`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/tickers/quotes/^IXIC,^GSPC,^DJI,^RUT,^OEX,^MID,^NYA`
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -30,7 +30,27 @@ export default async function StockIndexes({
     <section {...props}>
       <MarketHeading label="Stock Indexes" />
 
-      <Quotes quotes={data.data.slice(0, 5)} />
+      <Quotes
+        fields={[
+          {
+            label: "Name",
+            key: "name",
+          },
+          {
+            label: "Last",
+            key: "price",
+          },
+          {
+            label: "Chg",
+            key: "change",
+          },
+          {
+            label: "Chg%",
+            key: "changesPercentage",
+          },
+        ]}
+        quotes={data.data.slice(0, 5)}
+      />
     </section>
   );
 }
