@@ -2,19 +2,22 @@
 
 import useExecuteOnce from "@/hooks/use-execute-once";
 import { useAppStore } from "@/store";
-import { PropsWithChildren, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { PropsWithChildren, useEffect, useRef } from "react";
 
 interface Props extends PropsWithChildren {}
 
 export default function PersistentLogin(props: Props) {
   const { children } = props;
+  const timeoutRef = useRef<NodeJS.Timeout>();
+  const path = usePathname();
   const user = useAppStore(({ user }) => user);
   const { toggleLoginModal, toggleLoginModalLock } = useAppStore();
   const { executeOnce, reset } = useExecuteOnce();
 
   useEffect(() => {
     executeOnce(() => {
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         if (!user) {
           toggleLoginModal(true);
           toggleLoginModalLock(true);
@@ -25,8 +28,11 @@ export default function PersistentLogin(props: Props) {
       }, 20_000);
     });
 
-    return reset;
-  }, [user]);
+    return () => {
+      reset();
+      timeoutRef.current && clearTimeout(timeoutRef.current);
+    };
+  }, [user, path]);
 
   return <>{children}</>;
 }
