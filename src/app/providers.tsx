@@ -1,24 +1,35 @@
+import { serverAPI } from "@/config/server/api";
 import { COOKIE_KEYS } from "@/data/cookie-keys";
-import { AuthData } from "@/modules/auth/types";
+import { AuthRepository } from "@/modules/auth/repository";
 import { AuthSchema } from "@/modules/auth/validation";
+import { UserRepository } from "@/modules/user/repository";
+import { UserData } from "@/modules/user/types";
+import { StoreInitialState } from "@/store";
 import { cookies } from "next/headers";
 import { PropsWithChildren } from "react";
 import ClientProviders from "./client-providers";
-import { UserRepository } from "@/modules/user/repository";
-import { serverAPI } from "@/config/server/api";
-import { StoreInitialState } from "@/store";
-import { UserData } from "@/modules/user/types";
 
 export default async function Providers({ children }: PropsWithChildren) {
   let initialState: StoreInitialState = { auth: undefined, user: undefined };
+  const userRepo = new UserRepository(serverAPI);
+  const authRepo = new AuthRepository(serverAPI);
 
   const authCookie = cookies().get(COOKIE_KEYS.AUTH);
   if (authCookie) {
     const { data } = AuthSchema.safeParse(JSON.parse(authCookie.value));
     initialState.auth = data;
+  } else {
+    const refreshCookie = cookies().get(COOKIE_KEYS.REFRESH_TOKEN);
+    if (refreshCookie) {
+      try {
+        initialState.auth = await authRepo.refreshToken();
+      } catch (error: any) {}
+    }
+  }
 
-    const userRepo = new UserRepository(serverAPI);
+  if (initialState.auth) {
     let user: UserData | undefined = undefined;
+
     try {
       user = await userRepo.getMyProfile();
       initialState.user = user;
