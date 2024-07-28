@@ -4,6 +4,7 @@ import MarketHeading from "../../MarketHeading";
 import Commodities from "../../Commodities";
 import Currencies from "../../Currencies";
 import StockIndexes from "../../StockIndexes";
+import Treasurys from "../../Treasurys";
 
 export default function Overview() {
   return (
@@ -26,11 +27,7 @@ export default function Overview() {
       <Commodities />
 
       {/* TREASURYS */}
-      <section>
-        <MarketHeading label="TREASURYS" />
-
-        <Quotes />
-      </section>
+      <Treasurys />
 
       {/* CURRENCIES */}
       <Currencies id="currencies" />

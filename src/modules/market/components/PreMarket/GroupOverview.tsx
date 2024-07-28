@@ -4,7 +4,7 @@ import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import useFetcher from "@/hooks/useFetcher";
 import { Quote } from "@/types";
 import { HTMLAttributes, useEffect, useState } from "react";
-import Quotes from "../Quotes";
+import Quotes, { QuoteField } from "../Quotes";
 
 async function getData(route: string) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${route}`);
@@ -22,10 +22,11 @@ type Props = {
   index?: string;
   label: string;
   route: string;
+  fields?: QuoteField[];
 } & HTMLAttributes<HTMLDivElement>;
 
 export default function GroupOverview(props: Props) {
-  const { index, label, route, ...rest } = props;
+  const { index, label, route, fields, ...rest } = props;
   const { wrapper, data } = useFetcher<{
     message: String;
     status: number;
@@ -73,7 +74,11 @@ export default function GroupOverview(props: Props) {
       )}
 
       {data?.data && (
-        <Quotes quotes={data.data.slice(0, 5)} onRowClick={onRowClickHandler} />
+        <Quotes
+          fields={fields}
+          quotes={data.data.slice(0, 5)}
+          onRowClick={onRowClickHandler}
+        />
       )}
     </section>
   );

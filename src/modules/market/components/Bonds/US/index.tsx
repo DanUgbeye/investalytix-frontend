@@ -1,6 +1,7 @@
 import { Quote } from "@/types";
 import MarketHeading from "../../MarketHeading";
 import Quotes from "../../Quotes";
+import Treasurys from "../../Treasurys";
 
 async function getData() {
   const res = await fetch(
@@ -37,9 +38,10 @@ export default async function US() {
     /*U.S TREASURYS */
     <>
       <section className="">
-        <MarketHeading label=" U.S" id="us" />
+        {/* <MarketHeading label=" U.S. Treasury" id="us" /> */}
+        <Treasurys id="us" />
 
-        <Quotes
+        {/* <Quotes
           quotes={data.data}
           fields={[
             {
@@ -63,7 +65,7 @@ export default async function US() {
               key: "exchange",
             },
           ]}
-        />
+        /> */}
       </section>
     </>
   );
