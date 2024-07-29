@@ -1,6 +1,5 @@
 import { serverAPI } from "@/config/server/api";
 import { COOKIE_KEYS } from "@/data/cookie-keys";
-import { AuthRepository } from "@/modules/auth/repository";
 import { AuthSchema } from "@/modules/auth/validation";
 import { UserRepository } from "@/modules/user/repository";
 import { UserData } from "@/modules/user/types";
@@ -12,19 +11,11 @@ import ClientProviders from "./client-providers";
 export default async function Providers({ children }: PropsWithChildren) {
   let initialState: StoreInitialState = { auth: undefined, user: undefined };
   const userRepo = new UserRepository(serverAPI);
-  const authRepo = new AuthRepository(serverAPI);
 
   const authCookie = cookies().get(COOKIE_KEYS.AUTH);
   if (authCookie) {
     const { data } = AuthSchema.safeParse(JSON.parse(authCookie.value));
     initialState.auth = data;
-  } else {
-    const refreshCookie = cookies().get(COOKIE_KEYS.REFRESH_TOKEN);
-    if (refreshCookie) {
-      try {
-        initialState.auth = await authRepo.refreshToken();
-      } catch (error: any) {}
-    }
   }
 
   if (initialState.auth) {

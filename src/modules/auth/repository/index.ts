@@ -118,14 +118,13 @@ export class AuthRepository {
     const path = `/auth/refresh-token`;
 
     try {
-      const { data } = await this.clientAPI.post<{ data: { auth: AuthData } }>(
+      const res = await this.clientAPI.post<{ data: { auth: AuthData } }>(
         path,
         undefined,
         options
       );
 
-      const validation = AuthSchema.safeParse(data.data.auth);
-
+      const validation = AuthSchema.safeParse(res.data.data.auth);
       if (!validation.success) {
         throw new Error("Something went wrong on our end");
       }

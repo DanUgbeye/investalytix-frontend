@@ -29,7 +29,6 @@ async function RefreshToken(req: NextRequest) {
         host: new URL(SERVER_CONFIG.API_BASE_URL).host,
       },
       withCredentials: true,
-      validateStatus: (status) => true, // Resolve all status codes
     });
 
     const responseHeaders = new Headers();
@@ -43,7 +42,7 @@ async function RefreshToken(req: NextRequest) {
       expires: res.data.data.auth.expiresIn,
     });
 
-    return NextResponse.json(res.data, { status: 200 });
+    return NextResponse.json(res.data, { status: res.status || 200 });
   } catch (err: any) {
     if (err instanceof AxiosError) {
       return NextResponse.json(
@@ -57,4 +56,3 @@ async function RefreshToken(req: NextRequest) {
 }
 
 export { RefreshToken as POST };
-
