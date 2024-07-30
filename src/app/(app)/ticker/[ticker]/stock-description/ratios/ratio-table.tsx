@@ -7,7 +7,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { LineChart } from "lucide-react";
 import { HTMLAttributes } from "react";
 
 export type RatioTableData = {
@@ -28,9 +27,7 @@ export default function RatioTable(props: RatioTableProps) {
         <TableRow headerRow>
           <TableHead className=" ">{ratio.name}</TableHead>
 
-          <TableHead className="text-right">
-            <LineChart className="ml-auto size-5" />
-          </TableHead>
+          <TableHead className="text-right"></TableHead>
         </TableRow>
       </TableHeader>
 
