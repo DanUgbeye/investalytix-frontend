@@ -1,5 +1,5 @@
 "use client";
-import ChartSummary from "@/app/(app)/ticker/[ticker]/stock-description/chart-summary";
+import ChartSummary from "@/components/chart-summary";
 import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import useFetcher from "@/hooks/useFetcher";
 import { Quote } from "@/types";

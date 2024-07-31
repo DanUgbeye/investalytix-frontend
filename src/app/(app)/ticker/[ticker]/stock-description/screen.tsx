@@ -5,7 +5,7 @@ import NewsCard from "@/modules/news/components/news-card";
 import NewsLink from "@/modules/news/components/news-link";
 import appUtils from "@/utils/app-util";
 import { format } from "date-fns";
-import ChartSummary from "./chart-summary";
+import ChartSummary from "../../../../../components/chart-summary";
 import { SummaryPageData } from "./page";
 
 interface SummaryScreenProps extends SummaryPageData {

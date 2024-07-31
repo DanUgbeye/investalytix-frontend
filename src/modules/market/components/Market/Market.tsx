@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import ChartSummary from "@/app/(app)/ticker/[ticker]/stock-description/chart-summary";
+import ChartSummary from "@/components/chart-summary";
 import Bonds from "../Bonds";
 import Currencies from "../Currencies";
 

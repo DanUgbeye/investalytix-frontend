@@ -3,7 +3,7 @@ import Futures from "./Futures";
 import Quotes from "@/modules/market/components/Quotes";
 import Chart from "@/components/Chart";
 import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
-import ChartSummary from "@/app/(app)/ticker/[ticker]/stock-description/chart-summary";
+import ChartSummary from "@/components/chart-summary";
 import GroupOverview from "./GroupOverview";
 import Sectors from "./US/Sectors";
 
