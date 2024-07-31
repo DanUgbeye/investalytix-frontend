@@ -1,3 +1,4 @@
+import { SUBSCRIPTION_PLAN_NAMES } from "@/modules/subscription/types";
 import { UserData } from "../types";
 
 export class UserUtils {
@@ -19,6 +20,14 @@ export class UserUtils {
     }
 
     return initials.toUpperCase();
+  }
+
+  isPremiumPlanUser(user: UserData) {
+    return user.plan === SUBSCRIPTION_PLAN_NAMES.PREMIUM;
+  }
+
+  isFreePlanUser(user: UserData) {
+    return user.plan === SUBSCRIPTION_PLAN_NAMES.FREE;
   }
 }
 

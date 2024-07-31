@@ -20,13 +20,13 @@ class DateUtils {
 
     let quarter;
     if (month >= 0 && month <= 2) {
-      quarter = "Q1";
+      quarter = 1;
     } else if (month >= 3 && month <= 5) {
-      quarter = "Q2";
+      quarter = 2;
     } else if (month >= 6 && month <= 8) {
-      quarter = "Q3";
+      quarter = 3;
     } else {
-      quarter = "Q4";
+      quarter = 4;
     }
 
     return {

@@ -10,13 +10,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useAuthenticatedAction from "@/hooks/use-authenticated-action";
 import { cn } from "@/lib/utils";
-import { useAppStore } from "@/store";
+import { SUBSCRIPTION_PLAN_NAMES } from "@/modules/subscription/types";
 import useTheme from "@/store/theme/useTheme";
 import appUtils from "@/utils/app-util";
 import { dateUtils } from "@/utils/date.utils";
+import { differenceInCalendarYears } from "date-fns";
 import { Minus, Plus } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -28,6 +30,7 @@ import {
   YAxis,
 } from "recharts";
 import { RevenueEPSPageData } from "./page";
+import CLIENT_CONFIG from "@/config/client/app";
 
 interface RevenueAndEPSScreenProps extends RevenueEPSPageData {
   ticker: string;
@@ -35,17 +38,40 @@ interface RevenueAndEPSScreenProps extends RevenueEPSPageData {
 
 export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
   const { ticker, earnings, currency } = props;
-  const { toggleLoginModal } = useAppStore();
-  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
   const { theme } = useTheme();
+  const authenticateAction = useAuthenticatedAction();
   const [showAll, setShowAll] = useState<"EPS" | "Revenue" | undefined>();
 
-  function handleShoMore(show?: typeof showAll) {
-    if (isAuthenticated) {
-      setShowAll(showAll === show ? undefined : show);
-    } else {
-      toggleLoginModal();
-    }
+  const filteredEarnings = useMemo(() => {
+    return earnings.filter(
+      (earning) => earning.eps !== null || earning.epsEstimated !== null
+    );
+  }, [earnings]);
+
+  const earningsToDisplay = useMemo(() => {
+    return filteredEarnings
+      .map((earning) => {
+        const { quarter, year } = dateUtils.getYearAndQuarter(earning.date);
+        return { ...earning, year, quarter };
+      })
+      .filter((earning) => {
+        if (showAll === undefined) {
+          return (
+            differenceInCalendarYears(new Date(), new Date(earning.date)) <=
+            CLIENT_CONFIG.FREE_YEARS_DATA
+          );
+        }
+        return true;
+      });
+  }, [filteredEarnings, showAll]);
+
+  function handleShowMore(show?: typeof showAll) {
+    authenticateAction(
+      () => {
+        setShowAll(showAll === show ? undefined : show);
+      },
+      { plan: SUBSCRIPTION_PLAN_NAMES.PREMIUM }
+    );
   }
 
   return (
@@ -61,15 +87,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               height={180}
               className={"text-xs md:text-sm"}
             >
-              <BarChart
-                data={earnings
-                  .filter(
-                    (earning) =>
-                      earning.epsEstimated !== null || earning.eps !== null
-                  )
-                  .slice(0, 10)
-                  .reverse()}
-              >
+              <BarChart data={filteredEarnings.slice(0, 10).reverse()}>
                 <CartesianGrid
                   vertical={false}
                   strokeDasharray="3 3"
@@ -84,7 +102,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                     const { quarter, year } = dateUtils.getYearAndQuarter(
                       value || new Date()
                     );
-                    return `${quarter} '${year}`;
+                    return `Q${quarter} '${year}`;
                   }}
                 />
 
@@ -114,7 +132,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       <div className="space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300">
                         {label && (
                           <div className=" ">
-                            {quarter} '{year}
+                            Q{quarter} '{year}
                           </div>
                         )}
 
@@ -237,82 +255,71 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                     </TableHeader>
 
                     <TableBody>
-                      {earnings
-                        .filter(
-                          (earning) =>
-                            earning.eps !== null ||
-                            earning.epsEstimated !== null
-                        )
-                        .slice(0, showAll === "EPS" ? -1 : 10)
-                        .map((earning, index) => {
-                          const { quarter, year } = dateUtils.getYearAndQuarter(
-                            earning.date
-                          );
+                      {earningsToDisplay.map((earning, index) => {
+                        return (
+                          <TableRow
+                            key={`earning-history-${index}`}
+                            className=" "
+                          >
+                            <TableCell className="text-left">
+                              {earning.date.toDateString()}
+                            </TableCell>
 
-                          return (
-                            <TableRow
-                              key={`earning-history-${index}`}
-                              className=" "
-                            >
-                              <TableCell className="text-left">
-                                {earning.date.toDateString()}
-                              </TableCell>
+                            <TableCell className={`text-center`}>
+                              {earning.year}
+                            </TableCell>
 
-                              <TableCell className={`text-center`}>
-                                {year}
-                              </TableCell>
+                            <TableCell className={`text-center`}>
+                              Q{earning.quarter}
+                            </TableCell>
 
-                              <TableCell className={`text-center`}>
-                                {quarter}
-                              </TableCell>
-
-                              <TableCell className="text-center">
-                                <span className=" ">
-                                  {appUtils.formatNumber(
-                                    earning.epsEstimated || undefined,
-                                    {
-                                      style: "decimal",
-                                      minimumFractionDigits: 2,
-                                    }
-                                  )}
-                                </span>
-                              </TableCell>
-
-                              <TableCell className="text-center">
-                                <span
-                                  className={cn({
-                                    "text-green-600":
-                                      earning.eps &&
-                                      earning.epsEstimated &&
-                                      earning.eps > earning.epsEstimated,
-                                    "text-red-600":
-                                      earning.eps &&
-                                      earning.epsEstimated &&
-                                      earning.eps < earning.epsEstimated,
-                                  })}
-                                >
-                                  {appUtils.formatNumber(
-                                    earning.eps || undefined,
-                                    {
-                                      style: "decimal",
-                                      minimumFractionDigits: 2,
-                                    }
-                                  )}
-                                </span>
-                              </TableCell>
-
-                              <TableCell className="text-center">
+                            <TableCell className="text-center">
+                              <span className=" ">
                                 {appUtils.formatNumber(
-                                  earnings[index + 1]?.eps || undefined,
+                                  earning.epsEstimated || undefined,
                                   {
                                     style: "decimal",
                                     minimumFractionDigits: 2,
                                   }
                                 )}
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
+                              </span>
+                            </TableCell>
+
+                            <TableCell className="text-center">
+                              <span
+                                className={cn({
+                                  "text-green-600":
+                                    earning.eps &&
+                                    earning.epsEstimated &&
+                                    earning.eps > earning.epsEstimated,
+                                  "text-red-600":
+                                    earning.eps &&
+                                    earning.epsEstimated &&
+                                    earning.eps < earning.epsEstimated,
+                                })}
+                              >
+                                {appUtils.formatNumber(
+                                  earning.eps || undefined,
+                                  {
+                                    style: "decimal",
+                                    minimumFractionDigits: 2,
+                                  }
+                                )}
+                              </span>
+                            </TableCell>
+
+                            <TableCell className="text-center">
+                              {appUtils.formatNumber(
+                                earnings[index + 1]?.eps || undefined,
+                                {
+                                  style: "decimal",
+                                  minimumFractionDigits: 2,
+                                }
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
                     </TableBody>
                   </Table>
                 </div>
@@ -321,7 +328,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   <Button
                     variant={"link"}
                     className="h-fit gap-x-2 py-2 text-primary-base hover:no-underline dark:text-primary-base"
-                    onClick={() => handleShoMore("EPS")}
+                    onClick={() => handleShowMore("EPS")}
                   >
                     {showAll === "EPS" ? (
                       <>
@@ -373,15 +380,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
               height={180}
               className={"text-xs md:text-sm"}
             >
-              <BarChart
-                data={earnings
-                  .filter(
-                    (earning) =>
-                      earning.epsEstimated !== null || earning.eps !== null
-                  )
-                  .slice(0, 10)
-                  .reverse()}
-              >
+              <BarChart data={filteredEarnings.slice(0, 10).reverse()}>
                 <CartesianGrid
                   vertical={false}
                   strokeDasharray="3 3"
@@ -396,7 +395,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                     const { quarter, year } = dateUtils.getYearAndQuarter(
                       value || new Date()
                     );
-                    return `${quarter} '${year}`;
+                    return `Q${quarter} '${year}`;
                   }}
                 />
 
@@ -427,7 +426,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                       <div className="space-y-2 rounded bg-main-gray-700 p-2 text-main-gray-300">
                         {label && (
                           <div className=" ">
-                            {quarter} '{year}
+                            Q{quarter} '{year}
                           </div>
                         )}
 
@@ -556,84 +555,71 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                     </TableHeader>
 
                     <TableBody>
-                      {earnings
-                        .filter(
-                          (earning) =>
-                            earning.revenue !== null ||
-                            earning.revenueEstimated !== null
-                        )
-                        .slice(0, showAll === "Revenue" ? -1 : 10)
-                        .map((earning, index) => {
-                          const { quarter, year } = dateUtils.getYearAndQuarter(
-                            earning.date
-                          );
+                      {earningsToDisplay.map((earning, index) => {
+                        return (
+                          <TableRow key={`revenue-history-${index}`}>
+                            <TableCell className="px-2 py-2 text-left">
+                              {earning.date.toDateString()}
+                            </TableCell>
 
-                          return (
-                            <TableRow key={`revenue-history-${index}`}>
-                              <TableCell className="px-2 py-2 text-left">
-                                {earning.date.toDateString()}
-                              </TableCell>
+                            <TableCell className={`text-center`}>
+                              {earning.year}
+                            </TableCell>
 
-                              <TableCell className={`text-center`}>
-                                {year}
-                              </TableCell>
+                            <TableCell className={`text-center`}>
+                              Q{earning.quarter}
+                            </TableCell>
 
-                              <TableCell className={`text-center`}>
-                                {quarter}
-                              </TableCell>
-
-                              <TableCell className="px-2 py-2 text-center">
-                                <span className=" ">
-                                  {appUtils.formatNumber(
-                                    earning.revenueEstimated || undefined,
-                                    {
-                                      currency,
-                                      notation: "compact",
-                                      minimumFractionDigits: 2,
-                                    }
-                                  )}
-                                </span>
-                              </TableCell>
-
-                              <TableCell className="px-2 py-2 text-center">
-                                <span
-                                  className={cn({
-                                    "text-green-600":
-                                      earning.revenue &&
-                                      earning.revenueEstimated &&
-                                      earning.revenue >
-                                        earning.revenueEstimated,
-                                    "text-red-600":
-                                      earning.revenue &&
-                                      earning.revenueEstimated &&
-                                      earning.revenue <
-                                        earning.revenueEstimated,
-                                  })}
-                                >
-                                  {appUtils.formatNumber(
-                                    earning.revenue || undefined,
-                                    {
-                                      currency,
-                                      notation: "compact",
-                                      minimumFractionDigits: 2,
-                                    }
-                                  )}
-                                </span>
-                              </TableCell>
-
-                              <TableCell className="px-2 py-2 text-center">
+                            <TableCell className="px-2 py-2 text-center">
+                              <span className=" ">
                                 {appUtils.formatNumber(
-                                  earnings[index + 1]?.revenue || undefined,
+                                  earning.revenueEstimated || undefined,
                                   {
                                     currency,
                                     notation: "compact",
                                     minimumFractionDigits: 2,
                                   }
                                 )}
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
+                              </span>
+                            </TableCell>
+
+                            <TableCell className="px-2 py-2 text-center">
+                              <span
+                                className={cn({
+                                  "text-green-600":
+                                    earning.revenue &&
+                                    earning.revenueEstimated &&
+                                    earning.revenue > earning.revenueEstimated,
+                                  "text-red-600":
+                                    earning.revenue &&
+                                    earning.revenueEstimated &&
+                                    earning.revenue < earning.revenueEstimated,
+                                })}
+                              >
+                                {appUtils.formatNumber(
+                                  earning.revenue || undefined,
+                                  {
+                                    currency,
+                                    notation: "compact",
+                                    minimumFractionDigits: 2,
+                                  }
+                                )}
+                              </span>
+                            </TableCell>
+
+                            <TableCell className="px-2 py-2 text-center">
+                              {appUtils.formatNumber(
+                                earnings[index + 1]?.revenue || undefined,
+                                {
+                                  currency,
+                                  notation: "compact",
+                                  minimumFractionDigits: 2,
+                                }
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
                     </TableBody>
                   </Table>
                 </div>
@@ -642,7 +628,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
                   <Button
                     variant={"link"}
                     className="gap-x-2 text-primary-base hover:no-underline dark:text-primary-base"
-                    onClick={() => handleShoMore("Revenue")}
+                    onClick={() => handleShowMore("Revenue")}
                   >
                     {showAll === "Revenue" ? (
                       <>

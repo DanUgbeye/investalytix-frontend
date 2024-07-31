@@ -5,7 +5,7 @@
   }
 
   *::-webkit-scrollbar:horizontal {
-    @apply h-2;
+    @apply h-3;
   }
 
   *::-webkit-scrollbar-track {

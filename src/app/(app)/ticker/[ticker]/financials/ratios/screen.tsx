@@ -15,13 +15,19 @@ import CLIENT_CONFIG from "@/config/client/app";
 import useScroll from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store";
-import { format, startOfYear, subYears } from "date-fns";
+import {
+  differenceInCalendarYears,
+  format,
+  startOfYear,
+  subYears,
+} from "date-fns";
 import { ChevronRight, Plus } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { generateRatiosTableData } from "./generate-table-data";
 import { FinancialRatiosPageData } from "./page";
+import userUtils from "@/modules/user/utils";
 
 function getPeriodUrl(path: string, period: string) {
   return `${path}?period=${period}`;
@@ -34,21 +40,18 @@ interface RatiosScreenProps extends FinancialRatiosPageData {
 export default function RatiosScreen(props: RatiosScreenProps) {
   const { ticker, currency, period, ratios } = props;
   const pathname = usePathname();
-  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
+  const isPremiumUser = useAppStore(
+    ({ user }) => user !== undefined && userUtils.isPremiumPlanUser(user)
+  );
   const { toggleLoginModal } = useAppStore();
 
   const dataToDisplay = useMemo(() => {
-    let data = ratios;
-    if (!isAuthenticated) {
-      let _12YrsAgo = startOfYear(
-        subYears(new Date(), CLIENT_CONFIG.FREE_YEARS_DATA)
-      ).getTime();
-
-      data = ratios.filter((bs) => new Date(bs.date).getTime() > _12YrsAgo);
-    }
-
-    return data;
-  }, [ratios, isAuthenticated, period]);
+    return ratios.filter(
+      (bs) =>
+        differenceInCalendarYears(new Date(), new Date(bs.date)) <=
+        CLIENT_CONFIG.FREE_YEARS_DATA
+    );
+  }, [ratios, period]);
 
   const tableData = useMemo(() => {
     return generateRatiosTableData(dataToDisplay);
@@ -199,7 +202,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
           </Table>
         </div>
 
-        {!isAuthenticated && (
+        {!isPremiumUser && (
           <div className="flex justify-end">
             <Button
               variant={"link"}

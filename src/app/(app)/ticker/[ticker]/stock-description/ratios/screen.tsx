@@ -113,7 +113,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
       const quarterDate = new Date(outlook.financialsQuarter.income[0].date);
       const { quarter, year } = dateUtils.getYearAndQuarter(quarterDate);
 
-      lastQuarterEnd = `${format(quarterDate, "MM/yyyy")} ${quarter}`;
+      lastQuarterEnd = `${format(quarterDate, "MM/yyyy")} Q${quarter}`;
     }
 
     return {

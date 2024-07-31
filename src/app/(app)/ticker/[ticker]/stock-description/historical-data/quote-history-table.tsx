@@ -8,14 +8,33 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import CLIENT_CONFIG from "@/config/client/app";
+import userUtils from "@/modules/user/utils";
+import { useAppStore } from "@/store";
 import { QuoteHistory } from "@/types";
-import React, { useState } from "react";
+import { differenceInCalendarYears } from "date-fns";
+import React, { useMemo, useState } from "react";
 
 export default function QuoteHistoryTable(props: {
   quoteHistory: QuoteHistory[];
   showAll?: boolean;
 }) {
   const { quoteHistory } = props;
+  const isPremiumUser = useAppStore(
+    ({ user }) => user !== undefined && userUtils.isPremiumPlanUser(user)
+  );
+
+  const quotesHistoryToDisplay = useMemo(() => {
+    return quoteHistory.filter((history) => {
+      if (isPremiumUser) {
+        return (
+          differenceInCalendarYears(new Date(), new Date(history.date)) <=
+          CLIENT_CONFIG.FREE_YEARS_DATA
+        );
+      }
+      return true;
+    });
+  }, [quoteHistory]);
 
   return (
     <div className="overflow-x-auto">
@@ -33,7 +52,7 @@ export default function QuoteHistoryTable(props: {
         </TableHeader>
 
         <TableBody className=" ">
-          {quoteHistory.map((item, index) => {
+          {quotesHistoryToDisplay.map((item, index) => {
             return (
               <TableRow
                 key={`historical-data-${index}`}

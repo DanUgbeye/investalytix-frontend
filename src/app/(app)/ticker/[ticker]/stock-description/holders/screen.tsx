@@ -15,6 +15,9 @@ import appUtils from "@/utils/app-util";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 import { HoldersPageData } from "./page";
+import useAuthenticatedAction from "@/hooks/use-authenticated-action";
+import userUtils from "@/modules/user/utils";
+import { SUBSCRIPTION_PLAN_NAMES } from "@/modules/subscription/types";
 
 interface HoldersScreenProps extends HoldersPageData {
   ticker: string;
@@ -22,19 +25,17 @@ interface HoldersScreenProps extends HoldersPageData {
 
 export default function HoldersScreen(props: HoldersScreenProps) {
   const { ticker, institutionalHolders, mutualFundHolders } = props;
-  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
-  const { toggleLoginModal } = useAppStore();
+  const authenticateAction = useAuthenticatedAction();
   const [showAll, setShowAll] = useState({
     mutual: false,
     institutional: false,
   });
 
   function toggleShowAll(select: keyof typeof showAll) {
-    if (isAuthenticated) {
-      setShowAll((prev) => ({ ...prev, [select]: !prev[select] }));
-    } else {
-      toggleLoginModal();
-    }
+    authenticateAction(
+      () => setShowAll((prev) => ({ ...prev, [select]: !prev[select] })),
+      { plan: SUBSCRIPTION_PLAN_NAMES.PREMIUM }
+    );
   }
 
   return (

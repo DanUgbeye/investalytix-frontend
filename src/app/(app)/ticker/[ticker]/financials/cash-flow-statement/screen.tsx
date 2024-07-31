@@ -15,13 +15,19 @@ import CLIENT_CONFIG from "@/config/client/app";
 import useScroll from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store";
-import { format, startOfYear, subYears } from "date-fns";
+import {
+  differenceInCalendarYears,
+  format,
+  startOfYear,
+  subYears,
+} from "date-fns";
 import { ChevronRight, Plus } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { generateCashFlowTableData } from "./generate-table-data";
 import { CashFlowStatementPageData } from "./page";
+import userUtils from "@/modules/user/utils";
 
 function getPeriodUrl(path: string, period: string) {
   return `${path}?period=${period}`;
@@ -36,23 +42,18 @@ export default function CashFlowStatementScreen(
 ) {
   const { ticker, currency, period, cashFlowStatement } = props;
   const pathname = usePathname();
-  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
+  const isPremiumUser = useAppStore(
+    ({ user }) => user !== undefined && userUtils.isPremiumPlanUser(user)
+  );
   const { toggleLoginModal } = useAppStore();
 
   const dataToDisplay = useMemo(() => {
-    let data = cashFlowStatement;
-    if (!isAuthenticated) {
-      let _12YrsAgo = startOfYear(
-        subYears(new Date(), CLIENT_CONFIG.FREE_YEARS_DATA)
-      ).getTime();
-
-      data = cashFlowStatement.filter(
-        (bs) => new Date(bs.date).getTime() > _12YrsAgo
-      );
-    }
-
-    return data;
-  }, [cashFlowStatement, isAuthenticated, period]);
+    return cashFlowStatement.filter(
+      (bs) =>
+        differenceInCalendarYears(new Date(), new Date(bs.date)) <=
+        CLIENT_CONFIG.FREE_YEARS_DATA
+    );
+  }, [cashFlowStatement, period]);
 
   const tableData = useMemo(() => {
     return generateCashFlowTableData(dataToDisplay);
@@ -203,7 +204,7 @@ export default function CashFlowStatementScreen(
           </Table>
         </div>
 
-        {!isAuthenticated && (
+        {!isPremiumUser && (
           <div className="flex justify-end">
             <Button
               variant={"link"}

@@ -19,8 +19,8 @@ export default function PersistentLogin(props: Props) {
     executeOnce(() => {
       timeoutRef.current = setTimeout(() => {
         if (!user) {
-          toggleLoginModal(true);
-          toggleLoginModalLock(true);
+          // toggleLoginModal(true);
+          // toggleLoginModalLock(true);
         } else {
           toggleLoginModalLock(false);
           toggleLoginModal(false);

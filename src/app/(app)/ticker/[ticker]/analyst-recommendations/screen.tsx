@@ -11,12 +11,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useAuthenticatedAction from "@/hooks/use-authenticated-action";
 import { cn } from "@/lib/utils";
+import { SUBSCRIPTION_PLAN_NAMES } from "@/modules/subscription/types";
 import tickerUtils from "@/modules/ticker/utils";
+import userUtils from "@/modules/user/utils";
 import { useAppStore } from "@/store";
 import useTheme from "@/store/theme/useTheme";
 import appUtils from "@/utils/app-util";
-import { format } from "date-fns";
+import { differenceInCalendarYears, format } from "date-fns";
 import { Minus, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 import {
@@ -34,6 +37,7 @@ import {
 } from "recharts";
 import AnalystForcastChart from "./analyst-forcast-chart";
 import { AnalystRecommendationPageData } from "./page";
+import CLIENT_CONFIG from "@/config/client/app";
 
 const RECOMMENDATION_COLORS = {
   strongSell: "#A43E35",
@@ -71,8 +75,11 @@ export default function AnalystRecommendationScreen(
     quoteHistory,
   } = props;
   const { theme } = useTheme();
-  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
+  const isPremiumUser = useAppStore(
+    ({ user }) => user !== undefined && userUtils.isPremiumPlanUser(user)
+  );
   const { toggleLoginModal } = useAppStore();
+  const authenticateAction = useAuthenticatedAction();
   const [showAllUpgrades, setShowAllUpgrades] = useState(false);
 
   const totalRatings = useMemo(() => {
@@ -147,10 +154,18 @@ export default function AnalystRecommendationScreen(
   }, [priceTarget, upgradesDowngrades]);
 
   const analystUpgradesDowngradesToDisplay = useMemo(() => {
-    return upgradesDowngradesWithPriceTarget.slice(
-      0,
-      showAllUpgrades ? -1 : 11
-    );
+    return upgradesDowngradesWithPriceTarget.filter((upgradeDowngrade) => {
+      if (!showAllUpgrades) {
+        return (
+          differenceInCalendarYears(
+            new Date(),
+            new Date(upgradeDowngrade.publishedDate)
+          ) <= CLIENT_CONFIG.FREE_YEARS_DATA
+        );
+      }
+
+      return true;
+    });
   }, [upgradesDowngradesWithPriceTarget, showAllUpgrades]);
 
   const priceTargetPercentage = useMemo(() => {
@@ -163,11 +178,9 @@ export default function AnalystRecommendationScreen(
   }, [priceTargetConsensus, profile]);
 
   function handleShowMoreUpgrades() {
-    if (isAuthenticated) {
-      setShowAllUpgrades((prev) => !prev);
-    } else {
-      toggleLoginModal();
-    }
+    authenticateAction(() => setShowAllUpgrades((prev) => !prev), {
+      plan: SUBSCRIPTION_PLAN_NAMES.PREMIUM,
+    });
   }
 
   return (
@@ -176,43 +189,6 @@ export default function AnalystRecommendationScreen(
         <HeaderWithUnderline>
           {profile.companyName} Forecast & Price Target
         </HeaderWithUnderline>
-
-        {/* <div className=" flex flex-wrap gap-3 rounded px-6 py-3 text-xs ">
-          <div className=" flex flex-wrap items-center gap-x-8 gap-y-2 ">
-            <span className=" ">See the Price Targets and Ratings of:</span>
-
-            <fieldset className=" flex flex-wrap gap-x-5 ">
-              <label
-                htmlFor="all-analyst"
-                className=" flex items-center gap-x-2 "
-              >
-                <input
-                  name="analysts"
-                  id="all-analyst"
-                  type="radio"
-                  className=" rounded-full "
-                />
-                <span>All Analyst</span>
-              </label>
-
-              <label
-                htmlFor="top-analyst"
-                className=" flex items-center gap-x-2 "
-              >
-                <input
-                  name="analysts"
-                  id="top-analyst"
-                  type="radio"
-                  className=" rounded-full "
-                />
-                <span>Top Analysts</span>
-                <Button size={"sm"} className=" h-8 px-4 text-xs ">
-                  Premium
-                </Button>
-              </label>
-            </fieldset>
-          </div>
-        </div> */}
       </div>
 
       <div

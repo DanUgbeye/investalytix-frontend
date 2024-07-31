@@ -15,6 +15,8 @@ import { FiCalendar } from "react-icons/fi";
 import { z } from "zod";
 import { HistoricalPageData } from "./page";
 import QuoteHistoryTable from "./quote-history-table";
+import { useAppStore } from "@/store";
+import userUtils from "@/modules/user/utils";
 
 function validatePeriod(period: unknown): QuoteTimeframe {
   let valid = QuoteTimeframeSchema.safeParse(period);
@@ -41,6 +43,9 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const isPremiumUser = useAppStore(
+    ({ user }) => user !== undefined && userUtils.isPremiumPlanUser(user)
+  );
 
   const defaultValues = useMemo(() => {
     let from = subYears(new Date(), 1);
@@ -108,6 +113,7 @@ export default function HistoricalDataScreen(props: HistoricalDataScreenProps) {
             value={[from!, to!]}
             calendarIcon={FiCalendar}
             clearIcon={null}
+            minDate={isPremiumUser ? undefined : subYears(new Date(), 5)}
           />
 
           <div className="flex flex-wrap items-center gap-x-3">

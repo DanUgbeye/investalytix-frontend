@@ -10,11 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useAppStore } from "@/store";
-import useTheme from "@/store/theme/useTheme";
+import CLIENT_CONFIG from "@/config/client/app";
+import useAuthenticatedAction from "@/hooks/use-authenticated-action";
+import { SUBSCRIPTION_PLAN_NAMES } from "@/modules/subscription/types";
 import appUtils from "@/utils/app-util";
 import { dateUtils } from "@/utils/date.utils";
-import { format } from "date-fns";
+import { differenceInCalendarYears, format } from "date-fns";
 import { Minus, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 import {
@@ -34,28 +35,23 @@ interface DividendsScreenProps extends DividendsPageData {
 
 export default function DividendsScreen(props: DividendsScreenProps) {
   const { currency, ticker, dividends, outlook, ratio } = props;
-  const { theme } = useTheme();
-  const isAuthenticated = useAppStore(({ auth }) => auth !== undefined);
-  const { toggleLoginModal } = useAppStore();
   const [showAllDividends, setShowAllDividends] = useState(false);
+  const authenticateAction = useAuthenticatedAction();
 
   const dividendsToDisplay = useMemo(() => {
     if (showAllDividends) return dividends;
     return dividends.filter(
       (dividend) =>
-        new Date().getFullYear() - new Date(dividend.date).getFullYear() < 3
+        differenceInCalendarYears(new Date(), new Date(dividend.date)) <=
+        CLIENT_CONFIG.FREE_YEARS_DATA
     );
   }, [dividends, showAllDividends]);
 
   function handleShowMoreDividends() {
-    if (isAuthenticated) {
-      setShowAllDividends((prev) => !prev);
-    } else {
-      toggleLoginModal(true);
-    }
+    authenticateAction(() => setShowAllDividends((prev) => !prev), {
+      plan: SUBSCRIPTION_PLAN_NAMES.PREMIUM,
+    });
   }
-
-  console.log(ratio);
 
   return (
     <main className="max-w-7xl space-y-10 pb-12">
@@ -149,7 +145,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
                   const { quarter, year } = dateUtils.getYearAndQuarter(
                     value || new Date()
                   );
-                  return `${quarter} '${year}`;
+                  return `Q${quarter} '${year}`;
                 }}
               />
 
