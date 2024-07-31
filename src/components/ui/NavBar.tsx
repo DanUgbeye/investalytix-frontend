@@ -543,11 +543,16 @@ function Search() {
       return;
     }
 
+    setQuery("");
+    setSearchResults([]);
     router.push(`${PAGES.TICKER}/${searchResults[0].symbol}`);
   }
 
   function onTickerClick(ticker: string) {
     toggleSearchModal();
+
+    setQuery("");
+    setSearchResults([]);
     router.push(getTickerStockDescriptionRoute(ticker));
   }
 
