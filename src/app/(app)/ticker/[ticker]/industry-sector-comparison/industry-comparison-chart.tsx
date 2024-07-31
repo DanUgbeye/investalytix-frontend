@@ -8,7 +8,7 @@ import { Theme } from "@/types";
 import useTheme from "@/store/theme/useTheme";
 import { QuoteHistory } from "@/types";
 import appUtils from "@/utils/app-util";
-import { format, subYears } from "date-fns";
+import { format, subMonths, subYears } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import {
@@ -142,7 +142,7 @@ export default function IndustryComparisonChart(props: Props) {
         tickerSymbols.map((symbol) =>
           tickerRepo
             .getQuoteHistory(symbol, "1month", {
-              from: subYears(new Date(), 2),
+              from: subMonths(new Date(), 18),
             })
             .then(
               (data) =>

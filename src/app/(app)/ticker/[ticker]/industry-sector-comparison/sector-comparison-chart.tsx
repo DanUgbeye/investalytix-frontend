@@ -37,7 +37,7 @@ export default function SectorComparisonChart(props: Props) {
               tickLine={false}
               axisLine={false}
               dataKey="date"
-              tickFormatter={(value) => format(new Date(value), "MMM yy")}
+              tickFormatter={(value) => format(new Date(value), "dd MMM yy")}
               padding={{ right: 20 }}
             />
 

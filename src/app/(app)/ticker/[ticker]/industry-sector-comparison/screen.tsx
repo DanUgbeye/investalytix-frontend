@@ -255,7 +255,20 @@ export default function IndustrySectorComparisonScreen(
                             key={`${rowData.label}-${index}`}
                             className="text-right"
                           >
-                            {data || 0}%
+                            <ColoredText
+                              isPositive={() => {
+                                const percentage = Number(data);
+                                if (isNaN(Number(data))) {
+                                  return undefined;
+                                }
+
+                                if (percentage > 0) return true;
+                                if (percentage < 0) return false;
+                                return undefined;
+                              }}
+                            >
+                              {data === "-" ? data : `${data}%`}
+                            </ColoredText>
                           </TableCell>
                         );
                       })}

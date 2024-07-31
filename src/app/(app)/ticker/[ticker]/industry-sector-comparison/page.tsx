@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import ErrorScreen from "../error-screen";
 import { SearchTickerPageProps } from "../page";
 import IndustrySectorComparisonScreen from "./screen";
+import { subMonths } from "date-fns";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -49,7 +50,9 @@ async function getData(
     let [profile, similarStocks, sectorPerformanceHistory] = await Promise.all([
       tickerRepo.getCompanyProfile(ticker),
       tickerRepo.getTickerSimilarStocks(ticker),
-      marketRepo.getSectorPerformanceHistory(),
+      marketRepo.getSectorPerformanceHistory({
+        from: subMonths(new Date(), 6),
+      }),
     ]);
 
     return {
