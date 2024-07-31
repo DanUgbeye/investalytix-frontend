@@ -38,6 +38,7 @@ import {
   Ratio,
   SecFiling,
   TickerAnalystRecommendation,
+  TickerPriceChangeSummary,
   TickerPriceTarget,
   TickerPriceTargetConsensus,
   TickerPriceTargetSummary,
@@ -62,6 +63,7 @@ import {
   RatioSchema,
   SecFilingSchema,
   TickerAnalystRecommendationSchema,
+  TickerPriceChangeSummarySchema,
   TickerPriceTargetConsensusSchema,
   TickerPriceTargetSchema,
   TickerPriceTargetSummarySchema,
@@ -216,6 +218,32 @@ export class TickerRepository {
       let res = await this.axios.get<{ data: QuoteHistory }>(path, options);
 
       let validation = z.array(QuoteHistorySchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getPriceChangeSummary(
+    ticker: string,
+    options?: RequestOptions
+  ): Promise<TickerPriceChangeSummary> {
+    try {
+      const searchParams = new URLSearchParams();
+
+      const path = `/tickers/${ticker}/price-change-summary`;
+      let res = await this.axios.get<{ data: TickerPriceChangeSummary }>(
+        path,
+        options
+      );
+
+      let validation = TickerPriceChangeSummarySchema.safeParse(res.data.data);
 
       if (validation.error) {
         throw new Error("Something went wrong on our end");

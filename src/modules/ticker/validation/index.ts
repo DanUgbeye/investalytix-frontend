@@ -1,5 +1,5 @@
 import { z, ZodType } from "zod";
-import { TickerChange } from "../types";
+import { TickerChange, TickerPriceChangeSummary } from "../types";
 
 export * from "./analysis.validation";
 export * from "./company.validation";
@@ -30,3 +30,18 @@ export const TickerChangeSchema = z.object({
     number | null
   >,
 }) satisfies ZodType<TickerChange>;
+
+export const TickerPriceChangeSummarySchema = z.object({
+  symbol: z.string(),
+  "1D": z.number(),
+  "5D": z.number(),
+  "1M": z.number(),
+  "3M": z.number(),
+  "6M": z.number(),
+  ytd: z.number(),
+  "1Y": z.number(),
+  "3Y": z.number(),
+  "5Y": z.number(),
+  "10Y": z.number(),
+  max: z.number(),
+}) satisfies ZodType<TickerPriceChangeSummary>;

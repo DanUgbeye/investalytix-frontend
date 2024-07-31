@@ -1,13 +1,16 @@
 "use client";
 
+import ColoredText from "@/components/colored-text";
+import { cn } from "@/lib/utils";
+import { useTickerRepository } from "@/modules/ticker/hooks";
+import { TickerPriceChangeSummary } from "@/modules/ticker/types";
+import useTheme from "@/store/theme/useTheme";
+import { QuoteHistory, QuoteTimeframe } from "@/types";
+import appUtils from "@/utils/app-util";
 import {
   defaultAreaSeriesOptions,
   defaultChartOptions,
 } from "@/utils/chart.utils";
-import { cn } from "@/lib/utils";
-import { useTickerRepository } from "@/modules/ticker/hooks";
-import useTheme from "@/store/theme/useTheme";
-import { QuoteHistory, QuoteTimeframe } from "@/types";
 import {
   getHours,
   isMonday,
@@ -22,43 +25,54 @@ import {
 import { Time, createChart } from "lightweight-charts";
 import { useEffect, useRef, useState } from "react";
 
-const TIMEFRAMES: { label: string; timeframe: QuoteTimeframe }[] = [
+const TIMEFRAMES: {
+  label: string;
+  timeframe: QuoteTimeframe;
+  shortName: string;
+}[] = [
   {
     label: "1 Day",
+    shortName: "1D",
     timeframe: "5min",
   },
   {
     label: "5 Days",
+    shortName: "5D",
     timeframe: "15min",
   },
   {
     label: "1 Month",
+    shortName: "1M",
     timeframe: "30min",
   },
   {
     label: "6 Months",
+    shortName: "6M",
     timeframe: "4hour",
   },
   {
     label: "YTD",
+    shortName: "ytd",
     timeframe: "1day",
   },
   {
     label: "1 Year",
+    shortName: "1Y",
     timeframe: "1day",
   },
   {
     label: "5 Years",
+    shortName: "5Y",
     timeframe: "1week",
   },
   {
     label: "All Time",
+    shortName: "max",
     timeframe: "1year",
   },
 ];
 
 export default function ChartSummary(props: { ticker: string }) {
-  // const [ticker, setTicker] = useState()
   const { ticker } = props;
   const chartRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
@@ -66,10 +80,13 @@ export default function ChartSummary(props: { ticker: string }) {
   const [activeTab, setActiveTab] = useState(TIMEFRAMES[0]);
   const [loadingData, setLoadingData] = useState(false);
   const [quoteData, setQuoteData] = useState<QuoteHistory[]>([]);
+  const [priceChangeSummary, setPriceChangeSummary] = useState<
+    TickerPriceChangeSummary | undefined
+  >();
 
   async function getHistoricalData(timeframe: (typeof TIMEFRAMES)[number]) {
     let historyData: QuoteHistory[] = [];
-    console.log(getHours(new Date()));
+    // console.log(getHours(new Date()));
 
     if (timeframe.label === "1 Day") {
       historyData = await tickerRepo.getQuoteHistory(
@@ -153,6 +170,16 @@ export default function ChartSummary(props: { ticker: string }) {
     );
   }
 
+  async function getPriceChangeSummary() {
+    try {
+      console.log("calling summary");
+      let priceChange = await tickerRepo.getPriceChangeSummary(ticker);
+      setPriceChangeSummary(priceChange);
+    } catch (error: any) {
+      console.log(error);
+    }
+  }
+
   async function getChartData(timeframe: (typeof TIMEFRAMES)[number]) {
     setLoadingData(true);
     getHistoricalData(timeframe)
@@ -217,6 +244,7 @@ export default function ChartSummary(props: { ticker: string }) {
   useEffect(() => {
     if (!ticker) return;
     getChartData(activeTab);
+    getPriceChangeSummary();
   }, [ticker]);
 
   return (
@@ -237,7 +265,7 @@ export default function ChartSummary(props: { ticker: string }) {
               key={tf.label}
               type="button"
               className={cn(
-                "w-full min-w-fit rounded-lg p-4 text-sm duration-300",
+                "w-full min-w-fit space-y-1 rounded-lg px-4 py-2 text-sm duration-300",
                 {
                   "hover:bg-main-gray-100 dark:hover:bg-main-gray-700/50":
                     tf.label !== activeTab.label,
@@ -249,7 +277,32 @@ export default function ChartSummary(props: { ticker: string }) {
                 handleTimeframeChange(tf);
               }}
             >
-              {tf.label}
+              <span>{tf.label}</span>
+              {priceChangeSummary !== undefined && (
+                <ColoredText
+                  isPositive={() => {
+                    const percentage =
+                      priceChangeSummary[
+                        tf.shortName as keyof typeof priceChangeSummary
+                      ];
+
+                    if (!percentage || typeof percentage === "string")
+                      return undefined;
+                    if (percentage > 0) return true;
+                    if (percentage < 0) return false;
+                    return undefined;
+                  }}
+                  className={cn("text-xs")}
+                >
+                  {appUtils.formatNumber(
+                    priceChangeSummary[
+                      tf.shortName as keyof typeof priceChangeSummary
+                    ] as number,
+                    { style: "decimal" }
+                  )}
+                  %
+                </ColoredText>
+              )}
             </button>
           );
         })}
