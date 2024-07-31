@@ -3,6 +3,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -15,7 +16,7 @@ import { usePathname } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 
 export default function AuthModal() {
-  const path = usePathname()
+  const path = usePathname();
   const loginModalOpen = useAppStore(({ loginModalOpen }) => loginModalOpen);
   const { toggleLoginModal, toggleLoginModalLock } = useAppStore();
 
@@ -48,6 +49,7 @@ export default function AuthModal() {
             <DialogTitle className="mx-auto w-full max-w-[18rem] text-center text-2xl font-bold text-white dark:text-main-gray-300">
               To continue exploring, sign up for free
             </DialogTitle>
+            <DialogDescription hidden />
           </DialogHeader>
 
           <div className="flex flex-col gap-y-4">
