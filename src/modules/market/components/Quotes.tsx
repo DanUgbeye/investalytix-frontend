@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/utils";
 import quotes from "@/mock/quotes";
+import { getTickerStockDescriptionRoute } from "@/route";
 import { Quote } from "@/types";
 import Link from "next/link";
 import { GoBellFill } from "react-icons/go";
@@ -81,23 +82,26 @@ export default function Quotes({
         </TableHeader>
 
         <TableBody>
-          {(customQuotes ? customQuotes : quotes).map((quote) => (
+          {(customQuotes ? customQuotes : quotes).map((quote, index) => (
             <TableRow
               onClick={() => onRowClickHandler(quote)}
               className=""
-              key={quote.symbol}
+              key={`row-${quote.symbol}-${index}`}
             >
               <TableCell className="py-2 text-sm">
                 <Link
                   className="text-hover-focus"
-                  href={`/ticker/${quote.symbol}`}
+                  href={getTickerStockDescriptionRoute(quote.symbol)}
                 >
                   {quote[fields[0].key]}
                 </Link>
               </TableCell>
 
-              {fields.slice(1).map((field) => (
-                <TableCell className="py-2 text-right text-sm">
+              {fields.slice(1).map((field, index) => (
+                <TableCell
+                  key={`${quote.symbol}-column-${field}-${index}`}
+                  className="py-2 text-right text-sm"
+                >
                   {["change", "changesPercentage"].includes(field.key) ? (
                     <ColoredNumber
                       number={quote[field?.key] as number}
