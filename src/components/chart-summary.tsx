@@ -265,12 +265,13 @@ export default function ChartSummary(props: { ticker: string }) {
               key={tf.label}
               type="button"
               className={cn(
-                "w-full min-w-fit space-y-1 rounded-lg px-4 py-2 text-sm duration-300",
+                "w-full min-w-fit space-y-1 rounded-lg px-4 py-4 text-sm duration-300",
                 {
                   "hover:bg-main-gray-100 dark:hover:bg-main-gray-700/50":
                     tf.label !== activeTab.label,
                   "bg-main-gray-200/50 dark:bg-main-gray-700":
                     tf.label === activeTab.label,
+                  "py-2": priceChangeSummary !== undefined,
                 }
               )}
               onClick={() => {

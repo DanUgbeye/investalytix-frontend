@@ -178,7 +178,9 @@ export default function WatchlistTab() {
                         </TableCell>
 
                         <TableCell className="">
-                          {wlQuote?.quote?.price}
+                          {appUtils.formatNumber(wlQuote?.quote?.price, {
+                            currency: wlQuote?.currency,
+                          })}
                         </TableCell>
 
                         <TableCell className="">
@@ -191,7 +193,10 @@ export default function WatchlistTab() {
                             }}
                           >
                             {wlQuote?.quote.change
-                              ? `${wlQuote?.quote.change}`
+                              ? `${appUtils.formatNumber(
+                                  wlQuote?.quote?.change,
+                                  { currency: wlQuote?.currency }
+                                )}`
                               : "-"}
                           </ColoredText>
                         </TableCell>
@@ -209,15 +214,18 @@ export default function WatchlistTab() {
                             }}
                           >
                             {wlQuote?.quote.changesPercentage
-                              ? `${wlQuote?.quote.changesPercentage}%`
+                              ? `${appUtils.formatNumber(
+                                  wlQuote?.quote?.changesPercentage,
+                                  { style: "decimal" }
+                                )}%`
                               : "-"}
                           </ColoredText>
                         </TableCell>
 
                         <TableCell className="text-right">
                           {appUtils.formatNumber(wlQuote?.quote.marketCap, {
-                            style: "decimal",
                             notation: "compact",
+                            currency: wlQuote?.currency,
                           })}
                         </TableCell>
 

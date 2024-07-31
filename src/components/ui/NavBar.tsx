@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import useLogout from "@/modules/auth/hooks/use-logout";
 import { useTickerRepository } from "@/modules/ticker/hooks";
 import tickerUtils from "@/modules/ticker/utils";
+import userUtils from "@/modules/user/utils";
 import {
   getSettingsRoute,
   getTickerStockDescriptionRoute,
@@ -36,6 +37,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { FormEvent, useRef, useState } from "react";
+import { FaCircleUser } from "react-icons/fa6";
 import {
   FiArrowLeft,
   FiChevronRight,
@@ -200,65 +202,90 @@ export default function NavBar(props: { className?: string }) {
 
             {user !== undefined ? (
               <>
-                {/* <Link
-                  href={PAGES.WATCHLIST}
-                  className="hidden cursor-pointer rounded bg-transparent px-2 py-2 font-medium text-white hover:text-primary-base md:block dark:text-main-gray-300 dark:hover:text-primary-light"
-                >
-                  Watchlist
-                </Link> */}
-
                 <Popover>
                   <PopoverTrigger>
                     <Avatar className="size-10 bg-transparent text-sm text-white dark:bg-transparent dark:text-main-gray-300">
-                      <AvatarFallback className="bg-transparent dark:bg-transparent">
-                        <CircleUser className="size-7 stroke-[1.5]" />
+                      <AvatarFallback className="bg-main-gray-400 dark:bg-main-gray-700">
+                        <FaCircleUser className="h-full w-full bg-white text-main-gray-300 dark:bg-main-gray-400 dark:text-main-gray-700" />
                       </AvatarFallback>
                     </Avatar>
                   </PopoverTrigger>
 
-                  <PopoverContent className="mr-4 mt-2 flex max-w-[12rem] flex-col p-2 dark:bg-main-gray-800">
+                  <PopoverContent className="mr-4 mt-2 flex max-w-64 flex-col p-0 py-2 dark:bg-main-gray-800">
                     <div className="w-full">
-                      <Link
-                        title="Profile"
-                        href={PAGES.PROFILE}
-                        className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
-                      >
-                        <CircleUser className="size-5 stroke-[1.5]" />
-                        <span className=" "> Profile</span>
-                      </Link>
+                      <div className="flex items-center gap-2 px-2 pb-2 text-sm">
+                        <Avatar className="size-10 bg-transparent text-sm text-white dark:bg-transparent dark:text-main-gray-300">
+                          <AvatarFallback className="bg-main-gray-300 dark:bg-main-gray-700">
+                            <FaCircleUser className="h-full w-full bg-white text-main-gray-300 dark:bg-main-gray-400 dark:text-main-gray-700" />
+                          </AvatarFallback>
+                        </Avatar>
 
-                      <Link
-                        title="Watchlist"
-                        href={getWatchlistRoute()}
-                        className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
-                      >
-                        <BellRing className="size-5 stroke-[1.5]" />
-                        <span className=" "> Watchlist</span>
-                      </Link>
+                        <div className="flex flex-wrap gap-1 gap-x-2 text-base font-bold">
+                          <span>
+                            {user.firstname} {user.lastname}
+                          </span>
 
-                      <Link
-                        title="Settings"
-                        href={getSettingsRoute()}
-                        className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
-                      >
-                        <Settings className="size-5 stroke-[1.5]" />
-                        <span className=" ">Settings</span>
-                      </Link>
+                          {userUtils.isFreePlanUser(user) && (
+                            <Link
+                              href={PAGES.PRICING}
+                              className="w-fit rounded bg-primary-base px-2 py-1 text-xs font-medium"
+                            >
+                              Upgrade
+                            </Link>
+                          )}
+                        </div>
+                      </div>
 
                       <Separator
                         orientation="horizontal"
-                        className="mt-2 bg-main-gray-400 dark:bg-main-gray-600"
+                        className="my-1 bg-main-gray-400 dark:bg-main-gray-700"
                       />
 
-                      <Button
-                        title="Logout"
-                        variant={"ghost"}
-                        className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-left text-sm font-medium hover:bg-transparent hover:text-primary-base dark:text-main-gray-300 dark:hover:bg-transparent dark:hover:text-primary-light"
-                        onClick={handleLogout}
-                      >
-                        <LogOut className="size-5 stroke-[1.5]" />
-                        <span className=" ">Logout</span>
-                      </Button>
+                      <div className="px-2">
+                        <Link
+                          title="Profile"
+                          href={PAGES.PROFILE}
+                          className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
+                        >
+                          <CircleUser className="size-5 stroke-[1.5]" />
+                          <span className=" "> Profile</span>
+                        </Link>
+
+                        <Link
+                          title="Watchlist"
+                          href={getWatchlistRoute()}
+                          className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
+                        >
+                          <BellRing className="size-5 stroke-[1.5]" />
+                          <span className=" "> Watchlist</span>
+                        </Link>
+
+                        <Link
+                          title="Settings"
+                          href={getSettingsRoute()}
+                          className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-sm font-medium hover:text-primary-base dark:text-main-gray-300 dark:hover:text-primary-light"
+                        >
+                          <Settings className="size-5 stroke-[1.5]" />
+                          <span className=" ">Settings</span>
+                        </Link>
+                      </div>
+
+                      <Separator
+                        orientation="horizontal"
+                        className="my-1 bg-main-gray-400 dark:bg-main-gray-700"
+                      />
+
+                      <div className="px-2">
+                        <Button
+                          title="Logout"
+                          variant={"ghost"}
+                          className="grid w-full grid-cols-[1.5rem,1fr] items-center gap-x-1 rounded bg-transparent p-2 text-left text-sm font-medium hover:bg-transparent hover:text-primary-base dark:text-main-gray-300 dark:hover:bg-transparent dark:hover:text-primary-light"
+                          onClick={handleLogout}
+                        >
+                          <LogOut className="size-5 stroke-[1.5]" />
+                          <span className=" ">Logout</span>
+                        </Button>
+                      </div>
                     </div>
                   </PopoverContent>
                 </Popover>
