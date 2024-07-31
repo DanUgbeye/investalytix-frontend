@@ -75,7 +75,7 @@ const TableRow = React.forwardRef<
   <tr
     ref={ref}
     className={cn(
-      "border-0 hover:bg-main-gray-200 data-[state=selected]:bg-gray-100 dark:border-t dark:border-solid dark:border-main-gray-900 dark:hover:bg-main-gray-800 dark:data-[state=selected]:bg-main-gray-800",
+      "border-0 hover:bg-main-gray-200 data-[state=selected]:bg-gray-100 dark:border-t dark:border-solid dark:border-main-gray-800 dark:hover:bg-main-gray-800 dark:data-[state=selected]:bg-main-gray-800",
       {
         "odd:bg-[#F0F3FA] dark:odd:bg-transparent":
           highlightPattern === "odd" && !headerRow,
