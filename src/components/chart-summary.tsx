@@ -248,7 +248,7 @@ export default function ChartSummary(props: { ticker: string }) {
   }, [ticker]);
 
   return (
-    <div className="space-y-4">
+    <div className="grid grid-rows-[max-content,max-content] grid-cols-1 space-y-4">
       <div className="relative h-72 w-full">
         <div
           ref={chartRef}
@@ -258,7 +258,7 @@ export default function ChartSummary(props: { ticker: string }) {
         />
       </div>
 
-      <div className="hide-scrollbar flex w-full items-center gap-2 overflow-x-auto">
+      <div className="hide-scrollbar flex items-center gap-2 overflow-x-auto">
         {TIMEFRAMES.map((tf, index) => {
           return (
             <button
