@@ -88,14 +88,19 @@ function addRefreshTokenInterceptor(
         _retry?: boolean;
       };
 
-      if (!isAuthenticationError || originalRequest._retry) {
+      if (
+        !isAuthenticationError ||
+        originalRequest._retry ||
+        (originalRequest.url !== undefined &&
+          originalRequest.url.includes("refresh-token")) // if request is to refresh token
+      ) {
         return Promise.reject(error);
       }
 
       let authToken: string;
       try {
         console.log("refreshing token");
-        const axiosInstance = createAPIInstance("/");
+        const axiosInstance = createAPIInstance("/api");
         const authRepo = new AuthRepository(axios, axiosInstance);
         const res = await authRepo.refreshToken();
         saveAuth(res);
@@ -117,5 +122,6 @@ export {
   addRefreshTokenInterceptor,
   createAPIInstance,
   handleAPIError,
-  setAuthHeader,
+  setAuthHeader
 };
+
