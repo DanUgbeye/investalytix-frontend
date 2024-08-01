@@ -97,7 +97,7 @@ export default function PreMarket() {
       {/* Asia-Pacific */}
       <GroupOverview
         label="asia pacific"
-        route="/tickers/quotes/hsi,n225,sti,xjo,shcomp"
+        route="/tickers/hsi,n225,sti,xjo,shcomp/quotes"
         className="mt-11"
         fields={[
           {
@@ -122,7 +122,7 @@ export default function PreMarket() {
       {/* Europe */}
       <GroupOverview
         label="europe"
-        route="/tickers/quotes/^ftse,^GDAXI,^FCHI,^AEX,^STOXX50E"
+        route="/tickers/^ftse,^GDAXI,^FCHI,^AEX,^STOXX50E/quotes"
         className="mt-11"
         fields={[
           {
@@ -153,13 +153,13 @@ export default function PreMarket() {
       {/* Currencies */}
       <GroupOverview
         label="Currencies"
-        route="/tickers/quotes/eurusd,gbpusd,audusd,usdcad,usdjpy"
+        route="/tickers/eurusd,gbpusd,audusd,usdcad,usdjpy/quotes"
         className="mt-11"
       />
       {/* U.S. Indexes */}
       <GroupOverview
         label="U.S. Indexes"
-        route="/tickers/quotes/^RUT,^DJT,^DJU,^NDX,^nya"
+        route="/tickers/^RUT,^DJT,^DJU,^NDX,^nya/quotes"
         className="mt-11"
         fields={[
           {
