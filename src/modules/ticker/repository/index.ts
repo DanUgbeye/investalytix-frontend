@@ -157,6 +157,27 @@ export class TickerRepository {
     }
   }
 
+  async getQuotes(
+    tickers: string[],
+    options?: RequestOptions
+  ): Promise<Quote[]> {
+    try {
+      const path = `/tickers/${tickers.join(",")}/quotes`;
+      let res = await this.axios.get<{ data: Quote[] }>(path, options);
+
+      let validation = z.array(QuoteSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
   async getAfterMarketQuote(
     ticker: string,
     options?: RequestOptions

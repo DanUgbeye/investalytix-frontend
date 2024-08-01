@@ -10,9 +10,9 @@ import {
 } from "@/utils/chart.utils";
 import { addYears } from "date-fns";
 import {
-  AreaData,
   createChart,
   CreatePriceLineOptions,
+  LineData,
   LineStyle,
   LineType,
   Time,
@@ -144,6 +144,8 @@ export default function AnalystForcastChart(props: Props) {
       axisLabelVisible: true,
       title: "Current",
     };
+
+    // min price line
     const minPriceLine: CreatePriceLineOptions = {
       price: priceTargetConsensus.targetLow,
       color: redColor,
@@ -151,6 +153,8 @@ export default function AnalystForcastChart(props: Props) {
       axisLabelVisible: true,
       title: "Min",
     };
+
+    // avarage price line
     const avgPriceLine: CreatePriceLineOptions = {
       price: priceTargetConsensus.targetMedian,
       color:
@@ -163,6 +167,8 @@ export default function AnalystForcastChart(props: Props) {
       axisLabelVisible: true,
       title: "Avg",
     };
+
+    // max price line
     const maxPriceLine: CreatePriceLineOptions = {
       price: priceTargetConsensus.targetHigh,
       color: greenColor,
@@ -175,6 +181,92 @@ export default function AnalystForcastChart(props: Props) {
     areaSeries.createPriceLine(minPriceLine);
     areaSeries.createPriceLine(avgPriceLine);
     areaSeries.createPriceLine(maxPriceLine);
+
+    const forecastLineSeries = newChartAPI.addLineSeries({
+      color: tailwindCSS().theme.colors.primary.base,
+      lineWidth: 1,
+      lineType: LineType.Simple,
+    });
+
+    const oneYearInFuture = addYears(new Date(latestPrice.date), 1);
+
+    const forecastData: LineData[] = [
+      {
+        value: currPrice,
+        time: (oneYearInFuture.getTime() / 1000) as Time,
+      },
+      {
+        value: priceTargetConsensus.targetHigh,
+        time: (oneYearInFuture.getTime() / 1000 + 1) as Time,
+      },
+      {
+        value: priceTargetConsensus.targetMedian,
+        time: (oneYearInFuture.getTime() / 1000 + 2) as Time,
+      },
+      {
+        value: priceTargetConsensus.targetLow,
+        time: (oneYearInFuture.getTime() / 1000 + 3) as Time,
+      },
+    ].sort(
+      (a, b) => (a.time as unknown as number) - (b.time as unknown as number)
+    );
+
+    forecastLineSeries.setData(forecastData);
+
+    // Create lines for min, avg, max price forecasts
+    const minLine = newChartAPI.addLineSeries({
+      color: redColor,
+      lineWidth: 1,
+      lineStyle: LineStyle.Dashed,
+    });
+
+    minLine.setData(
+      [
+        {
+          time: oneYearInFuture.getTime() as Time,
+          value: priceTargetConsensus.targetLow,
+        },
+        { time: seriesData[seriesData.length - 1].time, value: currPrice },
+      ].sort(
+        (a, b) => (a.time as unknown as number) - (b.time as unknown as number)
+      )
+    );
+
+    const avgLine = newChartAPI.addLineSeries({
+      color: theme === "light" ? "#0000FF" : "#00FF00",
+      lineWidth: 1,
+      lineStyle: LineStyle.Dashed,
+    });
+
+    avgLine.setData(
+      [
+        {
+          time: oneYearInFuture.getTime() as Time,
+          value: priceTargetConsensus.targetMedian,
+        },
+        { time: seriesData[seriesData.length - 1].time, value: currPrice },
+      ].sort(
+        (a, b) => (a.time as unknown as number) - (b.time as unknown as number)
+      )
+    );
+
+    const maxLine = newChartAPI.addLineSeries({
+      color: greenColor,
+      lineWidth: 1,
+      lineStyle: LineStyle.Dashed,
+    });
+
+    maxLine.setData(
+      [
+        {
+          time: oneYearInFuture.getTime() as Time,
+          value: priceTargetConsensus.targetHigh,
+        },
+        { time: seriesData[seriesData.length - 1].time, value: currPrice },
+      ].sort(
+        (a, b) => (a.time as unknown as number) - (b.time as unknown as number)
+      )
+    );
   }
 
   useEffect(() => {
