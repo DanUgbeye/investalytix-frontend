@@ -8,18 +8,18 @@ interface Props extends PropsWithChildren {}
 
 export default async function AuthenticatedRoute(props: Props) {
   const { children } = props;
-  const userCookie = cookies().get(COOKIE_KEYS.AUTH);
-  // console.log("userCookie", userCookie);
+  // const userCookie = cookies().get(COOKIE_KEYS.AUTH);
+  // // console.log("userCookie", userCookie);
 
-  if (!userCookie) {
-    return <RedirectToLogin />;
-  }
+  // if (!userCookie) {
+  //   return <RedirectToLogin />;
+  // }
 
-  try {
-    let auth = AuthSchema.parse(JSON.parse(userCookie.value));
-  } catch (error: any) {
-    return <RedirectToLogin />;
-  }
+  // try {
+  //   let auth = AuthSchema.parse(JSON.parse(userCookie.value));
+  // } catch (error: any) {
+  //   return <RedirectToLogin />;
+  // }
 
   return <>{children}</>;
 }
