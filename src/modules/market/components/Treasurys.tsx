@@ -72,8 +72,6 @@ export default async function Treasurys({
     <section {...props}>
       <MarketHeading label="U.S. Treasurys" />
 
-      <div className="overflow-auto"></div>
-
       <div className="w-full overflow-auto">
         <Table>
           <TableHeader>

@@ -16,9 +16,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import ChartSummary from "@/components/chart-summary";
-import Bonds from "../Bonds";
-import Currencies from "../Currencies";
+import GroupOverview from "../PreMarket/GroupOverview";
+import Treasurys from "../Treasurys";
 
 const quotes = [
   {
@@ -170,40 +169,32 @@ const quotes = [
 const timeframes = ["1m", "5m", "15m", "1h", "2h", "4h", "1D"];
 
 export default function Market() {
-  // return null;
   return (
-    <div className="overflow-hidden">
-      <h2 className="white-text white-text mb-6 text-3xl font-extrabold capitalize">
-        Major indexes
-      </h2>
-
-      <div className="mb-20 grid gap-5">
-        <ChartSummary ticker="AAPL" />
-        {/* <div className="">
-          <div className="flex w-fit items-center justify-between md:gap-4">
-            {timeframes.map((tf) => (
-              <button
-                key={tf}
-                className="white-text text-hover-focus p-3 text-xs font-bold"
-              >
-                {tf}
-              </button>
-            ))}
-          </div>
-
-          <p className="white-text py-4 text-xs font-medium">
-            Previous Close: {chart[chart.length - 1].close}
-          </p>
-          <div className="h-80 overflow-auto">
-            <Chart />
-          </div>
-        </div> */}
-
-        <div className="div w-full">
-          <Quotes />
-          {/* <Table /> */}
-        </div>
-      </div>
+    <div>
+      {/* Major indexes */}
+      <GroupOverview
+        label="Major indexes"
+        route="/tickers/quotes/^ftse,^GDAXI,^FCHI,^AEX,^STOXX50E"
+        className="mb-20"
+        fields={[
+          {
+            label: "Name",
+            key: "name",
+          },
+          {
+            label: "Last",
+            key: "price",
+          },
+          {
+            label: "Chg",
+            key: "change",
+          },
+          {
+            label: "Chg%",
+            key: "changesPercentage",
+          },
+        ]}
+      />
 
       {/* MARKET MOVERS */}
       <MarketMovers />
@@ -213,9 +204,9 @@ export default function Market() {
       <section className="mt-11">
         <MarketSectionHeader label="SECURITIES" />
 
-        <div className="grid gap-x-20 gap-y-5 md:grid-cols-2">
+        <div className="grid gap-x-20 gap-y-11 md:gap-y-5 md:grid-cols-2">
           {/* bonds */}
-          <Bonds/>
+          <Treasurys />
           {/* <section>
             <h2 className="white-text mb-6 text-2xl font-bold capitalize">
               bonds
@@ -223,22 +214,16 @@ export default function Market() {
             <YieldTable />
           </section> */}
 
-          {/* FUTURES & COMMODITIES */}
-          {/* <section>
-            <h2 className="white-text mb-6 text-2xl font-bold capitalize">
-              futures & commodities
-            </h2>
-            <Quotes />
-          </section> */}
-          <Currencies/>
-
-          {/* CURRENCIES */}
-          {/* <section className="md:col-span-2">
-            <h2 className="white-text mb-6 text-2xl font-bold capitalize">
-              currencies
-            </h2>
-            <Quotes />
-          </section> */}
+          {/* Commodities */}
+          <GroupOverview
+            label="futures & commodities"
+            route="/market/commodities"
+          />
+          {/* Currencies */}
+          <GroupOverview
+            label="Currencies"
+            route="/tickers/quotes/eurusd,gbpusd,audusd,usdcad,usdjpy"
+          />
         </div>
       </section>
 

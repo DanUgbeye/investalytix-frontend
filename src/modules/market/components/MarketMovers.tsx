@@ -102,7 +102,7 @@ export default function MarketMovers() {
               className={"z-[1] !w-fit !flex-shrink grow-0"}
             >
               <button
-                className={`rounded-md px-4 py-1 text-sm font-extrabold outline-none ${
+                className={`rounded-md px-4 py-1 text-sm font-extrabold outline-none whitespace-nowrap ${
                   exchange === market
                     ? "bg-primary-base text-white dark:bg-primary-light dark:text-black"
                     : "bg-hover-focus bg-[#EBEEF3] dark:bg-[#EBEEF3]/20 dark:text-white/70"
