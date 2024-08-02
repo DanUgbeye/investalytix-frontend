@@ -1,8 +1,8 @@
 import Quotes from "@/modules/market/components/Quotes";
 import MarketHeading from "../../MarketHeading";
-import Bonds from "../../Bonds";
 import Currencies from "../../Currencies";
 import StockIndexes from "../../StockIndexes";
+import Treasurys from "../../Treasurys";
 
 export default function Americas() {
   return (
@@ -14,7 +14,7 @@ export default function Americas() {
       <Currencies className="mt-11" />
 
       {/* BONDS & RATES */}
-      <Bonds className="mt-11" overview />
+      <Treasurys className="mt-11"/>
     </section>
   );
 }
