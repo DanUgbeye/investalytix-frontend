@@ -174,8 +174,9 @@ export default function Market() {
       {/* Major indexes */}
       <GroupOverview
         label="Major indexes"
-        route="/tickers/quotes/^ftse,^GDAXI,^FCHI,^AEX,^STOXX50E"
+        route="/tickers/^SPX, ^DJI, ^NDX, ^RUT, ^FTSE, ^NYA, ^GDAXI, ^FCHI, N225, HSI, SHCOMP, XJO, ^STOXX50E, DJT, DJU/quotes"
         className="mb-20"
+        limit={6}
         fields={[
           {
             label: "Name",
@@ -204,9 +205,8 @@ export default function Market() {
       <section className="mt-11">
         <MarketSectionHeader label="SECURITIES" />
 
-        <div className="grid gap-x-20 gap-y-11 md:gap-y-5 md:grid-cols-2">
+        <div className="grid gap-x-20 gap-y-11 md:grid-cols-2 md:gap-y-11">
           {/* bonds */}
-          <Treasurys />
           {/* <section>
             <h2 className="white-text mb-6 text-2xl font-bold capitalize">
               bonds
@@ -222,8 +222,9 @@ export default function Market() {
           {/* Currencies */}
           <GroupOverview
             label="Currencies"
-            route="/tickers/quotes/eurusd,gbpusd,audusd,usdcad,usdjpy"
+            route="/tickers/eurusd,gbpusd,audusd,usdcad,usdjpy/quotes"
           />
+          <Treasurys />
         </div>
       </section>
 
