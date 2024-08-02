@@ -42,7 +42,7 @@ export default function GDPGrowthRateByCountryTemplate({
   return (
     <>
       <MarketHeader name="GDP GROWTH RATE BY COUNTRY" active="ECONOMY" />
-      <div className="mx-auto mb-14 flex w-fit justify-between gap-4 overflow-auto px-14 py-5">
+      {/* <div className="mx-auto mb-14 flex w-fit justify-between gap-4 overflow-auto px-14 py-5">
         {markets.map((market, index) => (
           <Link
             key={market.href}
@@ -56,7 +56,7 @@ export default function GDPGrowthRateByCountryTemplate({
             {market.label}
           </Link>
         ))}
-      </div>
+      </div> */}
 
       {children}
     </>

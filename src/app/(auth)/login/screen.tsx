@@ -152,7 +152,7 @@ export default function LoginScreen() {
                     type="checkbox"
                     name="stay-signed-in"
                     id="stay-signed-in"
-                    className="size-5 appearance-none rounded bg-gray-200 checked:bg-primary-base dark:bg-white/10"
+                    className="size-5 appearance-none rounded-md border-2 checked:bg-primary-base"
                   />
                 </div>
 

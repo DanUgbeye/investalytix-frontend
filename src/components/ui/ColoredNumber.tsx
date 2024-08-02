@@ -6,10 +6,12 @@ export default function ColoredNumber({
   percent = false,
   className = "",
   decimals,
+  sign = false, // should show - or + sign
 }: {
   number?: number | null;
   colored?: boolean;
   percent?: boolean;
+  sign?: boolean;
   className?: HTMLElement["className"];
   decimals?: number;
 }) {
@@ -26,6 +28,7 @@ export default function ColoredNumber({
         className
       )}
     >
+      {sign && !isNegative && "+"}
       {Number.isNaN(decimals) ? number : number?.toFixed(decimals)}
       {percent && "%"}
     </span>
