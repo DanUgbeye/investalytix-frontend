@@ -1,7 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Sector,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 import useFetcher from "@/hooks/useFetcher";
 import moment from "moment";
 import { motion } from "framer-motion";
@@ -261,12 +268,13 @@ export default function FearAndGreed() {
                   cx={(containerRef?.current?.clientWidth ?? 0) / 2}
                   cy={(containerRef?.current?.clientHeight ?? 0) / 2}
                   // innerRadius={iR}
-                  innerRadius={(containerRef?.current?.clientHeight ?? 0) * 0.3}
-                  outerRadius={(containerRef?.current?.clientHeight ?? 0) * 0.4}
+                  innerRadius={(containerRef?.current?.clientHeight ?? 0) * 0.2}
+                  outerRadius={(containerRef?.current?.clientHeight ?? 0) * 0.3}
                   // outerRadius={oR}
                   fill="#8884d8"
                   paddingAngle={0}
                   dataKey="value"
+                  label={(d) => d.name}
                 >
                   {[...otherPieData].map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index]} />
@@ -276,8 +284,8 @@ export default function FearAndGreed() {
                   mapValueToRange(data.data.fgi.now.value),
                   (containerRef?.current?.clientWidth ?? 0) / 2,
                   (containerRef?.current?.clientHeight ?? 0) / 2,
+                  (containerRef?.current?.clientHeight ?? 0) * 0.2,
                   (containerRef?.current?.clientHeight ?? 0) * 0.3,
-                  (containerRef?.current?.clientHeight ?? 0) * 0.4,
                   "#D0D5DD"
                 )}
               </PieChart>
