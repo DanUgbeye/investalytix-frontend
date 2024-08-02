@@ -100,7 +100,7 @@ export default function America() {
                 height={400}
               >
                 <AreaChart
-                  data={data.data.map((a) => a).reverse()}
+                  data={yoy.map((a) => a).reverse()}
                   margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                 >
                   <defs>
@@ -110,12 +110,40 @@ export default function America() {
                     </linearGradient>
                   </defs>
                   <XAxis
-                    dataKey="date"
-
-                    // label={(a) => new Date(a.date).getFullYear}
+                    dataKey={(a) => moment(new Date(a.date)).format("YYYY")}
                   />
                   <YAxis dataKey={"value"} orientation="right" />
-                  <Tooltip />
+                  <Tooltip
+                    content={({ active, payload, label }) => {
+                      if (active && payload && payload.length) {
+                        const entry = payload[0].payload;
+                        return (
+                          <div className="bg-white p-2 shadow-sm rounded-sm">
+                            <p className="">
+                              Date:{" "}
+                              <span className="text-sm font-semibold">
+                                {moment(entry.date).format("MMM / YYYY")}
+                              </span>
+                            </p>
+                            <p className="">
+                              Value:{" "}
+                              <span className="text-sm font-semibold">
+                                {formatCurrency(entry.value)}
+                              </span>
+                            </p>
+                            <p className="">
+                              YOY%:{" "}
+                              <span className="text-sm font-semibold">
+                                { <ColoredNumber number={entry.yoy} percent sign />}
+                              </span>
+                            </p>
+                          </div>
+                        );
+                      }
+
+                      return null;
+                    }}
+                  />
 
                   <Area
                     type="monotone"
@@ -171,7 +199,7 @@ export default function America() {
                       key={entry.date + entry.value + index}
                     >
                       <TableCell className="py-2 text-sm">
-                        {moment(entry.date).format("MMM/YYYY")}
+                        {moment(entry.date).format("MMM / YYYY")}
                       </TableCell>
                       <TableCell className="py-2 text-center text-sm">
                         {formatCurrency(entry.value)}
