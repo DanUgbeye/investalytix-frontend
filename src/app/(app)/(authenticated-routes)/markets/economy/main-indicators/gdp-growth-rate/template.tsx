@@ -41,7 +41,7 @@ export default function GDPGrowthRateByCountryTemplate({
   const pathname = usePathname();
   return (
     <>
-      <MarketHeader name="GDP GROWTH RATE BY COUNTRY" active="ECONOMY" />
+      <MarketHeader name="U.S. GDP GROWTH RATE" active="ECONOMY" />
       {/* <div className="mx-auto mb-14 flex w-fit justify-between gap-4 overflow-auto px-14 py-5">
         {markets.map((market, index) => (
           <Link
