@@ -44,8 +44,8 @@ export type AnalystRecommendationPageData = {
   consensus?: TickerUpgradeDowngradeConsensus;
   analystRecommendation: TickerAnalystRecommendation[];
   upgradesDowngrades: TickerUpgradesDowngrades[];
-  priceTargetConsensus: TickerPriceTargetConsensus;
-  priceTargetSummary: TickerPriceTargetSummary;
+  priceTargetConsensus?: TickerPriceTargetConsensus;
+  priceTargetSummary?: TickerPriceTargetSummary;
   priceTarget: TickerPriceTarget[];
   quoteHistory: QuoteHistory[];
 };
@@ -91,6 +91,7 @@ async function getData(
       },
     };
   } catch (error: any) {
+    console.log(error);
     if (errorUtils.is404Error(error)) {
       notFound();
     }
