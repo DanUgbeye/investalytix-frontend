@@ -30,7 +30,7 @@ export function HeatMap() {
           "locale": "en",
           "symbolUrl": "${url}",
           "colorTheme": "${theme}",
-          "hasTopBar": false,
+          "hasTopBar": true,
           "isDataSetEnabled": true,
           "isZoomEnabled": true,
           "hasSymbolTooltip": true,
