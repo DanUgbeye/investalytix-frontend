@@ -85,21 +85,21 @@ export default function NewsDisplayModal() {
                         {currentNews.title}
                       </DialogTitle>
 
-                      <div className="flex flex-wrap gap-4 ">
+                      <div className="flex flex-wrap gap-4 py-4">
                         {currentNews.symbols.length > 0 &&
                           currentNews.symbols.map((symbol) => (
                             <div
                               key={`current-news-${symbol}`}
                               className="flex h-fit w-fit items-center gap-2 rounded-full bg-main-gray-200/50 py-2 pl-2 pr-4 dark:bg-main-gray-800"
                             >
-                              <Avatar className="size-6">
+                              <Avatar className="size-5">
                                 <AvatarImage
                                   src={tickerUtils.getTickerLogoUrl(symbol)}
                                   className="h-full w-full object-cover"
                                 />
                               </Avatar>
 
-                              <span className="text-sm font-semibold">
+                              <span className="text-xs font-semibold">
                                 {symbol}
                               </span>
                             </div>

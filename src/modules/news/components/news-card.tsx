@@ -24,7 +24,7 @@ export default function NewsCard(props: NewsCardProps) {
             />
 
             <AvatarFallback className="h-full w-full rounded-lg">
-              <span className="truncate">{news.symbols[0]}</span>
+              <span className="truncate">{news.symbols?.[0]}</span>
             </AvatarFallback>
           </Avatar>
         )}
