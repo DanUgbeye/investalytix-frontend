@@ -121,9 +121,7 @@ export default function Quotes({
                       number={quote[field?.key] as number}
                       percent={field.key === "changesPercentage"}
                     />
-                  ) : ["change"].includes(field.key) ? (
-                    formatCurrency(quote[field?.key] as number)
-                  ) : ["price"].includes(field.key) ? (
+                  ) : ["change", "price"].includes(field.key) ? (
                     formatCurrency(quote[field?.key] as number)
                   ) : (
                     quote[field?.key]

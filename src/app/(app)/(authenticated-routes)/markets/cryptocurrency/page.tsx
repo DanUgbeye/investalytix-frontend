@@ -85,7 +85,7 @@ export default function CryptocurrencyPage() {
             previousClassName="pagination__page"
             activeClassName="pagination__page-active"
           />
-          <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} />
+          {/* <WithSidePanel sections={SIDE_SECTIONS["TRENDING_NOW"]} /> */}
         </>
       ) : null}
     </>

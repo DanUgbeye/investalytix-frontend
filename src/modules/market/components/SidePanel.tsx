@@ -88,8 +88,8 @@ export default function SidePanel({
               <div
                 className={`w-fit place-self-center self-center rounded px-4 py-1 text-center font-bold ${
                   isPositive
-                    ? "bg-[#D6FFEF] text-[#00CA5F]"
-                    : "bg-[#FEDEDF] text-[#E74C3C]"
+                    ? "bg-[#D6FFEF] text-[#00CA5F] dark:bg-[#bed4cc] dark:text-[#027035]"
+                    : "bg-[#FEDEDF] text-[#E74C3C] dark:bg-[#dcc7c8] dark:text-[#800e02]"
                 }`}
               >
                 {isPositive && "+"}

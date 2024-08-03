@@ -1,10 +1,7 @@
-// "use client";
 import EconomicEvent from "@/modules/market/components/EconomicEvent";
 import SidePanel from "./SidePanel";
-import Watchlist from "./Watchlist";
 import SectorPerformance from "./SectorPerformance";
 import { Suspense } from "react";
-import TopPicks from "./TopPicks";
 
 export enum SIDE_SECTIONS {
   ALL = "ALL",
@@ -21,16 +18,12 @@ export enum SIDE_SECTIONS {
 }
 
 export default function WithSidePanel({
-  // children,
   sections = SIDE_SECTIONS["ALL"],
 }: Readonly<{
-  // children: React.ReactNode;
   sections?: SIDE_SECTIONS[] | SIDE_SECTIONS;
 }>) {
   return (
     <>
-      {/* <div>{children}</div> */}
-
       <div className="mt-20 grid gap-14 border-[#DCDCDC] pb-10 md:grid-cols-2 dark:border-white/10">
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["HOT_PICKS"])) && (
@@ -92,9 +85,6 @@ export default function WithSidePanel({
             />
           </Suspense>
         )}
-
-        {/* {(sections == SIDE_SECTIONS["ALL"] ||
-            sections.includes(SIDE_SECTIONS["WATCHLIST"])) && <Watchlist />} */}
         {(sections == SIDE_SECTIONS["ALL"] ||
           sections.includes(SIDE_SECTIONS["TOP_ECONOMIC_EVENT"])) && (
           <div className="md:col-span-2">
