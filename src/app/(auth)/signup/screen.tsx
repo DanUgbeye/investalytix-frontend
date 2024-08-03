@@ -203,7 +203,7 @@ export default function SignupScreen() {
 
               <div className="my-6 flex items-center gap-2">
                 <div className="relative flex h-fit items-center">
-                  <ImCheckmark className="pointer-events-none absolute left-1/2 top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 text-white" />
+                  <ImCheckmark className="pointer-events-none absolute left-1/2 top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 text-white dark:text-black" />
 
                   <input
                     type="checkbox"
