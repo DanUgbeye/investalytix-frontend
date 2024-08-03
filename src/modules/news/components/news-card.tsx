@@ -37,9 +37,9 @@ export default function NewsCard(props: NewsCardProps) {
               })}
             </span>
 
-            <span className="size-1 rounded-full bg-main-gray-600" />
+            {/* <span className="size-1 rounded-full bg-main-gray-600" /> */}
 
-            <span className="truncate">{news.site}</span>
+            {/* <span className="truncate">{news.site}</span> */}
           </div>
 
           <div className="line-clamp-3 text-sm font-medium">{news.title}</div>
