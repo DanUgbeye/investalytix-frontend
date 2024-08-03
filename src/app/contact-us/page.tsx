@@ -32,7 +32,7 @@ export default function ContactUsPage() {
     <main className="relative mx-auto grid-cols-2 md:grid 2xl:grid-cols-[2fr,3fr]">
       <div className="mx-auto max-w-5xl px-6 py-24 md:px-14">
         <h1 className="text-5xl font-bold sm:text-7xl lg:text-8xl">
-          Connect with{" "}
+          Connect <br className="max-lg:hidden"/> with{" "}
           <span className="text-primary-base dark:text-primary-light">us</span>
         </h1>
         <p className="mt-7 text-lg sm:text-lg xl:text-2xl">
@@ -115,7 +115,7 @@ export default function ContactUsPage() {
       <div className="md:relative">
         <div className="top-0 w-full bg-cover bg-center bg-no-repeat md:sticky md:h-screen">
           <Image
-            src="/images/contact-us-3.jpg"
+            src="/images/contact.jpg"
             fill
             alt=""
             className="hidden object-cover object-center md:block"

@@ -23,12 +23,12 @@ export default function PreMarket() {
           <Chart />
         </div> */}
 
-        <Futures />
-        <Futures isFairValue />
+        <Futures ticker="^DJI" />
+        {/* <Futures isFairValue /> */}
 
-        <p className="white-text mt-4 text-sm font-bold text-[#2F3A48]">
+        {/* <p className="white-text mt-4 text-sm font-bold text-[#2F3A48]">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
-        </p>
+        </p> */}
       </section>
 
       {/* S&P 500 (Mini) */}
@@ -43,13 +43,14 @@ export default function PreMarket() {
         {/* <div className="h-80 w-full">
           <Chart />
         </div> */}
+        <Futures ticker="^GSPC" />
 
-        <Futures />
+        {/* <Futures />
         <Futures isFairValue />
 
         <p className="white-text mt-4 text-sm font-bold text-[#2F3A48]">
           Last updated: Thu Dec 28, 2023 : 6:22 AM EST
-        </p>
+        </p> */}
       </section>
 
       {/* NASDAQ (Mini) */}
@@ -65,12 +66,14 @@ export default function PreMarket() {
           <Chart />
         </div> */}
 
-        <Futures />
-        <Futures isFairValue />
+        <Futures ticker="^IXIC" />
 
-        <p className="white-text mt-4 text-sm font-bold text-[#2F3A48]">
-          Last updated: Thu Dec 28, 2023 : 6:22 AM EST
-        </p>
+        {/* <Futures />
+<Futures isFairValue />
+
+<p className="white-text mt-4 text-sm font-bold text-[#2F3A48]">
+  Last updated: Thu Dec 28, 2023 : 6:22 AM EST
+</p> */}
       </section>
 
       {/* RUSELL (Mini) */}
@@ -86,12 +89,14 @@ export default function PreMarket() {
 
         <ChartSummary ticker="^RUT" />
 
-        <Futures />
-        <Futures isFairValue />
+        <Futures ticker="^RUT" />
 
-        <p className="white-text mt-4 text-sm font-bold text-[#2F3A48]">
-          Last updated: Thu Dec 28, 2023 : 6:22 AM EST
-        </p>
+        {/* <Futures />
+<Futures isFairValue />
+
+<p className="white-text mt-4 text-sm font-bold text-[#2F3A48]">
+Last updated: Thu Dec 28, 2023 : 6:22 AM EST
+</p> */}
       </section>
 
       {/* Asia-Pacific */}
@@ -99,24 +104,26 @@ export default function PreMarket() {
         label="asia pacific"
         route="/tickers/hsi,n225,sti,xjo,shcomp/quotes"
         className="mt-11"
-        fields={[
-          {
-            label: "Name",
-            key: "name",
-          },
-          {
-            label: "Last",
-            key: "price",
-          },
-          {
-            label: "Chg",
-            key: "change",
-          },
-          {
-            label: "Chg%",
-            key: "changesPercentage",
-          },
-        ]}
+        quotes={{
+          fields: [
+            {
+              label: "Name",
+              key: "name",
+            },
+            {
+              label: "Last",
+              key: "price",
+            },
+            {
+              label: "Chg",
+              key: "change",
+            },
+            {
+              label: "Chg%",
+              key: "changesPercentage",
+            },
+          ],
+        }}
       />
 
       {/* Europe */}
@@ -124,24 +131,26 @@ export default function PreMarket() {
         label="europe"
         route="/tickers/^ftse,^GDAXI,^FCHI,^AEX,^STOXX50E/quotes"
         className="mt-11"
-        fields={[
-          {
-            label: "Name",
-            key: "name",
-          },
-          {
-            label: "Last",
-            key: "price",
-          },
-          {
-            label: "Chg",
-            key: "change",
-          },
-          {
-            label: "Chg%",
-            key: "changesPercentage",
-          },
-        ]}
+        quotes={{
+          fields: [
+            {
+              label: "Name",
+              key: "name",
+            },
+            {
+              label: "Last",
+              key: "price",
+            },
+            {
+              label: "Chg",
+              key: "change",
+            },
+            {
+              label: "Chg%",
+              key: "changesPercentage",
+            },
+          ],
+        }}
       />
 
       {/* Commodities */}
@@ -161,24 +170,27 @@ export default function PreMarket() {
         label="U.S. Indexes"
         route="/tickers/^RUT,^DJT,^DJU,^NDX,^nya/quotes"
         className="mt-11"
-        fields={[
-          {
-            label: "Name",
-            key: "name",
-          },
-          {
-            label: "Last",
-            key: "price",
-          },
-          {
-            label: "Chg",
-            key: "change",
-          },
-          {
-            label: "Chg%",
-            key: "changesPercentage",
-          },
-        ]}
+        quotes={{
+          fields: [
+            {
+              label: "Name",
+              key: "name",
+            },
+            {
+              label: "Last",
+              key: "price",
+            },
+            {
+              label: "Chg",
+              key: "change",
+            },
+            {
+              label: "Chg%",
+              key: "changesPercentage",
+            },
+          ],
+          isIndex: true,
+        }}
       />
 
       {/* Volatility & Global Indexes */}

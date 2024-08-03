@@ -1,20 +1,22 @@
 import { twMerge } from "tailwind-merge";
 
+export type ColoredNumberProps = {
+  number?: number | null;
+  colored?: boolean;
+  percent?: boolean;
+  sign?: boolean; // should show - or + sign
+  className?: HTMLElement["className"];
+  decimals?: number;
+};
+
 export default function ColoredNumber({
   number,
   colored = true,
   percent = false,
   className = "",
   decimals,
-  sign = false, // should show - or + sign
-}: {
-  number?: number | null;
-  colored?: boolean;
-  percent?: boolean;
-  sign?: boolean;
-  className?: HTMLElement["className"];
-  decimals?: number;
-}) {
+  sign = false,
+}: ColoredNumberProps) {
   if (Number.isNaN(Number(number)) || number === null) {
     return <span>-</span>;
   }

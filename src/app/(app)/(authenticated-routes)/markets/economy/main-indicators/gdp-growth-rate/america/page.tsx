@@ -1,9 +1,9 @@
-import America from "@/modules/market/components/Economy/MainIndicators/GDPGrowthRate/America";
+import Screen from "./screen";
 
 export default function AmericaPage() {
   return (
     <main>
-      <America />
+      <Screen />
     </main>
   );
 }
