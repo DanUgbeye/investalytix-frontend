@@ -18,9 +18,11 @@ import {
   YAxis,
 } from "recharts";
 import useFetcher from "@/hooks/useFetcher";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "@/components/spinner";
 import { motion } from "framer-motion";
+import { calculateMedian, calculateYoY, formatCurrency } from "@/lib/utils";
+import ColoredNumber from "@/components/ui/ColoredNumber";
 
 type GDP = { date: string; value: number };
 
@@ -49,10 +51,18 @@ export default function America() {
     status: number;
     data: GDP[];
   }>();
+  const [yoy, setYoy] = useState<ReturnType<typeof calculateYoY>>([]);
 
   useEffect(() => {
     wrapper(getData);
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      const withYoy = calculateYoY(data.data);
+      setYoy(withYoy);
+    }
+  }, [data]);
 
   return (
     <div className="grid gap-5 lg:grid-cols-[300px,1fr]">
@@ -82,7 +92,7 @@ export default function America() {
           <Spinner />
         </motion.div>
 
-        {data?.data && (
+        {data?.data && yoy.length > 0 && (
           <>
             <div className="mb-12 w-full">
               <ResponsiveContainer
@@ -90,7 +100,7 @@ export default function America() {
                 height={400}
               >
                 <AreaChart
-                  data={data.data}
+                  data={yoy.map((a) => a).reverse()}
                   margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                 >
                   <defs>
@@ -99,9 +109,41 @@ export default function America() {
                       <stop offset="95%" stopColor="#FFAF5F" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <XAxis dataKey="date" />
-                  <YAxis dataKey={"value"} />
-                  <Tooltip />
+                  <XAxis
+                    dataKey={(a) => moment(new Date(a.date)).format("YYYY")}
+                  />
+                  <YAxis dataKey={"value"} orientation="right" />
+                  <Tooltip
+                    content={({ active, payload, label }) => {
+                      if (active && payload && payload.length) {
+                        const entry = payload[0].payload;
+                        return (
+                          <div className="bg-white p-2 shadow-sm rounded-sm">
+                            <p className="">
+                              Date:{" "}
+                              <span className="text-sm font-semibold">
+                                {moment(entry.date).format("MMM / YYYY")}
+                              </span>
+                            </p>
+                            <p className="">
+                              Value:{" "}
+                              <span className="text-sm font-semibold">
+                                {formatCurrency(entry.value)}
+                              </span>
+                            </p>
+                            <p className="">
+                              YOY%:{" "}
+                              <span className="text-sm font-semibold">
+                                { <ColoredNumber number={entry.yoy} percent sign />}
+                              </span>
+                            </p>
+                          </div>
+                        );
+                      }
+
+                      return null;
+                    }}
+                  />
 
                   <Area
                     type="monotone"
@@ -114,6 +156,26 @@ export default function America() {
               </ResponsiveContainer>
             </div>
 
+            <h2 className="font-bold">Basic info</h2>
+            <p className="mb-12">
+              As of {moment(data.data[0].date).format("MMMM Do YYYY")}, the
+              United States Gross Domestic Product (GDP) stood at{" "}
+              {formatCurrency(data.data[0].value)}, according to the Bureau of
+              Economic Analysis. Historically, the GDP reached its peak at this
+              record high of{" "}
+              {formatCurrency(
+                data.data.reduce((a, b) => (a.value > b.value ? a : b)).value
+              )}
+              , with the lowest recorded value being{" "}
+              {formatCurrency(
+                data.data.reduce((a, b) => (a.value < b.value ? a : b)).value
+              )}
+              . The median GDP value is{" "}
+              {formatCurrency(calculateMedian(data.data.map((a) => a.value)))}.
+              The Year-Over-Year growth rate is{" "}
+              <ColoredNumber number={yoy[0].yoy} sign colored percent />.
+            </p>
+
             <div className="w-full overflow-auto">
               <Table>
                 <TableHeader>
@@ -121,23 +183,29 @@ export default function America() {
                     <TableHead className="!py-2 !text-sm capitalize">
                       Reference
                     </TableHead>
-                    <TableHead className="!py-2 !text-sm capitalize">
+                    <TableHead className="!py-2 text-center !text-sm capitalize">
                       Value
+                    </TableHead>
+                    <TableHead className="!py-2 text-right !text-sm">
+                      YOY%
                     </TableHead>
                   </TableRow>
                 </TableHeader>
 
                 <TableBody>
-                  {data.data.map((entry, index) => (
+                  {yoy.map((entry, index) => (
                     <TableRow
                       className=""
                       key={entry.date + entry.value + index}
                     >
                       <TableCell className="py-2 text-sm">
-                        {moment(entry.date).format("MMM/YYYY")}
+                        {moment(entry.date).format("MMM / YYYY")}
                       </TableCell>
-                      <TableCell className="py-2 text-sm">
-                        {entry.value}
+                      <TableCell className="py-2 text-center text-sm">
+                        {formatCurrency(entry.value)}
+                      </TableCell>
+                      <TableCell className="py-2 text-right text-sm">
+                        <ColoredNumber number={entry.yoy} percent sign />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -145,7 +213,7 @@ export default function America() {
               </Table>
             </div>
 
-            <p className="mt-14 border border-[#DDDDDD] px-5 py-6">
+            <p className="mt-14 hidden border border-[#DDDDDD] px-5 py-6">
               This page displays a table with GDP Growth Rate for a list of
               countries . This page provides values for GDP Growth Rate reported
               in several countries. The table has current values for GDP Growth

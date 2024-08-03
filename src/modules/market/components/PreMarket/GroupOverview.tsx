@@ -19,14 +19,14 @@ async function getData(route: string) {
 }
 
 type Props = {
-  index?: string;
-  label: string;
-  route: string;
-  fields?: QuoteField[];
+  label: string; // heading
+  route: string; // route to fetch the data
+  limit?:number; // number of results to display
+  fields?: QuoteField[]; // table headings
 } & HTMLAttributes<HTMLDivElement>;
 
 export default function GroupOverview(props: Props) {
-  const { index, label, route, fields, ...rest } = props;
+  const { label, route, fields, limit=5, ...rest } = props;
   const { wrapper, data } = useFetcher<{
     message: String;
     status: number;
@@ -76,7 +76,7 @@ export default function GroupOverview(props: Props) {
       {data?.data && (
         <Quotes
           fields={fields}
-          quotes={data.data.slice(0, 5)}
+          quotes={data.data.slice(0, limit)}
           onRowClick={onRowClickHandler}
         />
       )}

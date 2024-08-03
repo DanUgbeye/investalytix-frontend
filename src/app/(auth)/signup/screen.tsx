@@ -209,7 +209,7 @@ export default function SignupScreen() {
                     type="checkbox"
                     name="terms-accepted"
                     id="terms-accepted"
-                    className="size-5 appearance-none rounded bg-gray-200 checked:bg-primary-base dark:bg-white/10"
+                    className="size-5 appearance-none checked:bg-primary-base border-2 rounded-md"
                     checked={termsAccepted}
                     onChange={handleTermsAccepted}
                   />

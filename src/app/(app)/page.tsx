@@ -331,7 +331,7 @@ function Products() {
     {
       img: "/images/news mockup.png",
       header: "News",
-      desc: "Stay informed with the latest market news and stock insights through investalytix original articles.",
+      desc: "Stay informed with the latest market news and stock insights",
     },
     {
       img: "/images/calendar mockup.png",
@@ -346,7 +346,7 @@ function Products() {
     {
       img: "/images/news mockup.png",
       header: "News",
-      desc: "Stay informed with the latest market news and stock insights through investalytix original articles.",
+      desc: "Stay informed with the latest market news and stock insights",
     },
   ];
   return (

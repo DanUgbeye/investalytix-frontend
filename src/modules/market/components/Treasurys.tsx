@@ -79,8 +79,8 @@ export default async function Treasurys({
               <TableHead className="!py-2 !text-sm capitalize">
                 Symbol
               </TableHead>
-              <TableHead className="!py-2 !text-sm capitalize">Yield</TableHead>
-              <TableHead className="!py-2 !text-sm capitalize">Chg</TableHead>
+              <TableHead className="!py-2 !text-sm capitalize text-center">Yield</TableHead>
+              <TableHead className="!py-2 !text-sm capitalize text-right">Chg</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -95,14 +95,14 @@ export default async function Treasurys({
                     <TableCell className="py-2 text-sm">
                       US {keyDisplayNames[key as keyof typeof keyDisplayNames]}
                     </TableCell>
-                    <TableCell className="py-2 text-sm">
+                    <TableCell className="py-2 text-sm text-center">
                       {current[key as unknown as keyof Treasury]}
                     </TableCell>
-                    <TableCell className="py-2 text-sm">
+                    <TableCell className="py-2 text-sm text-right">
                       {diff === 0 ? (
                         "Unch"
                       ) : (
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center justify-end gap-1">
                           <ColoredNumber number={diff} decimals={3} />
                           <IoTriangle
                             className={`${diff > 0 ? "fill-main-green-light" : "fill-main-red-light rotate-180"}`}
