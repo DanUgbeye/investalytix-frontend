@@ -6,114 +6,31 @@ import {
   StockSocketData,
 } from "@/types";
 import { ZodType, z } from "zod";
+import { NullableNumberSchema, NullableStringSchema } from ".";
 
 export const QuoteSchema = z.object({
   symbol: z.string(),
-  name: z
-    .union([z.string().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
-    string | null
-  >,
-  price: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  changesPercentage: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  change: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  dayLow: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  dayHigh: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  yearHigh: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  yearLow: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  marketCap: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  priceAvg50: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  priceAvg200: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  exchange: z
-    .union([z.string().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
-    string | null
-  >,
-  volume: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  avgVolume: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  open: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  previousClose: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  eps: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  pe: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  earningsAnnouncement: z
-    .union([z.string().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
-    string | null
-  >,
-  sharesOutstanding: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  timestamp: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
+  name: NullableStringSchema,
+  price: NullableNumberSchema,
+  changesPercentage: NullableNumberSchema,
+  change: NullableNumberSchema,
+  dayLow: NullableNumberSchema,
+  dayHigh: NullableNumberSchema,
+  yearHigh: NullableNumberSchema,
+  yearLow: NullableNumberSchema,
+  marketCap: NullableNumberSchema,
+  priceAvg50: NullableNumberSchema,
+  priceAvg200: NullableNumberSchema,
+  exchange: NullableStringSchema,
+  volume: NullableNumberSchema,
+  avgVolume: NullableNumberSchema,
+  open: NullableNumberSchema,
+  previousClose: NullableNumberSchema,
+  eps: NullableNumberSchema,
+  pe: NullableNumberSchema,
+  earningsAnnouncement: NullableStringSchema,
+  sharesOutstanding: NullableNumberSchema,
+  timestamp: NullableNumberSchema,
 }) satisfies ZodType<Quote>;
 
 export const QuoteHistorySchema = z.object({
@@ -156,55 +73,19 @@ export const ShortQuoteSchema = z.object({
 export const SearchResultSchema = z.object({
   symbol: z.string(),
   name: z.string(),
-  currency: z
-    .union([z.string().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
-    string | null
-  >,
-  stockExchange: z
-    .union([z.string().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
-    string | null
-  >,
-  exchangeShortName: z
-    .union([z.string().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
-    string | null
-  >,
+  currency: NullableStringSchema,
+  stockExchange: NullableStringSchema,
+  exchangeShortName: NullableStringSchema,
 }) satisfies ZodType<SearchResult>;
 
 export const StockSocketDataSchema = z.object({
   s: z.string(),
   t: z.number(),
   type: z.string(),
-  ap: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  as: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  bp: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  bs: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  lp: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
-  ls: z
-    .union([z.number().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "number" ? data : null)) as ZodType<
-    number | null
-  >,
+  ap: NullableNumberSchema,
+  as: NullableNumberSchema,
+  bp: NullableNumberSchema,
+  bs: NullableNumberSchema,
+  lp: NullableNumberSchema,
+  ls: NullableNumberSchema,
 }) satisfies ZodType<StockSocketData>;

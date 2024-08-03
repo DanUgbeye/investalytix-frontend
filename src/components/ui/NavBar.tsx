@@ -185,7 +185,7 @@ export default function NavBar(props: { className?: string }) {
             })}
           </div>
 
-          <div className="flex items-center gap-x-1">
+          <div className="flex items-center gap-x-2">
             <Search />
 
             <button
@@ -194,9 +194,9 @@ export default function NavBar(props: { className?: string }) {
               onClick={handleToggleTheme}
             >
               {theme === "light" ? (
-                <FiMoon className="size-4" />
+                <FiMoon className="size-5" />
               ) : (
-                <FiSun className="size-4" />
+                <FiSun className="size-5" />
               )}
             </button>
 
@@ -539,7 +539,7 @@ function Search() {
 
   function submitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (searchResults?.length < 0) {
+    if (searchResults?.length <= 0 || searchLoading) {
       return;
     }
 

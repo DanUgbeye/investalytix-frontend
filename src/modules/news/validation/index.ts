@@ -1,14 +1,11 @@
 import z, { ZodType } from "zod";
 import { FMPNews, News } from "../types";
+import { NullableStringSchema } from "@/validation";
 
 export const NewsSchema = z.object({
   publishedDate: z.coerce.date(),
   title: z.string(),
-  image: z
-    .union([z.string().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
-    string | null
-  >,
+  image: NullableStringSchema,
   site: z.string(),
   text: z.string(),
   url: z.string(),
@@ -18,11 +15,7 @@ export const NewsSchema = z.object({
 export const FMPNewsSchema = z.object({
   publishedDate: z.coerce.date(),
   title: z.string(),
-  image: z
-    .union([z.string().nullable(), z.undefined()])
-    .transform((data) => (typeof data === "string" ? data : null)) as ZodType<
-    string | null
-  >,
+  image: NullableStringSchema,
   site: z.string(),
   text: z.string(),
   url: z.string(),
