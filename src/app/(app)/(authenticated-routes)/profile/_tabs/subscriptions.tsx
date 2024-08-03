@@ -100,7 +100,7 @@ export default function SubscriptionsTab() {
                     return (
                       <TableRow key={history.id}>
                         <TableCell className="whitespace-nowrap">
-                          {history.paymentReference}
+                          {history.id}
                         </TableCell>
 
                         <TableCell className="">

@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/table";
 import appUtils from "@/utils/app-util";
 import { ProfilePageData } from "./page";
+import { SquareArrowOutUpRight } from "lucide-react";
+import Link from "next/link";
 
 interface ProfileScreenProps extends ProfilePageData {
   ticker: string;
@@ -28,47 +30,57 @@ export default function ProfileScreen(props: ProfileScreenProps) {
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] gap-5 lg:grid-cols-4">
         <div className="flex flex-col">
-          <span className="text-sm">Sector</span>
+          <span className="text-sm opacity-80">Sector</span>
           <span className="font-bold">{outlook.profile.sector}</span>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">Industry</span>
+          <span className="text-sm opacity-80">Industry</span>
           <span className="font-bold">{outlook.profile.industry}</span>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">CEO</span>
+          <span className="text-sm opacity-80">CEO</span>
           <span className="font-bold">{outlook.profile.ceo}</span>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">Country</span>
+          <span className="text-sm opacity-80">Country</span>
           <span className="font-bold">{outlook.profile.country}</span>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">City</span>
+          <span className="text-sm opacity-80">City</span>
           <span className="font-bold">{outlook.profile.city}</span>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">Address</span>
+          <span className="text-sm opacity-80">Address</span>
           <span className="font-bold">{outlook.profile.address}</span>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">Phone</span>
+          <span className="text-sm opacity-80">Phone</span>
           <span className="font-bold">{outlook.profile.phone}</span>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">Website</span>
-          <span className="truncate font-bold">{outlook.profile.website}</span>
+          <span className="text-sm opacity-80">Website</span>
+          <span className="truncate font-bold">
+            <Link
+              href={outlook.profile.website || ""}
+              target="_blank"
+              aria-disabled={!outlook.profile.website}
+              className="flex items-center gap-1 hover:underline"
+            >
+              <span className="truncate">{outlook.profile.website}</span>
+              <SquareArrowOutUpRight className="size-3" />
+            </Link>
+          </span>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">Full Time Empoyees</span>
+          <span className="text-sm opacity-80">Full Time Empoyees</span>
           <span className="font-bold">
             {appUtils.formatNumber(Number(outlook.profile.fullTimeEmployees), {
               style: "decimal",
@@ -77,14 +89,14 @@ export default function ProfileScreen(props: ProfileScreenProps) {
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">IPO Date</span>
+          <span className="text-sm opacity-80">IPO Date</span>
           <span className="font-bold">
             {new Date(outlook.profile.ipoDate).toDateString()}
           </span>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">Shares Outstanding</span>
+          <span className="text-sm opacity-80">Shares Outstanding</span>
           <span className="font-bold">
             {appUtils.formatNumber(quote.sharesOutstanding || undefined, {
               style: "decimal",
@@ -94,7 +106,7 @@ export default function ProfileScreen(props: ProfileScreenProps) {
         </div>
 
         <div className="flex flex-col">
-          <span className="text-sm">Market Cap</span>
+          <span className="text-sm opacity-80">Market Cap</span>
           <span className="font-bold">
             {appUtils.formatNumber(outlook.profile.mktCap, {
               notation: "compact",

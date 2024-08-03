@@ -61,7 +61,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] gap-6 p-4 xl:grid-cols-4 xl:justify-between">
         <div className="flex flex-col gap-1">
-          <span className="text-sm font-bold">Last Ex-Dividend Date</span>
+          <span className="text-sm opacity-80">Last Ex-Dividend Date</span>
 
           <span className="text-xl">
             {dividends[0] &&
@@ -70,7 +70,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <span className="text-sm font-bold">Dividend Amount Per Share</span>
+          <span className="text-sm opacity-80">Dividend Amount Per Share</span>
 
           <span className="text-xl">
             {appUtils.formatNumber(dividends[0]?.dividend || undefined, {
@@ -80,7 +80,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <span className="text-sm font-bold">Dividend Yield</span>
+          <span className="text-sm opacity-80">Dividend Yield</span>
 
           <span className="text-xl">
             {appUtils.formatNumber(
@@ -94,7 +94,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <span className="text-sm font-bold">Payout Ratio</span>
+          <span className="text-sm opacity-80">Payout Ratio</span>
 
           <span className="text-xl">
             {appUtils.formatNumber(
@@ -110,7 +110,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
         </div>
 
         {/* <div className=" flex flex-col gap-1 ">
-          <span className=" text-sm font-bold ">P/E</span>
+          <span className=" text-sm opacity-80 ">P/E</span>
 
           <span className=" text-xl ">
             {appUtils.formatNumber(quote.pe || undefined, {
