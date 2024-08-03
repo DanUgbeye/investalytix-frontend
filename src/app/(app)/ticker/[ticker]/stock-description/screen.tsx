@@ -25,7 +25,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
 
         <div className="grid grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] gap-6 p-4 xl:grid-cols-4 xl:justify-between">
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Open</span>
+            <span className="text-sm opacity-80">Open</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.open || undefined, { currency })}
@@ -33,7 +33,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Prev Close</span>
+            <span className="text-sm opacity-80">Prev Close</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.previousClose || undefined, {
@@ -43,7 +43,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Day High</span>
+            <span className="text-sm opacity-80">Day High</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.dayHigh || undefined, { currency })}
@@ -51,7 +51,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Day Low</span>
+            <span className="text-sm opacity-80">Day Low</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.dayLow || undefined, { currency })}
@@ -59,7 +59,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">52 Week High</span>
+            <span className="text-sm opacity-80">52 Week High</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.yearHigh || undefined, { currency })}
@@ -67,7 +67,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">52 Week Low</span>
+            <span className="text-sm opacity-80">52 Week Low</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.yearLow || undefined, { currency })}
@@ -75,7 +75,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="1ap-2 flex flex-col">
-            <span className="text-sm font-bold opacity-60">Beta</span>
+            <span className="text-sm opacity-80">Beta</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(outlook.profile.beta || undefined, {
@@ -86,7 +86,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Volume</span>
+            <span className="text-sm opacity-80">Volume</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.volume || undefined, {
@@ -97,7 +97,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Average Volume</span>
+            <span className="text-sm opacity-80">Average Volume</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.avgVolume || undefined, {
@@ -108,7 +108,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Market Cap</span>
+            <span className="text-sm opacity-80">Market Cap</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.marketCap || undefined, {
@@ -119,7 +119,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">EPS</span>
+            <span className="text-sm opacity-80">EPS</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.eps || undefined, {
@@ -130,7 +130,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">PE Ratio</span>
+            <span className="text-sm opacity-80">PE Ratio</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.pe || undefined, {
@@ -142,7 +142,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Earnings Date</span>
+            <span className="text-sm opacity-80">Earnings Date</span>
 
             <span className="text-xl">
               {quote.earningsAnnouncement
@@ -152,7 +152,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Shares Out</span>
+            <span className="text-sm opacity-80">Shares Out</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(quote.sharesOutstanding || undefined, {
@@ -164,7 +164,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Dividend</span>
+            <span className="text-sm opacity-80">Dividend</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(
@@ -174,7 +174,7 @@ export default function SummaryScreen(props: SummaryScreenProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-bold opacity-60">Dividend Yield (TTM)</span>
+            <span className="text-sm opacity-80">Dividend Yield (TTM)</span>
 
             <span className="text-xl">
               {appUtils.formatNumber(
