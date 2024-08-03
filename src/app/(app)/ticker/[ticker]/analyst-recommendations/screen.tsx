@@ -3,6 +3,7 @@
 import ColoredText from "@/components/colored-text";
 import HeaderWithUnderline from "@/components/heading";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -11,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import CLIENT_CONFIG from "@/config/client/app";
 import useAuthenticatedAction from "@/hooks/use-authenticated-action";
 import { cn } from "@/lib/utils";
 import { SUBSCRIPTION_PLAN_NAMES } from "@/modules/subscription/types";
@@ -37,7 +39,6 @@ import {
 } from "recharts";
 import AnalystForcastChart from "./analyst-forcast-chart";
 import { AnalystRecommendationPageData } from "./page";
-import CLIENT_CONFIG from "@/config/client/app";
 
 const RECOMMENDATION_COLORS = {
   strongSell: "#A43E35",
@@ -197,7 +198,7 @@ export default function AnalystRecommendationScreen(
         })}
       >
         {consensus && (
-          <div className="space-y-3 xl:max-w-96">
+          <div className="space-y-3 xl:max-w-72">
             <h4 className="w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700">
               {profile.symbol} Analyst Ratings
             </h4>
@@ -395,6 +396,8 @@ export default function AnalystRecommendationScreen(
                   })}
                 </div>
               </div>
+
+              <Separator className="dark:bg-main-gray-700" />
 
               <div className="h-64 w-full min-w-0">
                 <AnalystForcastChart
