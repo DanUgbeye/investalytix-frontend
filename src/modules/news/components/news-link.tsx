@@ -1,12 +1,12 @@
 "use client";
 
-import React, { HTMLAttributes } from "react";
-import { GeneralNews, News } from "../types";
 import { useAppStore } from "@/store";
 import Link from "next/link";
+import React, { HTMLAttributes } from "react";
+import { News } from "../types";
 
 interface NewsLinkProps extends HTMLAttributes<HTMLAnchorElement> {
-  news: News | GeneralNews;
+  news: News;
 }
 
 export default function NewsLink(props: NewsLinkProps) {

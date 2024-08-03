@@ -1,7 +1,7 @@
 "use client";
 import NewsCard from "@/modules/news/components/news-card";
 import NewsLink from "@/modules/news/components/news-link";
-import { GeneralNews, News } from "@/modules/news/types";
+import { News } from "@/modules/news/types";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";

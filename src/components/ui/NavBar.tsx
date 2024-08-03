@@ -559,7 +559,7 @@ function Search() {
   return (
     <>
       <button
-        title="Search"
+        title="Search for ticker"
         className="grid place-content-center overflow-hidden rounded-full p-2"
         onClick={() => toggleSearchModal()}
       >
