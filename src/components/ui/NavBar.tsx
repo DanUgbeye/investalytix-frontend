@@ -119,8 +119,8 @@ export default function NavBar(props: { className?: string }) {
       })}
     >
       <Container className="max-w-[110rem] sm:px-6 xl:px-6">
-        <div className="flex items-center justify-between py-3">
-          <div className="flex items-center justify-center gap-5">
+        <div className="flex items-center justify-between gap-3 py-3">
+          <div className="flex items-center justify-center gap-3 sm:gap-5">
             <MobileMenu />
 
             <Link href={PAGES.HOME}>
@@ -128,7 +128,7 @@ export default function NavBar(props: { className?: string }) {
                 src="/assets/logo/logo-with-text.svg"
                 alt="Logo"
                 height={25}
-                className="w-auto"
+                className="w-[8.5rem] sm:w-auto"
                 width={170}
                 priority
                 sizes="lg"
@@ -185,7 +185,7 @@ export default function NavBar(props: { className?: string }) {
             })}
           </div>
 
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-x-1">
             <Search />
 
             <button
@@ -194,9 +194,9 @@ export default function NavBar(props: { className?: string }) {
               onClick={handleToggleTheme}
             >
               {theme === "light" ? (
-                <FiMoon className="size-5 xl:size-4" />
+                <FiMoon className="size-4" />
               ) : (
-                <FiSun className="size-5 xl:size-4" />
+                <FiSun className="size-4" />
               )}
             </button>
 
@@ -204,7 +204,7 @@ export default function NavBar(props: { className?: string }) {
               <>
                 <Popover>
                   <PopoverTrigger>
-                    <Avatar className="size-10 bg-transparent text-sm text-white dark:bg-transparent dark:text-main-gray-300">
+                    <Avatar className="size-8 bg-transparent text-sm text-white sm:size-10 dark:bg-transparent dark:text-main-gray-300">
                       <AvatarFallback className="bg-main-gray-400 dark:bg-main-gray-700">
                         <FaCircleUser className="h-full w-full bg-white text-main-gray-300 dark:bg-main-gray-400 dark:text-main-gray-700" />
                       </AvatarFallback>
@@ -214,7 +214,7 @@ export default function NavBar(props: { className?: string }) {
                   <PopoverContent className="mr-4 mt-2 flex max-w-64 flex-col p-0 py-2 dark:bg-main-gray-800">
                     <div className="w-full">
                       <div className="flex items-center gap-2 px-2 pb-2 text-sm">
-                        <Avatar className="size-10 bg-transparent text-sm text-white dark:bg-transparent dark:text-main-gray-300">
+                        <Avatar className="size-8 bg-transparent text-sm text-white sm:size-10 dark:bg-transparent dark:text-main-gray-300">
                           <AvatarFallback className="bg-main-gray-300 dark:bg-main-gray-700">
                             <FaCircleUser className="h-full w-full bg-white text-main-gray-300 dark:bg-main-gray-400 dark:text-main-gray-700" />
                           </AvatarFallback>

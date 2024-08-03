@@ -194,16 +194,20 @@ export default function AnalystRecommendationScreen(
 
       <div
         className={cn("grid gap-x-10 gap-y-10 xl:grid-cols-[auto,1fr]", {
-          "grid-cols-1": !consensus,
+          "grid-cols-1 xl:grid-cols-1": !consensus || !priceTargetConsensus,
         })}
       >
         {consensus && (
-          <div className="space-y-3 xl:max-w-72">
+          <div
+            className={cn("w-full space-y-3 xl:max-w-72", {
+              "xl:max-w-none": !priceTargetConsensus,
+            })}
+          >
             <h4 className="w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700">
               {profile.symbol} Analyst Ratings
             </h4>
 
-            <div className="grid min-h-80 grid-rows-[1fr,auto]">
+            <div className="grid min-h-80 w-full grid-rows-[1fr,auto]">
               <div className="space-y-2 py-4">
                 <div
                   className={"text-center text-2xl font-extrabold xl:text-3xl"}
@@ -337,107 +341,112 @@ export default function AnalystRecommendationScreen(
           </div>
         )}
 
-        <div className="space-y-3">
-          <h4 className="w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700">
-            {profile.symbol} Stock 12 Months Forecast
-          </h4>
+        {priceTargetConsensus && (
+          <div className="space-y-3">
+            <h4 className="w-full border-b pb-2 text-sm font-bold dark:border-main-gray-700">
+              {profile.symbol} Stock 12 Months Forecast
+            </h4>
 
-          <div className="grid min-h-80 grid-rows-[1fr,auto]">
-            <div className="grid h-full grid-rows-[auto,1fr] gap-y-4 p-3">
-              <div className="grid items-center gap-3 xl:grid-cols-[auto,auto,1fr]">
-                <ColoredText
-                  isPositive={() => {
-                    if (!priceTargetPercentage || priceTargetPercentage === 0)
-                      return undefined;
-                    if (priceTargetPercentage > 0) return true;
-                    return false;
-                  }}
-                  className="flex flex-col gap-y-1 text-[#008133]"
-                >
-                  <span className="text-2xl font-bold sm:text-4xl">
-                    {appUtils.formatNumber(priceTargetConsensus.targetMedian, {
+            <div className="grid min-h-80 grid-rows-[1fr,auto]">
+              <div className="grid h-full grid-rows-[auto,1fr] gap-y-4 p-3">
+                <div className="grid items-center gap-3 xl:grid-cols-[auto,auto,1fr]">
+                  <ColoredText
+                    isPositive={() => {
+                      if (!priceTargetPercentage || priceTargetPercentage === 0)
+                        return undefined;
+                      if (priceTargetPercentage > 0) return true;
+                      return false;
+                    }}
+                    className="flex flex-col gap-y-1 text-[#008133]"
+                  >
+                    <span className="text-2xl font-bold sm:text-4xl">
+                      {appUtils.formatNumber(
+                        priceTargetConsensus.targetMedian,
+                        {
+                          currency: profile.currency || undefined,
+                        }
+                      )}
+                    </span>
+
+                    <span className="text-sm">
+                      (
+                      {priceTargetPercentage
+                        ? `${appUtils.formatNumber(priceTargetPercentage, { style: "decimal" })}%`
+                        : "-"}
+                      )
+                    </span>
+                  </ColoredText>
+
+                  <div className="h-px w-full border xl:h-full xl:w-px dark:border-main-gray-700" />
+
+                  <div className="text-sm">
+                    Based on {priceTargetSummary?.lastYear} Wall Street analysis
+                    offering 1 year price targets for {profile?.companyName} The
+                    average price target is{" "}
+                    {appUtils.formatNumber(priceTargetConsensus?.targetMedian, {
                       currency: profile.currency || undefined,
-                    })}
-                  </span>
-
-                  <span className="text-sm">
-                    (
+                    })}{" "}
+                    with a high forecast of{" "}
+                    {appUtils.formatNumber(priceTargetConsensus?.targetHigh, {
+                      currency: profile.currency || undefined,
+                    })}{" "}
+                    and a low forecast of{" "}
+                    {appUtils.formatNumber(priceTargetConsensus?.targetLow, {
+                      currency: profile.currency || undefined,
+                    })}{" "}
+                    The average price target represents a{" "}
                     {priceTargetPercentage
                       ? `${appUtils.formatNumber(priceTargetPercentage, { style: "decimal" })}%`
-                      : "-"}
-                    )
-                  </span>
-                </ColoredText>
+                      : "-"}{" "}
+                    change from the last price of{" "}
+                    {appUtils.formatNumber(profile?.price, {
+                      currency: profile.currency || undefined,
+                    })}
+                  </div>
+                </div>
 
-                <div className="h-px w-full border xl:h-full xl:w-px dark:border-main-gray-700" />
+                <Separator className="dark:bg-main-gray-700" />
 
-                <div className="text-sm">
-                  Based on {priceTargetSummary?.lastYear} Wall Street analysis
-                  offering 1 year price targets for {profile?.companyName} The
-                  average price target is{" "}
-                  {appUtils.formatNumber(priceTargetConsensus?.targetMedian, {
-                    currency: profile.currency || undefined,
-                  })}{" "}
-                  with a high forecast of{" "}
-                  {appUtils.formatNumber(priceTargetConsensus?.targetHigh, {
-                    currency: profile.currency || undefined,
-                  })}{" "}
-                  and a low forecast of{" "}
-                  {appUtils.formatNumber(priceTargetConsensus?.targetLow, {
-                    currency: profile.currency || undefined,
-                  })}{" "}
-                  The average price target represents a{" "}
-                  {priceTargetPercentage
-                    ? `${appUtils.formatNumber(priceTargetPercentage, { style: "decimal" })}%`
-                    : "-"}{" "}
-                  change from the last price of{" "}
-                  {appUtils.formatNumber(profile?.price, {
-                    currency: profile.currency || undefined,
-                  })}
+                <div className="h-64 w-full min-w-0">
+                  <AnalystForcastChart
+                    ticker={ticker}
+                    priceTargetConsensus={priceTargetConsensus}
+                    quoteHistory={quoteHistory}
+                  />
                 </div>
               </div>
 
-              <Separator className="dark:bg-main-gray-700" />
+              <div className="grid grid-rows-3 divide-inherit border-t py-2 max-sm:divide-y sm:grid-cols-3 sm:grid-rows-1 sm:divide-x dark:border-main-gray-700">
+                <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
+                  <span className="text-sm">High Price Target</span>
+                  <span className="text-xl font-bold text-main-green-light xl:text-2xl dark:text-main-green-dark">
+                    {appUtils.formatNumber(priceTargetConsensus?.targetHigh, {
+                      currency: profile.currency || undefined,
+                    })}
+                  </span>
+                </div>
 
-              <div className="h-64 w-full min-w-0">
-                <AnalystForcastChart
-                  ticker={ticker}
-                  priceTargetConsensus={priceTargetConsensus}
-                  quoteHistory={quoteHistory}
-                />
-              </div>
-            </div>
+                <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
+                  <span className="text-sm">Average Price Target</span>
+                  <span className="text-xl font-bold xl:text-2xl">
+                    {appUtils.formatNumber(priceTargetConsensus?.targetMedian, {
+                      currency: profile.currency || undefined,
+                    })}
+                  </span>
+                </div>
 
-            <div className="grid grid-rows-3 divide-inherit border-t py-2 max-sm:divide-y sm:grid-cols-3 sm:grid-rows-1 sm:divide-x dark:border-main-gray-700">
-              <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
-                <span className="text-sm">High Price Target</span>
-                <span className="text-xl font-bold text-main-green-light xl:text-2xl dark:text-main-green-dark">
-                  {appUtils.formatNumber(priceTargetConsensus?.targetHigh, {
-                    currency: profile.currency || undefined,
-                  })}
-                </span>
-              </div>
-
-              <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
-                <span className="text-sm">Average Price Target</span>
-                <span className="text-xl font-bold xl:text-2xl">
-                  {appUtils.formatNumber(priceTargetConsensus?.targetMedian, {
-                    currency: profile.currency || undefined,
-                  })}
-                </span>
-              </div>
-
-              <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
-                <span className="text-sm">Lowest Price Target</span>
-                <span className="text-xl font-bold text-main-red-light xl:text-2xl dark:text-main-red-dark">
-                  {appUtils.formatNumber(priceTargetConsensus?.targetLow, {
-                    currency: profile.currency || undefined,
-                  })}
-                </span>
+                <div className="flex flex-col justify-start gap-0 px-3 py-1 max-sm:flex-row max-sm:items-center max-sm:justify-between max-sm:gap-2 2xl:flex-row 2xl:items-center 2xl:gap-2">
+                  <span className="text-sm">Lowest Price Target</span>
+                  <span className="text-xl font-bold text-main-red-light xl:text-2xl dark:text-main-red-dark">
+                    {appUtils.formatNumber(priceTargetConsensus?.targetLow, {
+                      currency: profile.currency || undefined,
+                    })}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className="space-y-5">

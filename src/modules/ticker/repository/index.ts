@@ -857,14 +857,14 @@ export class TickerRepository {
   async getTickerPriceTargetConsensus(
     ticker: string,
     options?: RequestOptions | undefined
-  ): Promise<TickerPriceTargetConsensus> {
+  ): Promise<TickerPriceTargetConsensus | undefined> {
     try {
       const path = `/tickers/${ticker}/price-target-consensus`;
       let res = await this.axios.get<{
         data: TickerPriceTargetConsensus;
       }>(path, options);
 
-      let validation = TickerPriceTargetConsensusSchema.safeParse(
+      let validation = TickerPriceTargetConsensusSchema.optional().safeParse(
         res.data.data
       );
 
@@ -909,14 +909,16 @@ export class TickerRepository {
   async getTickerPriceTargetSummary(
     ticker: string,
     options?: RequestOptions | undefined
-  ): Promise<TickerPriceTargetSummary> {
+  ): Promise<TickerPriceTargetSummary | undefined> {
     try {
       const path = `/tickers/${ticker}/price-target-summary`;
       let res = await this.axios.get<{
         data: TickerPriceTargetSummary;
       }>(path, options);
 
-      let validation = TickerPriceTargetSummarySchema.safeParse(res.data.data);
+      let validation = TickerPriceTargetSummarySchema.optional().safeParse(
+        res.data.data
+      );
 
       if (validation.error) {
         console.log(validation.error.issues);
