@@ -47,9 +47,9 @@ export function calculateMedian(numbers: number[]): number {
 }
 
 type GDP = { date: string; value: number };
-type GDPWithYoY = { date: string; value: number; yoy?: number };
+export type GDPWithYoY = { date: string; value: number; yoy?: number };
 
-export function calculateYoY(gdpData: GDP[]): GDPWithYoY[] {
+export async function calculateYoY(gdpData: GDP[]): Promise<GDPWithYoY[]> {
   // Sort the data by date in ascending order
   const sortedGDPData = gdpData
     .slice()

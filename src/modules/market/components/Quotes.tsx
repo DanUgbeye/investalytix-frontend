@@ -25,6 +25,15 @@ export type QuoteField = {
   key: keyof Quote;
 };
 
+export type QuotesTableProps = {
+  quotes?: Quote[];
+  fields?: QuoteField[];
+  notifications?: boolean;
+  isIndex?: boolean;
+  onRowClick?: (quote: Quote) => void;
+  onRowHover?: (quote: Quote) => void;
+};
+
 const defaultFields: QuoteField[] = [
   {
     label: "Symbol",
@@ -48,15 +57,15 @@ export default function Quotes({
   fields = defaultFields,
   notifications = false,
   quotes: customQuotes,
+  isIndex = false,
   onRowClick,
-}: {
-  quotes?: Quote[];
-  fields?: QuoteField[];
-  notifications?: boolean;
-  onRowClick?: (quote: Quote) => void;
-}) {
+  onRowHover,
+}: QuotesTableProps) {
   function onRowClickHandler(quote: Quote) {
     onRowClick && onRowClick(quote);
+  }
+  function onRowHoverHandler(quote: Quote) {
+    onRowHover && onRowHover(quote);
   }
   return (
     <div className="w-full overflow-auto">
@@ -85,16 +94,21 @@ export default function Quotes({
           {(customQuotes ? customQuotes : quotes).map((quote, index) => (
             <TableRow
               onClick={() => onRowClickHandler(quote)}
+              onMouseOver={() => onRowHoverHandler(quote)}
               className=""
               key={`row-${quote.symbol}-${index}`}
             >
               <TableCell className="py-2 text-sm">
-                <Link
-                  className="text-hover-focus"
-                  href={getTickerStockDescriptionRoute(quote.symbol)}
-                >
-                  {quote[fields[0].key]}
-                </Link>
+                {isIndex ? (
+                  quote[fields[0].key]
+                ) : (
+                  <Link
+                    className="text-hover-focus"
+                    href={getTickerStockDescriptionRoute(quote.symbol)}
+                  >
+                    {quote[fields[0].key]}
+                  </Link>
+                )}
               </TableCell>
 
               {fields.slice(1).map((field, index) => (

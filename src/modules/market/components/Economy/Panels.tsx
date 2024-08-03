@@ -56,14 +56,14 @@ const markets = [
   },
 ] as const;
 
-export default function Panels({
-  active,
-}: {
+export type PanelsProps = {
   active: {
     parent: (typeof markets)[number]["label"];
     child: (typeof markets)[number]["children"][number]["label"];
   };
-}) {
+};
+
+export default function Panels({ active }: PanelsProps) {
   return (
     <div className="">
       {markets.map((market) => (

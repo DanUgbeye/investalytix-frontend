@@ -177,24 +177,27 @@ export default function Market() {
         route="/tickers/^SPX, ^DJI, ^NDX, ^RUT, ^FTSE, ^NYA, ^GDAXI, ^FCHI, N225, HSI, SHCOMP, XJO, ^STOXX50E, DJT, DJU/quotes"
         className="mb-20"
         limit={6}
-        fields={[
-          {
-            label: "Name",
-            key: "name",
-          },
-          {
-            label: "Last",
-            key: "price",
-          },
-          {
-            label: "Chg",
-            key: "change",
-          },
-          {
-            label: "Chg%",
-            key: "changesPercentage",
-          },
-        ]}
+        quotes={{
+          fields: [
+            {
+              label: "Name",
+              key: "name",
+            },
+            {
+              label: "Last",
+              key: "price",
+            },
+            {
+              label: "Chg",
+              key: "change",
+            },
+            {
+              label: "Chg%",
+              key: "changesPercentage",
+            },
+          ],
+          isIndex: true,
+        }}
       />
 
       {/* MARKET MOVERS */}

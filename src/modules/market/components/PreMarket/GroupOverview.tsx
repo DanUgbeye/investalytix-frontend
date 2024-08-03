@@ -4,7 +4,9 @@ import MarketSectionHeader from "@/components/ui/MarketSectionHeader";
 import useFetcher from "@/hooks/useFetcher";
 import { Quote } from "@/types";
 import { HTMLAttributes, useEffect, useState } from "react";
-import Quotes, { QuoteField } from "../Quotes";
+import Quotes, { QuoteField, QuotesTableProps } from "../Quotes";
+import Spinner from "@/components/spinner";
+import { motion } from "framer-motion";
 
 async function getData(route: string) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${route}`);
@@ -21,13 +23,13 @@ async function getData(route: string) {
 type Props = {
   label: string; // heading
   route: string; // route to fetch the data
-  limit?:number; // number of results to display
-  fields?: QuoteField[]; // table headings
+  limit?: number; // number of results to display
+  quotes?: Partial<QuotesTableProps>;
 } & HTMLAttributes<HTMLDivElement>;
 
 export default function GroupOverview(props: Props) {
-  const { label, route, fields, limit=5, ...rest } = props;
-  const { wrapper, data } = useFetcher<{
+  const { label, route, limit = 5, quotes = {}, ...rest } = props;
+  const { wrapper, data, loading } = useFetcher<{
     message: String;
     status: number;
     data: Quote[];
@@ -67,6 +69,30 @@ export default function GroupOverview(props: Props) {
         <ChartSummary ticker={quote.symbol} />
       )}
 
+      {/* <motion.div
+        initial="rest"
+        animate={loading ? "show" : "hide"}
+        variants={{
+          rest: {
+            top: -50,
+            opacity: 0,
+          },
+          show: {
+            opacity: 1,
+            y: -20,
+          },
+          hide: {
+            opacity: 0,
+            y: -50,
+          },
+        }}
+        className="flex items-center justify-center"
+      >
+        <div>
+          <Spinner />
+        </div>
+      </motion.div> */}
+
       {quote && (
         <p className="white-text mb-10 mt-4 text-sm font-medium text-[#2F3A48]">
           Previous Close: {quote.previousClose}
@@ -75,9 +101,9 @@ export default function GroupOverview(props: Props) {
 
       {data?.data && (
         <Quotes
-          fields={fields}
           quotes={data.data.slice(0, limit)}
-          onRowClick={onRowClickHandler}
+          onRowHover={onRowClickHandler}
+          {...quotes}
         />
       )}
     </section>
