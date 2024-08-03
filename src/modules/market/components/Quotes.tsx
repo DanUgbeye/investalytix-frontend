@@ -116,11 +116,13 @@ export default function Quotes({
                   key={`${quote.symbol}-column-${field}-${index}`}
                   className="py-2 text-right text-sm"
                 >
-                  {["change", "changesPercentage"].includes(field.key) ? (
+                  {["changesPercentage"].includes(field.key) ? (
                     <ColoredNumber
                       number={quote[field?.key] as number}
                       percent={field.key === "changesPercentage"}
                     />
+                  ) : ["change"].includes(field.key) ? (
+                    formatCurrency(quote[field?.key] as number)
                   ) : ["price"].includes(field.key) ? (
                     formatCurrency(quote[field?.key] as number)
                   ) : (
