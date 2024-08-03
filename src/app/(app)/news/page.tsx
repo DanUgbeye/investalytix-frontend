@@ -1,6 +1,8 @@
 import { Container } from "@/components/container";
+import { serverAPI } from "@/config/server/api";
 import NewsCard from "@/modules/news/components/news-card";
 import NewsLink from "@/modules/news/components/news-link";
+import { NewsRepository } from "@/modules/news/repository";
 import { News } from "@/modules/news/types";
 import moment from "moment";
 import Image from "next/image";
@@ -13,7 +15,7 @@ async function getData(params?: { limit?: number; page?: number }) {
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
-
+ 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
@@ -27,10 +29,11 @@ async function getData(params?: { limit?: number; page?: number }) {
 }
 
 export default async function NewsPage() {
-  const data = await getData();
-  const otherNews = await getData({ page: 2 });
+  const newsRepo = new NewsRepository(serverAPI);
+  const data = await newsRepo.getBezingaNews();
+  const otherNews = await newsRepo.getBezingaNews({ page: 1 });
 
-  const [major, ...others] = data.data;
+  const [major, ...others] = data;
   const minor_major = others.slice(1, 4);
   const latest = others.slice(4);
 
@@ -112,7 +115,7 @@ export default async function NewsPage() {
       </div>
 
       <div className="mb-16 grid gap-x-10 gap-y-4 md:grid-cols-2 lg:mt-16 xl:grid-cols-3">
-        {otherNews.data.map((news, index) => (
+        {otherNews.map((news, index) => (
           <NewsLink news={news} key={news.title.replaceAll(" ", "-")}>
             <NewsCard news={news} />
           </NewsLink>

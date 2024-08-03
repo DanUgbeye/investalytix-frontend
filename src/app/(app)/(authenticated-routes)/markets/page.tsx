@@ -14,7 +14,7 @@ export default function MarketPage() {
       <WithSidePanel sections={SIDE_SECTIONS["ALL"]} />
 
       {/* TRENDING NOW */}
-      <TrendingNow />
+      {/* <TrendingNow /> */}
     </main>
   );
 }

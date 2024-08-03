@@ -19,13 +19,20 @@ import useFetcher from "@/hooks/useFetcher";
 import { TickerAnalystRecommendation } from "@/modules/ticker/types";
 import { TickerRepository } from "@/modules/ticker/repository";
 import { clientAPI } from "@/config/client/api";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
+import quotes from "@/mock/quotes";
+import { useMediaQuery } from "react-responsive";
 
 function ChartPage() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | undefined>(
     "watchlist"
   );
@@ -71,66 +78,72 @@ function ChartPage() {
     ref.appendChild(script);
   }, [theme]);
 
+  const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
+
   const updateActiveSection = (section?: string) => setActiveSection(section);
 
   const toggleOpen = () => setOpen((s) => !s);
 
   // const toggle
-
   return (
-    <div
-      className={`grid ${open ? "lg:grid-cols-[1fr,450px]" : "lg:grid-cols-[1fr,max-content]"}`}
-    >
-      <div
-        className="relative h-[calc(100vh_-_144px)] w-full overflow-hidden md:h-[calc(100vh_-_88px)]"
-        ref={container}
-      ></div>
+    <div className={`grid grid-cols-[1fr,max-content]`}>
+      <ResizablePanelGroup direction="horizontal">
+        <ResizablePanel defaultSize={80} minSize={20}>
+          <div
+            className="relative h-[calc(100vh_-_144px)] w-full overflow-hidden md:h-[calc(100vh_-_88px)]"
+            ref={container}
+          ></div>
+        </ResizablePanel>
+        <ResizableHandle withHandle={open} disabled={!open} />
 
-      <div
-        className={`grid w-full ${open ? "grid-cols-[1fr,max-content]" : ""}`}
-      >
         {open && (
-          <div className="grid w-full grid-rows-[auto,1fr] gap-2 overflow-hidden border-l border-l-black pl-2 pt-2 max-lg:hidden dark:border-l-white/10">
-            <h1 className="text-lg font-semibold capitalize">my list</h1>
+          <ResizablePanel
+            defaultSize={isMobile ? 80 : 20}
+            minSize={isMobile ? 50 : 20}
+          >
+            <ResizablePanelGroup direction="vertical">
+              <ResizablePanel defaultSize={50} minSize={20}>
+                <ScrollArea className="h-full">
+                  <h1 className="p-1 text-lg font-semibold capitalize">
+                    my list
+                  </h1>
 
-            <Tab.Group>
-              <div className="grid grid-rows-[max-content,1fr] overflow-hidden">
-                <Tab.List className={"grid grid-cols-2 gap-5"}>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <button
-                        className={`white-text text-hover-focus border-b-2 px-2 pb-2 text-sm outline-none ${
-                          selected
-                            ? "border-primary-base dark:border-primary-light"
-                            : "border-transparent"
-                        }`}
-                      >
-                        Watchlist
-                      </button>
-                    )}
-                  </Tab>
-                  <Tab as={Fragment}>
-                    {({ selected }) => (
-                      <button
-                        className={`white-text text-hover-focus flex items-center justify-center gap-3 border-b-2 px-2 pb-2 text-sm outline-none ${
-                          selected
-                            ? "border-primary-base dark:border-primary-light"
-                            : "border-transparent"
-                        }`}
-                      >
-                        Portfolio <FiLock className="size-3" />
-                      </button>
-                    )}
-                  </Tab>
-                </Tab.List>
+                  <Tab.Group>
+                    <Tab.List className={"grid grid-cols-2 gap-5"}>
+                      <Tab as={Fragment}>
+                        {({ selected }) => (
+                          <button
+                            className={`white-text text-hover-focus border-b-2 px-2 pb-2 text-sm outline-none ${
+                              selected
+                                ? "border-primary-base dark:border-primary-light"
+                                : "border-transparent"
+                            }`}
+                          >
+                            Watchlist
+                          </button>
+                        )}
+                      </Tab>
+                      <Tab as={Fragment}>
+                        {({ selected }) => (
+                          <button
+                            className={`white-text text-hover-focus flex items-center justify-center gap-3 border-b-2 px-2 pb-2 text-sm outline-none ${
+                              selected
+                                ? "border-primary-base dark:border-primary-light"
+                                : "border-transparent"
+                            }`}
+                          >
+                            Portfolio <FiLock className="size-3" />
+                          </button>
+                        )}
+                      </Tab>
+                    </Tab.List>
 
-                <Tab.Panels className={"relative overflow-hidden"}>
-                  <div className="absolute inset-0">
-                    <ScrollArea className="h-full pr-3">
+                    <Tab.Panels>
                       {/* watchlist */}
-                      <Tab.Panel className={"pt-2"}>
-                        {/* <Tab.Panel className={"absolute inset-0 overflow-auto pt-2"}> */}
-                        <Quotes notifications />
+                      <Tab.Panel>
+                        <Quotes
+                        // notifications
+                        />
                       </Tab.Panel>
 
                       {/* portfolio */}
@@ -141,81 +154,57 @@ function ChartPage() {
                       >
                         <FiLock className="size-20 opacity-30" />
                       </Tab.Panel>
+                    </Tab.Panels>
+                  </Tab.Group>
 
-                      <MarketInfo />
+                  <ScrollBar orientation="vertical" />
+                  <ScrollBar orientation="horizontal" />
+                </ScrollArea>
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel defaultSize={50} minSize={20}>
+                <ScrollArea className="h-full pl-1 pr-3">
+                  <MarketInfo />
 
-                      <h2 className="mb-3 mt-6 text-xl font-bold">Key Stats</h2>
-                      <div className="flex items-center justify-between gap-3 py-1">
-                        <p>Earnings Date</p>
-                        <p className="font-bold">Aug 01, 2024</p>
-                      </div>
-                      <div className="flex items-center justify-between gap-3 py-1">
-                        <p>Volume</p>
-                        <p className="font-bold">65.88M</p>
-                      </div>
-                      <div className="flex items-center justify-between gap-3 py-1">
-                        <p>Average Volume</p>
-                        <p className="font-bold">68.35M</p>
-                      </div>
-                      <div className="flex items-center justify-between gap-3 py-1">
-                        <p>Market Cap</p>
-                        <p className="font-bold">$3.44T</p>
-                      </div>
-                      <div className="flex items-center justify-between gap-3 py-1">
-                        <p>PE Ratio</p>
-                        <p className="font-bold">34.86</p>
-                      </div>
-
-                      <h2 className="mb-3 mt-6 text-xl font-bold">
-                        Financials
-                      </h2>
-                      <Select value="income statement">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Financials" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="income statement">
-                            Income statement
-                          </SelectItem>
-                          <SelectItem value="balance sheet">
-                            Balance sheet
-                          </SelectItem>
-                          <SelectItem value="cash flow statement">
-                            Cash flow statement
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-
-                      <h2 className="mb-3 mt-6 text-xl font-bold">Profile</h2>
-                      <div className="flex items-center justify-between gap-3 py-1">
-                        <p>Website</p>
-                        <p className="font-bold">www.apple.com</p>
-                      </div>
-                      <div className="mb-6 flex items-center justify-between gap-3 py-1">
-                        <p>Full Time Empoyees</p>
-                        <p className="font-bold">150,000</p>
-                      </div>
-                    </ScrollArea>
+                  <h2 className="mb-3 mt-6 text-xl font-bold">Key Stats</h2>
+                  <div className="flex items-center justify-between gap-3 py-1">
+                    <p>Earnings Date</p>
+                    <p className="font-bold text-right">Aug 01, 2024</p>
                   </div>
-                </Tab.Panels>
-              </div>
-            </Tab.Group>
-          </div>
+                  <div className="flex items-center justify-between gap-3 py-1">
+                    <p>Volume</p>
+                    <p className="font-bold text-right">65.88M</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-3 py-1">
+                    <p>Average Volume</p>
+                    <p className="font-bold text-right">68.35M</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-3 py-1">
+                    <p>Market Cap</p>
+                    <p className="font-bold text-right">$3.44T</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-3 py-1">
+                    <p>PE Ratio</p>
+                    <p className="font-bold text-right">34.86</p>
+                  </div>
+                </ScrollArea>
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </ResizablePanel>
         )}
-
-        <div
-          className={`flex flex-col gap-4 border-l p-2 dark:border-l-white/20`}
+      </ResizablePanelGroup>
+      <div
+        className={`flex flex-col gap-4 border-l p-2 dark:border-l-white/20`}
+      >
+        <button
+          title="watchlist"
+          className={`group rounded border p-2 hover:border-primary-base focus:border-primary-base dark:hover:border-primary-light dark:focus:border-primary-light ${open ? "border-primary-base dark:border-primary-light" : ""}`}
+          onClick={toggleOpen}
         >
-          <button
-            title="watchlist"
-            className={`group rounded border p-2 hover:border-primary-base focus:border-primary-base dark:hover:border-primary-light dark:focus:border-primary-light ${open ? "border-primary-base dark:border-primary-light" : ""}`}
-            onClick={toggleOpen}
-          >
-            <CiViewList
-              className={`size-7 group-hover:text-primary-base group-focus:text-primary-base dark:group-hover:text-primary-light dark:group-focus:text-primary-light ${open ? "text-primary-base dark:text-primary-light" : ""}`}
-            />
-          </button>
-        </div>
+          <CiViewList
+            className={`size-7 group-hover:text-primary-base group-focus:text-primary-base dark:group-hover:text-primary-light dark:group-focus:text-primary-light ${open ? "text-primary-base dark:text-primary-light" : ""}`}
+          />
+        </button>
       </div>
     </div>
   );
@@ -225,7 +214,7 @@ export default ChartPage;
 
 function MarketInfo() {
   return (
-    <div className="border-t py-5 dark:border-t-white/10">
+    <div className="border-t pb-5 pt-3">
       <div className="flex justify-between">
         <div className="">
           <p className="font-bold text-primary-base">AAPL</p>
