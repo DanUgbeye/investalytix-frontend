@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import ErrorScreen from "../error-screen";
 import { SearchTickerPageProps } from "../page";
 import TickerNewsScreen from "./screen";
+import { NewsRepository } from "@/modules/news/repository";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -39,9 +40,11 @@ export type TickerNewsPageData = {
 async function getData(ticker: string): Promise<Result<TickerNewsPageData>> {
   try {
     const tickerRepo = new TickerRepository(serverAPI);
+    const newsRepo = new NewsRepository(serverAPI);
+
     const [profile, news] = await Promise.all([
       tickerRepo.getCompanyProfile(ticker),
-      tickerRepo.getNews(ticker, { limit: 15 }),
+      newsRepo.getBezingaNews({ tickers: [ticker], pageSize: 15 }),
     ]);
 
     return {

@@ -2,7 +2,7 @@ import { Quote } from "@/modules/market/types";
 import { CompanyKeyExecutive, CompanyProfile } from "./company.types";
 import { Dividend } from "./dividend.types";
 import { Financials, RatioTTM } from "./financials.types";
-import { News } from "@/modules/news/types";
+import { FMPNews, News } from "@/modules/news/types";
 
 export * from "./analysis.types";
 export * from "./company.types";
@@ -20,7 +20,7 @@ export type CompanyOutlook = {
   ratios: RatioTTM[];
   keyExecutives: CompanyKeyExecutive[];
   stockDividend: Dividend[];
-  stockNews: News[];
+  stockNews: FMPNews[];
   financialsAnnual: Financials;
   financialsQuarter: Financials;
   metrics: CompanyMetrics;

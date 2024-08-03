@@ -1,4 +1,4 @@
-import { NewsSchema } from "@/modules/news/validation";
+import { FMPNewsSchema } from "@/modules/news/validation";
 import { ZodType, z } from "zod";
 import {
   CompanyKeyExecutive,
@@ -216,7 +216,7 @@ export const CompanyOutlookSchema = z.object({
   ratios: z.array(RatioTTMSchema),
   keyExecutives: z.array(CompanyKeyExecutiveSchema),
   stockDividend: z.array(DividendSchema),
-  stockNews: z.array(NewsSchema),
+  stockNews: z.array(FMPNewsSchema),
   financialsAnnual: FinancialsSchema,
   financialsQuarter: FinancialsSchema,
   metrics: CompanyMetricsSchema,

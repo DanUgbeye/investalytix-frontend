@@ -1,10 +1,9 @@
 import { Container } from "@/components/container";
 import NewsCard from "@/modules/news/components/news-card";
 import NewsLink from "@/modules/news/components/news-link";
-import { GeneralNews, News } from "@/modules/news/types";
+import { News } from "@/modules/news/types";
 import moment from "moment";
 import Image from "next/image";
-import Link from "next/link";
 
 async function getData(params?: { limit?: number; page?: number }) {
   const { limit, page } = params ?? {};
@@ -123,7 +122,7 @@ export default async function NewsPage() {
   );
 }
 
-function LatestNews({ news }: { news: GeneralNews }) {
+function LatestNews({ news }: { news: News }) {
   return (
     <div className="border-b border-black/20 p-4 dark:border-b-white/20">
       <p className="text-sm font-bold uppercase">

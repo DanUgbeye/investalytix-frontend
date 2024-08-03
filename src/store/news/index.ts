@@ -1,13 +1,13 @@
+import { News } from "@/modules/news/types";
 import { StateCreator } from "zustand";
 import { AppStore } from "..";
-import { GeneralNews, News } from "@/modules/news/types";
 
 export type NewsState = {
-  currentNews?: News | GeneralNews;
+  currentNews?: News;
 };
 
 export type NewsActions = {
-  setNews: (news?: News | GeneralNews) => void;
+  setNews: (news?: News) => void;
 };
 
 export type NewsStore = NewsState & NewsActions;
