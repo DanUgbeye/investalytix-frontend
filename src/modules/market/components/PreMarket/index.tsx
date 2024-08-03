@@ -91,7 +91,7 @@ export default function PreMarket() {
 
         <Futures ticker="^RUT" />
 
-{/* <Futures />
+        {/* <Futures />
 <Futures isFairValue />
 
 <p className="white-text mt-4 text-sm font-bold text-[#2F3A48]">
@@ -104,24 +104,26 @@ Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         label="asia pacific"
         route="/tickers/hsi,n225,sti,xjo,shcomp/quotes"
         className="mt-11"
-        fields={[
-          {
-            label: "Name",
-            key: "name",
-          },
-          {
-            label: "Last",
-            key: "price",
-          },
-          {
-            label: "Chg",
-            key: "change",
-          },
-          {
-            label: "Chg%",
-            key: "changesPercentage",
-          },
-        ]}
+        quotes={{
+          fields: [
+            {
+              label: "Name",
+              key: "name",
+            },
+            {
+              label: "Last",
+              key: "price",
+            },
+            {
+              label: "Chg",
+              key: "change",
+            },
+            {
+              label: "Chg%",
+              key: "changesPercentage",
+            },
+          ],
+        }}
       />
 
       {/* Europe */}
@@ -129,24 +131,26 @@ Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         label="europe"
         route="/tickers/^ftse,^GDAXI,^FCHI,^AEX,^STOXX50E/quotes"
         className="mt-11"
-        fields={[
-          {
-            label: "Name",
-            key: "name",
-          },
-          {
-            label: "Last",
-            key: "price",
-          },
-          {
-            label: "Chg",
-            key: "change",
-          },
-          {
-            label: "Chg%",
-            key: "changesPercentage",
-          },
-        ]}
+        quotes={{
+          fields: [
+            {
+              label: "Name",
+              key: "name",
+            },
+            {
+              label: "Last",
+              key: "price",
+            },
+            {
+              label: "Chg",
+              key: "change",
+            },
+            {
+              label: "Chg%",
+              key: "changesPercentage",
+            },
+          ],
+        }}
       />
 
       {/* Commodities */}
@@ -166,24 +170,27 @@ Last updated: Thu Dec 28, 2023 : 6:22 AM EST
         label="U.S. Indexes"
         route="/tickers/^RUT,^DJT,^DJU,^NDX,^nya/quotes"
         className="mt-11"
-        fields={[
-          {
-            label: "Name",
-            key: "name",
-          },
-          {
-            label: "Last",
-            key: "price",
-          },
-          {
-            label: "Chg",
-            key: "change",
-          },
-          {
-            label: "Chg%",
-            key: "changesPercentage",
-          },
-        ]}
+        quotes={{
+          fields: [
+            {
+              label: "Name",
+              key: "name",
+            },
+            {
+              label: "Last",
+              key: "price",
+            },
+            {
+              label: "Chg",
+              key: "change",
+            },
+            {
+              label: "Chg%",
+              key: "changesPercentage",
+            },
+          ],
+          isIndex: true,
+        }}
       />
 
       {/* Volatility & Global Indexes */}
