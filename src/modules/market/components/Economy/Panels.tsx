@@ -2,6 +2,7 @@
 import { Disclosure } from "@headlessui/react";
 import Link from "next/link";
 import { FiMinus, FiPlus } from "react-icons/fi";
+import { TiArrowSortedDown } from "react-icons/ti";
 
 const markets = [
   {
@@ -73,12 +74,12 @@ export default function Panels({ active }: PanelsProps) {
         >
           {({ open }) => (
             /* Use the `open` state to conditionally change the direction of an icon. */
-            <div className="border border-[#DDDDDD]">
+            <div className="border border-[#DDDDDD] dark:border-[#282828]">
               <Disclosure.Button
-                className={`flex w-full items-center justify-between gap-5 border-b border-b-[#DDDDDD] bg-[#F5F5F5] px-4 py-3 capitalize dark:bg-transparent ${open ? "" : "font-bold"}`}
+                className={`flex w-full items-center justify-between gap-5 border-b border-b-[#DDDDDD] bg-[#F5F5F5] px-4 py-3 font-bold capitalize dark:border-b-[#282828] dark:bg-[#282828]`}
               >
                 {market.label}
-                {open ? <FiPlus /> : <FiMinus />}
+                <TiArrowSortedDown className={`duration-300 ${open ? "rotate-270" : "-rotate-90"}`} />
               </Disclosure.Button>
               <Disclosure.Panel className={"white-text text-[#333333]"}>
                 <div className="flex flex-col gap-1">

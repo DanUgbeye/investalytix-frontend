@@ -189,7 +189,7 @@ export default function EconomyLayout(props: EconomyProps) {
                       if (active && payload && payload.length) {
                         const entry = payload[0].payload;
                         return (
-                          <div className="rounded-sm bg-white p-2 shadow-sm">
+                          <div className="rounded-sm bg-white dark:bg-black dark:border dark:border-white/20 p-2 shadow-sm">
                             <p className="">
                               Date:{" "}
                               <span className="text-sm font-semibold">
