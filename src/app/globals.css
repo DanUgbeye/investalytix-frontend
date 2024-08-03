@@ -188,3 +188,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 div.react-daterange-picker__calendar {
   @apply z-[45];
 }
+
+/* .active-quotes-slider {
+  animation: active-quotes-scroll 30s linear infinite;
+  @apply repeat-infinite ease-linear dur
+}
+
+.active-quotes-slider:hover {
+  animation-play-state: paused;
+  @apply paused
+}
+
+@keyframes active-quotes-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+} */

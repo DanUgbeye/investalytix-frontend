@@ -6,7 +6,6 @@ import { QUERY_KEYS } from "@/data/query-keys";
 import { MarketRepository } from "@/modules/market/repository";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 
 export default function QuotesBoard() {
@@ -37,13 +36,37 @@ export default function QuotesBoard() {
 
   return (
     <section className=" ">
-      <div className="mb-8 border-y dark:border-main-gray-700">
-        {data && (
+      <div className="mb-8 overflow-x-hidden border-y dark:border-main-gray-700">
+        {/* {data && (
           <Slider {...settings}>
             {data.map((quote, index) => (
               <Quote quote={quote} key={quote.symbol} className={`mr-10`} />
             ))}
           </Slider>
+        )} */}
+
+        {data && (
+          <div className="group flex gap-10">
+            <div className="animate-active-quotes-scroll flex gap-10 group-hover:paused">
+              {data.slice(0, 10).map((quote, index) => (
+                <Quote
+                  quote={quote}
+                  key={quote.symbol}
+                  className={`transition-all ease-in-out`}
+                />
+              ))}
+            </div>
+
+            <div className="animate-active-quotes-scroll flex gap-10 group-hover:paused">
+              {data.slice(0, 10).map((quote, index) => (
+                <Quote
+                  quote={quote}
+                  key={quote.symbol}
+                  className={`transition-all ease-in-out`}
+                />
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </section>
