@@ -299,7 +299,7 @@ export default function ChartSummary(props: { ticker: string }) {
                     priceChangeSummary[
                       tf.shortName as keyof typeof priceChangeSummary
                     ] as number,
-                    { style: "decimal" }
+                    { style: "decimal", notation: "compact" }
                   )}
                   %
                 </ColoredText>

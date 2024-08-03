@@ -31,7 +31,6 @@ export type SubscriptionData = {
 export type ServerTransactionData = {
   _id: string;
   userId: string;
-  paymentReference: string;
   currency: string;
   price: number;
   type: string;
@@ -43,7 +42,6 @@ export type ServerTransactionData = {
 export type TransactionData = {
   id: string;
   userId: string;
-  paymentReference: string;
   currency: string;
   price: number;
   type: string;
