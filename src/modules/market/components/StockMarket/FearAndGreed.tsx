@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   PieChart,
@@ -13,6 +13,7 @@ import useFetcher from "@/hooks/useFetcher";
 import moment from "moment";
 import { motion } from "framer-motion";
 import Spinner from "@/components/spinner";
+import { useAppStore } from "@/store";
 
 const a = {
   lastUpdated: {
@@ -136,6 +137,7 @@ async function getData() {
 }
 
 export default function FearAndGreed() {
+  const theme = useAppStore((s) => s.theme);
   const { loading, data, wrapper } = useFetcher<FearResponse>();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -151,13 +153,23 @@ export default function FearAndGreed() {
     { name: "Extreme Greed", value: 20 },
   ];
 
-  const COLORS = [
-    "#FF0000", // Extreme Fear (red)
-    "#FF4500", // Fear (orange-red)
-    "#FFD700", // Neutral (gold)
-    "#32CD32", // Greed (lime green)
-    "#00FF00", // Extreme Greed (green)
-  ];
+  const COLORS = useMemo(() => {
+    return theme === "dark"
+      ? [
+          "#8B0000", // Extreme Fear (dark red)
+          "#FF6347", // Fear (tomato)
+          "#B8860B", // Neutral (dark goldenrod)
+          "#006400", // Greed (dark green)
+          "#228B22", // Extreme Greed (forest green)
+        ]
+      : [
+          "#FF0000", // Extreme Fear (red)
+          "#FF4500", // Fear (orange-red)
+          "#FFD700", // Neutral (gold)
+          "#32CD32", // Greed (lime green)
+          "#00FF00", // Extreme Greed (green)
+        ];
+  }, [theme]);
 
   const RADIAN = Math.PI / 180;
 

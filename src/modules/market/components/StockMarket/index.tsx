@@ -6,6 +6,7 @@ import Commodities from "../Commodities";
 import Currencies from "../Currencies";
 import Treasurys from "../Treasurys";
 import StockIndexes from "../StockIndexes";
+import { HeatMap } from "../HeapMap";
 
 export default function StockMarket() {
   return (
@@ -21,6 +22,11 @@ export default function StockMarket() {
       {/* TODO: INVESTOR SENTIMENT */}
       <section className="mt-8">
         <InvestorSentiment />
+      </section>
+
+      <section className="mt-8">
+        <MarketHeading label="stock heatmap" />
+        <HeatMap />
       </section>
 
       {/* COMMODITIES */}
