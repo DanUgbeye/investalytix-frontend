@@ -31,7 +31,7 @@ export default function WithSidePanel({
             <SidePanel
               moreUrl="/picks?q=hot picks"
               title="hot picks"
-              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/stocks?quotes=aig,crwd,wrb,appl,tsla,aapl`}
+              url={`${process.env.NEXT_PUBLIC_API_BASE_URL}/tickers/aig,crwd,wrb,appl,tsla,aapl/quotes`}
             />
           </Suspense>
         )}

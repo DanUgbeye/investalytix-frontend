@@ -10,7 +10,7 @@ async function getForexNewsData(params?: { limit?: number; page?: number }) {
   const { limit, page } = params ?? {};
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/news/forex?limit=${limit}&page=${page}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/news/fmp/forex?limit=${limit}&page=${page}`
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -30,7 +30,7 @@ async function getCryptoNewsData(params?: { limit?: number; page?: number }) {
   const { limit, page } = params ?? {};
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/news/crypto?limit=${limit}&page=${page}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/news/fmp/crypto?limit=${limit}&page=${page}`
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -50,7 +50,7 @@ async function getStockNewsData(params?: { limit?: number; page?: number }) {
   const { limit, page } = params ?? {};
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/news/stock?limit=${limit}&page=${page}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/news/fmp?limit=${limit}&page=${page}`
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.

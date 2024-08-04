@@ -2,32 +2,112 @@ import { RequestOptions } from "@/types";
 import { handleAPIError } from "@/utils/api-utils";
 import { AxiosInstance } from "axios";
 import { z } from "zod";
-import { BezingaNews, BezingaNewsFilter, FMPNews, News } from "../types";
-import { NewsSchema } from "../validation";
+import { BezingaNews, BezingaNewsFilter, FMPNews } from "../types";
+import { FMPNewsSchema } from "../validation";
 
 export class NewsRepository {
   constructor(private readonly axios: AxiosInstance) {}
 
-  async getNews(
-    query: string,
+  async getFMPNews(
+    filter?: { tickers?: string[]; limit?: number; page?: number },
     options?: RequestOptions | undefined
-  ): Promise<News[]> {
+  ): Promise<FMPNews[]> {
     try {
       const searchParams = new URLSearchParams();
-      searchParams.append("query", query);
 
-      const path = `/news?${searchParams.toString()}`;
-      let res = await this.axios.get<{ data: FMPNews[] }>(path, options);
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      const path = `/news/fmp?${searchParams.toString()}`;
 
-      // let validation = z.array(NewsSchema).safeParse(res.data.data);
+      let res = await this.axios.get<{ data: FMPNews[] }>(
+        path.toString(),
+        options
+      );
 
-      // if (validation.error) {
-      //   throw new Error("Something went wrong on our end");
-      // }
+      let validation = z.array(FMPNewsSchema).safeParse(res.data.data);
 
-      return res.data.data;
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
     } catch (error: any) {
-      console.log(error)
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getFMPForexNews(
+    filter?: { ticker: string; limit?: number; page?: number },
+    options?: RequestOptions | undefined
+  ): Promise<FMPNews[]> {
+    try {
+      const searchParams = new URLSearchParams();
+
+      if (filter?.ticker) {
+        searchParams.append("ticker", String(filter.ticker));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      const path = `/news/fmp/forex?${searchParams.toString()}`;
+
+      let res = await this.axios.get<{ data: FMPNews[] }>(
+        path.toString(),
+        options
+      );
+
+      let validation = z.array(FMPNewsSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
+      let err = handleAPIError(error);
+      throw err;
+    }
+  }
+
+  async getFMPCryptoNews(
+    filter?: { ticker?: string; limit?: number; page?: number },
+    options?: RequestOptions | undefined
+  ): Promise<FMPNews[]> {
+    try {
+      const searchParams = new URLSearchParams();
+
+      if (filter?.ticker) {
+        searchParams.append("ticker", String(filter.ticker));
+      }
+      if (filter?.limit) {
+        searchParams.append("limit", String(filter.limit));
+      }
+      if (filter?.page) {
+        searchParams.append("page", String(filter.page));
+      }
+      const path = `/news/fmp/crypto?${searchParams.toString()}`;
+
+      let res = await this.axios.get<{ data: FMPNews[] }>(
+        path.toString(),
+        options
+      );
+
+      let validation = z.array(FMPNewsSchema).safeParse(res.data.data);
+
+      if (validation.error) {
+        throw new Error("Something went wrong on our end");
+      }
+
+      return validation.data;
+    } catch (error: any) {
       let err = handleAPIError(error);
       throw err;
     }
@@ -72,7 +152,7 @@ export class NewsRepository {
 
       return res.data.data;
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       let err = handleAPIError(error);
       throw err;
     }

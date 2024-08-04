@@ -94,7 +94,9 @@ export default function NewsDisplayModal() {
                             >
                               <Avatar className="size-5">
                                 <AvatarImage
-                                  src={tickerUtils.getTickerLogoUrl(symbol)}
+                                  src={tickerUtils.getTickerLogoUrl(
+                                    symbol.replaceAll("$", "")
+                                  )}
                                   className="h-full w-full object-cover"
                                 />
                               </Avatar>

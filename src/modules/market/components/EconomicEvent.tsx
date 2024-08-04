@@ -17,7 +17,11 @@ export default function EconomicEvent() {
     const newsRepo = new NewsRepository(clientAPI);
 
     wrapper(() =>
-      newsRepo.getBezingaNews({ channels: ["stock"], pageSize: 6, page: 2 })
+      newsRepo.getBezingaNews({
+        channels: ["Markets", "News", "Macro Economic Events"],
+        pageSize: 6,
+        page: 2,
+      })
     );
   }, []);
 

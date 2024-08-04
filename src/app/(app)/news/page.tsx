@@ -15,7 +15,7 @@ async function getData(params?: { limit?: number; page?: number }) {
   );
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
- 
+
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
@@ -30,8 +30,13 @@ async function getData(params?: { limit?: number; page?: number }) {
 
 export default async function NewsPage() {
   const newsRepo = new NewsRepository(serverAPI);
-  const data = await newsRepo.getBezingaNews();
-  const otherNews = await newsRepo.getBezingaNews({ page: 1 });
+  const data = await newsRepo.getBezingaNews({
+    channels: ["Top Stories", "Macro Economic Events", "Markets", "News"],
+  });
+  const otherNews = await newsRepo.getBezingaNews({
+    page: 1,
+    channels: ["Top Stories", "Macro Economic Events", "Markets", "News"],
+  });
 
   const [major, ...others] = data;
   const minor_major = others.slice(1, 4);

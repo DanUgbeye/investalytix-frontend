@@ -15,7 +15,7 @@ export default function LatestNews() {
     const newsRepo = new NewsRepository(clientAPI);
 
     wrapper(() =>
-      newsRepo.getBezingaNews({ channels: ["stock"], pageSize: 12 })
+      newsRepo.getBezingaNews({ channels: ["Markets", "News"], pageSize: 12 })
     );
   }, []);
 
