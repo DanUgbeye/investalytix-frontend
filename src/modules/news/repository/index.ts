@@ -15,6 +15,9 @@ export class NewsRepository {
     try {
       const searchParams = new URLSearchParams();
 
+      if (filter?.tickers) {
+        searchParams.append("tickers", String(filter.tickers));
+      }
       if (filter?.limit) {
         searchParams.append("limit", String(filter.limit));
       }

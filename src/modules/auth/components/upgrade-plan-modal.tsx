@@ -29,7 +29,7 @@ export default function UpgradePlanModal() {
       <Container>
         <DialogContent
           hideCloseBtn
-          className="space-y-8 border-main-gray-700 bg-main-gray-900 px-10 pb-12 pt-5 max-sm:w-[min(95%,30rem)] sm:px-16"
+          className="space-y-5 border-main-gray-700 bg-main-gray-900 px-10 pb-12 pt-5 max-sm:w-[min(95%,30rem)] sm:px-16"
         >
           <img
             src="/assets/decors/login-ellipse-left.svg"
@@ -70,15 +70,13 @@ export default function UpgradePlanModal() {
                 Upgrade Plan
               </Link>
 
-              <p className="text-sm text-white dark:text-main-gray-300">
-                <Button
-                  variant={"link"}
-                  className="font-bold underline-offset-4 hover:underline"
-                  onClick={handleClose}
-                >
-                  Cancel
-                </Button>
-              </p>
+              <Button
+                variant={"link"}
+                className="w-full max-w-xs font-bold underline-offset-4 hover:underline"
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
             </div>
           </div>
         </DialogContent>

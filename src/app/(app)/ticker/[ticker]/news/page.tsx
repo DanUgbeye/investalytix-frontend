@@ -52,13 +52,14 @@ async function getData(ticker: string): Promise<Result<TickerNewsPageData>> {
     return {
       data: {
         profile,
-        news: newsUtil
-          .sortNews([...bezingaNews, ...fmpNews])
-          .filter(
+        news: newsUtil.sortNews(
+          [...bezingaNews, ...fmpNews].filter(
             (news) =>
               !news.title.toLowerCase().includes("aljazeera") ||
               !news.title.toLowerCase().includes("al jazeera")
           ),
+          "desc"
+        ),
       },
     };
   } catch (error: any) {
