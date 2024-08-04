@@ -34,7 +34,7 @@ export default function HoldersScreen(props: HoldersScreenProps) {
   function toggleShowAll(select: keyof typeof showAll) {
     authenticateAction(
       () => setShowAll((prev) => ({ ...prev, [select]: !prev[select] })),
-      { plan: SUBSCRIPTION_PLAN_NAMES.PREMIUM }
+      { plan: [SUBSCRIPTION_PLAN_NAMES.PREMIUM] }
     );
   }
 

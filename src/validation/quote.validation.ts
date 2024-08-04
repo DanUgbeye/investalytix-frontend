@@ -6,7 +6,7 @@ import {
   StockSocketData,
 } from "@/types";
 import { ZodType, z } from "zod";
-import { NullableNumberSchema, NullableStringSchema } from ".";
+import { NullableNumberSchema, NullableStringSchema } from "./base.validation";
 
 export const QuoteSchema = z.object({
   symbol: z.string(),

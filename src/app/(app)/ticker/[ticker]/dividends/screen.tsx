@@ -49,7 +49,7 @@ export default function DividendsScreen(props: DividendsScreenProps) {
 
   function handleShowMoreDividends() {
     authenticateAction(() => setShowAllDividends((prev) => !prev), {
-      plan: SUBSCRIPTION_PLAN_NAMES.PREMIUM,
+      plan: [SUBSCRIPTION_PLAN_NAMES.PREMIUM],
     });
   }
 

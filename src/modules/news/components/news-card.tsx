@@ -13,7 +13,7 @@ export default function NewsCard(props: NewsCardProps) {
   return (
     <div
       {...rest}
-      className="group cursor-pointer rounded-lg p-2 pr-4 duration-300 hover:bg-primary-base/10 hover:dark:bg-primary-light/15"
+      className="group h-full cursor-pointer rounded-lg p-2 pr-4 duration-300 hover:bg-primary-base/10 hover:dark:bg-primary-light/15"
     >
       <div className="grid grid-cols-[auto,1fr] gap-4">
         {news.image && (

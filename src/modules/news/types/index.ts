@@ -26,6 +26,38 @@ export type BezingaOriginalNews = {
   tags: Array<{ name: string }>;
 };
 
+export type BezingaNewsChannel =
+  | "News"
+  | "Markets"
+  | "Earnings"
+  | "Top Stories"
+  | "Trading Ideas"
+  | "Short Ideas"
+  | "Short Sellers"
+  | "Offerings"
+  | "Options"
+  | "Equities"
+  | "Analyst Color"
+  | "Macro Economic Events"
+  | "Sector ETFs"
+  | "Bonds"
+  | "Economics"
+  | "ETFs"
+  | "Buybacks"
+  | "Cryptocurrency"
+  | "Movers"
+  | "Management"
+  | "Legal"
+  | "Earnings Beats"
+  | "Reiteration"
+  | "Market Summary"
+  | "Technicals"
+  | "Previews"
+  | "Tech"
+  | "Analyst Ratings"
+  | "Price Target"
+  | "Gaming";
+
 export type BezingaNewsFilter = {
   page?: number;
   pageSize?: number;
@@ -44,7 +76,7 @@ export type BezingaNewsFilter = {
     | "updated:desc";
 
   tickers?: string[];
-  channels?: string[];
+  channels?: BezingaNewsChannel[];
   topics?: string[];
   authors?: string[];
 };

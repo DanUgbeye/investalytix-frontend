@@ -1,6 +1,7 @@
 "use client";
 
 import AuthModal from "@/modules/auth/components/auth-modal";
+import UpgradePlanModal from "@/modules/auth/components/upgrade-plan-modal";
 import NewsDisplayModal from "@/modules/news/components/news-display-modal";
 import useTheme from "@/store/theme/useTheme";
 import { PropsWithChildren } from "react";
@@ -22,6 +23,7 @@ export default function GlobalComponents({ children }: PropsWithChildren) {
       />
       <NewsDisplayModal />
       <AuthModal />
+      <UpgradePlanModal />
 
       {children}
     </>

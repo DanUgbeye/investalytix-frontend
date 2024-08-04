@@ -70,7 +70,7 @@ export default function RevenueAndEPSScreen(props: RevenueAndEPSScreenProps) {
       () => {
         setShowAll(showAll === show ? undefined : show);
       },
-      { plan: SUBSCRIPTION_PLAN_NAMES.PREMIUM }
+      { plan: [SUBSCRIPTION_PLAN_NAMES.PREMIUM] }
     );
   }
 

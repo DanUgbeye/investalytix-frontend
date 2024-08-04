@@ -14,6 +14,10 @@ export type GeneralStore = {
   toggleLoginModal(state?: boolean): void;
   toggleLoginModalLock(state?: boolean): void;
 
+  // UPGRADE PLAN
+  upgradePlanModalOpen: boolean;
+  toggleUpgradePlanModal(state?: boolean): void;
+
   // THEME
   theme: Theme;
   toggleTheme(theme?: Theme): void;
@@ -64,6 +68,13 @@ export const createGeneralStore: StateCreator<
   toggleLoginModalLock(state) {
     const newState = state !== undefined ? state : !get().loginModalLocked;
     set({ loginModalLocked: newState });
+  },
+
+  // UPGRADE PLAN MODAL
+  upgradePlanModalOpen: false,
+  toggleUpgradePlanModal(state) {
+    const newState = state !== undefined ? state : !get().upgradePlanModalOpen;
+    set({ upgradePlanModalOpen: newState });
   },
 
   // THEME
