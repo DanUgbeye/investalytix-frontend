@@ -24,10 +24,12 @@ import {
 import { ChevronRight, Plus } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { generateRatiosTableData } from "./generate-table-data";
 import { FinancialRatiosPageData } from "./page";
 import userUtils from "@/modules/user/utils";
+import useAuthenticatedAction from "@/hooks/use-authenticated-action";
+import { SUBSCRIPTION_PLAN_NAMES } from "@/modules/subscription/types";
 
 function getPeriodUrl(path: string, period: string) {
   return `${path}?period=${period}`;
@@ -43,9 +45,13 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   const isPremiumUser = useAppStore(
     ({ user }) => user !== undefined && userUtils.isPremiumPlanUser(user)
   );
-  const { toggleLoginModal } = useAppStore();
+
+  const authenticateAction = useAuthenticatedAction();
+  const [showAllData, setShowAllData] = useState(false);
 
   const dataToDisplay = useMemo(() => {
+    if (showAllData) return ratios;
+
     return ratios.filter(
       (bs) =>
         differenceInCalendarYears(new Date(), new Date(bs.date)) <=
@@ -58,6 +64,12 @@ export default function RatiosScreen(props: RatiosScreenProps) {
   }, [dataToDisplay]);
 
   const { ref, isScrolled } = useScroll<HTMLDivElement>();
+
+  function handleShowMore() {
+    authenticateAction(() => setShowAllData(true), {
+      plan: [SUBSCRIPTION_PLAN_NAMES.PREMIUM],
+    });
+  }
 
   return (
     <main className="space-y-5 pb-12">
@@ -207,7 +219,7 @@ export default function RatiosScreen(props: RatiosScreenProps) {
             <Button
               variant={"link"}
               className="gap-x-2 text-primary-base hover:no-underline dark:text-primary-base"
-              onClick={() => toggleLoginModal()}
+              onClick={() => handleShowMore()}
             >
               <>
                 <Plus className="size-4" />

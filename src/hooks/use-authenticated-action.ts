@@ -5,7 +5,7 @@ export default function useAuthenticatedAction() {
   const user = useAppStore((state) => state.user);
   const { toggleLoginModal, toggleUpgradePlanModal } = useAppStore();
 
-  return function authenticatedAction(
+  function authenticatedAction(
     action: () => void,
     options?: {
       plan?: SubscriptionPlanName[];
@@ -20,5 +20,7 @@ export default function useAuthenticatedAction() {
     } else {
       action();
     }
-  };
+  }
+
+  return authenticatedAction;
 }
