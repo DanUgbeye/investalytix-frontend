@@ -171,7 +171,10 @@ export default function FearAndGreed() {
         ];
   }, [theme]);
 
-  console.log(COLORS)
+  console.log( (containerRef?.current?.clientWidth ?? 0) / 2,
+  (containerRef?.current?.clientHeight ?? 0) / 2,
+  (containerRef?.current?.clientHeight ?? 0) * 0.2,
+  (containerRef?.current?.clientHeight ?? 0) * 0.3,)
 
   const RADIAN = Math.PI / 180;
 
