@@ -180,7 +180,7 @@ export default function AnalystRecommendationScreen(
 
   function handleShowMoreUpgrades() {
     authenticateAction(() => setShowAllUpgrades((prev) => !prev), {
-      plan: SUBSCRIPTION_PLAN_NAMES.PREMIUM,
+      plan: [SUBSCRIPTION_PLAN_NAMES.PREMIUM],
     });
   }
 
