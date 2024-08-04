@@ -267,9 +267,9 @@ export default function FearAndGreed() {
 
       {data && (
         <div className="mt-2 grid md:grid-cols-2">
-          <div className="h-80 overflow-auto">
+          <div className="h-80 overflow-auto" ref={containerRef}>
             <ResponsiveContainer
-              ref={containerRef}
+              
               width="100%"
               height="100%"
               className="!m-0 !p-0"
