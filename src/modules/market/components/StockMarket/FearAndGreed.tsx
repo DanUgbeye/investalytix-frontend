@@ -171,6 +171,8 @@ export default function FearAndGreed() {
         ];
   }, [theme]);
 
+  console.log(COLORS)
+
   const RADIAN = Math.PI / 180;
 
   const needle = (
