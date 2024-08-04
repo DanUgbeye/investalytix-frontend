@@ -140,6 +140,7 @@ export default function FearAndGreed() {
   const theme = useAppStore((s) => s.theme);
   const { loading, data, wrapper } = useFetcher<FearResponse>();
   const containerRef = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     wrapper(getData);
@@ -171,10 +172,13 @@ export default function FearAndGreed() {
         ];
   }, [theme]);
 
-  console.log( (containerRef?.current?.clientWidth ?? 0) / 2,
-  (containerRef?.current?.clientHeight ?? 0) / 2,
-  (containerRef?.current?.clientHeight ?? 0) * 0.2,
-  (containerRef?.current?.clientHeight ?? 0) * 0.3,)
+  console.log(
+    dimensions,
+    // (containerRef?.current?.clientWidth ?? 0) / 2,
+    // (containerRef?.current?.clientHeight ?? 0) / 2,
+    // (containerRef?.current?.clientHeight ?? 0) * 0.2,
+    // (containerRef?.current?.clientHeight ?? 0) * 0.3
+  );
 
   const RADIAN = Math.PI / 180;
 
@@ -274,19 +278,26 @@ export default function FearAndGreed() {
         <div className="mt-2 grid md:grid-cols-2">
           <div className="h-80 overflow-auto" ref={containerRef}>
             <ResponsiveContainer
-              
               width="100%"
               height="100%"
               className="!m-0 !p-0"
+              onResize={(width, height) => {
+                setDimensions({
+                  width,
+                  height,
+                });
+              }}
+              // onLoad={(e) => {
+              // }}
             >
               <PieChart className="">
                 <Pie
                   data={[...otherPieData]}
-                  cx={(containerRef?.current?.clientWidth ?? 0) / 2}
-                  cy={(containerRef?.current?.clientHeight ?? 0) / 2}
+                  cx={dimensions.width / 2}
+                  cy={dimensions.height / 2}
                   // innerRadius={iR}
-                  innerRadius={(containerRef?.current?.clientHeight ?? 0) * 0.2}
-                  outerRadius={(containerRef?.current?.clientHeight ?? 0) * 0.3}
+                  innerRadius={dimensions.height * 0.2}
+                  outerRadius={dimensions.height * 0.3}
                   // outerRadius={oR}
                   fill="#8884d8"
                   paddingAngle={0}
@@ -299,10 +310,14 @@ export default function FearAndGreed() {
                 </Pie>
                 {needle(
                   mapValueToRange(data.data.fgi.now.value),
-                  (containerRef?.current?.clientWidth ?? 0) / 2,
-                  (containerRef?.current?.clientHeight ?? 0) / 2,
-                  (containerRef?.current?.clientHeight ?? 0) * 0.2,
-                  (containerRef?.current?.clientHeight ?? 0) * 0.3,
+                  dimensions.width / 2,
+                  dimensions.height / 2,
+                  dimensions.height * 0.2,
+                  dimensions.height * 0.3,
+                  // (containerRef?.current?.clientWidth ?? 0) / 2,
+                  // (containerRef?.current?.clientHeight ?? 0) / 2,
+                  // (containerRef?.current?.clientHeight ?? 0) * 0.2,
+                  // (containerRef?.current?.clientHeight ?? 0) * 0.3,
                   "#D0D5DD"
                 )}
               </PieChart>
