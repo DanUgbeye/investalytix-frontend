@@ -42,7 +42,7 @@ export class NewsRepository {
   }
 
   async getFMPForexNews(
-    filter?: { ticker: string; limit?: number; page?: number },
+    filter?: { ticker?: string; limit?: number; page?: number },
     options?: RequestOptions | undefined
   ): Promise<FMPNews[]> {
     try {
