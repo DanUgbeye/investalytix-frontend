@@ -100,7 +100,7 @@ export default function Pricing(props: HTMLAttributes<HTMLDivElement>) {
         )}
       </div>
 
-      <div className="hide-scrollbar overflow-auto max-md:px-6 max-md:pb-1">
+      <div className="hide-scrollbar overflow-auto max-md:px-6 p-1">
         <div className="mx-auto mt-5 grid max-w-6xl grid-cols-[repeat(2,340px)] md:mt-10 md:grid-cols-2">
           {plans.map((plan) => (
             <Plan

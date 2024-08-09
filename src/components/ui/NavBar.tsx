@@ -303,7 +303,7 @@ export default function NavBar(props: { className?: string }) {
                   href={PAGES.SIGNUP}
                   className="font- hidden cursor-pointer rounded bg-[#FB8B1E] px-4 py-2 text-sm text-white sm:text-base md:block"
                 >
-                  Sign Up
+                  Sign Up For Free
                 </Link>
               </>
             )}
@@ -418,7 +418,7 @@ function MobileMenu() {
                           href="/signup"
                           className="mx-4 block cursor-pointer rounded bg-primary-base px-4 py-3 text-center text-sm font-bold text-white duration-300 hover:bg-primary-base/90 sm:text-base"
                         >
-                          Sign Up
+                           Sign Up For Free
                         </Link>
                       </>
                     )}
