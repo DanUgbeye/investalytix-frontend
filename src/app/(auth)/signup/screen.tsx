@@ -21,13 +21,39 @@ import { FiArrowLeft } from "react-icons/fi";
 import { ImCheckmark } from "react-icons/im";
 import { toast } from "react-toastify";
 import { ZodType, z } from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const hearAboutUsOptions = [
+  "Search Engine (Google, Bing, etc.)",
+  "Social Media (Facebook, Twitter, Instagram, etc.)",
+  "Word of Mouth",
+  "Online Advertisement",
+  "Television/Radio",
+  "Newspaper/Magazine",
+  "Email Campaign",
+  "Attended Event or Conference",
+  "Referral from a Friend or Colleague",
+  "Blog or Online Article",
+  "Podcast",
+  "Other",
+];
 
 export default function SignupScreen() {
   const router = useRouter();
   const authRepo = useAuthRepo();
   const { theme } = useTheme();
+  const [description, setDescription] = useState("");
   const {
     control,
+    getValues,
     formState: { isSubmitting, isDirty },
     reset,
     handleSubmit,
@@ -37,6 +63,7 @@ export default function SignupScreen() {
       password: "",
       firstname: "",
       lastname: "",
+      hearAboutUs: "",
     },
     resolver: zodResolver(
       z.object({
@@ -44,6 +71,7 @@ export default function SignupScreen() {
         password: z.string().min(8).max(64),
         firstname: z.string().min(2),
         lastname: z.string().min(2),
+        hearAboutUs: z.string().min(2),
       }) satisfies ZodType<SignupData>
     ),
   });
@@ -57,7 +85,13 @@ export default function SignupScreen() {
 
   async function onSubmit(data: SignupData) {
     try {
-      let res = await authRepo.signup(data);
+      let res = await authRepo.signup({
+        ...data,
+        hearAboutUs:
+          data.hearAboutUs.toLowerCase() === "other"
+            ? description
+            : data.hearAboutUs,
+      });
       reset();
       toast.success("Account created");
 
@@ -171,6 +205,58 @@ export default function SignupScreen() {
                 )}
               />
 
+              {/* hear abour us */}
+              <Controller
+                control={control}
+                name="hearAboutUs"
+                rules={{ required: true }}
+                render={({ field, fieldState }) => (
+                  <FormItem className="mt-3">
+                    <FormLabel
+                      htmlFor="hearAboutUs"
+                      error={!!fieldState.error}
+                      className="mb-3"
+                    >
+                      How did you hear about us?
+                    </FormLabel>
+
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pick an option" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {hearAboutUsOptions.map((option) => (
+                          <SelectItem value={option} key={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    <FormMessage message={fieldState.error?.message} />
+                  </FormItem>
+                )}
+              />
+
+              {getValues("hearAboutUs").toLowerCase() === "other" && (
+                <div className="space-y-2 mt-3">
+                  <FormLabel htmlFor="description" className="mb-3">
+                    Please specify
+                  </FormLabel>
+                  <Input
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="h-fit w-full rounded border border-[#D9DCE1] bg-white p-[14px] focus:outline-none dark:bg-white/10"
+                    id="description"
+                    type="string"
+                    placeholder="how did you hear about us?"
+                  />
+                </div>
+              )}
+
               <Controller
                 control={control}
                 name="password"
@@ -209,7 +295,7 @@ export default function SignupScreen() {
                     type="checkbox"
                     name="terms-accepted"
                     id="terms-accepted"
-                    className="size-5 appearance-none checked:bg-primary-base border-2 rounded-md"
+                    className="size-5 appearance-none rounded-md border-2 checked:bg-primary-base"
                     checked={termsAccepted}
                     onChange={handleTermsAccepted}
                   />
