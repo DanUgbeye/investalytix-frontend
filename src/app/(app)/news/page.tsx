@@ -6,41 +6,31 @@ import { NewsRepository } from "@/modules/news/repository";
 import { News } from "@/modules/news/types";
 import moment from "moment";
 import Image from "next/image";
-
-async function getData(params?: { limit?: number; page?: number }) {
-  const { limit, page } = params ?? {};
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/news?limit=${limit}&page=${page}`
-  );
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json() as Promise<{
-    message: String;
-    status: number;
-    data: News[];
-  }>;
-}
+import NewsSection from "./_NewsSection";
+import newsSections from "@/data/news-sections";
 
 export default async function NewsPage() {
   const newsRepo = new NewsRepository(serverAPI);
-  const data = await newsRepo.getBezingaNews({
-    channels: ["Top Stories", "Macro Economic Events", "Markets", "News"],
-  });
-  const otherNews = await newsRepo.getBezingaNews({
-    page: 1,
-    channels: ["Top Stories", "Macro Economic Events", "Markets", "News"],
-  });
+  const data = await newsRepo.getBezingaNews({pageSize:20, channels:[
+      "Trading Ideas",
+      "Short Ideas",
+      "Short Sellers",
+      "Sector ETFs",
+      "Options",
+      "Technicals",
+    ]});
+  const otherNews = await newsRepo.getBezingaNews({pageSize:20, channels:[
+      "Trading Ideas",
+      "Short Ideas",
+      "Short Sellers",
+      "Sector ETFs",
+      "Options",
+      "Technicals",
+    ]});
 
   const [major, ...others] = data;
-  const minor_major = others.slice(1, 4);
-  const latest = others.slice(4);
+  const minor_major = others.filter((a) => !!a.image).slice(1, 4);
+  const latest = others.filter((a) => !!a.image).slice(4);
 
   return (
     <Container>
@@ -126,6 +116,27 @@ export default async function NewsPage() {
           </NewsLink>
         ))}
       </div>
+
+      {newsSections.map((section) => (
+        <NewsSection
+          key={section.label}
+          label={section.label}
+          sections={section.sections}
+        />
+      ))}
+
+      {/* <NewsSection
+        label="markets"
+        sections={[
+          "Markets",
+          "Sector ETFs",
+          "ETFs",
+          "Cryptocurrency",
+          "Options",
+          "Bonds",
+          "Economics",
+        ]}
+      /> */}
     </Container>
   );
 }
