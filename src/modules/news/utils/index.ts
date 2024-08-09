@@ -2,7 +2,7 @@ import { News } from "../types";
 
 class NewsUtil {
   sortNews<TNews extends News>(news: TNews[], order: "asc" | "desc" = "asc") {
-    return news.toSorted((a, b) => {
+    return news.sort((a, b) => {
       if (order === "asc") {
         return (
           new Date(a.publishedDate).getTime() -

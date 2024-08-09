@@ -1,6 +1,7 @@
 import { serverAPI } from "@/config/server/api";
 import { NewsRepository } from "@/modules/news/repository";
 import { News } from "@/modules/news/types";
+import { newsUtil } from "@/modules/news/utils";
 import { TickerRepository } from "@/modules/ticker/repository";
 import { CompanyProfile } from "@/modules/ticker/types";
 import { Result } from "@/types";
@@ -10,7 +11,6 @@ import { notFound } from "next/navigation";
 import ErrorScreen from "../error-screen";
 import { SearchTickerPageProps } from "../page";
 import TickerNewsScreen from "./screen";
-import { newsUtil } from "@/modules/news/utils";
 
 export async function generateMetadata(props: {
   params: { ticker: string };
@@ -49,17 +49,18 @@ async function getData(ticker: string): Promise<Result<TickerNewsPageData>> {
       newsRepo.getFMPNews({ tickers: [ticker], limit: 15 }),
     ]);
 
+    let filteredNews = [...bezingaNews, ...fmpNews].filter(
+      (news) =>
+        !news.title.toLowerCase().includes("aljazeera") &&
+        !news.title.toLowerCase().includes("al jazeera")
+    );
+
+    const sortedNews = newsUtil.sortNews(filteredNews, "desc");
+
     return {
       data: {
         profile,
-        news: newsUtil.sortNews(
-          [...bezingaNews, ...fmpNews].filter(
-            (news) =>
-              !news.title.toLowerCase().includes("aljazeera") ||
-              !news.title.toLowerCase().includes("al jazeera")
-          ),
-          "desc"
-        ),
+        news: sortedNews,
       },
     };
   } catch (error: any) {
