@@ -8,12 +8,15 @@ import {
   Cell,
   ResponsiveContainer,
   Tooltip,
+  Text,
+  PieLabel,
 } from "recharts";
 import useFetcher from "@/hooks/useFetcher";
 import moment from "moment";
 import { motion } from "framer-motion";
 import Spinner from "@/components/spinner";
 import { useAppStore } from "@/store";
+import { useMediaQuery } from "react-responsive";
 
 const a = {
   lastUpdated: {
@@ -107,17 +110,17 @@ type FearResponse = {
 }
  */
 
-function mapValueToRange(value: number) {
+function mapValueIndex(value: number) {
   if (value >= 0 && value <= 20) {
-    return 20; // Extreme Fear
+    return 4; // Extreme Fear
   } else if (value >= 21 && value <= 40) {
-    return 40; // Fear
+    return 3; // Fear
   } else if (value >= 41 && value <= 60) {
-    return 60; // Neutral
+    return 2; // Neutral
   } else if (value >= 61 && value <= 80) {
-    return 80; // Greed
+    return 1; // Greed
   } else {
-    return 100; // Extreme Greed
+    return 0; // Extreme Greed
   }
 }
 
@@ -141,6 +144,8 @@ export default function FearAndGreed() {
   const { loading, data, wrapper } = useFetcher<FearResponse>();
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const isTablet = useMediaQuery({ query: "(min-width: 500px)" });
+  const isDesktop = useMediaQuery({ query: "(max-width: 1024px)" });
 
   useEffect(() => {
     wrapper(getData);
@@ -172,34 +177,22 @@ export default function FearAndGreed() {
         ];
   }, [theme]);
 
-  console.log(
-    dimensions,
-    // (containerRef?.current?.clientWidth ?? 0) / 2,
-    // (containerRef?.current?.clientHeight ?? 0) / 2,
-    // (containerRef?.current?.clientHeight ?? 0) * 0.2,
-    // (containerRef?.current?.clientHeight ?? 0) * 0.3
-  );
-
   const RADIAN = Math.PI / 180;
 
   const needle = (
-    value: number,
+    segmentIndex: number,
     cx: number,
     cy: number,
     iR: number,
     oR: number,
     color: string
   ) => {
-    const total = 100;
     const numSegments = 5; // Number of segments in your data
-    const anglePerSegment = 360 / numSegments; // Each segment's angle in the chart
-
-    // Determine which segment the value falls into and find the center angle
-    const segmentIndex = Math.floor(value / (total / numSegments)) + 1;
+    const anglePerSegment = 180 / numSegments; // Each segment's angle in the chart
     const segmentAngleStart = anglePerSegment * segmentIndex;
-    const ang = 360 - (segmentAngleStart + anglePerSegment / 2); // Center of the segment
+    const ang = segmentAngleStart + anglePerSegment / 2; // Center of the segment
 
-    const length = (iR + 2 * oR) / 5;
+    const length = (iR + 1 * oR) / 5;
     const sin = Math.sin(-RADIAN * ang);
     const cos = Math.cos(-RADIAN * ang);
     const r = 5;
@@ -228,6 +221,53 @@ export default function FearAndGreed() {
         strokeWidth="3"
       />,
     ];
+  };
+
+  const renderCustomLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+    payload,
+  }: {
+    cx: number;
+    cy: number;
+    midAngle: number;
+    innerRadius: number;
+    outerRadius: number;
+    percent: number;
+    index: number;
+    payload: { payload: (typeof otherPieData)[number] };
+  }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    const isActive =
+      payload.payload.name.toLowerCase() ===
+      data.data.fgi.now.valueText.toLowerCase();
+
+    const words = payload.payload.name.split(" ");
+
+    return (
+      <text
+        x={x}
+        y={y}
+        textAnchor="middle"
+        dominantBaseline="central"
+        fill={`${isActive ? COLORS[index] : theme === "dark" ? "rgb(255 255 255 / 0.8)" : "#000000"}`}
+        className="break-words max-md:text-sm"
+      >
+        {words.map((word, i) => (
+          <tspan key={i} x={x} dy={i === 0 ? 0 : 14}>
+            {word}
+          </tspan>
+        ))}
+      </text>
+    );
   };
 
   return (
@@ -275,56 +315,61 @@ export default function FearAndGreed() {
       )}
 
       {data && (
-        <div className="mt-2 grid md:grid-cols-2">
-          <div className="h-80 overflow-auto" ref={containerRef}>
+        <div className="mt-2 grid gap-10">
+          <div ref={containerRef}>
             <ResponsiveContainer
               width="100%"
               height="100%"
-              className="!m-0 !p-0"
+              className="!m-0 min-h-[300px] !p-0"
               onResize={(width, height) => {
                 setDimensions({
                   width,
                   height,
                 });
               }}
-              // onLoad={(e) => {
-              // }}
             >
               <PieChart className="">
                 <Pie
                   data={[...otherPieData]}
                   cx={dimensions.width / 2}
-                  cy={dimensions.height / 2}
-                  // innerRadius={iR}
-                  innerRadius={dimensions.height * 0.2}
-                  outerRadius={dimensions.height * 0.3}
-                  // outerRadius={oR}
+                  cy={dimensions.height - 10}
+                  innerRadius={dimensions.height * (isTablet ? 0.5 : 0.25)}
+                  outerRadius={dimensions.height * (isTablet ? 0.8 : 0.5)}
+                  startAngle={180}
+                  endAngle={0}
                   fill="#8884d8"
-                  paddingAngle={0}
+                  paddingAngle={1}
                   dataKey="value"
-                  label={(d) => d.name}
+                  labelLine={false}
+                  label={renderCustomLabel}
                 >
                   {[...otherPieData].map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill="transparent"
+                      stroke={
+                        data.data.fgi.now.valueText === entry.name
+                          ? COLORS[index]
+                          : theme === "dark"
+                            ? "rgb(255 255 255 / 0.8)"
+                            : "#010101"
+                      }
+                    />
                   ))}
                 </Pie>
                 {needle(
-                  mapValueToRange(data.data.fgi.now.value),
+                  mapValueIndex(data.data.fgi.now.value),
                   dimensions.width / 2,
-                  dimensions.height / 2,
-                  dimensions.height * 0.2,
-                  dimensions.height * 0.3,
-                  // (containerRef?.current?.clientWidth ?? 0) / 2,
-                  // (containerRef?.current?.clientHeight ?? 0) / 2,
-                  // (containerRef?.current?.clientHeight ?? 0) * 0.2,
-                  // (containerRef?.current?.clientHeight ?? 0) * 0.3,
+                  dimensions.height - 10,
+                  dimensions.height * (isTablet ? 0.5 : 0.25),
+                  dimensions.height * (isTablet ? 0.8 : 0.5),
                   "#D0D5DD"
                 )}
               </PieChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="flex flex-col gap-8">
+          <div className="grid gap-8 md:grid-cols-2">
             <Stat
               reading={Number(data.data.fgi.now.value)}
               index={data.data.fgi.now.valueText}
